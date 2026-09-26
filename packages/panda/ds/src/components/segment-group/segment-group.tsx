@@ -2,8 +2,8 @@
 
 import { SegmentGroup } from "@ark-ui/react/segment-group"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { segmentGroup } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { segmentGroup } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(segmentGroup)
 

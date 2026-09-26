@@ -2,8 +2,8 @@
 
 import { Accordion } from "@ark-ui/react/accordion"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { accordion } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { accordion } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(accordion)
 

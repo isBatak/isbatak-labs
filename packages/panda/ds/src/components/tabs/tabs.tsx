@@ -2,8 +2,8 @@
 
 import { Tabs } from "@ark-ui/react/tabs"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { tabs } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { tabs } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(tabs)
 

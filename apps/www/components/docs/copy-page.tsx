@@ -1,12 +1,12 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
+import { Button } from "@isbatak/panda-ds/components/button"
+import { Menu } from "@isbatak/panda-ds/components/menu"
 import { useEffect, useState } from "react"
 import { styled } from "styled-system/jsx"
 
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
-import { Menu } from "../ui/menu"
 import { SITE_URL } from "./site-url"
 
 const prompt = (url: string) => encodeURIComponent(`Read ${url}, I want to ask questions about it.`)

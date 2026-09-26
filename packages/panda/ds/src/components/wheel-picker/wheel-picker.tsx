@@ -2,8 +2,8 @@
 
 import { WheelPicker } from "@isbatak/ark-wheel-picker/react"
 import type { ComponentProps, JSX } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { wheelPicker } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { wheelPicker } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(wheelPicker)
 

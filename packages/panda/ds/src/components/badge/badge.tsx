@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react"
-import { styled } from "styled-system/jsx"
-import { badge } from "styled-system/recipes"
+import { styled } from "@isbatak/panda-ds/jsx"
+import { badge } from "@isbatak/panda-ds/recipes"
 
 export const Badge = styled("span", badge)
 

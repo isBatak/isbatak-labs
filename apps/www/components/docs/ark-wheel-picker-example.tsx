@@ -1,8 +1,7 @@
 "use client"
 
 import { createWheelPickerCollection } from "@isbatak/ark-wheel-picker/react"
-
-import { WheelPicker } from "../ui/wheel-picker"
+import { WheelPicker } from "@isbatak/panda-ds/components/wheel-picker"
 
 const collection = createWheelPickerCollection({
   items: [

@@ -1,12 +1,12 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
+import { Button } from "@isbatak/panda-ds/components/button"
+import { Tooltip } from "@isbatak/panda-ds/components/tooltip"
+import { Tour, useTour } from "@isbatak/panda-ds/components/tour"
 import { type ReactNode, useEffect } from "react"
 
-import { Button } from "../ui/button"
 import { Hint } from "../ui/hint"
-import { Tooltip } from "../ui/tooltip"
-import { Tour, useTour } from "../ui/tour"
 
 const dismiss: Tour.StepAction = { label: "Got it", action: "dismiss" }
 

@@ -2,8 +2,8 @@
 
 import { Menu } from "@ark-ui/react/menu"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { menu } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { menu } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(menu)
 

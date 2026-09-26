@@ -3,8 +3,8 @@
 import type { CollectionItem } from "@ark-ui/react/collection"
 import { Select } from "@ark-ui/react/select"
 import type { ComponentProps, JSX } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { select } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { select } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(select)
 

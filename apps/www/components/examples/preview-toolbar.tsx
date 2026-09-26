@@ -2,13 +2,13 @@
 
 import { createListCollection } from "@ark-ui/react/collection"
 import { Portal } from "@ark-ui/react/portal"
+import { Button, type ButtonProps } from "@isbatak/panda-ds/components/button"
+import { Select } from "@isbatak/panda-ds/components/select"
 import { useTheme } from "next-themes"
 import { styled } from "styled-system/jsx"
 
 import { type FrameworkId, useFramework } from "../docs/framework"
-import { Button, type ButtonProps } from "../ui/button"
 import { Icon, type IconName } from "../ui/icon"
-import { Select } from "../ui/select"
 
 const react = { label: "React", value: "react" }
 const vue = { label: "Vue", value: "vue" }

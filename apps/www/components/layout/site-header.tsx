@@ -1,9 +1,9 @@
+import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { ColorModeButton } from "../color-mode-button"
 import { RadiusPicker } from "../radius-picker"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
 import { HeaderNav } from "./header-nav"
 import { LayoutContainer } from "./layout-container"

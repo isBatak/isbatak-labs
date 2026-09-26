@@ -1,7 +1,7 @@
+import { Button } from "@isbatak/panda-ds/components/button"
 import { styled } from "styled-system/jsx"
 
 import { SPONSOR_URL } from "../layout/site-links"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
 import { Section } from "./section"
 

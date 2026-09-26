@@ -1,10 +1,10 @@
 "use client"
 
+import { Tabs } from "@isbatak/panda-ds/components/tabs"
 import { createContext, type ReactNode, useContext } from "react"
 import { styled } from "styled-system/jsx"
 
 import { Icon, type IconName } from "../ui/icon"
-import { Tabs } from "../ui/tabs"
 import { TabsCopyButton } from "./copy-button"
 
 export type CodeSurface = "prose" | "preview"

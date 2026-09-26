@@ -1,10 +1,10 @@
 import { type Component, components } from "#site/content"
+import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { Eyebrow } from "../home/section"
 import { REQUEST_URL, X_URL } from "../layout/site-links"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
 
 const PagerLabel = styled("span", {
