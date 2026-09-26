@@ -1,8 +1,8 @@
 "use client"
 
+import { Tabs } from "@isbatak/panda-ds/components/tabs"
 import type { ReactNode } from "react"
 
-import { Tabs } from "../ui/tabs"
 import { createPreference } from "./preference"
 
 export type InstallMethodId = "cli" | "manual"

@@ -2,6 +2,8 @@
   "extends": "../../../tsconfig.json",
   "include": ["src", "styled-system", "panda.config.ts"],
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "exactOptionalPropertyTypes": false,
     "types": ["node"],
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
   }

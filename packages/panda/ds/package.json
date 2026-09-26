@@ -24,6 +24,7 @@
   "exports": {
     "./theme": "./src/theme/index.ts",
     "./radius": "./src/theme/radius.ts",
+    "./components/*": "./src/components/*/index.ts",
     "./panda/*": "./dist/panda/*",
     "./package.json": "./package.json",
     "./css": {
@@ -83,6 +84,10 @@
         "types": "./dist/theme/radius.d.ts",
         "default": "./dist/theme/radius.js"
       },
+      "./components/*": {
+        "types": "./dist/components/*/index.d.ts",
+        "default": "./dist/components/*/index.js"
+      },
       "./panda/*": "./dist/panda/*",
       "./package.json": "./package.json",
       "./css": {
@@ -128,21 +133,31 @@
     }
   },
   "dependencies": {
+    "@isbatak/ark-wheel-picker": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*"
   },
   "peerDependencies": {
+    "@ark-ui/react": ">=5.0.0",
     "@pandacss/dev": ">=2.0.0-beta.18",
     "react": ">=18.0.0"
   },
   "peerDependenciesMeta": {
+    "@ark-ui/react": {
+      "optional": true
+    },
     "react": {
       "optional": true
     }
   },
   "devDependencies": {
+    "@ark-ui/react": "5.39.2",
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
     "@pandacss/preset-typography": "catalog:",
-    "@pandacss/types": "catalog:"
+    "@pandacss/types": "catalog:",
+    "@types/react": "catalog:",
+    "@zag-js/react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

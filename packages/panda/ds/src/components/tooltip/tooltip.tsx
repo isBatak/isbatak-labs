@@ -2,8 +2,8 @@
 
 import { Tooltip } from "@ark-ui/react/tooltip"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { tooltip } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { tooltip } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tooltip)
 

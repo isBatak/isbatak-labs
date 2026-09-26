@@ -1,8 +1,8 @@
 "use client"
 
+import { SegmentGroup } from "@isbatak/panda-ds/components/segment-group"
 import type { ReactNode } from "react"
 
-import { SegmentGroup } from "../ui/segment-group"
 import { createPreference } from "./preference"
 
 export type StylingId = "panda" | "css"

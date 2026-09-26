@@ -2,8 +2,8 @@
 
 import { Tour } from "@ark-ui/react/tour"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { tour } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { tour } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tour)
 

@@ -1,14 +1,14 @@
 "use client"
 
+import { Button } from "@isbatak/panda-ds/components/button"
+import { Popover } from "@isbatak/panda-ds/components/popover"
+import { Slider } from "@isbatak/panda-ds/components/slider"
 import { type RadiusPreset, radiusPresets } from "@isbatak/panda-ds/radius"
 import { Portal } from "@ark-ui/react/portal"
 import { useEffect, useState } from "react"
 
 import { RADIUS_STORAGE_KEY, defaultSiteRadius, isRadiusPreset } from "./radius-preference"
-import { Button } from "./ui/button"
 import { Icon } from "./ui/icon"
-import { Popover } from "./ui/popover"
-import { Slider } from "./ui/slider"
 
 function useRadiusPreference() {
   const [radius, setRadius] = useState<RadiusPreset>(defaultSiteRadius)

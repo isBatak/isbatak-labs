@@ -2,8 +2,8 @@
 
 import { HoverCard } from "@ark-ui/react/hover-card"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { hoverCard } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { hoverCard } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(hoverCard)
 

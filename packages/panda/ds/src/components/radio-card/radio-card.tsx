@@ -2,8 +2,8 @@
 
 import { RadioGroup } from "@ark-ui/react/radio-group"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { radioCard } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { radioCard } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(radioCard)
 

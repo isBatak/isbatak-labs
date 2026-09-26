@@ -1,11 +1,11 @@
 import manifest from "@isbatak/compositions/manifest.json"
+import { Tabs } from "@isbatak/panda-ds/components/tabs"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { CodeBlock, CodeBody } from "../code/code-block"
 import { CodeTabs } from "../code/code-tabs"
 import { ExampleTrigger } from "../examples/example-trigger"
-import { Tabs } from "../ui/tabs"
 import { type FrameworkId, FrameworkSwitch } from "./framework"
 import { InstallMethodTabs } from "./install-method"
 import { registryUrl } from "./registry"

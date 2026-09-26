@@ -2,8 +2,8 @@
 
 import { Slider } from "@ark-ui/react/slider"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { slider } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { slider } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(slider)
 

@@ -1,11 +1,11 @@
 import type { Component } from "#site/content"
+import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { ExamplePreview } from "../examples/example-preview"
 import { PreviewProvider } from "../examples/preview-context"
 import { MDXContent } from "../mdx-content"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
 import { Prose } from "../ui/prose"
 import { CopyPage } from "./copy-page"

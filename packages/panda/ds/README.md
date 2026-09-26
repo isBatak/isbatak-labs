@@ -30,6 +30,18 @@ import { button } from "@isbatak/panda-ds/recipes"
 
 Also exported: `/patterns`, `/jsx`, `/tokens`, the raw theme from `/theme` and radius presets from `/radius`.
 
+## Components
+
+Styled [Ark UI](https://ark-ui.com) React components live under `/components/*`. They need `@ark-ui/react` and `react`:
+
+```tsx
+import { Button } from "@isbatak/panda-ds/components/button"
+import { Tabs } from "@isbatak/panda-ds/components/tabs"
+```
+
+Available: `accordion`, `badge`, `button`, `hover-card`, `menu`, `popover`, `radio-card`, `segment-group`, `select`,
+`slider`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+
 ## License
 
 MIT © Ivica Batinic

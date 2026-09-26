@@ -2,8 +2,8 @@
 
 import { Popover } from "@ark-ui/react/popover"
 import type { ComponentProps } from "react"
-import { createSlotRecipeContext } from "styled-system/jsx"
-import { popover } from "styled-system/recipes"
+import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
+import { popover } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)
 
