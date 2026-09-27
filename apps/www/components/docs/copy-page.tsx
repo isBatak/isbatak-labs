@@ -1,10 +1,9 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/panda-ds/components/button"
+import { Button, ButtonGroup } from "@isbatak/panda-ds/components/button"
 import { Menu } from "@isbatak/panda-ds/components/menu"
 import { useEffect, useState } from "react"
-import { styled } from "styled-system/jsx"
 
 import { Icon } from "../ui/icon"
 import { SITE_URL } from "./site-url"
@@ -29,51 +28,42 @@ export function CopyPage({ href }: { href: string }) {
   }
 
   return (
-    <styled.div display="flex" flexShrink="0">
-      <Button variant="subtle" size="2xs" borderEndRadius="0" onClick={copy}>
-        <Icon name={copied ? "check" : "markdown"} />
-        {copied ? "Copied" : "Copy page"}
-      </Button>
-      <Menu.Root positioning={{ placement: "bottom-end" }}>
+    <Menu.Root positioning={{ placement: "bottom-end" }}>
+      <ButtonGroup variant="subtle" size="2xs" attached flexShrink="0">
+        <Button onClick={copy}>
+          <Icon name={copied ? "check" : "markdown"} />
+          {copied ? "Copied" : "Copy page"}
+        </Button>
         <Menu.Trigger asChild>
-          <Button
-            variant="subtle"
-            size="2xs"
-            px="0"
-            aspectRatio="square"
-            borderStartRadius="0"
-            borderStartWidth="1px"
-            borderStartColor="bg"
-            aria-label="More page actions"
-          >
+          <Button px="0" aspectRatio="square" borderStartColor="bg" aria-label="More page actions">
             <Icon name="chevron-down" />
           </Button>
         </Menu.Trigger>
-        <Portal>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.Item value="markdown" asChild>
-                <a href={href} target="_blank" rel="noopener">
-                  <Icon name="markdown" />
-                  View as markdown
-                </a>
-              </Menu.Item>
-              <Menu.Item value="chatgpt" asChild>
-                <a href={`https://chatgpt.com/?hints=search&q=${prompt(url)}`} target="_blank" rel="noopener">
-                  <Icon name="brand-openai" />
-                  Open in ChatGPT
-                </a>
-              </Menu.Item>
-              <Menu.Item value="claude" asChild>
-                <a href={`https://claude.ai/new?q=${prompt(url)}`} target="_blank" rel="noopener">
-                  <Icon name="brand-anthropic" />
-                  Open in Claude
-                </a>
-              </Menu.Item>
-            </Menu.Content>
-          </Menu.Positioner>
-        </Portal>
-      </Menu.Root>
-    </styled.div>
+      </ButtonGroup>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content>
+            <Menu.Item value="markdown" asChild>
+              <a href={href} target="_blank" rel="noopener">
+                <Icon name="markdown" />
+                View as markdown
+              </a>
+            </Menu.Item>
+            <Menu.Item value="chatgpt" asChild>
+              <a href={`https://chatgpt.com/?hints=search&q=${prompt(url)}`} target="_blank" rel="noopener">
+                <Icon name="brand-openai" />
+                Open in ChatGPT
+              </a>
+            </Menu.Item>
+            <Menu.Item value="claude" asChild>
+              <a href={`https://claude.ai/new?q=${prompt(url)}`} target="_blank" rel="noopener">
+                <Icon name="brand-anthropic" />
+                Open in Claude
+              </a>
+            </Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   )
 }
