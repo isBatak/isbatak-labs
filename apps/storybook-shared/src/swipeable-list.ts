@@ -40,7 +40,7 @@ export const swipeableListIcons = {
 }
 
 export const swipeableListClasses = {
-  story: css({ display: "grid", gap: "3", maxWidth: "md", padding: "4", bg: "bg.muted", borderRadius: "l3" }),
+  story: css({ display: "grid", gap: "3", maxWidth: "md" }),
   icon: css({ display: "flex" }),
   avatar: css({
     display: "flex",
