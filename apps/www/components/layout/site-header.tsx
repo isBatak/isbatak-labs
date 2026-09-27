@@ -1,4 +1,4 @@
-import { Button } from "@isbatak/panda-ds/components/button"
+import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 

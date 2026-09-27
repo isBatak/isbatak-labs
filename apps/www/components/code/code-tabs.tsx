@@ -1,6 +1,6 @@
 "use client"
 
-import { Tabs } from "@isbatak/panda-ds/components/tabs"
+import { Tabs } from "@isbatak/react-ui/tabs"
 import { createContext, type ReactNode, useContext } from "react"
 import { styled } from "styled-system/jsx"
 
