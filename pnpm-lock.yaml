@@ -666,6 +666,10 @@ importers:
         version: 19.3.0
 
   packages/panda/swipeable-list:
+    dependencies:
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../zag/swipeable-list
     devDependencies:
       '@pandacss/dev':
         specifier: 'catalog:'
@@ -675,6 +679,10 @@ importers:
         version: 2.0.0-beta.18
 
   packages/panda/wheel-picker:
+    dependencies:
+      '@isbatak/zag-wheel-picker':
+        specifier: workspace:*
+        version: link:../../zag/wheel-picker
     devDependencies:
       '@pandacss/dev':
         specifier: 'catalog:'
