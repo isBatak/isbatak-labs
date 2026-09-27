@@ -289,6 +289,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -737,6 +740,24 @@ importers:
       vue-component-type-helpers:
         specifier: ^3.3.11
         version: 3.3.11
+
+  packages/zag/swipeable-list:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 1.44.0
 
   packages/zag/wheel-picker:
     dependencies:
