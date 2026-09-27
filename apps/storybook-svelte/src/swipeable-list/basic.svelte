@@ -2,11 +2,12 @@
   import { cx } from "@isbatak/panda-ds/css"
   import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
   import {
+    copyText,
     formatOpenItem,
-    formatSender,
-    initialMessages,
-    type Message,
+    initialAccounts,
     swipeableListClasses as classes,
+    swipeableListIcons as icons,
+    type Account,
     type SwipeableListControls,
   } from "@isbatak/storybook-shared"
   import * as swipeableList from "@isbatak/zag-swipeable-list"
@@ -27,55 +28,62 @@
   }))
   const api = $derived(swipeableList.connect(service, normalizeProps))
 
-  let messages = $state<Message[]>(initialMessages)
+  let accounts = $state<Account[]>(initialAccounts)
   let log = $state("")
 
-  function update(id: string, patch: Partial<Message>) {
-    messages = messages.map((message) => (message.id === id ? { ...message, ...patch } : message))
+  function copy(account: Account) {
+    void copyText(account.id)
+    log = `Copied ${account.id}`
   }
 
-  function remove(id: string) {
-    messages = messages.filter((message) => message.id !== id)
-    log = `Deleted ${id}`
+  function remove(account: Account, action: string) {
+    accounts = accounts.filter((item) => item.id !== account.id)
+    log = `${action} ${account.name}`
   }
 </script>
 
 <main class={classes.story}>
   <ul {...api.getRootProps()} class={styles.root}>
-    {#each messages as message (message.id)}
-      <li {...api.getItemProps({ value: message.id })} class={styles.item}>
-        <div {...api.getItemActionsProps({ value: message.id, side: "start" })} class={styles.itemActions}>
+    {#each accounts as account (account.id)}
+      <li {...api.getItemProps({ value: account.id })} class={styles.item}>
+        <div {...api.getItemActionsProps({ value: account.id, side: "start" })} class={styles.itemActions}>
           <button
-            {...mergeProps(api.getItemActionProps({ value: message.id, side: "start" }), {
-              onclick: () => update(message.id, { unread: !message.unread }),
+            {...mergeProps(api.getItemActionProps({ value: account.id, side: "start" }), {
+              onclick: () => copy(account),
             })}
-            class={cx(styles.itemAction, classes.blue)}
+            aria-label="Copy account ID"
+            class={cx(styles.itemAction, classes.copy)}
           >
-            {message.unread ? "Read" : "Unread"}
+            <span class={classes.icon}>{@html icons.copy}</span>
           </button>
         </div>
 
-        <div {...api.getItemContentProps({ value: message.id })} class={styles.itemContent}>
-          <strong>{formatSender(message)}</strong>
-          <span class={classes.subject}>{message.subject}</span>
+        <div {...api.getItemContentProps({ value: account.id })} class={styles.itemContent}>
+          <span class={classes.avatar}>{@html icons.account}</span>
+          <span class={classes.details}>
+            <span class={classes.name}>{account.name}</span>
+            <span class={classes.id}>{account.id}</span>
+          </span>
         </div>
 
-        <div {...api.getItemActionsProps({ value: message.id, side: "end" })} class={styles.itemActions}>
+        <div {...api.getItemActionsProps({ value: account.id, side: "end" })} class={styles.itemActions}>
           <button
-            {...mergeProps(api.getItemActionProps({ value: message.id, side: "end" }), {
-              onclick: () => update(message.id, { flagged: !message.flagged }),
+            {...mergeProps(api.getItemActionProps({ value: account.id, side: "end" }), {
+              onclick: () => remove(account, "Archived"),
             })}
-            class={cx(styles.itemAction, classes.orange)}
+            aria-label="Archive"
+            class={cx(styles.itemAction, classes.archive)}
           >
-            {message.flagged ? "Unflag" : "Flag"}
+            <span class={classes.icon}>{@html icons.archive}</span>
           </button>
           <button
-            {...mergeProps(api.getItemActionProps({ value: message.id, side: "end" }), {
-              onclick: () => remove(message.id),
+            {...mergeProps(api.getItemActionProps({ value: account.id, side: "end" }), {
+              onclick: () => remove(account, "Deleted"),
             })}
-            class={cx(styles.itemAction, classes.red)}
+            aria-label="Delete"
+            class={cx(styles.itemAction, classes.delete)}
           >
-            Delete
+            <span class={classes.icon}>{@html icons.delete}</span>
           </button>
         </div>
       </li>
