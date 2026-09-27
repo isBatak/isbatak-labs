@@ -1,4 +1,4 @@
-import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
+import { swipeableList as swipeableListRecipe } from "@isbatak/storybook-shared/recipes"
 import {
   copyText,
   formatOpenItem,

@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["src/examples/vue", "mount/vue.ts", "mount/env.d.ts"],
-  "compilerOptions": { "types": ["node"], "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.vue" }
+  "compilerOptions": {
+    "types": ["node"],
+    "paths": {
+      "styled-system/*": ["./styled-system/*"]
+    },
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.vue"
+  }
 }

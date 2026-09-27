@@ -1,4 +1,4 @@
-import { css } from "@isbatak/panda-ds/css"
+import { css } from "../styled-system/css/index.js"
 
 export interface Account {
   id: string

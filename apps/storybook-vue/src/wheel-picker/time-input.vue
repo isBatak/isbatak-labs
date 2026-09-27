@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { wheelPicker as wheelPickerRecipe } from "@isbatak/panda-ds/recipes"
+import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
 import {
   getDayPeriodCollection,
   getHourCollection,

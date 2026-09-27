@@ -5,6 +5,9 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["node"],
+    "paths": {
+      "styled-system/*": ["./styled-system/*"]
+    },
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.solid"
   }
 }

@@ -1,4 +1,4 @@
-/* Story layout plus the date-input and popover styles ported from the zag examples (`shared/src/css`). The wheel pickers are styled by the panda-ds `wheelPicker` recipe. */
+/* Story layout plus the date-input and popover styles ported from the zag examples (`shared/src/css`). The wheel pickers and swipeable lists are styled by the `@isbatak/panda-wheel-picker` and `@isbatak/panda-swipeable-list` presets. */
 
 .sr-only {
   position: absolute;

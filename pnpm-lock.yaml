@@ -186,6 +186,9 @@ importers:
         specifier: ^3.5.43
         version: 3.5.43(typescript@6.0.3)
     devDependencies:
+      '@isbatak/panda-wheel-picker':
+        specifier: workspace:*
+        version: link:../../packages/panda/wheel-picker
       '@pandacss/compiler':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)
@@ -246,9 +249,6 @@ importers:
 
   apps/storybook-preact:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -286,9 +286,6 @@ importers:
 
   apps/storybook-react:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -341,6 +338,12 @@ importers:
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../packages/panda/ds
+      '@isbatak/panda-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/panda/swipeable-list
+      '@isbatak/panda-wheel-picker':
+        specifier: workspace:*
+        version: link:../../packages/panda/wheel-picker
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -357,9 +360,6 @@ importers:
 
   apps/storybook-solid:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -397,9 +397,6 @@ importers:
 
   apps/storybook-svelte:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -440,9 +437,6 @@ importers:
 
   apps/storybook-vanilla:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -468,9 +462,6 @@ importers:
 
   apps/storybook-vue:
     dependencies:
-      '@isbatak/panda-ds':
-        specifier: workspace:*
-        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -638,13 +629,6 @@ importers:
         version: 3.5.43(typescript@6.0.3)
 
   packages/panda/ds:
-    dependencies:
-      '@isbatak/panda-swipeable-list':
-        specifier: workspace:*
-        version: link:../swipeable-list
-      '@isbatak/panda-wheel-picker':
-        specifier: workspace:*
-        version: link:../wheel-picker
     devDependencies:
       '@pandacss/dev':
         specifier: 'catalog:'
@@ -696,9 +680,6 @@ importers:
       '@ark-ui/react':
         specifier: 5.39.2
         version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../panda/ds
@@ -715,9 +696,6 @@ importers:
       '@ark-ui/solid':
         specifier: 5.39.2
         version: 5.39.2(solid-js@1.9.15)
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../panda/ds
@@ -737,9 +715,6 @@ importers:
       '@ark-ui/svelte':
         specifier: 5.24.2
         version: 5.24.2(svelte@5.57.1)
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../panda/ds
@@ -756,9 +731,6 @@ importers:
       '@ark-ui/vue':
         specifier: 5.39.2
         version: 5.39.2(vue@3.5.43(typescript@6.0.3))
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../panda/ds
