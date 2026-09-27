@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { cx } from "@isbatak/panda-ds/css"
+import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
 import {
   formatOpenItem,
   formatSender,
   initialMessages,
   swipeableListArgs,
+  swipeableListClasses as classes,
   type Message,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
 import { mergeProps, normalizeProps, useMachine } from "@zag-js/vue"
 import { computed, ref, useId } from "vue"
+
+const styles = swipeableListRecipe()
 
 const props = withDefaults(
   defineProps<{
@@ -49,35 +54,40 @@ function remove(id: string) {
 </script>
 
 <template>
-  <main class="swipeable-list-story">
-    <ul v-bind="api.getRootProps()">
-      <li v-for="message in messages" :key="message.id" v-bind="api.getItemProps({ value: message.id })">
-        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'start' })">
+  <main :class="classes.story">
+    <ul v-bind="api.getRootProps()" :class="styles.root">
+      <li
+        v-for="message in messages"
+        :key="message.id"
+        v-bind="api.getItemProps({ value: message.id })"
+        :class="styles.item"
+      >
+        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'start' })" :class="styles.itemActions">
           <button
             v-bind="
               mergeProps(api.getItemActionProps({ value: message.id, side: 'start' }), {
                 onClick: () => update(message.id, { unread: !message.unread }),
               })
             "
-            data-tone="blue"
+            :class="cx(styles.itemAction, classes.blue)"
           >
             {{ message.unread ? "Read" : "Unread" }}
           </button>
         </div>
 
-        <div v-bind="api.getItemContentProps({ value: message.id })">
+        <div v-bind="api.getItemContentProps({ value: message.id })" :class="styles.itemContent">
           <strong>{{ formatSender(message) }}</strong>
-          <span>{{ message.subject }}</span>
+          <span :class="classes.subject">{{ message.subject }}</span>
         </div>
 
-        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'end' })">
+        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'end' })" :class="styles.itemActions">
           <button
             v-bind="
               mergeProps(api.getItemActionProps({ value: message.id, side: 'end' }), {
                 onClick: () => update(message.id, { flagged: !message.flagged }),
               })
             "
-            data-tone="amber"
+            :class="cx(styles.itemAction, classes.orange)"
           >
             {{ message.flagged ? "Unflag" : "Flag" }}
           </button>
@@ -87,7 +97,7 @@ function remove(id: string) {
                 onClick: () => remove(message.id),
               })
             "
-            data-tone="red"
+            :class="cx(styles.itemAction, classes.red)"
           >
             Delete
           </button>

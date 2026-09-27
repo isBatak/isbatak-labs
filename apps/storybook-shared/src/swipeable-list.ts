@@ -1,3 +1,5 @@
+import { css } from "@isbatak/panda-ds/css"
+
 export interface Message {
   id: string
   from: string
@@ -20,4 +22,12 @@ export function formatSender(message: Message) {
 
 export function formatOpenItem(openItem: { value: string; side: string } | null) {
   return `Open: ${openItem ? `${openItem.value} (${openItem.side})` : "none"}`
+}
+
+export const swipeableListClasses = {
+  story: css({ display: "grid", gap: "3", maxWidth: "md" }),
+  subject: css({ color: "fg.muted" }),
+  blue: css({ colorPalette: "blue" }),
+  orange: css({ colorPalette: "orange" }),
+  red: css({ colorPalette: "red" }),
 }
