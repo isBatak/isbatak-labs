@@ -62,3 +62,10 @@ export function setItemOffset(ctx: Scope, value: string, offset: number) {
 
   getItemEl(ctx, value)?.style.setProperty("--swipe-offset", `${offset}px`)
 }
+
+export function setItemSelectable(ctx: Scope, value: string, selectable: boolean) {
+  const contentEl = getItemContentEl(ctx, value)
+  if (!contentEl) return
+  contentEl.style.userSelect = selectable ? "" : "none"
+  contentEl.style.setProperty("-webkit-user-select", selectable ? "" : "none")
+}

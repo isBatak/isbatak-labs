@@ -100,6 +100,7 @@ export interface SwipeableListSchema {
     animations: Map<string, ItemAnimation>
     committing: Set<string>
     cleanupClickSuppression: VoidFunction | null
+    resizeObserver: ResizeObserver | null
   }
   action: string
   effect: string
