@@ -1,18 +1,14 @@
-import { type Component, componentGuides } from "#site/content"
+import type { Component } from "#site/content"
+import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
+import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { ExamplePreview } from "../examples/example-preview"
 import { PreviewProvider } from "../examples/preview-context"
-import { MDXContent } from "../mdx-content"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
-import { Prose } from "../ui/prose"
 import { CopyPage } from "./copy-page"
-import { DocFooter } from "./doc-footer"
 import { DocLinks } from "./doc-links"
-import { ExampleSource } from "./framework-code"
-import { LayerGuideHint } from "./layer"
 import { markdownPath } from "./markdown"
 
 const BreadcrumbLink = styled(Link, {
@@ -22,25 +18,17 @@ const BreadcrumbLink = styled(Link, {
   },
 })
 
-export const getGuides = (component: string) =>
-  componentGuides.filter((guide) => guide.component === component).toSorted((a, b) => a.order - b.order)
-
 interface DocPageProps {
   component: Component
-  section?: string
-  title: string
-  description?: string | undefined
-  preview?: string | undefined
-  code: string
+  children: ReactNode
 }
 
-export function DocPage({ component, section, title, description, preview, code }: DocPageProps) {
-  const guides = getGuides(component.slug)
-  const current = guides.find((guide) => guide.slug === section)
+export function DocPage({ component, children }: DocPageProps) {
+  const { title, description, preview } = component
 
   return (
     // Docs on the left, a sticky preview on the right. On small screens the preview sits between the intro and the content.
-    <PreviewProvider defaultId={preview} defaultSource={preview && <ExampleSource id={preview} />}>
+    <PreviewProvider defaultId={preview}>
       <styled.div
         data-preview={preview ? "" : undefined}
         display="grid"
@@ -68,24 +56,14 @@ export function DocPage({ component, section, title, description, preview, code 
             </Button>
             <BreadcrumbLink href="/components">Components</BreadcrumbLink>
             <Icon name="chevron-right" color="fg.subtle" />
-            {current ? (
-              <>
-                <BreadcrumbLink href={component.permalink}>{component.title}</BreadcrumbLink>
-                <Icon name="chevron-right" color="fg.subtle" />
-                <styled.span color="fg" aria-current="page">
-                  {current.label}
-                </styled.span>
-              </>
-            ) : (
-              <styled.span color="fg" aria-current="page">
-                {component.title}
-              </styled.span>
-            )}
+            <styled.span color="fg" aria-current="page">
+              {component.title}
+            </styled.span>
           </styled.nav>
 
           <styled.div maxW="2xl" pt={{ base: "8", md: "16" }} pb="10">
             <styled.div display="flex" justifyContent="flex-start" mb="4">
-              <CopyPage href={markdownPath(current?.permalink ?? component.permalink)} />
+              <CopyPage href={markdownPath(component.permalink)} />
             </styled.div>
             <styled.h1 textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
               {title}
@@ -96,26 +74,6 @@ export function DocPage({ component, section, title, description, preview, code 
               </styled.p>
             )}
             <DocLinks links={component.links} />
-            {guides.length > 0 && (
-              <styled.nav aria-label="Sections" display="flex" flexWrap="wrap" gap="1" mt="8" ms="-2.5">
-                <Button asChild variant={current ? "ghost" : "subtle"} size="sm">
-                  <Link href={component.permalink} aria-current={current ? undefined : "page"}>
-                    Overview
-                  </Link>
-                </Button>
-                {guides.map((guide) => (
-                  <Button key={guide.slug} asChild variant={guide === current ? "subtle" : "ghost"} size="sm">
-                    <Link href={guide.permalink} aria-current={guide === current ? "page" : undefined}>
-                      {guide.label}
-                    </Link>
-                  </Button>
-                ))}
-              </styled.nav>
-            )}
-            <LayerGuideHint
-              guides={guides.map(({ slug, label, permalink }) => ({ slug, label, permalink }))}
-              current={current?.slug}
-            />
           </styled.div>
         </styled.header>
 
@@ -146,10 +104,7 @@ export function DocPage({ component, section, title, description, preview, code 
           pb="24"
           maxW="calc({sizes.2xl} + {spacing.20})"
         >
-          <Prose>
-            <MDXContent code={code} />
-          </Prose>
-          <DocFooter component={component} />
+          {children}
         </styled.main>
       </styled.div>
     </PreviewProvider>

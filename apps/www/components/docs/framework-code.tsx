@@ -1,15 +1,14 @@
 import manifest from "@isbatak/compositions/manifest.json"
+import { Tabs } from "@isbatak/panda-ds/components/tabs"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { CodeBlock, CodeBody } from "../code/code-block"
 import { CodeTabs } from "../code/code-tabs"
 import { ExampleTrigger } from "../examples/example-trigger"
-import { Tabs } from "../ui/tabs"
-import { type FrameworkId, FrameworkSwitch } from "./framework"
 import { InstallMethodTabs } from "./install-method"
 import { registryUrl } from "./registry"
-import { type StylingId, StylingSwitch } from "./styling"
+import type { DocVariant, FrameworkId, StylingId } from "./variant"
 
 type ExampleFiles = (typeof manifest.examples)[number]["frameworks"]["react"]["panda"]
 
@@ -30,23 +29,7 @@ interface ExampleProps {
   id: string
 }
 
-interface VariantProps extends ExampleProps {
-  framework: FrameworkId
-  styling: StylingId
-}
-
-function VariantSwitch({ render }: { render: (framework: FrameworkId, styling: StylingId) => ReactNode }) {
-  return (
-    <FrameworkSwitch
-      react={<StylingSwitch panda={render("react", "panda")} css={render("react", "css")} />}
-      vue={<StylingSwitch panda={render("vue", "panda")} css={render("vue", "css")} />}
-      svelte={<StylingSwitch panda={render("svelte", "panda")} css={render("svelte", "css")} />}
-      solid={<StylingSwitch panda={render("solid", "panda")} css={render("solid", "css")} />}
-      preact={<StylingSwitch panda={render("preact", "panda")} css={render("preact", "css")} />}
-      vanilla={<StylingSwitch panda={render("vanilla", "panda")} css={render("vanilla", "css")} />}
-    />
-  )
-}
+interface VariantProps extends ExampleProps, DocVariant {}
 
 const installCommands = (example: ExampleFiles) =>
   [
@@ -56,18 +39,10 @@ const installCommands = (example: ExampleFiles) =>
     .filter(Boolean)
     .join("\n")
 
-function InstallCommand({ id, framework, styling }: VariantProps) {
+export function FrameworkInstall({ id, framework, styling }: VariantProps) {
   const example = getExample(id, framework, styling)
   if (!example) return <Unavailable>Not available for {frameworkLabel(framework)} yet.</Unavailable>
   return <CodeBlock lang="sh" code={`pnpm add ${example.dependencies.join(" ")}`} />
-}
-
-export function FrameworkInstall({ id }: ExampleProps) {
-  return (
-    <VariantSwitch
-      render={(framework, styling) => <InstallCommand id={id} framework={framework} styling={styling} />}
-    />
-  )
 }
 
 const folderOf = (example: ExampleFiles) => example.files[0]!.target.replace(/[^/]+$/, "")
@@ -75,8 +50,7 @@ const folderOf = (example: ExampleFiles) => example.files[0]!.target.replace(/[^
 function PandaSetup() {
   return (
     <p>
-      Add <code>wheelPickerPreset</code> from <code>@isbatak/panda-wheel-picker</code> to your Panda config, see{" "}
-      <a href="/components/wheel-picker/panda">Panda CSS</a>.
+      Add <code>wheelPickerPreset</code> from <code>@isbatak/panda-wheel-picker</code> to your Panda config.
     </p>
   )
 }
@@ -123,13 +97,13 @@ function ManualInstall({ id, framework, styling }: VariantProps) {
       )}
       <li>
         Copy these files into <code>{folderOf(example)}</code>:
-        <ExampleFilesTabs id={id} framework={framework} styling={styling} />
+        <ExampleSource id={id} framework={framework} styling={styling} />
       </li>
     </ol>
   )
 }
 
-export function Installation({ id }: ExampleProps) {
+export function Installation({ id, framework, styling }: VariantProps) {
   return (
     <InstallMethodTabs>
       <Tabs.List>
@@ -138,25 +112,21 @@ export function Installation({ id }: ExampleProps) {
         <Tabs.Indicator />
       </Tabs.List>
       <Tabs.Content value="cli">
-        <VariantSwitch
-          render={(framework, styling) => <CliInstall id={id} framework={framework} styling={styling} />}
-        />
+        <CliInstall id={id} framework={framework} styling={styling} />
       </Tabs.Content>
       <Tabs.Content value="manual">
-        <VariantSwitch
-          render={(framework, styling) => <ManualInstall id={id} framework={framework} styling={styling} />}
-        />
+        <ManualInstall id={id} framework={framework} styling={styling} />
       </Tabs.Content>
     </InstallMethodTabs>
   )
 }
 
-function ExampleFilesTabs({ id, framework, styling }: VariantProps) {
+export function ExampleSource({ id, framework, styling }: VariantProps) {
   const example = getExample(id, framework, styling)
   if (!example) return <Unavailable>Not available for {frameworkLabel(framework)} yet.</Unavailable>
 
   return (
-    <CodeTabs key={`${framework}-${styling}`} files={example.files}>
+    <CodeTabs key={`${id}-${framework}-${styling}`} files={example.files}>
       {example.files.map((file) => (
         <Tabs.Content key={file.name} value={file.name} p="0">
           <CodeBody code={file.code} lang={file.lang} />
@@ -166,21 +136,9 @@ function ExampleFilesTabs({ id, framework, styling }: VariantProps) {
   )
 }
 
-function ExampleFiles({ id }: ExampleProps) {
+export function Example({ id, framework, styling, children }: VariantProps & { children?: ReactNode }) {
   return (
-    <VariantSwitch
-      render={(framework, styling) => <ExampleFilesTabs id={id} framework={framework} styling={styling} />}
-    />
-  )
-}
-
-export function ExampleSource({ id }: ExampleProps) {
-  return <ExampleFiles id={id} />
-}
-
-export function Example({ id, children }: ExampleProps & { children?: ReactNode }) {
-  return (
-    <ExampleTrigger id={id} source={<ExampleSource id={id} />}>
+    <ExampleTrigger id={id} source={<ExampleSource id={id} framework={framework} styling={styling} />}>
       {children}
     </ExampleTrigger>
   )

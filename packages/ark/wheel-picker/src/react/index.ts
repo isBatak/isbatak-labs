@@ -39,7 +39,12 @@ export {
   type WheelPickerItemGroupProps,
 } from "./wheel-picker-item-group"
 export { WheelPickerLabel, type WheelPickerLabelBaseProps, type WheelPickerLabelProps } from "./wheel-picker-label"
-export { WheelPickerRoot, type WheelPickerRootBaseProps, type WheelPickerRootProps } from "./wheel-picker-root"
+export {
+  WheelPickerRoot,
+  type WheelPickerRootBaseProps,
+  type WheelPickerRootComponent,
+  type WheelPickerRootProps,
+} from "./wheel-picker-root"
 export {
   WheelPickerRootProvider,
   type WheelPickerRootProviderBaseProps,

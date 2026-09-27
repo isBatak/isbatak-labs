@@ -1,9 +1,9 @@
 "use client"
 
 import { useTabsContext } from "@ark-ui/react/tabs"
+import { Button } from "@isbatak/panda-ds/components/button"
 import { useEffect, useState } from "react"
 
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
 
 export function CopyButton({ value }: { value: string }) {

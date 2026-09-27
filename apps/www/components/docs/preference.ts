@@ -2,34 +2,33 @@
 
 import { useSyncExternalStore } from "react"
 
+const ONE_YEAR = 60 * 60 * 24 * 365
+
 const listeners = new Set<() => void>()
-const unsaved = new Map<string, string>()
+const written = new Map<string, string>()
 
 function subscribe(listener: () => void) {
   listeners.add(listener)
-  window.addEventListener("storage", listener)
-  return () => {
-    listeners.delete(listener)
-    window.removeEventListener("storage", listener)
-  }
+  return () => listeners.delete(listener)
+}
+
+function readCookie(key: string) {
+  const prefix = `${key}=`
+  return (
+    document.cookie
+      .split("; ")
+      .find((entry) => entry.startsWith(prefix))
+      ?.slice(prefix.length) ?? null
+  )
 }
 
 function readStored(key: string) {
-  if (unsaved.has(key)) return unsaved.get(key)
-  try {
-    return localStorage.getItem(key)
-  } catch {
-    return null
-  }
+  return written.get(key) ?? readCookie(key)
 }
 
 function writeStored(key: string, value: string) {
-  try {
-    localStorage.setItem(key, value)
-    unsaved.delete(key)
-  } catch {
-    unsaved.set(key, value)
-  }
+  written.set(key, value)
+  document.cookie = `${key}=${value}; path=/; max-age=${ONE_YEAR}; samesite=lax`
   for (const listener of listeners) listener()
 }
 

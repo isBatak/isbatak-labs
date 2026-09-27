@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const buttonRecipe = defineRecipe({
   className: "button",
+  jsx: ["Button", "IconButton", "CloseButton", "ButtonGroup"],
   base: {
     display: "inline-flex",
     appearance: "none",

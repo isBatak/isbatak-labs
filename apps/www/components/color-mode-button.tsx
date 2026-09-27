@@ -1,8 +1,8 @@
 "use client"
 
+import { Button } from "@isbatak/panda-ds/components/button"
 import { useTheme } from "next-themes"
 
-import { Button } from "./ui/button"
 import { Icon } from "./ui/icon"
 
 export function ColorModeButton() {
@@ -17,8 +17,14 @@ export function ColorModeButton() {
       aria-label="Toggle color mode"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
-      <Icon size="sm" name="moon" display="none" _dark={{ display: "block" }} />
-      <Icon size="sm" name="sun" _dark={{ display: "none" }} />
+      <Icon
+        size="sm"
+        name="contrast"
+        transitionProperty="rotate"
+        transitionDuration="moderate"
+        transitionTimingFunction="ease-in-smooth"
+        _dark={{ rotate: "180deg" }}
+      />
     </Button>
   )
 }

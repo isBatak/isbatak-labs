@@ -1,25 +1,21 @@
 "use client"
 
-import type { ReactNode } from "react"
-
+import { useDocVariant } from "./doc-variant"
 import { createPreference } from "./preference"
+import { FRAMEWORK_KEY, type FrameworkId, defaultVariant, frameworkIds } from "./variant"
 
-export type FrameworkId = "react" | "vue" | "svelte" | "solid" | "preact" | "vanilla"
+export type { FrameworkId }
 
-const useFrameworkPreference = createPreference<FrameworkId, FrameworkId>(
-  "docs-framework",
-  ["react", "vue", "svelte", "solid", "preact", "vanilla"],
-  "react",
-)
+const useFrameworkPreference = createPreference(FRAMEWORK_KEY, frameworkIds, defaultVariant.framework)
 
 export function useFramework() {
-  const [framework, setFramework] = useFrameworkPreference()
-  return { framework, setFramework }
-}
+  const [preference, setPreference] = useFrameworkPreference()
+  const { variant, setVariant } = useDocVariant()
 
-export type FrameworkSwitchProps = Record<FrameworkId, ReactNode>
+  const setFramework = (framework: FrameworkId) => {
+    setPreference(framework)
+    setVariant({ framework })
+  }
 
-export function FrameworkSwitch(props: FrameworkSwitchProps) {
-  const { framework } = useFramework()
-  return props[framework]
+  return { framework: variant?.framework ?? preference, setFramework }
 }

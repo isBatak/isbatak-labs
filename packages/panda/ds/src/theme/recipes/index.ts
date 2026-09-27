@@ -3,6 +3,7 @@ import { buttonRecipe } from "./button"
 import { checkmarkRecipe } from "./checkmark"
 import { codeRecipe } from "./code"
 import { colorSwatchRecipe } from "./color-swatch"
+import { groupRecipe } from "./group"
 import { headingRecipe } from "./heading"
 import { iconRecipe } from "./icon"
 import { inputRecipe } from "./input"
@@ -36,4 +37,5 @@ export const recipes = {
   checkmark: checkmarkRecipe,
   radiomark: radiomarkRecipe,
   colorSwatch: colorSwatchRecipe,
+  group: groupRecipe,
 }
