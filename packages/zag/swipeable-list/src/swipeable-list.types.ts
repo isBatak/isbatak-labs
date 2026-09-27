@@ -81,6 +81,11 @@ export interface DragData {
   negativeWidth: number
 }
 
+export interface ActionsWidths {
+  positive: number
+  negative: number
+}
+
 export interface ItemAnimation {
   target: number
   stop: VoidFunction
@@ -100,7 +105,7 @@ export interface SwipeableListSchema {
     animations: Map<string, ItemAnimation>
     committing: Set<string>
     cleanupClickSuppression: VoidFunction | null
-    resizeObserver: ResizeObserver | null
+    widths: Map<string, ActionsWidths>
   }
   action: string
   effect: string

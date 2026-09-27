@@ -139,9 +139,10 @@ export function connect<T extends PropTypes>(
           bottom: 0,
           zIndex: 0,
           display: "flex",
-          width: "100%",
-          justifyContent: props.side === "start" ? "flex-end" : "flex-start",
-          [props.side === "start" ? "insetInlineEnd" : "insetInlineStart"]: "100%",
+          boxSizing: "border-box",
+          overflow: "hidden",
+          width: `var(--swipe-${props.side}-distance, 0px)`,
+          [props.side === "start" ? "insetInlineStart" : "insetInlineEnd"]: 0,
         },
       })
     },
@@ -153,9 +154,6 @@ export function connect<T extends PropTypes>(
         dir: prop("dir"),
         "data-side": props.side,
         "data-armed": dataAttr(activeValue === props.value && armed === props.side),
-        style: {
-          flexShrink: 0,
-        },
         onClick(event) {
           if (event.defaultPrevented) return
           send({ type: "ACTION.CLICK", value: props.value, closeOnClick: props.closeOnClick ?? true })

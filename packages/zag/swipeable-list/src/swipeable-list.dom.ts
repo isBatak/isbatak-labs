@@ -22,17 +22,19 @@ export function getActionEls(actionsEl: HTMLElement | null) {
 }
 
 export function getActionsWidth(ctx: Scope, value: string, side: SwipeSide) {
-  return getActionEls(getItemActionsEl(ctx, value, side)).reduce((width, el) => width + el.offsetWidth, 0)
+  const actionsEl = getItemActionsEl(ctx, value, side)
+  if (!actionsEl || getActionEls(actionsEl).length === 0) return 0
+
+  const width = actionsEl.style.width
+  actionsEl.style.width = "max-content"
+  const naturalWidth = actionsEl.getBoundingClientRect().width
+  actionsEl.style.width = width
+  return naturalWidth
 }
 
 export function getOutermostActionEl(ctx: Scope, value: string, side: SwipeSide) {
   const actionEls = getActionEls(getItemActionsEl(ctx, value, side))
   return side === "start" ? actionEls[0] : actionEls.at(-1)
-}
-
-export function getRestOffset(ctx: Scope, dir: Direction, openItem: OpenItem | null, value: string) {
-  if (openItem?.value !== value) return 0
-  return getSideSign(openItem.side, dir) * getActionsWidth(ctx, value, openItem.side)
 }
 
 export function getKeySwipeTarget(
@@ -50,17 +52,18 @@ export function getKeySwipeTarget(
   return getActionsWidth(ctx, value, side) > 0 ? { value, side } : undefined
 }
 
-export function setItemOffset(ctx: Scope, value: string, offset: number) {
-  const transform = offset === 0 ? "" : `translate3d(${offset}px, 0, 0)`
+export function setItemOffset(ctx: Scope, value: string, offset: number, progress: number, dir: Direction) {
   const contentEl = getItemContentEl(ctx, value)
-  if (contentEl) contentEl.style.transform = transform
+  if (contentEl) contentEl.style.transform = offset === 0 ? "" : `translate3d(${offset}px, 0, 0)`
 
-  for (const side of ["start", "end"] as const) {
-    const actionsEl = getItemActionsEl(ctx, value, side)
-    if (actionsEl) actionsEl.style.transform = transform
-  }
+  const itemEl = getItemEl(ctx, value)
+  if (!itemEl) return
 
-  getItemEl(ctx, value)?.style.setProperty("--swipe-offset", `${offset}px`)
+  const side = offset === 0 ? null : getSideFromSign(offset, dir)
+  itemEl.style.setProperty("--swipe-offset", `${offset}px`)
+  itemEl.style.setProperty("--swipe-progress", `${progress}`)
+  itemEl.style.setProperty("--swipe-start-distance", `${side === "start" ? Math.abs(offset) : 0}px`)
+  itemEl.style.setProperty("--swipe-end-distance", `${side === "end" ? Math.abs(offset) : 0}px`)
 }
 
 export function setItemSelectable(ctx: Scope, value: string, selectable: boolean) {

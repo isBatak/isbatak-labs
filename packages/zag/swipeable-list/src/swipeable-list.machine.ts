@@ -9,6 +9,7 @@ import {
   createSpring,
   getFullSwipeDistance,
   getSideFromSign,
+  getSideSign,
   getSnapSign,
   getSpringOptions,
   getSwipeAxis,
@@ -53,19 +54,17 @@ export const machine = createMachine<SwipeableListSchema>({
       animations: new Map(),
       committing: new Set(),
       cleanupClickSuppression: null,
-      resizeObserver: null,
+      widths: new Map(),
     }
   },
 
   entry: ["syncOffsetsImmediately"],
 
-  effects: ["trackActionsResize"],
-
   exit: ["stopAnimations", "cleanupClickSuppression"],
 
   watch({ track, action, context }) {
     track([() => context.hash("openItem")], () => {
-      action(["syncOffsets", "observeOpenItem"])
+      action(["syncOffsets"])
     })
   },
 
@@ -163,20 +162,6 @@ export const machine = createMachine<SwipeableListSchema>({
     },
 
     effects: {
-      trackActionsResize(params) {
-        const { scope, refs } = params
-        const win = scope.getWin()
-        if (!win.ResizeObserver) return
-
-        const observer = new win.ResizeObserver(() => pinOpenItem(params))
-        refs.set("resizeObserver", observer)
-        raf(() => observeOpenItem(params))
-
-        return () => {
-          observer.disconnect()
-          refs.set("resizeObserver", null)
-        }
-      },
       trackPointer({ scope, send, refs }) {
         const doc = scope.getDoc()
 
@@ -226,8 +211,9 @@ export const machine = createMachine<SwipeableListSchema>({
         context.set("openItem", null)
       },
       startTracking(params) {
-        const { context, event, prop, refs, scope } = params
+        const { context, event, refs, scope } = params
         stopAnimation(params, event.value)
+        const widths = measureItem(params, event.value)
 
         refs.set("drag", {
           value: event.value,
@@ -239,8 +225,8 @@ export const machine = createMachine<SwipeableListSchema>({
           samples: [],
           fullSwipe: event.fullSwipe,
           itemWidth: dom.getItemEl(scope, event.value)?.offsetWidth ?? 0,
-          positiveWidth: dom.getActionsWidth(scope, event.value, getSideFromSign(1, prop("dir"))),
-          negativeWidth: dom.getActionsWidth(scope, event.value, getSideFromSign(-1, prop("dir"))),
+          positiveWidth: widths.positive,
+          negativeWidth: widths.negative,
         })
         context.set("activeValue", event.value)
         dom.setItemSelectable(scope, event.value, false)
@@ -252,7 +238,8 @@ export const machine = createMachine<SwipeableListSchema>({
         refs.set("drag", { ...drag, originX: drag.startX + direction * prop("swipeThreshold") })
         scope.getWin().getSelection()?.removeAllRanges()
       },
-      updateDrag({ context, event, prop, refs, scope }) {
+      updateDrag(params) {
+        const { context, event, prop, refs } = params
         const drag = refs.get("drag")
         if (!drag) return
 
@@ -265,7 +252,7 @@ export const machine = createMachine<SwipeableListSchema>({
         )
 
         refs.set("drag", { ...drag, samples: [...drag.samples, { time: event.timestamp, offset }].slice(-8) })
-        setOffset(scope, refs, drag.value, offset)
+        setOffset(params, drag.value, offset)
         context.set("armed", getArmedSide(drag, offset, prop("fullSwipeThreshold"), prop("dir")))
       },
       release(params) {
@@ -330,15 +317,12 @@ export const machine = createMachine<SwipeableListSchema>({
           settleItem(params, value, 0)
         }
       },
-      syncOffsetsImmediately({ context, prop, refs, scope }) {
+      syncOffsetsImmediately(params) {
         raf(() => {
-          const openItem = context.get("openItem")
+          const openItem = params.context.get("openItem")
           if (!openItem) return
-          setOffset(scope, refs, openItem.value, dom.getRestOffset(scope, prop("dir"), openItem, openItem.value))
+          setOffset(params, openItem.value, getRestOffset(params, openItem.value))
         })
-      },
-      observeOpenItem(params) {
-        observeOpenItem(params)
       },
       stopAnimations({ refs }) {
         for (const animation of refs.get("animations").values()) animation.stop()
@@ -375,31 +359,38 @@ function getArmedSide(drag: DragData, offset: number, threshold: number, dir: Sw
   return getSideFromSign(offset, dir)
 }
 
-function setOffset(scope: MachineParams["scope"], refs: MachineParams["refs"], value: string, offset: number) {
-  if (offset === 0) refs.get("offsets").delete(value)
-  else refs.get("offsets").set(value, offset)
-  dom.setItemOffset(scope, value, offset)
-}
-
-function observeOpenItem({ context, refs, scope }: MachineParams) {
-  const observer = refs.get("resizeObserver")
-  if (!observer) return
-  observer.disconnect()
-
-  const openItem = context.get("openItem")
-  if (!openItem) return
-
-  for (const side of ["start", "end"] as const) {
-    const actionsEl = dom.getItemActionsEl(scope, openItem.value, side)
-    for (const actionEl of dom.getActionEls(actionsEl)) observer.observe(actionEl)
+function measureItem({ prop, refs, scope }: MachineParams, value: string) {
+  const dir = prop("dir")
+  const widths = {
+    positive: dom.getActionsWidth(scope, value, getSideFromSign(1, dir)),
+    negative: dom.getActionsWidth(scope, value, getSideFromSign(-1, dir)),
   }
+  refs.get("widths").set(value, widths)
+  return widths
 }
 
-function pinOpenItem({ context, prop, refs, scope, state }: MachineParams) {
-  const openItem = context.get("openItem")
-  if (!openItem || !state.matches("idle")) return
-  if (refs.get("animations").has(openItem.value) || refs.get("committing").has(openItem.value)) return
-  setOffset(scope, refs, openItem.value, dom.getRestOffset(scope, prop("dir"), openItem, openItem.value))
+function getRestOffset(params: MachineParams, value: string) {
+  const openItem = params.context.get("openItem")
+  if (openItem?.value !== value) return 0
+  const sign = getSideSign(openItem.side, params.prop("dir"))
+  const widths = params.refs.get("widths").get(value) ?? measureItem(params, value)
+  return sign * (sign > 0 ? widths.positive : widths.negative)
+}
+
+function setOffset(params: MachineParams, value: string, offset: number) {
+  const { refs, scope } = params
+  if (offset === 0) {
+    refs.get("offsets").delete(value)
+    refs.get("widths").delete(value)
+    dom.setItemOffset(scope, value, 0, 0, params.prop("dir"))
+    return
+  }
+
+  refs.get("offsets").set(value, offset)
+  const widths = refs.get("widths").get(value) ?? measureItem(params, value)
+  const width = offset > 0 ? widths.positive : widths.negative
+  const progress = width <= 0 ? 0 : Math.abs(offset) / width
+  dom.setItemOffset(scope, value, offset, Math.round(progress * 1000) / 1000, params.prop("dir"))
 }
 
 function stopAnimation({ refs }: MachineParams, value: string) {
@@ -408,8 +399,8 @@ function stopAnimation({ refs }: MachineParams, value: string) {
 }
 
 function settleItem(params: MachineParams, value: string, velocity: number) {
-  const { context, prop, refs, scope } = params
-  const to = dom.getRestOffset(scope, prop("dir"), context.get("openItem"), value)
+  const { prop, refs } = params
+  const to = getRestOffset(params, value)
   const animation = refs.get("animations").get(value)
   if (animation?.target === to) return
   if (!animation && (refs.get("offsets").get(value) ?? 0) === to) return
@@ -426,7 +417,7 @@ function animateItem(params: MachineParams, value: string, to: number, spring: S
   const reduceMotion = win.matchMedia?.("(prefers-reduced-motion: reduce)").matches
 
   if (reduceMotion || (spring.from === to && spring.velocity === 0)) {
-    setOffset(scope, refs, value, to)
+    setOffset(params, value, to)
     onItemSettled(params, value)
     return
   }
@@ -437,7 +428,7 @@ function animateItem(params: MachineParams, value: string, to: number, spring: S
 
   const tick = (time: number) => {
     const { value: offset, done } = frame(Math.max(0, time - startTime) / 1000)
-    setOffset(scope, refs, value, offset)
+    setOffset(params, value, offset)
 
     if (done) {
       refs.get("animations").delete(value)
