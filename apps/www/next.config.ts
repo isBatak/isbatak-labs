@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
     "@isbatak/panda-ds",
     "@isbatak/panda-wheel-picker",
     "@isbatak/compositions",
+    "@isbatak/ui-react",
   ],
   async redirects() {
     return [

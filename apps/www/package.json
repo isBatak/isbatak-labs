@@ -21,6 +21,7 @@
     "@isbatak/compositions": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*",
+    "@isbatak/ui-react": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/react": "catalog:",
     "next": "16.3.6",

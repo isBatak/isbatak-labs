@@ -1,6 +1,6 @@
 "use client"
 
-import { SegmentGroup } from "@isbatak/panda-ds/components/segment-group"
+import { SegmentGroup } from "@isbatak/ui-react/segment-group"
 
 import { useDocVariant } from "./doc-variant"
 import { createPreference } from "./preference"

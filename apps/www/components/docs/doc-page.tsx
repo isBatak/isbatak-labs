@@ -1,5 +1,5 @@
 import type { Component } from "#site/content"
-import { Button } from "@isbatak/panda-ds/components/button"
+import { Button } from "@isbatak/ui-react/button"
 import Link from "next/link"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"

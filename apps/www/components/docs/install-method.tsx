@@ -1,6 +1,6 @@
 "use client"
 
-import { Tabs } from "@isbatak/panda-ds/components/tabs"
+import { Tabs } from "@isbatak/ui-react/tabs"
 import type { ReactNode } from "react"
 
 import { createPreference } from "./preference"

@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "@isbatak/panda-ds/components/button"
-import { Popover } from "@isbatak/panda-ds/components/popover"
-import { Slider } from "@isbatak/panda-ds/components/slider"
+import { Button } from "@isbatak/ui-react/button"
+import { Popover } from "@isbatak/ui-react/popover"
+import { Slider } from "@isbatak/ui-react/slider"
 import { type RadiusPreset, radiusPresets } from "@isbatak/panda-ds/radius"
 import { Portal } from "@ark-ui/react/portal"
 import { useEffect, useState } from "react"
