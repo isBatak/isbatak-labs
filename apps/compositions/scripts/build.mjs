@@ -22,7 +22,6 @@ const stylings = [
   { id: "css", label: "CSS" },
 ]
 
-const designSystem = "@isbatak/panda-ds/"
 const pandaPackages = ["@isbatak/panda-wheel-picker"]
 
 const frameworks = [
@@ -175,16 +174,15 @@ async function readExample(framework, id, stylesheet) {
   const dir = `${framework.target}/${id}`
   const file = (code) => ({ name, lang: framework.lang, target: `${dir}/${name}`, code })
 
-  const pandaCode = source.replaceAll(designSystem, "styled-system/")
   const formatted = await format(name, compileStyles(framework, id, source), { ...formatOptions, svelte: true })
   if (formatted.errors.length)
     throw new Error(`[compositions] failed to format ${name}: ${formatted.errors[0].message}`)
 
   return {
     panda: {
-      dependencies: dependenciesOf(framework, pandaCode),
+      dependencies: dependenciesOf(framework, source),
       devDependencies: pandaPackages,
-      files: [file(pandaCode)],
+      files: [file(source)],
     },
     css: {
       dependencies: dependenciesOf(framework, formatted.code),
@@ -263,6 +261,8 @@ function snapshotMachines() {
   }
 }
 
+await run(`${root}/node_modules/.bin/panda`, ["codegen"], { cwd: root })
+
 const ids = await writeManifest()
 
 if (watch) watchFiles(`${root}/src`, { recursive: true }, () => writeManifest())
@@ -274,6 +274,7 @@ await Promise.all(
       configFile: false,
       logLevel: "warn",
       plugins: [snapshotMachines(), examplesModule(framework, ids), ...(framework.plugins?.() ?? [])],
+      resolve: { alias: { "styled-system": `${root}/styled-system` } },
       define: { "process.env.NODE_ENV": JSON.stringify("production") },
       build: {
         outDir: "dist",

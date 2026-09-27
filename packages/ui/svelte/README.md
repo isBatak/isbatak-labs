@@ -8,7 +8,7 @@ import { Tabs } from "@isbatak/svelte-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
-`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip` and `tour`.
 
 Panda has no `jsx` helpers for Svelte, so each part applies its recipe through `class` and shares slot styles with
 Svelte context. There are no style props; pass extra classes with `class`, including `css()` results. Roots forward

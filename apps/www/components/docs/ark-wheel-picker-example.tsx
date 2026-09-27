@@ -1,7 +1,7 @@
 "use client"
 
 import { createWheelPickerCollection } from "@isbatak/ark-wheel-picker/react"
-import { WheelPicker } from "@isbatak/react-ui/wheel-picker"
+import { WheelPicker } from "../ui/wheel-picker"
 
 const collection = createWheelPickerCollection({
   items: [

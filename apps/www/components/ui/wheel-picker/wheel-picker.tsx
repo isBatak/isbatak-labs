@@ -1,12 +1,23 @@
-import { WheelPicker } from "@isbatak/ark-wheel-picker/vue"
-import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
-import { wheelPicker } from "@isbatak/panda-ds/recipes"
+"use client"
+
+import { WheelPicker } from "@isbatak/ark-wheel-picker/react"
+import type { ComponentProps, JSX } from "react"
+import { createSlotRecipeContext } from "styled-system/jsx"
+import { wheelPicker } from "styled-system/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(wheelPicker)
 
-export const WheelPickerRoot = withProvider(WheelPicker.Root, "root")
-export type WheelPickerRootProps = ComponentProps<typeof WheelPickerRoot>
+const StyledWheelPickerRoot = withProvider(WheelPicker.Root, "root")
+
+export type WheelPickerRootProps<T extends WheelPicker.CollectionItem = WheelPicker.CollectionItem> = Omit<
+  ComponentProps<typeof StyledWheelPickerRoot>,
+  keyof WheelPicker.RootProps<T>
+> &
+  WheelPicker.RootProps<T>
+
+export const WheelPickerRoot = StyledWheelPickerRoot as <T extends WheelPicker.CollectionItem>(
+  props: WheelPickerRootProps<T>,
+) => JSX.Element
 
 export const WheelPickerLabel = withContext(WheelPicker.Label, "label")
 export type WheelPickerLabelProps = ComponentProps<typeof WheelPickerLabel>
@@ -34,4 +45,4 @@ export type WheelPickerHighlightItemProps = ComponentProps<typeof WheelPickerHig
 
 export const WheelPickerHiddenSelect = WheelPicker.HiddenSelect
 export const WheelPickerContext = WheelPicker.Context
-export type WheelPickerContextProps = ComponentProps<typeof WheelPickerContext>
+export type WheelPickerContextProps = WheelPicker.ContextProps

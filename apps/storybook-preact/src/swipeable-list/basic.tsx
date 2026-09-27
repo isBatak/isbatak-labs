@@ -1,5 +1,5 @@
-import { cx } from "@isbatak/panda-ds/css"
-import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
+import { cx } from "@isbatak/storybook-shared/css"
+import { swipeableList as swipeableListRecipe } from "@isbatak/storybook-shared/recipes"
 import {
   copyText,
   formatOpenItem,

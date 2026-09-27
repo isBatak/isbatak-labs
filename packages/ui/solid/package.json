@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@ark-ui/solid": "5.39.2",
-    "@isbatak/ark-wheel-picker": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

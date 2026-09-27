@@ -1,6 +1,3 @@
-import { swipeableListRecipe } from "@isbatak/panda-swipeable-list"
-import { wheelPickerRecipe } from "@isbatak/panda-wheel-picker"
-
 import { accordionSlotRecipe } from "./accordion"
 import { actionBarSlotRecipe } from "./action-bar"
 import { alertSlotRecipe } from "./alert"
@@ -119,6 +116,4 @@ export const slotRecipes = {
   treeView: treeViewSlotRecipe,
   marquee: marqueeSlotRecipe,
   floatingPanel: floatingPanelSlotRecipe,
-  swipeableList: swipeableListRecipe,
-  wheelPicker: wheelPickerRecipe,
 }

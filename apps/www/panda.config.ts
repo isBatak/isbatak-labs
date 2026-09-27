@@ -1,3 +1,4 @@
+import { wheelPickerPreset } from "@isbatak/panda-wheel-picker"
 import { defineConfig } from "@pandacss/dev"
 
 import { theme } from "./theme"
@@ -5,6 +6,7 @@ import { globalCss } from "./theme/global-css"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
+  presets: [wheelPickerPreset],
   preflight: true,
   jsxFramework: "react",
   include: [
