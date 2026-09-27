@@ -1,6 +1,6 @@
 import { swipeableListArgs, swipeableListArgTypes } from "@isbatak/storybook-shared"
-import type { Meta, StoryObj } from "@storybook/react-vite"
 import { fn } from "storybook/test"
+import type { Meta, StoryObj } from "storybook-solidjs-vite"
 import { Basic as BasicExample } from "./basic"
 
 const meta = {

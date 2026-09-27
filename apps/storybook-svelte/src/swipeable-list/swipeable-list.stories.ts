@@ -1,7 +1,7 @@
 import { swipeableListArgs, swipeableListArgTypes } from "@isbatak/storybook-shared"
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from "@storybook/svelte-vite"
 import { fn } from "storybook/test"
-import { Basic as BasicExample } from "./basic"
+import BasicExample from "./basic.svelte"
 
 const meta = {
   title: "Swipeable List",
@@ -10,7 +10,7 @@ const meta = {
 export default meta
 
 export const Basic: StoryObj<typeof BasicExample> = {
-  render: (args) => <BasicExample {...args} />,
+  render: (args) => ({ Component: BasicExample, props: args }),
   args: { ...swipeableListArgs, onOpenItemChange: fn(), onFullSwipe: fn() },
   argTypes: swipeableListArgTypes,
 }

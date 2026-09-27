@@ -6,8 +6,8 @@ import {
   type SwipeableListControls,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
-import { mergeProps, normalizeProps, useMachine } from "@zag-js/react"
-import { useId, useState } from "react"
+import { mergeProps, normalizeProps, useMachine } from "@zag-js/preact"
+import { useId, useState } from "preact/hooks"
 
 export interface BasicProps extends Partial<SwipeableListControls> {
   onOpenItemChange?: (details: swipeableList.OpenItemChangeDetails) => void

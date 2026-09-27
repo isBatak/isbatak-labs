@@ -1,5 +1,5 @@
 import { swipeableListArgs, swipeableListArgTypes } from "@isbatak/storybook-shared"
-import type { Meta, StoryObj } from "@storybook/react-vite"
+import type { Meta, StoryObj } from "@storybook/preact-vite"
 import { fn } from "storybook/test"
 import { Basic as BasicExample } from "./basic"
 
