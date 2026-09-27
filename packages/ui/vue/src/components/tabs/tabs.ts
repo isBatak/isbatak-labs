@@ -1,6 +1,6 @@
 import { Tabs } from "@ark-ui/vue/tabs"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { tabs } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(tabs)

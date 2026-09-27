@@ -1,4 +1,4 @@
-import { styled } from "@isbatak/ui-vue/jsx"
+import { styled } from "@isbatak/vue-ui/jsx"
 import type { ComponentProps } from "vue-component-type-helpers"
 
 export const LoaderOverlay = styled("div", {

@@ -1,5 +1,5 @@
 import type { Component } from "#site/content"
-import { Button } from "@isbatak/ui-react/button"
+import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"

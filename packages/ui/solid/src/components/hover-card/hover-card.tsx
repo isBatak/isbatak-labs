@@ -1,6 +1,6 @@
 import { HoverCard } from "@ark-ui/solid/hover-card"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { hoverCard } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(hoverCard)

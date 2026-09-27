@@ -1,6 +1,6 @@
 import { Accordion } from "@ark-ui/solid/accordion"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { accordion } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(accordion)

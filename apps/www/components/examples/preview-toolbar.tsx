@@ -2,8 +2,8 @@
 
 import { createListCollection } from "@ark-ui/react/collection"
 import { Portal } from "@ark-ui/react/portal"
-import { Button, type ButtonProps } from "@isbatak/ui-react/button"
-import { Select } from "@isbatak/ui-react/select"
+import { Button, type ButtonProps } from "@isbatak/react-ui/button"
+import { Select } from "@isbatak/react-ui/select"
 import { useTheme } from "next-themes"
 import { styled } from "styled-system/jsx"
 

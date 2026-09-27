@@ -1,6 +1,6 @@
 import { Tooltip } from "@ark-ui/solid/tooltip"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { tooltip } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tooltip)

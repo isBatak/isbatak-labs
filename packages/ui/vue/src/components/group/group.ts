@@ -1,5 +1,5 @@
 import { dataAttr } from "@ark-ui/vue/utils"
-import { styled } from "@isbatak/ui-vue/jsx"
+import { styled } from "@isbatak/vue-ui/jsx"
 import { group } from "@isbatak/panda-ds/recipes"
 import { Comment, Fragment, Text, type PropType, type VNode, cloneVNode, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"

@@ -1,6 +1,6 @@
 import { Tour } from "@ark-ui/vue/tour"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { tour } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tour)

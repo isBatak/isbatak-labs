@@ -1,4 +1,4 @@
-import { AbsoluteCenter, styled } from "@isbatak/ui-solid/jsx"
+import { AbsoluteCenter, styled } from "@isbatak/solid-ui/jsx"
 import { type ComponentProps, type JSX, Match, mergeProps, Show, splitProps, Switch } from "solid-js"
 
 import { Spinner } from "../spinner"

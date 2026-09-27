@@ -1,10 +1,10 @@
-# @isbatak/ui-svelte
+# @isbatak/svelte-ui
 
 Styled [Ark UI](https://ark-ui.com) Svelte components built on the [`@isbatak/panda-ds`](../../panda/ds) design system.
 
 ```ts
-import { Button } from "@isbatak/ui-svelte/button"
-import { Tabs } from "@isbatak/ui-svelte/tabs"
+import { Button } from "@isbatak/svelte-ui/button"
+import { Tabs } from "@isbatak/svelte-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,

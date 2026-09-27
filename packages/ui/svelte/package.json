@@ -1,5 +1,5 @@
 {
-  "name": "@isbatak/ui-svelte",
+  "name": "@isbatak/svelte-ui",
   "version": "0.0.0",
   "private": true,
   "description": "Ark UI Svelte components styled with @isbatak/panda-ds",

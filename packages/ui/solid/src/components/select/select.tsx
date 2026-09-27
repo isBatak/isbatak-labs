@@ -1,7 +1,7 @@
 import type { CollectionItem } from "@ark-ui/solid/collection"
 import { Select } from "@ark-ui/solid/select"
 import type { ComponentProps, JSX } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { select } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(select)

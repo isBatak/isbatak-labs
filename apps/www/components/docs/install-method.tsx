@@ -1,6 +1,6 @@
 "use client"
 
-import { Tabs } from "@isbatak/ui-react/tabs"
+import { Tabs } from "@isbatak/react-ui/tabs"
 import type { ReactNode } from "react"
 
 import { createPreference } from "./preference"

@@ -1,4 +1,4 @@
-import { Button } from "@isbatak/ui-react/button"
+import { Button } from "@isbatak/react-ui/button"
 import { styled } from "styled-system/jsx"
 
 import { SPONSOR_URL } from "../layout/site-links"

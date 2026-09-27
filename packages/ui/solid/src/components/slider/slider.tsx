@@ -1,6 +1,6 @@
 import { Slider } from "@ark-ui/solid/slider"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(slider)
