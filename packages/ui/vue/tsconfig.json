@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": ["src", "styled-system"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "exactOptionalPropertyTypes": false,
+    "declaration": false,
+    "types": ["node"],
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
+  }
+}
