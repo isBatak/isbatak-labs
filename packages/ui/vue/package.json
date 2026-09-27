@@ -1,0 +1,35 @@
+{
+  "name": "@isbatak/ui-vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ark UI Vue components styled with @isbatak/panda-ds",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./jsx": {
+      "types": "./styled-system/jsx/index.d.ts",
+      "default": "./styled-system/jsx/index.js"
+    },
+    "./*": "./src/components/*/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "codegen": "panda codegen",
+    "typecheck": "panda codegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@ark-ui/vue": "5.39.2",
+    "@isbatak/ark-wheel-picker": "workspace:*",
+    "@isbatak/panda-ds": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.5.0"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "catalog:",
+    "@pandacss/preset-base": "catalog:",
+    "vue": "^3.5.43",
+    "vue-component-type-helpers": "^3.3.11"
+  }
+}
