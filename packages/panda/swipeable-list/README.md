@@ -22,16 +22,18 @@ export default defineConfig({
 
 Or extend your theme with `swipeableListRecipe` under `theme.extend.slotRecipes.swipeableList`.
 
-Variants: `variant` (`elevated`, `outline`, `subtle`) and `size` (`sm`, `md`, `lg`).
+The default look follows iOS: rows sit bare and pick up a rounded `bg.muted` fill as soon as they are swiped, and
+actions are capsules centered behind them. `variant` (`elevated`, `outline`, `subtle`) turns rows into cards instead,
+and `size` (`sm`, `md`, `lg`) scales everything.
 
 Actions are painted with `colorPalette.solid`, so set `colorPalette` on each action (for example
-`css({ colorPalette: "red" })`). Content and actions are separate rounded cards with a gap between them.
+`css({ colorPalette: "red" })`).
 
-Actions sit behind the content, pinned to the row edge, and stretch to fill the space the swipe reveals. The machine
-exposes that space as `--swipe-start-distance` / `--swipe-end-distance`, so the layout follows in CSS without any
-observers. An action's children fade and scale in with `--swipe-progress`. During a full swipe the other actions
-collapse and the outermost one fills the row. The gap, action width and radius are CSS variables (`--swipe-actions-gap`,
-`--swipe-action-width`, `--swipe-radius`), so they can be overridden responsively.
+Actions sit behind the content, pinned to the row edge. The machine sets `--swipe-action-progress` on every action, so
+they appear one after another from the outer edge in: each scales and fades in from 0 to 1 before the next one starts.
+Once all of them are shown, only the outermost one stretches. When a full swipe is armed its icon slides to the inner
+edge and the other actions dim. The gap, action size and radius are CSS variables (`--swipe-actions-gap`,
+`--swipe-action-width`, `--swipe-action-height`, `--swipe-radius`), so they can be overridden responsively.
 
 ## License
 
