@@ -1,0 +1,38 @@
+{
+  "name": "@isbatak/ui-solid",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ark UI Solid components styled with @isbatak/panda-ds",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./jsx": {
+      "types": "./styled-system/jsx/index.d.ts",
+      "default": "./styled-system/jsx/index.js"
+    },
+    "./*": {
+      "types": "./src/components/*/index.ts",
+      "solid": "./src/components/*/index.ts",
+      "default": "./src/components/*/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "codegen": "panda codegen",
+    "typecheck": "panda codegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@ark-ui/solid": "5.39.2",
+    "@isbatak/ark-wheel-picker": "workspace:*",
+    "@isbatak/panda-ds": "workspace:*"
+  },
+  "peerDependencies": {
+    "solid-js": ">=1.6.0"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "catalog:",
+    "@pandacss/preset-base": "catalog:",
+    "solid-js": "^1.9.15"
+  }
+}
