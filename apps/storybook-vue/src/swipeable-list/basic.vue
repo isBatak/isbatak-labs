@@ -2,12 +2,13 @@
 import { cx } from "@isbatak/panda-ds/css"
 import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
 import {
+  copyText,
   formatOpenItem,
-  formatSender,
-  initialMessages,
+  initialAccounts,
   swipeableListArgs,
   swipeableListClasses as classes,
-  type Message,
+  swipeableListIcons as icons,
+  type Account,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
 import { mergeProps, normalizeProps, useMachine } from "@zag-js/vue"
@@ -30,7 +31,7 @@ const props = withDefaults(
   swipeableListArgs,
 )
 
-const messages = ref<Message[]>(initialMessages)
+const accounts = ref<Account[]>(initialAccounts)
 const log = ref("")
 
 const id = useId()
@@ -43,13 +44,14 @@ const service = useMachine(
 )
 const api = computed(() => swipeableList.connect(service, normalizeProps))
 
-function update(id: string, patch: Partial<Message>) {
-  messages.value = messages.value.map((message) => (message.id === id ? { ...message, ...patch } : message))
+function copy(account: Account) {
+  void copyText(account.id)
+  log.value = `Copied ${account.id}`
 }
 
-function remove(id: string) {
-  messages.value = messages.value.filter((message) => message.id !== id)
-  log.value = `Deleted ${id}`
+function remove(account: Account, action: string) {
+  accounts.value = accounts.value.filter((item) => item.id !== account.id)
+  log.value = `${action} ${account.name}`
 }
 </script>
 
@@ -57,49 +59,55 @@ function remove(id: string) {
   <main :class="classes.story">
     <ul v-bind="api.getRootProps()" :class="styles.root">
       <li
-        v-for="message in messages"
-        :key="message.id"
-        v-bind="api.getItemProps({ value: message.id })"
+        v-for="account in accounts"
+        :key="account.id"
+        v-bind="api.getItemProps({ value: account.id })"
         :class="styles.item"
       >
-        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'start' })" :class="styles.itemActions">
+        <div v-bind="api.getItemActionsProps({ value: account.id, side: 'start' })" :class="styles.itemActions">
           <button
             v-bind="
-              mergeProps(api.getItemActionProps({ value: message.id, side: 'start' }), {
-                onClick: () => update(message.id, { unread: !message.unread }),
+              mergeProps(api.getItemActionProps({ value: account.id, side: 'start' }), {
+                onClick: () => copy(account),
               })
             "
-            :class="cx(styles.itemAction, classes.blue)"
+            aria-label="Copy account ID"
+            :class="cx(styles.itemAction, classes.copy)"
           >
-            {{ message.unread ? "Read" : "Unread" }}
+            <span :class="classes.icon" v-html="icons.copy" />
           </button>
         </div>
 
-        <div v-bind="api.getItemContentProps({ value: message.id })" :class="styles.itemContent">
-          <strong>{{ formatSender(message) }}</strong>
-          <span :class="classes.subject">{{ message.subject }}</span>
+        <div v-bind="api.getItemContentProps({ value: account.id })" :class="styles.itemContent">
+          <span :class="classes.avatar" v-html="icons.account" />
+          <span :class="classes.details">
+            <span :class="classes.name">{{ account.name }}</span>
+            <span :class="classes.id">{{ account.id }}</span>
+          </span>
         </div>
 
-        <div v-bind="api.getItemActionsProps({ value: message.id, side: 'end' })" :class="styles.itemActions">
+        <div v-bind="api.getItemActionsProps({ value: account.id, side: 'end' })" :class="styles.itemActions">
           <button
             v-bind="
-              mergeProps(api.getItemActionProps({ value: message.id, side: 'end' }), {
-                onClick: () => update(message.id, { flagged: !message.flagged }),
+              mergeProps(api.getItemActionProps({ value: account.id, side: 'end' }), {
+                onClick: () => remove(account, 'Archived'),
               })
             "
-            :class="cx(styles.itemAction, classes.orange)"
+            aria-label="Archive"
+            :class="cx(styles.itemAction, classes.archive)"
           >
-            {{ message.flagged ? "Unflag" : "Flag" }}
+            <span :class="classes.icon" v-html="icons.archive" />
           </button>
           <button
             v-bind="
-              mergeProps(api.getItemActionProps({ value: message.id, side: 'end' }), {
-                onClick: () => remove(message.id),
+              mergeProps(api.getItemActionProps({ value: account.id, side: 'end' }), {
+                onClick: () => remove(account, 'Deleted'),
               })
             "
-            :class="cx(styles.itemAction, classes.red)"
+            aria-label="Delete"
+            :class="cx(styles.itemAction, classes.delete)"
           >
-            Delete
+            <span :class="classes.icon" v-html="icons.delete" />
           </button>
         </div>
       </li>

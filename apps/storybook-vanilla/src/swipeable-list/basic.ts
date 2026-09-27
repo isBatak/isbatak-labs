@@ -1,10 +1,11 @@
 import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
 import {
+  copyText,
   formatOpenItem,
-  formatSender,
-  initialMessages,
-  type Message,
+  initialAccounts,
   swipeableListClasses as classes,
+  swipeableListIcons as icons,
+  type Account,
   type SwipeableListControls,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
@@ -27,22 +28,23 @@ export function createBasic(props: BasicProps) {
     </main>
   `)
   const root = main.querySelector<HTMLElement>(".swipeable-list-root")!
+  const log = main.querySelector<HTMLElement>("[data-testid=log]")!
   const rows = new Map<string, HTMLElement>()
-  let messages = initialMessages
+  let accounts = initialAccounts
 
   const machine = new VanillaMachine(swipeableList.machine, {
     id: crypto.randomUUID(),
     ...props,
   })
 
-  function update(id: string, patch: Partial<Message>) {
-    messages = messages.map((message) => (message.id === id ? { ...message, ...patch } : message))
-    render()
+  function copy(account: Account) {
+    void copyText(account.id)
+    log.textContent = `Copied ${account.id}`
   }
 
-  function remove(id: string) {
-    messages = messages.filter((message) => message.id !== id)
-    main.querySelector("[data-testid=log]")!.textContent = `Deleted ${id}`
+  function remove(account: Account, action: string) {
+    accounts = accounts.filter((item) => item.id !== account.id)
+    log.textContent = `${action} ${account.name}`
     render()
   }
 
@@ -50,12 +52,24 @@ export function createBasic(props: BasicProps) {
     return createElement(`
       <li class="${styles.item}">
         <div class="start-actions ${styles.itemActions}">
-          <button class="unread ${styles.itemAction} ${classes.blue}"></button>
+          <button class="copy ${styles.itemAction} ${classes.copy}" aria-label="Copy account ID">
+            <span class="${classes.icon}">${icons.copy}</span>
+          </button>
         </div>
-        <div class="content ${styles.itemContent}"><strong></strong><span class="${classes.subject}"></span></div>
+        <div class="content ${styles.itemContent}">
+          <span class="${classes.avatar}">${icons.account}</span>
+          <span class="${classes.details}">
+            <span class="name ${classes.name}"></span>
+            <span class="id ${classes.id}"></span>
+          </span>
+        </div>
         <div class="end-actions ${styles.itemActions}">
-          <button class="flag ${styles.itemAction} ${classes.orange}"></button>
-          <button class="delete ${styles.itemAction} ${classes.red}">Delete</button>
+          <button class="archive ${styles.itemAction} ${classes.archive}" aria-label="Archive">
+            <span class="${classes.icon}">${icons.archive}</span>
+          </button>
+          <button class="delete ${styles.itemAction} ${classes.delete}" aria-label="Delete">
+            <span class="${classes.icon}">${icons.delete}</span>
+          </button>
         </div>
       </li>
     `)
@@ -64,11 +78,11 @@ export function createBasic(props: BasicProps) {
   main.addEventListener("click", (event) => {
     const button = (event.target as Element).closest("button")
     const id = button?.closest<HTMLElement>("[data-part=item]")?.dataset.value
-    const message = messages.find((message) => message.id === id)
-    if (!button || !message) return
-    if (button.matches(".unread")) update(message.id, { unread: !message.unread })
-    if (button.matches(".flag")) update(message.id, { flagged: !message.flagged })
-    if (button.matches(".delete")) remove(message.id)
+    const account = accounts.find((item) => item.id === id)
+    if (!button || !account) return
+    if (button.matches(".copy")) copy(account)
+    if (button.matches(".archive")) remove(account, "Archived")
+    if (button.matches(".delete")) remove(account, "Deleted")
   })
 
   function render() {
@@ -78,11 +92,11 @@ export function createBasic(props: BasicProps) {
     spread(root, api.getRootProps())
 
     for (const id of rows.keys()) {
-      if (!messages.some((message) => message.id === id)) rows.delete(id)
+      if (!accounts.some((account) => account.id === id)) rows.delete(id)
     }
 
-    const elements = messages.map((message) => {
-      const value = message.id
+    const elements = accounts.map((account) => {
+      const value = account.id
       const row = rows.get(value) ?? createRow()
       rows.set(value, row)
 
@@ -97,10 +111,8 @@ export function createBasic(props: BasicProps) {
         spread(button, api.getItemActionProps({ value, side: "end" }))
       }
 
-      row.querySelector(".unread")!.textContent = message.unread ? "Read" : "Unread"
-      row.querySelector(".flag")!.textContent = message.flagged ? "Unflag" : "Flag"
-      row.querySelector("strong")!.textContent = formatSender(message)
-      row.querySelector("span")!.textContent = message.subject
+      row.querySelector(".name")!.textContent = account.name
+      row.querySelector(".id")!.textContent = account.id
       return row
     })
 
