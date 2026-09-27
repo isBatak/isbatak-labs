@@ -45,3 +45,6 @@ export type TourControlProps = ComponentProps<typeof TourControl>
 
 export const TourActionTrigger = withContext(Tour.ActionTrigger, "actionTrigger")
 export type TourActionTriggerProps = ComponentProps<typeof TourActionTrigger>
+
+export const TourContext = Tour.Context
+export type TourContextProps = Tour.ContextProps

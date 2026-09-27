@@ -21,3 +21,6 @@ export type TabsContentProps = ComponentProps<typeof TabsContent>
 
 export const TabsIndicator = withContext(Tabs.Indicator, "indicator")
 export type TabsIndicatorProps = ComponentProps<typeof TabsIndicator>
+
+export const TabsContext = Tabs.Context
+export type TabsContextProps = Tabs.ContextProps

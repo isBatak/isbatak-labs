@@ -35,3 +35,9 @@ export type SelectItemTextProps = ComponentProps<typeof SelectItemText>
 
 export const SelectItemIndicator = withContext(Select.ItemIndicator, "itemIndicator")
 export type SelectItemIndicatorProps = ComponentProps<typeof SelectItemIndicator>
+
+export const SelectContext = Select.Context
+export type SelectContextProps<T extends CollectionItem = CollectionItem> = Select.ContextProps<T>
+
+export const SelectItemContext = Select.ItemContext
+export type SelectItemContextProps = Select.ItemContextProps

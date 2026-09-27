@@ -45,3 +45,4 @@ export type WheelPickerHighlightItemProps = ComponentProps<typeof WheelPickerHig
 
 export const WheelPickerHiddenSelect = WheelPicker.HiddenSelect
 export const WheelPickerContext = WheelPicker.Context
+export type WheelPickerContextProps = WheelPicker.ContextProps

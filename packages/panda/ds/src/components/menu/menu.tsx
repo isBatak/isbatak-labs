@@ -27,3 +27,9 @@ export type MenuItemTextProps = ComponentProps<typeof MenuItemText>
 
 export const MenuSeparator = withContext(Menu.Separator, "separator")
 export type MenuSeparatorProps = ComponentProps<typeof MenuSeparator>
+
+export const MenuContext = Menu.Context
+export type MenuContextProps = Menu.ContextProps
+
+export const MenuItemContext = Menu.ItemContext
+export type MenuItemContextProps = Menu.ItemContextProps

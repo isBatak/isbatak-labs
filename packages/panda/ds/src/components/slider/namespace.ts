@@ -12,6 +12,7 @@ export {
   SliderMarkerIndicator as MarkerIndicator,
   SliderMarkerLabel as MarkerLabel,
   SliderDraggingIndicator as DraggingIndicator,
+  SliderContext as Context,
 } from "./slider"
 
 export type {
@@ -28,6 +29,7 @@ export type {
   SliderMarkerIndicatorProps as MarkerIndicatorProps,
   SliderMarkerLabelProps as MarkerLabelProps,
   SliderDraggingIndicatorProps as DraggingIndicatorProps,
+  SliderContextProps as ContextProps,
 } from "./slider"
 
 export type { SliderValueChangeDetails as ValueChangeDetails } from "@ark-ui/react/slider"

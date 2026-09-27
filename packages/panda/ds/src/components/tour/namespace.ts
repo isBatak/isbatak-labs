@@ -12,6 +12,7 @@ export {
   TourCloseTrigger as CloseTrigger,
   TourControl as Control,
   TourActionTrigger as ActionTrigger,
+  TourContext as Context,
 } from "./tour"
 
 export type {
@@ -28,6 +29,7 @@ export type {
   TourCloseTriggerProps as CloseTriggerProps,
   TourControlProps as ControlProps,
   TourActionTriggerProps as ActionTriggerProps,
+  TourContextProps as ContextProps,
 } from "./tour"
 
 import type { Tour } from "@ark-ui/react/tour"

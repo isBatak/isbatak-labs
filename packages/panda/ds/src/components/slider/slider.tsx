@@ -45,3 +45,6 @@ export type SliderMarkerLabelProps = ComponentProps<typeof SliderMarkerLabel>
 
 export const SliderDraggingIndicator = withContext(Slider.DraggingIndicator, "draggingIndicator")
 export type SliderDraggingIndicatorProps = ComponentProps<typeof SliderDraggingIndicator>
+
+export const SliderContext = Slider.Context
+export type SliderContextProps = Slider.ContextProps

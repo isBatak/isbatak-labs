@@ -24,3 +24,9 @@ export type AccordionItemIndicatorProps = ComponentProps<typeof AccordionItemInd
 
 export const AccordionItemBody = withContext("div", "itemBody")
 export type AccordionItemBodyProps = ComponentProps<typeof AccordionItemBody>
+
+export const AccordionContext = Accordion.Context
+export type AccordionContextProps = Accordion.ContextProps
+
+export const AccordionItemContext = Accordion.ItemContext
+export type AccordionItemContextProps = Accordion.ItemContextProps

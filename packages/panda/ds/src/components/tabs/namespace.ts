@@ -4,6 +4,7 @@ export {
   TabsTrigger as Trigger,
   TabsContent as Content,
   TabsIndicator as Indicator,
+  TabsContext as Context,
 } from "./tabs"
 
 export type {
@@ -12,4 +13,5 @@ export type {
   TabsTriggerProps as TriggerProps,
   TabsContentProps as ContentProps,
   TabsIndicatorProps as IndicatorProps,
+  TabsContextProps as ContextProps,
 } from "./tabs"

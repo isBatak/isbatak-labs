@@ -22,4 +22,5 @@ export type {
   WheelPickerHighlightProps as HighlightProps,
   WheelPickerHighlightItemGroupProps as HighlightItemGroupProps,
   WheelPickerHighlightItemProps as HighlightItemProps,
+  WheelPickerContextProps as ContextProps,
 } from "./wheel-picker"

@@ -24,3 +24,6 @@ export type TooltipArrowProps = ComponentProps<typeof TooltipArrow>
 
 export const TooltipArrowTip = withContext(Tooltip.ArrowTip, "arrowTip")
 export type TooltipArrowTipProps = ComponentProps<typeof TooltipArrowTip>
+
+export const TooltipContext = Tooltip.Context
+export type TooltipContextProps = Tooltip.ContextProps

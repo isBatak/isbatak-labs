@@ -6,6 +6,8 @@ export {
   MenuItem as Item,
   MenuItemText as ItemText,
   MenuSeparator as Separator,
+  MenuContext as Context,
+  MenuItemContext as ItemContext,
 } from "./menu"
 
 export type {
@@ -16,6 +18,8 @@ export type {
   MenuItemProps as ItemProps,
   MenuItemTextProps as ItemTextProps,
   MenuSeparatorProps as SeparatorProps,
+  MenuContextProps as ContextProps,
+  MenuItemContextProps as ItemContextProps,
 } from "./menu"
 
 export type { MenuSelectionDetails as SelectionDetails } from "@ark-ui/react/menu"

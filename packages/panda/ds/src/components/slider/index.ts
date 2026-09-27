@@ -12,6 +12,7 @@ export {
   SliderMarkerIndicator,
   SliderMarkerLabel,
   SliderDraggingIndicator,
+  SliderContext,
 } from "./slider"
 
 export type {
@@ -28,6 +29,7 @@ export type {
   SliderMarkerIndicatorProps,
   SliderMarkerLabelProps,
   SliderDraggingIndicatorProps,
+  SliderContextProps,
 } from "./slider"
 
 export { useSlider, useSliderContext } from "@ark-ui/react/slider"
