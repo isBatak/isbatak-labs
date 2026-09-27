@@ -1,24 +1,25 @@
 "use client"
 
-import type { ReactNode } from "react"
+import { SegmentGroup } from "@isbatak/panda-ds/components/segment-group"
 
-import { SegmentGroup } from "../ui/segment-group"
+import { useDocVariant } from "./doc-variant"
 import { createPreference } from "./preference"
+import { STYLING_KEY, type StylingId, defaultVariant, stylingIds } from "./variant"
 
-export type StylingId = "panda" | "css"
+export type { StylingId }
 
-const useStylingPreference = createPreference<StylingId, StylingId>("docs-styling", ["panda", "css"], "panda")
+const useStylingPreference = createPreference(STYLING_KEY, stylingIds, defaultVariant.styling)
 
 export function useStyling() {
-  const [styling, setStyling] = useStylingPreference()
-  return { styling, setStyling }
-}
+  const [preference, setPreference] = useStylingPreference()
+  const { variant, setVariant } = useDocVariant()
 
-export type StylingSwitchProps = Record<StylingId, ReactNode>
+  const setStyling = (styling: StylingId) => {
+    setPreference(styling)
+    setVariant({ styling })
+  }
 
-export function StylingSwitch(props: StylingSwitchProps) {
-  const { styling } = useStyling()
-  return props[styling]
+  return { styling: variant?.styling ?? preference, setStyling }
 }
 
 export function StylingPicker() {

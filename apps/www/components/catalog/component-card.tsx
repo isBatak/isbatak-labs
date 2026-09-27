@@ -1,13 +1,13 @@
-import Link from "next/link"
+import { Badge } from "@isbatak/panda-ds/components/badge"
 import { styled } from "styled-system/jsx"
 
+import { DocLink } from "../docs/doc-link"
 import { ExampleThumbnail } from "../examples/example-view"
-import { Badge } from "../ui/badge"
 import { Icon } from "../ui/icon"
 
 // Inline `styled()` configs: don't pass style props to these, the Panda transformer would drop the base styles.
 
-const Card = styled(Link, {
+const Card = styled(DocLink, {
   base: {
     display: "flex",
     flexDirection: "column",

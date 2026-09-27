@@ -1,11 +1,12 @@
 import { type Component, components } from "#site/content"
+import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { Eyebrow } from "../home/section"
 import { REQUEST_URL, X_URL } from "../layout/site-links"
-import { Button } from "../ui/button"
 import { Icon } from "../ui/icon"
+import { type DocVariant, variantPath } from "./variant"
 
 const PagerLabel = styled("span", {
   base: {
@@ -44,7 +45,7 @@ const getNeighbors = (component: Component) => {
   return { previous: ordered[index - 1], next: ordered[index + 1] }
 }
 
-export function DocFooter({ component }: { component: Component }) {
+export function DocFooter({ component, variant }: { component: Component; variant: DocVariant }) {
   const { previous, next } = getNeighbors(component)
 
   return (
@@ -82,7 +83,7 @@ export function DocFooter({ component }: { component: Component }) {
       >
         <div>
           {previous && (
-            <PagerLink href={previous.permalink}>
+            <PagerLink href={variantPath(previous.permalink, variant)}>
               <PagerLabel>
                 <Icon name="chevron-left" />
                 Previous
@@ -93,7 +94,7 @@ export function DocFooter({ component }: { component: Component }) {
         </div>
         <styled.div textAlign="end">
           {next ? (
-            <PagerLink href={next.permalink}>
+            <PagerLink href={variantPath(next.permalink, variant)}>
               <PagerLabel>
                 Next
                 <Icon name="chevron-right" />

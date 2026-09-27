@@ -49,11 +49,14 @@ const icons = {
   "brand-svelte": "outline/brand-svelte",
   "brand-solidjs": "outline/brand-solidjs",
   "brand-javascript": "outline/brand-javascript",
+  "brand-typescript": "outline/brand-typescript",
+  "brand-css3": "outline/brand-css3",
   "brand-x": "outline/brand-x",
   "brand-storybook": "outline/brand-storybook",
   "brand-openai": "outline/brand-openai",
   markdown: "outline/markdown",
   "arrow-up-right": "outline/arrow-up-right",
+  focus: "outline/focus-2",
 }
 
 const SIMPLE_ICONS_VERSION = "15"
