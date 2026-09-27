@@ -11,6 +11,7 @@ export default defineConfig({
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "../compositions/src/examples/**/*.{ts,tsx,vue,svelte}",
+    "../../packages/ui/react/src/**/*.{ts,tsx}",
   ],
   exclude: [],
   dependencies: ["./theme/**/*.ts"],

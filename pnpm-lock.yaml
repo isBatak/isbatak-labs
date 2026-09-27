@@ -508,6 +508,9 @@ importers:
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
+      '@isbatak/ui-react':
+        specifier: workspace:*
+        version: link:../../packages/ui/react
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -618,16 +621,10 @@ importers:
 
   packages/panda/ds:
     dependencies:
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../wheel-picker
     devDependencies:
-      '@ark-ui/react':
-        specifier: 5.39.2
-        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(postcss@8.5.28)
@@ -643,15 +640,9 @@ importers:
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0
-      '@zag-js/react':
-        specifier: 'catalog:'
-        version: 1.44.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: 'catalog:'
         version: 19.3.0
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.3.0(react@19.3.0)
 
   packages/panda/wheel-picker:
     devDependencies:
@@ -661,6 +652,25 @@ importers:
       '@pandacss/types':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
+
+  packages/ui/react:
+    dependencies:
+      '@ark-ui/react':
+        specifier: 5.39.2
+        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
 
   packages/zag/wheel-picker:
     dependencies:

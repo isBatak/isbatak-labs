@@ -32,25 +32,8 @@ Also exported: `/patterns`, `/jsx`, `/tokens`, the raw theme from `/theme` and r
 
 ## Components
 
-Styled [Ark UI](https://ark-ui.com) React components live under `/components/*`. They need `@ark-ui/react` and `react`:
-
-```tsx
-import { Button } from "@isbatak/panda-ds/components/button"
-import { Tabs } from "@isbatak/panda-ds/components/tabs"
-```
-
-Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
-`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
-
-`button` also exports `IconButton`, `CloseButton` and `ButtonGroup`, which passes its `size` and `variant` to the
-buttons inside it:
-
-```tsx
-<ButtonGroup size="sm" variant="outline" attached>
-  <Button>Previous</Button>
-  <Button loading>Next</Button>
-</ButtonGroup>
-```
+Styled [Ark UI](https://ark-ui.com) components built on this design system live in framework packages under
+`packages/ui/*`, starting with `packages/ui/react`.
 
 ## License
 
