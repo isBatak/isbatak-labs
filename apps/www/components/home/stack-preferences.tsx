@@ -1,9 +1,9 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/ui-react/button"
-import { HoverCard } from "@isbatak/ui-react/hover-card"
-import { RadioCard } from "@isbatak/ui-react/radio-card"
+import { Button } from "@isbatak/react-ui/button"
+import { HoverCard } from "@isbatak/react-ui/hover-card"
+import { RadioCard } from "@isbatak/react-ui/radio-card"
 import Link from "next/link"
 import { type ReactNode, useRef, useState } from "react"
 import { styled } from "styled-system/jsx"

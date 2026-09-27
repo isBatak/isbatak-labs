@@ -1,7 +1,7 @@
 "use client"
 
 import { useTabsContext } from "@ark-ui/react/tabs"
-import { Button } from "@isbatak/ui-react/button"
+import { Button } from "@isbatak/react-ui/button"
 import { useEffect, useState } from "react"
 
 import { Icon } from "../ui/icon"

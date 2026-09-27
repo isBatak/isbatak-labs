@@ -1,6 +1,6 @@
 import { Popover } from "@ark-ui/solid/popover"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { popover } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)

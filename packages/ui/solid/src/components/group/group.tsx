@@ -1,5 +1,5 @@
 import { dataAttr } from "@ark-ui/solid/utils"
-import { styled } from "@isbatak/ui-solid/jsx"
+import { styled } from "@isbatak/solid-ui/jsx"
 import { group } from "@isbatak/panda-ds/recipes"
 import { children, type ComponentProps, createRenderEffect, splitProps } from "solid-js"
 

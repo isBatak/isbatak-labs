@@ -1,6 +1,6 @@
 "use client"
 
-import { SegmentGroup } from "@isbatak/ui-react/segment-group"
+import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 
 import { useDocVariant } from "./doc-variant"
 import { createPreference } from "./preference"

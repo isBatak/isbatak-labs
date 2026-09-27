@@ -1,6 +1,6 @@
 import { Slider } from "@ark-ui/vue/slider"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(slider)

@@ -1,4 +1,4 @@
-import { createRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createRecipeContext } from "@isbatak/solid-ui/jsx"
 import { spinner } from "@isbatak/panda-ds/recipes"
 import type { ComponentProps } from "solid-js"
 

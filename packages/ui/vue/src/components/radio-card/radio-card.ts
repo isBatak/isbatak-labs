@@ -1,7 +1,7 @@
 import { RadioGroup, type RadioGroupContextProps, type RadioGroupItemContextProps } from "@ark-ui/vue/radio-group"
 import { h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { radioCard } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(radioCard)

@@ -1,10 +1,10 @@
-# @isbatak/ui-react
+# @isbatak/react-ui
 
 Styled [Ark UI](https://ark-ui.com) React components built on the [`@isbatak/panda-ds`](../../panda/ds) design system.
 
 ```tsx
-import { Button } from "@isbatak/ui-react/button"
-import { Tabs } from "@isbatak/ui-react/tabs"
+import { Button } from "@isbatak/react-ui/button"
+import { Tabs } from "@isbatak/react-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,

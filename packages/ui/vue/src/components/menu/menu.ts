@@ -1,6 +1,6 @@
 import { Menu } from "@ark-ui/vue/menu"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { menu } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(menu)

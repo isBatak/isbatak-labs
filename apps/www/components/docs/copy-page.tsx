@@ -1,8 +1,8 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
-import { Button, ButtonGroup } from "@isbatak/ui-react/button"
-import { Menu } from "@isbatak/ui-react/menu"
+import { Button, ButtonGroup } from "@isbatak/react-ui/button"
+import { Menu } from "@isbatak/react-ui/menu"
 import { useEffect, useState } from "react"
 
 import { Icon } from "../ui/icon"

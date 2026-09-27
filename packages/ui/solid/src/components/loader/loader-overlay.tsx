@@ -1,4 +1,4 @@
-import { styled } from "@isbatak/ui-solid/jsx"
+import { styled } from "@isbatak/solid-ui/jsx"
 import type { ComponentProps } from "solid-js"
 
 export const LoaderOverlay = styled("div", {

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@isbatak/ui-react/button"
+import { Button } from "@isbatak/react-ui/button"
 import { useTheme } from "next-themes"
 
 import { Icon } from "./ui/icon"

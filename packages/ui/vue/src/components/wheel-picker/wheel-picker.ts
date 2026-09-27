@@ -1,6 +1,6 @@
 import { WheelPicker } from "@isbatak/ark-wheel-picker/vue"
 import type { ComponentProps } from "vue-component-type-helpers"
-import { createSlotRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { wheelPicker } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(wheelPicker)

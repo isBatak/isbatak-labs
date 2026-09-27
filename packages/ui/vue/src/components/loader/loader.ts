@@ -1,4 +1,4 @@
-import { AbsoluteCenter, styled } from "@isbatak/ui-vue/jsx"
+import { AbsoluteCenter, styled } from "@isbatak/vue-ui/jsx"
 import { defineComponent, h, type PropType } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 

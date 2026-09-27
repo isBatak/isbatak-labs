@@ -1,9 +1,9 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/ui-react/button"
-import { Tooltip } from "@isbatak/ui-react/tooltip"
-import { Tour, useTour } from "@isbatak/ui-react/tour"
+import { Button } from "@isbatak/react-ui/button"
+import { Tooltip } from "@isbatak/react-ui/tooltip"
+import { Tour, useTour } from "@isbatak/react-ui/tour"
 import { type ReactNode, useEffect } from "react"
 
 import { Hint } from "../ui/hint"

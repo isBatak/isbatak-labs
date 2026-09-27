@@ -1,6 +1,6 @@
 import { RadioGroup, type RadioGroupContextProps, type RadioGroupItemContextProps } from "@ark-ui/solid/radio-group"
 import type { ComponentProps } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { radioCard } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(radioCard)

@@ -1,6 +1,6 @@
 import { ark, type HTMLArkProps } from "@ark-ui/solid/factory"
 import { dataAttr } from "@ark-ui/solid/utils"
-import { createRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createRecipeContext } from "@isbatak/solid-ui/jsx"
 import { button } from "@isbatak/panda-ds/recipes"
 import { type Component, type ComponentProps, type JSX, Show, splitProps } from "solid-js"
 

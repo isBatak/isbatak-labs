@@ -1,6 +1,6 @@
 import { ark, type HTMLArkProps } from "@ark-ui/vue/factory"
 import { dataAttr } from "@ark-ui/vue/utils"
-import { createRecipeContext } from "@isbatak/ui-vue/jsx"
+import { createRecipeContext } from "@isbatak/vue-ui/jsx"
 import { button } from "@isbatak/panda-ds/recipes"
 import { type FunctionalComponent, defineComponent, h, type PropType } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"

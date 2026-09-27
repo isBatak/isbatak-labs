@@ -508,7 +508,7 @@ importers:
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
-      '@isbatak/ui-react':
+      '@isbatak/react-ui':
         specifier: workspace:*
         version: link:../../packages/ui/react
       '@isbatak/zag-wheel-picker':

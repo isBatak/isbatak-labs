@@ -1,6 +1,6 @@
 import { WheelPicker } from "@isbatak/ark-wheel-picker/solid"
 import type { ComponentProps, JSX } from "solid-js"
-import { createSlotRecipeContext } from "@isbatak/ui-solid/jsx"
+import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { wheelPicker } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(wheelPicker)
