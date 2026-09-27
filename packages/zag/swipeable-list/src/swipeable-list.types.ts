@@ -81,9 +81,14 @@ export interface DragData {
   negativeWidth: number
 }
 
+export interface ActionsLayout {
+  width: number
+  stops: number[]
+}
+
 export interface ActionsWidths {
-  positive: number
-  negative: number
+  positive: ActionsLayout
+  negative: ActionsLayout
 }
 
 export interface ItemAnimation {
