@@ -1,13 +1,18 @@
+import { cx } from "@isbatak/panda-ds/css"
+import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
 import {
   formatOpenItem,
   formatSender,
   initialMessages,
   type Message,
+  swipeableListClasses as classes,
   type SwipeableListControls,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
 import { mergeProps, normalizeProps, useMachine } from "@zag-js/solid"
 import { For, createMemo, createSignal, createUniqueId } from "solid-js"
+
+const styles = swipeableListRecipe()
 
 export interface BasicProps extends Partial<SwipeableListControls> {
   onOpenItemChange?: (details: swipeableList.OpenItemChangeDetails) => void
@@ -35,33 +40,33 @@ export function Basic(props: BasicProps) {
   }
 
   return (
-    <main class="swipeable-list-story">
-      <ul {...api().getRootProps()}>
+    <main class={classes.story}>
+      <ul {...api().getRootProps()} class={styles.root}>
         <For each={messages()}>
           {(message) => (
-            <li {...api().getItemProps({ value: message.id })}>
-              <div {...api().getItemActionsProps({ value: message.id, side: "start" })}>
+            <li {...api().getItemProps({ value: message.id })} class={styles.item}>
+              <div {...api().getItemActionsProps({ value: message.id, side: "start" })} class={styles.itemActions}>
                 <button
                   {...mergeProps(api().getItemActionProps({ value: message.id, side: "start" }), {
                     onClick: () => update(message.id, { unread: !message.unread }),
                   })}
-                  data-tone="blue"
+                  class={cx(styles.itemAction, classes.blue)}
                 >
                   {message.unread ? "Read" : "Unread"}
                 </button>
               </div>
 
-              <div {...api().getItemContentProps({ value: message.id })}>
+              <div {...api().getItemContentProps({ value: message.id })} class={styles.itemContent}>
                 <strong>{formatSender(message)}</strong>
-                <span>{message.subject}</span>
+                <span class={classes.subject}>{message.subject}</span>
               </div>
 
-              <div {...api().getItemActionsProps({ value: message.id, side: "end" })}>
+              <div {...api().getItemActionsProps({ value: message.id, side: "end" })} class={styles.itemActions}>
                 <button
                   {...mergeProps(api().getItemActionProps({ value: message.id, side: "end" }), {
                     onClick: () => update(message.id, { flagged: !message.flagged }),
                   })}
-                  data-tone="amber"
+                  class={cx(styles.itemAction, classes.orange)}
                 >
                   {message.flagged ? "Unflag" : "Flag"}
                 </button>
@@ -69,7 +74,7 @@ export function Basic(props: BasicProps) {
                   {...mergeProps(api().getItemActionProps({ value: message.id, side: "end" }), {
                     onClick: () => remove(message.id),
                   })}
-                  data-tone="red"
+                  class={cx(styles.itemAction, classes.red)}
                 >
                   Delete
                 </button>

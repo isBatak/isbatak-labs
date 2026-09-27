@@ -639,6 +639,9 @@ importers:
 
   packages/panda/ds:
     dependencies:
+      '@isbatak/panda-swipeable-list':
+        specifier: workspace:*
+        version: link:../swipeable-list
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../wheel-picker
@@ -661,6 +664,15 @@ importers:
       react:
         specifier: 'catalog:'
         version: 19.3.0
+
+  packages/panda/swipeable-list:
+    devDependencies:
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(postcss@8.5.28)
+      '@pandacss/types':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18
 
   packages/panda/wheel-picker:
     devDependencies:

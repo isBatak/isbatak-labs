@@ -1,13 +1,17 @@
+import { swipeableList as swipeableListRecipe } from "@isbatak/panda-ds/recipes"
 import {
   formatOpenItem,
   formatSender,
   initialMessages,
   type Message,
+  swipeableListClasses as classes,
   type SwipeableListControls,
 } from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
 import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
 import { createElement, mount } from "../mount"
+
+const styles = swipeableListRecipe()
 
 export interface BasicProps extends Partial<SwipeableListControls> {
   onOpenItemChange?: (details: swipeableList.OpenItemChangeDetails) => void
@@ -16,8 +20,8 @@ export interface BasicProps extends Partial<SwipeableListControls> {
 
 export function createBasic(props: BasicProps) {
   const main = createElement(`
-    <main class="swipeable-list-story">
-      <ul class="swipeable-list-root"></ul>
+    <main class="${classes.story}">
+      <ul class="swipeable-list-root ${styles.root}"></ul>
       <output data-testid="open-item"></output>
       <output data-testid="log"></output>
     </main>
@@ -44,12 +48,14 @@ export function createBasic(props: BasicProps) {
 
   function createRow() {
     return createElement(`
-      <li>
-        <div class="start-actions"><button class="unread" data-tone="blue"></button></div>
-        <div class="content"><strong></strong><span></span></div>
-        <div class="end-actions">
-          <button class="flag" data-tone="amber"></button>
-          <button class="delete" data-tone="red">Delete</button>
+      <li class="${styles.item}">
+        <div class="start-actions ${styles.itemActions}">
+          <button class="unread ${styles.itemAction} ${classes.blue}"></button>
+        </div>
+        <div class="content ${styles.itemContent}"><strong></strong><span class="${classes.subject}"></span></div>
+        <div class="end-actions ${styles.itemActions}">
+          <button class="flag ${styles.itemAction} ${classes.orange}"></button>
+          <button class="delete ${styles.itemAction} ${classes.red}">Delete</button>
         </div>
       </li>
     `)
