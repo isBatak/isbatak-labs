@@ -106,8 +106,6 @@ export function connect<T extends PropTypes>(
           position: "relative",
           zIndex: 1,
           touchAction: itemState.disabled ? undefined : "pan-y",
-          userSelect: activeValue === props.value ? "none" : undefined,
-          WebkitUserSelect: activeValue === props.value ? "none" : undefined,
         },
         onPointerDown(event) {
           if (itemState.disabled || !isLeftClick(event)) return

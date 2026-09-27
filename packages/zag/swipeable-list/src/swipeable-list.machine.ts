@@ -53,16 +53,19 @@ export const machine = createMachine<SwipeableListSchema>({
       animations: new Map(),
       committing: new Set(),
       cleanupClickSuppression: null,
+      resizeObserver: null,
     }
   },
 
   entry: ["syncOffsetsImmediately"],
 
+  effects: ["trackActionsResize"],
+
   exit: ["stopAnimations", "cleanupClickSuppression"],
 
   watch({ track, action, context }) {
     track([() => context.hash("openItem")], () => {
-      action(["syncOffsets"])
+      action(["syncOffsets", "observeOpenItem"])
     })
   },
 
@@ -160,6 +163,20 @@ export const machine = createMachine<SwipeableListSchema>({
     },
 
     effects: {
+      trackActionsResize(params) {
+        const { scope, refs } = params
+        const win = scope.getWin()
+        if (!win.ResizeObserver) return
+
+        const observer = new win.ResizeObserver(() => pinOpenItem(params))
+        refs.set("resizeObserver", observer)
+        raf(() => observeOpenItem(params))
+
+        return () => {
+          observer.disconnect()
+          refs.set("resizeObserver", null)
+        }
+      },
       trackPointer({ scope, send, refs }) {
         const doc = scope.getDoc()
 
@@ -226,6 +243,7 @@ export const machine = createMachine<SwipeableListSchema>({
           negativeWidth: dom.getActionsWidth(scope, event.value, getSideFromSign(-1, prop("dir"))),
         })
         context.set("activeValue", event.value)
+        dom.setItemSelectable(scope, event.value, false)
       },
       startDragging({ event, prop, refs, scope }) {
         const drag = refs.get("drag")
@@ -292,7 +310,9 @@ export const machine = createMachine<SwipeableListSchema>({
         const drag = params.refs.get("drag")
         if (drag) settleItem(params, drag.value, 0)
       },
-      clearDrag({ context, refs }) {
+      clearDrag({ context, refs, scope }) {
+        const drag = refs.get("drag")
+        if (drag) dom.setItemSelectable(scope, drag.value, true)
         refs.set("drag", null)
         context.set("activeValue", null)
         context.set("armed", null)
@@ -316,6 +336,9 @@ export const machine = createMachine<SwipeableListSchema>({
           if (!openItem) return
           setOffset(scope, refs, openItem.value, dom.getRestOffset(scope, prop("dir"), openItem, openItem.value))
         })
+      },
+      observeOpenItem(params) {
+        observeOpenItem(params)
       },
       stopAnimations({ refs }) {
         for (const animation of refs.get("animations").values()) animation.stop()
@@ -356,6 +379,27 @@ function setOffset(scope: MachineParams["scope"], refs: MachineParams["refs"], v
   if (offset === 0) refs.get("offsets").delete(value)
   else refs.get("offsets").set(value, offset)
   dom.setItemOffset(scope, value, offset)
+}
+
+function observeOpenItem({ context, refs, scope }: MachineParams) {
+  const observer = refs.get("resizeObserver")
+  if (!observer) return
+  observer.disconnect()
+
+  const openItem = context.get("openItem")
+  if (!openItem) return
+
+  for (const side of ["start", "end"] as const) {
+    const actionsEl = dom.getItemActionsEl(scope, openItem.value, side)
+    for (const actionEl of dom.getActionEls(actionsEl)) observer.observe(actionEl)
+  }
+}
+
+function pinOpenItem({ context, prop, refs, scope, state }: MachineParams) {
+  const openItem = context.get("openItem")
+  if (!openItem || !state.matches("idle")) return
+  if (refs.get("animations").has(openItem.value) || refs.get("committing").has(openItem.value)) return
+  setOffset(scope, refs, openItem.value, dom.getRestOffset(scope, prop("dir"), openItem, openItem.value))
 }
 
 function stopAnimation({ refs }: MachineParams, value: string) {
