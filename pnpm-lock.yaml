@@ -252,6 +252,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -360,6 +363,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -397,6 +403,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -437,6 +446,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -462,6 +474,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker

@@ -1,31 +1,15 @@
+import {
+  formatOpenItem,
+  formatSender,
+  initialMessages,
+  type Message,
+  type SwipeableListControls,
+} from "@isbatak/storybook-shared"
 import * as swipeableList from "@isbatak/zag-swipeable-list"
 import { mergeProps, normalizeProps, useMachine } from "@zag-js/react"
 import { useId, useState } from "react"
 
-interface Message {
-  id: string
-  from: string
-  subject: string
-  unread: boolean
-  flagged: boolean
-}
-
-const initialMessages: Message[] = [
-  { id: "1", from: "Ada Lovelace", subject: "Notes on the analytical engine", unread: true, flagged: false },
-  { id: "2", from: "Alan Turing", subject: "Re: Computable numbers", unread: false, flagged: true },
-  { id: "3", from: "Grace Hopper", subject: "Found a moth in relay #70", unread: true, flagged: false },
-  { id: "4", from: "Edsger Dijkstra", subject: "Go To statement considered harmful", unread: false, flagged: false },
-  { id: "5", from: "Barbara Liskov", subject: "Substitution, a proposal", unread: false, flagged: false },
-]
-
-export interface BasicProps {
-  dir?: "ltr" | "rtl"
-  disabled?: boolean
-  fullSwipe?: boolean
-  fullSwipeThreshold?: number
-  threshold?: number
-  snapBounce?: number
-  resistance?: number
+export interface BasicProps extends Partial<SwipeableListControls> {
   onOpenItemChange?: (details: swipeableList.OpenItemChangeDetails) => void
   onFullSwipe?: (details: swipeableList.FullSwipeDetails) => void
 }
@@ -36,7 +20,6 @@ export function Basic(props: BasicProps) {
 
   const service = useMachine(swipeableList.machine, {
     id: useId(),
-    fullSwipe: true,
     ...props,
   })
 
@@ -68,11 +51,7 @@ export function Basic(props: BasicProps) {
             </div>
 
             <div {...api.getItemContentProps({ value: message.id })}>
-              <strong>
-                {message.unread ? "● " : ""}
-                {message.from}
-                {message.flagged ? " ⚑" : ""}
-              </strong>
+              <strong>{formatSender(message)}</strong>
               <span>{message.subject}</span>
             </div>
 
@@ -98,9 +77,7 @@ export function Basic(props: BasicProps) {
         ))}
       </ul>
 
-      <output data-testid="open-item">
-        Open: {api.openItem ? `${api.openItem.value} (${api.openItem.side})` : "none"}
-      </output>
+      <output data-testid="open-item">{formatOpenItem(api.openItem)}</output>
       <output data-testid="log">{log}</output>
     </main>
   )
