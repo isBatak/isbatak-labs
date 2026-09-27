@@ -1,0 +1,32 @@
+{
+  "name": "@isbatak/ui-svelte",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ark UI Svelte components styled with @isbatak/panda-ds",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./*": {
+      "types": "./src/components/*/index.ts",
+      "svelte": "./src/components/*/index.ts",
+      "default": "./src/components/*/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
+  },
+  "dependencies": {
+    "@ark-ui/svelte": "5.24.2",
+    "@isbatak/ark-wheel-picker": "workspace:*",
+    "@isbatak/panda-ds": "workspace:*"
+  },
+  "peerDependencies": {
+    "svelte": ">=5.40.0"
+  },
+  "devDependencies": {
+    "svelte": "^5.57.1",
+    "svelte-check": "^4.7.6"
+  }
+}
