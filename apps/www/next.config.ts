@@ -42,6 +42,7 @@ const nextConfig: NextConfig = {
       ...codeInspectorPlugin({
         bundler: "turbopack",
         injectTo: resolve("components/providers.tsx"),
+        exclude: ["/packages/"],
       }),
       "./app/**/*.tsx": pandaLoader,
       "./components/**/*.tsx": pandaLoader,
