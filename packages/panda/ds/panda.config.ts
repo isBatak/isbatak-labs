@@ -1,7 +1,7 @@
 import { defineConfig } from "@pandacss/dev"
 import { typographyPreset } from "@pandacss/preset-typography"
 
-import { conditions, globalCss, theme, utilities } from "./src/theme"
+import { conditions, globalCss, patterns, theme, utilities } from "./src/theme"
 
 export default defineConfig({
   presets: [
@@ -23,5 +23,8 @@ export default defineConfig({
     extend: utilities,
   },
   globalCss,
+  patterns: {
+    extend: patterns,
+  },
   theme,
 })

@@ -32,4 +32,5 @@ export const theme = defineThemeVariant({
 
 export { conditions } from "./conditions"
 export { globalCss } from "./global-css"
+export { patterns } from "./patterns"
 export { utilities } from "./utilities"
