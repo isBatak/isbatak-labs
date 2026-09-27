@@ -45,3 +45,6 @@ export type PopoverBodyProps = ComponentProps<typeof PopoverBody>
 
 export const PopoverFooter = withContext("div", "footer")
 export type PopoverFooterProps = ComponentProps<typeof PopoverFooter>
+
+export const PopoverContext = Popover.Context
+export type PopoverContextProps = Popover.ContextProps

@@ -1,4 +1,14 @@
-export { MenuRoot, MenuTrigger, MenuPositioner, MenuContent, MenuItem, MenuItemText, MenuSeparator } from "./menu"
+export {
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuItemText,
+  MenuSeparator,
+  MenuContext,
+  MenuItemContext,
+} from "./menu"
 
 export type {
   MenuRootProps,
@@ -8,6 +18,8 @@ export type {
   MenuItemProps,
   MenuItemTextProps,
   MenuSeparatorProps,
+  MenuContextProps,
+  MenuItemContextProps,
 } from "./menu"
 
 export { useMenu, useMenuContext } from "@ark-ui/react/menu"

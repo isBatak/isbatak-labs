@@ -6,6 +6,8 @@ export {
   SelectItem as Item,
   SelectItemText as ItemText,
   SelectItemIndicator as ItemIndicator,
+  SelectContext as Context,
+  SelectItemContext as ItemContext,
 } from "./select"
 
 export type {
@@ -16,4 +18,6 @@ export type {
   SelectItemProps as ItemProps,
   SelectItemTextProps as ItemTextProps,
   SelectItemIndicatorProps as ItemIndicatorProps,
+  SelectContextProps as ContextProps,
+  SelectItemContextProps as ItemContextProps,
 } from "./select"

@@ -5,6 +5,8 @@ export {
   AccordionItemContent as ItemContent,
   AccordionItemIndicator as ItemIndicator,
   AccordionItemBody as ItemBody,
+  AccordionContext as Context,
+  AccordionItemContext as ItemContext,
 } from "./accordion"
 
 export type {
@@ -14,6 +16,8 @@ export type {
   AccordionItemContentProps as ItemContentProps,
   AccordionItemIndicatorProps as ItemIndicatorProps,
   AccordionItemBodyProps as ItemBodyProps,
+  AccordionContextProps as ContextProps,
+  AccordionItemContextProps as ItemContextProps,
 } from "./accordion"
 
 export type { AccordionValueChangeDetails as ValueChangeDetails } from "@ark-ui/react/accordion"

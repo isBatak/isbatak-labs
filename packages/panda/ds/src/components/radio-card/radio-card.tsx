@@ -1,6 +1,6 @@
 "use client"
 
-import { RadioGroup } from "@ark-ui/react/radio-group"
+import { RadioGroup, type RadioGroupContextProps, type RadioGroupItemContextProps } from "@ark-ui/react/radio-group"
 import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { radioCard } from "@isbatak/panda-ds/recipes"
@@ -40,3 +40,9 @@ export const RadioCardItemAddon = withContext("div", "itemAddon")
 export type RadioCardItemAddonProps = ComponentProps<typeof RadioCardItemAddon>
 
 export const RadioCardItemHiddenInput = RadioGroup.ItemHiddenInput
+
+export const RadioCardContext = RadioGroup.Context
+export type RadioCardContextProps = RadioGroupContextProps
+
+export const RadioCardItemContext = RadioGroup.ItemContext
+export type RadioCardItemContextProps = RadioGroupItemContextProps

@@ -12,6 +12,7 @@ export {
   PopoverHeader as Header,
   PopoverBody as Body,
   PopoverFooter as Footer,
+  PopoverContext as Context,
 } from "./popover"
 
 export type {
@@ -28,6 +29,7 @@ export type {
   PopoverHeaderProps as HeaderProps,
   PopoverBodyProps as BodyProps,
   PopoverFooterProps as FooterProps,
+  PopoverContextProps as ContextProps,
 } from "./popover"
 
 export type { PopoverOpenChangeDetails as OpenChangeDetails } from "@ark-ui/react/popover"

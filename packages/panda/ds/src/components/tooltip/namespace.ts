@@ -5,6 +5,7 @@ export {
   TooltipContent as Content,
   TooltipArrow as Arrow,
   TooltipArrowTip as ArrowTip,
+  TooltipContext as Context,
 } from "./tooltip"
 
 export type {
@@ -14,4 +15,5 @@ export type {
   TooltipContentProps as ContentProps,
   TooltipArrowProps as ArrowProps,
   TooltipArrowTipProps as ArrowTipProps,
+  TooltipContextProps as ContextProps,
 } from "./tooltip"

@@ -23,3 +23,9 @@ export const SegmentGroupItemControl = withContext(SegmentGroup.ItemControl, "it
 export type SegmentGroupItemControlProps = ComponentProps<typeof SegmentGroupItemControl>
 
 export const SegmentGroupItemHiddenInput = SegmentGroup.ItemHiddenInput
+
+export const SegmentGroupContext = SegmentGroup.Context
+export type SegmentGroupContextProps = SegmentGroup.ContextProps
+
+export const SegmentGroupItemContext = SegmentGroup.ItemContext
+export type SegmentGroupItemContextProps = SegmentGroup.ItemContextProps

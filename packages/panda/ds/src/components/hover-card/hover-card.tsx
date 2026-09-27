@@ -24,3 +24,6 @@ export type HoverCardArrowProps = ComponentProps<typeof HoverCardArrow>
 
 export const HoverCardArrowTip = withContext(HoverCard.ArrowTip, "arrowTip")
 export type HoverCardArrowTipProps = ComponentProps<typeof HoverCardArrowTip>
+
+export const HoverCardContext = HoverCard.Context
+export type HoverCardContextProps = HoverCard.ContextProps
