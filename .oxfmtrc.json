@@ -9,5 +9,5 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "sortPackageJson": false,
-  "ignorePatterns": []
+  "ignorePatterns": ["apps/www/AGENTS.md"]
 }
