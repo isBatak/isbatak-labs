@@ -70,7 +70,7 @@
   "scripts": {
     "codegen": "panda codegen",
     "build": "panda codegen && panda lib -o dist && tsup",
-    "typecheck": "panda codegen && tsc --noEmit"
+    "typecheck": "panda codegen && panda lib -o dist && tsc --noEmit"
   },
   "publishConfig": {
     "access": "public",
