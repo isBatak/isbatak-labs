@@ -39,8 +39,18 @@ import { Button } from "@isbatak/panda-ds/components/button"
 import { Tabs } from "@isbatak/panda-ds/components/tabs"
 ```
 
-Available: `accordion`, `badge`, `button`, `hover-card`, `menu`, `popover`, `radio-card`, `segment-group`, `select`,
-`slider`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
+`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+
+`button` also exports `IconButton`, `CloseButton` and `ButtonGroup`, which passes its `size` and `variant` to the
+buttons inside it:
+
+```tsx
+<ButtonGroup size="sm" variant="outline" attached>
+  <Button>Previous</Button>
+  <Button loading>Next</Button>
+</ButtonGroup>
+```
 
 ## License
 
