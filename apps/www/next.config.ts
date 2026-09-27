@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
       { source: "/components/:slug.md", destination: "/md/components/:slug" },
       { source: "/components/:slug/:section.md", destination: "/md/components/:slug/:section" },
       {
+        source: "/components/:slug/:framework/:styling",
+        destination: "/md/components/:slug",
+        has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
+      },
+      {
         source: "/components/:path+",
         destination: "/md/components/:path+",
         has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],

@@ -1,17 +1,14 @@
 import type { Component } from "#site/content"
 import { Button } from "@isbatak/panda-ds/components/button"
 import Link from "next/link"
+import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { ExamplePreview } from "../examples/example-preview"
 import { PreviewProvider } from "../examples/preview-context"
-import { MDXContent } from "../mdx-content"
 import { Icon } from "../ui/icon"
-import { Prose } from "../ui/prose"
 import { CopyPage } from "./copy-page"
-import { DocFooter } from "./doc-footer"
 import { DocLinks } from "./doc-links"
-import { ExampleSource } from "./framework-code"
 import { markdownPath } from "./markdown"
 
 const BreadcrumbLink = styled(Link, {
@@ -23,16 +20,15 @@ const BreadcrumbLink = styled(Link, {
 
 interface DocPageProps {
   component: Component
-  title: string
-  description?: string | undefined
-  preview?: string | undefined
-  code: string
+  children: ReactNode
 }
 
-export function DocPage({ component, title, description, preview, code }: DocPageProps) {
+export function DocPage({ component, children }: DocPageProps) {
+  const { title, description, preview } = component
+
   return (
     // Docs on the left, a sticky preview on the right. On small screens the preview sits between the intro and the content.
-    <PreviewProvider defaultId={preview} defaultSource={preview && <ExampleSource id={preview} />}>
+    <PreviewProvider defaultId={preview}>
       <styled.div
         data-preview={preview ? "" : undefined}
         display="grid"
@@ -108,10 +104,7 @@ export function DocPage({ component, title, description, preview, code }: DocPag
           pb="24"
           maxW="calc({sizes.2xl} + {spacing.20})"
         >
-          <Prose>
-            <MDXContent code={code} />
-          </Prose>
-          <DocFooter component={component} />
+          {children}
         </styled.main>
       </styled.div>
     </PreviewProvider>

@@ -10,6 +10,7 @@
     "velite.config.ts",
     "ikona.config.ts",
     "next.config.ts",
+    "proxy.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"],
