@@ -694,6 +694,25 @@ importers:
         specifier: ^1.9.15
         version: 1.9.15
 
+  packages/ui/svelte:
+    dependencies:
+      '@ark-ui/svelte':
+        specifier: 5.24.2
+        version: 5.24.2(svelte@5.57.1)
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      svelte:
+        specifier: ^5.57.1
+        version: 5.57.1
+      svelte-check:
+        specifier: ^4.7.6
+        version: 4.7.6(picomatch@4.0.7)(svelte@5.57.1)(typescript@6.0.3)
+
   packages/ui/vue:
     dependencies:
       '@ark-ui/vue':
