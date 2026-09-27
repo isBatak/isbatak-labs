@@ -11,7 +11,7 @@ Swipe a list item to reveal actions on either side, like Mail on iOS. Inspired b
 - Actions on the `start` and/or `end` side, RTL aware
 - Full swipe runs the outermost action of a side
 - Rubber-band resistance and a flick spring (`snapBounce`)
-- Keyboard (`ArrowLeft`, `ArrowRight`, `Escape`) and click-outside dismissal
+- Keyboard (`ArrowLeft`, `ArrowRight`, `Escape`), click-outside and scroll dismissal
 
 ## Installation
 
@@ -36,11 +36,14 @@ Use `swipeableList.machine` and `swipeableList.connect` with the Zag adapter for
 
 ## Styling
 
-- `itemContent` needs an opaque background, it covers the actions while closed.
+- `itemActions` is clipped to the revealed distance (`--swipe-start-distance` / `--swipe-end-distance`), so
+  `itemContent` can stay transparent.
 - `itemAction` needs a width, the actions are measured to decide how far an item opens.
 - The outermost action of a side is the first `start` action or the last `end` action. Grow it while
   `[data-part=item-actions][data-armed]` to flood the row during a full swipe.
 - The item exposes the live offset as the `--swipe-offset` CSS variable.
+- Every action gets `--swipe-action-progress` (0 to 1). Actions fill in one after another from the outer edge, so
+  scaling an action by it reveals them in sequence.
 
 ## License
 

@@ -192,14 +192,24 @@ export const machine = createMachine<SwipeableListSchema>({
       },
 
       trackInteractOutside({ scope, send, context }) {
-        function onPointerDown(event: PointerEvent) {
+        function isOutside(event: Event) {
           const openItem = context.get("openItem")
-          if (!openItem) return
-          if (contains(dom.getItemEl(scope, openItem.value), getEventTarget(event))) return
-          send({ type: "INTERACT_OUTSIDE" })
+          return !!openItem && !contains(dom.getItemEl(scope, openItem.value), getEventTarget(event))
         }
 
-        return addDomEvent(scope.getDoc(), "pointerdown", onPointerDown, { capture: true })
+        function onPointerDown(event: PointerEvent) {
+          if (isOutside(event)) send({ type: "INTERACT_OUTSIDE" })
+        }
+
+        function onScroll(event: Event) {
+          if (isOutside(event)) send({ type: "INTERACT_OUTSIDE" })
+        }
+
+        const doc = scope.getDoc()
+        return callAll(
+          addDomEvent(doc, "pointerdown", onPointerDown, { capture: true }),
+          addDomEvent(doc, "scroll", onScroll, { capture: true, passive: true }),
+        )
       },
     },
 
@@ -225,8 +235,8 @@ export const machine = createMachine<SwipeableListSchema>({
           samples: [],
           fullSwipe: event.fullSwipe,
           itemWidth: dom.getItemEl(scope, event.value)?.offsetWidth ?? 0,
-          positiveWidth: widths.positive,
-          negativeWidth: widths.negative,
+          positiveWidth: widths.positive.width,
+          negativeWidth: widths.negative.width,
         })
         context.set("activeValue", event.value)
         dom.setItemSelectable(scope, event.value, false)
@@ -362,8 +372,8 @@ function getArmedSide(drag: DragData, offset: number, threshold: number, dir: Sw
 function measureItem({ prop, refs, scope }: MachineParams, value: string) {
   const dir = prop("dir")
   const widths = {
-    positive: dom.getActionsWidth(scope, value, getSideFromSign(1, dir)),
-    negative: dom.getActionsWidth(scope, value, getSideFromSign(-1, dir)),
+    positive: dom.measureActions(scope, value, getSideFromSign(1, dir), dir),
+    negative: dom.measureActions(scope, value, getSideFromSign(-1, dir), dir),
   }
   refs.get("widths").set(value, widths)
   return widths
@@ -374,7 +384,7 @@ function getRestOffset(params: MachineParams, value: string) {
   if (openItem?.value !== value) return 0
   const sign = getSideSign(openItem.side, params.prop("dir"))
   const widths = params.refs.get("widths").get(value) ?? measureItem(params, value)
-  return sign * (sign > 0 ? widths.positive : widths.negative)
+  return sign * (sign > 0 ? widths.positive : widths.negative).width
 }
 
 function setOffset(params: MachineParams, value: string, offset: number) {
@@ -388,9 +398,9 @@ function setOffset(params: MachineParams, value: string, offset: number) {
 
   refs.get("offsets").set(value, offset)
   const widths = refs.get("widths").get(value) ?? measureItem(params, value)
-  const width = offset > 0 ? widths.positive : widths.negative
-  const progress = width <= 0 ? 0 : Math.abs(offset) / width
-  dom.setItemOffset(scope, value, offset, Math.round(progress * 1000) / 1000, params.prop("dir"))
+  const layout = offset > 0 ? widths.positive : widths.negative
+  const progress = layout.width <= 0 ? 0 : Math.abs(offset) / layout.width
+  dom.setItemOffset(scope, value, offset, Math.round(progress * 1000) / 1000, params.prop("dir"), layout)
 }
 
 function stopAnimation({ refs }: MachineParams, value: string) {

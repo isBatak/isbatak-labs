@@ -141,7 +141,7 @@ export function connect<T extends PropTypes>(
           display: "flex",
           boxSizing: "border-box",
           overflow: "hidden",
-          width: `var(--swipe-${props.side}-distance, 0px)`,
+          width: `var(${dom.DISTANCE_VAR[props.side]}, 0px)`,
           [props.side === "start" ? "insetInlineStart" : "insetInlineEnd"]: 0,
         },
       })
