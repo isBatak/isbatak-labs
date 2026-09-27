@@ -46,11 +46,10 @@ export const usePreview = () => useContext(PreviewContext)
 
 interface PreviewProviderProps {
   defaultId: string | undefined
-  defaultSource: ReactNode
   children: ReactNode
 }
 
-export function PreviewProvider({ defaultId, defaultSource, children }: PreviewProviderProps) {
+export function PreviewProvider({ defaultId, children }: PreviewProviderProps) {
   const isDesktop = useIsDesktop()
   const [activeId, setActiveId] = useState(defaultId)
   const [sources, setSources] = useState<Record<string, ReactNode>>({})
@@ -104,11 +103,17 @@ export function PreviewProvider({ defaultId, defaultSource, children }: PreviewP
     }
   }, [isDesktop, triggerCount, defaultId])
 
-  const activeSource = activeId === defaultId ? defaultSource : activeId && sources[activeId]
+  const activeSource = activeId && sources[activeId]
 
   return (
     <PreviewContext value={{ defaultId, activeId, activeSource, registerSource, registerTrigger }}>
       {children}
     </PreviewContext>
   )
+}
+
+export function PreviewSource({ id, source }: { id: string; source: ReactNode }) {
+  const { registerSource } = usePreview()
+  useEffect(() => registerSource(id, source), [id, source, registerSource])
+  return null
 }
