@@ -1,5 +1,5 @@
 import manifest from "@isbatak/compositions/manifest.json"
-import { Tabs } from "@isbatak/panda-ds/components/tabs"
+import { Tabs } from "@isbatak/react-ui/tabs"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 

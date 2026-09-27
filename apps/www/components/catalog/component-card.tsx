@@ -1,4 +1,4 @@
-import { Badge } from "@isbatak/panda-ds/components/badge"
+import { Badge } from "@isbatak/react-ui/badge"
 import { styled } from "styled-system/jsx"
 
 import { DocLink } from "../docs/doc-link"

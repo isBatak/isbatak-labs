@@ -508,6 +508,9 @@ importers:
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
+      '@isbatak/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/react
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -618,16 +621,10 @@ importers:
 
   packages/panda/ds:
     dependencies:
-      '@isbatak/ark-wheel-picker':
-        specifier: workspace:*
-        version: link:../../ark/wheel-picker
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../wheel-picker
     devDependencies:
-      '@ark-ui/react':
-        specifier: 5.39.2
-        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(postcss@8.5.28)
@@ -643,15 +640,9 @@ importers:
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0
-      '@zag-js/react':
-        specifier: 'catalog:'
-        version: 1.44.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: 'catalog:'
         version: 19.3.0
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.3.0(react@19.3.0)
 
   packages/panda/wheel-picker:
     devDependencies:
@@ -661,6 +652,91 @@ importers:
       '@pandacss/types':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
+
+  packages/ui/react:
+    dependencies:
+      '@ark-ui/react':
+        specifier: 5.39.2
+        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+
+  packages/ui/solid:
+    dependencies:
+      '@ark-ui/solid':
+        specifier: 5.39.2
+        version: 5.39.2(solid-js@1.9.15)
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(postcss@8.5.28)
+      '@pandacss/preset-base':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18
+      solid-js:
+        specifier: ^1.9.15
+        version: 1.9.15
+
+  packages/ui/svelte:
+    dependencies:
+      '@ark-ui/svelte':
+        specifier: 5.24.2
+        version: 5.24.2(svelte@5.57.1)
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      svelte:
+        specifier: ^5.57.1
+        version: 5.57.1
+      svelte-check:
+        specifier: ^4.7.6
+        version: 4.7.6(picomatch@4.0.7)(svelte@5.57.1)(typescript@6.0.3)
+
+  packages/ui/vue:
+    dependencies:
+      '@ark-ui/vue':
+        specifier: 5.39.2
+        version: 5.39.2(vue@3.5.43(typescript@6.0.3))
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../ark/wheel-picker
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(postcss@8.5.28)
+      '@pandacss/preset-base':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18
+      vue:
+        specifier: ^3.5.43
+        version: 3.5.43(typescript@6.0.3)
+      vue-component-type-helpers:
+        specifier: ^3.3.11
+        version: 3.3.11
 
   packages/zag/wheel-picker:
     dependencies:
