@@ -39,18 +39,18 @@ to list them yourself.
 
 ## Options
 
-| Option       | Default                            | Description                                                 |
-| ------------ | ---------------------------------- | ----------------------------------------------------------- |
-| `injectTo`   |                                    | Absolute path of the module the browser client is added to. |
-| `exclude`    | `[]`                               | Path fragments to skip. `node_modules` is always skipped.   |
-| `hotKeys`    | `["metaKey", "shiftKey"]` on macOS | Keys held together to inspect.                              |
-| `editor`     | detected                           | Editor to open, for example `code`, `cursor` or `webstorm`. |
-| `port`       | `5678`                             | First port tried for the local open-in-editor server.       |
-| `root`       | `process.cwd()`                    | Directory recorded paths are relative to.                   |
-| `attribute`  | `data-sourcery`                    | Attribute written on each element.                          |
-| `enabled`    | `true` in `next dev`               | Force sourcery on or off.                                   |
-| `ignoreTags` | `[]`                               | Extra element or component names to leave untagged.         |
-| `panda`      | `false`                            | Record Panda component definitions, see above.              |
+| Option       | Default                            | Description                                                    |
+| ------------ | ---------------------------------- | -------------------------------------------------------------- |
+| `injectTo`   |                                    | Absolute path of the module the browser client is added to.    |
+| `exclude`    | `[]`                               | Path fragments to skip. `node_modules` is always skipped.      |
+| `hotKeys`    | `["metaKey", "shiftKey"]` on macOS | Keys held together to inspect.                                 |
+| `editor`     | detected                           | Editor id (`code`, `cursor`, `zed`, `webstorm`, …) or command. |
+| `port`       | `5678`                             | First port tried for the local open-in-editor server.          |
+| `root`       | `process.cwd()`                    | Directory recorded paths are relative to.                      |
+| `attribute`  | `data-sourcery`                    | Attribute written on each element.                             |
+| `enabled`    | `true` in `next dev`               | Force sourcery on or off.                                      |
+| `ignoreTags` | `[]`                               | Extra element or component names to leave untagged.            |
+| `panda`      | `false`                            | Record Panda component definitions, see above.                 |
 
 ## How it works
 
@@ -60,7 +60,10 @@ to list them yourself.
   spread their props.
 - **Client**: added to `injectTo`. While the hotkeys are held it outlines the element under the pointer, and a click
   sends its location to the local server instead of reaching the page.
-- **Server**: listens on `127.0.0.1` and opens the file with [launch-ide](https://github.com/zh-lx/launch-ide).
+- **Server**: listens on `127.0.0.1` and opens the file in your editor. The editor comes from the `editor` option or
+  `SOURCERY_EDITOR`, then from the terminal the dev server was started in (VS Code, Cursor, Windsurf, Zed, JetBrains…),
+  then from the apps that are running, then `VISUAL` / `EDITOR`. On macOS, editors with a URL scheme (`vscode://`,
+  `cursor://`, `zed://`, …) are opened through it, so their command-line tool does not need to be installed.
 
 The core knows nothing about bundlers. `@isbatak/sourcery/webpack` and `@isbatak/sourcery/turbopack` expose the rules
 the Next.js adapter is built from, and other tools can be supported by wiring `@isbatak/sourcery/loader` or
@@ -68,7 +71,8 @@ the Next.js adapter is built from, and other tools can be supported by wiring `@
 
 ## Credits
 
-Inspired by [code-inspector-plugin](https://github.com/zh-lx/code-inspector) by zh-lx.
+Inspired by [code-inspector-plugin](https://github.com/zh-lx/code-inspector) and
+[launch-ide](https://github.com/zh-lx/launch-ide) by zh-lx.
 
 ## License
 

@@ -11,7 +11,7 @@ export interface SourceryOptions {
   exclude?: string[] | undefined
   /** Keys held together to start inspecting. @default ["metaKey", "shiftKey"] on macOS, ["ctrlKey", "shiftKey"] elsewhere */
   hotKeys?: HotKey[] | undefined
-  /** Editor to open, passed to launch-ide. Detected from running processes when unset. */
+  /** Editor to open: a known id (`code`, `cursor`, `zed`, `webstorm`, …), a command or a path. Detected when unset. */
   editor?: string | undefined
   /** First port tried for the local open-in-editor server. @default 5678 */
   port?: number | undefined
