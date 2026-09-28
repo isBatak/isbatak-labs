@@ -2,7 +2,7 @@ import fs from "node:fs"
 import http from "node:http"
 import path from "node:path"
 import { styleText } from "node:util"
-import { type Editor, launchIDE } from "launch-ide"
+import { launchEditor } from "./editor/launch"
 import { formatHotKeys, getDefaultHotKeys } from "./hot-keys"
 import type { ResolvedOptions } from "./options"
 
@@ -62,24 +62,13 @@ function handleRequest(request: http.IncomingMessage, response: http.ServerRespo
     return
   }
 
-  withoutElectronNode(() =>
-    launchIDE({
+  launchEditor(
+    {
       file,
       line: Number(url.searchParams.get("line")) || 1,
       column: Number(url.searchParams.get("column")) || 1,
-      rootDir: options.root,
-      ...(options.editor ? { editor: options.editor as Editor } : {}),
-    }),
+    },
+    options.editor,
   )
   response.writeHead(204).end()
-}
-
-function withoutElectronNode(run: () => void) {
-  const electronRunAsNode = process.env.ELECTRON_RUN_AS_NODE
-  delete process.env.ELECTRON_RUN_AS_NODE
-  try {
-    run()
-  } finally {
-    if (electronRunAsNode !== undefined) process.env.ELECTRON_RUN_AS_NODE = electronRunAsNode
-  }
 }

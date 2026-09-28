@@ -81,7 +81,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "launch-ide": "1.4.10",
     "magic-string": "^0.30.21",
     "oxc-parser": "^0.127.0"
   },
