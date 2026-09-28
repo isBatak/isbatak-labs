@@ -9,7 +9,7 @@ import { Example, ExampleSource, FrameworkInstall, Installation } from "./docs/f
 import { FrameworkHint } from "./docs/framework-hint"
 import type { DocVariant } from "./docs/variant"
 
-type MDXComponents = Record<string, ComponentType<any>>
+export type MDXComponents = Record<string, ComponentType<any>>
 
 function Pre({ children }: { children?: ReactNode }) {
   if (!isValidElement<{ children?: ReactNode; className?: string }>(children)) return <pre>{children}</pre>
@@ -63,11 +63,11 @@ function getMDXComponent(code: string): ComponentType<{ components?: MDXComponen
 
 interface MDXContentProps {
   code: string
-  variant: DocVariant
+  variant?: DocVariant
   components?: MDXComponents
 }
 
 export function MDXContent({ code, variant, components }: MDXContentProps) {
   const Component = getMDXComponent(code)
-  return <Component components={{ ...sharedComponents, ...variantComponents(variant), ...components }} />
+  return <Component components={{ ...sharedComponents, ...(variant && variantComponents(variant)), ...components }} />
 }
