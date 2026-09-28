@@ -536,6 +536,9 @@ importers:
       '@ikona/cli':
         specifier: 0.2.1
         version: 0.2.1
+      '@isbatak/sourcery':
+        specifier: workspace:*
+        version: link:../../packages/tools/sourcery
       '@pandacss/compiler':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)
@@ -557,9 +560,6 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
-      code-inspector-plugin:
-        specifier: 2.0.9
-        version: 2.0.9(supports-color@7.2.0)
       velite:
         specifier: 0.4.0
         version: 0.4.0(supports-color@7.2.0)
@@ -652,6 +652,28 @@ importers:
       '@pandacss/types':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
+
+  packages/tools/sourcery:
+    dependencies:
+      chalk:
+        specifier: 4.1.1
+        version: 4.1.1
+      launch-ide:
+        specifier: 1.4.10
+        version: 1.4.10
+      magic-string:
+        specifier: ^0.30.21
+        version: 0.30.21
+      oxc-parser:
+        specifier: ^0.127.0
+        version: 0.127.0
+      portfinder:
+        specifier: ^1.0.38
+        version: 1.0.38(supports-color@7.2.0)
+    devDependencies:
+      next:
+        specifier: 16.3.6
+        version: 16.3.6(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@25.9.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
   packages/ui/react:
     dependencies:
@@ -1013,35 +1035,6 @@ packages:
   '@clack/prompts@1.8.1':
     resolution: {integrity: sha512-dlT1m5e/0yUL0kRNcQn7yGLVThkgbB0Ga/1AmfDDC/8ik6AIiSf2QLQO2zPYvefsHP0aFgxO93cVLCCfDp7kzQ==}
     engines: {node: '>= 20.12.0'}
-
-  '@code-inspector/core@2.0.9':
-    resolution: {integrity: sha512-7WkUlXfpwM95+KY5ra3KyivQGy0fUBq9dFcoI481LJKKnZNzwRW6kUkQF2hVP7zTj8TDy5esCMw8YuOwI8HhsQ==}
-    peerDependencies:
-      '@anthropic-ai/claude-agent-sdk': ^0.2.29
-      '@openai/codex-sdk': ^0.106.0
-      '@opencode-ai/sdk': ^1.2.24
-    peerDependenciesMeta:
-      '@anthropic-ai/claude-agent-sdk':
-        optional: true
-      '@openai/codex-sdk':
-        optional: true
-      '@opencode-ai/sdk':
-        optional: true
-
-  '@code-inspector/esbuild@2.0.9':
-    resolution: {integrity: sha512-uiddojMyD4HUtJ8pVq4/Iu0AgILaRZoe/zXJUK2ibqWdP6XtjIWCTLfvDL8IO9tOOxuEi+0SsRwr/Y8CEN5sTQ==}
-
-  '@code-inspector/mako@2.0.9':
-    resolution: {integrity: sha512-HGb8oHXEj2fGnD5AtdUzFhMXkuRAXenKT1iCV53B8gFgiV5ddSrln+/mPQZt3v3FTu3TyQNd3aaHtPpSW+B0vg==}
-
-  '@code-inspector/turbopack@2.0.9':
-    resolution: {integrity: sha512-uNTPCkDxS+4htXOKTJf+yEjYqKDFLIczILQ41dMqD5z9rbSDJkU/bvMs+8RcGUks0f7cB+TtRQyQCfwoFW1atA==}
-
-  '@code-inspector/vite@2.0.9':
-    resolution: {integrity: sha512-XXwb3Cyz70Y8OqP7H7umKVM1RrfmWtKBZ7JrrtlwraEaRRefo70+guuQZr6vuNm8lOT2VHgsG1bH9wqs7WrrXw==}
-
-  '@code-inspector/webpack@2.0.9':
-    resolution: {integrity: sha512-sauXo+GD6QIlqSymNtDTQOyrQid8er71Kr3Jh07viUKd1+U10//EML/tb/IpOzutwauizJeQslKqAvDV+Nqc9w==}
 
   '@emnapi/core@1.11.0':
     resolution: {integrity: sha512-l9Oo58x0HOP5znGzVhYW9U3e5wVuA4LAZU2AGezTmkhO1CgQRFDhDg4nneHsu/t3WniXg9QrG2nIXL/ZS8ln8Q==}
@@ -3847,9 +3840,6 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
-  code-inspector-plugin@2.0.9:
-    resolution: {integrity: sha512-0CApBNHqPTrcbOL/1n4JJS0Wy0CGYTRmJVWY8qI0wkYmmeT/LhaQZ1EIGQNuHLepZn4SA/XWd+4No+8gshpRNA==}
-
   collapse-white-space@2.1.0:
     resolution: {integrity: sha512-loKTxY1zCOuG4j9f6EPnuyyYkf58RnhhWTvRoZEokgB+WbdXehfjFviyOVYkqzEWz1Q5kRiZdBYS5SwxbQYwzw==}
 
@@ -4738,9 +4728,6 @@ packages:
 
   node-html-parser@6.1.13:
     resolution: {integrity: sha512-qIsTMOY4C/dAa5Q5vsobRpOOvPfC4pB61UVW2uSwZNUp0QU/jCekTal1vMmbO0DgdHeLUJpv/ARmDqErVxA3Sg==}
-
-  node-pty@1.1.0:
-    resolution: {integrity: sha512-20JqtutY6JPXTUnL0ij1uad7Qe1baT46lyolh2sSENDd4sTzKZ4nmAFkeAARDKwmlLjPx6XKRlwRUxwjOy+lUg==}
 
   node-releases@2.0.56:
     resolution: {integrity: sha512-x0InOIyzgdk+eyaWaRJFH5snEtiImgBgblZ2CyPrLmqqcuMQkEvcDPHbzqbD8eDsSeJbVOjn+crzyzHaM4D+/A==}
@@ -6294,77 +6281,6 @@ snapshots:
       fast-string-width: 3.0.2
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
-
-  '@code-inspector/core@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@vue/compiler-dom': 3.5.43
-      chalk: 4.1.1
-      launch-ide: 1.4.10
-      portfinder: 1.0.38(supports-color@7.2.0)
-      ws: 8.21.3
-    optionalDependencies:
-      node-pty: 1.1.0
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  '@code-inspector/esbuild@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  '@code-inspector/mako@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  '@code-inspector/turbopack@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/webpack': 2.0.9(supports-color@7.2.0)
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  '@code-inspector/vite@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-      chalk: 4.1.1
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  '@code-inspector/webpack@2.0.9(supports-color@7.2.0)':
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   '@emnapi/core@1.11.0':
     dependencies:
@@ -9038,23 +8954,6 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  code-inspector-plugin@2.0.9(supports-color@7.2.0):
-    dependencies:
-      '@code-inspector/core': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/esbuild': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/mako': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/turbopack': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/vite': 2.0.9(supports-color@7.2.0)
-      '@code-inspector/webpack': 2.0.9(supports-color@7.2.0)
-      chalk: 4.1.1
-    transitivePeerDependencies:
-      - '@anthropic-ai/claude-agent-sdk'
-      - '@openai/codex-sdk'
-      - '@opencode-ai/sdk'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
   collapse-white-space@2.1.0: {}
 
   color-convert@2.0.1:
@@ -10131,11 +10030,6 @@ snapshots:
     dependencies:
       css-select: 5.2.2
       he: 1.2.0
-
-  node-pty@1.1.0:
-    dependencies:
-      node-addon-api: 7.1.1
-    optional: true
 
   node-releases@2.0.56: {}
 
