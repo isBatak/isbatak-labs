@@ -3,6 +3,7 @@ linkWorkspacePackages: true
 packages:
   - packages/*/*
   - apps/*
+  - apps/promos/*
 
 allowBuilds:
   "@parcel/watcher": false
