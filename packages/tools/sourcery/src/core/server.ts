@@ -1,13 +1,13 @@
 import fs from "node:fs"
 import http from "node:http"
 import path from "node:path"
-import chalk from "chalk"
+import { styleText } from "node:util"
 import { type Editor, launchIDE } from "launch-ide"
-import portfinder from "portfinder"
 import { formatHotKeys, getDefaultHotKeys } from "./hot-keys"
 import type { ResolvedOptions } from "./options"
 
 const HOST = "127.0.0.1"
+const PORT_ATTEMPTS = 50
 
 let server: Promise<number> | null = null
 
@@ -17,18 +17,33 @@ export function startServer(options: ResolvedOptions) {
 }
 
 async function listen(options: ResolvedOptions) {
-  const port = await portfinder.getPortPromise({ port: options.port, host: HOST })
   const instance = http.createServer((request, response) => handleRequest(request, response, options))
-
-  await new Promise<void>((resolve, reject) => {
-    instance.once("error", reject)
-    instance.listen(port, HOST, resolve)
-  })
+  const port = await listenOnFreePort(instance, options.port)
   instance.unref()
 
   const hotKeys = options.hotKeys ?? getDefaultHotKeys(process.platform === "darwin")
-  console.log(`${chalk.magenta("sourcery")} hold ${formatHotKeys(hotKeys)} and click an element to open its source`)
+  console.log(
+    `${styleText("magenta", "sourcery")} hold ${formatHotKeys(hotKeys)} and click an element to open its source`,
+  )
   return port
+}
+
+async function listenOnFreePort(instance: http.Server, firstPort: number) {
+  for (let port = firstPort; port < firstPort + PORT_ATTEMPTS; port++) {
+    try {
+      await new Promise<void>((resolve, reject) => {
+        instance.once("error", reject)
+        instance.listen(port, HOST, () => {
+          instance.off("error", reject)
+          resolve()
+        })
+      })
+      return port
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "EADDRINUSE") throw error
+    }
+  }
+  throw new Error(`sourcery could not find a free port between ${firstPort} and ${firstPort + PORT_ATTEMPTS - 1}`)
 }
 
 function handleRequest(request: http.IncomingMessage, response: http.ServerResponse, options: ResolvedOptions) {
