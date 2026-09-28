@@ -49,6 +49,12 @@ const Mono = styled("span", {
   },
 })
 
+function formatDescription(description: string) {
+  return description
+    .split(/`([^`]+)`/)
+    .map((part, index) => (index % 2 ? <PropName key={index}>{part}</PropName> : part))
+}
+
 export function formatType(type: string) {
   if (!type.endsWith(" | undefined")) return type
   return type.slice(0, -" | undefined".length).replace(/^\((.*)\)$/, "$1")
@@ -87,7 +93,7 @@ export function ApiTable({ name, kind }: ApiTableProps) {
               <Td>
                 <Mono>{formatType(member.type)}</Mono>
                 <styled.div mt="1.5" color="fg.muted">
-                  {member.description}
+                  {formatDescription(member.description)}
                 </styled.div>
               </Td>
               {hasDefaults && (

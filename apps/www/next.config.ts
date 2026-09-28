@@ -1,6 +1,6 @@
 import { resolve } from "node:path"
 import type { NextConfig } from "next"
-import { codeInspectorPlugin } from "code-inspector-plugin"
+import { withSourcery } from "@isbatak/sourcery/next"
 
 const pandaLoader = {
   loaders: ["./panda-turbopack-loader.cjs"],
@@ -45,11 +45,6 @@ const nextConfig: NextConfig = {
   },
   turbopack: {
     rules: {
-      ...codeInspectorPlugin({
-        bundler: "turbopack",
-        injectTo: resolve("components/providers.tsx"),
-        exclude: ["/packages/"],
-      }),
       "./app/**/*.tsx": pandaLoader,
       "./components/**/*.tsx": pandaLoader,
     },
@@ -60,4 +55,8 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withSourcery(nextConfig, {
+  injectTo: resolve("components/providers.tsx"),
+  exclude: ["/packages/"],
+  panda: true,
+})

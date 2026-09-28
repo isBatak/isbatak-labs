@@ -1,0 +1,250 @@
+---
+title: Sourcery
+package: "@isbatak/sourcery"
+description:
+  Hold a hotkey, point at anything on the page and click to open the line of JSX that rendered it in your editor.
+order: 1
+icon: pointer
+color: purple
+category: Dev tool
+links:
+  source: packages/tools/sourcery
+  npm: https://www.npmjs.com/package/@isbatak/sourcery
+---
+
+export const urlSchemeTip =
+  "A link like vscode://file/path:line:column that the operating system hands to the editor, so its command-line tool does not have to be installed."
+
+Sourcery adds the source location to every JSX element while you develop. Hold <Kbd>⌘</Kbd> <Kbd>⇧</Kbd>, hover the page
+to see which file and line rendered each element, and click to jump there in your editor.
+
+- Works with **Next.js**, **Turbopack** and **webpack**
+- Opens VS Code, Cursor, Windsurf, Zed, Sublime Text, JetBrains IDEs and more
+- Optional Panda CSS mode that jumps to the `styled()` call behind an element
+- Development only, nothing reaches `next build` or your production bundle
+
+## Supported bundlers
+
+<Badge colorPalette="green">Next.js 15+</Badge> <Badge colorPalette="blue">Turbopack</Badge>
+<Badge colorPalette="purple">webpack</Badge>
+
+The Next.js adapter covers both bundlers: `next dev` with Turbopack, which is the default, and `next dev --webpack`. It
+only changes the config while the development server runs, so `next build` gets your config back untouched. Outside
+Next.js you can add the webpack rule or the Turbopack rules yourself.
+
+## Setup
+
+Pick your setup. In each case, `injectTo` points at a module that runs in the browser on every page, where sourcery adds
+its small client.
+
+<Tabs>
+<Tab value="next" label="Next.js" icon="brand-nextjs">
+
+Wrap your config with `withSourcery` and point `injectTo` at a client component every page renders, like the providers
+of your root layout.
+
+<CodeFiles>
+<CodeFile name="next.config.ts">
+
+```ts
+import { resolve } from "node:path"
+import type { NextConfig } from "next"
+import { withSourcery } from "@isbatak/sourcery/next"
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+}
+
+export default withSourcery(nextConfig, {
+  injectTo: resolve("components/providers.tsx"),
+})
+```
+
+</CodeFile>
+<CodeFile name="components/providers.tsx">
+
+```tsx
+"use client"
+
+import type { ReactNode } from "react"
+
+export function Providers({ children }: { children: ReactNode }) {
+  return children
+}
+```
+
+</CodeFile>
+<CodeFile name="app/layout.tsx">
+
+```tsx
+import type { ReactNode } from "react"
+import { Providers } from "../components/providers"
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+</CodeFile>
+</CodeFiles>
+
+With the Pages Router, point `injectTo` at `pages/_app.tsx` instead.
+
+</Tab>
+<Tab value="turbopack" label="Turbopack rules" icon="package">
+
+If you build your Turbopack rules yourself, create sourcery's rules and merge them in. `mergeTurbopackRules` puts them
+first, so sourcery reads your original source before other loaders change it.
+
+```ts
+import { resolve } from "node:path"
+import { prepareOptions } from "@isbatak/sourcery"
+import { createTurbopackRules, mergeTurbopackRules } from "@isbatak/sourcery/turbopack"
+
+const options = await prepareOptions({ injectTo: resolve("components/providers.tsx") })
+
+export default {
+  turbopack: {
+    rules: mergeTurbopackRules(yourRules, createTurbopackRules(options)),
+  },
+}
+```
+
+`prepareOptions` starts the small server that opens your editor and returns the options the loader needs. The rules only
+run in development and skip `node_modules`.
+
+</Tab>
+<Tab value="webpack" label="webpack" icon="package">
+
+For a plain webpack setup, wrap the config with `withSourceryWebpack`. It adds one `enforce: "pre"` rule for your
+`.jsx`, `.tsx`, `.js`, `.mjs`, `.ts` and `.mts` files.
+
+```js
+import { resolve } from "node:path"
+import { withSourceryWebpack } from "@isbatak/sourcery/webpack"
+
+export default (env, argv) =>
+  withSourceryWebpack(config, {
+    enabled: argv.mode === "development",
+    injectTo: resolve("src/main.tsx"),
+  })
+```
+
+Webpack accepts a config that returns a promise, which is what `withSourceryWebpack` gives back.
+
+</Tab>
+</Tabs>
+
+## Usage
+
+Start your development server as usual. It prints `sourcery hold ⌘⇧ and click an element to open its source` once the
+server is ready.
+
+1. Hold <Kbd>⌘</Kbd> <Kbd>⇧</Kbd> on macOS, or <Kbd>Ctrl</Kbd> <Kbd>⇧</Kbd> on Windows and Linux.
+2. Move the pointer over the page. The element under it gets a violet outline and a label with its file and line.
+3. Click to open that line in your editor. The click never reaches the page, so links and buttons stay put.
+
+Components get a location too, where they are used. A component that spreads its props onto the element it renders, like
+most design systems do, passes the location on, so a `<Button>` points at the line that renders it.
+
+## Editors
+
+Sourcery finds your editor on its own. Hover an editor to see how it is opened.
+
+<Editors>
+  <Editor name="VS Code" icon="brand-vscode">
+    Opened through the `vscode://` link on macOS, and with `code --goto` on Windows and Linux.
+  </Editor>
+  <Editor name="VS Code Insiders" icon="brand-vscode">
+    Opened through `vscode-insiders://` on macOS, and with `code-insiders --goto` elsewhere.
+  </Editor>
+  <Editor name="Cursor">Opened through `cursor://` on macOS, and with `cursor --goto` elsewhere.</Editor>
+  <Editor name="Windsurf">Opened through `windsurf://` on macOS, and with `windsurf --goto` elsewhere.</Editor>
+  <Editor name="VSCodium">Opened through `vscodium://` on macOS, and with `codium --goto` elsewhere.</Editor>
+  <Editor name="Zed">Opened through `zed://` on macOS, and with the `zed` command elsewhere.</Editor>
+  <Editor name="Sublime Text">Opened with the `subl` command.</Editor>
+  <Editor name="WebStorm">
+    Opened with the `webstorm` command and `--line` / `--column`. On macOS it falls back to the app when the command is
+    not installed.
+  </Editor>
+  <Editor name="IntelliJ IDEA">Opened with the `idea` command, falling back to the app on macOS.</Editor>
+  <Editor name="PhpStorm">Opened with the `phpstorm` command, falling back to the app on macOS.</Editor>
+  <Editor name="PyCharm">Opened with the `pycharm` command, falling back to the app on macOS.</Editor>
+  <Editor name="Rider">Opened with the `rider` command, falling back to the app on macOS.</Editor>
+</Editors>
+
+It picks the editor in this order:
+
+1. The `editor` option or the `SOURCERY_EDITOR` environment variable.
+2. The editor whose terminal started the development server.
+3. An editor that is running.
+4. The `VISUAL` or `EDITOR` environment variable.
+
+On macOS, editors with a <Term tip={urlSchemeTip}>URL scheme</Term> are opened through it. Any other editor works too
+when you name its command:
+
+```sh
+SOURCERY_EDITOR=nvim-qt pnpm dev
+```
+
+## Panda CSS
+
+Pass `panda: true` to also record where each Panda component is defined. Hold <Kbd>⌥</Kbd> as well and the outline turns
+pink: a click then opens the `styled()` call behind the element instead of the line that uses it.
+
+```ts
+export default withSourcery(nextConfig, {
+  injectTo: resolve("components/providers.tsx"),
+  panda: true,
+})
+```
+
+Sourcery adds the location to the `defaultProps` of `styled()` and of the `withProvider`, `withContext` and
+`withRootProvider` functions from `createSlotRecipeContext`. It only touches imports from a Panda `jsx` entry such as
+`styled-system/jsx`. List your own with `panda: { modules: ["@acme/design-system/jsx"] }`.
+
+## Options
+
+<ApiTable name="sourcery" kind="context" />
+
+## Troubleshooting
+
+<Faq>
+<FaqItem question="Clicking does nothing">
+
+Check the terminal of your development server. When sourcery cannot tell which editor to use, it prints a hint there.
+Set the editor explicitly, for example `SOURCERY_EDITOR=cursor`, or pass `editor: "cursor"`.
+
+</FaqItem>
+<FaqItem question="Some elements have no location">
+
+Elements rendered from an HTML string, like highlighted code, can't carry an attribute, and neither can content compiled
+outside your bundler, such as MDX built ahead of time. Hovering them outlines the nearest parent that has a location.
+Components that don't pass their props on to what they render only get a location for the elements inside them.
+
+</FaqItem>
+<FaqItem question="The wrong editor opens">
+
+Sourcery takes the editor from the terminal the server was started in. Start it from the editor you want, or set
+`SOURCERY_EDITOR`.
+
+</FaqItem>
+<FaqItem question="Port 5678 is taken">
+
+Nothing to do: the server moves on to the next free port and the browser client is told which one it got. Use the `port`
+option to start somewhere else.
+
+</FaqItem>
+<FaqItem question="Does any of this reach production?">
+
+No. The Next.js adapter only changes the config for `next dev`, and the Turbopack rules only run in development. The
+webpack helper is on when `NODE_ENV` is `development`; pass `enabled` to decide yourself.
+
+</FaqItem>
+</Faq>

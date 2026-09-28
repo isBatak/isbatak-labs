@@ -25,6 +25,9 @@ export function HeaderNav() {
       <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
         Components
       </NavLink>
+      <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
+        Tools
+      </NavLink>
     </styled.nav>
   )
 }
