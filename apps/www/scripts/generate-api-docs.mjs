@@ -8,6 +8,10 @@ const machines = {
     context: "WheelPickerProps",
     api: "WheelPickerApi",
   },
+  sourcery: {
+    file: "../../../packages/tools/sourcery/src/core/options.ts",
+    context: "SourceryOptions",
+  },
 }
 
 const outFile = fileURLToPath(new URL("../data/api.json", import.meta.url))
@@ -64,7 +68,9 @@ const data = {}
 for (const [name, machine] of Object.entries(machines)) {
   const sourceFile = program.getSourceFile(fileURLToPath(new URL(machine.file, import.meta.url)))
   data[name] = {
-    api: getMembers(getInterface(sourceFile, machine.api), (member) => !/^get\w+Props$/.test(member)),
+    api: machine.api
+      ? getMembers(getInterface(sourceFile, machine.api), (member) => !/^get\w+Props$/.test(member))
+      : {},
     context: getMembers(getInterface(sourceFile, machine.context)),
   }
 }

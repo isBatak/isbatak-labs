@@ -57,6 +57,14 @@ const icons = {
   markdown: "outline/markdown",
   "arrow-up-right": "outline/arrow-up-right",
   focus: "outline/focus-2",
+  tool: "outline/tool",
+  package: "outline/package",
+  keyboard: "outline/keyboard",
+  pointer: "outline/pointer",
+  "player-play": "outline/player-play",
+  "brand-npm": "outline/brand-npm",
+  "brand-nextjs": "outline/brand-nextjs",
+  "brand-vscode": "outline/brand-vscode",
 }
 
 const SIMPLE_ICONS_VERSION = "15"

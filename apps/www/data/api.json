@@ -154,5 +154,56 @@
         "description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       }
     }
+  },
+  "sourcery": {
+    "api": {},
+    "context": {
+      "enabled": {
+        "type": "boolean | undefined",
+        "description": "Whether sourcery runs. The Next.js adapter turns it on for `next dev`, the others when `NODE_ENV` is `development`.",
+        "defaultValue": "in development"
+      },
+      "injectTo": {
+        "type": "string | undefined",
+        "description": "Absolute path of the module the browser client is injected into, usually a root client component."
+      },
+      "exclude": {
+        "type": "string[] | undefined",
+        "description": "Path fragments to skip. `node_modules` is always skipped."
+      },
+      "hotKeys": {
+        "type": "HotKey[] | undefined",
+        "description": "Keys held together to start inspecting.",
+        "defaultValue": "[\"metaKey\", \"shiftKey\"] on macOS, [\"ctrlKey\", \"shiftKey\"] elsewhere"
+      },
+      "editor": {
+        "type": "string | undefined",
+        "description": "Editor to open: a known id (`code`, `cursor`, `zed`, `webstorm`, …), a command or a path. Detected when unset."
+      },
+      "port": {
+        "type": "number | undefined",
+        "description": "First port tried for the local open-in-editor server.",
+        "defaultValue": "5678"
+      },
+      "root": {
+        "type": "string | undefined",
+        "description": "Directory source paths are recorded relative to.",
+        "defaultValue": "process.cwd()"
+      },
+      "attribute": {
+        "type": "string | undefined",
+        "description": "Attribute written on every element.",
+        "defaultValue": "\"data-sourcery\""
+      },
+      "ignoreTags": {
+        "type": "string[] | undefined",
+        "description": "Extra element or component names to leave untagged, on top of `Fragment`, `Suspense`, `script`, `style`, `template` and `slot`."
+      },
+      "panda": {
+        "type": "boolean | { modules?: string[] | undefined } | undefined",
+        "description": "Also record where Panda CSS `styled()`, `withProvider()`, `withContext()` and `withRootProvider()` components are\ndefined. Hold ⌥ with the hotkeys to open that definition. `modules` lists the import paths treated as Panda's `jsx`\nentry, matched as suffixes.",
+        "defaultValue": "false"
+      }
+    }
   }
 }
