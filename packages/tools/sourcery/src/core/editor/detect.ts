@@ -1,5 +1,4 @@
 import { execFileSync } from "node:child_process"
-import path from "node:path"
 import { EDITORS, type Editor, findEditor } from "./editors"
 
 export interface EditorTarget {
@@ -25,16 +24,19 @@ export function detectEditor({
   const requested = preferred ?? env.SOURCERY_EDITOR
   if (requested) return toTarget(requested)
 
-  const editor = fromEnvironment(env) ?? fromProcesses(listProcesses(), platform)
+  const editor = fromEnvironment(env)
   if (editor) return { editor, command: editor.cli }
+
+  const running = fromProcesses(listProcesses(), platform)
+  if (running) return running
 
   const fallback = env.VISUAL ?? env.EDITOR
   return fallback ? toTarget(fallback) : null
 }
 
 function toTarget(name: string): EditorTarget {
-  const editor = findEditor(path.basename(name))
-  return { editor, command: editor && !name.includes("/") && !name.includes("\\") ? editor.cli : name }
+  const editor = matchEditor(getBaseName(name))
+  return { editor, command: editor && !/[\\/]/.test(name) ? editor.cli : name }
 }
 
 function fromEnvironment(env: Environment) {
@@ -43,29 +45,67 @@ function fromEnvironment(env: Environment) {
   if (byBundle) return byBundle
   if (env.TERM_PROGRAM !== "vscode") return null
 
-  const hint = env.VSCODE_GIT_ASKPASS_NODE ?? env.VSCODE_IPC_HOOK_CLI ?? ""
-  const byApp = EDITORS.find((editor) => editor.app && hint.includes(`/${editor.app}.app/`))
-  return byApp ?? findEditor("code")
+  const hints = [env.VSCODE_GIT_ASKPASS_NODE, env.VSCODE_GIT_ASKPASS_MAIN, env.GIT_ASKPASS].filter(Boolean).join("/")
+  const segments = hints.split(/[\\/]/).map(normalizeName)
+  const fork = EDITORS.find(
+    (editor) =>
+      editor.style === "goto" && editor.id !== "code" && getNames(editor).some((name) => segments.includes(name)),
+  )
+  return fork ?? findEditor("code")
 }
 
-function fromProcesses(processes: string[], platform: NodeJS.Platform) {
-  const running = (editor: Editor) =>
-    processes.some((line) => {
+function fromProcesses(processes: string[], platform: NodeJS.Platform): EditorTarget | null {
+  for (const editor of EDITORS) {
+    const names = getNames(editor)
+    const match = processes.find((line) => {
       if (platform === "darwin") return Boolean(editor.app) && line.includes(`/${editor.app}.app/Contents/MacOS/`)
-      const name = path.basename(line).toLowerCase()
-      if (platform === "win32") return name === `${editor.cli}.exe` || name === `${editor.app?.toLowerCase()}.exe`
-      return name === editor.cli
+      return names.includes(normalizeName(getBaseName(line)))
     })
-  return EDITORS.find(running) ?? null
+    if (match) return { editor, command: platform === "win32" ? match : editor.cli }
+  }
+  return null
+}
+
+function matchEditor(name: string) {
+  const normalized = normalizeName(name)
+  return EDITORS.find((editor) => getNames(editor).includes(normalized)) ?? null
+}
+
+function getNames(editor: Editor) {
+  return [editor.id, editor.cli, editor.app].filter((name) => name !== undefined).map(normalizeName)
+}
+
+function getBaseName(file: string) {
+  return file.split(/[\\/]/).at(-1) ?? file
+}
+
+function normalizeName(name: string) {
+  return name
+    .replace(/\.(app|exe|cmd|bat|sh)$/i, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .replace(/64$/, "")
 }
 
 function readProcesses(platform: NodeJS.Platform) {
   try {
     const output =
       platform === "win32"
-        ? execFileSync("tasklist", ["/fo", "csv", "/nh"], { encoding: "utf8" })
+        ? execFileSync(
+            "powershell",
+            [
+              "-NoProfile",
+              "-NonInteractive",
+              "-Command",
+              "Get-CimInstance Win32_Process | ForEach-Object ExecutablePath",
+            ],
+            { encoding: "utf8", windowsHide: true },
+          )
         : execFileSync("ps", platform === "darwin" ? ["-axo", "comm="] : ["-eo", "comm="], { encoding: "utf8" })
-    return output.split(/\r?\n/).map((line) => line.split('","')[0]?.replace(/^"/, "").trim() ?? "")
+    return output
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
   } catch {
     return []
   }
