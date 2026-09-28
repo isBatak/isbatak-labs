@@ -81,11 +81,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "chalk": "4.1.1",
     "launch-ide": "1.4.10",
     "magic-string": "^0.30.21",
-    "oxc-parser": "^0.127.0",
-    "portfinder": "^1.0.38"
+    "oxc-parser": "^0.127.0"
   },
   "peerDependencies": {
     "next": ">=15.0.0"
