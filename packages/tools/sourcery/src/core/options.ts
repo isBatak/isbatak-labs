@@ -3,7 +3,7 @@ import type { HotKey } from "./hot-keys"
 import type { StyledOptions } from "./transform"
 
 export interface SourceryOptions {
-  /** Whether sourcery runs. @default process.env.NODE_ENV === "development" */
+  /** Whether sourcery runs. The Next.js adapter turns it on for `next dev`, the others when `NODE_ENV` is `development`. @default in development */
   enabled?: boolean | undefined
   /** Absolute path of the module the browser client is injected into, usually a root client component. */
   injectTo?: string | undefined
