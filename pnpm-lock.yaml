@@ -226,11 +226,23 @@ importers:
         specifier: ^3.3.11
         version: 3.3.11(typescript@6.0.3)
 
-  apps/promos/sourcery:
+  apps/promos:
     dependencies:
+      '@ark-ui/react':
+        specifier: 5.39.2
+        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../packages/panda/ds
+      '@isbatak/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/react
       '@remotion/cli':
         specifier: 4.0.529
         version: 4.0.529(@swc/helpers@0.5.23)(csso@5.0.5)(lightningcss@1.33.0)(postcss@8.5.28)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@8.1.1)(typescript@6.0.3)
+      '@remotion/google-fonts':
+        specifier: 4.0.529
+        version: 4.0.529(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: 'catalog:'
         version: 19.3.0
@@ -240,7 +252,19 @@ importers:
       remotion:
         specifier: 4.0.529
         version: 4.0.529(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      sugar-high:
+        specifier: 2.5.0
+        version: 2.5.0
     devDependencies:
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(postcss@8.5.28)
+      '@pandacss/preset-base':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18
+      '@types/node':
+        specifier: 25.9.5
+        version: 25.9.5
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0
@@ -2831,6 +2855,9 @@ packages:
     resolution: {integrity: sha512-kyg7sG3bRdsKlcwDQ1yNMwDkAKpwlTtTrwbVWKcmii8LvHdMEDGPuteuQn6ULxwIAFqyzNkNAxhKrIjj9r8hZg==}
     cpu: [x64]
     os: [win32]
+
+  '@remotion/google-fonts@4.0.529':
+    resolution: {integrity: sha512-wU4mKK6gYVPk1ms0/x7y/yUfUxXynxTXjcTNZp67z73oL5J5r0MYzTVi3pl9zB0NG4P4trXKt81N9VYpMSJ6+A==}
 
   '@remotion/licensing@4.0.529':
     resolution: {integrity: sha512-+hVV68ouCdjeNGKQOdDueH1OZej5biXGXLr9ADdiJr7MEl5l9mWPHa2Z9z45TwBHihMe5wKOQ5fmXHc+TBOjBg==}
@@ -8626,6 +8653,13 @@ snapshots:
 
   '@remotion/compositor-win32-x64-msvc@4.0.529':
     optional: true
+
+  '@remotion/google-fonts@4.0.529(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+    dependencies:
+      remotion: 4.0.529(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+    transitivePeerDependencies:
+      - react
+      - react-dom
 
   '@remotion/licensing@4.0.529': {}
 

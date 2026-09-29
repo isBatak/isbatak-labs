@@ -1,0 +1,31 @@
+{
+  "name": "promos",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "codegen": "panda",
+    "audio": "node audio/sourcery.ts",
+    "studio": "panda && pnpm audio && remotion studio",
+    "render:sourcery": "panda && pnpm audio && remotion render SourceryPromo ../www/public/videos/sourcery-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --audio-bitrate=128k",
+    "render:sourcery-vertical": "panda && pnpm audio && remotion render SourceryPromoVertical out/sourcery-demo-vertical.mp4",
+    "still:sourcery": "panda && remotion still SourceryPromo ../www/public/videos/sourcery-poster.jpg --frame=400 --image-format=jpeg --jpeg-quality=85",
+    "typecheck": "panda && tsc --noEmit"
+  },
+  "dependencies": {
+    "@ark-ui/react": "5.39.2",
+    "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/react-ui": "workspace:*",
+    "@remotion/cli": "4.0.529",
+    "@remotion/google-fonts": "4.0.529",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "remotion": "4.0.529",
+    "sugar-high": "2.5.0"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "catalog:",
+    "@pandacss/preset-base": "catalog:",
+    "@types/node": "25.9.5",
+    "@types/react": "catalog:"
+  }
+}

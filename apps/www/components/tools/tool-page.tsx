@@ -70,7 +70,7 @@ export function ToolPage({ tool }: { tool: Tool }) {
         <styled.div textAlign="center" mb="5">
           <Eyebrow>Demo</Eyebrow>
         </styled.div>
-        <VideoDemo src={tool.video} title={`${tool.title} demo`} />
+        <VideoDemo src={tool.video} poster={tool.poster} title={`${tool.title} demo`} />
       </styled.section>
 
       <styled.div maxW="2xl" mx="auto" pt={{ base: "10", md: "14" }} pb="24">
