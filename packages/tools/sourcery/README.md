@@ -54,10 +54,11 @@ to list them yourself.
 
 ## How it works
 
-- **Transform**: [oxc-parser](https://oxc.rs) finds every JSX element except fragments, `Suspense`, `script`, `style`,
-  `template` and `slot`, and [magic-string](https://github.com/Rich-Harris/magic-string) adds
-  `data-sourcery="path:line:column"` with a source map. Components pass it on to the element they render when they
-  spread their props.
+- **Transform**: [oxc-parser](https://oxc.rs) finds every JSX element except fragments (including local aliases of
+  `Fragment`), `Suspense`, `script`, `style`, `template` and `slot`, and
+  [magic-string](https://github.com/Rich-Harris/magic-string) adds `data-sourcery="path:line:column"` with a source map.
+  Components pass it on to the element they render when they spread their props, and it is removed from props spread
+  onto a `Fragment`.
 - **Client**: added to `injectTo`. While the hotkeys are held it outlines the element under the pointer, and a click
   sends its location to the local server instead of reaching the page.
 - **Server**: listens on `127.0.0.1` and opens the file in your editor. The editor comes from the `editor` option or

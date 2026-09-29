@@ -59,7 +59,9 @@ export function transformJsx({
   const source = normalizePath(path.relative(root, file))
   const lines = getLineStarts(code)
   const output = new MagicString(code)
-  const ignored = new Set([...DEFAULT_IGNORE_TAGS, ...ignoreTags].map((tag) => tag.toLowerCase()))
+  const fragments = new Set(["fragment", ...collectFragmentAliases(program)].map((tag) => tag.toLowerCase()))
+  const ignored = new Set([...DEFAULT_IGNORE_TAGS, ...ignoreTags, ...fragments].map((tag) => tag.toLowerCase()))
+  const omitted = styled ? [attribute, styled.attribute] : [attribute]
   const factories = styled ? collectPandaFactories(program.body, styled.modules) : null
 
   visit(program, (node) => {
@@ -74,7 +76,9 @@ export function transformJsx({
     }
     if (node.type !== "JSXOpeningElement") return
     const element = node as JsxOpeningElement
-    if (ignored.has(getTagName(element.name).toLowerCase()) || hasAttribute(element, attribute)) return
+    const tag = getTagName(element.name).toLowerCase()
+    if (fragments.has(tag)) omitSpreadAttributes(element, output, omitted)
+    if (ignored.has(tag) || hasAttribute(element, attribute)) return
     const { line, column } = getPosition(lines, element.start)
     const insertAt = element.end - (element.selfClosing ? 2 : 1)
     const separator = /\s/.test(code[insertAt - 1] ?? "") ? "" : " "
@@ -95,6 +99,53 @@ function getLang(file: string): "jsx" | "ts" | "tsx" {
   if (/\.[cm]?tsx$/.test(file)) return "tsx"
   if (/\.[cm]?ts$/.test(file)) return "ts"
   return "jsx"
+}
+
+function omitSpreadAttributes(element: JsxOpeningElement, output: MagicString, attributes: string[]) {
+  const pattern = attributes.map((name, index) => `"${name}": __sourcery${index}`).join(", ")
+  for (const item of element.attributes) {
+    if (item.type !== "JSXSpreadAttribute") continue
+    const argument = item.argument as AstNode
+    output.prependRight(argument.start, `(({ ${pattern}, ...props }) => props)((`)
+    output.appendLeft(argument.end, `) ?? {})`)
+  }
+}
+
+function collectFragmentAliases(program: AstNode) {
+  const aliases = new Set<string>()
+  visit(program, (node) => {
+    if (node.type === "ImportSpecifier") {
+      const imported = node.imported as JsxName
+      const local = node.local as JsxName
+      if (getTagName(imported) === "Fragment" && typeof local.name === "string") aliases.add(local.name)
+      return
+    }
+    if (node.type !== "VariableDeclarator" || !node.init) return
+    const id = node.id as JsxName
+    if (id.type === "Identifier" && typeof id.name === "string" && referencesFragment(node.init)) aliases.add(id.name)
+  })
+  return aliases
+}
+
+function referencesFragment(node: unknown): boolean {
+  const expression = node as AstNode & { name?: string; property?: JsxName }
+  switch (expression.type) {
+    case "Identifier":
+      return expression.name === "Fragment"
+    case "MemberExpression":
+      return expression.property ? getTagName(expression.property) === "Fragment" : false
+    case "ConditionalExpression":
+      return referencesFragment(expression.consequent) || referencesFragment(expression.alternate)
+    case "LogicalExpression":
+      return referencesFragment(expression.left) || referencesFragment(expression.right)
+    case "ParenthesizedExpression":
+    case "TSAsExpression":
+    case "TSSatisfiesExpression":
+    case "TSNonNullExpression":
+      return referencesFragment(expression.expression)
+    default:
+      return false
+  }
 }
 
 function getTagName(name: JsxName): string {
