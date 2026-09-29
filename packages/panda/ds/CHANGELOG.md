@@ -1,5 +1,11 @@
 # @isbatak/panda-ds
 
+## 0.3.0
+
+### Minor Changes
+
+- 221777a: Add the `swipeableList` slot recipe.
+
 ## 0.2.0
 
 ### Minor Changes
