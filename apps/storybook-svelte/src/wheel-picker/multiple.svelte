@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { wheelPicker as wheelPickerRecipe } from "@isbatak/panda-ds/recipes"
+  import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
   import { hourCollection, meridiemCollection, minuteCollection } from "@isbatak/storybook-shared"
   import * as wheelPicker from "@isbatak/zag-wheel-picker"
   import { normalizeProps, useMachine } from "@zag-js/svelte"

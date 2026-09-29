@@ -7,5 +7,5 @@ export default defineConfig({
   format: ["esm"],
   target: "es2020",
   dts: true,
-  external: ["@pandacss/dev", "@isbatak/panda-wheel-picker"],
+  external: ["@pandacss/dev"],
 })

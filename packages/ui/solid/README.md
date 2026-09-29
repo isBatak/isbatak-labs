@@ -8,7 +8,7 @@ import { Tabs } from "@isbatak/solid-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
-`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip` and `tour`.
 
 The Panda `jsx` helpers are generated for Solid in this package and exported from `@isbatak/solid-ui/jsx`.
 

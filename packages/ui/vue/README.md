@@ -8,7 +8,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
-`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip`, `tour` and `wheel-picker`.
+`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip` and `tour`.
 
 The Panda `jsx` helpers are generated for Vue in this package and exported from `@isbatak/vue-ui/jsx`.
 
