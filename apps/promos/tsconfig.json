@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src", "audio", "remotion.config.ts"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node"],
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
+    "allowImportingTsExtensions": true
+  }
+}
