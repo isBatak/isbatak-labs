@@ -1,12 +1,12 @@
 import { type ReactNode, createContext, use, useState } from "react"
-import { css, cx } from "styled-system/css"
+import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { components } from "../components"
 import { listRules } from "../lib/doc"
-import type { ComponentId, FoundationId, Page } from "../lib/messages"
-import { recipes } from "../lib/theme-meta"
-import { ComponentIcon, Icon, LayersIcon, SearchIcon, dot } from "./ui"
+import type { ComponentId, FoundationId, LayerNode, Page } from "../lib/messages"
+import { partLabel, recipes } from "../lib/theme-meta"
+import { ComponentIcon, Icon, LayersIcon, ResizeHandle, SearchIcon, dot, useStoredSize } from "./ui"
 import type { Studio } from "./use-studio"
 
 const navItem = css({
@@ -63,12 +63,21 @@ function Component(props: { id: ComponentId }) {
   )
 }
 
-export function Sidebar(props: { studio: Studio }) {
+export function Sidebar(props: { studio: Studio; width: number; onResize: (width: number) => void }) {
   const [query, setQuery] = useState("")
 
   return (
     <SidebarContext value={{ studio: props.studio, query }}>
-      <styled.aside display="flex" flexDirection="column" minH="0" borderRightWidth="1px" borderColor="border.muted">
+      <styled.aside
+        position="relative"
+        display="flex"
+        flexDirection="column"
+        minH="0"
+        minW="0"
+        borderRightWidth="1px"
+        borderColor="border.muted"
+      >
+        <ResizeHandle orientation="vertical" size={props.width} onResize={props.onResize} label="Resize sidebar" />
         <styled.div p="2" borderBottomWidth="1px" borderColor="border.muted">
           <styled.label
             display="flex"
@@ -137,73 +146,177 @@ export function Sidebar(props: { studio: Studio }) {
 
 function ComponentLayers(props: { studio: Studio }) {
   const { state } = props.studio
-  const page = state.page
+  const [height, setHeight] = useStoredSize("layers-height", 320, 120, 720)
+  const recipeKey = state.page.kind === "component" ? components[state.page.id].recipe : undefined
+  const recipe = recipeKey ? recipes[recipeKey] : undefined
+
+  // Slots of the page's component that the demos don't render, so they stay editable
+  const rendered = new Set<string>()
+  const walk = (nodes: LayerNode[]) => {
+    for (const node of nodes) {
+      if (node.recipe === recipeKey) rendered.add(node.slot ?? "")
+      walk(node.children)
+    }
+  }
+  walk(state.layers)
+  const unrendered = (recipe?.slots ?? []).filter((slot) => !rendered.has(slot))
 
   return (
-    <styled.div borderTopWidth="1px" borderColor="border.muted" maxH="40%" display="flex" flexDirection="column">
+    <styled.div
+      position="relative"
+      flexShrink="0"
+      borderTopWidth="1px"
+      borderColor="border.muted"
+      display="flex"
+      flexDirection="column"
+      style={{ height, maxHeight: "calc(100% - 8rem)" }}
+    >
+      <ResizeHandle orientation="horizontal" size={height} onResize={setHeight} label="Resize component layers" />
       <div className={heading} style={{ paddingInline: "1rem" }}>
         Component Layers
       </div>
-      {page.kind !== "component" ? (
+      {state.layers.length === 0 ? (
         <styled.div display="flex" flexDirection="column" alignItems="center" gap="1" textAlign="center" px="6" py="6">
           <styled.span color="fg.muted" css={{ "& svg": { w: "4", h: "4" } }}>
             <LayersIcon />
           </styled.span>
           <styled.span textStyle="xs" fontWeight="medium">
-            Open a component page
+            No components on this page
           </styled.span>
           <styled.span textStyle="xs" color="fg.muted">
-            Pick a component above to edit its layers.
+            Open a component page to edit its layers.
           </styled.span>
         </styled.div>
       ) : (
-        <LayerTree studio={props.studio} recipeKey={components[page.id].recipe} label={components[page.id].label} />
-      )}
-      {state.selectedPart && page.kind === "component" && state.selectedPart.recipe !== components[page.id].recipe && (
-        <styled.div px="2" pb="2">
-          <LayerTree
-            studio={props.studio}
-            recipeKey={state.selectedPart.recipe}
-            label={humanize(state.selectedPart.recipe)}
-          />
+        <styled.div
+          role="tree"
+          aria-label="Component layers"
+          flex="1"
+          minH="0"
+          overflowY="auto"
+          px="2"
+          pb="3"
+          onMouseLeave={() => props.studio.dispatch({ type: "hover-part", part: undefined })}
+        >
+          <LayerList studio={props.studio} nodes={state.layers} depth={0} path="" />
+          {recipe && unrendered.length > 0 && (
+            <>
+              <styled.div textStyle="2xs" color="fg.subtle" px="2" pt="3" pb="1">
+                Not rendered in the demos
+              </styled.div>
+              <LayerList
+                studio={props.studio}
+                nodes={unrendered.map((slot) => ({ recipe: recipe.key, slot, children: [] }))}
+                depth={0}
+                path="unrendered"
+              />
+            </>
+          )}
         </styled.div>
       )}
     </styled.div>
   )
 }
 
-function LayerTree(props: { studio: Studio; recipeKey: string; label: string }) {
-  const { state, dispatch } = props.studio
-  const recipe = recipes[props.recipeKey]
-  if (!recipe) return null
-  const parts = recipe.slots ?? [undefined]
+const layerRow = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "1.5",
+  w: "full",
+  h: "7",
+  pe: "2",
+  textStyle: "xs",
+  color: "fg",
+  borderRadius: "md",
+  cursor: "pointer",
+  textAlign: "start",
+  whiteSpace: "nowrap",
+  _hover: { bg: "bg.muted" },
+  _selected: { bg: "bg.emphasized", fontWeight: "medium" },
+  "& svg": { w: "3.5", h: "3.5", color: "fg.muted", flexShrink: "0" },
+})
 
-  const isSelected = (slot: string | undefined) =>
-    state.selectedPart?.recipe === recipe.key && state.selectedPart.slot === slot
-  const isModified = (slot: string | undefined) => listRules(state.doc, { recipe: recipe.key, slot }).length > 0
+const chevron = css({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  w: "4",
+  h: "4",
+  flexShrink: "0",
+  borderRadius: "sm",
+  color: "fg.muted",
+  _hover: { bg: "bg.emphasized" },
+  "& svg": { w: "3", h: "3", transition: "rotate 0.15s" },
+  "&[data-collapsed] svg": { rotate: "-90deg" },
+})
+
+function LayerList(props: { studio: Studio; nodes: LayerNode[]; depth: number; path: string }) {
+  return (
+    <>
+      {props.nodes.map((node) => {
+        const key = `${props.path}/${node.recipe}|${node.slot ?? ""}`
+        return <Layer key={key} studio={props.studio} node={node} depth={props.depth} path={key} />
+      })}
+    </>
+  )
+}
+
+function Layer(props: { studio: Studio; node: LayerNode; depth: number; path: string }) {
+  const { studio, node, depth } = props
+  const { state, dispatch } = studio
+  const [collapsed, setCollapsed] = useState(false)
+  const part = { recipe: node.recipe, slot: node.slot }
+  const selected = state.selectedPart?.recipe === node.recipe && state.selectedPart.slot === node.slot
+  const modified = listRules(state.doc, part).length > 0
+  const hasChildren = node.children.length > 0
 
   return (
-    <styled.div overflowY="auto" px="2" pb="2">
-      {recipe.slots && (
-        <styled.div className={navItem} color="fg.muted" cursor="default" _hover={{ bg: "transparent" }}>
-          <ComponentIcon />
-          {props.label}
-        </styled.div>
+    <>
+      <div
+        role="treeitem"
+        tabIndex={0}
+        aria-selected={selected}
+        aria-expanded={hasChildren ? !collapsed : undefined}
+        className={layerRow}
+        style={{ paddingInlineStart: `${depth * 14 + 4}px` }}
+        title={partLabel(part)}
+        onClick={() => dispatch({ type: "select-part", part })}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault()
+            dispatch({ type: "select-part", part })
+          }
+          if (event.key === "ArrowLeft" && hasChildren) setCollapsed(true)
+          if (event.key === "ArrowRight" && hasChildren) setCollapsed(false)
+        }}
+        onMouseEnter={() => dispatch({ type: "hover-part", part })}
+      >
+        {hasChildren ? (
+          <span
+            className={chevron}
+            data-collapsed={collapsed ? "" : undefined}
+            onClick={(event) => {
+              event.stopPropagation()
+              setCollapsed(!collapsed)
+            }}
+          >
+            <Icon>
+              <path d="m6 9 6 6 6-6" />
+            </Icon>
+          </span>
+        ) : (
+          <styled.span w="4" flexShrink="0" />
+        )}
+        <ComponentIcon />
+        <styled.span flex="1" truncate>
+          {partLabel(part)}
+        </styled.span>
+        {modified && <span className={dot} />}
+      </div>
+      {hasChildren && !collapsed && (
+        <LayerList studio={studio} nodes={node.children} depth={depth + 1} path={props.path} />
       )}
-      {parts.map((slot) => (
-        <button
-          type="button"
-          key={slot ?? "root"}
-          className={cx(navItem, recipe.slots && css({ ps: "6" }))}
-          aria-selected={isSelected(slot)}
-          onClick={() => dispatch({ type: "select-part", part: { recipe: recipe.key, slot } })}
-        >
-          <ComponentIcon />
-          <styled.span flex="1">{slot ? humanize(slot) : props.label}</styled.span>
-          {isModified(slot) && <span className={dot} />}
-        </button>
-      ))}
-    </styled.div>
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useEffect, useLayoutEffect, useState } from "react"
+import { type ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
@@ -7,6 +7,7 @@ import { demos } from "../demos"
 import type { CanvasMessage, ComponentId, Part, RenderMessage } from "../lib/messages"
 import { recipes } from "../lib/theme-meta"
 import { ColorPage, OverviewPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
+import { collectLayers } from "./layers"
 import { runLint } from "./lint"
 import { SelectionLayer } from "./selection"
 
@@ -45,6 +46,33 @@ export function CanvasApp() {
     return () => window.clearTimeout(id)
   }, [state?.css, state?.colorMode])
 
+  // Report the rendered part tree for Component Layers, and again whenever the DOM changes (tabs, accordions, ...)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const pageKey = state ? JSON.stringify(state.page) + state.view : ""
+  useEffect(() => {
+    const root = contentRef.current
+    if (!root) return
+    let last = ""
+    let timer = 0
+    const report = () => {
+      const layers = collectLayers(root)
+      const serialized = JSON.stringify(layers)
+      if (serialized === last) return
+      last = serialized
+      post({ type: "layers", layers })
+    }
+    const observer = new MutationObserver(() => {
+      window.clearTimeout(timer)
+      timer = window.setTimeout(report, 150)
+    })
+    observer.observe(root, { subtree: true, childList: true, attributes: true, attributeFilter: ["class"] })
+    report()
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(timer)
+    }
+  }, [pageKey])
+
   const onSelectPart = useCallback((part: Part) => post({ type: "select-part", part }), [])
   const onSelectToken = (token: string) => post({ type: "select-token", token })
 
@@ -80,7 +108,8 @@ export function CanvasApp() {
   return (
     <styled.main minH="100vh" bg="bg.subtle" color="fg" px="8" py="12">
       <styled.div
-        key={JSON.stringify(page) + state.view}
+        key={pageKey}
+        ref={contentRef}
         mx="auto"
         maxW={wide ? "6xl" : "3xl"}
         display="flex"
@@ -89,7 +118,7 @@ export function CanvasApp() {
       >
         {content}
       </styled.div>
-      <SelectionLayer selected={state.selectedPart} onSelect={onSelectPart} />
+      <SelectionLayer selected={state.selectedPart} highlighted={state.hoveredPart} onSelect={onSelectPart} />
     </styled.main>
   )
 }

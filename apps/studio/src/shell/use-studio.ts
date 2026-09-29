@@ -4,7 +4,7 @@ import { components } from "../components"
 import { generateCss } from "../lib/css"
 import { type ColorMode, type StudioDoc, emptyDoc, isStudioDoc } from "../lib/doc"
 import { toPresetSource } from "../lib/export"
-import type { ComponentId, FoundationId, LintResult, Page, Part, View } from "../lib/messages"
+import type { ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
 import { recipes } from "../lib/theme-meta"
 
 const STORAGE_KEY = "panda-studio:themes"
@@ -28,6 +28,9 @@ export interface StudioState {
   condition: string
   selectedToken: string | undefined
   lint: LintResult[]
+  /** Parts rendered on the canvas, reported by it */
+  layers: LayerNode[]
+  hoveredPart: Part | undefined
 }
 
 type Action =
@@ -45,6 +48,8 @@ type Action =
   | { type: "merge-themes"; themes: Record<string, StudioDoc> }
   | { type: "delete-theme"; name: string }
   | { type: "lint"; results: LintResult[] }
+  | { type: "layers"; layers: LayerNode[] }
+  | { type: "hover-part"; part: Part | undefined }
 
 /* -------------------------------------------------------------------------------------------------
  * Persistence
@@ -145,6 +150,8 @@ function init(): StudioState {
     condition: "",
     selectedToken: undefined,
     lint: [],
+    layers: [],
+    hoveredPart: undefined,
   }
 }
 
@@ -196,6 +203,9 @@ function reducer(state: StudioState, action: Action): StudioState {
         scope: sameComponent ? state.scope : "base",
         condition: sameComponent ? state.condition : "",
         selectedToken: undefined,
+        // The canvas reports the new page's layers once it renders
+        layers: JSON.stringify(action.page) === JSON.stringify(state.page) ? state.layers : [],
+        hoveredPart: undefined,
       }
     }
     case "view":
@@ -245,6 +255,10 @@ function reducer(state: StudioState, action: Action): StudioState {
     }
     case "lint":
       return { ...state, lint: action.results }
+    case "layers":
+      return { ...state, layers: action.layers }
+    case "hover-part":
+      return { ...state, hoveredPart: action.part }
   }
 }
 

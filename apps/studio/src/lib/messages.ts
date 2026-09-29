@@ -25,6 +25,8 @@ export interface RenderMessage {
   doc: StudioDoc
   colorMode: ColorMode
   selectedPart: Part | undefined
+  /** Part hovered in the Component Layers tree, outlined on the canvas */
+  hoveredPart: Part | undefined
   selectedToken: string | undefined
 }
 
@@ -35,6 +37,14 @@ export type CanvasMessage =
   | { type: "select-token"; token: string }
   | { type: "navigate"; page: Page }
   | { type: "lint"; results: LintResult[] }
+  | { type: "layers"; layers: LayerNode[] }
+
+/** A recipe part rendered on the canvas, nested like the DOM. Repeated siblings are merged. */
+export interface LayerNode {
+  recipe: string
+  slot?: string | undefined
+  children: LayerNode[]
+}
 
 export interface LintResult {
   id: string

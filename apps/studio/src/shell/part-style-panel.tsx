@@ -2,9 +2,8 @@ import { createContext, use } from "react"
 import { styled } from "styled-system/jsx"
 
 import { type RuleTarget, clearRules, listRules, ruleKey, setRule } from "../lib/doc"
-import { readStyleValue, recipeStyles, recipes, utilityCategory } from "../lib/theme-meta"
+import { partLabel, readStyleValue, recipeStyles, recipes, utilityCategory } from "../lib/theme-meta"
 import { Field } from "./fields"
-import { humanize } from "./sidebar"
 import { IconButton, LayersIcon, Muted, NativeSelect, PanelSection, ResetIcon } from "./ui"
 import type { Studio } from "./use-studio"
 
@@ -69,7 +68,7 @@ export function PartStylePanel(props: { studio: Studio }) {
       <styled.div display="flex" alignItems="center" justifyContent="space-between" px="4" pt="4" pb="3">
         <styled.div display="flex" flexDirection="column">
           <styled.span textStyle="sm" fontWeight="semibold">
-            {humanize(part.slot ?? recipe.className)}
+            {partLabel(part)}
           </styled.span>
           <Muted>
             {part.slot ? `${recipe.className}__${part.slot}` : recipe.className} · {partRules.length} edits

@@ -277,3 +277,17 @@ export function countRecipeRules(recipe: RecipeMeta) {
   }
   return count(recipe.config.base) + count(recipe.config.variants) + count(recipe.config.compoundVariants)
 }
+
+const words = (value: string) =>
+  value
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/-/g, " ")
+    .toLowerCase()
+
+/** Human name of a recipe part, e.g. `Accordion item trigger` (the root slot is named after the component) */
+export function partLabel(part: { recipe: string; slot?: string | undefined }) {
+  const recipe = recipes[part.recipe]
+  const name = words(recipe?.className ?? part.recipe)
+  const label = part.slot && part.slot !== "root" ? `${name} ${words(part.slot)}` : name
+  return label.charAt(0).toUpperCase() + label.slice(1)
+}

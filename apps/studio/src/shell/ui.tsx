@@ -1,4 +1,4 @@
-import { type ComponentProps, type ReactNode, createContext, use } from "react"
+import { type ComponentProps, type ReactNode, createContext, use, useCallback, useState } from "react"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
@@ -213,5 +213,114 @@ export function ToggleItem(props: { value: string; children: ReactNode }) {
     >
       {props.children}
     </button>
+  )
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Resizing
+ * -----------------------------------------------------------------------------------------------*/
+
+/** A size in pixels, clamped and remembered in the browser */
+export function useStoredSize(key: string, initial: number, min: number, max: number) {
+  const [size, setSize] = useState(() => {
+    try {
+      const stored = Number(localStorage.getItem(`panda-studio:${key}`))
+      return stored ? Math.min(max, Math.max(min, stored)) : initial
+    } catch {
+      return initial
+    }
+  })
+  const update = useCallback(
+    (next: number) => {
+      const clamped = Math.round(Math.min(max, Math.max(min, next)))
+      setSize(clamped)
+      try {
+        localStorage.setItem(`panda-studio:${key}`, String(clamped))
+      } catch {}
+    },
+    [key, min, max],
+  )
+  return [size, update] as const
+}
+
+const resizeHandle = css({
+  position: "absolute",
+  zIndex: "1",
+  touchAction: "none",
+  _after: { content: '""', position: "absolute", bg: "transparent", transition: "background 0.15s" },
+  _hover: { _after: { bg: "blue.500" } },
+  "&[data-dragging]": { _after: { bg: "blue.500" } },
+  "&[data-orientation=vertical]": {
+    top: "0",
+    bottom: "0",
+    right: "-3px",
+    w: "6px",
+    cursor: "col-resize",
+    _after: { insetBlock: "0", left: "2px", w: "2px" },
+  },
+  "&[data-orientation=horizontal]": {
+    left: "0",
+    right: "0",
+    top: "-3px",
+    h: "6px",
+    cursor: "row-resize",
+    _after: { insetInline: "0", top: "2px", h: "2px" },
+  },
+})
+
+/**
+ * Drag handle on the edge of a panel. `vertical` sits on the right edge and resizes width; `horizontal` sits on the
+ * top edge and resizes height (dragging up grows the panel). Arrow keys resize by 16px.
+ */
+export function ResizeHandle(props: {
+  orientation: "vertical" | "horizontal"
+  size: number
+  onResize: (size: number) => void
+  label: string
+}) {
+  const { orientation, size, onResize } = props
+  const [dragging, setDragging] = useState(false)
+  const vertical = orientation === "vertical"
+
+  return (
+    <div
+      role="separator"
+      aria-orientation={orientation}
+      aria-label={props.label}
+      aria-valuenow={size}
+      tabIndex={0}
+      data-orientation={orientation}
+      data-dragging={dragging ? "" : undefined}
+      className={resizeHandle}
+      onPointerDown={(event) => {
+        event.preventDefault()
+        const start = vertical ? event.clientX : event.clientY
+        const startSize = size
+        const target = event.currentTarget
+        target.setPointerCapture(event.pointerId)
+        setDragging(true)
+        const onMove = (move: PointerEvent) => {
+          const delta = (vertical ? move.clientX : move.clientY) - start
+          onResize(vertical ? startSize + delta : startSize - delta)
+        }
+        const onUp = () => {
+          setDragging(false)
+          target.removeEventListener("pointermove", onMove)
+          target.removeEventListener("pointerup", onUp)
+          target.removeEventListener("pointercancel", onUp)
+        }
+        target.addEventListener("pointermove", onMove)
+        target.addEventListener("pointerup", onUp)
+        target.addEventListener("pointercancel", onUp)
+      }}
+      onKeyDown={(event) => {
+        const grow = vertical ? "ArrowRight" : "ArrowUp"
+        const shrink = vertical ? "ArrowLeft" : "ArrowDown"
+        if (event.key === grow) onResize(size + 16)
+        else if (event.key === shrink) onResize(size - 16)
+        else return
+        event.preventDefault()
+      }}
+    />
   )
 }

@@ -9,12 +9,13 @@ import { TokenDatalists } from "./fields"
 import { Inspector } from "./inspector"
 import { Sidebar } from "./sidebar"
 import { TopBar } from "./top-bar"
-import { Muted, Toggle, ToggleItem } from "./ui"
+import { Muted, Toggle, ToggleItem, useStoredSize } from "./ui"
 import { type Studio as StudioApi, useStudio } from "./use-studio"
 
 export function Studio() {
   const studio = useStudio()
   const { dispatch } = studio
+  const [sidebarWidth, setSidebarWidth] = useStoredSize("sidebar-width", 256, 200, 520)
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -31,7 +32,7 @@ export function Studio() {
     <styled.div
       h="100vh"
       display="grid"
-      gridTemplateColumns="15rem 1fr 20rem"
+      style={{ gridTemplateColumns: `${sidebarWidth}px minmax(0, 1fr) 20rem` }}
       gridTemplateRows="auto 1fr"
       bg="bg"
       color="fg"
@@ -39,7 +40,7 @@ export function Studio() {
       textStyle="sm"
     >
       <TopBar studio={studio} />
-      <Sidebar studio={studio} />
+      <Sidebar studio={studio} width={sidebarWidth} onResize={setSidebarWidth} />
       <styled.main display="flex" flexDirection="column" minW="0" minH="0">
         <CanvasHeader studio={studio} />
         <styled.div flex="1" minH="0">

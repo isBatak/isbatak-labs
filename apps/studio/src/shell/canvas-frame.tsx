@@ -35,6 +35,9 @@ export function CanvasFrame(props: { studio: Studio }) {
         case "lint":
           dispatch({ type: "lint", results: message.results })
           break
+        case "layers":
+          dispatch({ type: "layers", layers: message.layers })
+          break
       }
     }
     window.addEventListener("message", onMessage)
@@ -51,10 +54,21 @@ export function CanvasFrame(props: { studio: Studio }) {
       doc: state.doc,
       colorMode: state.colorMode,
       selectedPart: state.selectedPart,
+      hoveredPart: state.hoveredPart,
       selectedToken: state.selectedToken,
     }
     frame.current?.contentWindow?.postMessage(message, window.location.origin)
-  }, [ready, state.page, state.view, css, state.doc, state.colorMode, state.selectedPart, state.selectedToken])
+  }, [
+    ready,
+    state.page,
+    state.view,
+    css,
+    state.doc,
+    state.colorMode,
+    state.selectedPart,
+    state.hoveredPart,
+    state.selectedToken,
+  ])
 
   return (
     <styled.iframe

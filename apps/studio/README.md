@@ -16,6 +16,9 @@ pnpm studio   # from the repo root: builds the design system, then starts the st
 - **Components**: every component in `@isbatak/react-ui` (plus a few recipe-only ones) has a Demo page and a Matrix of
   all variant combinations. **⌘/Ctrl-click** any part on the canvas, or pick it in **Component Layers**, to edit it in
   the Style panel.
+- **Component Layers**: a tree of the parts rendered on the canvas, nested the way they are in the DOM (a Button inside
+  a Card footer shows up there). Hover a layer to outline it on the canvas; drag the panel edges to resize the sidebar
+  and the layers panel.
 - **Style panel**: a part is edited for _all variants_ or a single variant value, and for a state (hover, open,
   disabled, …). Values accept token names (`blue.500`, `4`, `l2`) with suggestions, or raw CSS.
 - **Lint**: WCAG contrast of the semantic color pairs, measured on the canvas with your edits applied.
