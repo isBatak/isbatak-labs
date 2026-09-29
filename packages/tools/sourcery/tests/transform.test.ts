@@ -29,6 +29,34 @@ describe("transformJsx", () => {
     expect(transformJsx({ code, file: "/project/a.tsx", root, attribute, ignoreTags: ["Root"] })).toBeNull()
   })
 
+  test("skips components that alias Fragment", () => {
+    const code = [
+      `import { Fragment as F } from "react"`,
+      `const Wrapper = tooltip ? Tooltip : React.Fragment`,
+      `const Outer = (as ?? Fragment) as ElementType`,
+      `const a = <F><Wrapper><Outer><b /></Outer></Wrapper></F>`,
+    ].join("\n")
+    expect(transform(code)).toBe(code.replace("<b />", `<b data-sourcery="app/page.tsx:4:30" />`))
+  })
+
+  test("strips its attributes from props spread onto a fragment", () => {
+    const code = `const a = <Fragment {...rest}>{value}</Fragment>`
+    const output = transformJsx({
+      code,
+      file: "/project/a.tsx",
+      root,
+      attribute,
+      styled: { attribute: `${attribute}-styled`, modules: null },
+    })?.code
+    expect(output).toBe(
+      `const a = <Fragment {...(({ "data-sourcery": __sourcery0, "data-sourcery-styled": __sourcery1, ...props }) => props)((rest) ?? {})}>{value}</Fragment>`,
+    )
+    const spread = output?.slice(output.indexOf("{...") + 4, output.indexOf("}>{")) ?? ""
+    const run = new Function("rest", `return ${spread}`)
+    expect(run({ "data-sourcery": "x", "data-sourcery-styled": "y", ref: 1 })).toEqual({ ref: 1 })
+    expect(run(null)).toEqual({})
+  })
+
   test("keeps an attribute that is already there", () => {
     expect(transform(`const a = <div data-sourcery="x" />`)).toBeUndefined()
   })
