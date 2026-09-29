@@ -7,6 +7,7 @@ import { RadiusPicker } from "../radius-picker"
 import { Icon } from "../ui/icon"
 import { HeaderNav } from "./header-nav"
 import { LayoutContainer } from "./layout-container"
+import { MobileNav } from "./mobile-nav"
 import { REPO_URL } from "./site-links"
 import { Wordmark } from "./wordmark"
 
@@ -45,6 +46,7 @@ export function SiteHeader() {
           <Separator aria-hidden mx="2" />
           <RadiusPicker />
           <ColorModeButton />
+          <MobileNav />
         </styled.div>
       </LayoutContainer>
     </styled.header>

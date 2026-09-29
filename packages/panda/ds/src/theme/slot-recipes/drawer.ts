@@ -12,7 +12,8 @@ export const drawerSlotRecipe = defineSlotRecipe({
     "header",
     "body",
     "footer",
-    "backdrop",
+    "grabber",
+    "grabberIndicator",
   ],
   className: "drawer",
   base: {
@@ -90,6 +91,22 @@ export const drawerSlotRecipe = defineSlotRecipe({
       px: "6",
       pt: "2",
       pb: "4",
+    },
+    grabber: {
+      display: "flex",
+      justifyContent: "center",
+      flexShrink: 0,
+      pt: "3",
+      pb: "1",
+      cursor: "grab",
+      touchAction: "none",
+      _active: { cursor: "grabbing" },
+    },
+    grabberIndicator: {
+      w: "10",
+      h: "1",
+      rounded: "full",
+      bg: "border.emphasized",
     },
     title: {
       flex: "1",
@@ -202,6 +219,9 @@ export const drawerSlotRecipe = defineSlotRecipe({
         },
         content: {
           maxW: "100%",
+          maxH: "calc(100dvh - {spacing.12})",
+          borderTopRadius: "l3",
+          pb: "[env(safe-area-inset-bottom)]",
           _open: {
             animationName: "slide-from-bottom-full, fade-in",
           },
@@ -222,6 +242,13 @@ export const drawerSlotRecipe = defineSlotRecipe({
       },
     },
   },
+  compoundVariants: [
+    {
+      placement: ["top", "bottom"],
+      size: ["xs", "sm", "md", "lg", "xl"],
+      css: { content: { maxW: "100%" } },
+    },
+  ],
   defaultVariants: {
     size: "xs",
     placement: "end",
