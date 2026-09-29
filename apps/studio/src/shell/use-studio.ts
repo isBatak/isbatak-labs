@@ -78,6 +78,13 @@ function decodeShare(value: string) {
   }
 }
 
+/** Sandboxed hosts (e.g. an embedded preview) can refuse history updates; routing is a convenience there */
+function replaceUrl(url: string | URL) {
+  try {
+    window.history.replaceState(null, "", url)
+  } catch {}
+}
+
 /* -------------------------------------------------------------------------------------------------
  * Routing (`#/color`, `#/components`, `#/components/accordion?view=matrix`)
  * -----------------------------------------------------------------------------------------------*/
@@ -118,7 +125,7 @@ function init(): StudioState {
     themes[themeName] = sharedDoc
     const url = new URL(window.location.href)
     url.searchParams.delete("theme")
-    window.history.replaceState(null, "", url)
+    replaceUrl(url)
   }
 
   const { page, view } = pageFromHash(window.location.hash)
@@ -262,7 +269,7 @@ export function useStudio() {
 
   useEffect(() => {
     const hash = hashFromPage(state.page, state.view)
-    if (window.location.hash !== hash) window.history.replaceState(null, "", hash)
+    if (window.location.hash !== hash) replaceUrl(hash)
   }, [state.page, state.view])
 
   useEffect(() => {

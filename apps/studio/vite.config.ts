@@ -5,6 +5,8 @@ import { defineConfig } from "vite"
 import { studioThemes } from "./vite/studio-themes.ts"
 
 export default defineConfig({
+  // Relative asset URLs, so the build works from any path (static hosting, previews)
+  base: "./",
   plugins: [react(), studioThemes({ dir: resolve(import.meta.dirname, "themes") })],
   resolve: {
     alias: {
