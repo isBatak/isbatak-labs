@@ -5,6 +5,9 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "types": ["node"],
+    "paths": {
+      "styled-system/*": ["./styled-system/*"]
+    },
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.preact"
   }
 }

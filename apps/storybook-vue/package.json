@@ -8,8 +8,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@isbatak/panda-ds": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
+    "@isbatak/zag-swipeable-list": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/date-input": "catalog:",
     "@zag-js/popover": "catalog:",

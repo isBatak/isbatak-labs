@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { css } from "@isbatak/panda-ds/css"
-  import { wheelPicker as wheelPickerRecipe } from "@isbatak/panda-ds/recipes"
+  import { css } from "styled-system/css"
+  import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
   import * as wheelPicker from "@isbatak/zag-wheel-picker"
   import { normalizeProps, useMachine } from "@zag-js/svelte"
 

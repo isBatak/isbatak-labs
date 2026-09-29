@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["src/examples/svelte", "mount/svelte.ts", "mount/env.d.ts"],
-  "compilerOptions": { "types": ["node"], "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.svelte" }
+  "compilerOptions": {
+    "types": ["node"],
+    "paths": {
+      "styled-system/*": ["./styled-system/*"]
+    },
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo.svelte"
+  }
 }
