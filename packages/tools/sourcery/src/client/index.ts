@@ -117,7 +117,21 @@ function openSource(location: string, port: number) {
   if (!match) return
   const [, file = "", line = "1", column = "1"] = match
   const params = new URLSearchParams({ file, line, column })
-  fetch(`http://127.0.0.1:${port}/open?${params}`, { mode: "no-cors" }).catch(() => {})
+  void requestOpen(port, params)
+}
+
+const HOSTS = ["127.0.0.1", "localhost"]
+let preferredHost: string | null = null
+
+async function requestOpen(port: number, params: URLSearchParams) {
+  const hosts = preferredHost ? [preferredHost, ...HOSTS.filter((host) => host !== preferredHost)] : HOSTS
+  for (const host of hosts) {
+    try {
+      await fetch(`http://${host}:${port}/open?${params}`, { mode: "no-cors" })
+      preferredHost = host
+      return
+    } catch {}
+  }
 }
 
 function createOverlay() {
