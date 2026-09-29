@@ -1,9 +1,0 @@
-{
-  "extends": "../../../tsconfig.json",
-  "include": ["src", "remotion.config.ts"],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "types": [],
-    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
-  }
-}

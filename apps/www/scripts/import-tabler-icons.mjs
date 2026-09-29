@@ -65,6 +65,7 @@ const icons = {
   "brand-npm": "outline/brand-npm",
   "brand-nextjs": "outline/brand-nextjs",
   "brand-vscode": "outline/brand-vscode",
+  sparkles: "outline/sparkles",
 }
 
 const SIMPLE_ICONS_VERSION = "15"

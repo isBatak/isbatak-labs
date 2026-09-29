@@ -4,10 +4,11 @@ import { Icon } from "../ui/icon"
 
 interface VideoDemoProps {
   src?: string | undefined
+  poster?: string | undefined
   title: string
 }
 
-export function VideoDemo({ src, title }: VideoDemoProps) {
+export function VideoDemo({ src, poster, title }: VideoDemoProps) {
   return (
     <styled.figure
       position="relative"
@@ -23,6 +24,7 @@ export function VideoDemo({ src, title }: VideoDemoProps) {
       {src ? (
         <styled.video
           src={src}
+          poster={poster}
           title={title}
           controls
           playsInline

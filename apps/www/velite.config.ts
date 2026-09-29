@@ -47,6 +47,7 @@ const tools = defineCollection({
       status: s.enum(["new", "beta", "stable"]).optional(),
       href: s.string().url().optional(),
       video: s.string().optional(),
+      poster: s.string().optional(),
       links: s
         .object({
           source: s.string().optional(),
