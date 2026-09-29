@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/sourcery",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hold a hotkey, click any element in the page, and jump to the line of code that rendered it",
   "keywords": [
     "click-to-source",
