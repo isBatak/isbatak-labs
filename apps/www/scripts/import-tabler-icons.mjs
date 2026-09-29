@@ -66,6 +66,7 @@ const icons = {
   "brand-nextjs": "outline/brand-nextjs",
   "brand-vscode": "outline/brand-vscode",
   sparkles: "outline/sparkles",
+  menu: "outline/menu-2",
 }
 
 const SIMPLE_ICONS_VERSION = "15"
