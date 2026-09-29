@@ -77,7 +77,11 @@ function UpstreamRow({ url, project, logo, title, label }: UpstreamItem) {
         overflow="hidden"
         bg="bg.default"
       >
-        {logoSrc ? <styled.img src={logoSrc} alt="" w="full" h="full" objectFit="cover" /> : <Icon name="brand-github" />}
+        {logoSrc ? (
+          <styled.img src={logoSrc} alt="" w="full" h="full" objectFit="cover" />
+        ) : (
+          <Icon name="brand-github" />
+        )}
       </styled.span>
       <styled.span display="flex" flexDirection="column" minW="0" flex="1">
         <styled.span fontFamily="mono" textStyle="sm" color="fg.muted">
