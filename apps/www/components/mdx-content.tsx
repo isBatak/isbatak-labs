@@ -7,6 +7,7 @@ import { ApiTable } from "./docs/api-table"
 import { ArkWheelPickerExample } from "./docs/ark-wheel-picker-example"
 import { Example, ExampleSource, FrameworkInstall, Installation } from "./docs/framework-code"
 import { FrameworkHint } from "./docs/framework-hint"
+import { UpstreamNotice } from "./docs/upstream-notice"
 import type { DocVariant } from "./docs/variant"
 
 export type MDXComponents = Record<string, ComponentType<any>>
@@ -39,6 +40,7 @@ const sharedComponents: MDXComponents = {
   ApiTable,
   ArkExample,
   FrameworkHint,
+  UpstreamNotice,
 }
 
 type VariantComponentProps<P> = Omit<P, keyof DocVariant>
