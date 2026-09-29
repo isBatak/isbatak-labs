@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 import { Icon } from "../ui/icon"
 
-export function CopyButton({ value }: { value: string }) {
+export function useCopy(value: string) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -14,6 +14,13 @@ export function CopyButton({ value }: { value: string }) {
     const timeout = setTimeout(() => setCopied(false), 1500)
     return () => clearTimeout(timeout)
   }, [copied])
+
+  const copy = () => navigator.clipboard.writeText(value).then(() => setCopied(true))
+  return { copied, copy }
+}
+
+export function CopyButton({ value }: { value: string }) {
+  const { copied, copy } = useCopy(value)
 
   return (
     <Button
@@ -23,7 +30,7 @@ export function CopyButton({ value }: { value: string }) {
       aspectRatio="square"
       color="fg.muted"
       aria-label={copied ? "Copied" : "Copy code"}
-      onClick={() => navigator.clipboard.writeText(value).then(() => setCopied(true))}
+      onClick={copy}
     >
       <Icon name={copied ? "check" : "copy"} />
     </Button>

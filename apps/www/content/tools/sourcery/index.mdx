@@ -7,6 +7,8 @@ order: 1
 icon: pointer
 color: purple
 category: Dev tool
+video: /videos/sourcery-demo.mp4
+poster: /videos/sourcery-poster.jpg
 links:
   source: packages/tools/sourcery
   npm: https://www.npmjs.com/package/@isbatak/sourcery
@@ -33,6 +35,46 @@ only changes the config while the development server runs, so `next build` gets 
 Next.js you can add the webpack rule or the Turbopack rules yourself.
 
 ## Setup
+
+### With a coding agent
+
+Copy this prompt into Claude Code, Cursor or any other coding agent. It installs sourcery, works out how your project is
+built and asks you a few questions before it changes anything.
+
+<SetupPrompt>
+
+```text
+Set up @isbatak/sourcery in this project. In development it adds the source location to every JSX element, so holding ⌘⇧ (Ctrl⇧ on Windows and Linux) and clicking an element opens the line that rendered it in the editor. Docs: https://github.com/isBatak/isbatak-labs/tree/main/packages/tools/sourcery
+
+1. Look at the project first, without changing anything:
+
+- The package manager, from the lockfile.
+- The bundler. Sourcery supports Next.js 15 or newer (Turbopack and webpack), hand-written Turbopack rules, and plain webpack. If the project uses anything else, like Vite, tell me it isn't supported yet and stop.
+- For Next.js: the config file, any plugins already wrapping the config, and whether it uses the App Router or the Pages Router.
+- Whether it uses Panda CSS: a panda.config file, or imports from styled-system/jsx or another Panda jsx entry.
+- A module that runs in the browser on every page, for the injectTo option: a "use client" providers component rendered by the root layout, pages/_app.tsx, or the client entry such as src/main.tsx.
+
+2. Tell me what you found, then ask me these in one message:
+
+- Which module injectTo should point at, suggesting the one you found. With the App Router and no such component, offer to create components/providers.tsx with "use client" that returns its children, and render it in app/layout.tsx.
+- Only if the project uses Panda CSS: whether to turn on panda mode, where holding ⌥ as well opens the styled() call behind an element instead of the line that uses it.
+- Which editor to open: detect it automatically (recommended), or always use one of code, cursor, windsurf, zed, sublime, webstorm, idea.
+
+3. Once I answer, set it up:
+
+- Install @isbatak/sourcery as a dev dependency with the project's package manager.
+- Next.js: import withSourcery from "@isbatak/sourcery/next" and resolve from "node:path", then export withSourcery(nextConfig, { injectTo: resolve("components/providers.tsx") }). It returns a config function, so keep it the outermost wrapper, around any other plugins.
+- Hand-written Turbopack rules: const options = await prepareOptions({ injectTo }) from "@isbatak/sourcery", then rules: mergeTurbopackRules(existingRules, createTurbopackRules(options)) from "@isbatak/sourcery/turbopack".
+- Plain webpack: export (env, argv) => withSourceryWebpack(config, { enabled: argv.mode === "development", injectTo }) from "@isbatak/sourcery/webpack".
+- Add panda: true or editor: "<id>" to the options only if I asked for them.
+- Don't touch anything else. Sourcery is development only and leaves production builds alone.
+
+4. Check it works: start the dev server and look for "sourcery hold ⌘⇧ and click an element to open its source" in its output, then stop it. If you can't run it, ask me to. Finish by telling me how to use it: hold ⌘⇧ (Ctrl⇧ outside macOS), hover the page, click an element.
+```
+
+</SetupPrompt>
+
+### By hand
 
 Pick your setup. In each case, `injectTo` points at a module that runs in the browser on every page, where sourcery adds
 its small client.

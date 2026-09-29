@@ -18,7 +18,7 @@ export function CodeFile({ children }: CodeFileProps) {
   return <>{children}</>
 }
 
-function readCode(children: ReactNode) {
+export function readCode(children: ReactNode) {
   const pre = Children.toArray(children).find(isValidElement<{ children?: ReactNode }>)
   const code = pre && Children.toArray(pre.props.children).find(isValidElement<CodeElementProps>)
   return {

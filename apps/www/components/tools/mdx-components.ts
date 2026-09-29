@@ -7,6 +7,7 @@ import { Editor, Editors } from "./editors"
 import { Faq, FaqItem } from "./faq"
 import { Kbd } from "./kbd"
 import { PackageInstall } from "./package-install"
+import { SetupPrompt } from "./setup-prompt"
 import { Term } from "./term"
 
 export const toolComponents: MDXComponents = {
@@ -19,6 +20,7 @@ export const toolComponents: MDXComponents = {
   FaqItem,
   Kbd,
   PackageInstall,
+  SetupPrompt,
   Tab,
   Tabs: DocTabs,
   Term,
