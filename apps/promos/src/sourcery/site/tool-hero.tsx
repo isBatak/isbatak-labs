@@ -2,6 +2,8 @@ import { Button } from "@isbatak/react-ui/button"
 import { HStack, styled } from "@isbatak/panda-ds/jsx"
 import { segmentGroup } from "@isbatak/panda-ds/recipes"
 
+import { Lockup } from "../stage/lockup"
+import { T } from "../theme"
 import { ArrowUpRightIcon, ChevronRightIcon, CopyIcon, GithubIcon, NpmIcon, PlayIcon } from "./icons"
 
 const Eyebrow = styled("p", {
@@ -35,8 +37,8 @@ export function ToolHero() {
           <ChevronRightIcon />
           <Eyebrow>Dev tool</Eyebrow>
         </styled.nav>
-        <styled.h1 mt="5" textStyle="6xl" fontWeight="medium" lineHeight="1" letterSpacing="tighter">
-          Sourcery
+        <styled.h1 mt="5" display="flex" justifyContent="center">
+          <Lockup start={T.hookExpand + 4} unit={5} />
         </styled.h1>
         <styled.p mt="4" fontFamily="mono" textStyle="sm" color="fg.subtle">
           @isbatak/sourcery

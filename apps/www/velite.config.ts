@@ -43,6 +43,7 @@ const tools = defineCollection({
       category: s.string(),
       icon: s.string().default("tool"),
       logo: s.file().optional(),
+      wordmark: s.file().optional(),
       color: s.string().default("gray"),
       status: s.enum(["new", "beta", "stable"]).optional(),
       href: s.string().url().optional(),

@@ -5,6 +5,7 @@
   "scripts": {
     "codegen": "panda",
     "audio": "node audio/sourcery.ts",
+    "brand": "node brand/sourcery.ts",
     "studio": "panda && pnpm audio && remotion studio",
     "render:sourcery": "panda && pnpm audio && remotion render SourceryPromo ../www/public/videos/sourcery-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --audio-bitrate=128k",
     "render:sourcery-vertical": "panda && pnpm audio && remotion render SourceryPromoVertical out/sourcery-demo-vertical.mp4",
