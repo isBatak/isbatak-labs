@@ -32,6 +32,7 @@ export function sourcery(options: SourceryOptions = {}): Plugin {
       },
     },
     transform: {
+      order: "pre",
       filter: { id: SOURCE_ID },
       handler(code, id) {
         if (!resolved || id.startsWith("\0")) return null

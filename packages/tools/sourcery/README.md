@@ -42,8 +42,9 @@ export default defineConfig({
 ```
 
 It only runs for `vite dev`; `vite build` is left untouched. Paths are recorded relative to Vite's `root`. Frameworks
-that render their own HTML (React Router, TanStack Start, …) need `injectTo` pointing at a module that runs in the
-browser on every page, as with Next.js.
+that render their own HTML need `injectTo` pointing at their root route: `src/routes/__root.tsx` in TanStack Start,
+`app/root.tsx` in React Router. Sourcery reads each file before other plugins change it, so its place in `plugins`
+doesn't matter.
 
 ## Panda CSS
 
