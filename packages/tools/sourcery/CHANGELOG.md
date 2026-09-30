@@ -1,5 +1,11 @@
 # @isbatak/sourcery
 
+## 0.2.1
+
+### Patch Changes
+
+- cb84b36: Add the Sourcery logo to the README
+
 ## 0.2.0
 
 ### Minor Changes
