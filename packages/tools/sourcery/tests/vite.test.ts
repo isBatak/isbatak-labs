@@ -8,7 +8,7 @@ interface Hooks {
   apply: (config: object, env: { command: "serve" | "build" }) => boolean
   configResolved: (config: { root: string }) => Promise<void>
   transformIndexHtml: { handler: () => HtmlTagDescriptor[] }
-  transform: { handler: (code: string, id: string) => { code: string } | null }
+  transform: { order: string; handler: (code: string, id: string) => { code: string } | null }
 }
 
 async function setup(options: SourceryOptions = {}) {
@@ -24,6 +24,10 @@ describe("sourcery vite plugin", () => {
     expect(plugin.apply({}, { command: "build" })).toBe(false)
     expect((sourcery({ enabled: true }) as unknown as Hooks).apply({}, { command: "build" })).toBe(true)
     expect((sourcery({ enabled: false }) as unknown as Hooks).apply({}, { command: "serve" })).toBe(false)
+  })
+
+  test("transforms before other plugins so positions match the source", () => {
+    expect((sourcery() as unknown as Hooks).transform.order).toBe("pre")
   })
 
   test("tags JSX relative to the Vite root and ignores the query", async () => {
