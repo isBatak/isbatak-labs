@@ -21,6 +21,10 @@ pnpm studio   # from the repo root: builds the design system, then starts the st
   and the layers panel.
 - **Style panel**: a part is edited for _all variants_ or a single variant value, and for a state (hover, open,
   disabled, …). Values accept token names (`blue.500`, `4`, `l2`) with suggestions, or raw CSS.
+- **Color picker**: color tokens and color properties open a picker (Ark UI `ColorPicker`, styled by the design system's
+  `colorPicker` recipe). **Tokens** links to a palette or semantic token; **Custom** picks a raw color with an area, eye
+  dropper, hue/alpha sliders and RGBA/HSLA/HSBA inputs. The Light and Dark rows are the colors the page palette uses;
+  Recent keeps your last custom colors.
 - **Lint**: WCAG contrast of the semantic color pairs, measured on the canvas with your edits applied.
 - **Themes**: edits are saved per theme in the browser, with undo/redo (⌘Z / ⇧⌘Z). **Share** copies a link that opens
   the theme; **Save to repo** (dev only) writes `themes/<name>.json` and `themes/<name>.preset.ts`.

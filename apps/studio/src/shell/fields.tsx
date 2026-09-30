@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import { css } from "styled-system/css"
+import { useState } from "react"
 import { styled } from "styled-system/jsx"
 
-import { listTokens, resolveReferences } from "../lib/theme-meta"
-import { IconButton, ResetIcon, TextInput, dot } from "./ui"
+import { listTokens } from "../lib/theme-meta"
+import { ColorPill, ColorTokenPicker } from "./color-token-picker"
+import { Icon, IconButton, ResetIcon, TextInput, dot } from "./ui"
 
 /** `<datalist>`s with token suggestions, rendered once and referenced by id from inputs */
 export function TokenDatalists() {
@@ -43,60 +43,6 @@ function TokenDatalist(props: { category: string }) {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * Colors
- * -----------------------------------------------------------------------------------------------*/
-
-let probeCanvas: CanvasRenderingContext2D | null | undefined
-
-/** Resolves any CSS color (including `var(...)` and `color-mix`) to `#rrggbb` using the studio's own tokens */
-export function toHex(value: string) {
-  if (!value) return "#000000"
-  const probe = document.createElement("span")
-  probe.style.color = resolveReferences(value)
-  document.body.append(probe)
-  const color = getComputedStyle(probe).color
-  probe.remove()
-  probeCanvas ??= document.createElement("canvas").getContext("2d", { willReadFrequently: true })
-  if (!probeCanvas) return "#000000"
-  probeCanvas.clearRect(0, 0, 1, 1)
-  probeCanvas.fillStyle = color
-  probeCanvas.fillRect(0, 0, 1, 1)
-  const [r, g, b] = probeCanvas.getImageData(0, 0, 1, 1).data
-  return `#${[r, g, b].map((channel) => channel!.toString(16).padStart(2, "0")).join("")}`
-}
-
-const swatch = css({
-  position: "relative",
-  w: "6",
-  h: "6",
-  flexShrink: "0",
-  borderRadius: "sm",
-  borderWidth: "1px",
-  borderColor: "border",
-  overflow: "hidden",
-  cursor: "pointer",
-  "& input": { position: "absolute", inset: "0", opacity: "0", cursor: "pointer" },
-})
-
-export function ColorSwatchPicker(props: { value: string; onChange: (value: string) => void; label: string }) {
-  const [hex, setHex] = useState("#000000")
-  useEffect(() => setHex(toHex(props.value)), [props.value])
-  return (
-    <label className={swatch} style={{ background: resolveReferences(props.value) }} title={props.label}>
-      <input
-        type="color"
-        aria-label={props.label}
-        value={hex}
-        onChange={(event) => {
-          setHex(event.target.value)
-          props.onChange(event.target.value)
-        }}
-      />
-    </label>
-  )
-}
-
-/* -------------------------------------------------------------------------------------------------
  * Field
  * -----------------------------------------------------------------------------------------------*/
 
@@ -114,6 +60,8 @@ export interface FieldProps {
   references?: boolean
   onChange: (value: string | undefined) => void
   color?: boolean
+  /** Opens the color picker on mount (a swatch was just clicked on the canvas) */
+  autoOpen?: boolean
 }
 
 export function Field(props: FieldProps) {
@@ -135,21 +83,29 @@ export function Field(props: FieldProps) {
         {props.label}
         {overridden && <span className={dot} />}
       </styled.span>
-      <styled.div display="flex" alignItems="center" gap="1">
-        {props.color && (
-          <ColorSwatchPicker
-            label={`${props.label} color`}
-            value={colorPreview(effective, props.category)}
-            onChange={(value) => props.onChange(value)}
+      <styled.div display="flex" alignItems="center" gap="1" minW="0">
+        {props.color ? (
+          <>
+            <ColorTokenPicker
+              label={props.label}
+              value={effective}
+              references={props.references}
+              defaultOpen={props.autoOpen}
+              onChange={(value) => props.onChange(value)}
+            >
+              <ColorPill value={effective} inherited={!overridden} label={props.label} />
+            </ColorTokenPicker>
+            <CopyButton value={effective} label={props.label} />
+          </>
+        ) : (
+          <TextInput
+            aria-label={props.label}
+            list={listId}
+            value={props.value ?? ""}
+            placeholder={props.inherited ?? "not set"}
+            onChange={(event) => props.onChange(event.target.value || undefined)}
           />
         )}
-        <TextInput
-          aria-label={props.label}
-          list={listId}
-          value={props.value ?? ""}
-          placeholder={props.inherited ?? "not set"}
-          onChange={(event) => props.onChange(event.target.value || undefined)}
-        />
         {overridden ? (
           <IconButton label={`Reset ${props.label}`} onClick={() => props.onChange(undefined)}>
             <ResetIcon />
@@ -167,13 +123,31 @@ export function Field(props: FieldProps) {
   )
 }
 
-/** Turns a recipe color value (`colorPalette.solid`, `gray.500/20`) into something the swatch can paint */
-function colorPreview(value: string, category: string | undefined) {
-  if (!value || category !== "colors" || value.startsWith("{") || value.startsWith("#") || value.includes("(")) {
-    return value
-  }
-  const [name, opacity] = value.split("/")
-  // colorPalette.* is only defined inside components; preview it with the default gray palette
-  const token = name!.replace(/^colorPalette\./, "gray.")
-  return opacity ? `{colors.${token}/${opacity}}` : `{colors.${token}}`
+function CopyButton(props: { value: string; label: string }) {
+  const [copied, setCopied] = useState(false)
+  return (
+    <IconButton
+      label={copied ? "Copied" : `Copy ${props.label}`}
+      onClick={() => {
+        navigator.clipboard.writeText(props.value).then(
+          () => {
+            setCopied(true)
+            setTimeout(() => setCopied(false), 1200)
+          },
+          () => {},
+        )
+      }}
+    >
+      {copied ? (
+        <Icon>
+          <path d="M20 6 9 17l-5-5" />
+        </Icon>
+      ) : (
+        <Icon>
+          <rect x="9" y="9" width="13" height="13" rx="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </Icon>
+      )}
+    </IconButton>
+  )
 }

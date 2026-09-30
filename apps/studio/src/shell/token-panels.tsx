@@ -13,7 +13,7 @@ function originalValue(entry: TokenEntry, mode: "base" | "_dark") {
   return entry.value[mode] ?? entry.value.base
 }
 
-export function TokenField(props: { studio: Studio; entry: TokenEntry; label?: string }) {
+export function TokenField(props: { studio: Studio; entry: TokenEntry; label?: string; autoOpen?: boolean }) {
   const { studio, entry } = props
   const { doc, colorMode } = studio.state
   const key = `${entry.category}.${entry.name}`
@@ -23,6 +23,7 @@ export function TokenField(props: { studio: Studio; entry: TokenEntry; label?: s
     const mode = typeof entry.value === "string" ? "base" : colorMode
     return (
       <Field
+        autoOpen={props.autoOpen}
         label={props.label ?? entry.name}
         value={doc.semanticTokens[key]?.[mode]}
         inherited={originalValue(entry, mode)}
@@ -36,6 +37,7 @@ export function TokenField(props: { studio: Studio; entry: TokenEntry; label?: s
 
   return (
     <Field
+      autoOpen={props.autoOpen}
       label={props.label ?? entry.name}
       value={doc.tokens[key]}
       inherited={String(entry.value)}
@@ -81,7 +83,8 @@ function SelectedToken(props: { studio: Studio }) {
   if (!entry) return null
   return (
     <PanelSection title="Selected">
-      <TokenField studio={props.studio} entry={entry} />
+      {/* Keyed so a newly clicked swatch opens its picker */}
+      <TokenField key={token} studio={props.studio} entry={entry} autoOpen={entry.category === "colors"} />
     </PanelSection>
   )
 }
