@@ -212,7 +212,7 @@ export function ColorTokenPicker(props: ColorTokenPickerProps) {
       </ColorPicker.Control>
       <Portal>
         <Positioner>
-          <Content w="76" gap="3">
+          <Content w="20rem" gap="3">
             <styled.div display="flex" alignItems="center" justifyContent="space-between">
               <styled.span textStyle="sm" fontWeight="semibold" fontFamily="mono" truncate>
                 {props.label}
