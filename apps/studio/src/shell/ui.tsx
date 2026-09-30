@@ -1,6 +1,7 @@
 import { type ComponentProps, type ReactNode, createContext, use, useCallback, useState } from "react"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
+import { input } from "styled-system/recipes"
 
 /** Compact controls for the studio chrome */
 
@@ -26,27 +27,16 @@ export function PanelSection(props: { title: string; children: ReactNode; action
   )
 }
 
-const control = css({
-  h: "7",
-  w: "full",
-  minW: "0",
-  px: "2",
-  textStyle: "xs",
-  bg: "bg",
-  borderWidth: "1px",
-  borderColor: "border",
-  borderRadius: "md",
-  outline: "0",
-  _focusVisible: { borderColor: "blue.500", boxShadow: "0 0 0 1px {colors.blue.500}" },
-  _placeholder: { color: "fg.subtle" },
-})
+/** Studio fields use the design system's own subtle input: filled, borderless, 28px tall */
+const control = cx(input({ variant: "subtle", size: "2xs" }), css({ _placeholder: { color: "fg.subtle" } }))
 
 export function TextInput(props: ComponentProps<"input">) {
   return <input type="text" spellCheck={false} autoComplete="off" {...props} className={cx(control, props.className)} />
 }
 
 export function NativeSelect(props: ComponentProps<"select">) {
-  return <select {...props} className={cx(control, css({ pe: "6" }), props.className)} />
+  // The input recipe removes the native appearance; keep the select's arrow
+  return <select {...props} className={cx(control, css({ appearance: "auto", pe: "1" }), props.className)} />
 }
 
 export const dot = css({ w: "1.5", h: "1.5", borderRadius: "full", bg: "blue.500", flexShrink: "0" })
