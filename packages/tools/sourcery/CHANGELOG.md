@@ -1,5 +1,11 @@
 # @isbatak/sourcery
 
+## 0.2.0
+
+### Minor Changes
+
+- 3ef6e35: Add a Vite plugin at `@isbatak/sourcery/vite`, which adds the client to `index.html` unless `injectTo` is set
+
 ## 0.1.1
 
 ### Patch Changes
