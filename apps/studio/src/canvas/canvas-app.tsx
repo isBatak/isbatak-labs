@@ -6,9 +6,10 @@ import { components } from "../components"
 import { demos } from "../demos"
 import type { CanvasMessage, ComponentId, Part, RenderMessage } from "../lib/messages"
 import { recipes } from "../lib/theme-meta"
-import { ColorPage, OverviewPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
+import { ColorPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
 import { collectLayers } from "./layers"
 import { runLint } from "./lint"
+import { OverviewBoard } from "./overview"
 import { SelectionLayer } from "./selection"
 
 const post = (message: CanvasMessage) => window.parent.postMessage(message, window.location.origin)
@@ -88,7 +89,7 @@ export function CanvasApp() {
 
   let content: ReactNode = null
   if (page.kind === "foundation") {
-    if (page.id === "overview") content = <OverviewPage {...foundationProps} />
+    if (page.id === "overview") content = <OverviewBoard />
     if (page.id === "color") content = <ColorPage {...foundationProps} />
     if (page.id === "typography") content = <TypographyPage {...foundationProps} />
     if (page.id === "radius") content = <RadiusPage {...foundationProps} />
@@ -103,15 +104,25 @@ export function CanvasApp() {
     content = <Demo />
   }
 
+  const board = page.kind === "foundation" && page.id === "overview"
   const wide = page.kind !== "component" || state.view === "matrix"
 
   return (
-    <styled.main minH="100vh" bg="bg.subtle" color="fg" px="8" py="12">
+    <styled.main
+      minH="100vh"
+      bg="bg.subtle"
+      color="fg"
+      px={board ? "16" : "8"}
+      py={board ? "16" : "12"}
+      w={board ? "max-content" : undefined}
+      minW="full"
+    >
+      <BoardPanning enabled={board} pageKey={pageKey} />
       <styled.div
         key={pageKey}
         ref={contentRef}
         mx="auto"
-        maxW={wide ? "6xl" : "3xl"}
+        maxW={board ? undefined : wide ? "6xl" : "3xl"}
         display="flex"
         flexDirection="column"
         gap="12"
@@ -121,6 +132,61 @@ export function CanvasApp() {
       <SelectionLayer selected={state.selectedPart} highlighted={state.hoveredPart} onSelect={onSelectPart} />
     </styled.main>
   )
+}
+
+/**
+ * On the Overview board: start centered, and pan by dragging with Space held or the middle mouse button.
+ */
+function BoardPanning(props: { enabled: boolean; pageKey: string }) {
+  useEffect(() => {
+    if (!props.enabled) return
+    const root = document.scrollingElement ?? document.documentElement
+    root.scrollLeft = (root.scrollWidth - root.clientWidth) / 2
+
+    let space = false
+    let drag: { x: number; y: number; left: number; top: number } | undefined
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== "Space" || event.target instanceof HTMLInputElement) return
+      space = true
+      document.body.style.cursor = "grab"
+      event.preventDefault()
+    }
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.code !== "Space") return
+      space = false
+      if (!drag) document.body.style.cursor = ""
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (!(space || event.button === 1)) return
+      event.preventDefault()
+      event.stopPropagation()
+      drag = { x: event.clientX, y: event.clientY, left: root.scrollLeft, top: root.scrollTop }
+      document.body.style.cursor = "grabbing"
+    }
+    const onPointerMove = (event: PointerEvent) => {
+      if (!drag) return
+      root.scrollLeft = drag.left - (event.clientX - drag.x)
+      root.scrollTop = drag.top - (event.clientY - drag.y)
+    }
+    const onPointerUp = () => {
+      drag = undefined
+      document.body.style.cursor = space ? "grab" : ""
+    }
+    window.addEventListener("keydown", onKeyDown)
+    window.addEventListener("keyup", onKeyUp)
+    window.addEventListener("pointerdown", onPointerDown, true)
+    window.addEventListener("pointermove", onPointerMove)
+    window.addEventListener("pointerup", onPointerUp)
+    return () => {
+      window.removeEventListener("keydown", onKeyDown)
+      window.removeEventListener("keyup", onKeyUp)
+      window.removeEventListener("pointerdown", onPointerDown, true)
+      window.removeEventListener("pointermove", onPointerMove)
+      window.removeEventListener("pointerup", onPointerUp)
+      document.body.style.cursor = ""
+    }
+  }, [props.enabled, props.pageKey])
+  return null
 }
 
 /* -------------------------------------------------------------------------------------------------

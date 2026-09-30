@@ -11,6 +11,9 @@ pnpm studio   # from the repo root: builds the design system, then starts the st
 
 ## What it does
 
+- **Overview**: a board of product blocks (sign-in, payout, stock chart, pricing, team, …) built only from design-system
+  components. It scrolls on both axes; hold Space and drag, or drag with the middle mouse button, to pan. The inspector
+  shows the system's identity, foundation values and change counts, with actions to duplicate, reset or delete it.
 - **Foundations**: Overview, Color, Typography, Radius, Shadow and Spacing pages show tokens next to live components.
   Click a swatch to edit it; semantic tokens are edited per color mode (Light / Dark).
 - **Components**: every component in `@isbatak/react-ui` (plus a few recipe-only ones) has a Demo page and a Matrix of

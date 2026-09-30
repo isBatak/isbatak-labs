@@ -1,4 +1,5 @@
 import { type RadiusPreset, radiusScale } from "@isbatak/panda-ds/radius"
+import { useState } from "react"
 import { styled } from "styled-system/jsx"
 
 import { type StudioDoc, countOverrides, emptyDoc, listRules, setSemanticToken, setToken } from "../lib/doc"
@@ -209,25 +210,35 @@ export function OverviewPanel(props: { studio: Studio }) {
   const rules = listRules(doc)
   const recipesEdited = new Set(rules.map((rule) => rule.recipe))
 
+  const lightTokens = Object.values(doc.semanticTokens).filter((value) => value.base).length
+  const darkTokens = Object.values(doc.semanticTokens).filter((value) => value._dark).length
+
   return (
     <>
-      <PanelSection title={`Theme · ${studio.state.themeName}`}>
-        <Muted>
-          {countOverrides(doc)} edits: {Object.keys(doc.tokens).length} tokens, {Object.keys(doc.semanticTokens).length}{" "}
-          semantic tokens and {rules.length} component rules across {recipesEdited.size} components.
-        </Muted>
-        {countOverrides(doc) > 0 && (
-          <styled.button
-            type="button"
-            alignSelf="start"
-            textStyle="xs"
-            color="fg.error"
-            cursor="pointer"
-            onClick={() => studio.edit(() => emptyDoc())}
-          >
-            Reset theme
-          </styled.button>
-        )}
+      <PanelSection title="System">
+        <styled.span textStyle="xs" fontWeight="semibold" mt="-1">
+          Identity
+        </styled.span>
+        <InfoRow label="Name" value={studio.state.themeName} />
+        <InfoRow label="Design system" value="@isbatak/panda-ds" />
+      </PanelSection>
+      <PanelSection title="Foundation">
+        <InfoRow label="Body font" value={fontName(tokenValueOf(doc, "fonts.body"))} />
+        <InfoRow label="Heading font" value={fontName(tokenValueOf(doc, "fonts.heading"))} />
+        <InfoRow label="Radius" value={radiusValue(doc)} />
+        <InfoRow
+          label="Solid color"
+          value={semanticValueOf(doc, "colors.gray.solid").replace(/^\{colors\.|\}$/g, "")}
+        />
+      </PanelSection>
+      <PanelSection title="Changes">
+        <InfoRow label="Light tokens" value={String(lightTokens)} />
+        <InfoRow label="Dark tokens" value={String(darkTokens)} />
+        <InfoRow label="Theme values" value={String(Object.keys(doc.tokens).length)} />
+        <InfoRow label="Component rules" value={String(rules.length)} />
+      </PanelSection>
+      <PanelSection title="Actions">
+        <ThemeActions studio={studio} />
       </PanelSection>
       {Object.keys(doc.tokens).length > 0 && (
         <PanelSection title="Tokens">
@@ -295,5 +306,103 @@ function EditRow(props: { label: string; value: string; onRemove?: () => void })
         </styled.button>
       )}
     </styled.div>
+  )
+}
+
+function InfoRow(props: { label: string; value: string }) {
+  return (
+    <styled.div display="flex" justifyContent="space-between" gap="3" textStyle="xs" py="0.5">
+      <styled.span color="fg.muted">{props.label}</styled.span>
+      <styled.span truncate textAlign="end" fontVariantNumeric="tabular-nums" title={props.value}>
+        {props.value}
+      </styled.span>
+    </styled.div>
+  )
+}
+
+function tokenValueOf(doc: StudioDoc, key: string) {
+  const [category, ...rest] = key.split(".")
+  return doc.tokens[key] ?? String(getToken(category!, rest.join("."))?.value ?? "")
+}
+
+function semanticValueOf(doc: StudioDoc, key: string) {
+  const [category, ...rest] = key.split(".")
+  const value = getToken(category!, rest.join("."))?.value
+  return doc.semanticTokens[key]?.base ?? (typeof value === "string" ? value : (value?.base ?? ""))
+}
+
+/** First family of a font stack, without quotes */
+const fontName = (stack: string) =>
+  stack
+    .split(",")[0]!
+    .trim()
+    .replace(/^["']|["']$/g, "")
+
+/** The `l2` radius components use, resolved to a length */
+function radiusValue(doc: StudioDoc) {
+  const level = semanticValueOf(doc, "radii.l2")
+  const match = level.match(/^\{radii\.([^}]+)\}$/)
+  return match ? `${tokenValueOf(doc, `radii.${match[1]}`)} (${match[1]})` : level
+}
+
+const actionButton = {
+  h: "8",
+  w: "full",
+  textStyle: "xs",
+  fontWeight: "medium",
+  borderRadius: "md",
+  cursor: "pointer",
+} as const
+
+function ThemeActions(props: { studio: Studio }) {
+  const { state, dispatch } = props.studio
+  const [confirming, setConfirming] = useState(false)
+
+  const duplicate = () => {
+    let name = `${state.themeName}-copy`
+    for (let index = 2; name in state.themes; index++) name = `${state.themeName}-copy-${index}`
+    dispatch({ type: "switch-theme", name, doc: structuredClone(state.doc) })
+  }
+
+  return (
+    <>
+      <styled.button
+        type="button"
+        {...actionButton}
+        borderWidth="1px"
+        borderColor="border"
+        _hover={{ bg: "bg.muted" }}
+        onClick={duplicate}
+      >
+        Duplicate system
+      </styled.button>
+      {countOverrides(state.doc) > 0 && (
+        <styled.button
+          type="button"
+          {...actionButton}
+          borderWidth="1px"
+          borderColor="border"
+          _hover={{ bg: "bg.muted" }}
+          onClick={() => props.studio.edit(() => emptyDoc())}
+        >
+          Reset all {countOverrides(state.doc)} edits
+        </styled.button>
+      )}
+      <styled.button
+        type="button"
+        {...actionButton}
+        bg="red.100"
+        color="red.800"
+        _hover={{ bg: "red.200" }}
+        onBlur={() => setConfirming(false)}
+        onClick={() => {
+          if (!confirming) return setConfirming(true)
+          setConfirming(false)
+          dispatch({ type: "delete-theme", name: state.themeName })
+        }}
+      >
+        {confirming ? `Delete “${state.themeName}”? Click again` : "Delete system"}
+      </styled.button>
+    </>
   )
 }

@@ -1,10 +1,9 @@
 import { Badge } from "@isbatak/react-ui/badge"
 import { Button } from "@isbatak/react-ui/button"
-import { Tabs } from "@isbatak/react-ui/tabs"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
-import { Alert, Avatar, Card, InfoIcon, Input, Kbd, Switch } from "../demos/primitives"
+import { Card, Input, Kbd } from "../demos/primitives"
 import type { ColorMode, StudioDoc } from "../lib/doc"
 import { type TokenEntry, listTokens } from "../lib/theme-meta"
 import { Row, Section, Stack } from "./layout"
@@ -280,79 +279,5 @@ export function SpacingPage(_props: FoundationProps) {
         ))}
       </Stack>
     </Section>
-  )
-}
-
-export function OverviewPage(_props: FoundationProps) {
-  return (
-    <>
-      <Section title="Sign in">
-        <Card.Root>
-          <Card.Header>
-            <Card.Title>Create an account</Card.Title>
-            <Card.Description>Enter your email below to create your account.</Card.Description>
-          </Card.Header>
-          <Card.Body>
-            <Stack gap="3">
-              <Input placeholder="name@example.com" />
-              <Input type="password" placeholder="Password" />
-              <Switch.Root defaultChecked>
-                <Switch.HiddenInput />
-                <Switch.Control>
-                  <Switch.Thumb />
-                </Switch.Control>
-                <Switch.Label>Keep me signed in</Switch.Label>
-              </Switch.Root>
-            </Stack>
-          </Card.Body>
-          <Card.Footer>
-            <Button w="full">Create account</Button>
-          </Card.Footer>
-        </Card.Root>
-      </Section>
-      <Section title="Team">
-        <Stack>
-          <Tabs.Root defaultValue="members" variant="line">
-            <Tabs.List>
-              <Tabs.Trigger value="members">Members</Tabs.Trigger>
-              <Tabs.Trigger value="invites">Invites</Tabs.Trigger>
-              <Tabs.Indicator />
-            </Tabs.List>
-            <Tabs.Content value="members">
-              <Stack gap="3">
-                <Row justifyContent="space-between">
-                  <Row gap="3">
-                    <Avatar.Root size="sm">
-                      <Avatar.Fallback>SD</Avatar.Fallback>
-                    </Avatar.Root>
-                    <span>Sofia Davis</span>
-                  </Row>
-                  <Badge variant="subtle">Owner</Badge>
-                </Row>
-                <Row justifyContent="space-between">
-                  <Row gap="3">
-                    <Avatar.Root size="sm">
-                      <Avatar.Fallback>JL</Avatar.Fallback>
-                    </Avatar.Root>
-                    <span>Jackson Lee</span>
-                  </Row>
-                  <Badge variant="outline">Member</Badge>
-                </Row>
-              </Stack>
-            </Tabs.Content>
-            <Tabs.Content value="invites">No pending invites.</Tabs.Content>
-          </Tabs.Root>
-          <Alert.Root status="info">
-            <Alert.Indicator>
-              <InfoIcon />
-            </Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>Tip</Alert.Title>
-              <Alert.Description>⌘-click any part of a component to edit it.</Alert.Description>
-            </Alert.Content>
-          </Alert.Root>
-        </Stack>
-      </Section>
-    </>
   )
 }
