@@ -9,6 +9,7 @@
     "jsx",
     "nextjs",
     "turbopack",
+    "vite",
     "webpack"
   ],
   "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
@@ -68,6 +69,16 @@
         "default": "./dist/turbopack.cjs"
       }
     },
+    "./vite": {
+      "import": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.js"
+      },
+      "require": {
+        "types": "./dist/vite.d.cts",
+        "default": "./dist/vite.cjs"
+      }
+    },
     "./client": {
       "types": "./dist/client.d.ts",
       "default": "./dist/client.js"
@@ -85,14 +96,19 @@
     "oxc-parser": "^0.127.0"
   },
   "peerDependencies": {
-    "next": ">=15.0.0"
+    "next": ">=15.0.0",
+    "vite": ">=6.0.0"
   },
   "peerDependenciesMeta": {
     "next": {
       "optional": true
+    },
+    "vite": {
+      "optional": true
     }
   },
   "devDependencies": {
-    "next": "16.3.6"
+    "next": "16.3.6",
+    "vite": "catalog:"
   }
 }

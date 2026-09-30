@@ -8,6 +8,7 @@ export default defineConfig([
       next: "src/adapters/next.ts",
       webpack: "src/adapters/webpack.ts",
       turbopack: "src/adapters/turbopack.ts",
+      vite: "src/adapters/vite.ts",
     },
     target: "node20",
     format: ["esm", "cjs"],
