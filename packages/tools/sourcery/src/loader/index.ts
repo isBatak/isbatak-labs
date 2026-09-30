@@ -1,6 +1,5 @@
-import { injectClient } from "../core/inject"
-import { type ResolvedOptions, getClientOptions, isExcluded, normalizePath } from "../core/options"
-import { transformJsx } from "../core/transform"
+import { transformModule } from "../core/module"
+import { type ResolvedOptions, normalizePath } from "../core/options"
 
 export interface LoaderContext {
   resourcePath: string
@@ -11,22 +10,6 @@ export interface LoaderContext {
 
 export default function sourceryLoader(this: LoaderContext, code: string, map?: unknown) {
   this.cacheable?.(true)
-  const options = this.getOptions()
-  const file = normalizePath(this.resourcePath)
-
-  if (isExcluded(file, options)) {
-    this.callback(null, code, map)
-    return
-  }
-
-  const source = file === options.injectTo ? injectClient(code, file, getClientOptions(options)) : code
-  const result = transformJsx({
-    code: source,
-    file,
-    root: options.root,
-    attribute: options.attribute,
-    ignoreTags: options.ignoreTags,
-    styled: options.styled,
-  })
-  this.callback(null, result?.code ?? source, result?.map ?? map)
+  const result = transformModule(code, normalizePath(this.resourcePath), this.getOptions())
+  this.callback(null, result?.code ?? code, result?.map ?? map)
 }
