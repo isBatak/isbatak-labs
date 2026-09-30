@@ -27,6 +27,15 @@ pnpm storybook         # start all of them; open http://localhost:6006
 pnpm build:storybook   # static build in apps/storybook/storybook-static
 ```
 
+## Panda Studio
+
+`apps/studio` is a visual editor for the `@isbatak/panda-ds` design system: preview every component, ⌘-click any part to
+restyle it per variant and state, edit tokens on live foundation pages, and export the result as a Panda preset.
+
+```sh
+pnpm studio            # open http://localhost:5173
+```
+
 ## License
 
 MIT
