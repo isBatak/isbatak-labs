@@ -27,6 +27,25 @@ export default withSourcery(nextConfig, {
 It only changes the config for `next dev`, under Turbopack and under `next dev --webpack`. `next build` gets your config
 back untouched.
 
+## Vite
+
+Add the plugin. With an `index.html` the client is added to it for you:
+
+```ts
+import { sourcery } from "@isbatak/sourcery/vite"
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [react(), sourcery()],
+})
+```
+
+It only runs for `vite dev`; `vite build` is left untouched. Paths are recorded relative to Vite's `root`. Frameworks
+that render their own HTML need `injectTo` pointing at their root route: `src/routes/__root.tsx` in TanStack Start,
+`app/root.tsx` in React Router. Sourcery reads each file before other plugins change it, so its place in `plugins`
+doesn't matter.
+
 ## Panda CSS
 
 Pass `panda: true` to also record where each Panda component is defined. Hold <kbd>⌥</kbd> together with the hotkeys and
@@ -41,14 +60,14 @@ to list them yourself.
 
 | Option       | Default                            | Description                                                    |
 | ------------ | ---------------------------------- | -------------------------------------------------------------- |
-| `injectTo`   |                                    | Absolute path of the module the browser client is added to.    |
+| `injectTo`   | `index.html` with Vite             | Absolute path of the module the browser client is added to.    |
 | `exclude`    | `[]`                               | Path fragments to skip. `node_modules` is always skipped.      |
 | `hotKeys`    | `["metaKey", "shiftKey"]` on macOS | Keys held together to inspect.                                 |
 | `editor`     | detected                           | Editor id (`code`, `cursor`, `zed`, `webstorm`, …) or command. |
 | `port`       | `5678`                             | First port tried for the local open-in-editor server.          |
-| `root`       | `process.cwd()`                    | Directory recorded paths are relative to.                      |
+| `root`       | `process.cwd()`, Vite's `root`     | Directory recorded paths are relative to.                      |
 | `attribute`  | `data-sourcery`                    | Attribute written on each element.                             |
-| `enabled`    | `true` in `next dev`               | Force sourcery on or off.                                      |
+| `enabled`    | `true` in `next dev` / `vite dev`  | Force sourcery on or off.                                      |
 | `ignoreTags` | `[]`                               | Extra element or component names to leave untagged.            |
 | `panda`      | `false`                            | Record Panda component definitions, see above.                 |
 
@@ -59,16 +78,16 @@ to list them yourself.
   [magic-string](https://github.com/Rich-Harris/magic-string) adds `data-sourcery="path:line:column"` with a source map.
   Components pass it on to the element they render when they spread their props, and it is removed from props spread
   onto a `Fragment`.
-- **Client**: added to `injectTo`. While the hotkeys are held it outlines the element under the pointer, and a click
-  sends its location to the local server instead of reaching the page.
+- **Client**: added to `injectTo`, or to `index.html` under Vite. While the hotkeys are held it outlines the element
+  under the pointer, and a click sends its location to the local server instead of reaching the page.
 - **Server**: listens on `127.0.0.1` and opens the file in your editor. The editor comes from the `editor` option or
   `SOURCERY_EDITOR`, then from the terminal the dev server was started in (VS Code, Cursor, Windsurf, Zed, JetBrains…),
   then from the apps that are running, then `VISUAL` / `EDITOR`. On macOS, editors with a URL scheme (`vscode://`,
   `cursor://`, `zed://`, …) are opened through it, so their command-line tool does not need to be installed.
 
 The core knows nothing about bundlers. `@isbatak/sourcery/webpack` and `@isbatak/sourcery/turbopack` expose the rules
-the Next.js adapter is built from, and other tools can be supported by wiring `@isbatak/sourcery/loader` or
-`transformJsx` into their own transform hooks.
+the Next.js adapter is built from, `@isbatak/sourcery/vite` is a Vite plugin, and other tools can be supported by wiring
+`@isbatak/sourcery/loader` or `transformJsx` into their own transform hooks.
 
 ## Credits
 

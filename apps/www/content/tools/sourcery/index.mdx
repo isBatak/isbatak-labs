@@ -20,19 +20,22 @@ export const urlSchemeTip =
 Sourcery adds the source location to every JSX element while you develop. Hold <Kbd>⌘</Kbd> <Kbd>⇧</Kbd>, hover the page
 to see which file and line rendered each element, and click to jump there in your editor.
 
-- Works with **Next.js**, **Turbopack** and **webpack**
+- Works with **Next.js**, **Vite**, **Turbopack** and **webpack**
 - Opens VS Code, Cursor, Windsurf, Zed, Sublime Text, JetBrains IDEs and more
 - Optional Panda CSS mode that jumps to the `styled()` call behind an element
-- Development only, nothing reaches `next build` or your production bundle
+- Development only, nothing reaches `next build`, `vite build` or your production bundle
 
 ## Supported bundlers
 
-<Badge colorPalette="green">Next.js 15+</Badge> <Badge colorPalette="blue">Turbopack</Badge>
-<Badge colorPalette="purple">webpack</Badge>
+<Badge colorPalette="green">Next.js 15+</Badge> <Badge colorPalette="orange">Vite 6+</Badge>
+<Badge colorPalette="blue">Turbopack</Badge> <Badge colorPalette="purple">webpack</Badge>
 
 The Next.js adapter covers both bundlers: `next dev` with Turbopack, which is the default, and `next dev --webpack`. It
 only changes the config while the development server runs, so `next build` gets your config back untouched. Outside
 Next.js you can add the webpack rule or the Turbopack rules yourself.
+
+The Vite plugin runs for `vite dev` only. It works with plain Vite apps and with frameworks built on Vite, like TanStack
+Start and React Router.
 
 ## Setup
 
@@ -49,14 +52,15 @@ Set up @isbatak/sourcery in this project. In development it adds the source loca
 1. Look at the project first, without changing anything:
 
 - The package manager, from the lockfile.
-- The bundler. Sourcery supports Next.js 15 or newer (Turbopack and webpack), hand-written Turbopack rules, and plain webpack. If the project uses anything else, like Vite, tell me it isn't supported yet and stop.
+- The bundler. Sourcery supports Next.js 15 or newer (Turbopack and webpack), Vite 6 or newer (including frameworks built on it, like TanStack Start and React Router), hand-written Turbopack rules, and plain webpack. If the project uses anything else, tell me it isn't supported yet and stop.
 - For Next.js: the config file, any plugins already wrapping the config, and whether it uses the App Router or the Pages Router.
 - Whether it uses Panda CSS: a panda.config file, or imports from styled-system/jsx or another Panda jsx entry.
-- A module that runs in the browser on every page, for the injectTo option: a "use client" providers component rendered by the root layout, pages/_app.tsx, or the client entry such as src/main.tsx.
+- For Vite: the config file, and whether the app is served from an index.html or a framework renders the HTML (TanStack Start, React Router).
+- A module that runs in the browser on every page, for the injectTo option: a "use client" providers component rendered by the root layout, pages/_app.tsx, src/routes/__root.tsx in TanStack Start, app/root.tsx in React Router, or the client entry such as src/main.tsx. A Vite app served from index.html doesn't need one.
 
 2. Tell me what you found, then ask me these in one message:
 
-- Which module injectTo should point at, suggesting the one you found. With the App Router and no such component, offer to create components/providers.tsx with "use client" that returns its children, and render it in app/layout.tsx.
+- Which module injectTo should point at, suggesting the one you found. Skip this for a Vite app served from index.html. With the App Router and no such component, offer to create components/providers.tsx with "use client" that returns its children, and render it in app/layout.tsx.
 - Only if the project uses Panda CSS: whether to turn on panda mode, where holding ⌥ as well opens the styled() call behind an element instead of the line that uses it.
 - Which editor to open: detect it automatically (recommended), or always use one of code, cursor, windsurf, zed, sublime, webstorm, idea.
 
@@ -64,6 +68,7 @@ Set up @isbatak/sourcery in this project. In development it adds the source loca
 
 - Install @isbatak/sourcery as a dev dependency with the project's package manager.
 - Next.js: import withSourcery from "@isbatak/sourcery/next" and resolve from "node:path", then export withSourcery(nextConfig, { injectTo: resolve("components/providers.tsx") }). It returns a config function, so keep it the outermost wrapper, around any other plugins.
+- Vite: import { sourcery } from "@isbatak/sourcery/vite" and add sourcery() to plugins. With TanStack Start, React Router or another framework that renders the HTML, pass { injectTo: resolve("src/routes/__root.tsx") } (or the module you agreed on) with resolve from "node:path".
 - Hand-written Turbopack rules: const options = await prepareOptions({ injectTo }) from "@isbatak/sourcery", then rules: mergeTurbopackRules(existingRules, createTurbopackRules(options)) from "@isbatak/sourcery/turbopack".
 - Plain webpack: export (env, argv) => withSourceryWebpack(config, { enabled: argv.mode === "development", injectTo }) from "@isbatak/sourcery/webpack".
 - Add panda: true or editor: "<id>" to the options only if I asked for them.
@@ -137,6 +142,38 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 </CodeFiles>
 
 With the Pages Router, point `injectTo` at `pages/_app.tsx` instead.
+
+</Tab>
+<Tab value="vite" label="Vite" icon="package">
+
+Add the plugin. When the app is served from an `index.html`, sourcery adds its client there, so `injectTo` isn't needed.
+
+```ts
+import react from "@vitejs/plugin-react"
+import { sourcery } from "@isbatak/sourcery/vite"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [react(), sourcery()],
+})
+```
+
+Frameworks that render their own HTML, like TanStack Start and React Router, need `injectTo` pointing at the root route.
+Sourcery reads each file before other plugins change it, so its place in `plugins` doesn't matter.
+
+```ts
+import { resolve } from "node:path"
+import { sourcery } from "@isbatak/sourcery/vite"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite"
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [tanstackStart(), react(), sourcery({ injectTo: resolve("src/routes/__root.tsx") })],
+})
+```
+
+With React Router, point `injectTo` at `app/root.tsx`. Paths are recorded relative to Vite's `root`.
 
 </Tab>
 <Tab value="turbopack" label="Turbopack rules" icon="package">
@@ -285,8 +322,9 @@ option to start somewhere else.
 </FaqItem>
 <FaqItem question="Does any of this reach production?">
 
-No. The Next.js adapter only changes the config for `next dev`, and the Turbopack rules only run in development. The
-webpack helper is on when `NODE_ENV` is `development`; pass `enabled` to decide yourself.
+No. The Next.js adapter only changes the config for `next dev`, the Vite plugin only runs for `vite dev`, and the
+Turbopack rules only run in development. The webpack helper is on when `NODE_ENV` is `development`; pass `enabled` to
+decide yourself.
 
 </FaqItem>
 </Faq>
