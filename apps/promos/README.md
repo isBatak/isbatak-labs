@@ -7,11 +7,14 @@ every video: each promo lives in its own folder under `src` and registers its co
 audio
 ├── synth.ts        tiny synth shared by all promos: tones, plucks, noise, filters, WAV writer
 └── sourcery.ts     the Sourcery score, timed from its theme
+brand
+└── sourcery.ts     writes the Sourcery logo and wordmark SVGs for the site and the npm README
 src
 ├── Root.tsx        registers every promo's compositions
 ├── fonts.ts        fonts shared by all promos
 ├── raw.d.ts        types for `?raw` source imports
 └── sourcery/
+    ├── brand/          the pixel hat and ANSI Shadow wordmark, shared by the video and the SVG files
     ├── theme.ts        segment lengths and the beats inside each segment
     ├── timeline.ts     when each layer is on screen, derived from theme.ts
     ├── Promo.tsx       stacks the layers as named sequences, plus the audio layers
@@ -36,6 +39,7 @@ timeline and hide the others. Their volumes are `MUSIC_VOLUME` and `EFFECTS_VOLU
 ```sh
 pnpm --filter @isbatak/promos studio                    # live preview of every promo
 pnpm --filter @isbatak/promos audio                     # regenerate the music and sound effects
+pnpm --filter @isbatak/promos brand                     # regenerate the logo and wordmark SVGs
 pnpm --filter @isbatak/promos render:sourcery           # writes apps/www/public/videos/sourcery-demo.mp4
 pnpm --filter @isbatak/promos render:sourcery-vertical  # writes out/sourcery-demo-vertical.mp4
 pnpm --filter @isbatak/promos still:sourcery            # writes apps/www/public/videos/sourcery-poster.jpg

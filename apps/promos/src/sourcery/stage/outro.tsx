@@ -2,10 +2,11 @@ import { interpolate } from "remotion"
 import { Badge } from "@isbatak/react-ui/badge"
 import { HStack, Stack, styled } from "@isbatak/panda-ds/jsx"
 
-import { clamp, ease, type Rect, tween } from "../lib/motion"
+import { clamp, type Rect, tween } from "../lib/motion"
 import { ChevronRightIcon, CopyIcon } from "../site/icons"
 import { T } from "../theme"
 import { Rise } from "./caption"
+import { Lockup } from "./lockup"
 
 const INSTALL = "pnpm add -D @isbatak/sourcery"
 
@@ -50,7 +51,7 @@ export function Outro({ frame, viewport }: { frame: number; viewport: { width: n
           lineHeight="1"
           style={{ width: title.w, height: title.h, marginTop: 20 * scale, fontSize: 190 * scale }}
         >
-          <Rise progress={tween(frame, start + 2, 18, ease.out)}>Sourcery</Rise>
+          <Lockup start={start} unit={tall ? 10 : 12} />
         </styled.h1>
         <styled.p
           color="fg.muted"
