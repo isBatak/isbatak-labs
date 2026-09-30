@@ -36,7 +36,11 @@ export function ToolPage({ tool }: { tool: Tool }) {
           letterSpacing="tighter"
           textWrap="balance"
         >
-          {tool.title}
+          {tool.wordmark ? (
+            <styled.img src={tool.wordmark} alt={tool.title} w="full" maxW="xl" mx="auto" />
+          ) : (
+            tool.title
+          )}
         </styled.h1>
         <styled.p mt="4" fontFamily="mono" textStyle="sm" color="fg.subtle">
           {tool.package}

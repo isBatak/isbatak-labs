@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/isBatak/isbatak-labs/main/packages/tools/sourcery/assets/wordmark.svg" alt="Sourcery" width="560">
+</p>
+
 # @isbatak/sourcery
 
 Hold <kbd>⌘</kbd> <kbd>⇧</kbd> (<kbd>Ctrl</kbd> <kbd>⇧</kbd> outside macOS), point at anything on the page, and click to
