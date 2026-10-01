@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 
 import { DocFooter } from "../../../../../../../components/docs/doc-footer"
 import { ExampleSource } from "../../../../../../../components/docs/framework-code"
+import { markdownPath } from "../../../../../../../components/docs/markdown"
 import { SITE_URL } from "../../../../../../../components/docs/site-url"
 import { type DocVariant, variantParams } from "../../../../../../../components/docs/variant"
 import { PreviewSource } from "../../../../../../../components/examples/preview-context"
@@ -45,7 +46,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     <>
       {doc.preview && <PreviewSource id={doc.preview} source={<ExampleSource id={doc.preview} {...variant} />} />}
       <Prose>
-        <MDXContent code={doc.code} variant={variant} />
+        <MDXContent code={doc.code} variant={variant} docsUrl={`${SITE_URL}${markdownPath(doc.permalink)}`} />
       </Prose>
       <DocFooter component={doc} variant={variant} />
     </>

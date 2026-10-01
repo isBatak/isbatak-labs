@@ -25,7 +25,7 @@ const sharedComponents: MDXComponents = {
 
 type VariantComponentProps<P> = Omit<P, keyof DocVariant>
 
-const variantComponents = (variant: DocVariant): MDXComponents => ({
+const variantComponents = (variant: DocVariant, docsUrl: string): MDXComponents => ({
   Example: (props: VariantComponentProps<ComponentProps<typeof Example>>) => <Example {...props} {...variant} />,
   ExampleCode: (props: VariantComponentProps<ComponentProps<typeof ExampleSource>>) => (
     <ExampleSource {...props} {...variant} />
@@ -33,8 +33,8 @@ const variantComponents = (variant: DocVariant): MDXComponents => ({
   FrameworkInstall: (props: VariantComponentProps<ComponentProps<typeof FrameworkInstall>>) => (
     <FrameworkInstall {...props} {...variant} />
   ),
-  Installation: (props: VariantComponentProps<ComponentProps<typeof Installation>>) => (
-    <Installation {...props} {...variant} />
+  Installation: (props: Omit<VariantComponentProps<ComponentProps<typeof Installation>>, "docsUrl">) => (
+    <Installation {...props} {...variant} docsUrl={docsUrl} />
   ),
 })
 
@@ -46,10 +46,15 @@ function getMDXComponent(code: string): ComponentType<{ components?: MDXComponen
 interface MDXContentProps {
   code: string
   variant?: DocVariant
+  docsUrl?: string
   components?: MDXComponents
 }
 
-export function MDXContent({ code, variant, components }: MDXContentProps) {
+export function MDXContent({ code, variant, docsUrl, components }: MDXContentProps) {
   const Component = getMDXComponent(code)
-  return <Component components={{ ...sharedComponents, ...(variant && variantComponents(variant)), ...components }} />
+  return (
+    <Component
+      components={{ ...sharedComponents, ...(variant && variantComponents(variant, docsUrl ?? "")), ...components }}
+    />
+  )
 }

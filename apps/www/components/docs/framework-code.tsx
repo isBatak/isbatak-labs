@@ -8,7 +8,9 @@ import { CodeTabs } from "../code/code-tabs"
 import type { ExampleSettings } from "../examples/controls"
 import { ExampleSnippet } from "../examples/example-snippet"
 import { ExampleTrigger } from "../examples/example-trigger"
+import { PromptCard } from "../tools/setup-prompt"
 import { InstallMethodTabs } from "./install-method"
+import { installPrompt } from "./install-prompt"
 import { registryUrl } from "./registry"
 import type { ApiId, DocVariant, FrameworkId, StylingId } from "./variant"
 
@@ -135,21 +137,30 @@ function ManualInstall(props: VariantProps) {
   )
 }
 
-export function Installation(props: VariantProps) {
+export function Installation({ docsUrl, ...props }: VariantProps & { docsUrl: string }) {
+  const example = getExample(props)
+
   return (
-    <InstallMethodTabs>
-      <Tabs.List>
-        <Tabs.Trigger value="cli">shadcn CLI</Tabs.Trigger>
-        <Tabs.Trigger value="manual">Manual</Tabs.Trigger>
-        <Tabs.Indicator />
-      </Tabs.List>
-      <Tabs.Content value="cli">
-        <CliInstall {...props} />
-      </Tabs.Content>
-      <Tabs.Content value="manual">
-        <ManualInstall {...props} />
-      </Tabs.Content>
-    </InstallMethodTabs>
+    <>
+      {example && (
+        <PromptCard
+          prompt={installPrompt({ ...props, example, docsUrl, frameworkLabel: frameworkLabel(props.framework) })}
+        />
+      )}
+      <InstallMethodTabs>
+        <Tabs.List>
+          <Tabs.Trigger value="cli">shadcn CLI</Tabs.Trigger>
+          <Tabs.Trigger value="manual">Manual</Tabs.Trigger>
+          <Tabs.Indicator />
+        </Tabs.List>
+        <Tabs.Content value="cli">
+          <CliInstall {...props} />
+        </Tabs.Content>
+        <Tabs.Content value="manual">
+          <ManualInstall {...props} />
+        </Tabs.Content>
+      </InstallMethodTabs>
+    </>
   )
 }
 
