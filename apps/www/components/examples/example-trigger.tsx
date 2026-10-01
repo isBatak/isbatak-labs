@@ -1,10 +1,8 @@
 "use client"
 
 import { type ReactNode, useEffect, useRef } from "react"
-import { Button } from "@isbatak/react-ui/button"
 import { styled } from "styled-system/jsx"
 
-import { Icon } from "../ui/icon"
 import type { ExampleSettings } from "./controls"
 import { registerSettings } from "./controls-store"
 import { ExampleControls } from "./example-controls"
@@ -45,24 +43,18 @@ export function ExampleTrigger({ id, source, settings, children }: ExampleTrigge
         <>
           <styled.div
             className="not-prose"
-            data-controls-anchor=""
             position="relative"
-            display="grid"
-            placeItems="center"
-            py="8"
+            display="flex"
+            flexDirection="column"
             my="6"
             borderRadius="l3"
             borderWidth="1px"
             bg="bg"
           >
-            <styled.div position="absolute" top="2" insetEnd="2">
-              <ExampleControls id={id}>
-                <Button variant="ghost" size="sm" px="0" aspectRatio="square" aria-label="Settings">
-                  <Icon size="md" name="settings" />
-                </Button>
-              </ExampleControls>
+            <styled.div display="grid" placeItems="center" pt="8" pb="16">
+              <ExampleView id={id} />
             </styled.div>
-            <ExampleView id={id} />
+            <ExampleControls id={id} />
           </styled.div>
           {source}
         </>

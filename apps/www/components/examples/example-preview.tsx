@@ -9,6 +9,7 @@ import { styled } from "styled-system/jsx"
 import { CodeSurfaceProvider } from "../code/code-tabs"
 import { ApiPicker } from "../docs/api"
 import { StylingPicker } from "../docs/styling"
+import { ExampleControls } from "./example-controls"
 import { ExampleView } from "./example-view"
 import { usePreview } from "./preview-context"
 import { PreviewToolbar } from "./preview-toolbar"
@@ -32,7 +33,6 @@ export function ExamplePreview() {
   const { activeId, activeSource } = usePreview()
   const [fullscreen, setFullscreen] = useState(false)
   const [showSource, setShowSource] = useState(false)
-  const [controlsOpen, setControlsOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
   const rootRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<Animation | null>(null)
@@ -99,8 +99,8 @@ export function ExamplePreview() {
       ref={rootRef}
       data-fullscreen={fullscreen ? "" : undefined}
       position="relative"
-      display="grid"
-      placeItems="center"
+      display="flex"
+      flexDirection="column"
       w="full"
       h="full"
       css={{
@@ -120,35 +120,30 @@ export function ExamplePreview() {
     >
       <styled.div position="absolute" top="3" insetEnd="3" zIndex="1">
         <PreviewToolbar
-          activeId={activeId}
           fullscreen={fullscreen}
           onFullscreenChange={changeFullscreen}
           showSource={showSource}
           onShowSourceChange={(next) => startTransition(() => setShowSource(next))}
-          onControlsOpenChange={setControlsOpen}
           onReset={() => {
             if (activeId) resetSnapshot(activeId)
             startTransition(() => setResetKey((key) => key + 1))
           }}
         />
       </styled.div>
-      <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1" display="flex" gap="2">
-        <StylingPicker />
-        <ApiPicker />
-      </styled.div>
       <ViewTransition
         key={`${activeId}-${resetKey}`}
         enter={viewTransition("scale-fade")}
         exit={viewTransition("scale-fade")}
+        update={viewTransition("morph")}
         default={viewTransition("fade")}
       >
         <styled.div
           hidden={showSource}
-          data-controls-open={controlsOpen ? "" : undefined}
-          transitionProperty="translate"
-          transitionDuration="moderate"
-          transitionTimingFunction="ease-in-smooth"
-          css={{ "&[data-controls-open]": { translate: "calc(({sizes.72} + {spacing.3}) / -2) 0" } }}
+          flex="1"
+          minH="0"
+          display="grid"
+          placeItems="center"
+          css={{ "&[hidden]": { display: "none" } }}
         >
           {activeId && <ExampleView id={activeId} />}
         </styled.div>
@@ -168,6 +163,22 @@ export function ExamplePreview() {
             <CodeSurfaceProvider value="preview">{activeSource}</CodeSurfaceProvider>
           </styled.div>
         </ViewTransition>
+      )}
+      {activeId ? (
+        <ExampleControls
+          id={activeId}
+          pickers={
+            <>
+              <StylingPicker />
+              <ApiPicker />
+            </>
+          }
+        />
+      ) : (
+        <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1" display="flex" gap="2">
+          <StylingPicker />
+          <ApiPicker />
+        </styled.div>
       )}
     </styled.div>
   )

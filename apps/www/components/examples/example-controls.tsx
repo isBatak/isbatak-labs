@@ -1,13 +1,14 @@
 "use client"
 
-import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/react-ui/button"
-import { Popover } from "@isbatak/react-ui/popover"
+import { Button, type ButtonProps } from "@isbatak/react-ui/button"
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 import { Slider } from "@isbatak/react-ui/slider"
 import { Switch } from "@isbatak/react-ui/switch"
-import type { ReactNode } from "react"
+import { type ReactNode, startTransition, useEffect, useId, useRef, useState, ViewTransition } from "react"
+import { viewTransition } from "styled-system/css"
 import { styled } from "styled-system/jsx"
+
+import { Icon } from "../ui/icon"
 
 import type { ControlValues } from "./controls"
 import { resetControls, setControl, useExampleControls } from "./controls-store"
@@ -19,11 +20,11 @@ const Section = styled("div", {
   base: {
     display: "grid",
     gap: "3",
-    "& + &": { pt: "4", mt: "4", borderTopWidth: "1px" },
+    alignContent: "start",
   },
 })
 
-const Legend = styled("p", {
+const SectionTitle = styled("p", {
   base: {
     textStyle: "overline",
     color: "fg.subtle",
@@ -164,62 +165,139 @@ function SizeField({ id }: { id: string }) {
   )
 }
 
-interface ExampleControlsProps {
-  id: string
-  onOpenChange?: (open: boolean) => void
-  children: ReactNode
+function ControlsPanel({ id }: { id: string }) {
+  return (
+    <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">
+      <Section role="group" aria-labelledby={`${id}-behavior`}>
+        <SectionTitle id={`${id}-behavior`}>Behavior</SectionTitle>
+        <SwitchField id={id} name="infinite" label="Infinite" />
+        <SwitchField id={id} name="disabled" label="Disabled" />
+        <SwitchField id={id} name="readOnly" label="Read-only" />
+        <SwitchField id={id} name="invalid" label="Invalid" />
+      </Section>
+      <Section role="group" aria-labelledby={`${id}-tuning`}>
+        <SectionTitle id={`${id}-tuning`}>Tuning</SectionTitle>
+        <SliderField id={id} name="visibleCount" label="Visible count" min={4} max={40} step={4} />
+        <SliderField id={id} name="dragSensitivity" label="Drag sensitivity" min={1} max={10} step={1} />
+        <SliderField id={id} name="scrollSensitivity" label="Scroll sensitivity" min={1} max={10} step={1} />
+      </Section>
+      <Section role="group" aria-labelledby={`${id}-style`}>
+        <SectionTitle id={`${id}-style`}>Style</SectionTitle>
+        <VariantField id={id} />
+        <SizeField id={id} />
+      </Section>
+    </styled.div>
+  )
 }
 
-export function ExampleControls({ id, onOpenChange, children }: ExampleControlsProps) {
+function ToggleButton(props: ButtonProps) {
+  return <Button variant="outline" size="sm" px="0" aspectRatio="square" bg="bg" {...props} />
+}
+
+interface ExampleControlsProps {
+  id: string
+  pickers?: ReactNode
+}
+
+export function ExampleControls({ id, pickers }: ExampleControlsProps) {
+  const [open, setOpen] = useState(false)
   const { changed } = useExampleControls(id)
+  const name = useId().replace(/[^\w-]/g, "")
+  const drawerId = `${name}-drawer`
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const opened = useRef(false)
+
+  useEffect(() => {
+    if (open) closeRef.current?.focus()
+    else if (opened.current) toggleRef.current?.focus()
+    opened.current = open
+  }, [open])
+
+  const change = (next: boolean) => startTransition(() => setOpen(next))
+
+  const pickerGroup = pickers && (
+    <ViewTransition name={`${name}-pickers`} share={viewTransition("morph")}>
+      <styled.div display="flex" flexWrap="wrap" gap="2">
+        {pickers}
+      </styled.div>
+    </ViewTransition>
+  )
+
+  if (!open) {
+    return (
+      <>
+        {pickerGroup && (
+          <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1">
+            {pickerGroup}
+          </styled.div>
+        )}
+        <styled.div position="absolute" bottom="3" insetEnd="3" zIndex="1">
+          <ViewTransition name={`${name}-toggle`} share={viewTransition("morph")}>
+            <ToggleButton
+              ref={toggleRef}
+              aria-label="Show settings"
+              aria-expanded={false}
+              aria-controls={drawerId}
+              onClick={() => change(true)}
+            >
+              <Icon size="md" name="settings" />
+            </ToggleButton>
+          </ViewTransition>
+        </styled.div>
+      </>
+    )
+  }
 
   return (
-    <Popover.Root
-      positioning={{
-        placement: "bottom-end",
-        getAnchorRect: (element) =>
-          (element instanceof HTMLElement
-            ? (element.closest("[role=toolbar], [data-controls-anchor]") ?? element)
-            : element
-          )?.getBoundingClientRect() ?? null,
-      }}
-      lazyMount
-      unmountOnExit
-      onOpenChange={(details) => onOpenChange?.(details.open)}
-    >
-      <Popover.Trigger asChild>{children}</Popover.Trigger>
-      <Portal>
-        <Popover.Positioner>
-          <Popover.Content w="72" maxH="var(--available-height)" overflowY="auto">
-            <Popover.Header display="flex" alignItems="center" justifyContent="space-between">
-              <Popover.Title>Settings</Popover.Title>
-              <Button variant="plain" size="xs" disabled={!changed} onClick={() => resetControls(id)}>
-                Reset
-              </Button>
-            </Popover.Header>
-            <Popover.Body>
-              <Section role="group" aria-labelledby={`${id}-behavior`}>
-                <Legend id={`${id}-behavior`}>Behavior</Legend>
-                <SwitchField id={id} name="infinite" label="Infinite" />
-                <SwitchField id={id} name="disabled" label="Disabled" />
-                <SwitchField id={id} name="readOnly" label="Read-only" />
-                <SwitchField id={id} name="invalid" label="Invalid" />
-              </Section>
-              <Section role="group" aria-labelledby={`${id}-tuning`}>
-                <Legend id={`${id}-tuning`}>Tuning</Legend>
-                <SliderField id={id} name="visibleCount" label="Visible count" min={4} max={40} step={4} />
-                <SliderField id={id} name="dragSensitivity" label="Drag sensitivity" min={1} max={10} step={1} />
-                <SliderField id={id} name="scrollSensitivity" label="Scroll sensitivity" min={1} max={10} step={1} />
-              </Section>
-              <Section role="group" aria-labelledby={`${id}-style`}>
-                <Legend id={`${id}-style`}>Style</Legend>
-                <VariantField id={id} />
-                <SizeField id={id} />
-              </Section>
-            </Popover.Body>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Portal>
-    </Popover.Root>
+    <ViewTransition enter={viewTransition("drawer-slide")} exit={viewTransition("drawer-slide")}>
+      <styled.section
+        id={drawerId}
+        aria-label="Example settings"
+        position="relative"
+        zIndex="1"
+        flexShrink="0"
+        maxH="60%"
+        overflowY="auto"
+        overscrollBehavior="contain"
+        m="3"
+        mt="0"
+        p="4"
+        borderRadius="l3"
+        borderWidth="1px"
+        bg="bg"
+        boxShadow="md"
+        onKeyDown={(event) => {
+          if (event.key !== "Escape") return
+          event.stopPropagation()
+          change(false)
+        }}
+      >
+        <styled.div display="flex" alignItems="center" gap="2" mb="5">
+          {pickerGroup ?? (
+            <styled.p textStyle="sm" fontWeight="medium">
+              Settings
+            </styled.p>
+          )}
+          <styled.div display="flex" alignItems="center" gap="1" ms="auto">
+            <Button variant="plain" size="xs" disabled={!changed} onClick={() => resetControls(id)}>
+              Reset
+            </Button>
+            <ViewTransition name={`${name}-toggle`} share={viewTransition("morph")}>
+              <ToggleButton
+                ref={closeRef}
+                aria-label="Hide settings"
+                aria-expanded
+                aria-controls={drawerId}
+                onClick={() => change(false)}
+              >
+                <Icon size="md" name="x" />
+              </ToggleButton>
+            </ViewTransition>
+          </styled.div>
+        </styled.div>
+        <ControlsPanel id={id} />
+      </styled.section>
+    </ViewTransition>
   )
 }
