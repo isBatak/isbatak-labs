@@ -9,7 +9,8 @@ import { Switch } from "@isbatak/react-ui/switch"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
-import { type ControlValues, resetControls, setControl, useExampleControls } from "./controls-store"
+import type { ControlValues } from "./controls"
+import { resetControls, setControl, useExampleControls } from "./controls-store"
 
 type BooleanControl = { [N in keyof ControlValues]: ControlValues[N] extends boolean ? N : never }[keyof ControlValues]
 type NumberControl = { [N in keyof ControlValues]: ControlValues[N] extends number ? N : never }[keyof ControlValues]
