@@ -1,5 +1,5 @@
 import { ark, type HTMLProps, type PolymorphicProps } from "@ark-ui/react/factory"
-import * as wheelPicker from "@isbatak/zag-wheel-picker"
+import type * as wheelPicker from "@isbatak/zag-wheel-picker"
 import { mergeProps } from "@zag-js/react"
 import { forwardRef } from "react"
 import { useWheelPickerContext } from "./use-wheel-picker-context"
@@ -8,9 +8,9 @@ export interface WheelPickerHighlightItemBaseProps extends wheelPicker.ItemProps
 export interface WheelPickerHighlightItemProps extends HTMLProps<"li">, WheelPickerHighlightItemBaseProps {}
 
 export const WheelPickerHighlightItem = forwardRef<HTMLLIElement, WheelPickerHighlightItemProps>((props, ref) => {
-  const [itemProps, localProps] = wheelPicker.splitItemProps(props)
+  const { item, index, ...localProps } = props
   const api = useWheelPickerContext()
-  const mergedProps = mergeProps(api.getHighlightItemProps(itemProps), localProps)
+  const mergedProps = mergeProps(api.getHighlightItemProps({ item, index }), localProps)
 
   return <ark.li {...mergedProps} ref={ref} />
 })

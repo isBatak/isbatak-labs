@@ -1,2 +1,2 @@
 export { examples } from "virtual:examples"
-export { resetSnapshot } from "./snapshot"
+export { resetSnapshot, setControls, type ExampleControls } from "./example-state"

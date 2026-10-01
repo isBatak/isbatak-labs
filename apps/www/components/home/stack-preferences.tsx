@@ -1,7 +1,7 @@
 "use client"
 
 import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/react-ui/button"
+import { Button, type ButtonProps } from "@isbatak/react-ui/button"
 import { HoverCard } from "@isbatak/react-ui/hover-card"
 import { RadioCard } from "@isbatak/react-ui/radio-card"
 import Link from "next/link"
@@ -127,6 +127,17 @@ function LayerInfo({ title, children }: { title: string; children: ReactNode }) 
   )
 }
 
+function DocsButton(props: ButtonProps) {
+  return (
+    <Button asChild {...props}>
+      <Link href="/components">
+        Show me the docs
+        <Icon name="arrow-right" />
+      </Link>
+    </Button>
+  )
+}
+
 export function StackPreferences() {
   const { framework, setFramework } = useFramework()
   const { styling, setStyling } = useStyling()
@@ -157,12 +168,7 @@ export function StackPreferences() {
                 Four quick questions. We remember your answers in this browser, and every docs page opens with the
                 matching framework, styles, install steps and guide.
               </styled.p>
-              <Button asChild mt="8">
-                <Link href="/components">
-                  Show me the docs
-                  <Icon name="arrow-right" />
-                </Link>
-              </Button>
+              <DocsButton mt="8" display={{ base: "none", md: "inline-flex" }} />
             </styled.div>
           </styled.div>
 
@@ -288,6 +294,7 @@ export function StackPreferences() {
                 </styled.div>
               </styled.div>
             </RadioCard.Root>
+            <DocsButton alignSelf="flex-start" display={{ md: "none" }} />
           </styled.div>
         </styled.div>
       </styled.div>

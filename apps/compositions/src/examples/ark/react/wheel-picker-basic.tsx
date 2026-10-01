@@ -1,7 +1,7 @@
 "use client"
 
-import { createWheelPickerCollection } from "@isbatak/ark-wheel-picker/react"
-import { WheelPicker } from "../ui/wheel-picker"
+import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
+import { createWheelPickerCollection, WheelPicker } from "@isbatak/ark-wheel-picker/react"
 
 const collection = createWheelPickerCollection({
   items: [
@@ -11,32 +11,36 @@ const collection = createWheelPickerCollection({
     { label: "Svelte", value: "svelte" },
     { label: "Solid", value: "solid" },
     { label: "Preact", value: "preact" },
+    { label: "Qwik", value: "qwik" },
+    { label: "Lit", value: "lit" },
   ],
 })
 
-export function ArkWheelPickerExample() {
+const styles = wheelPickerRecipe()
+
+export function WheelPickerBasic() {
   return (
-    <WheelPicker.Root collection={collection} defaultValue="svelte" variant="solid" maxW="60">
-      <WheelPicker.Label>Framework</WheelPicker.Label>
-      <WheelPicker.Control>
-        <WheelPicker.Viewport>
-          <WheelPicker.ItemGroup>
+    <WheelPicker.Root collection={collection} defaultValue="react" className={styles.root}>
+      <WheelPicker.Label className={styles.label}>Framework</WheelPicker.Label>
+      <WheelPicker.Control className={styles.control}>
+        <WheelPicker.Viewport className={styles.viewport}>
+          <WheelPicker.ItemGroup className={styles.itemGroup}>
             <WheelPicker.Context>
               {(api) =>
                 api.items.map(({ item, index, key }) => (
-                  <WheelPicker.Item key={key} item={item} index={index}>
+                  <WheelPicker.Item key={key} item={item} index={index} className={styles.item}>
                     {item.label}
                   </WheelPicker.Item>
                 ))
               }
             </WheelPicker.Context>
           </WheelPicker.ItemGroup>
-          <WheelPicker.Highlight>
-            <WheelPicker.HighlightItemGroup>
+          <WheelPicker.Highlight className={styles.highlight}>
+            <WheelPicker.HighlightItemGroup className={styles.highlightItemGroup}>
               <WheelPicker.Context>
                 {(api) =>
                   api.highlightItems.map(({ item, index, key }) => (
-                    <WheelPicker.HighlightItem key={key} item={item} index={index}>
+                    <WheelPicker.HighlightItem key={key} item={item} index={index} className={styles.highlightItem}>
                       {item.label}
                     </WheelPicker.HighlightItem>
                   ))

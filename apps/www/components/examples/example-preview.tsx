@@ -7,7 +7,9 @@ import { viewTransition } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { CodeSurfaceProvider } from "../code/code-tabs"
+import { ApiPicker } from "../docs/api"
 import { StylingPicker } from "../docs/styling"
+import { ExampleControls } from "./example-controls"
 import { ExampleView } from "./example-view"
 import { usePreview } from "./preview-context"
 import { PreviewToolbar } from "./preview-toolbar"
@@ -97,8 +99,8 @@ export function ExamplePreview() {
       ref={rootRef}
       data-fullscreen={fullscreen ? "" : undefined}
       position="relative"
-      display="grid"
-      placeItems="center"
+      display="flex"
+      flexDirection="column"
       w="full"
       h="full"
       css={{
@@ -128,16 +130,23 @@ export function ExamplePreview() {
           }}
         />
       </styled.div>
-      <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1">
-        <StylingPicker />
-      </styled.div>
       <ViewTransition
         key={`${activeId}-${resetKey}`}
         enter={viewTransition("scale-fade")}
         exit={viewTransition("scale-fade")}
+        update={viewTransition("morph")}
         default={viewTransition("fade")}
       >
-        <div hidden={showSource}>{activeId && <ExampleView id={activeId} />}</div>
+        <styled.div
+          hidden={showSource}
+          flex="1"
+          minH="0"
+          display="grid"
+          placeItems="center"
+          css={{ "&[hidden]": { display: "none" } }}
+        >
+          {activeId && <ExampleView id={activeId} />}
+        </styled.div>
       </ViewTransition>
       {showSource && (
         <ViewTransition enter={viewTransition("fade")} exit={viewTransition("fade")}>
@@ -154,6 +163,22 @@ export function ExamplePreview() {
             <CodeSurfaceProvider value="preview">{activeSource}</CodeSurfaceProvider>
           </styled.div>
         </ViewTransition>
+      )}
+      {activeId ? (
+        <ExampleControls
+          id={activeId}
+          pickers={
+            <>
+              <StylingPicker />
+              <ApiPicker />
+            </>
+          }
+        />
+      ) : (
+        <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1" display="flex" gap="2">
+          <StylingPicker />
+          <ApiPicker />
+        </styled.div>
       )}
     </styled.div>
   )

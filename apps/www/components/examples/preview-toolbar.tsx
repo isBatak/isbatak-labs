@@ -7,7 +7,9 @@ import { Select } from "@isbatak/react-ui/select"
 import { useTheme } from "next-themes"
 import { styled } from "styled-system/jsx"
 
+import { useApi } from "../docs/api"
 import { type FrameworkId, useFramework } from "../docs/framework"
+import { type ApiId, supportsApi } from "../docs/variant"
 import { Icon, type IconName } from "../ui/icon"
 
 const react = { label: "React", value: "react" }
@@ -17,7 +19,11 @@ const solid = { label: "Solid", value: "solid" }
 const preact = { label: "Preact", value: "preact" }
 const vanilla = { label: "Vanilla JS", value: "vanilla" }
 
-const frameworks = createListCollection({ items: [react, vue, svelte, solid, preact, vanilla] })
+const createFrameworks = (api: ApiId) =>
+  createListCollection({
+    items: [react, vue, svelte, solid, preact, vanilla],
+    isItemDisabled: (item) => !supportsApi(item.value as FrameworkId, api),
+  })
 
 const frameworkIcons: Record<FrameworkId, IconName> = {
   react: "brand-react",
@@ -34,6 +40,8 @@ function ToolbarButton(props: ButtonProps) {
 
 function FrameworkSelect() {
   const { framework, setFramework } = useFramework()
+  const { api } = useApi()
+  const frameworks = createFrameworks(api)
 
   return (
     <Select.Root

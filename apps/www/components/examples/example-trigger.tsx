@@ -3,22 +3,27 @@
 import { type ReactNode, useEffect, useRef } from "react"
 import { styled } from "styled-system/jsx"
 
+import type { ExampleSettings } from "./controls"
+import { registerSettings } from "./controls-store"
+import { ExampleControls } from "./example-controls"
 import { ExampleView } from "./example-view"
 import { useIsDesktop, usePreview } from "./preview-context"
 
 interface ExampleTriggerProps {
   id: string
   source: ReactNode
+  settings?: ExampleSettings
   children?: ReactNode
 }
 
-export function ExampleTrigger({ id, source, children }: ExampleTriggerProps) {
+export function ExampleTrigger({ id, source, settings, children }: ExampleTriggerProps) {
   const { defaultId, activeId, registerSource, registerTrigger } = usePreview()
   const isDesktop = useIsDesktop()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => registerSource(id, source), [id, source, registerSource])
   useEffect(() => registerTrigger(id, ref.current!), [id, registerTrigger])
+  useEffect(() => registerSettings(id, settings ?? {}), [id, settings])
 
   const inline = isDesktop === false || !defaultId
 
@@ -38,15 +43,18 @@ export function ExampleTrigger({ id, source, children }: ExampleTriggerProps) {
         <>
           <styled.div
             className="not-prose"
-            display="grid"
-            placeItems="center"
-            py="8"
+            position="relative"
+            display="flex"
+            flexDirection="column"
             my="6"
             borderRadius="l3"
             borderWidth="1px"
             bg="bg"
           >
-            <ExampleView id={id} />
+            <styled.div display="grid" placeItems="center" pt="8" pb="16">
+              <ExampleView id={id} />
+            </styled.div>
+            <ExampleControls id={id} />
           </styled.div>
           {source}
         </>

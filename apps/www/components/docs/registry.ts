@@ -1,9 +1,11 @@
-import type { FrameworkId } from "./framework"
 import { SITE_URL } from "./site-url"
-import type { StylingId } from "./styling"
+import type { DocVariant } from "./variant"
 
-export const registryName = (example: string, framework: FrameworkId, styling: StylingId) =>
-  styling === "css" ? `${example}-${framework}` : `${example}-${framework}-${styling}`
+interface RegistryItem extends DocVariant {
+  id: string
+}
 
-export const registryUrl = (example: string, framework: FrameworkId, styling: StylingId) =>
-  `${SITE_URL}/r/${registryName(example, framework, styling)}.json`
+export const registryName = ({ id, framework, styling, api }: RegistryItem) =>
+  [id, framework, styling === "panda" && styling, api === "ark" && api].filter(Boolean).join("-")
+
+export const registryUrl = (item: RegistryItem) => `${SITE_URL}/r/${registryName(item)}.json`

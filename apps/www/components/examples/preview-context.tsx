@@ -12,6 +12,8 @@ import {
   useSyncExternalStore,
 } from "react"
 
+import { resetAllControls } from "./controls-store"
+
 const desktopQuery = "(min-width: 1024px)"
 
 export function useIsDesktop() {
@@ -50,6 +52,8 @@ interface PreviewProviderProps {
 }
 
 export function PreviewProvider({ defaultId, children }: PreviewProviderProps) {
+  useEffect(() => resetAllControls, [])
+
   const isDesktop = useIsDesktop()
   const [activeId, setActiveId] = useState(defaultId)
   const [sources, setSources] = useState<Record<string, ReactNode>>({})

@@ -1,12 +1,12 @@
 import { render, type VNode } from "preact"
-import { examples } from "virtual:examples"
+import { type ApiId, examples } from "virtual:examples"
 
 let count = 0
 
 const withUniqueIdRoot = (vnode: VNode) => Object.assign(vnode, { __m: [count++, 0] })
 
-export function mount(id: string, container: HTMLElement) {
-  const Example = examples[id]
+export function mount(api: ApiId, id: string, container: HTMLElement) {
+  const Example = examples[api][id]
   render(withUniqueIdRoot(<Example />), container)
   return () => render(null, container)
 }

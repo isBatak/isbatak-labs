@@ -40,9 +40,10 @@ const PromptText = styled("pre", {
 })
 
 export function SetupPrompt({ children }: { children: ReactNode }) {
-  const { code } = readCode(children)
-  const prompt = code.trimEnd()
+  return <PromptCard prompt={readCode(children).code.trimEnd()} />
+}
 
+export function PromptCard({ prompt }: { prompt: string }) {
   return (
     <CodeFrame>
       <CodeHeader>
