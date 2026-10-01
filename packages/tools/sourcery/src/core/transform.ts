@@ -63,7 +63,7 @@ export function transformJsx({
   const output = new MagicString(code)
   const fragments = new Set(["fragment", ...collectFragmentAliases(program)].map((tag) => tag.toLowerCase()))
   const ignored = new Set([...DEFAULT_IGNORE_TAGS, ...ignoreTags, ...fragments].map((tag) => tag.toLowerCase()))
-  const bindings = collectPatternBindings(program)
+  const bindings = collectDynamicBindings(program)
   const omitted = styled ? [attribute, styled.attribute] : [attribute]
   const factories = styled ? collectPandaFactories(program.body, styled.modules) : null
 
@@ -162,13 +162,34 @@ function referencesFragment(node: unknown): boolean {
   }
 }
 
-function collectPatternBindings(program: AstNode) {
+function collectDynamicBindings(program: AstNode) {
   const names = new Set<string>()
   visit(program, (node) => {
-    if (node.type === "VariableDeclarator" && (node.id as AstNode).type !== "Identifier") addBindings(node.id, names)
     if (FUNCTIONS.has(node.type)) addBindings(node.params, names)
+    if (node.type !== "VariableDeclarator") return
+    if ((node.id as AstNode).type !== "Identifier" || !definesComponent(node.init)) addBindings(node.id, names)
   })
   return names
+}
+
+function definesComponent(node: unknown): boolean {
+  const expression = node as (AstNode & { expression?: unknown; callee?: AstNode & { name?: string } }) | null
+  switch (expression?.type) {
+    case "ArrowFunctionExpression":
+    case "FunctionExpression":
+    case "ClassExpression":
+    case "TaggedTemplateExpression":
+      return true
+    case "CallExpression":
+      return !/^use[A-Z]/.test(expression.callee?.name ?? "")
+    case "ParenthesizedExpression":
+    case "TSAsExpression":
+    case "TSSatisfiesExpression":
+    case "TSNonNullExpression":
+      return definesComponent(expression.expression)
+    default:
+      return false
+  }
 }
 
 function addBindings(node: unknown, names: Set<string>) {
