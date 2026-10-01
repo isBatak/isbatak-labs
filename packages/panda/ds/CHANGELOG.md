@@ -1,5 +1,11 @@
 # @isbatak/panda-ds
 
+## 0.3.1
+
+### Patch Changes
+
+- 405668d: Generate the switch recipe CSS when `Switch` parts are used in JSX
+
 ## 0.3.0
 
 ### Minor Changes

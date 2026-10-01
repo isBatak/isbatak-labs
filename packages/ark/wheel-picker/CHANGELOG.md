@@ -1,5 +1,12 @@
 # @isbatak/ark-wheel-picker
 
+## 0.1.1
+
+### Patch Changes
+
+- 405668d: Stop React from warning about `key` being spread into JSX when rendering keyed `Item` and `HighlightItem`
+  parts
+
 ## 0.1.0
 
 ### Minor Changes
