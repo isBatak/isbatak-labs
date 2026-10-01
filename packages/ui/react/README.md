@@ -8,7 +8,7 @@ import { Tabs } from "@isbatak/react-ui/tabs"
 ```
 
 Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
-`segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip` and `tour`.
+`segment-group`, `select`, `slider`, `spinner`, `switch`, `tabs`, `tooltip` and `tour`.
 
 `button` also exports `IconButton`, `CloseButton` and `ButtonGroup`, which passes its `size` and `variant` to the
 buttons inside it:

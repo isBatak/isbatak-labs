@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/examples/preact", "mount/preact.tsx", "mount/env.d.ts"],
+  "include": ["src/examples/zag/preact", "mount/preact.tsx", "mount/env.d.ts"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",

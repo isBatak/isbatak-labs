@@ -1,7 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/examples/svelte", "mount/svelte.ts", "mount/env.d.ts"],
+  "include": ["src/examples/zag/svelte", "src/examples/ark/svelte", "mount/svelte.ts", "mount/env.d.ts"],
   "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
     "types": ["node"],
     "paths": {
       "styled-system/*": ["./styled-system/*"]

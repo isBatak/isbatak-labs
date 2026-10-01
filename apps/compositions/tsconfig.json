@@ -1,7 +1,15 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/examples/react", "src/examples/vanilla", "mount/react.tsx", "mount/vanilla.ts", "mount/env.d.ts"],
+  "include": [
+    "src/examples/zag/react",
+    "src/examples/zag/vanilla",
+    "src/examples/ark/react",
+    "mount/react.tsx",
+    "mount/vanilla.ts",
+    "mount/env.d.ts"
+  ],
   "compilerOptions": {
+    "exactOptionalPropertyTypes": false,
     "jsx": "react-jsx",
     "types": ["node"],
     "paths": {
