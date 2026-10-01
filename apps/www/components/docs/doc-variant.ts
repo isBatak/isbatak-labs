@@ -2,14 +2,15 @@
 
 import { useParams, useRouter } from "next/navigation"
 
-import { type DocVariant, isFramework, isStyling, variantPath } from "./variant"
+import { type DocVariant, isApi, isFramework, isStyling, variantPath } from "./variant"
 
-type DocParams = Partial<Record<"slug" | "framework" | "styling", string>>
+type DocParams = Partial<Record<"slug" | "framework" | "styling" | "api", string>>
 
 export function useDocVariant() {
-  const { slug, framework, styling } = useParams<DocParams>()
+  const { slug, framework, styling, api } = useParams<DocParams>()
   const router = useRouter()
-  const variant = slug && isFramework(framework) && isStyling(styling) ? { framework, styling } : undefined
+  const variant =
+    slug && isFramework(framework) && isStyling(styling) && isApi(api) ? { framework, styling, api } : undefined
 
   const setVariant = (change: Partial<DocVariant>) => {
     if (!variant) return

@@ -44,6 +44,7 @@ const icons = {
   maximize: "outline/maximize",
   minimize: "outline/minimize",
   contrast: "outline/contrast",
+  settings: "outline/settings",
   "brand-react": "outline/brand-react",
   "brand-vue": "outline/brand-vue",
   "brand-svelte": "outline/brand-svelte",

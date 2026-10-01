@@ -7,6 +7,7 @@ import { viewTransition } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { CodeSurfaceProvider } from "../code/code-tabs"
+import { ApiPicker } from "../docs/api"
 import { StylingPicker } from "../docs/styling"
 import { ExampleView } from "./example-view"
 import { usePreview } from "./preview-context"
@@ -31,6 +32,7 @@ export function ExamplePreview() {
   const { activeId, activeSource } = usePreview()
   const [fullscreen, setFullscreen] = useState(false)
   const [showSource, setShowSource] = useState(false)
+  const [controlsOpen, setControlsOpen] = useState(false)
   const [resetKey, setResetKey] = useState(0)
   const rootRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<Animation | null>(null)
@@ -118,18 +120,21 @@ export function ExamplePreview() {
     >
       <styled.div position="absolute" top="3" insetEnd="3" zIndex="1">
         <PreviewToolbar
+          activeId={activeId}
           fullscreen={fullscreen}
           onFullscreenChange={changeFullscreen}
           showSource={showSource}
           onShowSourceChange={(next) => startTransition(() => setShowSource(next))}
+          onControlsOpenChange={setControlsOpen}
           onReset={() => {
             if (activeId) resetSnapshot(activeId)
             startTransition(() => setResetKey((key) => key + 1))
           }}
         />
       </styled.div>
-      <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1">
+      <styled.div position="absolute" bottom="3" insetStart="3" zIndex="1" display="flex" gap="2">
         <StylingPicker />
+        <ApiPicker />
       </styled.div>
       <ViewTransition
         key={`${activeId}-${resetKey}`}
@@ -137,7 +142,16 @@ export function ExamplePreview() {
         exit={viewTransition("scale-fade")}
         default={viewTransition("fade")}
       >
-        <div hidden={showSource}>{activeId && <ExampleView id={activeId} />}</div>
+        <styled.div
+          hidden={showSource}
+          data-controls-open={controlsOpen ? "" : undefined}
+          transitionProperty="translate"
+          transitionDuration="moderate"
+          transitionTimingFunction="ease-in-smooth"
+          css={{ "&[data-controls-open]": { translate: "calc(({sizes.72} + {spacing.3}) / -2) 0" } }}
+        >
+          {activeId && <ExampleView id={activeId} />}
+        </styled.div>
       </ViewTransition>
       {showSource && (
         <ViewTransition enter={viewTransition("fade")} exit={viewTransition("fade")}>

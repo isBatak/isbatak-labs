@@ -53,7 +53,7 @@ const service = useMachine(wheelPicker.machine, {
 
 ### Infinite scrolling
 
-<Example id="wheel-picker-infinite">
+<Example id="wheel-picker-infinite" settings={{ infinite: true, defaultValue: "30" }}>
 
 Set `infinite: true` to loop the items, so the wheel wraps from the last item back to the first. Home and End do nothing
 while looping.

@@ -18,6 +18,11 @@ export default defineConfig({
   exclude: [],
   dependencies: ["./theme/**/*.ts"],
   outdir: "styled-system",
+  staticCss: {
+    recipes: {
+      wheelPicker: ["*"],
+    },
+  },
   globalCss: {
     extend: globalCss,
   },
