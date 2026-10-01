@@ -39,6 +39,37 @@ describe("transformJsx", () => {
     expect(transform(code)).toBe(code.replace("<b />", `<b data-sourcery="app/page.tsx:4:30" />`))
   })
 
+  test("skips components that default to Fragment", () => {
+    const code = [
+      `function Body({ rows, RowProvider = Fragment }: Props) {`,
+      `  return rows.map((row) => <RowProvider key={row.id} {...(RowProvider !== Fragment && { row })}><tr /></RowProvider>)`,
+      `}`,
+    ].join("\n")
+    expect(transform(code)).toBe(
+      code
+        .replace("{...(RowProvider !== Fragment && { row })}", (spread) =>
+          spread
+            .replace("{...", `{...(({ "data-sourcery": __sourcery0, ...props }) => props)((`)
+            .replace(/}$/, ") ?? {})}"),
+        )
+        .replace("<tr />", `<tr data-sourcery="app/page.tsx:2:97" />`),
+    )
+  })
+
+  test("guards components bound from params, which may be Fragment at runtime", () => {
+    const code = `const Body = ({ Row, ...props }) => <><Row /><props.as.Item></props.as.Item><span /></>`
+    const output = transform(code) ?? ""
+    expect(output).toBe(
+      `const Body = ({ Row, ...props }) => <><Row {...(Row === Symbol.for("react.fragment") ? null : { "data-sourcery": "app/page.tsx:1:39" })} /><props.as.Item {...(props.as.Item === Symbol.for("react.fragment") ? null : { "data-sourcery": "app/page.tsx:1:46" })}></props.as.Item><span data-sourcery="app/page.tsx:1:77" /></>`,
+    )
+    const guard = (component: unknown) =>
+      new Function("Row", `return (${output.slice(output.indexOf("(Row ==="), output.indexOf(")} />") + 1)})`)(
+        component,
+      )
+    expect(guard(Symbol.for("react.fragment"))).toBeNull()
+    expect(guard("div")).toEqual({ "data-sourcery": "app/page.tsx:1:39" })
+  })
+
   test("strips its attributes from props spread onto a fragment", () => {
     const code = `const a = <Fragment {...rest}>{value}</Fragment>`
     const output = transformJsx({
