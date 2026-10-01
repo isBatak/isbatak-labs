@@ -45,6 +45,20 @@ export const theme = {
         "100%": { translate: "0 -7.5em" },
       },
     },
+    viewTransitions: {
+      "drawer-slide": {
+        group: {
+          animationDuration: "moderate",
+          animationTimingFunction: "ease-in-smooth",
+        },
+        old: {
+          animationName: "slide-to-bottom-full, fade-out",
+        },
+        new: {
+          animationName: "slide-from-bottom-full, fade-in",
+        },
+      },
+    },
     recipes: {
       layoutContainer,
       // Icons default to the surrounding font size; `size` variants override it
