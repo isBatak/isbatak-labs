@@ -31,23 +31,16 @@ by hand.
 
 ## Examples
 
-Scroll to an example to load it in the preview, and open the code view there for the full source. Each example is its
-own registry item, so you can add it with the CLI the same way.
+Scroll to an example to load it in the preview, and open the code view there for the full source. The settings button in
+the preview changes the example live, and the snippet under it follows. Each example is its own registry item, so you
+can add it with the CLI the same way.
 
 ### Controlled value
 
-<Example id="wheel-picker-controlled">
+<Example id="wheel-picker-controlled" settings={{ controlled: true }}>
 
-Pass `value` and `onValueChange` to own the state. Anything that updates `value`, like the buttons under the wheel,
-moves the picker to that item.
-
-```ts
-const service = useMachine(wheelPicker.machine, {
-  collection,
-  value,
-  onValueChange: (details) => setValue(details.value),
-})
-```
+Pass `value` and `onValueChange` to own the state, or bind the value with `v-model` in Vue and `bind:value` in Svelte.
+Anything that updates the value, like the buttons under the wheel, moves the picker to that item.
 
 </Example>
 
@@ -55,16 +48,8 @@ const service = useMachine(wheelPicker.machine, {
 
 <Example id="wheel-picker-infinite" settings={{ infinite: true, defaultValue: "30" }}>
 
-Set `infinite: true` to loop the items, so the wheel wraps from the last item back to the first. Home and End do nothing
-while looping.
-
-```ts
-const service = useMachine(wheelPicker.machine, {
-  collection,
-  defaultValue: "30",
-  infinite: true,
-})
-```
+Set `infinite` to loop the items, so the wheel wraps from the last item back to the first. Home and End do nothing while
+looping.
 
 </Example>
 

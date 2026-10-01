@@ -5,7 +5,8 @@ import { styled } from "styled-system/jsx"
 
 import { CodeBlock, CodeBody } from "../code/code-block"
 import { CodeTabs } from "../code/code-tabs"
-import type { ExampleSettings } from "../examples/controls-store"
+import type { ExampleSettings } from "../examples/controls"
+import { ExampleSnippet } from "../examples/example-snippet"
 import { ExampleTrigger } from "../examples/example-trigger"
 import { InstallMethodTabs } from "./install-method"
 import { registryUrl } from "./registry"
@@ -174,10 +175,13 @@ interface ExampleBlockProps extends VariantProps {
   children?: ReactNode
 }
 
-export function Example({ settings, children, ...props }: ExampleBlockProps) {
+export function Example({ settings = {}, children, ...props }: ExampleBlockProps) {
+  const { id, ...variant } = props
+
   return (
-    <ExampleTrigger id={props.id} settings={settings} source={<ExampleSource {...props} />}>
+    <ExampleTrigger id={id} settings={settings} source={<ExampleSource {...props} />}>
       {children}
+      <ExampleSnippet id={id} settings={settings} {...variant} />
     </ExampleTrigger>
   )
 }

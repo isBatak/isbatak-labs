@@ -3,6 +3,8 @@ import manifest from "@isbatak/compositions/manifest.json"
 
 import api from "../../data/api.json"
 import { formatType } from "./api-table"
+import type { ExampleSettings } from "../examples/controls"
+import { exampleSnippet } from "../examples/snippet"
 import type { ExampleFiles } from "./framework-code"
 import { registryUrl } from "./registry"
 import { SITE_URL } from "./site-url"
@@ -120,8 +122,30 @@ const renderProse = (prose: string) =>
     )
     .replaceAll("](/", `](${SITE_URL}/`)
 
+const parseSettings = (attributes: string): ExampleSettings => {
+  const source = attributes.match(/settings=\{(\{[\s\S]*?\})\}/)?.[1]
+  return source ? (new Function(`return (${source})`)() as ExampleSettings) : {}
+}
+
+const exampleSnippets = (attributes: string) => {
+  const settings = parseSettings(attributes)
+  const snippet = (api: ApiId) =>
+    exampleSnippet({ framework: "react", styling: "panda", api, settings, values: settings })
+  const zag = snippet("zag")
+  const ark = snippet("ark")
+  return ["With Zag (React):", fence(zag.lang, zag.code), "With Ark UI (React):", fence(ark.lang, ark.code)].join(
+    "\n\n",
+  )
+}
+
+const renderExamples = (raw: string) =>
+  raw.replace(
+    /<Example\b([^>]*)>([\s\S]*?)<\/Example>/g,
+    (_, attributes: string, body: string) => `${body.trim()}\n\n${exampleSnippets(attributes)}\n`,
+  )
+
 const renderBody = (raw: string) =>
-  raw
+  renderExamples(raw)
     .split(/(^```[\s\S]*?^```)/m)
     .map((part, index) => (index % 2 === 1 ? part : renderProse(part)))
     .join("")
