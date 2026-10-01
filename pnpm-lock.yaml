@@ -146,6 +146,21 @@ importers:
 
   apps/compositions:
     dependencies:
+      '@ark-ui/react':
+        specifier: 5.39.2
+        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@ark-ui/solid':
+        specifier: 5.39.2
+        version: 5.39.2(solid-js@1.9.15)
+      '@ark-ui/svelte':
+        specifier: 5.24.2
+        version: 5.24.2(svelte@5.57.1)
+      '@ark-ui/vue':
+        specifier: 5.39.2
+        version: 5.39.2(vue@3.5.43(typescript@6.0.3))
+      '@isbatak/ark-wheel-picker':
+        specifier: workspace:*
+        version: link:../../packages/ark/wheel-picker
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../packages/panda/ds

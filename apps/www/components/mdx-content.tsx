@@ -1,10 +1,8 @@
 import { type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
 import * as runtime from "react/jsx-runtime"
-import { styled } from "styled-system/jsx"
 
 import { CodeBlock } from "./code/code-block"
 import { ApiTable } from "./docs/api-table"
-import { ArkWheelPickerExample } from "./docs/ark-wheel-picker-example"
 import { Example, ExampleSource, FrameworkInstall, Installation } from "./docs/framework-code"
 import { FrameworkHint } from "./docs/framework-hint"
 import { UpstreamNotice } from "./docs/upstream-notice"
@@ -18,27 +16,9 @@ function Pre({ children }: { children?: ReactNode }) {
   return <CodeBlock code={String(code ?? "")} lang={className?.replace("language-", "")} />
 }
 
-function ArkExample() {
-  return (
-    <styled.div
-      className="not-prose"
-      display="grid"
-      placeItems="center"
-      my="6"
-      py="10"
-      borderRadius="l3"
-      borderWidth="1px"
-      bg="bg.subtle"
-    >
-      <ArkWheelPickerExample />
-    </styled.div>
-  )
-}
-
 const sharedComponents: MDXComponents = {
   pre: Pre,
   ApiTable,
-  ArkExample,
   FrameworkHint,
   UpstreamNotice,
 }

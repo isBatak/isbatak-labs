@@ -1,8 +1,8 @@
 import { mount as mountComponent, unmount } from "svelte"
-import { examples } from "virtual:examples"
+import { type ApiId, examples } from "virtual:examples"
 
-export function mount(id: string, container: HTMLElement) {
-  const component = mountComponent(examples[id], { target: container })
+export function mount(api: ApiId, id: string, container: HTMLElement) {
+  const component = mountComponent(examples[api][id], { target: container })
   return () => {
     unmount(component)
   }

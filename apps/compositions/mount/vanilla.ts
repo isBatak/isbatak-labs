@@ -1,5 +1,5 @@
-import { examples } from "virtual:examples"
+import { type ApiId, examples } from "virtual:examples"
 
-export function mount(id: string, container: HTMLElement): () => void {
-  return examples[id](container)
+export function mount(api: ApiId, id: string, container: HTMLElement): () => void {
+  return examples[api][id](container)
 }

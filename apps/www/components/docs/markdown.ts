@@ -3,10 +3,10 @@ import manifest from "@isbatak/compositions/manifest.json"
 
 import api from "../../data/api.json"
 import { formatType } from "./api-table"
-import type { FrameworkId } from "./framework"
+import type { ExampleFiles } from "./framework-code"
 import { registryUrl } from "./registry"
 import { SITE_URL } from "./site-url"
-import type { StylingId } from "./styling"
+import type { ApiId, FrameworkId, StylingId } from "./variant"
 
 type Attributes = Record<string, string>
 
@@ -23,29 +23,51 @@ const fence = (lang: string, code: string) => `\`\`\`${lang}\n${code}\n\`\`\``
 const parseAttributes = (source: string): Attributes =>
   Object.fromEntries(Array.from(source.matchAll(/(\w+)="([^"]*)"/g), ([, key = "", value = ""]) => [key, value]))
 
+type ApiExamples = Partial<Record<FrameworkId, Record<StylingId, ExampleFiles>>>
+
 const variantsOf = (id: string) => {
   const example = manifest.examples.find((entry) => entry.id === id)
-  return manifest.frameworks.flatMap((framework) =>
-    manifest.stylings.flatMap((styling) => {
-      const files = example?.frameworks[framework.id as FrameworkId]?.[styling.id as StylingId]
-      return files ? [{ framework, styling, files }] : []
-    }),
+  return manifest.apis.flatMap((api) =>
+    manifest.frameworks.flatMap((framework) =>
+      manifest.stylings.flatMap((styling) => {
+        const files = (example?.apis[api.id as ApiId] as ApiExamples | undefined)?.[framework.id as FrameworkId]?.[
+          styling.id as StylingId
+        ]
+        return files
+          ? [
+              {
+                api,
+                framework,
+                styling,
+                files,
+                variant: {
+                  id,
+                  api: api.id as ApiId,
+                  framework: framework.id as FrameworkId,
+                  styling: styling.id as StylingId,
+                },
+              },
+            ]
+          : []
+      }),
+    ),
   )
 }
 
 const installation = ({ id = "" }: Attributes) =>
   [
-    "Add the component with the shadcn CLI, using the registry item for your framework and styling:",
+    "Add the component with the shadcn CLI, using the registry item for your framework, styling and API (Zag or Ark UI):",
     fence(
       "sh",
       variantsOf(id)
         .map(
-          ({ framework, styling }) =>
-            `# ${framework.label}, ${styling.label}\npnpm dlx shadcn@latest add ${registryUrl(id, framework.id as FrameworkId, styling.id as StylingId)}`,
+          ({ api, framework, styling, variant }) =>
+            `# ${framework.label}, ${styling.label}, ${api.label}\npnpm dlx shadcn@latest add ${registryUrl(variant)}`,
         )
         .join("\n\n"),
     ),
     "With Panda CSS, add `wheelPickerPreset` from `@isbatak/panda-wheel-picker` to your Panda config.",
+    "Preact with Ark UI uses the React components through `preact/compat`, so alias `react` and `react-dom` to `preact/compat` unless `@preact/preset-vite` already does.",
   ].join("\n\n")
 
 const frameworkInstall = ({ id = "" }: Attributes) =>
@@ -53,7 +75,9 @@ const frameworkInstall = ({ id = "" }: Attributes) =>
     "sh",
     variantsOf(id)
       .filter(({ styling }) => styling.id === "css")
-      .map(({ framework, files }) => `# ${framework.label}\npnpm add ${files.dependencies.join(" ")}`)
+      .map(
+        ({ api, framework, files }) => `# ${framework.label}, ${api.label}\npnpm add ${files.dependencies.join(" ")}`,
+      )
       .join("\n\n"),
   )
 
@@ -62,7 +86,7 @@ const exampleCode = ({ id = "" }: Attributes) =>
     "Full source for each framework, as shadcn registry items:",
     variantsOf(id)
       .filter(({ styling }) => styling.id === "css")
-      .map(({ framework }) => `- [${framework.label}](${registryUrl(id, framework.id as FrameworkId, "css")})`)
+      .map(({ api, framework, variant }) => `- [${framework.label}, ${api.label}](${registryUrl(variant)})`)
       .join("\n"),
   ].join("\n\n")
 

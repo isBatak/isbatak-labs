@@ -7,8 +7,11 @@ import { Select } from "@isbatak/react-ui/select"
 import { useTheme } from "next-themes"
 import { styled } from "styled-system/jsx"
 
+import { useApi } from "../docs/api"
 import { type FrameworkId, useFramework } from "../docs/framework"
+import { type ApiId, supportsApi } from "../docs/variant"
 import { Icon, type IconName } from "../ui/icon"
+import { ExampleControls } from "./example-controls"
 
 const react = { label: "React", value: "react" }
 const vue = { label: "Vue", value: "vue" }
@@ -17,7 +20,11 @@ const solid = { label: "Solid", value: "solid" }
 const preact = { label: "Preact", value: "preact" }
 const vanilla = { label: "Vanilla JS", value: "vanilla" }
 
-const frameworks = createListCollection({ items: [react, vue, svelte, solid, preact, vanilla] })
+const createFrameworks = (api: ApiId) =>
+  createListCollection({
+    items: [react, vue, svelte, solid, preact, vanilla],
+    isItemDisabled: (item) => !supportsApi(item.value as FrameworkId, api),
+  })
 
 const frameworkIcons: Record<FrameworkId, IconName> = {
   react: "brand-react",
@@ -34,6 +41,8 @@ function ToolbarButton(props: ButtonProps) {
 
 function FrameworkSelect() {
   const { framework, setFramework } = useFramework()
+  const { api } = useApi()
+  const frameworks = createFrameworks(api)
 
   return (
     <Select.Root
@@ -102,19 +111,23 @@ function FrameworkSelect() {
 }
 
 export interface PreviewToolbarProps {
+  activeId: string | undefined
   fullscreen: boolean
   onFullscreenChange: (fullscreen: boolean) => void
   showSource: boolean
   onShowSourceChange: (showSource: boolean) => void
   onReset: () => void
+  onControlsOpenChange: (open: boolean) => void
 }
 
 export function PreviewToolbar({
+  activeId,
   fullscreen,
   onFullscreenChange,
   showSource,
   onShowSourceChange,
   onReset,
+  onControlsOpenChange,
 }: PreviewToolbarProps) {
   const { resolvedTheme, setTheme } = useTheme()
 
@@ -138,6 +151,13 @@ export function PreviewToolbar({
       >
         <Icon size="md" name={showSource ? "components" : "code"} />
       </ToolbarButton>
+      {activeId && (
+        <ExampleControls id={activeId} onOpenChange={onControlsOpenChange}>
+          <ToolbarButton aria-label="Settings">
+            <Icon size="md" name="settings" />
+          </ToolbarButton>
+        </ExampleControls>
+      )}
       <ToolbarButton aria-label="Reset preview" onClick={onReset}>
         <Icon size="md" name="refresh" />
       </ToolbarButton>
