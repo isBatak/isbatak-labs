@@ -25,6 +25,7 @@ export interface TransformOutput {
 
 interface JsxName extends AstNode {
   name?: string | JsxName
+  object?: JsxName
   property?: JsxName
 }
 
@@ -36,6 +37,7 @@ interface JsxOpeningElement extends AstNode {
 
 const SOURCE_FILE = /\.(jsx|tsx|js|mjs|ts|mts)$/
 const FACTORY_CALL = /\b(styled|withProvider|withContext|withRootProvider)\b/
+const FUNCTIONS = new Set(["FunctionDeclaration", "FunctionExpression", "ArrowFunctionExpression"])
 
 export const DEFAULT_IGNORE_TAGS = ["fragment", "suspense", "script", "style", "template", "slot"]
 
@@ -61,6 +63,7 @@ export function transformJsx({
   const output = new MagicString(code)
   const fragments = new Set(["fragment", ...collectFragmentAliases(program)].map((tag) => tag.toLowerCase()))
   const ignored = new Set([...DEFAULT_IGNORE_TAGS, ...ignoreTags, ...fragments].map((tag) => tag.toLowerCase()))
+  const bindings = collectPatternBindings(program)
   const omitted = styled ? [attribute, styled.attribute] : [attribute]
   const factories = styled ? collectPandaFactories(program.body, styled.modules) : null
 
@@ -83,7 +86,11 @@ export function transformJsx({
     const insertAt = element.end - (element.selfClosing ? 2 : 1)
     const separator = /\s/.test(code[insertAt - 1] ?? "") ? "" : " "
     const trailing = element.selfClosing ? " " : ""
-    output.prependLeft(insertAt, `${separator}${attribute}="${source}:${line}:${column}"${trailing}`)
+    const value = `"${source}:${line}:${column}"`
+    const tagged = bindings.has(getComponentRoot(element.name) ?? "")
+      ? `{...(${code.slice(element.name.start, element.name.end)} === Symbol.for("react.fragment") ? null : { "${attribute}": ${value} })}`
+      : `${attribute}=${value}`
+    output.prependLeft(insertAt, `${separator}${tagged}${trailing}`)
   })
 
   if (!output.hasChanged()) return null
@@ -120,6 +127,13 @@ function collectFragmentAliases(program: AstNode) {
       if (getTagName(imported) === "Fragment" && typeof local.name === "string") aliases.add(local.name)
       return
     }
+    if (node.type === "AssignmentPattern") {
+      const left = node.left as JsxName
+      if (left.type === "Identifier" && typeof left.name === "string" && referencesFragment(node.right)) {
+        aliases.add(left.name)
+      }
+      return
+    }
     if (node.type !== "VariableDeclarator" || !node.init) return
     const id = node.id as JsxName
     if (id.type === "Identifier" && typeof id.name === "string" && referencesFragment(node.init)) aliases.add(id.name)
@@ -146,6 +160,54 @@ function referencesFragment(node: unknown): boolean {
     default:
       return false
   }
+}
+
+function collectPatternBindings(program: AstNode) {
+  const names = new Set<string>()
+  visit(program, (node) => {
+    if (node.type === "VariableDeclarator" && (node.id as AstNode).type !== "Identifier") addBindings(node.id, names)
+    if (FUNCTIONS.has(node.type)) addBindings(node.params, names)
+  })
+  return names
+}
+
+function addBindings(node: unknown, names: Set<string>) {
+  if (Array.isArray(node)) {
+    for (const item of node) addBindings(item, names)
+    return
+  }
+  const pattern = node as (AstNode & Record<string, unknown>) | null
+  switch (pattern?.type) {
+    case "Identifier":
+      if (typeof pattern.name === "string") names.add(pattern.name)
+      return
+    case "ObjectPattern":
+      for (const property of pattern.properties as AstNode[]) addBindings(property.value ?? property, names)
+      return
+    case "ArrayPattern":
+      addBindings(pattern.elements, names)
+      return
+    case "AssignmentPattern":
+      addBindings(pattern.left, names)
+      return
+    case "RestElement":
+      addBindings(pattern.argument, names)
+      return
+    case "TSParameterProperty":
+      addBindings(pattern.parameter, names)
+      return
+  }
+}
+
+function getComponentRoot(name: JsxName): string | undefined {
+  if (name.type === "JSXMemberExpression") {
+    let object = name.object
+    while (object?.type === "JSXMemberExpression") object = object.object
+    return object?.type === "JSXIdentifier" && typeof object.name === "string" ? object.name : undefined
+  }
+  return name.type === "JSXIdentifier" && typeof name.name === "string" && !/^[a-z]|-/.test(name.name)
+    ? name.name
+    : undefined
 }
 
 function getTagName(name: JsxName): string {
