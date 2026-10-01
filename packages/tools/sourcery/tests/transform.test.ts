@@ -70,6 +70,22 @@ describe("transformJsx", () => {
     expect(guard("div")).toEqual({ "data-sourcery": "app/page.tsx:1:39" })
   })
 
+  test("guards locals read from values or hooks, but not component definitions", () => {
+    const code = [
+      `const A = props.RowProvider`,
+      `const B = useRowProvider()`,
+      `const C = table.options.meta?.RowProvider`,
+      `const D = memo(Inner)`,
+      `const E = () => null`,
+      `const a = <><A /><B /><C /><D /><E /></>`,
+    ].join("\n")
+    const output = transform(code) ?? ""
+    for (const name of ["A", "B", "C"])
+      expect(output).toContain(`<${name} {...(${name} === Symbol.for("react.fragment")`)
+    expect(output).toContain(`<D data-sourcery="app/page.tsx:6:28" />`)
+    expect(output).toContain(`<E data-sourcery="app/page.tsx:6:33" />`)
+  })
+
   test("strips its attributes from props spread onto a fragment", () => {
     const code = `const a = <Fragment {...rest}>{value}</Fragment>`
     const output = transformJsx({
