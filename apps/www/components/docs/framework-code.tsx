@@ -69,7 +69,8 @@ function PandaSetup({ id }: ExampleProps) {
 
   return (
     <p>
-      Add <code>{preset}</code> from <code>{pandaPackage}</code> to your Panda config.
+      Add <code>"{pandaPackage}"</code> to <code>presets</code> in your Panda config, or import <code>{preset}</code>{" "}
+      from it and add that instead.
     </p>
   )
 }

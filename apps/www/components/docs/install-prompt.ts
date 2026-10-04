@@ -24,7 +24,7 @@ export function installPrompt({ example, frameworkLabel, docsUrl, ...item }: Ins
 
   const setup = [
     panda &&
-      `- Panda CSS: add \`${meta.preset}\` from \`${meta.pandaPackage}\` to the presets in the Panda config, then run \`panda codegen\`. If the project doesn't use Panda CSS, stop and tell me to pick the CSS version in the docs instead.`,
+      `- Panda CSS: add \`"${meta.pandaPackage}"\` to the presets in the Panda config (or import \`${meta.preset}\` from it if the config already imports its presets), then run \`panda codegen\`. If the project doesn't use Panda CSS, stop and tell me to pick the CSS version in the docs instead.`,
     !panda && "- The component imports its own stylesheet, so there's no styling setup.",
     item.framework === "preact" &&
       ark &&

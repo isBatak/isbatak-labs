@@ -11,6 +11,18 @@ pnpm add -D @isbatak/panda-swipeable-list
 
 ## Usage
 
+Add the package to `presets` by name:
+
+```ts
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  presets: ["@pandacss/preset-base", "@isbatak/panda-swipeable-list"],
+})
+```
+
+Or import the preset, which TypeScript can check:
+
 ```ts
 import { swipeableListPreset } from "@isbatak/panda-swipeable-list"
 import { defineConfig } from "@pandacss/dev"

@@ -11,6 +11,18 @@ pnpm add -D @isbatak/panda-wheel-picker
 
 ## Usage
 
+Add the package to `presets` by name:
+
+```ts
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  presets: ["@pandacss/preset-base", "@isbatak/panda-wheel-picker"],
+})
+```
+
+Or import the preset, which TypeScript can check:
+
 ```ts
 import { wheelPickerPreset } from "@isbatak/panda-wheel-picker"
 import { defineConfig } from "@pandacss/dev"
