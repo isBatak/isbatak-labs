@@ -1,5 +1,13 @@
 # @isbatak/sourcery
 
+## 0.2.2
+
+### Patch Changes
+
+- de6edc2: Stop tagging components that are `Fragment` at runtime: skip destructured defaults like
+  `{ RowProvider = Fragment }`, and guard components taken from params, destructuring, props or hooks so the attribute
+  is only added when they are not `Fragment`.
+
 ## 0.2.1
 
 ### Patch Changes
