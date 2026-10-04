@@ -13,7 +13,7 @@ interface ExampleSnippetProps extends DocVariant {
 
 export function ExampleSnippet({ id, settings, ...variant }: ExampleSnippetProps) {
   const { overrides } = useExampleControls(id)
-  const { code, lang } = exampleSnippet({ ...variant, settings, values: { ...settings, ...overrides } })
+  const { code, lang } = exampleSnippet({ ...variant, id, settings, values: { ...settings, ...overrides } })
 
   return <CodeBlock code={code} lang={lang} />
 }

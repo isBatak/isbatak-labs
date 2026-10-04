@@ -9,6 +9,7 @@ import type { ExampleSettings } from "../examples/controls"
 import { ExampleSnippet } from "../examples/example-snippet"
 import { ExampleTrigger } from "../examples/example-trigger"
 import { PromptCard } from "../tools/setup-prompt"
+import { componentMeta, componentOf } from "./component-meta"
 import { InstallMethodTabs } from "./install-method"
 import { installPrompt } from "./install-prompt"
 import { registryUrl } from "./registry"
@@ -63,10 +64,12 @@ export function FrameworkInstall(props: VariantProps) {
 
 const folderOf = (example: ExampleFiles) => example.files[0]!.target.replace(/[^/]+$/, "")
 
-function PandaSetup() {
+function PandaSetup({ id }: ExampleProps) {
+  const { preset, pandaPackage } = componentMeta[componentOf(id)]
+
   return (
     <p>
-      Add <code>wheelPickerPreset</code> from <code>@isbatak/panda-wheel-picker</code> to your Panda config.
+      Add <code>{preset}</code> from <code>{pandaPackage}</code> to your Panda config.
     </p>
   )
 }
@@ -96,7 +99,7 @@ function CliInstall(props: VariantProps) {
             This installs the dependencies and adds the component to <code>{folderOf(example)}</code>. It imports the
             recipe from <code>styled-system/recipes</code>.
           </p>
-          <PandaSetup />
+          <PandaSetup id={props.id} />
         </>
       ) : (
         <p>
@@ -126,7 +129,7 @@ function ManualInstall(props: VariantProps) {
       )}
       {props.styling === "panda" && (
         <li>
-          <PandaSetup />
+          <PandaSetup id={props.id} />
         </li>
       )}
       <li>

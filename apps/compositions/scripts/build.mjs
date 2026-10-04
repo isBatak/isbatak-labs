@@ -29,7 +29,27 @@ const apis = [
   { id: "ark", label: "Ark UI" },
 ]
 
-const pandaPackages = ["@isbatak/panda-wheel-picker"]
+const components = [
+  {
+    id: "wheel-picker",
+    zag: "@isbatak/zag-wheel-picker",
+    ark: "@isbatak/ark-wheel-picker",
+    panda: "@isbatak/panda-wheel-picker",
+    recipe: "wheelPicker",
+    machine: "withSnapshot",
+    collection: "createWheelPickerCollection",
+  },
+  {
+    id: "masonry",
+    zag: "@isbatak/zag-masonry",
+    ark: "@isbatak/ark-masonry",
+    panda: "@isbatak/panda-masonry",
+    recipe: "masonry",
+    machine: "withControls",
+  },
+]
+
+const componentOf = (id) => components.find((component) => id.startsWith(`${component.id}-`))
 
 const frameworks = [
   {
@@ -204,7 +224,7 @@ async function readExample(api, framework, id, stylesheet) {
   return {
     panda: {
       dependencies: dependenciesOf(api, framework, source),
-      devDependencies: pandaPackages,
+      devDependencies: [componentOf(id).panda],
       files: [file(source)],
     },
     css: {
@@ -276,42 +296,50 @@ function exampleState() {
   const prefix = "\0compositions-example:"
   const state = JSON.stringify(`${root}mount/example-state.ts`)
   const exampleFile = /\/src\/examples\/(zag|ark)\/[^/]+\/([^/.?]+)\.\w+(\?.*)?$/
-  const arkSource = /\/packages\/ark\/wheel-picker\/src\//
+  const arkSource = (component) => new RegExp(`/packages/ark/${component.id}/src/`)
   return {
     name: "compositions-example-state",
     enforce: "pre",
     resolveId(source, importer) {
       if (!importer) return undefined
       const [, api, example] = importer.match(exampleFile) ?? []
-      if (/(^|\/)styled-system\/recipes$/.test(source) && example) return `${prefix}recipes:${example}`
-      if (source === "@isbatak/zag-wheel-picker" && api === "zag") return `${prefix}machine:${example}`
-      if (source === "@isbatak/zag-wheel-picker" && arkSource.test(importer)) return `${prefix}machine:`
-      if (source.startsWith("@isbatak/ark-wheel-picker/") && api === "ark") return `${prefix}ark:${example}:${source}`
+      const exampleComponent = example && componentOf(example)
+      if (/(^|\/)styled-system\/recipes$/.test(source) && exampleComponent) return `${prefix}recipes:${example}`
+      const component = components.find(({ zag }) => zag === source)
+      if (component && api === "zag") return `${prefix}machine:${component.id}:${example}`
+      if (component && arkSource(component).test(importer)) return `${prefix}machine:${component.id}:`
+      const arkComponent = components.find(({ ark }) => source.startsWith(`${ark}/`))
+      if (arkComponent?.collection && api === "ark") return `${prefix}ark:${arkComponent.id}:${example}:${source}`
       return undefined
     },
     load(id) {
       if (!id.startsWith(prefix)) return undefined
-      const [kind, example, source] = id.slice(prefix.length).split(":")
-      if (kind === "recipes")
+      const [kind, ...rest] = id.slice(prefix.length).split(":")
+      if (kind === "recipes") {
+        const [example] = rest
+        const { recipe } = componentOf(example)
         return [
-          `import { wheelPicker as recipe } from "styled-system/recipes"`,
+          `import { ${recipe} as recipe } from "styled-system/recipes"`,
           `import { withRecipeControls } from ${state}`,
           `export * from "styled-system/recipes"`,
-          `export const wheelPicker = withRecipeControls(recipe, ${JSON.stringify(example)})`,
+          `export const ${recipe} = withRecipeControls(recipe, ${JSON.stringify(example)})`,
         ].join("\n")
+      }
+      const [componentId, example, source] = rest
+      const component = components.find(({ id }) => id === componentId)
       if (kind === "ark")
         return [
-          `import { createWheelPickerCollection as create } from ${JSON.stringify(source)}`,
+          `import { ${component.collection} as create } from ${JSON.stringify(source)}`,
           `import { tagCollection } from ${state}`,
           `export * from ${JSON.stringify(source)}`,
-          `export const createWheelPickerCollection = (options) => tagCollection(create(options), ${JSON.stringify(example)})`,
+          `export const ${component.collection} = (options) => tagCollection(create(options), ${JSON.stringify(example)})`,
         ].join("\n")
       return [
-        `import { machine } from "@isbatak/zag-wheel-picker"`,
-        `import { withSnapshot } from ${state}`,
-        `export * from "@isbatak/zag-wheel-picker"`,
-        `const snapshotMachine = withSnapshot(machine${example ? `, ${JSON.stringify(example)}` : ""})`,
-        `export { snapshotMachine as machine }`,
+        `import { machine } from ${JSON.stringify(component.zag)}`,
+        `import { ${component.machine} } from ${state}`,
+        `export * from ${JSON.stringify(component.zag)}`,
+        `const controlledMachine = ${component.machine}(machine${example ? `, ${JSON.stringify(example)}` : ""})`,
+        `export { controlledMachine as machine }`,
       ].join("\n")
     },
   }
