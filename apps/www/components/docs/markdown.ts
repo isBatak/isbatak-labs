@@ -69,7 +69,7 @@ const installation = ({ id = "" }: Attributes) =>
         )
         .join("\n\n"),
     ),
-    `With Panda CSS, add \`${componentMeta[componentOf(id)].preset}\` from \`${componentMeta[componentOf(id)].pandaPackage}\` to your Panda config.`,
+    `With Panda CSS, add \`"${componentMeta[componentOf(id)].pandaPackage}"\` to \`presets\` in your Panda config, or import \`${componentMeta[componentOf(id)].preset}\` from it and add that instead.`,
     "Preact with Ark UI uses the React components through `preact/compat`, so alias `react` and `react-dom` to `preact/compat` unless `@preact/preset-vite` already does.",
   ].join("\n\n")
 
