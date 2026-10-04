@@ -5,6 +5,7 @@ import api from "../../data/api.json"
 import { formatType } from "./api-table"
 import type { ExampleSettings } from "../examples/controls"
 import { exampleSnippet } from "../examples/snippet"
+import { componentMeta, componentOf } from "./component-meta"
 import type { ExampleFiles } from "./framework-code"
 import { registryUrl } from "./registry"
 import { SITE_URL } from "./site-url"
@@ -68,7 +69,7 @@ const installation = ({ id = "" }: Attributes) =>
         )
         .join("\n\n"),
     ),
-    "With Panda CSS, add `wheelPickerPreset` from `@isbatak/panda-wheel-picker` to your Panda config.",
+    `With Panda CSS, add \`${componentMeta[componentOf(id)].preset}\` from \`${componentMeta[componentOf(id)].pandaPackage}\` to your Panda config.`,
     "Preact with Ark UI uses the React components through `preact/compat`, so alias `react` and `react-dom` to `preact/compat` unless `@preact/preset-vite` already does.",
   ].join("\n\n")
 
@@ -129,8 +130,9 @@ const parseSettings = (attributes: string): ExampleSettings => {
 
 const exampleSnippets = (attributes: string) => {
   const settings = parseSettings(attributes)
+  const id = parseAttributes(attributes).id ?? ""
   const snippet = (api: ApiId) =>
-    exampleSnippet({ framework: "react", styling: "panda", api, settings, values: settings })
+    exampleSnippet({ id, framework: "react", styling: "panda", api, settings, values: settings })
   const zag = snippet("zag")
   const ark = snippet("ark")
   return ["With Zag (React):", fence(zag.lang, zag.code), "With Ark UI (React):", fence(ark.lang, ark.code)].join(

@@ -24,6 +24,7 @@
   "dependencies": {
     "@internationalized/date": "^3.12.4",
     "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/panda-masonry": "workspace:*",
     "@isbatak/panda-swipeable-list": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",

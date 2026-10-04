@@ -4,6 +4,7 @@ import { examples } from "@isbatak/compositions/react"
 import { useEffect, useRef } from "react"
 
 import { type ApiId, useApi } from "../docs/api"
+import { componentMeta, componentOf } from "../docs/component-meta"
 import { type FrameworkId, useFramework } from "../docs/framework"
 import { useExampleControls } from "./controls-store"
 import { DemoFrame } from "./demo-frame"
@@ -43,7 +44,7 @@ export function ExampleView({ id }: { id: string }) {
   const Example = examples[api][id]
 
   return (
-    <DemoFrame>
+    <DemoFrame size={componentMeta[componentOf(id)].frame}>
       {framework === "react" ? (
         Example && <Example key={version} />
       ) : (
@@ -57,7 +58,7 @@ export function ExampleThumbnail({ id }: { id: string }) {
   const Example = examples.zag[id]
 
   return (
-    <DemoFrame inert aria-hidden>
+    <DemoFrame size={componentMeta[componentOf(id)].frame} inert aria-hidden>
       {Example && <Example />}
     </DemoFrame>
   )

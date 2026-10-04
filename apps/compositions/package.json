@@ -40,8 +40,10 @@
     "@ark-ui/solid": "5.39.2",
     "@ark-ui/svelte": "5.24.2",
     "@ark-ui/vue": "5.39.2",
+    "@isbatak/ark-masonry": "workspace:*",
     "@isbatak/ark-wheel-picker": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/preact": "catalog:",
     "@zag-js/react": "catalog:",
@@ -56,6 +58,7 @@
     "vue": "^3.5.43"
   },
   "devDependencies": {
+    "@isbatak/panda-masonry": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*",
     "@pandacss/compiler": "catalog:",
     "@pandacss/dev": "catalog:",
