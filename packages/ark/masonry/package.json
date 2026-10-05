@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/ark-masonry",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Ark UI style masonry components for React, Solid, Vue and Svelte",
   "keywords": [
     "ark",
