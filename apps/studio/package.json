@@ -1,0 +1,29 @@
+{
+  "name": "@isbatak/panda-studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "panda codegen && vite",
+    "build": "panda codegen && vite build",
+    "preview": "vite preview",
+    "typecheck": "panda codegen && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ark-ui/react": "5.39.2",
+    "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/react-ui": "workspace:*",
+    "@pandacss/preset-base": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "vitest": "catalog:",
+    "postcss": "8.5.28",
+    "vite": "catalog:"
+  }
+}
