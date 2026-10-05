@@ -3,15 +3,14 @@
 import { setControls } from "@isbatak/compositions/react"
 import { useSyncExternalStore } from "react"
 
+import { componentOf } from "../docs/component-meta"
 import {
   type ControlName,
   type ControlValues,
+  componentControls,
   controlDefaults,
   type ExampleSettings,
-  recipeControlNames,
 } from "./controls"
-
-const recipeControls = new Set(recipeControlNames)
 
 interface ExampleState {
   values: ControlValues
@@ -49,6 +48,7 @@ function subscribe(listener: () => void) {
 
 function apply(id: string) {
   const entries = Object.entries(overrides.get(id) ?? {}) as [ControlName, unknown][]
+  const recipeControls = new Set(componentControls[componentOf(id)].recipe)
   setControls(id, {
     props: Object.fromEntries(entries.filter(([name]) => !recipeControls.has(name))),
     recipe: Object.fromEntries(entries.filter(([name]) => recipeControls.has(name))) as Record<string, string>,

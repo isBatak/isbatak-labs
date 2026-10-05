@@ -1,3 +1,4 @@
+import { masonryPreset } from "@isbatak/panda-masonry"
 import { wheelPickerPreset } from "@isbatak/panda-wheel-picker"
 import { defineConfig } from "@pandacss/dev"
 
@@ -6,7 +7,7 @@ import { globalCss } from "./theme/global-css"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [wheelPickerPreset],
+  presets: [masonryPreset, wheelPickerPreset],
   preflight: true,
   jsxFramework: "react",
   include: [
@@ -20,6 +21,7 @@ export default defineConfig({
   outdir: "styled-system",
   staticCss: {
     recipes: {
+      masonry: ["*"],
       wheelPicker: ["*"],
     },
   },

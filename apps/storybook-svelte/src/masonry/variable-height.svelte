@@ -1,0 +1,86 @@
+<script lang="ts">
+  import { masonry as masonryRecipe } from "@isbatak/storybook-shared/recipes"
+  import { formatLayout, masonryClasses as classes, type MasonryControls } from "@isbatak/storybook-shared"
+  import * as masonry from "@isbatak/zag-masonry"
+  import { normalizeProps, useMachine } from "@zag-js/svelte"
+
+  const styles = masonryRecipe()
+
+  interface Props extends Partial<MasonryControls> {
+    onLayoutChange?: (details: masonry.LayoutChangeDetails) => void
+  }
+
+  const props: Props = $props()
+  const id = $props.id()
+  const service = useMachine(masonry.machine, () => ({
+    id,
+    ...props,
+  }))
+  const api = $derived(masonry.connect(service, normalizeProps))
+</script>
+
+<main class={classes.story}>
+  <div {...api.getRootProps()} class={styles.root}>
+    <div {...api.getItemProps({ value: "1" })} class={styles.item}>
+      <details class={classes.details} style:min-height="150px">
+        <summary class={classes.summary}>Accordion 1</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "2" })} class={styles.item}>
+      <details class={classes.details} style:min-height="30px">
+        <summary class={classes.summary}>Accordion 2</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "3" })} class={styles.item}>
+      <details class={classes.details} style:min-height="90px">
+        <summary class={classes.summary}>Accordion 3</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "4" })} class={styles.item}>
+      <details class={classes.details} style:min-height="70px">
+        <summary class={classes.summary}>Accordion 4</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "5" })} class={styles.item}>
+      <details class={classes.details} style:min-height="90px">
+        <summary class={classes.summary}>Accordion 5</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "6" })} class={styles.item}>
+      <details class={classes.details} style:min-height="100px">
+        <summary class={classes.summary}>Accordion 6</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "7" })} class={styles.item}>
+      <details class={classes.details} style:min-height="150px">
+        <summary class={classes.summary}>Accordion 7</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "8" })} class={styles.item}>
+      <details class={classes.details} style:min-height="30px">
+        <summary class={classes.summary}>Accordion 8</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "9" })} class={styles.item}>
+      <details class={classes.details} style:min-height="50px">
+        <summary class={classes.summary}>Accordion 9</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+    <div {...api.getItemProps({ value: "10" })} class={styles.item}>
+      <details class={classes.details} style:min-height="80px">
+        <summary class={classes.summary}>Accordion 10</summary>
+        <p class={classes.content}>Contents</p>
+      </details>
+    </div>
+  </div>
+  <output data-testid="layout">{formatLayout(api.columns)}</output>
+</main>

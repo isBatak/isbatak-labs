@@ -3,6 +3,11 @@ import { fileURLToPath } from "node:url"
 import ts from "typescript"
 
 const machines = {
+  masonry: {
+    file: "../../../packages/zag/masonry/src/masonry.types.ts",
+    context: "MasonryProps",
+    api: "MasonryApi",
+  },
   "wheel-picker": {
     file: "../../../packages/zag/wheel-picker/src/wheel-picker.types.ts",
     context: "WheelPickerProps",

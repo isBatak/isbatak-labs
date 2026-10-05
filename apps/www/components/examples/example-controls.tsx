@@ -8,6 +8,7 @@ import { type ReactNode, startTransition, useEffect, useId, useRef, useState, Vi
 import { viewTransition } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
+import { componentOf } from "../docs/component-meta"
 import { Icon } from "../ui/icon"
 
 import type { ControlValues } from "./controls"
@@ -165,7 +166,61 @@ function SizeField({ id }: { id: string }) {
   )
 }
 
+function GapField({ id }: { id: string }) {
+  const { values } = useExampleControls(id)
+
+  return (
+    <styled.div display="grid" gap="2">
+      <FieldLabel id={`${id}-gap`}>Gap</FieldLabel>
+      <SegmentGroup.Root
+        size="xs"
+        fitted
+        orientation="horizontal"
+        aria-labelledby={`${id}-gap`}
+        value={values.gap}
+        onValueChange={(details) => details.value && setControl(id, "gap", details.value as ControlValues["gap"])}
+      >
+        <SegmentGroup.Indicator />
+        <SegmentGroup.Item value="none">
+          <SegmentGroup.ItemText>none</SegmentGroup.ItemText>
+          <SegmentGroup.ItemHiddenInput />
+        </SegmentGroup.Item>
+        <SegmentGroup.Item value="sm">
+          <SegmentGroup.ItemText>sm</SegmentGroup.ItemText>
+          <SegmentGroup.ItemHiddenInput />
+        </SegmentGroup.Item>
+        <SegmentGroup.Item value="md">
+          <SegmentGroup.ItemText>md</SegmentGroup.ItemText>
+          <SegmentGroup.ItemHiddenInput />
+        </SegmentGroup.Item>
+        <SegmentGroup.Item value="lg">
+          <SegmentGroup.ItemText>lg</SegmentGroup.ItemText>
+          <SegmentGroup.ItemHiddenInput />
+        </SegmentGroup.Item>
+      </SegmentGroup.Root>
+    </styled.div>
+  )
+}
+
+function MasonryControlsPanel({ id }: { id: string }) {
+  return (
+    <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">
+      <Section role="group" aria-labelledby={`${id}-layout`}>
+        <SectionTitle id={`${id}-layout`}>Layout</SectionTitle>
+        <SliderField id={id} name="columns" label="Columns" min={1} max={6} step={1} />
+        <SwitchField id={id} name="sequential" label="Sequential" />
+      </Section>
+      <Section role="group" aria-labelledby={`${id}-style`}>
+        <SectionTitle id={`${id}-style`}>Style</SectionTitle>
+        <GapField id={id} />
+      </Section>
+    </styled.div>
+  )
+}
+
 function ControlsPanel({ id }: { id: string }) {
+  if (componentOf(id) === "masonry") return <MasonryControlsPanel id={id} />
+
   return (
     <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">
       <Section role="group" aria-labelledby={`${id}-behavior`}>

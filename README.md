@@ -4,6 +4,7 @@ Zag state machines developed outside [Zag](https://github.com/chakra-ui/zag) bef
 
 ## Packages
 
+- [`@isbatak/zag-masonry`](packages/zag/masonry): masonry layout state machine
 - [`@isbatak/zag-wheel-picker`](packages/zag/wheel-picker): wheel picker state machine
 
 ## Development

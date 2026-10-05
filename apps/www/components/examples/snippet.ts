@@ -1,11 +1,11 @@
+import { componentOf } from "../docs/component-meta"
 import type { ApiId, DocVariant, FrameworkId } from "../docs/variant"
 import {
   type ControlName,
   type ControlValues,
+  componentControls,
   controlDefaults,
   type ExampleSettings,
-  machineControlNames,
-  recipeControlNames,
 } from "./controls"
 
 type Value = string | number | boolean
@@ -101,18 +101,55 @@ const arkLang: Record<FrameworkId, string> = {
 
 const snippetLang = (api: ApiId, framework: FrameworkId) => (api === "ark" ? arkLang[framework] : "ts")
 
+const recipeSnippet = (name: string, variants: [string, Value][]) =>
+  variants.length > 0
+    ? `const styles = ${name}({ ${variants.map(([key, value]) => `${key}: ${literal(value)}`).join(", ")} })\n\n`
+    : ""
+
+const definedFrom = (values: Partial<ControlValues>, names: ControlName[]) =>
+  names.flatMap((name) => {
+    const value = values[name]
+    return value === undefined || value === false ? [] : [[name, value] as [string, Value]]
+  })
+
+function masonryMachineSnippet(framework: FrameworkId, props: [string, Value][]) {
+  const body = props.map(([name, value]) => `  ${name}: ${literal(value)},`).join("\n")
+  const options = props.length > 0 ? `{\n${body}\n}` : "{}"
+  return framework === "vanilla"
+    ? `const machine = new VanillaMachine(masonry.machine, ${options})`
+    : `const service = useMachine(masonry.machine, ${options})`
+}
+
+function masonryArkSnippet(framework: FrameworkId, props: [string, Value][]) {
+  const attributes = props.map(([name, value]) => jsxAttribute(framework, name, value))
+  const open = attributes.length > 0 ? `<Masonry.Root ${attributes.join(" ")}>` : "<Masonry.Root>"
+  const item =
+    framework === "vue" || framework === "svelte"
+      ? '<Masonry.Item value="1"><!-- … --></Masonry.Item>'
+      : '<Masonry.Item value="1">{/* … */}</Masonry.Item>'
+  return `${open}\n  ${item}\n</Masonry.Root>`
+}
+
 interface SnippetOptions extends DocVariant {
+  id: string
   settings: ExampleSettings
   values: Partial<ControlValues>
 }
 
-export function exampleSnippet({ framework, styling, api, settings, values }: SnippetOptions) {
-  const props = changedFrom(values, machineControlNames)
-  const variants = changedFrom(values, recipeControlNames)
-  const recipe =
-    styling === "panda" && variants.length > 0
-      ? `const styles = wheelPickerRecipe({ ${variants.map(([name, value]) => `${name}: ${literal(value)}`).join(", ")} })\n\n`
-      : ""
+export function exampleSnippet({ id, framework, styling, api, settings, values }: SnippetOptions) {
+  const component = componentOf(id)
+  const controls = componentControls[component]
+  const lang = snippetLang(api, framework)
+
+  if (component === "masonry") {
+    const props = definedFrom(values, controls.machine)
+    const recipe = styling === "panda" ? recipeSnippet("masonryRecipe", changedFrom(values, controls.recipe)) : ""
+    const code = api === "ark" ? masonryArkSnippet(framework, props) : masonryMachineSnippet(framework, props)
+    return { code: `${recipe}${code}`, lang }
+  }
+
+  const props = changedFrom(values, controls.machine)
+  const recipe = styling === "panda" ? recipeSnippet("wheelPickerRecipe", changedFrom(values, controls.recipe)) : ""
   const code = api === "ark" ? arkSnippet(framework, settings, props) : machineSnippet(framework, settings, props)
-  return { code: `${recipe}${code}`, lang: snippetLang(api, framework) }
+  return { code: `${recipe}${code}`, lang }
 }

@@ -1,3 +1,5 @@
+import type { ComponentId } from "../docs/component-meta"
+
 export interface ControlValues {
   infinite: boolean
   disabled: boolean
@@ -8,6 +10,9 @@ export interface ControlValues {
   scrollSensitivity: number
   variant: "subtle" | "outline" | "solid"
   size: "sm" | "md" | "lg"
+  columns: number
+  sequential: boolean
+  gap: "none" | "sm" | "md" | "lg"
 }
 
 export type ControlName = keyof ControlValues
@@ -27,16 +32,23 @@ export const controlDefaults: ControlValues = {
   scrollSensitivity: 5,
   variant: "subtle",
   size: "md",
+  columns: 4,
+  sequential: false,
+  gap: "md",
 }
 
-export const recipeControlNames: ControlName[] = ["variant", "size"]
+interface ComponentControls {
+  machine: ControlName[]
+  recipe: ControlName[]
+}
 
-export const machineControlNames: ControlName[] = [
-  "infinite",
-  "disabled",
-  "readOnly",
-  "invalid",
-  "visibleCount",
-  "dragSensitivity",
-  "scrollSensitivity",
-]
+export const componentControls: Record<ComponentId, ComponentControls> = {
+  "wheel-picker": {
+    machine: ["infinite", "disabled", "readOnly", "invalid", "visibleCount", "dragSensitivity", "scrollSensitivity"],
+    recipe: ["variant", "size"],
+  },
+  masonry: {
+    machine: ["columns", "sequential"],
+    recipe: ["gap"],
+  },
+}
