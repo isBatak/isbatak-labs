@@ -1,5 +1,12 @@
 # @isbatak/ark-wheel-picker
 
+## 0.1.2
+
+### Patch Changes
+
+- 1ffd36a: Fix the Vue `RootProvider` crashing when given the value of `useWheelPicker` in a template. It now takes the
+  unwrapped API, like Ark UI's own providers.
+
 ## 0.1.1
 
 ### Patch Changes
