@@ -51,7 +51,7 @@ export function ExampleTrigger({ id, source, settings, children }: ExampleTrigge
             borderWidth="1px"
             bg="bg"
           >
-            <styled.div display="grid" placeItems="center" pt="8" pb="16">
+            <styled.div display="grid" placeItems="center" px="4" pt="8" pb="16">
               <ExampleView id={id} />
             </styled.div>
             <ExampleControls id={id} />

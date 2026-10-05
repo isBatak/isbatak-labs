@@ -1,4 +1,61 @@
 {
+  "masonry": {
+    "api": {
+      "columns": {
+        "type": "number",
+        "description": "The number of columns, or `0` before the first layout."
+      },
+      "measured": {
+        "type": "boolean",
+        "description": "Whether the items have been measured and placed. Before that they render as a plain grid."
+      },
+      "reflow": {
+        "type": "() => void",
+        "description": "Measure and place the items again."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "ElementIds | undefined",
+        "description": "The ids of the elements in the masonry. Useful for composition."
+      },
+      "columns": {
+        "type": "number | undefined",
+        "description": "The number of columns. Leave it unset to control it from CSS with the `--masonry-columns` variable, for example\nto change it per breakpoint.",
+        "defaultValue": "4"
+      },
+      "minColumnWidth": {
+        "type": "string | undefined",
+        "description": "The minimum column width, for example `\"12rem\"`. When set, the root fits as many columns as there is room for and\n`columns` is ignored."
+      },
+      "gap": {
+        "type": "number | string | undefined",
+        "description": "The space between items, in pixels or as a CSS length. Leave it unset to control it from CSS with `gap`."
+      },
+      "sequential": {
+        "type": "boolean | undefined",
+        "description": "Whether items fill the columns in order, left to right, instead of going to the shortest column.",
+        "defaultValue": "false"
+      },
+      "onLayoutChange": {
+        "type": "((details: LayoutChangeDetails) => void) | undefined",
+        "description": "Function called when the number of columns or the height changes."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\" | undefined",
+        "description": "The document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "The unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "(() => ShadowRoot | Document | Node) | undefined",
+        "description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
   "wheel-picker": {
     "api": {
       "collection": {

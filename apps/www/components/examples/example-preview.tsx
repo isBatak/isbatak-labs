@@ -142,7 +142,11 @@ export function ExamplePreview() {
           flex="1"
           minH="0"
           display="grid"
-          placeItems="center"
+          placeItems="safe center"
+          overflowY="auto"
+          overscrollBehavior="contain"
+          px="6"
+          py="16"
           css={{ "&[hidden]": { display: "none" } }}
         >
           {activeId && <ExampleView id={activeId} />}
