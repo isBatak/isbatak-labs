@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/panda-turbopack",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Turbopack loader and Next.js config wrapper for Panda CSS v2 source transforms",
   "keywords": [
     "panda",
