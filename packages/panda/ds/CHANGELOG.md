@@ -1,5 +1,11 @@
 # @isbatak/panda-ds
 
+## 0.3.2
+
+### Patch Changes
+
+- 350b86f: Export the generated style types from `@isbatak/panda-ds/types`.
+
 ## 0.3.1
 
 ### Patch Changes
