@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate": "node scripts/generate-api-docs.mjs && pnpm --filter @isbatak/sourcery --filter @isbatak/panda-ds build && pnpm --filter @isbatak/compositions build && ikona && panda && node scripts/panda-internal-css.mjs && velite build --strict",
+    "generate": "node scripts/generate-api-docs.mjs && pnpm --filter @isbatak/sourcery --filter @isbatak/panda-turbopack --filter @isbatak/panda-ds build && pnpm --filter @isbatak/compositions build && ikona && panda && velite build --strict",
     "api:generate": "node scripts/generate-api-docs.mjs",
     "icons:import": "node scripts/import-tabler-icons.mjs && ikona",
     "dev": "pnpm generate && pnpm run \"/^dev:/\"",
@@ -35,11 +35,10 @@
   },
   "devDependencies": {
     "@ikona/cli": "0.2.1",
+    "@isbatak/panda-turbopack": "workspace:*",
     "@isbatak/sourcery": "workspace:*",
-    "@pandacss/compiler": "catalog:",
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
-    "@pandacss/transformer": "catalog:",
     "@pandacss/types": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
