@@ -642,21 +642,18 @@ importers:
       '@ikona/cli':
         specifier: 0.2.1
         version: 0.2.1
+      '@isbatak/panda-turbopack':
+        specifier: workspace:*
+        version: link:../../packages/panda/turbopack
       '@isbatak/sourcery':
         specifier: workspace:*
         version: link:../../packages/tools/sourcery
-      '@pandacss/compiler':
-        specifier: 'catalog:'
-        version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)
       '@pandacss/dev':
         specifier: 'catalog:'
-        version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)(postcss@8.5.28)
+        version: 2.0.0-beta.18(postcss@8.5.28)
       '@pandacss/preset-base':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
-      '@pandacss/transformer':
-        specifier: 'catalog:'
-        version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)(rollup@4.63.4)(vite@8.3.0(@types/node@25.9.5)(esbuild@0.28.1)(terser@5.51.2)(yaml@2.9.1))(webpack@5.105.0(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.33.0)(postcss@8.5.28))
       '@pandacss/types':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
@@ -832,6 +829,19 @@ importers:
       '@pandacss/types':
         specifier: 'catalog:'
         version: 2.0.0-beta.18
+
+  packages/panda/turbopack:
+    dependencies:
+      '@pandacss/compiler':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)
+      '@pandacss/transformer':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.3)(rollup@4.63.4)(vite@8.3.0(@types/node@25.9.5)(esbuild@0.28.1)(terser@5.51.2)(yaml@2.9.1))(webpack@5.105.0(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.33.0)(postcss@8.5.28))
+    devDependencies:
+      next:
+        specifier: 16.3.6
+        version: 16.3.6(@babel/core@7.29.7(supports-color@8.1.1))(@types/node@25.9.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
   packages/panda/wheel-picker:
     dependencies:
