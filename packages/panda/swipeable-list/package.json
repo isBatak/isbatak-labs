@@ -61,6 +61,7 @@
     "@isbatak/zag-swipeable-list": "workspace:*"
   },
   "devDependencies": {
+    "@isbatak/panda-ds": "workspace:*",
     "@pandacss/dev": "catalog:",
     "@pandacss/types": "catalog:"
   }
