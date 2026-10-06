@@ -61,6 +61,7 @@
     "@isbatak/zag-wheel-picker": "workspace:*"
   },
   "devDependencies": {
+    "@isbatak/panda-ds": "workspace:*",
     "@pandacss/dev": "catalog:",
     "@pandacss/types": "catalog:"
   }

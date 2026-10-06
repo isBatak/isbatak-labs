@@ -1,8 +1,11 @@
+import type { SlotRecipeDefinition } from "@isbatak/panda-ds/types"
 import { anatomy } from "@isbatak/zag-masonry/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { SlotRecipeConfig } from "@pandacss/types"
 
 export const masonrySlots = anatomy.keys()
+
+type MasonryStyles = SlotRecipeDefinition<(typeof masonrySlots)[number]>
 
 export const masonryRecipe: SlotRecipeConfig = defineSlotRecipe({
   className: "masonry",
@@ -18,7 +21,7 @@ export const masonryRecipe: SlotRecipeConfig = defineSlotRecipe({
       borderRadius: "l3",
       bg: "bg.emphasized",
     },
-  },
+  } satisfies MasonryStyles["base"],
   variants: {
     gap: {
       none: { root: { gap: "0" } },
@@ -26,7 +29,7 @@ export const masonryRecipe: SlotRecipeConfig = defineSlotRecipe({
       md: { root: { gap: "4" } },
       lg: { root: { gap: "6" } },
     },
-  },
+  } satisfies MasonryStyles["variants"],
   defaultVariants: {
     gap: "md",
   },

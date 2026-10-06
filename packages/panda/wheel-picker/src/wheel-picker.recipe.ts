@@ -1,8 +1,11 @@
+import type { SlotRecipeDefinition } from "@isbatak/panda-ds/types"
 import { anatomy } from "@isbatak/zag-wheel-picker/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { SlotRecipeConfig } from "@pandacss/types"
 
 export const wheelPickerSlots = anatomy.keys()
+
+type WheelPickerStyles = SlotRecipeDefinition<(typeof wheelPickerSlots)[number]>
 
 export const wheelPickerRecipe: SlotRecipeConfig = defineSlotRecipe({
   className: "wheel-picker",
@@ -40,7 +43,7 @@ export const wheelPickerRecipe: SlotRecipeConfig = defineSlotRecipe({
       fontWeight: "semibold",
       _disabled: { opacity: "0.35" },
     },
-  },
+  } satisfies WheelPickerStyles["base"],
   variants: {
     variant: {
       subtle: {
@@ -73,7 +76,7 @@ export const wheelPickerRecipe: SlotRecipeConfig = defineSlotRecipe({
         highlightItem: { textStyle: "xl" },
       },
     },
-  },
+  } satisfies WheelPickerStyles["variants"],
   defaultVariants: {
     variant: "subtle",
     size: "md",
