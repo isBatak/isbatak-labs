@@ -1,10 +1,7 @@
 import { resolve } from "node:path"
 import type { NextConfig } from "next"
+import { withPandaCss } from "@isbatak/panda-turbopack/next"
 import { withSourcery } from "@isbatak/sourcery/next"
-
-const pandaLoader = {
-  loaders: ["./panda-turbopack-loader.cjs"],
-}
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -52,19 +49,13 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-  turbopack: {
-    rules: {
-      "./app/**/*.tsx": pandaLoader,
-      "./components/**/*.tsx": pandaLoader,
-    },
-    resolveAlias: {
-      // Written by scripts/panda-internal-css.mjs
-      "@pandacss-internal/css": "./.panda/internal-css.mjs",
-    },
-  },
 }
 
-export default withSourcery(nextConfig, {
+const withPanda = withPandaCss(nextConfig, {
+  include: ["./app/**/*.tsx", "./components/**/*.tsx"],
+})
+
+export default withSourcery(withPanda, {
   injectTo: resolve("components/providers.tsx"),
   exclude: ["/packages/"],
   panda: true,
