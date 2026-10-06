@@ -1,8 +1,11 @@
+import type { SlotRecipeDefinition } from "@isbatak/panda-ds/types"
 import { anatomy } from "@isbatak/zag-swipeable-list/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { GlobalVarsDefinition, SlotRecipeConfig } from "@pandacss/types"
 
 export const swipeableListSlots = anatomy.keys()
+
+type SwipeableListStyles = SlotRecipeDefinition<(typeof swipeableListSlots)[number]>
 
 export const swipeableListGlobalVars: GlobalVarsDefinition = {
   "--swipe-action-progress": { syntax: "<number>", inherits: false, initialValue: "0" },
@@ -95,7 +98,7 @@ export const swipeableListRecipe: SlotRecipeConfig = defineSlotRecipe({
         "&::before, &::after": { transition: "none" },
       },
     },
-  },
+  } satisfies SwipeableListStyles["base"],
   variants: {
     variant: {
       elevated: {
@@ -143,7 +146,7 @@ export const swipeableListRecipe: SlotRecipeConfig = defineSlotRecipe({
         itemAction: { textStyle: "md" },
       },
     },
-  },
+  } satisfies SwipeableListStyles["variants"],
   defaultVariants: {
     size: "md",
   },

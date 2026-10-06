@@ -807,6 +807,9 @@ importers:
         specifier: workspace:*
         version: link:../../zag/masonry
     devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(postcss@8.5.28)
@@ -820,6 +823,9 @@ importers:
         specifier: workspace:*
         version: link:../../zag/swipeable-list
     devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(postcss@8.5.28)
@@ -833,6 +839,9 @@ importers:
         specifier: workspace:*
         version: link:../../zag/wheel-picker
     devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.0.0-beta.18(postcss@8.5.28)
