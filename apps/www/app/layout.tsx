@@ -6,7 +6,7 @@ import { BottomBlur } from "../components/layout/bottom-blur"
 import { Providers } from "../components/providers"
 import { applyStoredRadiusScript, defaultSiteRadius } from "../components/radius-preference"
 import { preloadIconSprite } from "../components/ui/icon"
-import "../styled-system/styles.css"
+import "./globals.css"
 
 const body = Inter({ subsets: ["latin"], variable: "--font-body" })
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
