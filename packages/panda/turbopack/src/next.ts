@@ -1,6 +1,6 @@
 import { relative, sep } from "node:path"
 import type { NextConfig } from "next"
-import { INTERNAL_CSS_IMPORT, createTurbopackRules, mergeTurbopackRules, writeInternalCssRuntime } from "./index"
+import { INTERNAL_CSS_IMPORT, codegen, createTurbopackRules, mergeTurbopackRules } from "./index"
 import type { PandaTurbopackOptions } from "./options"
 
 export type NextConfigFactory = (
@@ -15,7 +15,7 @@ export function withPandaCss(
   return async (phase, context) => {
     const config = typeof nextConfig === "function" ? await nextConfig(phase, context) : nextConfig
     const cwd = options.cwd ?? process.cwd()
-    const outfile = await writeInternalCssRuntime({ ...options, cwd })
+    const { outfile } = await codegen({ ...options, cwd })
 
     const turbopack = {
       ...config.turbopack,
