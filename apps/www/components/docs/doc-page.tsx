@@ -1,4 +1,4 @@
-import type { Component } from "#site/content"
+import type { Prototype } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import type { ReactNode } from "react"
@@ -19,7 +19,7 @@ const BreadcrumbLink = styled(Link, {
 })
 
 interface DocPageProps {
-  component: Component
+  component: Prototype
   children: ReactNode
 }
 
@@ -55,6 +55,8 @@ export function DocPage({ component, children }: DocPageProps) {
               </Link>
             </Button>
             <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+            <Icon name="chevron-right" color="fg.subtle" />
+            <BreadcrumbLink href="/components/prototypes">Prototypes</BreadcrumbLink>
             <Icon name="chevron-right" color="fg.subtle" />
             <styled.span color="fg" aria-current="page">
               {component.title}

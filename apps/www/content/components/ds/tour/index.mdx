@@ -1,0 +1,13 @@
+---
+title: Tour
+description: Guide people through a page step by step, with a spotlight on each target.
+category: Overlays
+frameworks: [react, vue, solid, svelte]
+links:
+  source: packages/ui/react/src/components/tour
+  recipe: packages/panda/ds/src/theme/slot-recipes/tour.ts
+  ark: https://ark-ui.com/docs/components/tour
+---
+
+Built on Ark UI's Tour. Steps are defined in `useTour`, and a `tooltip` step points at the element its `target` returns.
+Each step's `actions` become buttons through `Tour.ActionTrigger`.

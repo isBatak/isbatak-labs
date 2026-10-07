@@ -1,23 +1,18 @@
 "use client"
 
-import type { Component } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
 import { createContext, use, useState } from "react"
 import { styled } from "styled-system/jsx"
 
 import { REQUEST_URL } from "../layout/site-links"
 import { Icon } from "../ui/icon"
+import type { CatalogItem } from "./catalog-items"
 import { ComponentCard } from "./component-card"
 
-export type CatalogItem = Pick<
-  Component,
-  "slug" | "permalink" | "title" | "description" | "category" | "original" | "status" | "preview"
->
-
-type Filter = "All" | "Originals" | Component["category"]
+type Filter = "All" | "Prototypes" | CatalogItem["category"]
 
 const matches = (item: CatalogItem, filter: Filter) =>
-  filter === "All" || (filter === "Originals" ? item.original : item.category === filter)
+  filter === "All" || (filter === "Prototypes" ? item.prototype : item.category === filter)
 
 const FilterContext = createContext<{
   items: CatalogItem[]
@@ -30,6 +25,7 @@ function FilterButton({ filter }: { filter: Filter }) {
   if (!context) throw new Error("FilterButton must be used within a ComponentCatalog")
   const active = context.filter === filter
   const count = context.items.filter((item) => matches(item, filter)).length
+  if (count === 0) return null
 
   return (
     <Button
@@ -50,6 +46,7 @@ function FilterButton({ filter }: { filter: Filter }) {
 export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
   const [filter, setFilter] = useState<Filter>("All")
   const visible = items.filter((item) => matches(item, filter))
+  const mixed = items.some((item) => item.prototype) && items.some((item) => !item.prototype)
 
   return (
     <FilterContext value={{ items, filter, setFilter }}>
@@ -77,10 +74,12 @@ export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
         <FilterButton filter="Disclosure" />
         <FilterButton filter="Feedback" />
         <FilterButton filter="Data Display" />
-        <styled.div display="flex" alignItems="center" gap="2" flexShrink="0">
-          <styled.div w="1px" h="5" mx="1" bg="border" />
-          <FilterButton filter="Originals" />
-        </styled.div>
+        {mixed && (
+          <styled.div display="flex" alignItems="center" gap="2" flexShrink="0">
+            <styled.div w="1px" h="5" mx="1" bg="border" />
+            <FilterButton filter="Prototypes" />
+          </styled.div>
+        )}
       </styled.div>
 
       <styled.div
@@ -95,12 +94,13 @@ export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
       >
         {visible.map((item) => (
           <ComponentCard
-            key={item.slug}
+            key={item.permalink}
+            slug={item.slug}
             href={item.permalink}
             title={item.title}
             description={item.description}
             category={item.category}
-            original={item.original}
+            prototype={item.prototype}
             status={item.status}
             example={item.preview}
           />

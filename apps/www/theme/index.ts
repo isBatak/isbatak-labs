@@ -2,6 +2,7 @@ import type { ExtendableTheme } from "@pandacss/types"
 
 import { hint } from "./recipes/hint"
 import { layoutContainer } from "./recipes/layout-container"
+import { textFlip } from "./recipes/text-flip"
 
 export const theme = {
   extend: {
@@ -35,14 +36,13 @@ export const theme = {
       "scroll-blur-out": {
         to: { opacity: "0", backdropFilter: "blur(0)" },
       },
-      "framework-roll": {
-        "0%, 13.33%": { translate: "0 0" },
-        "16.67%, 30%": { translate: "0 -1.25em" },
-        "33.33%, 46.67%": { translate: "0 -2.5em" },
-        "50%, 63.33%": { translate: "0 -3.75em" },
-        "66.67%, 80%": { translate: "0 -5em" },
-        "83.33%, 96.67%": { translate: "0 -6.25em" },
-        "100%": { translate: "0 -7.5em" },
+      "text-flip-in": {
+        from: { opacity: "0", translate: "0 40%", filter: "blur(4px)" },
+        to: { opacity: "1", translate: "0 0", filter: "blur(0)" },
+      },
+      "text-flip-out": {
+        from: { opacity: "1", translate: "0 0", filter: "blur(0)" },
+        to: { opacity: "0", translate: "0 -40%", filter: "blur(4px)" },
       },
     },
     viewTransitions: {
@@ -66,6 +66,7 @@ export const theme = {
     },
     slotRecipes: {
       hint,
+      textFlip,
     },
   },
 } satisfies ExtendableTheme
