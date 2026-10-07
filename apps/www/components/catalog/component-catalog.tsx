@@ -1,6 +1,6 @@
 "use client"
 
-import type { Component } from "#site/content"
+import type { Prototype } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
 import { createContext, use, useState } from "react"
 import { styled } from "styled-system/jsx"
@@ -10,11 +10,11 @@ import { Icon } from "../ui/icon"
 import { ComponentCard } from "./component-card"
 
 export type CatalogItem = Pick<
-  Component,
+  Prototype,
   "slug" | "permalink" | "title" | "description" | "category" | "original" | "status" | "preview"
 >
 
-type Filter = "All" | "Originals" | Component["category"]
+type Filter = "All" | "Originals" | Prototype["category"]
 
 const matches = (item: CatalogItem, filter: Filter) =>
   filter === "All" || (filter === "Originals" ? item.original : item.category === filter)

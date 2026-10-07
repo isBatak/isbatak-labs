@@ -1,4 +1,4 @@
-import type { Component } from "#site/content"
+import type { Prototype } from "#site/content"
 import { styled } from "styled-system/jsx"
 
 import { REPO_URL } from "../layout/site-links"
@@ -7,7 +7,7 @@ import { StorybookLink } from "./storybook-link"
 
 const repoUrl = (path: string) => `${REPO_URL}/tree/main/${path}`
 
-export function DocLinks({ links }: { links: Component["links"] }) {
+export function DocLinks({ links }: { links: Prototype["links"] }) {
   const { source, storybook, recipe, ark } = links
   if (!source && !storybook && !recipe && !ark) return null
 

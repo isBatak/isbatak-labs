@@ -1,4 +1,4 @@
-import { components } from "#site/content"
+import { prototypes } from "#site/content"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -16,11 +16,11 @@ interface ComponentPageProps {
 }
 
 function getDoc(slug: string) {
-  return components.find((doc) => doc.slug === slug)
+  return prototypes.find((doc) => doc.slug === slug)
 }
 
 export function generateStaticParams() {
-  return components.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
+  return prototypes.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
 }
 
 export async function generateMetadata({ params }: ComponentPageProps): Promise<Metadata> {

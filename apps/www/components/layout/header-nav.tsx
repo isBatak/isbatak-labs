@@ -22,8 +22,8 @@ export function HeaderNav() {
 
   return (
     <styled.nav display={{ base: "none", md: "flex" }} alignItems="center" gap="5">
-      <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
-        Components
+      <NavLink href="/prototypes" aria-current={pathname.startsWith("/prototypes") ? "page" : undefined}>
+        Prototypes
       </NavLink>
       <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
         Tools
