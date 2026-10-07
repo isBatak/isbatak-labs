@@ -1,4 +1,4 @@
-import { prototypes } from "#site/content"
+import { components, prototypes } from "#site/content"
 import { styled } from "styled-system/jsx"
 
 import { TextFlip } from "../ui/text-flip"
@@ -73,8 +73,8 @@ export function Hero() {
           mt={{ base: "14", md: "20" }}
         >
           <Stat>
-            <StatLabel>{prototypes.length === 1 ? "Prototype" : "Prototypes"}</StatLabel>
-            <StatValue>{prototypes.length}</StatValue>
+            <StatLabel>Components</StatLabel>
+            <StatValue>{components.length + prototypes.length}</StatValue>
           </Stat>
           <Dot aria-hidden />
           <Stat>

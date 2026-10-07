@@ -130,7 +130,7 @@ function LayerInfo({ title, children }: { title: string; children: ReactNode }) 
 function DocsButton(props: ButtonProps) {
   return (
     <Button asChild {...props}>
-      <Link href="/prototypes">
+      <Link href="/components">
         Show me the docs
         <Icon name="arrow-right" />
       </Link>
