@@ -21,7 +21,7 @@ const itemStyles = {
   _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
 } as const
 
-const InternalItem = styled(Link, { base: itemStyles })
+const InternalItem = styled(Link, { base: itemStyles }, { defaultProps: { prefetch: true } })
 const ExternalItem = styled("a", { base: itemStyles })
 
 const Glyph = styled("span", {

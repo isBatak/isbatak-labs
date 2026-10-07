@@ -1,4 +1,4 @@
-import { components } from "#site/content"
+import { prototypes } from "#site/content"
 import manifest from "@isbatak/compositions/manifest.json"
 
 import api from "../../data/api.json"
@@ -159,10 +159,10 @@ const toMarkdown = (title: string, description: string | undefined, raw: string)
     .replace(/\n{3,}/g, "\n\n")
     .trim()}\n`
 
-export const markdownParams = () => components.map((doc) => ({ slug: [doc.slug] }))
+export const markdownParams = () => prototypes.map((doc) => ({ slug: [doc.slug] }))
 
 export function getMarkdown([slug, ...rest]: string[]) {
-  const component = components.find((doc) => doc.slug === slug)
+  const component = prototypes.find((doc) => doc.slug === slug)
   if (!component || rest.length > 0) return undefined
   return toMarkdown(component.title, component.description, component.raw)
 }

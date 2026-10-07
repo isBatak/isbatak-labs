@@ -1,4 +1,4 @@
-import { statSync } from "node:fs"
+import { existsSync, statSync } from "node:fs"
 import type { NodeDriver } from "@pandacss/compiler"
 
 export class PandaProject {
@@ -57,9 +57,9 @@ export class PandaProject {
 
     let designSystemChanged = false
     for (const file of this.designSystemFiles()) {
-      if (this.#touched(file) && (await this.driver.syncDesignSystemFileChange({ path: file, kind: "change" }))) {
-        designSystemChanged = true
-      }
+      if (!this.#touched(file)) continue
+      const kind = existsSync(file) ? "change" : "unlink"
+      if (await this.driver.syncDesignSystemFileChange({ path: file, kind })) designSystemChanged = true
     }
 
     const current = new Set(this.driver.scan())

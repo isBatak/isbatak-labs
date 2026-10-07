@@ -108,7 +108,7 @@
     }
   },
   "devDependencies": {
-    "next": "16.3.6",
+    "next": "16.4.0",
     "vite": "catalog:"
   }
 }

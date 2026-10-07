@@ -77,6 +77,61 @@ describe("pandaTurbopackLoader", () => {
     expect(code).toContain(".c_green")
   })
 
+  it("recovers when a design system file is deleted and rebuilt", async () => {
+    const ds = join(cwd, "node_modules/ds")
+    await mkdir(join(ds, "dist/panda"), { recursive: true })
+    await mkdir(join(ds, "dist/theme"), { recursive: true })
+    await writeFile(
+      join(ds, "package.json"),
+      JSON.stringify({ name: "ds", exports: { "./panda/*": "./dist/panda/*" } }),
+    )
+    await writeFile(
+      join(ds, "dist/panda/lib.json"),
+      JSON.stringify({
+        schemaVersion: 1,
+        name: "ds",
+        version: "1.0.0",
+        panda: ">=2.0.0-beta.18",
+        preset: "./preset.mjs",
+        buildInfo: "./buildinfo.json",
+        importMap: { css: "ds/css" },
+        files: ["./**/*.{js,mjs}"],
+      }),
+    )
+    await writeFile(
+      join(ds, "dist/panda/preset.mjs"),
+      `export default { theme: { tokens: { colors: { brand: { value: "red" } } } } }`,
+    )
+    await writeFile(
+      join(ds, "dist/panda/buildinfo.json"),
+      JSON.stringify({ schemaVersion: 6, panda: ">=2.0.0-beta.18", strings: [], atoms: [], modules: {} }),
+    )
+    await writeFile(join(ds, "dist/theme/chunk.js"), `export const brand = "red"\n`)
+    await writeFile(
+      join(cwd, "panda.config.mjs"),
+      `export default { designSystem: "ds", include: ["./src/**/*.tsx"], outdir: "styled-system", utilities: { color: { className: "c" } } }`,
+    )
+    await writeFile(join(cwd, "src/box.tsx"), `import { css } from "styled-system/css"\ncss({ color: "red" })\n`)
+    await runLoader(join(cwd, "src/app.css"), LAYERS)
+
+    await rm(join(ds, "dist/theme/chunk.js"))
+    expect(await runLoader(join(cwd, "src/app.css"), LAYERS)).toContain(".c_red")
+
+    await writeFile(join(ds, "dist/theme/chunk.js"), `export const brand = "blue"\n`)
+    expect(await runLoader(join(cwd, "src/app.css"), LAYERS)).toContain(".c_red")
+  })
+
+  it("watches its dependencies when the stylesheet fails to compile", async () => {
+    await runLoader(join(cwd, "src/app.css"), LAYERS)
+
+    await writeFile(join(cwd, "panda.config.mjs"), `export default {`)
+    await utimes(join(cwd, "panda.config.mjs"), new Date(), new Date(Date.now() + 1000))
+    const run = runLoader(join(cwd, "src/app.css"), LAYERS)
+
+    await expect(run).rejects.toThrow()
+    expect(run.dependencies).toContain(join(cwd, "panda.config.mjs"))
+  })
+
   it("leaves stylesheets without the panda layers untouched", async () => {
     const source = `.card { color: red }\n`
     expect(await runLoader(join(cwd, "src/card.css"), source)).toBe(source)
