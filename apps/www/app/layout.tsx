@@ -11,6 +11,8 @@ import "./globals.css"
 const body = Inter({ subsets: ["latin"], variable: "--font-body" })
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
+export const ensureStatic = "navigation"
+
 export const metadata: Metadata = {
   title: "isbatak zag",
   description:

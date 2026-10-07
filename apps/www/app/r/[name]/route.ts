@@ -4,9 +4,6 @@ import type { ExampleFiles } from "../../../components/docs/framework-code"
 import { registryName } from "../../../components/docs/registry"
 import type { ApiId, FrameworkId, StylingId } from "../../../components/docs/variant"
 
-export const dynamic = "force-static"
-export const dynamicParams = false
-
 type ApiExamples = Partial<Record<FrameworkId, Record<StylingId, ExampleFiles>>>
 
 const items = manifest.examples.flatMap((example) =>

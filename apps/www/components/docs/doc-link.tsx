@@ -12,5 +12,5 @@ export function DocLink({ href, ...props }: ComponentProps<typeof Link> & { href
   const { framework } = useFramework()
   const { styling } = useStyling()
   const { api } = useApi()
-  return <Link href={variantPath(href, { framework, styling, api })} {...props} />
+  return <Link href={variantPath(href, { framework, styling, api })} prefetch {...props} />
 }

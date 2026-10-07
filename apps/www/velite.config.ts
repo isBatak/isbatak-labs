@@ -1,27 +1,55 @@
 import { defineCollection, defineConfig, s } from "velite"
 
+const category = s.enum([
+  "Layout",
+  "Typography",
+  "Buttons",
+  "Date & Time",
+  "Forms",
+  "Collections",
+  "Overlays",
+  "Disclosure",
+  "Feedback",
+  "Data Display",
+])
+
+const status = s.enum(["new", "beta", "stable"]).optional()
+
 const components = defineCollection({
   name: "Component",
-  pattern: "components/*/index.mdx",
+  pattern: "components/ds/*/index.mdx",
+  schema: s
+    .object({
+      title: s.string().max(99),
+      description: s.string().max(999),
+      order: s.number().default(0),
+      category,
+      status,
+      frameworks: s.array(s.enum(["react", "vue", "solid", "svelte"])),
+      links: s.object({
+        source: s.string(),
+        recipe: s.string().optional(),
+        ark: s.string().url().optional(),
+      }),
+      path: s.path(),
+      code: s.mdx(),
+    })
+    .transform(({ path, ...data }) => {
+      const slug = path.replace(/^components\/ds\//, "")
+      return { ...data, slug, permalink: `/components/ds/${slug}` }
+    }),
+})
+
+const prototypes = defineCollection({
+  name: "Prototype",
+  pattern: "components/prototypes/*/index.mdx",
   schema: s
     .object({
       title: s.string().max(99),
       description: s.string().max(999).optional(),
       order: s.number().default(0),
-      category: s.enum([
-        "Layout",
-        "Typography",
-        "Buttons",
-        "Date & Time",
-        "Forms",
-        "Collections",
-        "Overlays",
-        "Disclosure",
-        "Feedback",
-        "Data Display",
-      ]),
-      original: s.boolean().default(false),
-      status: s.enum(["new", "beta", "stable"]).optional(),
+      category,
+      status,
       preview: s.string().optional(),
       links: s
         .object({
@@ -38,8 +66,8 @@ const components = defineCollection({
       code: s.mdx(),
     })
     .transform(({ path, ...data }) => {
-      const slug = path.replace(/^components\//, "")
-      return { ...data, slug, permalink: `/components/${slug}` }
+      const slug = path.replace(/^components\/prototypes\//, "")
+      return { ...data, slug, permalink: `/components/prototypes/${slug}` }
     }),
 })
 
@@ -88,5 +116,5 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { components, tools },
+  collections: { components, prototypes, tools },
 })

@@ -13,8 +13,6 @@ function getTool(slug: string) {
   return tools.find((tool) => tool.slug === slug && !tool.external)
 }
 
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return tools.filter((tool) => !tool.external).map(({ slug }) => ({ slug }))
 }
