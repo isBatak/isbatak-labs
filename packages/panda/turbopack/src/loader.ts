@@ -43,8 +43,7 @@ async function injectCss(loader: LoaderContext, project: PandaProject, source: s
   const { driver } = project
   if (!driver.compiler.hasLayerDeclaration(source)) return source
 
-  const designSystemChanged = await project.syncCss()
-  addDependencies(loader, project)
+  const designSystemChanged = await project.syncCss().finally(() => addDependencies(loader, project))
   const { formatDiagnostic, withDiagnosticFile } = await import("@pandacss/compiler-shared")
   const warn = (diagnostics: readonly Diagnostic[] | undefined, context: string) => {
     if (!diagnostics?.length) return

@@ -1,4 +1,4 @@
-import { type Component, components } from "#site/content"
+import { type Prototype, prototypes } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
@@ -39,13 +39,13 @@ const PagerLink = styled(Link, { base: pagerItem }, { defaultProps: { prefetch: 
 
 const PagerAnchor = styled("a", { base: pagerItem })
 
-const getNeighbors = (component: Component) => {
-  const ordered = components.toSorted((a, b) => a.order - b.order)
+const getNeighbors = (component: Prototype) => {
+  const ordered = prototypes.toSorted((a, b) => a.order - b.order)
   const index = ordered.findIndex(({ slug }) => slug === component.slug)
   return { previous: ordered[index - 1], next: ordered[index + 1] }
 }
 
-export function DocFooter({ component, variant }: { component: Component; variant: DocVariant }) {
+export function DocFooter({ component, variant }: { component: Prototype; variant: DocVariant }) {
   const { previous, next } = getNeighbors(component)
 
   return (

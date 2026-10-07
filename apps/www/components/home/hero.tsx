@@ -1,6 +1,7 @@
-import { components } from "#site/content"
+import { components, prototypes } from "#site/content"
 import { styled } from "styled-system/jsx"
 
+import { TextFlip } from "../ui/text-flip"
 import { Eyebrow, Section } from "./section"
 
 const Stat = styled("div", {
@@ -43,27 +44,6 @@ const Dot = styled("span", {
   },
 })
 
-// A one-line window onto the framework names, rolled like a wheel picker
-const FrameworkRoll = styled("span", {
-  base: {
-    display: "inline-block",
-    verticalAlign: "bottom",
-    height: "1.25em",
-    lineHeight: "1.25em",
-    overflow: "hidden",
-    maskImage: "linear-gradient(to bottom, transparent, black 25% 75%, transparent)",
-  },
-})
-
-const FrameworkRollList = styled("span", {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    animation: "framework-roll 12s cubic-bezier(0.65, 0, 0.35, 1) infinite",
-    _motionReduce: { animation: "none" },
-  },
-})
-
 export function Hero() {
   return (
     <Section>
@@ -93,8 +73,8 @@ export function Hero() {
           mt={{ base: "14", md: "20" }}
         >
           <Stat>
-            <StatLabel>{components.length === 1 ? "Component" : "Components"}</StatLabel>
-            <StatValue>{components.length}</StatValue>
+            <StatLabel>Components</StatLabel>
+            <StatValue>{components.length + prototypes.length}</StatValue>
           </Stat>
           <Dot aria-hidden />
           <Stat>
@@ -106,17 +86,14 @@ export function Hero() {
             <LeadingStatLabel>Works with</LeadingStatLabel>
             <StatValue>
               <styled.span srOnly>React, Vue, Svelte, Solid, Preact and Vanilla JS</styled.span>
-              <FrameworkRoll aria-hidden>
-                <FrameworkRollList>
-                  <span>React</span>
-                  <span>Vue</span>
-                  <span>Svelte</span>
-                  <span>Solid</span>
-                  <span>Preact</span>
-                  <span>Vanilla JS</span>
-                  <span>React</span>
-                </FrameworkRollList>
-              </FrameworkRoll>
+              <TextFlip aria-hidden>
+                <span>React</span>
+                <span>Vue</span>
+                <span>Svelte</span>
+                <span>Solid</span>
+                <span>Preact</span>
+                <span>Vanilla JS</span>
+              </TextFlip>
             </StatValue>
           </Stat>
         </styled.dl>

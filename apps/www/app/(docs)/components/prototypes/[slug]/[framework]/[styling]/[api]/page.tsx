@@ -1,26 +1,26 @@
-import { components } from "#site/content"
+import { prototypes } from "#site/content"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { DocFooter } from "../../../../../../../components/docs/doc-footer"
-import { ExampleSource } from "../../../../../../../components/docs/framework-code"
-import { markdownPath } from "../../../../../../../components/docs/markdown"
-import { SITE_URL } from "../../../../../../../components/docs/site-url"
-import { type DocVariant, variantParams } from "../../../../../../../components/docs/variant"
-import { PreviewSource } from "../../../../../../../components/examples/preview-context"
-import { MDXContent } from "../../../../../../../components/mdx-content"
-import { Prose } from "../../../../../../../components/ui/prose"
+import { DocFooter } from "../../../../../../../../components/docs/doc-footer"
+import { ExampleSource } from "../../../../../../../../components/docs/framework-code"
+import { markdownPath } from "../../../../../../../../components/docs/markdown"
+import { SITE_URL } from "../../../../../../../../components/docs/site-url"
+import { type DocVariant, variantParams } from "../../../../../../../../components/docs/variant"
+import { PreviewSource } from "../../../../../../../../components/examples/preview-context"
+import { MDXContent } from "../../../../../../../../components/mdx-content"
+import { Prose } from "../../../../../../../../components/ui/prose"
 
 interface ComponentPageProps {
   params: Promise<{ slug: string } & DocVariant>
 }
 
 function getDoc(slug: string) {
-  return components.find((doc) => doc.slug === slug)
+  return prototypes.find((doc) => doc.slug === slug)
 }
 
 export function generateStaticParams() {
-  return components.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
+  return prototypes.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
 }
 
 export async function generateMetadata({ params }: ComponentPageProps): Promise<Metadata> {

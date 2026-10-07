@@ -1,0 +1,13 @@
+---
+title: Menu
+description: A list of actions that opens from a trigger, with keyboard navigation and typeahead.
+category: Overlays
+frameworks: [react, vue, solid, svelte]
+links:
+  source: packages/ui/react/src/components/menu
+  recipe: packages/panda/ds/src/theme/slot-recipes/menu.ts
+  ark: https://ark-ui.com/docs/components/menu
+---
+
+Built on Ark UI's Menu. Each item takes a `value`, and `onSelect` on `Menu.Root` reports which one was picked. Use
+`asChild` on an item to render it as a link.

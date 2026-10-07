@@ -27,11 +27,21 @@ const nextConfig: NextConfig = {
   ],
   async redirects() {
     return [
-      { source: "/docs/components/:slug", destination: "/components/:slug", permanent: true },
+      { source: "/docs/components/:slug", destination: "/components/prototypes/:slug", permanent: true },
       { source: "/docs/:path*", destination: "/components", permanent: true },
       {
-        source: "/components/:slug/:framework(react|vue|svelte|solid|preact|vanilla)/:styling(panda|css)",
-        destination: "/components/:slug/:framework/:styling/zag",
+        source: "/components/:slug(wheel-picker|masonry).md",
+        destination: "/components/prototypes/:slug.md",
+        permanent: true,
+      },
+      {
+        source: "/components/:slug(wheel-picker|masonry)/:path*",
+        destination: "/components/prototypes/:slug/:path*",
+        permanent: true,
+      },
+      {
+        source: "/components/prototypes/:slug/:framework(react|vue|svelte|solid|preact|vanilla)/:styling(panda|css)",
+        destination: "/components/prototypes/:slug/:framework/:styling/zag",
         permanent: false,
         missing: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },
@@ -39,16 +49,16 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      { source: "/components/:slug.md", destination: "/md/components/:slug" },
-      { source: "/components/:slug/:section.md", destination: "/md/components/:slug/:section" },
+      { source: "/components/prototypes/:slug.md", destination: "/md/prototypes/:slug" },
+      { source: "/components/prototypes/:slug/:section.md", destination: "/md/prototypes/:slug/:section" },
       {
-        source: "/components/:slug/:framework/:styling/:api?",
-        destination: "/md/components/:slug",
+        source: "/components/prototypes/:slug/:framework/:styling/:api?",
+        destination: "/md/prototypes/:slug",
         has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },
       {
-        source: "/components/:path+",
-        destination: "/md/components/:path+",
+        source: "/components/prototypes/:path+",
+        destination: "/md/prototypes/:path+",
         has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },
     ]
