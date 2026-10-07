@@ -1,4 +1,4 @@
-import { components } from "#site/content"
+import { prototypes } from "#site/content"
 import { styled } from "styled-system/jsx"
 
 import { Eyebrow, Section } from "./section"
@@ -93,8 +93,8 @@ export function Hero() {
           mt={{ base: "14", md: "20" }}
         >
           <Stat>
-            <StatLabel>{components.length === 1 ? "Component" : "Components"}</StatLabel>
-            <StatValue>{components.length}</StatValue>
+            <StatLabel>{prototypes.length === 1 ? "Prototype" : "Prototypes"}</StatLabel>
+            <StatValue>{prototypes.length}</StatValue>
           </Stat>
           <Dot aria-hidden />
           <Stat>

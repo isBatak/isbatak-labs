@@ -1,8 +1,8 @@
 import { defineCollection, defineConfig, s } from "velite"
 
-const components = defineCollection({
-  name: "Component",
-  pattern: "components/*/index.mdx",
+const prototypes = defineCollection({
+  name: "Prototype",
+  pattern: "prototypes/*/index.mdx",
   schema: s
     .object({
       title: s.string().max(99),
@@ -38,8 +38,8 @@ const components = defineCollection({
       code: s.mdx(),
     })
     .transform(({ path, ...data }) => {
-      const slug = path.replace(/^components\//, "")
-      return { ...data, slug, permalink: `/components/${slug}` }
+      const slug = path.replace(/^prototypes\//, "")
+      return { ...data, slug, permalink: `/prototypes/${slug}` }
     }),
 })
 
@@ -88,5 +88,5 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { components, tools },
+  collections: { prototypes, tools },
 })
