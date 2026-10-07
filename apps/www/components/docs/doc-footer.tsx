@@ -35,7 +35,7 @@ const pagerItem = {
   _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "4px" },
 } as const
 
-const PagerLink = styled(Link, { base: pagerItem })
+const PagerLink = styled(Link, { base: pagerItem }, { defaultProps: { prefetch: true } })
 
 const PagerAnchor = styled("a", { base: pagerItem })
 

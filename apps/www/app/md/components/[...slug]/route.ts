@@ -1,8 +1,5 @@
 import { getMarkdown, markdownParams } from "../../../../components/docs/markdown"
 
-export const dynamic = "force-static"
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return markdownParams()
 }

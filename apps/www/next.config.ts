@@ -6,8 +6,12 @@ import { withSourcery } from "@isbatak/sourcery/next"
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   reactCompiler: true,
+  cacheComponents: true,
+  partialPrefetching: true,
   experimental: {
     turbopackRustReactCompiler: true,
+    turbopackLazyDynamicImports: true,
+    turbopackGc: true,
   },
   // Workspace packages that export their TypeScript source
   transpilePackages: [

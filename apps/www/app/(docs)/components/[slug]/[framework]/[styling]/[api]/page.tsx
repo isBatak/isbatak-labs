@@ -19,8 +19,6 @@ function getDoc(slug: string) {
   return components.find((doc) => doc.slug === slug)
 }
 
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return components.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
 }
