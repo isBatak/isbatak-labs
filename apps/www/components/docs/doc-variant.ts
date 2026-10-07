@@ -14,7 +14,7 @@ export function useDocVariant() {
 
   const setVariant = (change: Partial<DocVariant>) => {
     if (!variant) return
-    router.replace(variantPath(`/prototypes/${slug}`, { ...variant, ...change }), { scroll: false })
+    router.replace(variantPath(`/components/prototypes/${slug}`, { ...variant, ...change }), { scroll: false })
   }
 
   return { variant, setVariant }

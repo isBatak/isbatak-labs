@@ -27,12 +27,21 @@ const nextConfig: NextConfig = {
   ],
   async redirects() {
     return [
-      { source: "/docs/components/:slug", destination: "/prototypes/:slug", permanent: true },
-      { source: "/docs/:path*", destination: "/prototypes", permanent: true },
-      { source: "/components/:path*", destination: "/prototypes/:path*", permanent: true },
+      { source: "/docs/components/:slug", destination: "/components/prototypes/:slug", permanent: true },
+      { source: "/docs/:path*", destination: "/components", permanent: true },
       {
-        source: "/prototypes/:slug/:framework(react|vue|svelte|solid|preact|vanilla)/:styling(panda|css)",
-        destination: "/prototypes/:slug/:framework/:styling/zag",
+        source: "/components/:slug(wheel-picker|masonry).md",
+        destination: "/components/prototypes/:slug.md",
+        permanent: true,
+      },
+      {
+        source: "/components/:slug(wheel-picker|masonry)/:path*",
+        destination: "/components/prototypes/:slug/:path*",
+        permanent: true,
+      },
+      {
+        source: "/components/prototypes/:slug/:framework(react|vue|svelte|solid|preact|vanilla)/:styling(panda|css)",
+        destination: "/components/prototypes/:slug/:framework/:styling/zag",
         permanent: false,
         missing: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },
@@ -40,15 +49,15 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      { source: "/prototypes/:slug.md", destination: "/md/prototypes/:slug" },
-      { source: "/prototypes/:slug/:section.md", destination: "/md/prototypes/:slug/:section" },
+      { source: "/components/prototypes/:slug.md", destination: "/md/prototypes/:slug" },
+      { source: "/components/prototypes/:slug/:section.md", destination: "/md/prototypes/:slug/:section" },
       {
-        source: "/prototypes/:slug/:framework/:styling/:api?",
+        source: "/components/prototypes/:slug/:framework/:styling/:api?",
         destination: "/md/prototypes/:slug",
         has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },
       {
-        source: "/prototypes/:path+",
+        source: "/components/prototypes/:path+",
         destination: "/md/prototypes/:path+",
         has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
       },

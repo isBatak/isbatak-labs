@@ -1,26 +1,40 @@
 import { Badge } from "@isbatak/react-ui/badge"
+import Link from "next/link"
+import type { ComponentProps } from "react"
 import { styled } from "styled-system/jsx"
 
+import { demos } from "../ds-demos"
 import { DocLink } from "../docs/doc-link"
 import { ExampleThumbnail } from "../examples/example-view"
 import { Icon } from "../ui/icon"
 
 // Inline `styled()` configs: don't pass style props to these, the Panda transformer would drop the base styles.
 
-const Card = styled(DocLink, {
+function ComponentLink({ prototype, ...props }: ComponentProps<typeof Link> & { href: string; prototype: boolean }) {
+  return prototype ? <DocLink {...props} /> : <Link prefetch {...props} />
+}
+
+const Card = styled("article", {
   base: {
     "--card-inset": "{spacing.2}",
+    position: "relative",
     display: "flex",
     flexDirection: "column",
     p: "var(--card-inset)",
     borderRadius: "l3",
     borderWidth: "1px",
     bg: "bg",
-    outline: "none",
     transitionProperty: "border-color, box-shadow, translate",
     transitionDuration: "moderate",
     _hover: { borderColor: "border.emphasized", shadow: "md", translate: "0 -2px" },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+    "&:has(a:focus-visible)": { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+  },
+})
+
+const CardLink = styled(ComponentLink, {
+  base: {
+    outline: "none",
+    _after: { content: '""', position: "absolute", inset: "0", zIndex: "1", borderRadius: "l3" },
   },
 })
 
@@ -102,18 +116,32 @@ const Description = styled("p", {
 })
 
 export interface ComponentCardProps {
+  slug: string
   href: string
   title: string
   description?: string | undefined
   category: string
-  original?: boolean | undefined
+  prototype: boolean
   status?: "new" | "beta" | "stable" | undefined
   example?: string | undefined
 }
 
-export function ComponentCard({ href, title, description, category, original, status, example }: ComponentCardProps) {
+function DemoThumbnail({ slug }: { slug: string }) {
+  const Demo = demos[slug]
+  if (!Demo) return null
+
   return (
-    <Card href={href} className="group">
+    <styled.div display="contents" inert aria-hidden>
+      <Demo />
+    </styled.div>
+  )
+}
+
+export function ComponentCard(props: ComponentCardProps) {
+  const { slug, href, title, description, category, prototype, status, example } = props
+
+  return (
+    <Card className="group">
       <Header>
         <Category>{category}</Category>
         <Action>
@@ -121,13 +149,17 @@ export function ComponentCard({ href, title, description, category, original, st
           <Icon name="chevron-right" />
         </Action>
       </Header>
-      <Preview>{example && <ExampleThumbnail id={example} />}</Preview>
+      <Preview>{prototype ? example && <ExampleThumbnail id={example} /> : <DemoThumbnail slug={slug} />}</Preview>
       <Body>
         <styled.div display="flex" alignItems="center" gap="2" minW="0">
-          <Title>{title}</Title>
-          {original && (
+          <Title>
+            <CardLink href={href} prototype={prototype}>
+              {title}
+            </CardLink>
+          </Title>
+          {prototype && (
             <Badge colorPalette="purple" flexShrink="0">
-              Original
+              Prototype
             </Badge>
           )}
           {status === "new" && (

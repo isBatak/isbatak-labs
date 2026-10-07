@@ -27,7 +27,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: "/prototypes/:slug([^/.]+)",
+      source: "/components/prototypes/:slug([^/.]+)",
       missing: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
     },
   ],

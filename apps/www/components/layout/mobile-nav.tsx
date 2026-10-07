@@ -69,8 +69,8 @@ export function MobileNav() {
             </Drawer.Header>
             <Drawer.Body>
               <styled.nav display="flex" flexDirection="column" gap="1" pb="4">
-                <NavLink href="/prototypes" aria-current={pathname.startsWith("/prototypes") ? "page" : undefined}>
-                  Prototypes
+                <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
+                  Components
                 </NavLink>
                 <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
                   Tools
