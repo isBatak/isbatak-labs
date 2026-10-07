@@ -1,7 +1,8 @@
+import { existsSync } from "node:fs"
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
-import { DEFAULT_INCLUDE, INTERNAL_CSS_IMPORT, LOADER_PATH, createTurbopackRules } from "../src/index"
+import { CSS_GLOB, DEFAULT_INCLUDE, INTERNAL_CSS_IMPORT, LOADER_PATH, createTurbopackRules } from "../src/index"
 import { withPandaCss } from "../src/next"
 
 let cwd: string
@@ -19,30 +20,28 @@ afterEach(async () => {
 })
 
 describe("createTurbopackRules", () => {
-  it("runs the loader on JS and TS modules outside node_modules", () => {
-    expect(createTurbopackRules({ cwd })).toEqual({
-      [DEFAULT_INCLUDE[0]!]: {
-        condition: { not: "foreign" },
-        loaders: [{ loader: LOADER_PATH, options: { cwd } }],
-      },
-    })
+  it("runs the loader on JS, TS and CSS modules outside node_modules", () => {
+    const rule = { condition: { not: "foreign" }, loaders: [{ loader: LOADER_PATH, options: { cwd } }] }
+    expect(createTurbopackRules({ cwd })).toEqual({ [DEFAULT_INCLUDE[0]!]: rule, [CSS_GLOB]: rule })
   })
 
   it("creates one rule per include glob", () => {
     expect(Object.keys(createTurbopackRules({ include: ["./app/**/*.tsx", "./src/**/*.ts"] }))).toEqual([
       "./app/**/*.tsx",
       "./src/**/*.ts",
+      CSS_GLOB,
     ])
   })
 })
 
 describe("withPandaCss", () => {
-  it("writes the internal css runtime and aliases it", async () => {
+  it("runs codegen, writes the internal css runtime and aliases it", async () => {
     const config = await withPandaCss({}, { cwd })("phase-production-build", { defaultConfig: {} })
     const alias = config.turbopack?.resolveAlias?.[INTERNAL_CSS_IMPORT]
 
     expect(alias).toMatch(/\.panda\/internal-css\.mjs$/)
     expect(await readFile(join(cwd, ".panda/internal-css.mjs"), "utf8")).toContain("export")
+    expect(existsSync(join(cwd, "styled-system/css"))).toBe(true)
   })
 
   it("keeps existing turbopack rules and aliases", async () => {
