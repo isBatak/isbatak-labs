@@ -1,19 +1,19 @@
-import { Button } from "@isbatak/react-ui/button";
-import Link from "next/link";
-import { styled } from "styled-system/jsx";
+import { Button } from "@isbatak/react-ui/button"
+import Link from "next/link"
+import { styled } from "styled-system/jsx"
 
-import { CodeBlock } from "../code/code-block";
-import { Icon } from "../ui/icon";
-import { Eyebrow, Section } from "./section";
+import { CodeBlock } from "../code/code-block"
+import { Icon } from "../ui/icon"
+import { Eyebrow, Section } from "./section"
 
 const nextConfig = `import type { NextConfig } from "next"
 import { withPandaCss } from "@isbatak/panda-turbopack/next"
 
 const nextConfig: NextConfig = {}
 
-export default withPandaCss(nextConfig)`;
+export default withPandaCss(nextConfig)`
 
-const globalsCss = `@layer reset, base, tokens, recipes, utilities;`;
+const globalsCss = `@layer reset, base, tokens, recipes, utilities;`
 
 const Point = styled("li", {
   base: {
@@ -24,7 +24,7 @@ const Point = styled("li", {
     lineHeight: "1.6",
     "& > svg": { flexShrink: "0", mt: "0.5", color: "fg.subtle" },
   },
-});
+})
 
 export function PandaTurbopackPromo() {
   return (
@@ -47,21 +47,11 @@ export function PandaTurbopackPromo() {
             >
               Panda CSS on Turbopack, without the CLI.
             </styled.h2>
-            <styled.p
-              mt="4"
-              maxW="sm"
-              textStyle="sm"
-              lineHeight="1.7"
-              color="fg.muted"
-              textWrap="pretty"
-            >
-              <styled.code fontFamily="mono">
-                @isbatak/panda-turbopack
-              </styled.code>{" "}
-              runs Panda CSS v2 inside{" "}
+            <styled.p mt="4" maxW="sm" textStyle="sm" lineHeight="1.7" color="fg.muted" textWrap="pretty">
+              <styled.code fontFamily="mono">@isbatak/panda-turbopack</styled.code> runs Panda CSS v2 inside{" "}
               <styled.code fontFamily="mono">next dev</styled.code> and{" "}
-              <styled.code fontFamily="mono">next build</styled.code>. Wrap your
-              config once and drop the watch process and the PostCSS plugin.
+              <styled.code fontFamily="mono">next build</styled.code>. Wrap your config once and drop the watch process
+              and the PostCSS plugin.
             </styled.p>
             <styled.ul mt="6" display="flex" flexDirection="column" gap="2.5">
               <Point>
@@ -85,11 +75,7 @@ export function PandaTurbopackPromo() {
                 </Link>
               </Button>
               <Button asChild variant="outline" colorPalette="gray">
-                <a
-                  href="https://www.npmjs.com/package/@isbatak/panda-turbopack"
-                  target="_blank"
-                  rel="noopener"
-                >
+                <a href="https://www.npmjs.com/package/@isbatak/panda-turbopack" target="_blank" rel="noopener">
                   <Icon name="brand-npm" />
                   npm
                 </a>
@@ -104,5 +90,5 @@ export function PandaTurbopackPromo() {
         </styled.div>
       </styled.div>
     </Section>
-  );
+  )
 }
