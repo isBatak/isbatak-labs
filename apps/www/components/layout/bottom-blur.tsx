@@ -14,13 +14,17 @@ export const BottomBlur = styled(
       bgImage: "linear-gradient(to bottom, transparent, {colors.bg})",
       backdropFilter: "blur(4px)",
       maskImage: "linear-gradient(to top, black 50%, transparent)",
-      ":root:has([data-preview]) &": { right: { lg: "50%" } },
       "@supports (animation-timeline: scroll())": {
         animationName: "scroll-blur-out",
         animationTimingFunction: "linear",
         animationFillMode: "both",
         animationTimeline: "scroll(root)",
         animationRange: "calc(100% - 150px) 100%",
+      },
+    },
+    variants: {
+      split: {
+        true: { right: { lg: "50%" } },
       },
     },
   },

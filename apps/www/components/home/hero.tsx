@@ -19,11 +19,10 @@ const StatLabel = styled("dt", {
     textStyle: "overline",
     color: "fg.muted",
   },
-})
-
-const LeadingStatLabel = styled(StatLabel, {
-  base: {
-    order: "0",
+  variants: {
+    leading: {
+      true: { order: "0" },
+    },
   },
 })
 
@@ -83,7 +82,7 @@ export function Hero() {
           </Stat>
           <Dot aria-hidden />
           <Stat>
-            <LeadingStatLabel>Works with</LeadingStatLabel>
+            <StatLabel leading>Works with</StatLabel>
             <StatValue>
               <styled.span srOnly>React, Vue, Svelte, Solid, Preact and Vanilla JS</styled.span>
               <TextFlip aria-hidden>
