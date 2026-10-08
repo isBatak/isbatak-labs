@@ -70,12 +70,14 @@ export function ToolPage({ tool }: { tool: Tool }) {
         </styled.div>
       </styled.div>
 
-      <styled.section aria-label="Video demo" maxW="4xl" mx="auto" mt={{ base: "14", md: "20" }}>
-        <styled.div textAlign="center" mb="5">
-          <Eyebrow>Demo</Eyebrow>
-        </styled.div>
-        <VideoDemo src={tool.video} poster={tool.poster} title={`${tool.title} demo`} />
-      </styled.section>
+      {tool.video && (
+        <styled.section aria-label="Video demo" maxW="4xl" mx="auto" mt={{ base: "14", md: "20" }}>
+          <styled.div textAlign="center" mb="5">
+            <Eyebrow>Demo</Eyebrow>
+          </styled.div>
+          <VideoDemo src={tool.video} poster={tool.poster} title={`${tool.title} demo`} />
+        </styled.section>
+      )}
 
       <styled.div maxW="2xl" mx="auto" pt={{ base: "10", md: "14" }} pb="24">
         <Prose>
