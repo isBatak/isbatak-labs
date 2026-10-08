@@ -1,41 +1,55 @@
-"use client"
+"use client";
 
-import { Portal } from "@ark-ui/react/portal"
-import { Button, ButtonGroup } from "@isbatak/react-ui/button"
-import { Menu } from "@isbatak/react-ui/menu"
-import { useEffect, useState } from "react"
+import { Portal } from "@ark-ui/react/portal";
+import { Button, ButtonGroup } from "@isbatak/react-ui/button";
+import { Menu } from "@isbatak/react-ui/menu";
+import { useEffect, useState } from "react";
 
-import { Icon } from "../ui/icon"
-import { SITE_URL } from "./site-url"
+import { Icon } from "../ui/icon";
+import { SITE_URL } from "./site-url";
 
-const prompt = (url: string) => encodeURIComponent(`Read ${url}, I want to ask questions about it.`)
+const prompt = (url: string) =>
+  encodeURIComponent(`Read ${url}, I want to ask questions about it.`);
 
 export function CopyPage({ href }: { href: string }) {
-  const [copied, setCopied] = useState(false)
-  const url = `${SITE_URL}${href}`
+  const [copied, setCopied] = useState(false);
+  const url = `${SITE_URL}${href}`;
 
   useEffect(() => {
-    if (!copied) return
-    const timeout = setTimeout(() => setCopied(false), 1500)
-    return () => clearTimeout(timeout)
-  }, [copied])
+    if (!copied) return;
+    const timeout = setTimeout(() => setCopied(false), 1500);
+    return () => clearTimeout(timeout);
+  }, [copied]);
 
   const copy = () => {
     const markdown = fetch(href)
       .then((response) => response.text())
-      .then((text) => new Blob([text], { type: "text/plain" }))
-    navigator.clipboard.write([new ClipboardItem({ "text/plain": markdown })]).then(() => setCopied(true))
-  }
+      .then((text) => new Blob([text], { type: "text/plain" }));
+    navigator.clipboard
+      .write([new ClipboardItem({ "text/plain": markdown })])
+      .then(() => setCopied(true));
+  };
 
   return (
     <Menu.Root positioning={{ placement: "bottom-end" }}>
-      <ButtonGroup variant="subtle" size="2xs" attached flexShrink="0">
+      <ButtonGroup
+        variant="subtle"
+        size="2xs"
+        attached
+        flexShrink="0"
+        colorPalette="gray"
+      >
         <Button onClick={copy}>
           <Icon name={copied ? "check" : "markdown"} />
           {copied ? "Copied" : "Copy page"}
         </Button>
         <Menu.Trigger asChild>
-          <Button px="0" aspectRatio="square" borderStartColor="bg" aria-label="More page actions">
+          <Button
+            px="0"
+            aspectRatio="square"
+            borderStartColor="bg"
+            aria-label="More page actions"
+          >
             <Icon name="chevron-down" />
           </Button>
         </Menu.Trigger>
@@ -50,13 +64,21 @@ export function CopyPage({ href }: { href: string }) {
               </a>
             </Menu.Item>
             <Menu.Item value="chatgpt" asChild>
-              <a href={`https://chatgpt.com/?hints=search&q=${prompt(url)}`} target="_blank" rel="noopener">
+              <a
+                href={`https://chatgpt.com/?hints=search&q=${prompt(url)}`}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon name="brand-openai" />
                 Open in ChatGPT
               </a>
             </Menu.Item>
             <Menu.Item value="claude" asChild>
-              <a href={`https://claude.ai/new?q=${prompt(url)}`} target="_blank" rel="noopener">
+              <a
+                href={`https://claude.ai/new?q=${prompt(url)}`}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon name="brand-anthropic" />
                 Open in Claude
               </a>
@@ -65,5 +87,5 @@ export function CopyPage({ href }: { href: string }) {
         </Menu.Positioner>
       </Portal>
     </Menu.Root>
-  )
+  );
 }

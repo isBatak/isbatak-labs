@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { Portal } from "@ark-ui/react/portal"
-import { Button, type ButtonProps } from "@isbatak/react-ui/button"
-import { HoverCard } from "@isbatak/react-ui/hover-card"
-import { RadioCard } from "@isbatak/react-ui/radio-card"
-import Link from "next/link"
-import { type ReactNode, useRef, useState } from "react"
-import { styled } from "styled-system/jsx"
+import { Portal } from "@ark-ui/react/portal";
+import { Button, type ButtonProps } from "@isbatak/react-ui/button";
+import { HoverCard } from "@isbatak/react-ui/hover-card";
+import { RadioCard } from "@isbatak/react-ui/radio-card";
+import Link from "next/link";
+import { type ReactNode, useRef, useState } from "react";
+import { styled } from "styled-system/jsx";
 
-import { type FrameworkId, useFramework } from "../docs/framework"
-import { type InstallMethodId, useInstallMethod } from "../docs/install-method"
-import { type LayerId, useLayer } from "../docs/layer"
-import { type StylingId, useStyling } from "../docs/styling"
-import { Icon, type IconName } from "../ui/icon"
-import { Eyebrow, Section } from "./section"
+import { type FrameworkId, useFramework } from "../docs/framework";
+import { type InstallMethodId, useInstallMethod } from "../docs/install-method";
+import { type LayerId, useLayer } from "../docs/layer";
+import { type StylingId, useStyling } from "../docs/styling";
+import { Icon, type IconName } from "../ui/icon";
+import { Eyebrow, Section } from "./section";
 
-const ARTICLE_URL = "https://nerdy.dev/headless-boneless-and-skinless-ui"
+const ARTICLE_URL = "https://nerdy.dev/headless-boneless-and-skinless-ui";
 
 const QuestionNumber = styled("span", {
   base: {
@@ -23,7 +23,7 @@ const QuestionNumber = styled("span", {
     textStyle: "overline",
     color: "fg.subtle",
   },
-})
+});
 
 const InlineLink = styled("a", {
   base: {
@@ -33,12 +33,25 @@ const InlineLink = styled("a", {
     textUnderlineOffset: "3px",
     _hover: { textDecorationColor: "fg.subtle" },
   },
-})
+});
 
-function Question({ number, label, hint }: { number: string; label: string; hint?: ReactNode }) {
+function Question({
+  number,
+  label,
+  hint,
+}: {
+  number: string;
+  label: string;
+  hint?: ReactNode;
+}) {
   return (
     <styled.div display="flex" flexDirection="column" gap="1" mb="2">
-      <RadioCard.Label display="flex" alignItems="baseline" gap="3" textStyle="md">
+      <RadioCard.Label
+        display="flex"
+        alignItems="baseline"
+        gap="3"
+        textStyle="md"
+      >
         <QuestionNumber>{number}</QuestionNumber>
         {label}
       </RadioCard.Label>
@@ -48,10 +61,18 @@ function Question({ number, label, hint }: { number: string; label: string; hint
         </styled.p>
       )}
     </styled.div>
-  )
+  );
 }
 
-function FrameworkOption({ value, label, icon }: { value: FrameworkId; label: string; icon: IconName }) {
+function FrameworkOption({
+  value,
+  label,
+  icon,
+}: {
+  value: FrameworkId;
+  label: string;
+  icon: IconName;
+}) {
   return (
     <RadioCard.Item value={value}>
       <RadioCard.ItemHiddenInput />
@@ -61,10 +82,18 @@ function FrameworkOption({ value, label, icon }: { value: FrameworkId; label: st
         <RadioCard.ItemIndicator />
       </RadioCard.ItemControl>
     </RadioCard.Item>
-  )
+  );
 }
 
-function DescribedOption({ value, label, description }: { value: string; label: string; description: string }) {
+function DescribedOption({
+  value,
+  label,
+  description,
+}: {
+  value: string;
+  label: string;
+  description: string;
+}) {
   return (
     <RadioCard.Item value={value}>
       <RadioCard.ItemHiddenInput />
@@ -76,12 +105,18 @@ function DescribedOption({ value, label, description }: { value: string; label: 
         </RadioCard.ItemContent>
       </RadioCard.ItemControl>
     </RadioCard.Item>
-  )
+  );
 }
 
-function LayerInfo({ title, children }: { title: string; children: ReactNode }) {
-  const [open, setOpen] = useState(false)
-  const touchTap = useRef<{ wasOpen: boolean } | null>(null)
+function LayerInfo({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const touchTap = useRef<{ wasOpen: boolean } | null>(null);
 
   return (
     <HoverCard.Root
@@ -103,10 +138,11 @@ function LayerInfo({ title, children }: { title: string; children: ReactNode }) 
           zIndex="2"
           aria-label={`About ${title}`}
           onPointerDown={(event) => {
-            touchTap.current = event.pointerType === "touch" ? { wasOpen: open } : null
+            touchTap.current =
+              event.pointerType === "touch" ? { wasOpen: open } : null;
           }}
           onClick={() => {
-            if (touchTap.current) setOpen(!touchTap.current.wasOpen)
+            if (touchTap.current) setOpen(!touchTap.current.wasOpen);
           }}
         >
           <Icon size="sm" name="info-circle" />
@@ -114,7 +150,13 @@ function LayerInfo({ title, children }: { title: string; children: ReactNode }) 
       </HoverCard.Trigger>
       <Portal>
         <HoverCard.Positioner>
-          <HoverCard.Content w="80" display="flex" flexDirection="column" gap="3" textStyle="sm">
+          <HoverCard.Content
+            w="80"
+            display="flex"
+            flexDirection="column"
+            gap="3"
+            textStyle="sm"
+          >
             <HoverCard.Arrow>
               <HoverCard.ArrowTip />
             </HoverCard.Arrow>
@@ -124,7 +166,7 @@ function LayerInfo({ title, children }: { title: string; children: ReactNode }) 
         </HoverCard.Positioner>
       </Portal>
     </HoverCard.Root>
-  )
+  );
 }
 
 function DocsButton(props: ButtonProps) {
@@ -135,14 +177,14 @@ function DocsButton(props: ButtonProps) {
         <Icon name="arrow-right" />
       </Link>
     </Button>
-  )
+  );
 }
 
 export function StackPreferences() {
-  const { framework, setFramework } = useFramework()
-  const { styling, setStyling } = useStyling()
-  const { installMethod, setInstallMethod } = useInstallMethod()
-  const { layer, setLayer } = useLayer()
+  const { framework, setFramework } = useFramework();
+  const { styling, setStyling } = useStyling();
+  const { installMethod, setInstallMethod } = useInstallMethod();
+  const { layer, setLayer } = useLayer();
 
   return (
     <Section id="your-stack" style={{ scrollMarginTop: "var(--sizes-header)" }}>
@@ -153,7 +195,10 @@ export function StackPreferences() {
           gridTemplateColumns={{ md: "repeat(12, minmax(0, 1fr))" }}
         >
           <styled.div gridColumn={{ md: "span 5 / span 5" }}>
-            <styled.div position={{ md: "sticky" }} top="calc({sizes.header} + {spacing.6})">
+            <styled.div
+              position={{ md: "sticky" }}
+              top="calc({sizes.header} + {spacing.6})"
+            >
               <Eyebrow>Your stack</Eyebrow>
               <styled.h2
                 mt="3"
@@ -164,33 +209,75 @@ export function StackPreferences() {
               >
                 Tell us how you build.
               </styled.h2>
-              <styled.p mt="4" maxW="sm" textStyle="sm" lineHeight="1.7" color="fg.muted" textWrap="pretty">
-                Four quick questions. We remember your answers in this browser, and every docs page opens with the
-                matching framework, styles, install steps and guide.
+              <styled.p
+                mt="4"
+                maxW="sm"
+                textStyle="sm"
+                lineHeight="1.7"
+                color="fg.muted"
+                textWrap="pretty"
+              >
+                Four quick questions. We remember your answers in this browser,
+                and every docs page opens with the matching framework, styles,
+                install steps and guide.
               </styled.p>
-              <DocsButton mt="8" display={{ base: "none", md: "inline-flex" }} />
+              <DocsButton
+                mt="8"
+                display={{ base: "none", md: "inline-flex" }}
+              />
             </styled.div>
           </styled.div>
 
-          <styled.div gridColumn={{ md: "span 7 / span 7" }} display="flex" flexDirection="column" gap="10">
+          <styled.div
+            gridColumn={{ md: "span 7 / span 7" }}
+            display="flex"
+            flexDirection="column"
+            gap="10"
+            colorPalette="gray"
+          >
             <RadioCard.Root
               size="sm"
               variant="surface"
               value={framework}
-              onValueChange={(details) => details.value && setFramework(details.value as FrameworkId)}
+              onValueChange={(details) =>
+                details.value && setFramework(details.value as FrameworkId)
+              }
             >
               <Question number="01" label="Which framework do you use?" />
               <styled.div
                 display="grid"
-                gridTemplateColumns={{ base: "repeat(2, minmax(0, 1fr))", sm: "repeat(3, minmax(0, 1fr))" }}
+                gridTemplateColumns={{
+                  base: "repeat(2, minmax(0, 1fr))",
+                  sm: "repeat(3, minmax(0, 1fr))",
+                }}
                 gap="2"
               >
-                <FrameworkOption value="react" label="React" icon="brand-react" />
+                <FrameworkOption
+                  value="react"
+                  label="React"
+                  icon="brand-react"
+                />
                 <FrameworkOption value="vue" label="Vue" icon="brand-vue" />
-                <FrameworkOption value="svelte" label="Svelte" icon="brand-svelte" />
-                <FrameworkOption value="solid" label="Solid" icon="brand-solidjs" />
-                <FrameworkOption value="preact" label="Preact" icon="brand-preact" />
-                <FrameworkOption value="vanilla" label="Vanilla JS" icon="brand-javascript" />
+                <FrameworkOption
+                  value="svelte"
+                  label="Svelte"
+                  icon="brand-svelte"
+                />
+                <FrameworkOption
+                  value="solid"
+                  label="Solid"
+                  icon="brand-solidjs"
+                />
+                <FrameworkOption
+                  value="preact"
+                  label="Preact"
+                  icon="brand-preact"
+                />
+                <FrameworkOption
+                  value="vanilla"
+                  label="Vanilla JS"
+                  icon="brand-javascript"
+                />
               </styled.div>
             </RadioCard.Root>
 
@@ -198,12 +285,26 @@ export function StackPreferences() {
               size="sm"
               variant="surface"
               value={styling}
-              onValueChange={(details) => details.value && setStyling(details.value as StylingId)}
+              onValueChange={(details) =>
+                details.value && setStyling(details.value as StylingId)
+              }
             >
               <Question number="02" label="How do you style it?" />
-              <styled.div display="grid" gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }} gap="2">
-                <DescribedOption value="panda" label="Panda CSS" description="Recipes from your styled-system." />
-                <DescribedOption value="css" label="CSS" description="A plain stylesheet, no build step." />
+              <styled.div
+                display="grid"
+                gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }}
+                gap="2"
+              >
+                <DescribedOption
+                  value="panda"
+                  label="Panda CSS"
+                  description="Recipes from your styled-system."
+                />
+                <DescribedOption
+                  value="css"
+                  label="CSS"
+                  description="A plain stylesheet, no build step."
+                />
               </styled.div>
             </RadioCard.Root>
 
@@ -211,10 +312,17 @@ export function StackPreferences() {
               size="sm"
               variant="surface"
               value={installMethod}
-              onValueChange={(details) => details.value && setInstallMethod(details.value as InstallMethodId)}
+              onValueChange={(details) =>
+                details.value &&
+                setInstallMethod(details.value as InstallMethodId)
+              }
             >
               <Question number="03" label="How do you add components?" />
-              <styled.div display="grid" gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }} gap="2">
+              <styled.div
+                display="grid"
+                gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }}
+                gap="2"
+              >
                 <DescribedOption
                   value="cli"
                   label="shadcn CLI"
@@ -232,7 +340,9 @@ export function StackPreferences() {
               size="sm"
               variant="surface"
               value={layer}
-              onValueChange={(details) => details.value && setLayer(details.value as LayerId)}
+              onValueChange={(details) =>
+                details.value && setLayer(details.value as LayerId)
+              }
             >
               <Question
                 number="04"
@@ -240,15 +350,28 @@ export function StackPreferences() {
                 hint={
                   <>
                     In Adam Argyle&rsquo;s{" "}
-                    <InlineLink href={ARTICLE_URL} target="_blank" rel="noopener">
+                    <InlineLink
+                      href={ARTICLE_URL}
+                      target="_blank"
+                      rel="noopener"
+                    >
                       Headless, boneless, skinless &amp; lifeless UI
                     </InlineLink>{" "}
-                    terms: life is behavior, bones are markup, and your styles are the skin.
+                    terms: life is behavior, bones are markup, and your styles
+                    are the skin.
                   </>
                 }
               />
-              <styled.div display="grid" gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }} gap="2">
-                <styled.div position="relative" display="flex" flexDirection="column">
+              <styled.div
+                display="grid"
+                gridTemplateColumns={{ sm: "repeat(2, minmax(0, 1fr))" }}
+                gap="2"
+              >
+                <styled.div
+                  position="relative"
+                  display="flex"
+                  flexDirection="column"
+                >
                   <DescribedOption
                     value="zag"
                     label="Just the life"
@@ -256,21 +379,38 @@ export function StackPreferences() {
                   />
                   <LayerInfo title="Just the life: Zag">
                     <p>
-                      Zag is the behavior: framework-agnostic state machines that handle pointer, keyboard, focus and
-                      ARIA. It renders nothing, so you write the markup and spread its props onto your own elements.
+                      Zag is the behavior: framework-agnostic state machines
+                      that handle pointer, keyboard, focus and ARIA. It renders
+                      nothing, so you write the markup and spread its props onto
+                      your own elements.
                     </p>
-                    <p>The article calls this lifeless UI: just the life, bring your own bones and skin.</p>
+                    <p>
+                      The article calls this lifeless UI: just the life, bring
+                      your own bones and skin.
+                    </p>
                     <styled.p display="flex" gap="4">
-                      <InlineLink href="https://zagjs.com" target="_blank" rel="noopener">
+                      <InlineLink
+                        href="https://zagjs.com"
+                        target="_blank"
+                        rel="noopener"
+                      >
                         zagjs.com
                       </InlineLink>
-                      <InlineLink href={ARTICLE_URL} target="_blank" rel="noopener">
+                      <InlineLink
+                        href={ARTICLE_URL}
+                        target="_blank"
+                        rel="noopener"
+                      >
                         Read the article
                       </InlineLink>
                     </styled.p>
                   </LayerInfo>
                 </styled.div>
-                <styled.div position="relative" display="flex" flexDirection="column">
+                <styled.div
+                  position="relative"
+                  display="flex"
+                  flexDirection="column"
+                >
                   <DescribedOption
                     value="ark"
                     label="Bones and life"
@@ -278,15 +418,27 @@ export function StackPreferences() {
                   />
                   <LayerInfo title="Bones and life: Ark UI">
                     <p>
-                      Ark UI wraps the same Zag machines in accessible, unstyled component parts for React, Solid, Vue
-                      and Svelte. The markup and the behavior come included.
+                      Ark UI wraps the same Zag machines in accessible, unstyled
+                      component parts for React, Solid, Vue and Svelte. The
+                      markup and the behavior come included.
                     </p>
-                    <p>The article calls this headless UI: working components, bring your own style.</p>
+                    <p>
+                      The article calls this headless UI: working components,
+                      bring your own style.
+                    </p>
                     <styled.p display="flex" gap="4">
-                      <InlineLink href="https://ark-ui.com" target="_blank" rel="noopener">
+                      <InlineLink
+                        href="https://ark-ui.com"
+                        target="_blank"
+                        rel="noopener"
+                      >
                         ark-ui.com
                       </InlineLink>
-                      <InlineLink href={ARTICLE_URL} target="_blank" rel="noopener">
+                      <InlineLink
+                        href={ARTICLE_URL}
+                        target="_blank"
+                        rel="noopener"
+                      >
                         Read the article
                       </InlineLink>
                     </styled.p>
@@ -299,5 +451,5 @@ export function StackPreferences() {
         </styled.div>
       </styled.div>
     </Section>
-  )
+  );
 }

@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import { createListCollection } from "@ark-ui/react/collection"
-import { Portal } from "@ark-ui/react/portal"
-import { Button, type ButtonProps } from "@isbatak/react-ui/button"
-import { Select } from "@isbatak/react-ui/select"
-import { useTheme } from "next-themes"
-import { styled } from "styled-system/jsx"
+import { createListCollection } from "@ark-ui/react/collection";
+import { Portal } from "@ark-ui/react/portal";
+import { Button, type ButtonProps } from "@isbatak/react-ui/button";
+import { Select } from "@isbatak/react-ui/select";
+import { useTheme } from "next-themes";
+import { styled } from "styled-system/jsx";
 
-import { useApi } from "../docs/api"
-import { type FrameworkId, useFramework } from "../docs/framework"
-import { type ApiId, supportsApi } from "../docs/variant"
-import { Icon, type IconName } from "../ui/icon"
+import { useApi } from "../docs/api";
+import { type FrameworkId, useFramework } from "../docs/framework";
+import { type ApiId, supportsApi } from "../docs/variant";
+import { Icon, type IconName } from "../ui/icon";
 
-const react = { label: "React", value: "react" }
-const vue = { label: "Vue", value: "vue" }
-const svelte = { label: "Svelte", value: "svelte" }
-const solid = { label: "Solid", value: "solid" }
-const preact = { label: "Preact", value: "preact" }
-const vanilla = { label: "Vanilla JS", value: "vanilla" }
+const react = { label: "React", value: "react" };
+const vue = { label: "Vue", value: "vue" };
+const svelte = { label: "Svelte", value: "svelte" };
+const solid = { label: "Solid", value: "solid" };
+const preact = { label: "Preact", value: "preact" };
+const vanilla = { label: "Vanilla JS", value: "vanilla" };
 
 const createFrameworks = (api: ApiId) =>
   createListCollection({
     items: [react, vue, svelte, solid, preact, vanilla],
     isItemDisabled: (item) => !supportsApi(item.value as FrameworkId, api),
-  })
+  });
 
 const frameworkIcons: Record<FrameworkId, IconName> = {
   react: "brand-react",
@@ -32,28 +32,35 @@ const frameworkIcons: Record<FrameworkId, IconName> = {
   solid: "brand-solidjs",
   preact: "brand-preact",
   vanilla: "brand-javascript",
-}
+};
 
 function ToolbarButton(props: ButtonProps) {
-  return <Button variant="subtle" size="sm" px="0" aspectRatio="square" {...props} />
+  return (
+    <Button variant="subtle" size="sm" px="0" aspectRatio="square" {...props} />
+  );
 }
 
 function FrameworkSelect() {
-  const { framework, setFramework } = useFramework()
-  const { api } = useApi()
-  const frameworks = createFrameworks(api)
+  const { framework, setFramework } = useFramework();
+  const { api } = useApi();
+  const frameworks = createFrameworks(api);
 
   return (
     <Select.Root
       collection={frameworks}
       value={[framework]}
-      onValueChange={(details) => details.value[0] && setFramework(details.value[0] as FrameworkId)}
+      onValueChange={(details) =>
+        details.value[0] && setFramework(details.value[0] as FrameworkId)
+      }
       positioning={{ placement: "bottom-start" }}
       size="sm"
       width="auto"
     >
       <Select.Trigger asChild>
-        <ToolbarButton data-framework-picker="" aria-label={`Framework: ${frameworks.stringify(framework)}`}>
+        <ToolbarButton
+          data-framework-picker=""
+          aria-label={`Framework: ${frameworks.stringify(framework)}`}
+        >
           <Icon size="md" name={frameworkIcons[framework]} />
         </ToolbarButton>
       </Select.Trigger>
@@ -106,15 +113,15 @@ function FrameworkSelect() {
         </Select.Positioner>
       </Portal>
     </Select.Root>
-  )
+  );
 }
 
 export interface PreviewToolbarProps {
-  fullscreen: boolean
-  onFullscreenChange: (fullscreen: boolean) => void
-  showSource: boolean
-  onShowSourceChange: (showSource: boolean) => void
-  onReset: () => void
+  fullscreen: boolean;
+  onFullscreenChange: (fullscreen: boolean) => void;
+  showSource: boolean;
+  onShowSourceChange: (showSource: boolean) => void;
+  onReset: () => void;
 }
 
 export function PreviewToolbar({
@@ -124,7 +131,7 @@ export function PreviewToolbar({
   onShowSourceChange,
   onReset,
 }: PreviewToolbarProps) {
-  const { resolvedTheme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <styled.div
@@ -137,6 +144,7 @@ export function PreviewToolbar({
       borderWidth="1px"
       bg="bg/80"
       backdropFilter="blur(8px)"
+      colorPalette="gray"
     >
       <FrameworkSelect />
       <ToolbarButton
@@ -170,5 +178,5 @@ export function PreviewToolbar({
         />
       </ToolbarButton>
     </styled.div>
-  )
+  );
 }
