@@ -49,14 +49,12 @@ export function DocPage({ component, children }: DocPageProps) {
       >
         <styled.header gridArea="intro" minW="0" px={{ base: "5", md: "10" }} pt="6">
           <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm" ms="-1.5">
-            <Button asChild variant="ghost" size="xs" px="0" aspectRatio="square">
+            <Button asChild variant="ghost" size="xs" px="0" aspectRatio="square" colorPalette="gray">
               <Link href="/" aria-label="Home">
                 <Icon size="sm" name="home" />
               </Link>
             </Button>
             <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-            <Icon name="chevron-right" color="fg.subtle" />
-            <BreadcrumbLink href="/components/prototypes">Prototypes</BreadcrumbLink>
             <Icon name="chevron-right" color="fg.subtle" />
             <styled.span color="fg" aria-current="page">
               {component.title}

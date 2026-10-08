@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import type { ReactNode } from "react"
 
-import { BottomBlur } from "../components/layout/bottom-blur"
 import { Providers } from "../components/providers"
-import { applyStoredRadiusScript, defaultSiteRadius } from "../components/radius-preference"
+import { defaultSiteRadius } from "../components/radius-preference"
 import { preloadIconSprite } from "../components/ui/icon"
 import "./globals.css"
 
@@ -29,12 +28,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-radius={defaultSiteRadius}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: applyStoredRadiusScript }} />
-      </head>
       <body>
         <Providers>{children}</Providers>
-        <BottomBlur />
       </body>
     </html>
   )

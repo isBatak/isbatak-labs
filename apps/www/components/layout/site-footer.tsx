@@ -32,6 +32,7 @@ export function SiteFooter() {
         </styled.p>
         <styled.nav aria-label="Footer" display="flex" flexWrap="wrap" gap="5">
           <FooterLink href="/components">Components</FooterLink>
+          <FooterLink href="/ds/components">Design system</FooterLink>
           <FooterLink href="/tools">Tools</FooterLink>
           <FooterLink href={SPONSOR_URL} target="_blank" rel="noopener">
             Sponsor

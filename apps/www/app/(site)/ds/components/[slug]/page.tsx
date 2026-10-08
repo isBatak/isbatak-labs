@@ -22,6 +22,8 @@ async function demoSource(slug: string) {
   return source.replace(/^"use client"\n+/, "")
 }
 
+export const instant = false
+
 export function generateStaticParams() {
   return components.map(({ slug }) => ({ slug }))
 }

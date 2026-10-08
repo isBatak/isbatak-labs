@@ -1,5 +1,4 @@
 import type { Component } from "#site/content"
-import { Badge } from "@isbatak/react-ui/badge"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
@@ -34,9 +33,7 @@ export function ComponentPage({ component, source }: ComponentPageProps) {
   return (
     <styled.div maxW="3xl" mx="auto" pt={{ base: "10", md: "16" }} pb="24">
       <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm">
-        <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-        <Icon name="chevron-right" color="fg.subtle" />
-        <BreadcrumbLink href="/components/ds">Design system</BreadcrumbLink>
+        <BreadcrumbLink href="/ds/components">Design system</BreadcrumbLink>
         <Icon name="chevron-right" color="fg.subtle" />
         <styled.span color="fg" aria-current="page">
           {title}
@@ -50,13 +47,11 @@ export function ComponentPage({ component, source }: ComponentPageProps) {
         {description}
       </styled.p>
 
-      <styled.div display="flex" flexWrap="wrap" gap="2" mt="5">
-        {frameworks.map((framework) => (
-          <Badge key={framework} variant="outline">
-            {frameworkLabels[framework]}
-          </Badge>
-        ))}
-      </styled.div>
+      <styled.p mt="3" textStyle="sm" color="fg.subtle">
+        {new Intl.ListFormat("en", { type: "conjunction" }).format(
+          frameworks.map((framework) => frameworkLabels[framework]),
+        )}
+      </styled.p>
 
       <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
         <ResourceLink href={repoUrl(links.source)} icon="brand-github">

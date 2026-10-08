@@ -137,6 +137,7 @@ export function PreviewToolbar({
       borderWidth="1px"
       bg="bg/80"
       backdropFilter="blur(8px)"
+      colorPalette="gray"
     >
       <FrameworkSelect />
       <ToolbarButton

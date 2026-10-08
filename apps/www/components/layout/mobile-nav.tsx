@@ -62,7 +62,14 @@ export function MobileNav() {
                 </Link>
               </Drawer.Title>
               <Drawer.CloseTrigger asChild>
-                <Button variant="ghost" size="xs" px="0" aspectRatio="square" aria-label="Close navigation menu">
+                <Button
+                  colorPalette="gray"
+                  variant="ghost"
+                  size="xs"
+                  px="0"
+                  aspectRatio="square"
+                  aria-label="Close navigation menu"
+                >
                   <Icon size="sm" name="x" />
                 </Button>
               </Drawer.CloseTrigger>
@@ -71,6 +78,15 @@ export function MobileNav() {
               <styled.nav display="flex" flexDirection="column" gap="1" pb="4">
                 <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
                   Components
+                </NavLink>
+                <NavLink href="/ds/installation" aria-current={pathname === "/ds/installation" ? "page" : undefined}>
+                  DS installation
+                </NavLink>
+                <NavLink
+                  href="/ds/components"
+                  aria-current={pathname.startsWith("/ds/components") ? "page" : undefined}
+                >
+                  DS components
                 </NavLink>
                 <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
                   Tools

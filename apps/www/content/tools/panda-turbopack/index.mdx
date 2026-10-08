@@ -1,0 +1,203 @@
+---
+title: Panda Turbopack
+package: "@isbatak/panda-turbopack"
+description:
+  Panda CSS v2 for Next.js on Turbopack, without the Panda CLI. Codegen, CSS and build-time class names from one config
+  wrapper.
+order: 2
+icon: package
+color: orange
+category: Build plugin
+status: new
+links:
+  source: packages/panda/turbopack
+  npm: https://www.npmjs.com/package/@isbatak/panda-turbopack
+---
+
+Panda Turbopack runs Panda CSS inside Next.js. Wrap your config once, and `next dev` and `next build` take care of the
+rest: no `panda codegen` script, no `panda --watch` process next to your dev server, no PostCSS plugin.
+
+- Runs codegen when Next.js loads the config, so `styled-system` is always up to date
+- Appends the generated CSS to your global stylesheet, and updates it in `next dev` as you edit
+- Rewrites `css()`, recipes, patterns and JSX style props into static class names at build time
+- The Turbopack counterpart of `@pandacss/webpack`. This site's styles are built with it.
+
+## Requirements
+
+Next.js 15+ on Turbopack, and Panda CSS v2.
+
+Turbopack is the default bundler for `next dev` and `next build` since Next.js 16. The wrapper only adds Turbopack
+rules, so `next dev --webpack` is not supported.
+
+## Setup
+
+### With a coding agent
+
+Copy this prompt into Claude Code, Cursor or any other coding agent. It looks at your project and asks before it changes
+anything.
+
+<SetupPrompt>
+
+```text
+Set up @isbatak/panda-turbopack in this Next.js project. It runs Panda CSS v2 inside Next.js on Turbopack: codegen when Next.js loads the config, the generated CSS appended to a global stylesheet, and css(), recipes, patterns and JSX style props rewritten to class names at build time. It replaces the Panda CLI and the Panda PostCSS plugin. Docs: https://github.com/isBatak/isbatak-labs/tree/main/packages/panda/turbopack
+
+1. Look at the project first, without changing anything:
+
+- The package manager, from the lockfile.
+- The Next.js version and config file, and any plugins already wrapping the config. Next.js 15 or newer with Turbopack is required. If the project builds with webpack (next dev --webpack or a webpack config), tell me it isn't supported and stop.
+- The Panda config: panda.config.ts (or .js/.mjs), its outdir, and the installed @pandacss/dev version. Panda CSS v2 is required.
+- How Panda runs today: package.json scripts that call panda or panda codegen, a postcss.config with @pandacss/dev/postcss, and imports of styled-system/styles.css.
+- The global stylesheet imported by the root layout, usually app/globals.css.
+
+2. Tell me what you found and what you plan to change, then wait for my go-ahead.
+
+3. Once I agree:
+
+- Install @isbatak/panda-turbopack, and @pandacss/dev if it's missing, as dev dependencies.
+- In the Next.js config, import { withPandaCss } from "@isbatak/panda-turbopack/next" and export withPandaCss(nextConfig). It returns a config function, so other wrappers can go around it.
+- Put @layer reset, base, tokens, recipes, utilities; in the global stylesheet, and make sure the root layout imports it.
+- Remove what the plugin replaces: the styled-system/styles.css import, the @pandacss/dev/postcss plugin (delete postcss.config if nothing else is left in it), and the panda / panda codegen scripts.
+- Add .panda to .gitignore.
+- Don't touch panda.config or the components.
+
+4. Check it works: run the build, or start the dev server and load a page, and confirm the styles apply. If you can't run it, ask me to.
+```
+
+</SetupPrompt>
+
+### By hand
+
+Install the plugin, and Panda itself if you haven't yet.
+
+<PackageInstall name="@isbatak/panda-turbopack @pandacss/dev" dev />
+
+Wrap your Next.js config with `withPandaCss`, and declare Panda's layers in the global stylesheet your root layout
+imports. The generated CSS is appended to that stylesheet.
+
+<CodeFiles>
+<CodeFile name="next.config.ts">
+
+```ts
+import type { NextConfig } from "next"
+import { withPandaCss } from "@isbatak/panda-turbopack/next"
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+}
+
+export default withPandaCss(nextConfig)
+```
+
+</CodeFile>
+<CodeFile name="app/globals.css">
+
+```css
+@layer reset, base, tokens, recipes, utilities;
+```
+
+</CodeFile>
+<CodeFile name="app/layout.tsx">
+
+```tsx
+import type { ReactNode } from "react"
+import "./globals.css"
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+</CodeFile>
+<CodeFile name=".gitignore">
+
+```text
+styled-system
+.panda
+```
+
+</CodeFile>
+</CodeFiles>
+
+`withPandaCss` takes a config object or a config function and returns a config function, so it composes with other
+wrappers. Your `panda.config.ts` stays as it is.
+
+### Coming from the Panda CLI
+
+The plugin does everything the CLI did, so remove the old pieces. Keeping them generates the CSS twice.
+
+- Delete the `import "../styled-system/styles.css"` line. The `@layer` stylesheet replaces it.
+- Remove `@pandacss/dev/postcss` from `postcss.config`, and the file itself if nothing else is left in it.
+- Drop the `panda codegen` and `panda --watch` scripts, including a `prepare` script that only ran codegen.
+
+## How it works
+
+- When Next.js loads the config, `withPandaCss` runs codegen into your `outdir`. It also writes the runtime behind
+  Panda's virtual `@pandacss-internal/css` module to `.panda/internal-css.mjs` and aliases the import to it, because
+  Turbopack only resolves files on disk.
+- It adds Turbopack rules that run its loader on your JavaScript and TypeScript modules and on `*.css`. Nothing in
+  `node_modules` is touched.
+- On a module, the loader rewrites `css()`, `cva()`, recipes, patterns and style props into static class names.
+- On a stylesheet that declares Panda's layers, the loader extracts the styles your sources use and appends the
+  generated CSS. Stylesheets without the layers pass through unchanged.
+- It tells Turbopack which files the CSS came from: your sources and their folders, the Panda config and the design
+  system. Editing or adding a file updates the CSS in `next dev`, and a config change reruns codegen.
+
+## Options
+
+Pass options as the second argument: `withPandaCss(nextConfig, { configPath: "panda.config.ts" })`.
+
+| Option       | Default                         | Description                                                                                                                     |
+| ------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `include`    | `["*.{jsx,tsx,js,mjs,ts,mts}"]` | Turbopack rule globs whose modules are transformed. Panda's own `include` in `panda.config` still decides which files it scans. |
+| `cwd`        | `process.cwd()`                 | Project root the Panda config is discovered from.                                                                               |
+| `configPath` | discovered upward from `cwd`    | Explicit Panda config file, relative to `cwd`.                                                                                  |
+
+## Without Next.js
+
+For Turbopack outside Next.js, the root entry has the same pieces the wrapper uses: `codegen()` runs codegen and returns
+the path of the runtime file, `createTurbopackRules()` builds the loader rules, and `mergeTurbopackRules()` adds them to
+rules you already have. Alias `INTERNAL_CSS_IMPORT` to the runtime file, relative to the project root.
+
+```ts
+import { relative } from "node:path"
+import { INTERNAL_CSS_IMPORT, codegen, createTurbopackRules, mergeTurbopackRules } from "@isbatak/panda-turbopack"
+
+const { outfile } = await codegen()
+
+const turbopack = {
+  rules: mergeTurbopackRules(existingRules, createTurbopackRules()),
+  resolveAlias: { [INTERNAL_CSS_IMPORT]: `./${relative(process.cwd(), outfile)}` },
+}
+```
+
+## Troubleshooting
+
+<Faq>
+<FaqItem question="The styles are generated twice">
+
+Something else still generates Panda's CSS: an import of `styled-system/styles.css`, or the `@pandacss/dev/postcss`
+plugin. Remove them as described in [Coming from the Panda CLI](#coming-from-the-panda-cli).
+
+</FaqItem>
+<FaqItem question="A style I stopped using is still in the CSS">
+
+That's expected in `next dev`. Like the Panda CLI in watch mode, the dev server keeps styles you stop using until it
+restarts. `next build` always starts fresh.
+
+</FaqItem>
+<FaqItem question="Turbopack shows warnings about the design system">
+
+Panda's own diagnostics are reported as Turbopack warnings, for example when your config and a design system define the
+same token. The build still succeeds. Fix the overlap in your config to silence them.
+
+</FaqItem>
+<FaqItem question="Does it work with next dev --webpack?">
+
+No. The wrapper only adds Turbopack rules. For a webpack build, use `@pandacss/webpack`.
+
+</FaqItem>
+</Faq>
