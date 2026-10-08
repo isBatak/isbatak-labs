@@ -1,4 +1,3 @@
-import { Badge } from "@isbatak/react-ui/badge"
 import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
@@ -38,10 +37,7 @@ export function PandaTurbopackPromo() {
           alignItems="center"
         >
           <styled.div gridColumn={{ md: "span 5 / span 5" }}>
-            <styled.div display="flex" alignItems="center" gap="2">
-              <Eyebrow>Tools</Eyebrow>
-              <Badge colorPalette="green">New</Badge>
-            </styled.div>
+            <Eyebrow>Tools</Eyebrow>
             <styled.h2
               mt="3"
               textStyle={{ base: "3xl", md: "4xl" }}

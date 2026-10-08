@@ -9,10 +9,48 @@ import { Icon } from "../ui/icon"
 import type { CatalogItem } from "./catalog-items"
 import { ComponentCard } from "./component-card"
 
-type Filter = "All" | "Prototypes" | CatalogItem["category"]
+type Filter = "All" | CatalogItem["category"]
 
-const matches = (item: CatalogItem, filter: Filter) =>
-  filter === "All" || (filter === "Prototypes" ? item.prototype : item.category === filter)
+const matches = (item: CatalogItem, filter: Filter) => filter === "All" || item.category === filter
+
+const matchesQuery = (item: CatalogItem, query: string) => {
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
+  const haystack = [item.title, item.description, item.category].join(" ").toLowerCase()
+  return terms.every((term) => haystack.includes(term))
+}
+
+const SearchField = styled("label", {
+  base: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    maxW: { md: "sm" },
+    mb: "4",
+    color: "fg.subtle",
+    _focusWithin: { color: "fg.muted" },
+  },
+})
+
+const SearchInput = styled("input", {
+  base: {
+    w: "full",
+    h: "10",
+    ps: "9",
+    pe: "3",
+    textStyle: "sm",
+    color: "fg",
+    bg: "bg",
+    borderWidth: "1px",
+    borderRadius: "l2",
+    outline: "0",
+    transitionProperty: "border-color, box-shadow",
+    transitionDuration: "fast",
+    _placeholder: { color: "fg.subtle" },
+    _hover: { borderColor: "border.emphasized" },
+    _focusVisible: { borderColor: "colorPalette.solid", boxShadow: "0 0 0 1px {colors.colorPalette.solid}" },
+    "&::-webkit-search-cancel-button": { display: "none" },
+  },
+})
 
 const FilterContext = createContext<{
   items: CatalogItem[]
@@ -25,12 +63,13 @@ function FilterButton({ filter }: { filter: Filter }) {
   if (!context) throw new Error("FilterButton must be used within a ComponentCatalog")
   const active = context.filter === filter
   const count = context.items.filter((item) => matches(item, filter)).length
-  if (count === 0) return null
+  if (count === 0 && !active) return null
 
   return (
     <Button
       size="xs"
       variant={active ? "solid" : "outline"}
+      colorPalette={active ? undefined : "gray"}
       flexShrink="0"
       aria-pressed={active}
       onClick={() => context.setFilter(filter)}
@@ -43,13 +82,27 @@ function FilterButton({ filter }: { filter: Filter }) {
   )
 }
 
-export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
+export function ComponentCatalog({ items, label }: { items: CatalogItem[]; label: string }) {
   const [filter, setFilter] = useState<Filter>("All")
-  const visible = items.filter((item) => matches(item, filter))
-  const mixed = items.some((item) => item.prototype) && items.some((item) => !item.prototype)
+  const [query, setQuery] = useState("")
+  const searched = items.filter((item) => matchesQuery(item, query))
+  const visible = searched.filter((item) => matches(item, filter))
 
   return (
-    <FilterContext value={{ items, filter, setFilter }}>
+    <FilterContext value={{ items: searched, filter, setFilter }}>
+      <SearchField>
+        <Icon name="search" position="absolute" insetStart="3" pointerEvents="none" />
+        <SearchInput
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={`Search ${label}`}
+          aria-label={`Search ${label}`}
+          autoComplete="off"
+          spellCheck={false}
+        />
+      </SearchField>
+
       <styled.div
         role="group"
         aria-label="Filter components"
@@ -74,12 +127,6 @@ export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
         <FilterButton filter="Disclosure" />
         <FilterButton filter="Feedback" />
         <FilterButton filter="Data Display" />
-        {mixed && (
-          <styled.div display="flex" alignItems="center" gap="2" flexShrink="0">
-            <styled.div w="1px" h="5" mx="1" bg="border" />
-            <FilterButton filter="Prototypes" />
-          </styled.div>
-        )}
       </styled.div>
 
       <styled.div
@@ -101,7 +148,6 @@ export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
             description={item.description}
             category={item.category}
             prototype={item.prototype}
-            status={item.status}
             example={item.preview}
           />
         ))}
@@ -128,7 +174,11 @@ export function ComponentCatalog({ items }: { items: CatalogItem[] }) {
         >
           <Icon name="plus" size="lg" />
           <styled.span textStyle="sm" fontWeight="medium" color="fg">
-            {visible.length === 0 ? "Nothing here yet" : "Missing a component?"}
+            {visible.length === 0
+              ? query
+                ? `No matches for “${query.trim()}”`
+                : "Nothing here yet"
+              : "Missing a component?"}
           </styled.span>
           <styled.span textStyle="sm" maxW="xs">
             Suggest the next one on GitHub.

@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
   ],
   async redirects() {
     return [
+      { source: "/ds", destination: "/ds/components", permanent: false },
+      { source: "/components/ds", destination: "/ds/components", permanent: true },
+      { source: "/components/ds/:slug", destination: "/ds/components/:slug", permanent: true },
+      { source: "/components/prototypes", destination: "/components", permanent: true },
       { source: "/docs/components/:slug", destination: "/components/prototypes/:slug", permanent: true },
       { source: "/docs/:path*", destination: "/components", permanent: true },
       {

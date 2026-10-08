@@ -2,7 +2,7 @@ import { type RadiusPreset, radiusPresets } from "@isbatak/panda-ds/radius"
 
 export const RADIUS_STORAGE_KEY = "radius"
 
-export const defaultSiteRadius: RadiusPreset = "none"
+export const defaultSiteRadius: RadiusPreset = "md"
 
 export const isRadiusPreset = (value: unknown): value is RadiusPreset => radiusPresets.includes(value as RadiusPreset)
 

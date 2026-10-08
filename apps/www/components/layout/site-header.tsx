@@ -1,11 +1,11 @@
+import { prototypes, tools } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { ColorModeButton } from "../color-mode-button"
-import { RadiusPicker } from "../radius-picker"
 import { Icon } from "../ui/icon"
-import { HeaderNav } from "./header-nav"
+import { HeaderNav, type NavEntry } from "./header-nav"
 import { LayoutContainer } from "./layout-container"
 import { MobileNav } from "./mobile-nav"
 import { REPO_URL } from "./site-links"
@@ -20,9 +20,26 @@ const Separator = styled("div", {
   },
 })
 
+const prototypeEntries: NavEntry[] = prototypes
+  .toSorted((a, b) => a.order - b.order)
+  .map(({ title, description, permalink }) => ({ title, description, href: permalink }))
+
+const toolEntries: NavEntry[] = tools
+  .toSorted((a, b) => a.order - b.order)
+  .map(({ title, description, permalink, external }) => ({ title, description, href: permalink, external }))
+
 export function SiteHeader() {
   return (
-    <styled.header position="sticky" top="0" zIndex="sticky" bg="bg" px="2" maxW="100vw" overflowX="clip">
+    <styled.header
+      colorPalette="gray"
+      position="sticky"
+      top="0"
+      zIndex="sticky"
+      bg="bg"
+      px="2"
+      maxW="100vw"
+      overflowX="clip"
+    >
       <LayoutContainer
         display="flex"
         alignItems="center"
@@ -35,7 +52,7 @@ export function SiteHeader() {
           <Wordmark />
         </Link>
         <Separator aria-hidden mx="2" display={{ base: "none", md: "block" }} />
-        <HeaderNav />
+        <HeaderNav prototypes={prototypeEntries} tools={toolEntries} />
         <styled.div flex="1" />
         <styled.div display="flex" alignItems="center">
           <Button asChild variant="ghost" size="xs" px="0" aspectRatio="square">
@@ -44,7 +61,6 @@ export function SiteHeader() {
             </a>
           </Button>
           <Separator aria-hidden mx="2" />
-          <RadiusPicker />
           <ColorModeButton />
           <MobileNav />
         </styled.div>

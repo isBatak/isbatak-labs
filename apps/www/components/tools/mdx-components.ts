@@ -1,5 +1,3 @@
-import { Badge } from "@isbatak/react-ui/badge"
-
 import type { MDXComponents } from "../mdx-content"
 import { CodeFile, CodeFiles } from "./code-files"
 import { DocTabs, Tab } from "./doc-tabs"
@@ -11,7 +9,6 @@ import { SetupPrompt } from "./setup-prompt"
 import { Term } from "./term"
 
 export const toolComponents: MDXComponents = {
-  Badge,
   CodeFile,
   CodeFiles,
   Editor,

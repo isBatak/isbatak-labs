@@ -1,5 +1,4 @@
 import type { Tool } from "#site/content"
-import { Badge } from "@isbatak/react-ui/badge"
 import { Button } from "@isbatak/react-ui/button"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
@@ -55,8 +54,6 @@ export function ToolPage({ tool }: { tool: Tool }) {
           </Link>
           <Icon name="chevron-right" color="fg.subtle" />
           <Eyebrow>{tool.category}</Eyebrow>
-          {tool.status === "new" && <Badge colorPalette="green">New</Badge>}
-          {tool.status === "beta" && <Badge colorPalette="orange">Beta</Badge>}
         </styled.nav>
 
         <styled.h1
