@@ -1,4 +1,3 @@
-import { Badge } from "@isbatak/react-ui/badge"
 import Link from "next/link"
 import type { ComponentProps } from "react"
 import { styled } from "styled-system/jsx"
@@ -122,7 +121,6 @@ export interface ComponentCardProps {
   description?: string | undefined
   category: string
   prototype: boolean
-  status?: "new" | "beta" | "stable" | undefined
   example?: string | undefined
 }
 
@@ -138,7 +136,7 @@ function DemoThumbnail({ slug }: { slug: string }) {
 }
 
 export function ComponentCard(props: ComponentCardProps) {
-  const { slug, href, title, description, category, prototype, status, example } = props
+  const { slug, href, title, description, category, prototype, example } = props
 
   return (
     <Card className="group">
@@ -151,28 +149,11 @@ export function ComponentCard(props: ComponentCardProps) {
       </Header>
       <Preview>{prototype ? example && <ExampleThumbnail id={example} /> : <DemoThumbnail slug={slug} />}</Preview>
       <Body>
-        <styled.div display="flex" alignItems="center" gap="2" minW="0">
-          <Title>
-            <CardLink href={href} prototype={prototype}>
-              {title}
-            </CardLink>
-          </Title>
-          {prototype && (
-            <Badge colorPalette="purple" flexShrink="0">
-              Prototype
-            </Badge>
-          )}
-          {status === "new" && (
-            <Badge colorPalette="green" flexShrink="0">
-              New
-            </Badge>
-          )}
-          {status === "beta" && (
-            <Badge colorPalette="orange" flexShrink="0">
-              Beta
-            </Badge>
-          )}
-        </styled.div>
+        <Title>
+          <CardLink href={href} prototype={prototype}>
+            {title}
+          </CardLink>
+        </Title>
         {description && <Description>{description}</Description>}
       </Body>
     </Card>

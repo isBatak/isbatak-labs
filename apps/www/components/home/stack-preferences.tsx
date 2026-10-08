@@ -172,7 +172,13 @@ export function StackPreferences() {
             </styled.div>
           </styled.div>
 
-          <styled.div gridColumn={{ md: "span 7 / span 7" }} display="flex" flexDirection="column" gap="10">
+          <styled.div
+            gridColumn={{ md: "span 7 / span 7" }}
+            display="flex"
+            flexDirection="column"
+            gap="10"
+            colorPalette="gray"
+          >
             <RadioCard.Root
               size="sm"
               variant="surface"
@@ -182,7 +188,10 @@ export function StackPreferences() {
               <Question number="01" label="Which framework do you use?" />
               <styled.div
                 display="grid"
-                gridTemplateColumns={{ base: "repeat(2, minmax(0, 1fr))", sm: "repeat(3, minmax(0, 1fr))" }}
+                gridTemplateColumns={{
+                  base: "repeat(2, minmax(0, 1fr))",
+                  sm: "repeat(3, minmax(0, 1fr))",
+                }}
                 gap="2"
               >
                 <FrameworkOption value="react" label="React" icon="brand-react" />
