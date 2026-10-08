@@ -1,5 +1,4 @@
 import type { Tool } from "#site/content"
-import { Badge } from "@isbatak/react-ui/badge"
 import Link from "next/link"
 import type { ComponentProps } from "react"
 import { styled } from "styled-system/jsx"
@@ -81,8 +80,6 @@ function ItemBody({ tool }: { tool: Tool }) {
       <styled.div minW="0">
         <Title>
           {tool.title}
-          {tool.status === "new" && <Badge colorPalette="green">New</Badge>}
-          {tool.status === "beta" && <Badge colorPalette="orange">Beta</Badge>}
           {tool.external && <Icon name="arrow-up-right" color="fg.subtle" />}
         </Title>
         <Description>{tool.description}</Description>

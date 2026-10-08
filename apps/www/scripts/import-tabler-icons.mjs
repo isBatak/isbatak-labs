@@ -38,6 +38,7 @@ const icons = {
   "arrow-right": "outline/arrow-right",
   heart: "outline/heart",
   plus: "outline/plus",
+  search: "outline/search",
   code: "outline/code",
   components: "outline/components",
   refresh: "outline/refresh",

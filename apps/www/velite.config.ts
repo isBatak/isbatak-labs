@@ -36,7 +36,7 @@ const components = defineCollection({
     })
     .transform(({ path, ...data }) => {
       const slug = path.replace(/^components\/ds\//, "")
-      return { ...data, slug, permalink: `/components/ds/${slug}` }
+      return { ...data, slug, permalink: `/ds/components/${slug}` }
     }),
 })
 

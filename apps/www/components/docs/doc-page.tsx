@@ -56,8 +56,6 @@ export function DocPage({ component, children }: DocPageProps) {
             </Button>
             <BreadcrumbLink href="/components">Components</BreadcrumbLink>
             <Icon name="chevron-right" color="fg.subtle" />
-            <BreadcrumbLink href="/components/prototypes">Prototypes</BreadcrumbLink>
-            <Icon name="chevron-right" color="fg.subtle" />
             <styled.span color="fg" aria-current="page">
               {component.title}
             </styled.span>
