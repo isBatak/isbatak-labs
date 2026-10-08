@@ -1,16 +1,13 @@
 import { tools } from "#site/content"
 import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
 import { SITE_URL } from "../../../../components/docs/site-url"
-import { ToolPage } from "../../../../components/tools/tool-page"
+import { ToolPageSkeleton } from "../../../../components/tools/tool-page"
+import { getTool, ToolDetails } from "./tool-details"
 
 interface ToolRouteProps {
   params: Promise<{ slug: string }>
-}
-
-function getTool(slug: string) {
-  return tools.find((tool) => tool.slug === slug && !tool.external)
 }
 
 export function generateStaticParams() {
@@ -27,8 +24,10 @@ export async function generateMetadata({ params }: ToolRouteProps): Promise<Meta
   }
 }
 
-export default async function ToolRoute({ params }: ToolRouteProps) {
-  const tool = getTool((await params).slug)
-  if (!tool) notFound()
-  return <ToolPage tool={tool} />
+export default function ToolRoute({ params }: ToolRouteProps) {
+  return (
+    <Suspense fallback={<ToolPageSkeleton />}>
+      <ToolDetails params={params} />
+    </Suspense>
+  )
 }

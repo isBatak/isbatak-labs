@@ -14,6 +14,37 @@ import { toolComponents } from "./mdx-components"
 import { PackageInstall } from "./package-install"
 import { VideoDemo } from "./video-demo"
 
+const Bone = styled("div", {
+  base: {
+    bg: "bg.muted",
+    rounded: "l2",
+    animation: "pulse",
+  },
+})
+
+export function ToolPageSkeleton() {
+  return (
+    <Section aria-busy="true">
+      <styled.div maxW="2xl" mx="auto" pt={{ base: "16", md: "28" }} textAlign="center">
+        <styled.nav aria-label="Breadcrumb" display="flex" justifyContent="center" alignItems="center" gap="2">
+          <Link href="/tools">
+            <Eyebrow>Tools</Eyebrow>
+          </Link>
+          <Icon name="chevron-right" color="fg.subtle" />
+          <Bone w="20" h="3" />
+        </styled.nav>
+        <styled.div display="flex" flexDirection="column" alignItems="center">
+          <Bone w={{ base: "64", md: "96" }} h={{ base: "10", md: "14" }} mt="5" />
+          <Bone w="40" h="4" mt="5" />
+          <Bone w="full" maxW="md" h="4" mt="6" />
+          <Bone w="3/4" maxW="sm" h="4" mt="2" />
+          <Bone w="full" maxW="md" h="24" mt="8" />
+        </styled.div>
+      </styled.div>
+    </Section>
+  )
+}
+
 export function ToolPage({ tool }: { tool: Tool }) {
   return (
     <Section>

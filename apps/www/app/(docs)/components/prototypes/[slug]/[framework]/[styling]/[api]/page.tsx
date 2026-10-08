@@ -19,6 +19,8 @@ function getDoc(slug: string) {
   return prototypes.find((doc) => doc.slug === slug)
 }
 
+export const instant = false
+
 export function generateStaticParams() {
   return prototypes.flatMap(({ slug }) => variantParams().map((variant) => ({ slug, ...variant })))
 }
