@@ -1,30 +1,30 @@
-import type { Prototype } from "#site/content";
-import { Button } from "@isbatak/react-ui/button";
-import Link from "next/link";
-import type { ReactNode } from "react";
-import { styled } from "styled-system/jsx";
+import type { Prototype } from "#site/content"
+import { Button } from "@isbatak/react-ui/button"
+import Link from "next/link"
+import type { ReactNode } from "react"
+import { styled } from "styled-system/jsx"
 
-import { ExamplePreview } from "../examples/example-preview";
-import { PreviewProvider } from "../examples/preview-context";
-import { Icon } from "../ui/icon";
-import { CopyPage } from "./copy-page";
-import { DocLinks } from "./doc-links";
-import { markdownPath } from "./markdown";
+import { ExamplePreview } from "../examples/example-preview"
+import { PreviewProvider } from "../examples/preview-context"
+import { Icon } from "../ui/icon"
+import { CopyPage } from "./copy-page"
+import { DocLinks } from "./doc-links"
+import { markdownPath } from "./markdown"
 
 const BreadcrumbLink = styled(Link, {
   base: {
     color: "fg.muted",
     _hover: { color: "fg" },
   },
-});
+})
 
 interface DocPageProps {
-  component: Prototype;
-  children: ReactNode;
+  component: Prototype
+  children: ReactNode
 }
 
 export function DocPage({ component, children }: DocPageProps) {
-  const { title, description, preview } = component;
+  const { title, description, preview } = component
 
   return (
     // Docs on the left, a sticky preview on the right. On small screens the preview sits between the intro and the content.
@@ -47,28 +47,9 @@ export function DocPage({ component, children }: DocPageProps) {
           },
         }}
       >
-        <styled.header
-          gridArea="intro"
-          minW="0"
-          px={{ base: "5", md: "10" }}
-          pt="6"
-        >
-          <styled.nav
-            aria-label="Breadcrumb"
-            display="flex"
-            alignItems="center"
-            gap="2"
-            textStyle="sm"
-            ms="-1.5"
-          >
-            <Button
-              asChild
-              variant="ghost"
-              size="xs"
-              px="0"
-              aspectRatio="square"
-              colorPalette="gray"
-            >
+        <styled.header gridArea="intro" minW="0" px={{ base: "5", md: "10" }} pt="6">
+          <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm" ms="-1.5">
+            <Button asChild variant="ghost" size="xs" px="0" aspectRatio="square" colorPalette="gray">
               <Link href="/" aria-label="Home">
                 <Icon size="sm" name="home" />
               </Link>
@@ -84,11 +65,7 @@ export function DocPage({ component, children }: DocPageProps) {
             <styled.div display="flex" justifyContent="flex-start" mb="4">
               <CopyPage href={markdownPath(component.permalink)} />
             </styled.div>
-            <styled.h1
-              textStyle={{ base: "4xl", md: "5xl" }}
-              fontWeight="semibold"
-              letterSpacing="tight"
-            >
+            <styled.h1 textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
               {title}
             </styled.h1>
             {description && (
@@ -131,5 +108,5 @@ export function DocPage({ component, children }: DocPageProps) {
         </styled.main>
       </styled.div>
     </PreviewProvider>
-  );
+  )
 }
