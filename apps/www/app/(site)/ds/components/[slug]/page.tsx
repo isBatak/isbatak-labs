@@ -1,10 +1,9 @@
 import { components } from "#site/content"
-import { readFile } from "node:fs/promises"
-import { join } from "node:path"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { ComponentPage } from "../../../../../components/ds/component-page"
+import { demoSource } from "../../../../../components/ds/demo-source"
 import { Section } from "../../../../../components/home/section"
 import { SITE_URL } from "../../../../../components/docs/site-url"
 
@@ -14,12 +13,6 @@ interface ComponentRouteProps {
 
 function getComponent(slug: string) {
   return components.find((component) => component.slug === slug)
-}
-
-async function demoSource(slug: string) {
-  "use cache"
-  const source = await readFile(join(process.cwd(), "components/ds-demos", `${slug}.tsx`), "utf8")
-  return source.replace(/^"use client"\n+/, "")
 }
 
 export const instant = false

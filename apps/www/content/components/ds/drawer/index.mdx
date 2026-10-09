@@ -1,6 +1,6 @@
 ---
 title: Drawer
-description: A panel that slides in from an edge of the screen, with drag to dismiss.
+description: A panel that slides in from an edge of the screen, with swipe to dismiss, snap points and stacking.
 category: Overlays
 frameworks: [react]
 links:
@@ -9,4 +9,165 @@ links:
   ark: https://ark-ui.com/docs/components/drawer
 ---
 
-Built on Ark UI's Drawer. Set `placement` to choose the edge it opens from. Only React has this component so far.
+Built on Ark UI's Drawer. Set `placement` to choose the edge it opens from, and swipe it back toward that edge to close
+it. A released swipe springs back or settles with the speed of the gesture. Only React has this component so far.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Drawer.Root>
+  <Drawer.Trigger />
+  <Portal>
+    <Drawer.Backdrop />
+    <Drawer.Positioner>
+      <Drawer.Content>
+        <Drawer.Grabber>
+          <Drawer.GrabberIndicator />
+        </Drawer.Grabber>
+        <Drawer.Header>
+          <Drawer.Title />
+        </Drawer.Header>
+        <Drawer.Body>
+          <Drawer.Description />
+        </Drawer.Body>
+        <Drawer.Footer>
+          <Drawer.ActionTrigger />
+        </Drawer.Footer>
+        <Drawer.CloseTrigger />
+      </Drawer.Content>
+    </Drawer.Positioner>
+  </Portal>
+</Drawer.Root>
+```
+
+`Drawer.Root` sets `swipeDirection` from `placement`, so a bottom drawer swipes down and an end drawer swipes toward the
+end edge. Pass `swipeDirection` yourself to change that.
+
+## Examples
+
+### Controlled
+
+Pass `open` and `onOpenChange` to own the open state. Anything that sets the state opens or closes the drawer, so it
+needs no `Drawer.Trigger`.
+
+<Example id="drawer/controlled" />
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md`, `lg`, `xl` or `full` to change the width of a side drawer. The default is `xs`. Top and
+bottom drawers always span the full width.
+
+<Example id="drawer/sizes" />
+
+### Placement
+
+Set `placement` to `start`, `end`, `top` or `bottom`. The default is `end`. `start` and `end` follow the text direction,
+so they flip in right-to-left layouts.
+
+<Example id="drawer/placement" />
+
+### Contained
+
+Set `contained` to float the drawer with a gap from the viewport edges and rounded corners. Leave it off to keep the
+drawer flush against the edge.
+
+<Example id="drawer/contained" />
+
+### Snap points
+
+Set `snapPoints` to the stops the drawer can rest at, and `defaultSnapPoint` to the one it opens at. Numbers up to `1`
+are fractions of the viewport, larger numbers are pixels, and strings take `px` or `rem`. A snap point never exceeds the
+content size, so give the content a height when you snap to a fraction. The content gets `data-expanded` at its full
+height, which this example uses to let the list scroll only then.
+
+<Example id="drawer/snap-points" />
+
+### Stacking
+
+Nest a `Drawer.Root` inside another drawer to open a new panel on top. The drawer behind scales back and peeks out above
+the next one through the `--nested-drawers` variable. Each drawer keeps its own focus and close action, so closing the
+top drawer returns to the one behind it. Only the first drawer renders a backdrop.
+
+<Example id="drawer/stacking" />
+
+### Menu
+
+A navigation drawer like GitHub's account menu: a header with the profile, grouped links in the body and a sign out
+action in the footer.
+
+<Example id="drawer/menu" />
+
+### Prevent dismissal
+
+Set `closeOnEscape` and `closeOnInteractOutside` to `false` and pass `draggable={false}` to `Drawer.Content` to keep the
+drawer open until a close or action trigger closes it. Leave out `Drawer.Grabber` too, since it still drags the drawer.
+
+<Example id="drawer/prevent-dismissal" />
+
+### Close trigger
+
+The drawer has no built-in close button. `Drawer.CloseTrigger` sits in the top end corner, so wrap an icon button like
+`CloseButton` in it. `Drawer.ActionTrigger` closes the drawer the same way without any styles, so wrap buttons in the
+footer with it. Add `Drawer.Grabber` to give bottom drawers a handle.
+
+<Example id="drawer/close-trigger" />
+
+### Scrollable body
+
+`Drawer.Body` scrolls on its own, so the header and footer stay in view. Swiping starts only when the body is scrolled
+to its edge.
+
+<Example id="drawer/scrollable" />
+
+### Context
+
+Use `Drawer.Context` to read the drawer state and call its methods, such as `setOpen`, from inside the drawer.
+
+<Example id="drawer/context" />
+
+### Initial focus
+
+Pass a function to `initialFocusEl` that returns the element to focus when the drawer opens.
+
+<Example id="drawer/initial-focus" />
+
+Without `initialFocusEl`, focus moves to the first element marked `data-autofocus`, then to the first tabbable element.
+
+```tsx
+<input data-autofocus />
+```
+
+### Custom container
+
+Pass a ref to the `container` prop of `Portal` to render the drawer inside another element. Position the backdrop and
+the positioner `absolute` so they fill that element, and consider setting `closeOnInteractOutside` to `false`.
+
+<Example id="drawer/custom-container" />
+
+### Header actions
+
+Put the close trigger and actions in `Drawer.Header` when the drawer has no footer. Set `position` to `static` on the
+close trigger so it flows with the title.
+
+<Example id="drawer/header-actions" />
+
+### Conditional variants
+
+Variants take responsive values. This drawer opens from the bottom below the `md` breakpoint and from the end above it.
+Use `mdDown` with `md` rather than `base` with `md`, since both conditions become media queries and avoid merging issues
+with base styles.
+
+<Example id="drawer/conditional-variants" />
+
+`swipeDirection` is a prop, not a style, so it does not follow the breakpoint. With a responsive `placement` it stays at
+the default `down`. Pick it yourself from a media query if the side drawer should swipe sideways.
+
+### Non-modal
+
+We don't recommend a non-modal drawer for accessibility reasons. If you need one, set `modal` to `false` and leave out
+`Drawer.Backdrop`. The drawer then lets pointer events through to the page and stops trapping focus. Set
+`closeOnInteractOutside` to `false` to keep it open while people use the page.
+
+<Example id="drawer/non-modal" />

@@ -6,17 +6,17 @@ const docsProse = css({
   "--prose-leading": "1.7",
   "--prose-flow": "1em",
   maxWidth: "none",
-  "& :where(h1, h2, h3, h4)": {
+  '& :where(h1, h2, h3, h4):not(:where([class~="not-prose"],[class~="not-prose"] *))': {
     scrollMarginTop: "20",
   },
   // Section labels, e.g. "Installation", "Usage"
-  "& :where(h2)": {
+  '& :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))': {
     textStyle: "overline",
     fontWeight: "medium",
     color: "fg.muted",
     marginBlockStart: "11",
   },
-  "& :where(a):hover": {
+  '& :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)):hover': {
     textDecorationColor: "fg",
   },
 })

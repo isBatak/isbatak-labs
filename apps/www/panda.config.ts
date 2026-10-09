@@ -21,6 +21,7 @@ export default defineConfig({
   outdir: "styled-system",
   staticCss: {
     recipes: {
+      drawer: ["*"],
       masonry: ["*"],
       wheelPicker: ["*"],
     },
