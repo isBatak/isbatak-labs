@@ -3,7 +3,7 @@ import type { ComponentType } from "react"
 import { AccordionDemo } from "./accordion"
 import { BadgeDemo } from "./badge"
 import { ButtonDemo } from "./button"
-import { DrawerDemo } from "./drawer"
+import { drawerDemos } from "./drawer"
 import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
 import { LoaderDemo } from "./loader"
@@ -23,7 +23,7 @@ export const demos: Record<string, ComponentType> = {
   accordion: AccordionDemo,
   badge: BadgeDemo,
   button: ButtonDemo,
-  drawer: DrawerDemo,
+  ...drawerDemos,
   group: GroupDemo,
   "hover-card": HoverCardDemo,
   loader: LoaderDemo,

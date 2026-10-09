@@ -6,9 +6,10 @@ import { CodeBlock } from "../code/code-block"
 import { ResourceLink } from "../docs/resource-link"
 import { demos } from "../ds-demos"
 import { REPO_URL } from "../layout/site-links"
-import { MDXContent } from "../mdx-content"
+import { MDXContent, type MDXComponents } from "../mdx-content"
 import { Icon } from "../ui/icon"
 import { Prose } from "../ui/prose"
+import { DsExample } from "./ds-example"
 
 const BreadcrumbLink = styled(Link, {
   base: {
@@ -29,6 +30,10 @@ interface ComponentPageProps {
 export function ComponentPage({ component, source }: ComponentPageProps) {
   const { title, description, frameworks, links } = component
   const Demo = demos[component.slug]
+  const mdxComponents: MDXComponents = {
+    Example: DsExample,
+    Usage: () => <CodeBlock code={source} lang="tsx" />,
+  }
 
   return (
     <styled.div maxW="3xl" mx="auto" pt={{ base: "10", md: "16" }} pb="24">
@@ -87,9 +92,7 @@ export function ComponentPage({ component, source }: ComponentPageProps) {
       )}
 
       <Prose>
-        <MDXContent code={component.code} />
-        <h2>Usage</h2>
-        <CodeBlock code={source} lang="tsx" />
+        <MDXContent code={component.code} components={mdxComponents} />
       </Prose>
     </styled.div>
   )
