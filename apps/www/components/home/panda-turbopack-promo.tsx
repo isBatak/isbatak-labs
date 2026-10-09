@@ -74,7 +74,7 @@ export function PandaTurbopackPromo() {
                   <Icon name="arrow-right" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" colorPalette="gray">
+              <Button asChild variant="outline">
                 <a href="https://www.npmjs.com/package/@isbatak/panda-turbopack" target="_blank" rel="noopener">
                   <Icon name="brand-npm" />
                   npm

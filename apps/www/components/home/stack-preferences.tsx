@@ -172,13 +172,7 @@ export function StackPreferences() {
             </styled.div>
           </styled.div>
 
-          <styled.div
-            gridColumn={{ md: "span 7 / span 7" }}
-            display="flex"
-            flexDirection="column"
-            gap="10"
-            colorPalette="gray"
-          >
+          <styled.div gridColumn={{ md: "span 7 / span 7" }} display="flex" flexDirection="column" gap="10">
             <RadioCard.Root
               size="sm"
               variant="surface"

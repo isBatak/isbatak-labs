@@ -31,7 +31,7 @@ export default function DesignSystemComponentsPage() {
         <styled.p mt="5" maxW="lg" color="fg.muted" lineHeight="1.7" textWrap="pretty">
           Accessible Ark UI components wired to the recipes in @isbatak/panda-ds, for React, Vue, Solid and Svelte.
         </styled.p>
-        <Button asChild variant="outline" size="sm" mt="6" colorPalette="gray">
+        <Button asChild variant="outline" size="sm" mt="6">
           <Link href="/ds/installation">
             Installation
             <Icon name="arrow-right" />
