@@ -30,16 +30,7 @@ const toolEntries: NavEntry[] = tools
 
 export function SiteHeader() {
   return (
-    <styled.header
-      colorPalette="gray"
-      position="sticky"
-      top="0"
-      zIndex="sticky"
-      bg="bg"
-      px="2"
-      maxW="100vw"
-      overflowX="clip"
-    >
+    <styled.header position="sticky" top="0" zIndex="sticky" bg="bg" px="2" maxW="100vw" overflowX="clip">
       <LayoutContainer
         display="flex"
         alignItems="center"
