@@ -26,13 +26,20 @@ export const drawerSlotRecipe = defineSlotRecipe({
       h: "100dvh",
       "--drawer-z-index": "zIndex.popover",
       zIndex: "calc(var(--drawer-z-index) + var(--layer-index, 0) - 1)",
+      opacity: "calc(1 - var(--drawer-swipe-progress, 0))",
+      transitionProperty: "opacity",
+      transitionDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slowest})",
+      transitionTimingFunction: "ease-in-smooth",
+      "&[data-swiping]": {
+        transitionDuration: "0s",
+      },
       _open: {
         animationName: "fade-in",
         animationDuration: "slow",
       },
       _closed: {
         animationName: "fade-out",
-        animationDuration: "moderate",
+        animationDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slower})",
       },
     },
     positioner: {
@@ -55,16 +62,23 @@ export const drawerSlotRecipe = defineSlotRecipe({
       "--drawer-z-index": "zIndex.popover",
       zIndex: "calc(var(--drawer-z-index) + var(--layer-index, 0))",
       textStyle: "sm",
+      maxW: "var(--drawer-max-width)",
       maxH: "100dvh",
       color: "inherit",
       bg: "bg.panel",
       boxShadow: "lg",
+      "--drawer-stack-scale": "calc(1 - var(--nested-drawers, 0) * 0.05)",
+      "--drawer-stack-offset": "calc(var(--nested-drawers, 0) * {spacing.3})",
+      scale: "var(--drawer-stack-scale)",
+      transitionProperty: "transform, scale, translate",
+      transitionDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slowest})",
+      transitionTimingFunction: "ease-in-smooth",
       _open: {
         animationDuration: "slowest",
         animationTimingFunction: "ease-in-smooth",
       },
       _closed: {
-        animationDuration: "slower",
+        animationDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slower})",
         animationTimingFunction: "ease-in-smooth",
       },
     },
@@ -126,32 +140,32 @@ export const drawerSlotRecipe = defineSlotRecipe({
     size: {
       xs: {
         content: {
-          maxW: "xs",
+          "--drawer-max-width": "sizes.xs",
         },
       },
       sm: {
         content: {
-          maxW: "md",
+          "--drawer-max-width": "sizes.md",
         },
       },
       md: {
         content: {
-          maxW: "lg",
+          "--drawer-max-width": "sizes.lg",
         },
       },
       lg: {
         content: {
-          maxW: "2xl",
+          "--drawer-max-width": "sizes.2xl",
         },
       },
       xl: {
         content: {
-          maxW: "4xl",
+          "--drawer-max-width": "sizes.4xl",
         },
       },
       full: {
         content: {
-          maxW: "100vw",
+          "--drawer-max-width": "100vw",
           h: "100dvh",
         },
       },
@@ -163,6 +177,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
           alignItems: "stretch",
         },
         content: {
+          translate: "var(--drawer-stack-offset) 0",
           _open: {
             animationName: {
               base: "slide-from-left-full, fade-in",
@@ -183,6 +198,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
           alignItems: "stretch",
         },
         content: {
+          translate: "calc(var(--drawer-stack-offset) * -1) 0",
           _open: {
             animationName: {
               base: "slide-from-right-full, fade-in",
@@ -204,6 +220,8 @@ export const drawerSlotRecipe = defineSlotRecipe({
         },
         content: {
           maxW: "100%",
+          transformOrigin: "bottom",
+          translate: "0 var(--drawer-stack-offset)",
           _open: {
             animationName: "slide-from-top-full, fade-in",
           },
@@ -219,6 +237,8 @@ export const drawerSlotRecipe = defineSlotRecipe({
         },
         content: {
           maxW: "100%",
+          transformOrigin: "top",
+          translate: "0 calc(var(--drawer-stack-offset) * -1)",
           maxH: "calc(100dvh - {spacing.12})",
           borderTopRadius: "l3",
           pb: "[env(safe-area-inset-bottom)]",
@@ -242,13 +262,6 @@ export const drawerSlotRecipe = defineSlotRecipe({
       },
     },
   },
-  compoundVariants: [
-    {
-      placement: ["top", "bottom"],
-      size: ["xs", "sm", "md", "lg", "xl"],
-      css: { content: { maxW: "100%" } },
-    },
-  ],
   defaultVariants: {
     size: "xs",
     placement: "end",
