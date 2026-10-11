@@ -10,7 +10,7 @@ export function DrawerCustomContainerDemo() {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   return (
-    <Drawer.Root closeOnInteractOutside={false}>
+    <Drawer.Root modal={false} trapFocus={false} preventScroll={false} closeOnInteractOutside={false}>
       <styled.div
         ref={containerRef}
         position="relative"

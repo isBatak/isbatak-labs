@@ -3,7 +3,7 @@ import type { ComponentType } from "react"
 import { AccordionDemo } from "./accordion"
 import { BadgeDemo } from "./badge"
 import { ButtonDemo } from "./button"
-import { drawerDemos } from "./drawer"
+import { DrawerThumbnail, drawerDemos } from "./drawer"
 import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
 import { LoaderDemo } from "./loader"
@@ -38,4 +38,8 @@ export const demos: Record<string, ComponentType> = {
   tabs: TabsDemo,
   tooltip: TooltipDemo,
   tour: TourDemo,
+}
+
+export const thumbnails: Record<string, ComponentType> = {
+  drawer: DrawerThumbnail,
 }

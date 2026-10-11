@@ -68,7 +68,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
       bg: "bg.panel",
       boxShadow: "lg",
       "--drawer-stack-scale": "calc(1 - var(--nested-drawers, 0) * 0.05)",
-      "--drawer-stack-offset": "calc(var(--nested-drawers, 0) * {spacing.3})",
+      "--drawer-stack-offset": "calc(var(--nested-drawers, 0) * {spacing.2})",
       scale: "var(--drawer-stack-scale)",
       transitionProperty: "transform, scale, translate",
       transitionDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slowest})",

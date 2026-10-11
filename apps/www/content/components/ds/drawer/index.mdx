@@ -142,7 +142,9 @@ Without `initialFocusEl`, focus moves to the first element marked `data-autofocu
 ### Custom container
 
 Pass a ref to the `container` prop of `Portal` to render the drawer inside another element. Position the backdrop and
-the positioner `absolute` so they fill that element, and consider setting `closeOnInteractOutside` to `false`.
+the positioner `absolute` so they fill that element. Make the drawer non-modal so the rest of the page stays usable: set
+`modal`, `trapFocus` and `preventScroll` to `false`, and `closeOnInteractOutside` to `false` so using the page doesn't
+close it.
 
 <Example id="drawer/custom-container" />
 
@@ -166,8 +168,12 @@ the default `down`. Pick it yourself from a media query if the side drawer shoul
 
 ### Non-modal
 
-We don't recommend a non-modal drawer for accessibility reasons. If you need one, set `modal` to `false` and leave out
-`Drawer.Backdrop`. The drawer then lets pointer events through to the page and stops trapping focus. Set
-`closeOnInteractOutside` to `false` to keep it open while people use the page.
+We don't recommend a non-modal drawer for accessibility reasons. If you need one, leave out `Drawer.Backdrop` and set
+these props to `false`, since each controls one part of modal behavior:
+
+- `modal` lets pointer events through to the page and keeps the page visible to screen readers
+- `trapFocus` lets focus leave the drawer
+- `preventScroll` keeps the page scrollable
+- `closeOnInteractOutside` keeps the drawer open while people use the page
 
 <Example id="drawer/non-modal" />

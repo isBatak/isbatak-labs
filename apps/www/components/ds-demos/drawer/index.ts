@@ -37,3 +37,5 @@ export const drawerDemos: Record<string, ComponentType> = {
   "drawer/snap-points": DrawerSnapPointsDemo,
   "drawer/stacking": DrawerStackingDemo,
 }
+
+export { DrawerThumbnail } from "./thumbnail"
