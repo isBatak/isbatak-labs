@@ -2,7 +2,7 @@ import Link from "next/link"
 import type { ComponentProps } from "react"
 import { styled } from "styled-system/jsx"
 
-import { demos } from "../ds-demos"
+import { demos, thumbnails } from "../ds-demos"
 import { DocLink } from "../docs/doc-link"
 import { ExampleThumbnail } from "../examples/example-view"
 import { Icon } from "../ui/icon"
@@ -125,7 +125,7 @@ export interface ComponentCardProps {
 }
 
 function DemoThumbnail({ slug }: { slug: string }) {
-  const Demo = demos[slug]
+  const Demo = thumbnails[slug] ?? demos[slug]
   if (!Demo) return null
 
   return (

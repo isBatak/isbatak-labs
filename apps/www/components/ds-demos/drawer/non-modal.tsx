@@ -6,7 +6,7 @@ import { Drawer } from "@isbatak/react-ui/drawer"
 
 export function DrawerNonModalDemo() {
   return (
-    <Drawer.Root modal={false} closeOnInteractOutside={false}>
+    <Drawer.Root modal={false} trapFocus={false} preventScroll={false} closeOnInteractOutside={false}>
       <Drawer.Trigger asChild>
         <Button>Open non-modal drawer</Button>
       </Drawer.Trigger>
