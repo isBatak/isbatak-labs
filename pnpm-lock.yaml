@@ -164,6 +164,9 @@ importers:
       '@isbatak/ark-masonry':
         specifier: workspace:*
         version: link:../../packages/ark/masonry
+      '@isbatak/ark-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/ark/text-flip
       '@isbatak/ark-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/ark/wheel-picker
@@ -173,6 +176,9 @@ importers:
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../packages/zag/masonry
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -213,6 +219,9 @@ importers:
       '@isbatak/panda-masonry':
         specifier: workspace:*
         version: link:../../packages/panda/masonry
+      '@isbatak/panda-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/panda/text-flip
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
@@ -328,6 +337,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -368,6 +380,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -420,6 +435,9 @@ importers:
       '@isbatak/panda-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/panda/swipeable-list
+      '@isbatak/panda-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/panda/text-flip
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
@@ -448,6 +466,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -488,6 +509,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -531,6 +555,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -559,6 +586,9 @@ importers:
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -599,6 +629,9 @@ importers:
       '@isbatak/ark-masonry':
         specifier: workspace:*
         version: link:../../packages/ark/masonry
+      '@isbatak/ark-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/ark/text-flip
       '@isbatak/ark-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/ark/wheel-picker
@@ -611,6 +644,9 @@ importers:
       '@isbatak/panda-masonry':
         specifier: workspace:*
         version: link:../../packages/panda/masonry
+      '@isbatak/panda-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/panda/text-flip
       '@isbatak/panda-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/panda/wheel-picker
@@ -620,6 +656,9 @@ importers:
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../packages/zag/masonry
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../packages/zag/text-flip
       '@isbatak/zag-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/zag/wheel-picker
@@ -675,6 +714,61 @@ importers:
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../zag/masonry
+    devDependencies:
+      '@ark-ui/react':
+        specifier: 5.39.2
+        version: 5.39.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@ark-ui/solid':
+        specifier: 5.39.2
+        version: 5.39.2(solid-js@1.9.15)
+      '@ark-ui/svelte':
+        specifier: 5.24.2
+        version: 5.24.2(svelte@5.57.1)
+      '@ark-ui/vue':
+        specifier: 5.39.2
+        version: 5.39.2(vue@3.5.43(typescript@6.0.3))
+      '@sveltejs/package':
+        specifier: ^2.5.8
+        version: 2.5.8(svelte@5.57.1)(typescript@6.0.3)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@zag-js/react':
+        specifier: 'catalog:'
+        version: 1.44.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@zag-js/solid':
+        specifier: 'catalog:'
+        version: 1.44.0(solid-js@1.9.15)
+      '@zag-js/svelte':
+        specifier: 'catalog:'
+        version: 1.44.0(svelte@5.57.1)
+      '@zag-js/vue':
+        specifier: 'catalog:'
+        version: 1.44.0(vue@3.5.43(typescript@6.0.3))
+      esbuild-plugin-solid:
+        specifier: ^0.6.0
+        version: 0.6.0(esbuild@0.28.1)(solid-js@1.9.15)(supports-color@8.1.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+      solid-js:
+        specifier: ^1.9.15
+        version: 1.9.15
+      svelte:
+        specifier: ^5.57.1
+        version: 5.57.1
+      svelte-check:
+        specifier: ^4.7.6
+        version: 4.7.6(picomatch@4.0.7)(svelte@5.57.1)(typescript@6.0.3)
+      vue:
+        specifier: ^3.5.43
+        version: 3.5.43(typescript@6.0.3)
+
+  packages/ark/text-flip:
+    dependencies:
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../zag/text-flip
     devDependencies:
       '@ark-ui/react':
         specifier: 5.39.2
@@ -833,6 +927,22 @@ importers:
         specifier: 'catalog:'
         version: 2.0.0-beta.18
 
+  packages/panda/text-flip:
+    dependencies:
+      '@isbatak/zag-text-flip':
+        specifier: workspace:*
+        version: link:../../zag/text-flip
+    devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18(postcss@8.5.28)
+      '@pandacss/types':
+        specifier: 'catalog:'
+        version: 2.0.0-beta.18
+
   packages/panda/turbopack:
     dependencies:
       '@pandacss/compiler':
@@ -973,6 +1083,24 @@ importers:
         version: 1.44.0
 
   packages/zag/swipeable-list:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 1.44.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 1.44.0
+
+  packages/zag/text-flip:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'

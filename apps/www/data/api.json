@@ -56,6 +56,75 @@
       }
     }
   },
+  "text-flip": {
+    "api": {
+      "index": {
+        "type": "number",
+        "description": "The index of the shown item."
+      },
+      "playing": {
+        "type": "boolean",
+        "description": "Whether the items are flipping on their own."
+      },
+      "next": {
+        "type": "() => void",
+        "description": "Show the next item, wrapping around after the last one."
+      },
+      "prev": {
+        "type": "() => void",
+        "description": "Show the previous item, wrapping around before the first one."
+      },
+      "goTo": {
+        "type": "(index: number) => void",
+        "description": "Show the item at the given index."
+      },
+      "play": {
+        "type": "() => void",
+        "description": "Start flipping on a timer."
+      },
+      "pause": {
+        "type": "() => void",
+        "description": "Stop flipping on a timer."
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "Returns whether an item is shown, flipping in, flipping out or hidden."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "ElementIds | undefined",
+        "description": "The ids of the elements in the text flip. Useful for composition."
+      },
+      "interval": {
+        "type": "number | undefined",
+        "description": "The time in milliseconds each item stays before the next one flips in.",
+        "defaultValue": "2000"
+      },
+      "autoplay": {
+        "type": "boolean | undefined",
+        "description": "Whether the items start flipping on their own.",
+        "defaultValue": "true"
+      },
+      "defaultIndex": {
+        "type": "number | undefined",
+        "description": "The index of the item shown first.",
+        "defaultValue": "0"
+      },
+      "onIndexChange": {
+        "type": "((details: IndexChangeDetails) => void) | undefined",
+        "description": "Function called when the shown item changes."
+      },
+      "id": {
+        "type": "string",
+        "description": "The unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "(() => ShadowRoot | Document | Node) | undefined",
+        "description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
   "wheel-picker": {
     "api": {
       "collection": {

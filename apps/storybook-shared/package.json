@@ -26,6 +26,7 @@
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/panda-masonry": "workspace:*",
     "@isbatak/panda-swipeable-list": "workspace:*",
+    "@isbatak/panda-text-flip": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/date-input": "catalog:"

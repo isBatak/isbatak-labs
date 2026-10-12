@@ -13,6 +13,8 @@ export interface ControlValues {
   columns: number
   sequential: boolean
   gap: "none" | "sm" | "md" | "lg"
+  autoplay: boolean
+  interval: number
 }
 
 export type ControlName = keyof ControlValues
@@ -35,6 +37,8 @@ export const controlDefaults: ControlValues = {
   columns: 4,
   sequential: false,
   gap: "md",
+  autoplay: true,
+  interval: 2000,
 }
 
 interface ComponentControls {
@@ -50,5 +54,9 @@ export const componentControls: Record<ComponentId, ComponentControls> = {
   masonry: {
     machine: ["columns", "sequential"],
     recipe: ["gap"],
+  },
+  "text-flip": {
+    machine: ["autoplay", "interval"],
+    recipe: [],
   },
 }
