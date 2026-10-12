@@ -218,8 +218,21 @@ function MasonryControlsPanel({ id }: { id: string }) {
   )
 }
 
+function TextFlipControlsPanel({ id }: { id: string }) {
+  return (
+    <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">
+      <Section role="group" aria-labelledby={`${id}-timing`}>
+        <SectionTitle id={`${id}-timing`}>Timing</SectionTitle>
+        <SwitchField id={id} name="autoplay" label="Autoplay" />
+        <SliderField id={id} name="interval" label="Interval (ms)" min={500} max={5000} step={250} />
+      </Section>
+    </styled.div>
+  )
+}
+
 function ControlsPanel({ id }: { id: string }) {
   if (componentOf(id) === "masonry") return <MasonryControlsPanel id={id} />
+  if (componentOf(id) === "text-flip") return <TextFlipControlsPanel id={id} />
 
   return (
     <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">

@@ -47,6 +47,14 @@ const components = [
     recipe: "masonry",
     machine: "withControls",
   },
+  {
+    id: "text-flip",
+    zag: "@isbatak/zag-text-flip",
+    ark: "@isbatak/ark-text-flip",
+    panda: "@isbatak/panda-text-flip",
+    recipe: "textFlip",
+    machine: "withControls",
+  },
 ]
 
 const componentOf = (id) => components.find((component) => id.startsWith(`${component.id}-`))

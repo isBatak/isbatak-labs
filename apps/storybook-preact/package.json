@@ -11,6 +11,7 @@
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-swipeable-list": "workspace:*",
+    "@isbatak/zag-text-flip": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/date-input": "catalog:",
     "@zag-js/popover": "catalog:",
