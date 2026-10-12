@@ -29,26 +29,17 @@ const controlledValue: Record<FrameworkId, string[]> = {
   vanilla: ["value", "onValueChange: (details) => setValue(details.value)"],
 }
 
-function machineSnippet(framework: FrameworkId, settings: ExampleSettings, props: [string, Value][]) {
+function pickerSnippet(framework: FrameworkId, settings: ExampleSettings, props: [string, Value][]) {
   const lines = [
-    "collection",
+    "id",
+    "items",
     ...(settings.controlled
       ? controlledValue[framework]
-      : settings.defaultValue === undefined
-        ? []
-        : [`defaultValue: ${literal(settings.defaultValue)}`]),
+      : [`value: ${literal(settings.defaultValue ?? "")}`, "onValueChange: (details) => setValue(details.value)"]),
     ...props.map(([name, value]) => `${name}: ${literal(value)}`),
   ]
-  const body = lines.map((line) => `  ${line},`).join("\n")
-  const call =
-    framework === "vue" && settings.controlled
-      ? `useMachine(\n  wheelPicker.machine,\n  computed(() => ({\n${lines.map((line) => `    ${line},`).join("\n")}\n  })),\n)`
-      : (framework === "svelte" || framework === "solid") && settings.controlled
-        ? `useMachine(wheelPicker.machine, () => ({\n${body}\n}))`
-        : `useMachine(wheelPicker.machine, {\n${body}\n})`
-  return framework === "vanilla"
-    ? `const machine = new VanillaMachine(wheelPicker.machine, {\n${body}\n})`
-    : `const service = ${call}`
+  const body = lines.map((line) => `    ${line},`).join("\n")
+  return `const picker = wheelPicker.createWheelPicker()\nconst api = picker.connect(\n  {\n${body}\n  },\n  normalizeProps,\n)`
 }
 
 const jsxAttribute = (framework: FrameworkId, name: string, value: Value) => {
@@ -71,11 +62,7 @@ const controlledAttributes: Record<FrameworkId, string[]> = {
 
 function arkSnippet(framework: FrameworkId, settings: ExampleSettings, props: [string, Value][]) {
   const attributes = [
-    framework === "vue"
-      ? ':collection="collection"'
-      : framework === "svelte"
-        ? "{collection}"
-        : "collection={collection}",
+    framework === "vue" ? ':items="items"' : framework === "svelte" ? "{items}" : "items={items}",
     ...(settings.controlled
       ? controlledAttributes[framework]
       : settings.defaultValue === undefined
@@ -171,6 +158,6 @@ export function exampleSnippet({ id, framework, styling, api, settings, values }
 
   const props = changedFrom(values, controls.machine)
   const recipe = styling === "panda" ? recipeSnippet("wheelPickerRecipe", changedFrom(values, controls.recipe)) : ""
-  const code = api === "ark" ? arkSnippet(framework, settings, props) : machineSnippet(framework, settings, props)
+  const code = api === "ark" ? arkSnippet(framework, settings, props) : pickerSnippet(framework, settings, props)
   return { code: `${recipe}${code}`, lang }
 }

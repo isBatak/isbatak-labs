@@ -6,5 +6,4 @@ export interface ExampleControls {
 }
 
 export declare const examples: Record<"zag" | "ark", Record<string, ComponentType>>
-export declare function resetSnapshot(exampleId: string): void
 export declare function setControls(exampleId: string, value: ExampleControls): void

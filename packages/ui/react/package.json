@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ark-ui/react": "5.39.2",
+    "@ark-ui/react": "catalog:",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

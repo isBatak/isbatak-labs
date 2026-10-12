@@ -2,17 +2,16 @@
   import { css } from "styled-system/css"
   import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
   import * as wheelPicker from "@isbatak/zag-wheel-picker"
-  import { normalizeProps, useMachine } from "@zag-js/svelte"
+  import { normalizeProps } from "@zag-js/svelte"
+  import { untrack } from "svelte"
 
-  const collection = wheelPicker.collection({
-    items: [
-      { label: "React", value: "react" },
-      { label: "Vue", value: "vue" },
-      { label: "Angular", value: "angular" },
-      { label: "Svelte", value: "svelte" },
-      { label: "Solid", value: "solid" },
-    ],
-  })
+  const items = [
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Angular", value: "angular" },
+    { label: "Svelte", value: "svelte" },
+    { label: "Solid", value: "solid" },
+  ]
 
   const styles = wheelPickerRecipe()
 
@@ -32,38 +31,40 @@
   }
 
   const id = $props.id()
-  let value = $state<string | null>("react")
+  const picker = wheelPicker.createWheelPicker()
+  let value = $state("react")
 
-  const service = useMachine(wheelPicker.machine, () => ({
+  const pickerProps = $derived<wheelPicker.Props>({
     id,
-    collection,
+    items,
     value,
-    onValueChange: (details: wheelPicker.ValueChangeDetails) => (value = details.value),
-  }))
+    onValueChange: (details) => (value = details.value),
+  })
 
-  const api = $derived(wheelPicker.connect(service, normalizeProps))
+  $effect(() => untrack(() => picker.mount(() => pickerProps)))
+
+  $effect(() => {
+    void value
+    untrack(() => picker.sync(pickerProps))
+  })
+
+  const api = $derived(picker.connect(pickerProps, normalizeProps))
 </script>
 
 <div class={classes.root}>
   <div {...api.getRootProps()} class={styles.root}>
-    <!-- svelte-ignore a11y_label_has_associated_control -->
-    <label {...api.getLabelProps()} class={styles.label}>Framework</label>
+    <span {...api.getLabelProps()} class={styles.label}>Framework</span>
     <div {...api.getControlProps()} class={styles.control}>
       <div {...api.getViewportProps()} class={styles.viewport}>
-        <ul {...api.getItemGroupProps()} class={styles.itemGroup}>
-          {#each api.items as { item, index, key } (key)}
-            <li {...api.getItemProps({ item, index })} class={styles.item}>{item.label}</li>
+        <div {...api.getItemGroupProps()} class={styles.itemGroup}>
+          {#each api.rows as { row, item } (row)}
+            <div {...api.getItemProps({ row })} class={styles.item}>{item.label}</div>
           {/each}
-        </ul>
-        <div {...api.getHighlightProps()} class={styles.highlight}>
-          <ul {...api.getHighlightItemGroupProps()} class={styles.highlightItemGroup}>
-            {#each api.highlightItems as { item, index, key } (key)}
-              <li {...api.getHighlightItemProps({ item, index })} class={styles.highlightItem}>{item.label}</li>
-            {/each}
-          </ul>
         </div>
       </div>
+      <div {...api.getHighlightProps()} class={styles.highlight}></div>
     </div>
+    <input {...api.getHiddenInputProps()} />
   </div>
   <div class={classes.actions}>
     <button type="button" class={classes.button} onclick={() => (value = "react")}>React</button>

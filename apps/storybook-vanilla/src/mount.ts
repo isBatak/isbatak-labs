@@ -1,10 +1,13 @@
-import type { VanillaMachine } from "@zag-js/vanilla"
+interface Startable {
+  start(): void
+  stop(): void
+}
 
 /**
  * Storybook's HTML renderer attaches the returned element after the story function runs and removes it on re-render,
  * so start the machines once the element is in the document and stop them when it leaves.
  */
-export function mount<T extends HTMLElement>(element: T, machines: VanillaMachine<any>[]): T {
+export function mount<T extends HTMLElement>(element: T, machines: Startable[]): T {
   let started = false
   const observer = new MutationObserver(() => {
     if (!started && element.isConnected) {

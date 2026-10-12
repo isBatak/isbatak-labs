@@ -20,61 +20,60 @@ export const wheelPickerRecipe: SlotRecipeConfig = defineSlotRecipe({
       srOnly: true,
     },
     control: {
-      outline: "none",
-      cursor: "grab",
-      _dragging: { cursor: "grabbing" },
-      "&[data-readonly]": { cursor: "default" },
-      _disabled: { cursor: "not-allowed" },
+      minWidth: "16",
     },
     viewport: {
-      maskImage: "linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%)",
+      cursor: "grab",
+      perspective: "400px",
+      maskImage: "linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%)",
+      "&::-webkit-scrollbar": { display: "none" },
+      _disabled: { cursor: "not-allowed" },
     },
     item: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      paddingInline: "4",
       color: "fg.subtle",
       fontWeight: "medium",
-      _disabled: { opacity: "0.35" },
+      fontVariantNumeric: "tabular-nums",
+      userSelect: "none",
+      _disabled: { opacity: "0.35", textDecoration: "line-through" },
+      "@supports (animation-timeline: view())": {
+        animationName: "wheelPickerTilt",
+        animationTimingFunction: "linear",
+        animationFillMode: "both",
+        animationTimeline: "view()",
+      },
     },
     highlight: {
       borderRadius: "l2",
-      "[data-focus-visible] &": { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "-2px" },
-      "[data-invalid] &": { outline: "2px solid", outlineColor: "border.error", outlineOffset: "-2px" },
-    },
-    highlightItem: {
-      fontWeight: "semibold",
-      _disabled: { opacity: "0.35" },
+      "[data-wheel-picker-viewport]:focus-visible + &": {
+        outline: "2px solid",
+        outlineColor: "colorPalette.focusRing",
+        outlineOffset: "-2px",
+      },
     },
   } satisfies WheelPickerStyles["base"],
   variants: {
     variant: {
       subtle: {
         highlight: { bg: "bg.muted" },
-        highlightItem: { color: "fg" },
+        item: { "&[data-selected]": { color: "fg" } },
       },
       outline: {
         highlight: { borderWidth: "1px", borderColor: "border" },
-        highlightItem: { color: "fg" },
+        item: { "&[data-selected]": { color: "fg" } },
       },
       solid: {
         highlight: { bg: "colorPalette.solid" },
-        highlightItem: { color: "colorPalette.contrast" },
+        item: { "&[data-selected]": { color: "colorPalette.contrast" } },
       },
     },
     size: {
-      sm: {
-        control: { height: "40" },
-        item: { textStyle: "sm" },
-        highlightItem: { textStyle: "sm" },
-      },
-      md: {
-        control: { height: "56" },
-        item: { textStyle: "md" },
-        highlightItem: { textStyle: "md" },
-      },
-      lg: {
-        control: { height: "72" },
-        item: { textStyle: "xl" },
-        highlightItem: { textStyle: "xl" },
-      },
+      sm: { item: { textStyle: "sm" } },
+      md: { item: { textStyle: "md" } },
+      lg: { item: { textStyle: "xl" } },
     },
   } satisfies WheelPickerStyles["variants"],
   defaultVariants: {

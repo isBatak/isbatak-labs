@@ -77,7 +77,7 @@ export function createBasic(props: BasicProps) {
 
   main.addEventListener("click", (event) => {
     const button = (event.target as Element).closest("button")
-    const id = button?.closest<HTMLElement>("[data-part=item]")?.dataset.value
+    const id = button?.closest<HTMLElement>("[data-swipeable-list-item]")?.dataset.value
     const account = accounts.find((item) => item.id === id)
     if (!button || !account) return
     if (button.matches(".copy")) copy(account)

@@ -1,6 +1,6 @@
 ---
 title: Wheel picker
-description: Pick from a vertical list with inertia scrolling, precise snapping and optional infinite looping.
+description: Pick from a vertical list with native scroll snapping, keyboard support and optional looping.
 order: 1
 category: Forms
 status: beta
@@ -12,14 +12,13 @@ links:
   ark: packages/ark/wheel-picker/src
 ---
 
-Drag, scroll, use the keyboard or type to jump to an option. Works in React, Vue, Svelte, Solid, Preact and vanilla JS.
+Scroll, use the keyboard or type to jump to an option. Works in React, Vue, Svelte, Solid, Preact and vanilla JS.
 
-- Mouse, touch, wheel, keyboard and typeahead
-- Inertia scrolling that snaps to items
-- Optional infinite looping
+- Native scroll snapping, so touch momentum and trackpads feel right
+- Keyboard, page keys and typeahead
+- Optional looping
 - Disabled items, controlled and uncontrolled values
-- A hidden native select for forms
-- RTL support
+- A hidden input for forms
 
 ## Installation
 
@@ -43,25 +42,48 @@ Anything that updates the value, like the buttons under the wheel, moves the pic
 
 </Example>
 
-### Infinite scrolling
+### Looping
 
-<Example id="wheel-picker-infinite" settings={{ infinite: true, defaultValue: "30" }}>
+<Example id="wheel-picker-loop" settings={{ loop: true, defaultValue: "30" }}>
 
-Set `infinite` to loop the items, so the wheel wraps from the last item back to the first. Home and End do nothing while
-looping.
+Set `loop` to repeat the items, so the wheel wraps from the last item back to the first. The items render several times
+and the wheel jumps back to the middle copy whenever scrolling stops, so it never reaches an end.
 
 </Example>
+
+## Styling
+
+The viewport is a scroll container with `scroll-snap-type: y mandatory`, padded so the first and last rows can reach the
+middle. The highlight sits behind the rows and the Panda recipe fades the viewport edges with a mask. Where the browser
+supports scroll-driven animations, each row tilts away from the middle like a drum. The row height and the number of
+rows in view come from the `itemHeight` and `visibleCount` props, so size the text to fit them.
+
+## Accessibility
+
+The viewport is a `spinbutton` that announces the selected label through `aria-valuetext`. The rows are hidden from
+assistive tech, since the viewport already reports the value. Arrow keys move one row, Page Up and Page Down move a
+page, Home and End jump to the ends, and typing jumps to the next label that matches. Disabled rows are skipped, and a
+flick that lands on one moves to the nearest enabled row. Give each wheel a name with `aria-label` or the label part.
 
 ## Props
 
 <ApiTable name="wheel-picker" kind="context" />
 
+## API
+
+<ApiTable name="wheel-picker" kind="api" />
+
 ## Upstreaming
 
 <UpstreamNotice
-  title="Coming to Zag.js"
+  title="Not coming to Zag.js"
   items={[
-    { url: "https://github.com/chakra-ui/zag/pull/3434", title: "Wheel picker machine", label: "wheel picker" },
+    {
+      url: "https://github.com/chakra-ui/zag/pull/3432",
+      title: "Website v2 redesign, including the wheel picker blog post",
+      label: "blog post",
+    },
+    { url: "https://github.com/chakra-ui/zag/pull/3434", title: "Wheel picker machine (closed)", label: "closed" },
     {
       url: "https://github.com/chakra-ui/zag/pull/3433",
       title: "Prerequisite for the wheel picker",
@@ -79,7 +101,8 @@ looping.
     },
   ]}
 >
-  This machine is being streamlined and merged into Zag.js, so it will ship in every framework adapter. The merge
-  request is already open and waits on a prerequisite. Once both land, this page will point to the official package. The
-  original merge requests were closed and refactored for the Zag.js v2 migration.
+  The Zag.js maintainers decided the wheel picker doesn't need a machine, because native scroll snapping covers most of
+  it. The machine merge request (#3434) was closed in favor of that simpler solution, and the approach became a blog
+  post with a working example in the website redesign (#3432). The earlier merge requests had already been closed and
+  refactored for the Zag.js v2 migration. This package follows the same approach, so there is no machine to replace.
 </UpstreamNotice>

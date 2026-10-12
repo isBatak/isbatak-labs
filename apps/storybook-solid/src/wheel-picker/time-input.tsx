@@ -1,8 +1,8 @@
 import {
-  getDayPeriodCollection,
-  getHourCollection,
+  getDayPeriodItems,
   getHourCycle,
-  getMinuteCollection,
+  getHourItems,
+  getMinuteItems,
   getTimeFormatter,
   getTimeParts,
   isDayPeriod,
@@ -22,9 +22,9 @@ export function TimeInput(props: TimeInputControls) {
   const [value, setValue] = createSignal<dateInput.DateValue[]>([])
   const hourCycle = createMemo(() => getHourCycle(props.locale))
   const formatter = createMemo(() => getTimeFormatter(props.locale))
-  const hourCollection = createMemo(() => getHourCollection(props.locale, hourCycle()))
-  const minuteCollection = createMemo(() => getMinuteCollection(props.locale))
-  const dayPeriodCollection = createMemo(() => getDayPeriodCollection(props.locale))
+  const hourItems = createMemo(() => getHourItems(props.locale, hourCycle()))
+  const minuteItems = createMemo(() => getMinuteItems(props.locale))
+  const dayPeriodItems = createMemo(() => getDayPeriodItems(props.locale))
 
   const dateInputService = useMachine(dateInput.machine, () => ({
     id: `${id}:input`,
@@ -81,18 +81,18 @@ export function TimeInput(props: TimeInputControls) {
           <div class="wheel-picker-group" role="group" aria-label="Time picker">
             <Picker
               label="Hour"
-              collection={hourCollection()}
+              items={hourItems()}
               value={time().hour}
-              infinite
+              loop
               onValueChange={(details) => {
                 if (details.value) updateTime("hour", details.value)
               }}
             />
             <Picker
               label="Minute"
-              collection={minuteCollection()}
+              items={minuteItems()}
               value={time().minute}
-              infinite
+              loop
               onValueChange={(details) => {
                 if (details.value) updateTime("minute", details.value)
               }}
@@ -100,7 +100,7 @@ export function TimeInput(props: TimeInputControls) {
             <Show when={isTwelveHourCycle(hourCycle())}>
               <Picker
                 label="Day period"
-                collection={dayPeriodCollection()}
+                items={dayPeriodItems()}
                 value={time().dayPeriod}
                 onValueChange={(details) => {
                   if (isDayPeriod(details.value)) updateTime("dayPeriod", details.value)

@@ -41,13 +41,13 @@ export const splitterSlotRecipe = defineSlotRecipe({
     resizeTriggerSeparator: {
       position: "absolute",
       bg: "var(--splitter-border-color)",
-      "[data-part='resize-trigger'][data-orientation=horizontal] &": {
+      "[data-splitter-resize-trigger][data-orientation=horizontal] &": {
         insetInlineEnd: "calc(var(--splitter-thumb-size) * 0.5)",
         insetBlock: "0",
         insetInlineStart: "auto",
         w: "var(--splitter-border-size)",
       },
-      "[data-part='resize-trigger'][data-orientation=vertical] &": {
+      "[data-splitter-resize-trigger][data-orientation=vertical] &": {
         insetBlockEnd: "calc(var(--splitter-thumb-size) * 0.5)",
         insetInline: "0",
         insetBlockStart: "auto",
@@ -61,20 +61,20 @@ export const splitterSlotRecipe = defineSlotRecipe({
       shadow: "xs",
       borderWidth: "1px",
       zIndex: "1",
-      "[data-part='resize-trigger'][data-orientation=horizontal] &": {
+      "[data-splitter-resize-trigger][data-orientation=horizontal] &": {
         w: "full",
         h: "var(--splitter-handle-size)",
       },
-      "[data-part='resize-trigger'][data-orientation=vertical] &": {
+      "[data-splitter-resize-trigger][data-orientation=vertical] &": {
         w: "var(--splitter-handle-size)",
         h: "full",
       },
-      "[data-part='resize-trigger'][data-focus]:focus-visible &": {
+      "[data-splitter-resize-trigger][data-focus]:focus-visible &": {
         outlineWidth: "2px",
         outlineColor: "colorPalette.focusRing",
         outlineStyle: "solid",
       },
-      "[data-part='resize-trigger'][data-disabled] &": {
+      "[data-splitter-resize-trigger][data-disabled] &": {
         visibility: "hidden",
       },
     },

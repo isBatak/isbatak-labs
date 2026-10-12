@@ -1,19 +1,13 @@
 export { anatomy } from "./wheel-picker.anatomy"
-export { collection } from "./wheel-picker.collection"
-export { connect } from "./wheel-picker.connect"
-export { machine } from "./wheel-picker.machine"
+export { createWheelPicker } from "./wheel-picker.connect"
 export * from "./wheel-picker.props"
 export type {
-  CollectionItem,
-  CollectionOptions,
   ElementIds,
   ItemProps,
-  ItemState,
-  ScrollChangeDetails,
   ValueChangeDetails,
   WheelPickerApi as Api,
-  WheelPickerMachine as Machine,
+  WheelPickerController as Controller,
+  WheelPickerItem as ItemData,
   WheelPickerProps as Props,
-  WheelPickerRenderItem,
-  WheelPickerService as Service,
+  WheelPickerRow as Row,
 } from "./wheel-picker.types"

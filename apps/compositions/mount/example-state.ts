@@ -1,6 +1,6 @@
 import type * as wheelPicker from "@isbatak/zag-wheel-picker"
 
-type Machine = typeof wheelPicker.machine
+type CreateWheelPicker = typeof wheelPicker.createWheelPicker
 
 interface PropsParams<P> {
   props: P
@@ -19,20 +19,12 @@ export interface ExampleControls {
 }
 
 const registry = globalThis as typeof globalThis & {
-  __compositionsSnapshots?: Map<string, string | null>
   __compositionsControls?: Map<string, ExampleControls>
-  __compositionsCollections?: WeakMap<object, string>
   __compositionsScopes?: WeakMap<object, string>
   __compositionsCurrent?: string
 }
-const snapshots = (registry.__compositionsSnapshots ??= new Map())
 const controls = (registry.__compositionsControls ??= new Map())
-const collections = (registry.__compositionsCollections ??= new WeakMap())
 const scopes = (registry.__compositionsScopes ??= new WeakMap())
-
-export function resetSnapshot(exampleId: string) {
-  for (const key of snapshots.keys()) if (key.startsWith(`${exampleId}:`)) snapshots.delete(key)
-}
 
 export function setControls(exampleId: string, value: ExampleControls) {
   controls.set(exampleId, value)
@@ -42,33 +34,20 @@ export function setCurrentExample(exampleId: string) {
   registry.__compositionsCurrent = exampleId
 }
 
-export function tagCollection<T extends object>(collection: T, exampleId: string) {
-  collections.set(collection, exampleId)
-  return collection
-}
+export function withPickerControls(create: CreateWheelPicker, exampleId?: string): CreateWheelPicker {
+  return () => {
+    const id = exampleId ?? registry.__compositionsCurrent
+    const picker = create()
+    const withControls = (props: wheelPicker.Props): wheelPicker.Props => ({
+      ...props,
+      ...(id && controls.get(id)?.props),
+    })
 
-export function withSnapshot(machine: Machine, exampleId?: string): Machine {
-  return {
-    ...machine,
-    props(params) {
-      const { collection } = params.props
-      const id = exampleId ?? (collection && collections.get(collection))
-      if (!id) return machine.props!(params)
-
-      const key = `${id}:${collection?.getValues().join()}`
-      return machine.props!({
-        ...params,
-        props: {
-          ...params.props,
-          ...controls.get(id)?.props,
-          ...(snapshots.has(key) && { defaultValue: snapshots.get(key) }),
-          onValueChange(details) {
-            snapshots.set(key, details.value)
-            params.props.onValueChange?.(details)
-          },
-        },
-      })
-    },
+    return {
+      connect: (props, normalize) => picker.connect(withControls(props), normalize),
+      mount: (getProps) => picker.mount(() => withControls(getProps())),
+      sync: (props) => picker.sync(withControls(props)),
+    }
   }
 }
 

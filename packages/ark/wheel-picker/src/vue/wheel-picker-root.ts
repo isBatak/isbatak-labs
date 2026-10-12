@@ -12,33 +12,26 @@ export const WheelPickerRoot = defineComponent({
     "aria-label": String,
     "aria-labelledby": String,
     asChild: Boolean,
-    collection: { type: Object as PropType<wheelPicker.Props["collection"]>, required: true },
-    defaultValue: { type: String as PropType<string | null>, default: undefined },
+    defaultValue: String,
     disabled: booleanProp,
-    dragSensitivity: Number,
     form: String,
     id: String,
     ids: Object as PropType<wheelPicker.ElementIds>,
-    infinite: booleanProp,
-    invalid: booleanProp,
-    modelValue: { type: String as PropType<string | null>, default: undefined },
+    itemHeight: Number,
+    items: { type: Array as PropType<wheelPicker.ItemData[]>, required: true },
+    loop: booleanProp,
+    modelValue: String,
     name: String,
-    optionItemHeight: Number,
-    readOnly: booleanProp,
-    required: booleanProp,
-    scrollSensitivity: Number,
     visibleCount: Number,
   },
   emits: {
     valueChange: (_details: wheelPicker.ValueChangeDetails) => true,
-    valueChangeEnd: (_details: wheelPicker.ValueChangeDetails) => true,
-    scrollChange: (_details: wheelPicker.ScrollChangeDetails) => true,
-    "update:modelValue": (_value: string | null) => true,
+    "update:modelValue": (_value: string) => true,
   },
   setup(props, { emit, slots }) {
     const api = useWheelPicker(() => {
-      const { asChild: _, ...machineProps } = props
-      return machineProps
+      const { asChild: _, ...pickerProps } = props
+      return pickerProps
     }, emit as never)
     WheelPickerProvider(api as UseWheelPickerReturn)
 

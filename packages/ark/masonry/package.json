@@ -138,10 +138,10 @@
     }
   },
   "devDependencies": {
-    "@ark-ui/react": "5.39.2",
-    "@ark-ui/solid": "5.39.2",
-    "@ark-ui/svelte": "5.24.2",
-    "@ark-ui/vue": "5.39.2",
+    "@ark-ui/react": "catalog:",
+    "@ark-ui/solid": "catalog:",
+    "@ark-ui/svelte": "catalog:",
+    "@ark-ui/vue": "catalog:",
     "@sveltejs/package": "^2.5.8",
     "@types/react": "catalog:",
     "@zag-js/react": "catalog:",
