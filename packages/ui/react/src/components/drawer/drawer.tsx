@@ -7,8 +7,24 @@ import { drawer } from "@isbatak/panda-ds/recipes"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(drawer)
 
-export const DrawerRoot = withRootProvider(Drawer.Root)
-export type DrawerRootProps = ComponentProps<typeof DrawerRoot>
+const StyledDrawerRoot = withRootProvider(Drawer.Root, {
+  defaultProps: { lazyMount: true, unmountOnExit: true },
+})
+
+const swipeDirections = {
+  start: "start",
+  end: "end",
+  top: "up",
+  bottom: "down",
+} as const
+
+export type DrawerRootProps = ComponentProps<typeof StyledDrawerRoot>
+
+export function DrawerRoot(props: DrawerRootProps) {
+  const { placement = "end" } = props
+  const swipeDirection = typeof placement === "string" ? swipeDirections[placement] : undefined
+  return <StyledDrawerRoot swipeDirection={swipeDirection} {...props} />
+}
 
 export const DrawerTrigger = withContext(Drawer.Trigger, "trigger")
 export type DrawerTriggerProps = ComponentProps<typeof DrawerTrigger>
@@ -19,8 +35,21 @@ export type DrawerBackdropProps = ComponentProps<typeof DrawerBackdrop>
 export const DrawerPositioner = withContext(Drawer.Positioner, "positioner")
 export type DrawerPositionerProps = ComponentProps<typeof DrawerPositioner>
 
-export const DrawerContent = withContext(Drawer.Content, "content")
-export type DrawerContentProps = ComponentProps<typeof DrawerContent>
+const StyledDrawerContent = withContext(Drawer.Content, "content")
+
+export type DrawerContentProps = ComponentProps<typeof StyledDrawerContent>
+
+export function DrawerContent(props: DrawerContentProps) {
+  return (
+    <StyledDrawerContent
+      {...props}
+      onPointerDown={(event) => {
+        props.onPointerDown?.(event)
+        event.stopPropagation()
+      }}
+    />
+  )
+}
 
 export const DrawerTitle = withContext(Drawer.Title, "title")
 export type DrawerTitleProps = ComponentProps<typeof DrawerTitle>
@@ -30,6 +59,9 @@ export type DrawerDescriptionProps = ComponentProps<typeof DrawerDescription>
 
 export const DrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
 export type DrawerCloseTriggerProps = ComponentProps<typeof DrawerCloseTrigger>
+
+export const DrawerActionTrigger = Drawer.CloseTrigger
+export type DrawerActionTriggerProps = ComponentProps<typeof DrawerActionTrigger>
 
 export const DrawerGrabber = withContext(Drawer.Grabber, "grabber")
 export type DrawerGrabberProps = ComponentProps<typeof DrawerGrabber>

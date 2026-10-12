@@ -172,13 +172,7 @@ export function StackPreferences() {
             </styled.div>
           </styled.div>
 
-          <styled.div
-            gridColumn={{ md: "span 7 / span 7" }}
-            display="flex"
-            flexDirection="column"
-            gap="10"
-            colorPalette="gray"
-          >
+          <styled.div gridColumn={{ md: "span 7 / span 7" }} display="flex" flexDirection="column" gap="10">
             <RadioCard.Root
               size="sm"
               variant="surface"
@@ -245,14 +239,15 @@ export function StackPreferences() {
             >
               <Question
                 number="04"
-                label="Just the life, or the bones too?"
+                label="Just the brains, or the bones too?"
                 hint={
                   <>
-                    In Adam Argyle&rsquo;s{" "}
+                    Brains are behavior, bones are markup, and your styles are the skin. Borrowed from Adam
+                    Argyle&rsquo;s{" "}
                     <InlineLink href={ARTICLE_URL} target="_blank" rel="noopener">
                       Headless, boneless, skinless &amp; lifeless UI
-                    </InlineLink>{" "}
-                    terms: life is behavior, bones are markup, and your styles are the skin.
+                    </InlineLink>
+                    , where the brains are called life.
                   </>
                 }
               />
@@ -260,15 +255,15 @@ export function StackPreferences() {
                 <styled.div position="relative" display="flex" flexDirection="column">
                   <DescribedOption
                     value="zag"
-                    label="Just the life"
+                    label="Just the brains"
                     description="Zag state machines. You bring the bones and skin."
                   />
-                  <LayerInfo title="Just the life: Zag">
+                  <LayerInfo title="Just the brains: Zag">
                     <p>
                       Zag is the behavior: framework-agnostic state machines that handle pointer, keyboard, focus and
                       ARIA. It renders nothing, so you write the markup and spread its props onto your own elements.
                     </p>
-                    <p>The article calls this lifeless UI: just the life, bring your own bones and skin.</p>
+                    <p>The article calls this lifeless UI: just the behavior, bring your own bones and skin.</p>
                     <styled.p display="flex" gap="4">
                       <InlineLink href="https://zagjs.com" target="_blank" rel="noopener">
                         zagjs.com
@@ -282,10 +277,10 @@ export function StackPreferences() {
                 <styled.div position="relative" display="flex" flexDirection="column">
                   <DescribedOption
                     value="ark"
-                    label="Bones and life"
+                    label="Bones and brains"
                     description="Ark UI component parts. You bring the skin."
                   />
-                  <LayerInfo title="Bones and life: Ark UI">
+                  <LayerInfo title="Bones and brains: Ark UI">
                     <p>
                       Ark UI wraps the same Zag machines in accessible, unstyled component parts for React, Solid, Vue
                       and Svelte. The markup and the behavior come included.

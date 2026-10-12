@@ -2,6 +2,9 @@ import { defineGlobalStyles } from "@pandacss/dev"
 
 export const globalCss = defineGlobalStyles({
   html: {
+    colorPalette: "gray",
+  },
+  ".button--variant_solid": {
     colorPalette: "orange",
   },
   body: {

@@ -62,14 +62,7 @@ export function MobileNav() {
                 </Link>
               </Drawer.Title>
               <Drawer.CloseTrigger asChild>
-                <Button
-                  colorPalette="gray"
-                  variant="ghost"
-                  size="xs"
-                  px="0"
-                  aspectRatio="square"
-                  aria-label="Close navigation menu"
-                >
+                <Button variant="ghost" size="xs" px="0" aspectRatio="square" aria-label="Close navigation menu">
                   <Icon size="sm" name="x" />
                 </Button>
               </Drawer.CloseTrigger>
