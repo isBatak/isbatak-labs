@@ -1,9 +1,9 @@
-import type { ReactNode } from "react"
-import { styled } from "styled-system/jsx"
-import { highlight } from "sugar-high"
-import { lang as resolveLang } from "sugar-high/lang"
+import type { ReactNode } from "react";
+import { styled } from "styled-system/jsx";
+import { highlight } from "sugar-high";
+import { lang as resolveLang } from "sugar-high/lang";
 
-import { CopyButton } from "./copy-button"
+import { CopyButton } from "./copy-button";
 
 export const CodeFrame = styled(
   "div",
@@ -22,7 +22,7 @@ export const CodeFrame = styled(
       className: "not-prose",
     },
   },
-)
+);
 
 export const CodeHeader = styled("div", {
   base: {
@@ -38,7 +38,7 @@ export const CodeHeader = styled("div", {
     color: "fg.muted",
     fontFamily: "mono",
   },
-})
+});
 
 const Pre = styled("pre", {
   base: {
@@ -64,8 +64,11 @@ const Pre = styled("pre", {
     floatingActions: {
       true: { pe: "12" },
     },
+    scrollable: {
+      true: { maxH: "500px", overflowY: "auto" },
+    },
   },
-})
+});
 
 const FloatingActions = styled("div", {
   base: {
@@ -73,40 +76,48 @@ const FloatingActions = styled("div", {
     top: "2",
     insetEnd: "2",
   },
-})
+});
 
 export function highlightCode(code: string, language?: string) {
-  return highlight(code.trimEnd(), { lang: resolveLang(language ?? "") ?? "javascript" })
+  return highlight(code.trimEnd(), {
+    lang: resolveLang(language ?? "") ?? "javascript",
+  });
 }
 
 export interface CodeBodyProps {
-  code: string
-  lang?: string | undefined
-  floatingActions?: boolean
+  code: string;
+  lang?: string | undefined;
+  floatingActions?: boolean;
+  scrollable?: boolean;
 }
 
-export function CodeBody({ code, lang, floatingActions }: CodeBodyProps) {
+export function CodeBody({
+  code,
+  lang,
+  floatingActions,
+  scrollable,
+}: CodeBodyProps) {
   return (
-    <Pre floatingActions={floatingActions}>
+    <Pre floatingActions={floatingActions} scrollable={scrollable}>
       <code dangerouslySetInnerHTML={{ __html: highlightCode(code, lang) }} />
     </Pre>
-  )
+  );
 }
 
 export interface CodeBlockProps extends CodeBodyProps {
-  title?: ReactNode
+  title?: ReactNode;
 }
 
 export function CodeBlock({ code, lang, title }: CodeBlockProps) {
   if (!title) {
     return (
       <CodeFrame>
-        <CodeBody code={code} lang={lang} floatingActions />
+        <CodeBody code={code} lang={lang} floatingActions scrollable />
         <FloatingActions>
           <CopyButton value={code.trimEnd()} />
         </FloatingActions>
       </CodeFrame>
-    )
+    );
   }
 
   return (
@@ -115,7 +126,7 @@ export function CodeBlock({ code, lang, title }: CodeBlockProps) {
         {title}
         <CopyButton value={code.trimEnd()} />
       </CodeHeader>
-      <CodeBody code={code} lang={lang} />
+      <CodeBody code={code} lang={lang} scrollable />
     </CodeFrame>
-  )
+  );
 }
