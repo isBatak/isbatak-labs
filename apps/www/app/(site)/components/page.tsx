@@ -6,7 +6,7 @@ import { ComponentCatalog } from "../../../components/catalog/component-catalog"
 import { Eyebrow, Section } from "../../../components/home/section"
 
 export const metadata: Metadata = {
-  title: "Components",
+  title: "Experiments",
   description:
     "Prototypes: new headless components built as Zag.js state machines and proposed upstream, with copy-paste code for six frameworks.",
 }
@@ -15,7 +15,7 @@ export default function ComponentsPage() {
   return (
     <Section>
       <styled.div pt={{ base: "16", md: "28" }} pb={{ base: "8", md: "10" }} maxW="2xl">
-        <Eyebrow>Components</Eyebrow>
+        <Eyebrow>Experiments</Eyebrow>
         <styled.h1
           mt="4"
           textStyle={{ base: "4xl", md: "5xl" }}

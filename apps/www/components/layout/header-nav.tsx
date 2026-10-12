@@ -268,7 +268,7 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
     <Root aria-label="Main">
       <List>
         <Highlight />
-        <Section value="components" label="Components" href="/components" current={pathname.startsWith("/components")}>
+        <Section value="components" label="Experiments" href="/components" current={pathname.startsWith("/components")}>
           <Content>
             {prototypes.map((entry) => (
               <EntryLink key={entry.href} entry={entry} pathname={pathname} />
