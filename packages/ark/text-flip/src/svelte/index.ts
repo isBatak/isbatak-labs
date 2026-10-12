@@ -1,0 +1,5 @@
+export { anatomy as textFlipAnatomy } from "@isbatak/zag-text-flip"
+export type { IndexChangeDetails as TextFlipIndexChangeDetails } from "@isbatak/zag-text-flip"
+export { useTextFlip, type UseTextFlipProps, type UseTextFlipReturn } from "./use-text-flip.svelte.js"
+export { TextFlipProvider, useTextFlipContext, type UseTextFlipContext } from "./use-text-flip-context.js"
+export * as TextFlip from "./text-flip.js"

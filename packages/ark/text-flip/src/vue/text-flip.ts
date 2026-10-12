@@ -1,0 +1,5 @@
+export type { IndexChangeDetails } from "@isbatak/zag-text-flip"
+export { TextFlipContext as Context } from "./text-flip-context"
+export { TextFlipItem as Item } from "./text-flip-item"
+export { TextFlipRoot as Root } from "./text-flip-root"
+export { TextFlipRootProvider as RootProvider } from "./text-flip-root-provider"

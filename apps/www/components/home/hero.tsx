@@ -58,7 +58,7 @@ export function Hero() {
               letterSpacing="tighter"
               textWrap="balance"
             >
-              Headless components for React, Vue, Svelte, Solid, Preact and plain JavaScript.
+              Components with the hard parts done.
             </styled.h1>
           </styled.div>
         </styled.div>
@@ -85,14 +85,14 @@ export function Hero() {
             <StatLabel leading>Works with</StatLabel>
             <StatValue>
               <styled.span srOnly>React, Vue, Svelte, Solid, Preact and Vanilla JS</styled.span>
-              <TextFlip aria-hidden>
-                <span>React</span>
-                <span>Vue</span>
-                <span>Svelte</span>
-                <span>Solid</span>
-                <span>Preact</span>
-                <span>Vanilla JS</span>
-              </TextFlip>
+              <TextFlip.Root aria-hidden>
+                <TextFlip.Item index={0}>React</TextFlip.Item>
+                <TextFlip.Item index={1}>Vue</TextFlip.Item>
+                <TextFlip.Item index={2}>Svelte</TextFlip.Item>
+                <TextFlip.Item index={3}>Solid</TextFlip.Item>
+                <TextFlip.Item index={4}>Preact</TextFlip.Item>
+                <TextFlip.Item index={5}>Vanilla JS</TextFlip.Item>
+              </TextFlip.Root>
             </StatValue>
           </Stat>
         </styled.dl>
