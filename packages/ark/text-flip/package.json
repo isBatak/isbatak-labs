@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/ark-text-flip",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Ark UI style text flip components for React, Solid, Vue and Svelte",
   "keywords": [
     "ark",
