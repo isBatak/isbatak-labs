@@ -24,7 +24,7 @@ export function connect<T extends PropTypes>(service: MasonryService, normalize:
 
     getRootProps() {
       return normalize.element({
-        ...parts.root.attrs,
+        ...parts.root.attrs(scope.id),
         id: dom.getRootId(scope),
         dir: prop("dir"),
         "data-measured": dataAttr(measured),
@@ -46,7 +46,7 @@ export function connect<T extends PropTypes>(service: MasonryService, normalize:
       const itemLayout = layout?.items[props.value]
 
       return normalize.element({
-        ...parts.item.attrs,
+        ...parts.item.attrs(scope.id),
         id: dom.getItemId(scope, props.value),
         dir: prop("dir"),
         "data-value": props.value,

@@ -12,4 +12,4 @@ const scopeAll = (entries: Record<string, ComponentType>) =>
   Object.fromEntries(Object.entries(entries).map(([id, Example]) => [id, scoped(id, Example)]))
 
 export const examples = { zag: scopeAll(sources.zag), ark: scopeAll(sources.ark) }
-export { resetSnapshot, setControls, type ExampleControls } from "./example-state"
+export { setControls, type ExampleControls } from "./example-state"

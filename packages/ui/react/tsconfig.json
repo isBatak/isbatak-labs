@@ -3,6 +3,7 @@
   "include": ["src"],
   "compilerOptions": {
     "jsx": "react-jsx",
+    "declaration": false,
     "exactOptionalPropertyTypes": false,
     "types": ["node"],
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"

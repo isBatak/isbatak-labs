@@ -1,10 +1,6 @@
-import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
-import { hourCollection, meridiemCollection, minuteCollection } from "@isbatak/storybook-shared"
-import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
+import { hourItems, meridiemItems, minuteItems } from "@isbatak/storybook-shared"
 import { createElement, mount } from "../mount"
-
-const styles = wheelPickerRecipe()
+import { createPicker } from "./picker"
 
 export function createMultiple() {
   const main = createElement(`
@@ -13,72 +9,37 @@ export function createMultiple() {
       <output class="wheel-picker-output"></output>
     </main>
   `)
-  const group = main.querySelector<HTMLElement>(".wheel-picker-group")!,
-    output = main.querySelector<HTMLOutputElement>(".wheel-picker-output")!,
-    configs = [
-      [hourCollection, "9", true],
-      [minuteCollection, "41", true],
-      [meridiemCollection, "AM", false],
-    ] as const
-  const machines = configs.map(
-    ([collection, defaultValue, infinite]) =>
-      new VanillaMachine(wheelPicker.machine, { id: crypto.randomUUID(), collection, defaultValue, infinite }),
-  )
-  // Build each column once: replacing the control on every render would drop focus and keyboard input.
-  const columns = machines.map((machine) => {
-    const root = document.createElement("div"),
-      control = document.createElement("div"),
-      viewport = document.createElement("div"),
-      items = document.createElement("ul"),
-      highlight = document.createElement("div"),
-      highlights = document.createElement("ul")
-    root.className = styles.root ?? ""
-    control.className = styles.control ?? ""
-    viewport.className = styles.viewport ?? ""
-    items.className = styles.itemGroup ?? ""
-    highlight.className = styles.highlight ?? ""
-    highlights.className = styles.highlightItemGroup ?? ""
-    highlight.append(highlights)
-    viewport.append(items, highlight)
-    control.append(viewport)
-    root.append(control)
-    group.append(root)
-    return { machine, root, control, viewport, items, highlight, highlights }
-  })
-  function render() {
-    for (const { machine, root, control, viewport, items, highlight, highlights } of columns) {
-      const api = wheelPicker.connect(machine.service, normalizeProps)
-      spreadProps(root, api.getRootProps(), machine.scope.id)
-      spreadProps(control, api.getControlProps(), machine.scope.id)
-      spreadProps(viewport, api.getViewportProps(), machine.scope.id)
-      spreadProps(items, api.getItemGroupProps(), machine.scope.id)
-      spreadProps(highlight, api.getHighlightProps(), machine.scope.id)
-      spreadProps(highlights, api.getHighlightItemGroupProps(), machine.scope.id)
-      items.replaceChildren(
-        ...api.items.map(({ item, index }) => {
-          const el = document.createElement("li")
-          el.className = styles.item ?? ""
-          el.textContent = item.label
-          spreadProps(el, api.getItemProps({ item, index }), machine.scope.id)
-          return el
-        }),
-      )
-      highlights.replaceChildren(
-        ...api.highlightItems.map(({ item, index }) => {
-          const el = document.createElement("li")
-          el.className = styles.highlightItem ?? ""
-          el.textContent = item.label
-          spreadProps(el, api.getHighlightItemProps({ item, index }), machine.scope.id)
-          return el
-        }),
-      )
-    }
-    const [hour, minute, meridiem] = machines.map(
-      (machine) => wheelPicker.connect(machine.service, normalizeProps).valueAsString,
-    )
-    output.textContent = `Selected time: ${hour}:${minute} ${meridiem}`
-  }
-  render()
-  machines.forEach((machine) => machine.subscribe(render))
-  return mount(main, machines)
+  const group = main.querySelector<HTMLElement>(".wheel-picker-group")!
+  const output = main.querySelector<HTMLOutputElement>(".wheel-picker-output")!
+  const time = { hour: "9", minute: "41", meridiem: "AM" }
+  const renderOutput = () => (output.textContent = `Selected time: ${time.hour}:${time.minute} ${time.meridiem}`)
+
+  const pickers = [
+    createPicker({
+      label: "Hour",
+      name: "hour",
+      items: hourItems,
+      value: time.hour,
+      loop: true,
+      onValueChange: ({ value }) => ((time.hour = value), renderOutput()),
+    }),
+    createPicker({
+      label: "Minute",
+      name: "minute",
+      items: minuteItems,
+      value: time.minute,
+      loop: true,
+      onValueChange: ({ value }) => ((time.minute = value), renderOutput()),
+    }),
+    createPicker({
+      label: "Meridiem",
+      name: "meridiem",
+      items: meridiemItems,
+      value: time.meridiem,
+      onValueChange: ({ value }) => ((time.meridiem = value), renderOutput()),
+    }),
+  ]
+  group.append(...pickers.map((picker) => picker.element))
+  renderOutput()
+  return mount(main, pickers)
 }

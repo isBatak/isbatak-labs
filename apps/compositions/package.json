@@ -36,10 +36,10 @@
     "typecheck": "panda codegen && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.preact.json && tsc --noEmit -p tsconfig.solid.json && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings"
   },
   "dependencies": {
-    "@ark-ui/react": "5.39.2",
-    "@ark-ui/solid": "5.39.2",
-    "@ark-ui/svelte": "5.24.2",
-    "@ark-ui/vue": "5.39.2",
+    "@ark-ui/react": "catalog:",
+    "@ark-ui/solid": "catalog:",
+    "@ark-ui/svelte": "catalog:",
+    "@ark-ui/vue": "catalog:",
     "@isbatak/ark-masonry": "workspace:*",
     "@isbatak/ark-text-flip": "workspace:*",
     "@isbatak/ark-wheel-picker": "workspace:*",

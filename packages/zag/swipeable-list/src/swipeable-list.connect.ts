@@ -43,7 +43,7 @@ export function connect<T extends PropTypes>(
 
     getRootProps() {
       return normalize.element({
-        ...parts.root.attrs,
+        ...parts.root.attrs(scope.id),
         id: dom.getRootId(scope),
         dir: prop("dir"),
         "data-disabled": dataAttr(listDisabled),
@@ -55,7 +55,7 @@ export function connect<T extends PropTypes>(
       const itemState = getItemState(props)
 
       return normalize.element({
-        ...parts.item.attrs,
+        ...parts.item.attrs(scope.id),
         id: dom.getItemId(scope, props.value),
         dir: prop("dir"),
         "data-value": props.value,
@@ -95,7 +95,7 @@ export function connect<T extends PropTypes>(
       const itemState = getItemState(props)
 
       return normalize.element({
-        ...parts.itemContent.attrs,
+        ...parts.itemContent.attrs(scope.id),
         id: dom.getItemContentId(scope, props.value),
         dir: prop("dir"),
         "data-state": itemState.open ? "open" : "closed",
@@ -125,7 +125,7 @@ export function connect<T extends PropTypes>(
       const visible = itemState.open && itemState.side === props.side
 
       return normalize.element({
-        ...parts.itemActions.attrs,
+        ...parts.itemActions.attrs(scope.id),
         id: dom.getItemActionsId(scope, props.value, props.side),
         dir: prop("dir"),
         "data-side": props.side,
@@ -149,7 +149,7 @@ export function connect<T extends PropTypes>(
 
     getItemActionProps(props) {
       return normalize.button({
-        ...parts.itemAction.attrs,
+        ...parts.itemAction.attrs(scope.id),
         type: "button",
         dir: prop("dir"),
         "data-side": props.side,

@@ -5,11 +5,11 @@ import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export interface WheelPickerLabelBaseProps extends PolymorphicProps {}
 export interface WheelPickerLabelProps
-  extends HTMLProps<"label">, WheelPickerLabelBaseProps, RefAttributes<HTMLLabelElement> {}
+  extends HTMLProps<"span">, WheelPickerLabelBaseProps, RefAttributes<HTMLSpanElement> {}
 
 export const WheelPickerLabel = (props: WheelPickerLabelProps) => {
   const api = useWheelPickerContext()
   const mergedProps = mergeProps(api.getLabelProps(), props)
 
-  return <ark.label {...mergedProps} />
+  return <ark.span {...mergedProps} />
 }

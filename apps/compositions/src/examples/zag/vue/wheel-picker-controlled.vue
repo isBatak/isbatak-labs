@@ -2,18 +2,16 @@
 import { css } from "styled-system/css"
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, useMachine } from "@zag-js/vue"
-import { computed, ref, useId } from "vue"
+import { normalizeProps } from "@zag-js/vue"
+import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue"
 
-const collection = wheelPicker.collection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+]
 
 const styles = wheelPickerRecipe()
 
@@ -33,51 +31,45 @@ const classes = {
 }
 
 const id = useId()
-const value = ref<string | null>("react")
+const value = ref("react")
+const picker = wheelPicker.createWheelPicker()
 
-const service = useMachine(
-  wheelPicker.machine,
-  computed(() => ({
-    id,
-    collection,
-    value: value.value,
-    onValueChange: (details: wheelPicker.ValueChangeDetails) => (value.value = details.value),
-  })),
-)
+const props = computed<wheelPicker.Props>(() => ({
+  id,
+  items,
+  value: value.value,
+  onValueChange: (details) => (value.value = details.value),
+}))
 
-const api = computed(() => wheelPicker.connect(service, normalizeProps))
+let stop: (() => void) | undefined
+
+onMounted(() => {
+  stop = picker.mount(() => props.value)
+  picker.sync(props.value)
+})
+
+onBeforeUnmount(() => stop?.())
+
+watch(value, () => picker.sync(props.value), { flush: "post" })
+
+const api = computed(() => picker.connect(props.value, normalizeProps))
 </script>
 
 <template>
   <div :class="classes.root">
     <div v-bind="api.getRootProps()" :class="styles.root">
-      <label v-bind="api.getLabelProps()" :class="styles.label">Framework</label>
+      <span v-bind="api.getLabelProps()" :class="styles.label">Framework</span>
       <div v-bind="api.getControlProps()" :class="styles.control">
         <div v-bind="api.getViewportProps()" :class="styles.viewport">
-          <ul v-bind="api.getItemGroupProps()" :class="styles.itemGroup">
-            <li
-              v-for="{ item, index, key } in api.items"
-              :key="key"
-              v-bind="api.getItemProps({ item, index })"
-              :class="styles.item"
-            >
+          <div v-bind="api.getItemGroupProps()" :class="styles.itemGroup">
+            <div v-for="{ row, item } in api.rows" :key="row" v-bind="api.getItemProps({ row })" :class="styles.item">
               {{ item.label }}
-            </li>
-          </ul>
-          <div v-bind="api.getHighlightProps()" :class="styles.highlight">
-            <ul v-bind="api.getHighlightItemGroupProps()" :class="styles.highlightItemGroup">
-              <li
-                v-for="{ item, index, key } in api.highlightItems"
-                :key="key"
-                v-bind="api.getHighlightItemProps({ item, index })"
-                :class="styles.highlightItem"
-              >
-                {{ item.label }}
-              </li>
-            </ul>
+            </div>
           </div>
         </div>
+        <div v-bind="api.getHighlightProps()" :class="styles.highlight" />
       </div>
+      <input v-bind="api.getHiddenInputProps()" />
     </div>
     <div :class="classes.actions">
       <button type="button" :class="classes.button" @click="value = 'react'">React</button>

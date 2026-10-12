@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { css } from "styled-system/css"
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
-import { createWheelPickerCollection, WheelPicker } from "@isbatak/ark-wheel-picker/vue"
+import { WheelPicker } from "@isbatak/ark-wheel-picker/vue"
 import { ref } from "vue"
 
-const collection = createWheelPickerCollection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+]
 
 const styles = wheelPickerRecipe()
 
@@ -31,45 +29,26 @@ const classes = {
   output: css({ color: "fg.muted", textStyle: "sm", textAlign: "center" }),
 }
 
-const value = ref<string | null>("react")
+const value = ref("react")
 </script>
 
 <template>
   <div :class="classes.root">
-    <WheelPicker.Root :collection="collection" v-model="value" :class="styles.root">
+    <WheelPicker.Root :items="items" v-model="value" :class="styles.root">
       <WheelPicker.Label :class="styles.label">Framework</WheelPicker.Label>
       <WheelPicker.Control :class="styles.control">
         <WheelPicker.Viewport :class="styles.viewport">
           <WheelPicker.ItemGroup :class="styles.itemGroup">
             <WheelPicker.Context v-slot="api">
-              <WheelPicker.Item
-                v-for="{ item, index, key } in api.items"
-                :key="key"
-                :item="item"
-                :index="index"
-                :class="styles.item"
-              >
+              <WheelPicker.Item v-for="{ row, item } in api.rows" :key="row" :row="row" :class="styles.item">
                 {{ item.label }}
               </WheelPicker.Item>
             </WheelPicker.Context>
           </WheelPicker.ItemGroup>
-          <WheelPicker.Highlight :class="styles.highlight">
-            <WheelPicker.HighlightItemGroup :class="styles.highlightItemGroup">
-              <WheelPicker.Context v-slot="api">
-                <WheelPicker.HighlightItem
-                  v-for="{ item, index, key } in api.highlightItems"
-                  :key="key"
-                  :item="item"
-                  :index="index"
-                  :class="styles.highlightItem"
-                >
-                  {{ item.label }}
-                </WheelPicker.HighlightItem>
-              </WheelPicker.Context>
-            </WheelPicker.HighlightItemGroup>
-          </WheelPicker.Highlight>
         </WheelPicker.Viewport>
+        <WheelPicker.Highlight :class="styles.highlight" />
       </WheelPicker.Control>
+      <WheelPicker.HiddenInput />
     </WheelPicker.Root>
     <div :class="classes.actions">
       <button type="button" :class="classes.button" @click="value = 'react'">React</button>

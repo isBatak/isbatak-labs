@@ -40,10 +40,10 @@ export const comboboxSlotRecipe = defineSlotRecipe({
       pos: "relative",
       "--padding-factor": "1",
       "--combobox-input-padding-end": "var(--combobox-input-padding-x)",
-      "&:has([data-part=trigger]), &:has([data-part=clear-trigger])": {
+      "&:has([data-combobox-trigger]), &:has([data-combobox-clear-trigger])": {
         "--combobox-input-padding-end": "calc(var(--combobox-input-height) * var(--padding-factor))",
       },
-      "&:has([data-part=trigger]):has([data-part=clear-trigger]:not([hidden]))": {
+      "&:has([data-combobox-trigger]):has([data-combobox-clear-trigger]:not([hidden]))": {
         "--padding-factor": "1.5",
       },
     },
@@ -123,7 +123,7 @@ export const comboboxSlotRecipe = defineSlotRecipe({
         animationStyle: "slide-fade-out",
         animationDuration: "0s",
       },
-      "&[data-empty]:not(:has([data-scope=combobox][data-part=empty]))": {
+      "&[data-empty]:not(:has([data-combobox-empty]))": {
         opacity: 0,
       },
     },

@@ -10,6 +10,6 @@ export const WheelPickerLabel = defineComponent({
   setup(props, { slots }) {
     const api = useWheelPickerContext()
 
-    return () => h(ark.label as Component, { ...api.value.getLabelProps(), asChild: props.asChild }, slots)
+    return () => h(ark.span as Component, { ...api.value.getLabelProps(), asChild: props.asChild }, slots)
   },
 })

@@ -60,7 +60,7 @@ export const stepsSlotRecipe = defineSlotRecipe({
       flex: "1 0 0",
       "&:last-of-type": {
         flex: "initial",
-        "& [data-part=separator]": {
+        "& [data-steps-separator]": {
           display: "none",
         },
       },

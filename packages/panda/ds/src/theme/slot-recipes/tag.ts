@@ -30,7 +30,7 @@ export const tagSlotRecipe = defineSlotRecipe({
       flexShrink: 0,
       boxSize: "var(--tag-element-size)",
       ms: "var(--tag-element-offset)",
-      "&:has([data-scope=avatar])": {
+      "&:has([data-avatar-root])": {
         boxSize: "var(--tag-avatar-size)",
         ms: "calc(var(--tag-element-offset) * 1.5)",
       },

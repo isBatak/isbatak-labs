@@ -3,8 +3,8 @@
   import type { Assign } from "../types.js"
   import type { HTMLProps, PolymorphicProps, RefAttribute } from "./types.js"
 
-  export interface WheelPickerItemBaseProps extends ItemProps, PolymorphicProps<"li">, RefAttribute {}
-  export interface WheelPickerItemProps extends Assign<HTMLProps<"li">, WheelPickerItemBaseProps> {}
+  export interface WheelPickerItemBaseProps extends ItemProps, PolymorphicProps<"div">, RefAttribute {}
+  export interface WheelPickerItemProps extends Assign<HTMLProps<"div">, WheelPickerItemBaseProps> {}
 </script>
 
 <script lang="ts">
@@ -19,4 +19,4 @@
   const mergedProps = $derived(mergeProps(api().getItemProps(itemProps), localProps))
 </script>
 
-<Ark as="li" bind:ref {...mergedProps} />
+<Ark as="div" bind:ref {...mergedProps} />

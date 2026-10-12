@@ -1,8 +1,9 @@
 <script module lang="ts">
+  import type { Assign } from "../types.js"
   import type { HTMLProps, PolymorphicProps, RefAttribute } from "./types.js"
 
   export interface WheelPickerControlBaseProps extends PolymorphicProps<"div">, RefAttribute {}
-  export interface WheelPickerControlProps extends HTMLProps<"div">, WheelPickerControlBaseProps {}
+  export interface WheelPickerControlProps extends Assign<HTMLProps<"div">, WheelPickerControlBaseProps> {}
 </script>
 
 <script lang="ts">

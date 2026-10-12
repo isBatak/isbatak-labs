@@ -1,17 +1,15 @@
 import { css } from "styled-system/css"
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
+import { normalizeProps, spreadProps } from "@zag-js/vanilla"
 
-const collection = wheelPicker.collection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+]
 
 const styles = wheelPickerRecipe()
 
@@ -34,15 +32,14 @@ export function createWheelPickerControlled(container: HTMLElement) {
   container.innerHTML = `
     <div class="${classes.root}">
       <div data-el="root" class="${styles.root}">
-        <label data-el="label" class="${styles.label}">Framework</label>
+        <span data-el="label" class="${styles.label}">Framework</span>
         <div data-el="control" class="${styles.control}">
           <div data-el="viewport" class="${styles.viewport}">
-            <ul data-el="item-group" class="${styles.itemGroup}"></ul>
-            <div data-el="highlight" class="${styles.highlight}">
-              <ul data-el="highlight-item-group" class="${styles.highlightItemGroup}"></ul>
-            </div>
+            <div data-el="item-group" class="${styles.itemGroup}"></div>
           </div>
+          <div data-el="highlight" class="${styles.highlight}"></div>
         </div>
+        <input data-el="hidden-input" />
       </div>
       <div class="${classes.actions}">
         <button type="button" class="${classes.button}" data-value="react">React</button>
@@ -54,63 +51,57 @@ export function createWheelPickerControlled(container: HTMLElement) {
 
   const el = (name: string) => container.querySelector(`[data-el="${name}"]`)!
 
-  let value: string | null = "react"
-
-  const machine = new VanillaMachine(wheelPicker.machine, {
+  const picker = wheelPicker.createWheelPicker()
+  const props: wheelPicker.Props = {
     id: crypto.randomUUID(),
-    collection,
-    value,
+    items,
+    value: "react",
     onValueChange: (details) => setValue(details.value),
-  })
-
-  function setValue(next: string | null) {
-    value = next
-    machine.updateProps({ value })
   }
 
-  const spread = (node: Element, props: object) => spreadProps(node, props, machine.scope.id)
-
-  const renderItems = (
-    group: Element,
-    entries: wheelPicker.Api["items"],
-    getProps: (props: wheelPicker.ItemProps) => object,
-    className = "",
-  ) => {
-    group.replaceChildren(
-      ...entries.map(({ item, index }) => {
-        const li = document.createElement("li")
-        li.className = className
-        li.textContent = item.label
-        spread(li, getProps({ item, index }))
-        return li
-      }),
-    )
-  }
-
-  container.querySelectorAll<HTMLButtonElement>("[data-value]").forEach((button) => {
-    button.addEventListener("click", () => setValue(button.dataset.value!))
-  })
+  const spread = (node: Element, nodeProps: object) => spreadProps(node, nodeProps, props.id)
 
   const render = () => {
-    const api = wheelPicker.connect(machine.service, normalizeProps)
+    const api = picker.connect(props, normalizeProps)
     spread(el("root"), api.getRootProps())
     spread(el("label"), api.getLabelProps())
     spread(el("control"), api.getControlProps())
     spread(el("viewport"), api.getViewportProps())
     spread(el("item-group"), api.getItemGroupProps())
     spread(el("highlight"), api.getHighlightProps())
-    spread(el("highlight-item-group"), api.getHighlightItemGroupProps())
-    renderItems(el("item-group"), api.items, api.getItemProps, styles.item)
-    renderItems(el("highlight-item-group"), api.highlightItems, api.getHighlightItemProps, styles.highlightItem)
-    el("output").textContent = `Value: ${value}`
+    spread(el("hidden-input"), api.getHiddenInputProps())
+
+    const group = el("item-group")
+    if (group.children.length !== api.rows.length) {
+      group.replaceChildren(
+        ...api.rows.map(({ item }) => {
+          const row = document.createElement("div")
+          row.className = styles.item ?? ""
+          row.textContent = item.label
+          return row
+        }),
+      )
+    }
+    api.rows.forEach(({ row }, index) => spread(group.children[index]!, api.getItemProps({ row })))
+    el("output").textContent = `Value: ${props.value}`
   }
 
-  machine.subscribe(render)
-  machine.start()
+  const setValue = (value: string) => {
+    props.value = value
+    render()
+    picker.sync(props)
+  }
+
+  container
+    .querySelectorAll<HTMLButtonElement>("[data-value]")
+    .forEach((button) => button.addEventListener("click", () => setValue(button.dataset.value!)))
+
   render()
+  const stop = picker.mount(() => props)
+  picker.sync(props)
 
   return () => {
-    machine.stop()
+    stop()
     container.replaceChildren()
   }
 }
