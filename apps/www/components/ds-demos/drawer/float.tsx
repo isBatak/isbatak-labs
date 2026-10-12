@@ -4,24 +4,25 @@ import { Portal } from "@ark-ui/react/portal"
 import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
 
-export function DrawerContainedDemo() {
+export function DrawerFloatDemo() {
   return (
-    <Drawer.Root contained>
+    <Drawer.Root placement="bottom" float>
       <Drawer.Trigger asChild>
-        <Button>Open contained drawer</Button>
+        <Button>Float</Button>
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Header>
-              <Drawer.Title>Contained</Drawer.Title>
-            </Drawer.Header>
-            <Drawer.Body>
+          <Drawer.Content maxW="3xl" mx="auto">
+            <Drawer.Grabber>
+              <Drawer.GrabberIndicator />
+            </Drawer.Grabber>
+            <Drawer.Header flexDirection="column" alignItems="stretch" gap="1" pt="3">
+              <Drawer.Title>Float</Drawer.Title>
               <Drawer.Description>
-                The drawer floats with a gap from the viewport edges and rounded corners.
+                This drawer floats with a gap from the viewport edges and rounded corners.
               </Drawer.Description>
-            </Drawer.Body>
+            </Drawer.Header>
             <Drawer.Footer>
               <Drawer.ActionTrigger asChild>
                 <Button variant="outline">Cancel</Button>

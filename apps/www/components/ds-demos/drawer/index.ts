@@ -3,10 +3,10 @@ import type { ComponentType } from "react"
 import { DrawerDemo } from "./basic"
 import { DrawerCloseTriggerDemo } from "./close-trigger"
 import { DrawerConditionalVariantsDemo } from "./conditional-variants"
-import { DrawerContainedDemo } from "./contained"
 import { DrawerContextDemo } from "./context"
 import { DrawerControlledDemo } from "./controlled"
 import { DrawerCustomContainerDemo } from "./custom-container"
+import { DrawerFloatDemo } from "./float"
 import { DrawerHeaderActionsDemo } from "./header-actions"
 import { DrawerInitialFocusDemo } from "./initial-focus"
 import { DrawerMenuDemo } from "./menu"
@@ -22,10 +22,10 @@ export const drawerDemos: Record<string, ComponentType> = {
   drawer: DrawerDemo,
   "drawer/close-trigger": DrawerCloseTriggerDemo,
   "drawer/conditional-variants": DrawerConditionalVariantsDemo,
-  "drawer/contained": DrawerContainedDemo,
   "drawer/context": DrawerContextDemo,
   "drawer/controlled": DrawerControlledDemo,
   "drawer/custom-container": DrawerCustomContainerDemo,
+  "drawer/float": DrawerFloatDemo,
   "drawer/header-actions": DrawerHeaderActionsDemo,
   "drawer/initial-focus": DrawerInitialFocusDemo,
   "drawer/menu": DrawerMenuDemo,

@@ -13,7 +13,7 @@ export function DrawerStackingDemo() {
   const fieldClasses = field()
 
   return (
-    <Drawer.Root placement="bottom" contained>
+    <Drawer.Root placement="bottom" float>
       <Drawer.Trigger asChild>
         <Button>Workspace settings</Button>
       </Drawer.Trigger>
@@ -36,7 +36,7 @@ export function DrawerStackingDemo() {
                 <input id="drawer-workspace-name" className={input()} defaultValue="Design studio" />
               </div>
 
-              <Drawer.Root placement="bottom" contained>
+              <Drawer.Root placement="bottom" float>
                 <Drawer.Trigger asChild>
                   <Button variant="subtle">
                     Team access
@@ -68,7 +68,7 @@ export function DrawerStackingDemo() {
                           </SegmentGroup.Item>
                         </SegmentGroup.Root>
 
-                        <Drawer.Root placement="bottom" contained>
+                        <Drawer.Root placement="bottom" float>
                           <Drawer.Trigger asChild>
                             <Button variant="subtle">
                               Member permissions

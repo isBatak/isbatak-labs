@@ -251,7 +251,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
         },
       },
     },
-    contained: {
+    float: {
       true: {
         positioner: {
           padding: "4",
