@@ -70,7 +70,7 @@ export function MobileNav() {
             <Drawer.Body>
               <styled.nav display="flex" flexDirection="column" gap="1" pb="4">
                 <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
-                  Components
+                  Experiments
                 </NavLink>
                 <NavLink href="/ds/installation" aria-current={pathname === "/ds/installation" ? "page" : undefined}>
                   DS installation
