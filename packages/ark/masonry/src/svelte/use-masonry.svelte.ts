@@ -1,25 +1,42 @@
-import { useEnvironmentContext, useLocaleContext } from "@ark-ui/svelte"
+import { useLocaleContext } from "@ark-ui/svelte"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, type PropTypes, useMachine } from "@zag-js/svelte"
+import { normalizeProps, type PropTypes } from "@zag-js/svelte"
+import { untrack } from "svelte"
 
-export interface UseMasonryProps extends Omit<masonry.Props, "dir" | "getRootNode"> {}
+export interface UseMasonryProps extends Omit<masonry.Props, "dir"> {}
 
 export interface UseMasonryReturn {
   (): masonry.Api<PropTypes>
 }
 
 export const useMasonry = (props: UseMasonryProps | (() => UseMasonryProps)): UseMasonryReturn => {
-  const env = useEnvironmentContext()
   const locale = useLocaleContext()
+  const controller = masonry.createMasonry()
+  let layout = $state.raw<masonry.Layout | null>(null)
 
-  const machineProps = $derived.by<masonry.Props>(() => ({
+  const resolved = $derived.by<masonry.Props>(() => ({
     dir: locale().dir,
-    getRootNode: env().getRootNode,
     ...(typeof props === "function" ? props() : props),
   }))
 
-  const service = useMachine(masonry.machine, () => machineProps)
-  const api = $derived(masonry.connect(service, normalizeProps))
+  $effect(() =>
+    untrack(() =>
+      controller.mount(
+        () => resolved,
+        (next) => (layout = next),
+      ),
+    ),
+  )
+
+  $effect(() => {
+    void resolved.sequential
+    void resolved.columns
+    void resolved.minColumnWidth
+    void resolved.gap
+    untrack(() => controller.reflow())
+  })
+
+  const api = $derived(controller.connect(resolved, layout, normalizeProps))
 
   return () => api
 }

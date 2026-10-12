@@ -99,12 +99,11 @@ const definedFrom = (values: Partial<ControlValues>, names: ControlName[]) =>
     return value === undefined || value === false ? [] : [[name, value] as [string, Value]]
   })
 
-function masonryMachineSnippet(framework: FrameworkId, props: [string, Value][]) {
-  const body = props.map(([name, value]) => `  ${name}: ${literal(value)},`).join("\n")
-  const options = props.length > 0 ? `{\n${body}\n}` : "{}"
-  return framework === "vanilla"
-    ? `const machine = new VanillaMachine(masonry.machine, ${options})`
-    : `const service = useMachine(masonry.machine, ${options})`
+function masonryControllerSnippet(props: [string, Value][]) {
+  const body = ["id", ...props.map(([name, value]) => `${name}: ${literal(value)}`)]
+    .map((line) => `    ${line},`)
+    .join("\n")
+  return `const controller = masonry.createMasonry()\nconst api = controller.connect(\n  {\n${body}\n  },\n  layout,\n  normalizeProps,\n)`
 }
 
 function masonryArkSnippet(framework: FrameworkId, props: [string, Value][]) {
@@ -146,7 +145,7 @@ export function exampleSnippet({ id, framework, styling, api, settings, values }
   if (component === "masonry") {
     const props = definedFrom(values, controls.machine)
     const recipe = styling === "panda" ? recipeSnippet("masonryRecipe", changedFrom(values, controls.recipe)) : ""
-    const code = api === "ark" ? masonryArkSnippet(framework, props) : masonryMachineSnippet(framework, props)
+    const code = api === "ark" ? masonryArkSnippet(framework, props) : masonryControllerSnippet(props)
     return { code: `${recipe}${code}`, lang }
   }
 

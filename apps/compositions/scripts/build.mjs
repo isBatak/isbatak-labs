@@ -45,7 +45,8 @@ const components = [
     ark: "@isbatak/ark-masonry",
     panda: "@isbatak/panda-masonry",
     recipe: "masonry",
-    machine: "withControls",
+    controller: "createMasonry",
+    machine: "withMasonryControls",
   },
   {
     id: "text-flip",

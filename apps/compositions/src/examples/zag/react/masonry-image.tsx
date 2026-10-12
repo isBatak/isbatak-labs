@@ -3,8 +3,8 @@
 import { css } from "styled-system/css"
 import { masonry as masonryRecipe } from "styled-system/recipes"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/react"
-import { useId } from "react"
+import { normalizeProps } from "@zag-js/react"
+import { useEffect, useId, useRef, useState } from "react"
 
 const styles = masonryRecipe()
 
@@ -13,12 +13,16 @@ const classes = {
 }
 
 export function MasonryImage() {
-  const service = useMachine(masonry.machine, {
-    id: useId(),
-    columns: 3,
-  })
+  const id = useId()
+  const [controller] = useState(() => masonry.createMasonry())
+  const [layout, setLayout] = useState<masonry.Layout | null>(null)
+  const masonryProps: masonry.Props = { id, columns: 3 }
+  const latestProps = useRef(masonryProps)
+  latestProps.current = masonryProps
 
-  const api = masonry.connect(service, normalizeProps)
+  useEffect(() => controller.mount(() => latestProps.current, setLayout), [controller])
+
+  const api = controller.connect(masonryProps, layout, normalizeProps)
 
   return (
     <div {...api.getRootProps()} className={styles.root}>

@@ -2,8 +2,8 @@
 import { css, cx } from "styled-system/css"
 import { masonry as masonryRecipe } from "styled-system/recipes"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/vue"
-import { computed, useId } from "vue"
+import { normalizeProps } from "@zag-js/vue"
+import { computed, onBeforeUnmount, onMounted, shallowRef, useId } from "vue"
 
 const styles = masonryRecipe()
 
@@ -18,11 +18,22 @@ const classes = {
   }),
 }
 
-const service = useMachine(masonry.machine, {
-  id: useId(),
+const controller = masonry.createMasonry()
+const layout = shallowRef<masonry.Layout | null>(null)
+const masonryProps: masonry.Props = { id: useId() }
+
+let stop: (() => void) | undefined
+
+onMounted(() => {
+  stop = controller.mount(
+    () => masonryProps,
+    (next) => (layout.value = next),
+  )
 })
 
-const api = computed(() => masonry.connect(service, normalizeProps))
+onBeforeUnmount(() => stop?.())
+
+const api = computed(() => controller.connect(masonryProps, layout.value, normalizeProps))
 </script>
 
 <template>

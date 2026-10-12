@@ -1,6 +1,8 @@
+import type * as masonry from "@isbatak/zag-masonry"
 import type * as wheelPicker from "@isbatak/zag-wheel-picker"
 
 type CreateWheelPicker = typeof wheelPicker.createWheelPicker
+type CreateMasonry = typeof masonry.createMasonry
 
 interface PropsParams<P> {
   props: P
@@ -47,6 +49,20 @@ export function withPickerControls(create: CreateWheelPicker, exampleId?: string
       connect: (props, normalize) => picker.connect(withControls(props), normalize),
       mount: (getProps) => picker.mount(() => withControls(getProps())),
       sync: (props) => picker.sync(withControls(props)),
+    }
+  }
+}
+
+export function withMasonryControls(create: CreateMasonry, exampleId?: string): CreateMasonry {
+  return () => {
+    const id = exampleId ?? registry.__compositionsCurrent
+    const controller = create()
+    const withControls = (props: masonry.Props): masonry.Props => ({ ...props, ...(id && controls.get(id)?.props) })
+
+    return {
+      connect: (props, layout, normalize) => controller.connect(withControls(props), layout, normalize),
+      mount: (getProps, onLayout) => controller.mount(() => withControls(getProps()), onLayout),
+      reflow: controller.reflow,
     }
   }
 }

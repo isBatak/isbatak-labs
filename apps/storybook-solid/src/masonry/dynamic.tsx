@@ -7,8 +7,8 @@ import {
   type MasonryControls,
 } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/solid"
-import { For, createMemo, createSignal, createUniqueId } from "solid-js"
+import { useMasonry } from "./use-masonry"
+import { For, createSignal } from "solid-js"
 
 const styles = masonryRecipe()
 
@@ -19,12 +19,7 @@ export interface DynamicProps extends Partial<MasonryControls> {
 export function Dynamic(props: DynamicProps) {
   const [tiles, setTiles] = createSignal(initialMasonryTiles)
 
-  const id = createUniqueId()
-  const service = useMachine(masonry.machine, () => ({
-    id,
-    ...props,
-  }))
-  const api = createMemo(() => masonry.connect(service, normalizeProps))
+  const api = useMasonry(() => props)
 
   return (
     <main class={classes.story}>
