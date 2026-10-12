@@ -1,16 +1,15 @@
 import { ark, type HTMLProps, type PolymorphicProps } from "@ark-ui/react/factory"
 import { mergeProps } from "@zag-js/react"
-import { forwardRef } from "react"
+import type { RefAttributes } from "react"
 import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export interface WheelPickerViewportBaseProps extends PolymorphicProps {}
-export interface WheelPickerViewportProps extends HTMLProps<"div">, WheelPickerViewportBaseProps {}
+export interface WheelPickerViewportProps
+  extends HTMLProps<"div">, WheelPickerViewportBaseProps, RefAttributes<HTMLDivElement> {}
 
-export const WheelPickerViewport = forwardRef<HTMLDivElement, WheelPickerViewportProps>((props, ref) => {
+export const WheelPickerViewport = (props: WheelPickerViewportProps) => {
   const api = useWheelPickerContext()
   const mergedProps = mergeProps(api.getViewportProps(), props)
 
-  return <ark.div {...mergedProps} ref={ref} />
-})
-
-WheelPickerViewport.displayName = "WheelPickerViewport"
+  return <ark.div {...mergedProps} />
+}

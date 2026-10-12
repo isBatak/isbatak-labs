@@ -29,7 +29,7 @@ export function CopyPage({ href }: { href: string }) {
 
   return (
     <Menu.Root positioning={{ placement: "bottom-end" }}>
-      <ButtonGroup variant="subtle" size="2xs" attached flexShrink="0" colorPalette="gray">
+      <ButtonGroup variant="subtle" size="2xs" attached flexShrink="0">
         <Button onClick={copy}>
           <Icon name={copied ? "check" : "markdown"} />
           {copied ? "Copied" : "Copy page"}

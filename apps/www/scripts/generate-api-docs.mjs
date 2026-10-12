@@ -8,6 +8,11 @@ const machines = {
     context: "MasonryProps",
     api: "MasonryApi",
   },
+  "text-flip": {
+    file: "../../../packages/zag/text-flip/src/text-flip.types.ts",
+    context: "TextFlipProps",
+    api: "TextFlipApi",
+  },
   "wheel-picker": {
     file: "../../../packages/zag/wheel-picker/src/wheel-picker.types.ts",
     context: "WheelPickerProps",

@@ -1,1 +1,1 @@
-export { TextFlip, type TextFlipProps } from "./text-flip"
+export * as TextFlip from "./namespace"

@@ -69,7 +69,6 @@ function FilterButton({ filter }: { filter: Filter }) {
     <Button
       size="xs"
       variant={active ? "solid" : "outline"}
-      colorPalette={active ? undefined : "gray"}
       flexShrink="0"
       aria-pressed={active}
       onClick={() => context.setFilter(filter)}

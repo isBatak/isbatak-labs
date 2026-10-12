@@ -130,6 +130,21 @@ function masonryArkSnippet(framework: FrameworkId, props: [string, Value][]) {
   return `${open}\n  ${item}\n</Masonry.Root>`
 }
 
+function textFlipMachineSnippet(framework: FrameworkId, props: [string, Value][]) {
+  const body = props.map(([name, value]) => `  ${name}: ${literal(value)},`).join("\n")
+  const options = props.length > 0 ? `{\n${body}\n}` : "{}"
+  return framework === "vanilla"
+    ? `const machine = new VanillaMachine(textFlip.machine, ${options})`
+    : `const service = useMachine(textFlip.machine, ${options})`
+}
+
+function textFlipArkSnippet(framework: FrameworkId, props: [string, Value][]) {
+  const attributes = props.map(([name, value]) => jsxAttribute(framework, name, value))
+  const open = attributes.length > 0 ? `<TextFlip.Root ${attributes.join(" ")}>` : "<TextFlip.Root>"
+  const index = framework === "vue" ? ':index="0"' : "index={0}"
+  return `${open}\n  <TextFlip.Item ${index}>React</TextFlip.Item>\n</TextFlip.Root>`
+}
+
 interface SnippetOptions extends DocVariant {
   id: string
   settings: ExampleSettings
@@ -146,6 +161,12 @@ export function exampleSnippet({ id, framework, styling, api, settings, values }
     const recipe = styling === "panda" ? recipeSnippet("masonryRecipe", changedFrom(values, controls.recipe)) : ""
     const code = api === "ark" ? masonryArkSnippet(framework, props) : masonryMachineSnippet(framework, props)
     return { code: `${recipe}${code}`, lang }
+  }
+
+  if (component === "text-flip") {
+    const props = changedFrom(values, controls.machine)
+    const code = api === "ark" ? textFlipArkSnippet(framework, props) : textFlipMachineSnippet(framework, props)
+    return { code, lang }
   }
 
   const props = changedFrom(values, controls.machine)

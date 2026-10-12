@@ -1,0 +1,77 @@
+---
+title: Text flip
+description: Cycle through words or phrases in place, flipping the next one in as the current one flips out.
+order: 2
+category: Typography
+status: new
+preview: text-flip-basic
+links:
+  source: packages/zag/text-flip/src
+  storybook: text-flip
+  recipe: packages/panda/text-flip/src/index.ts
+  ark: packages/ark/text-flip/src
+---
+
+Rotates a set of words in a sentence or heading, like the framework names in this site's hero. Works in React, Vue,
+Svelte, Solid, Preact and vanilla JS.
+
+- Flips on a timer, or on demand with `next`, `prev` and `goTo`
+- Sizes to the widest item, so the text around it never shifts
+- Hides every item but the current one from assistive technology
+- Renders the first item as plain text until hydrated, so server-rendered markup reads fine
+- Respects reduced motion
+
+## Installation
+
+<FrameworkHint>Pick your framework</FrameworkHint> in the preview, then copy the prompt into Claude Code, Cursor or
+another coding agent, or add the component yourself with the shadcn CLI or by hand.
+
+<Installation id="text-flip-basic" />
+
+## Examples
+
+Scroll to an example to load it in the preview, and open the code view there for the full source. The settings button in
+the preview changes the example live, and the snippet under it follows. Each example is its own registry item, so you
+can add it with the CLI the same way.
+
+Every item needs its zero-based `index`, in the order the items flip.
+
+### Controls
+
+<Example id="text-flip-controls">
+
+The machine exposes `next`, `prev`, `goTo`, `play` and `pause`, and `playing` tells you whether the timer is running.
+Wire them to buttons to let people step through the items or stop the animation. With Ark UI, create the machine with
+`useTextFlip` and pass it to `TextFlip.RootProvider` so the buttons outside the root can use it.
+
+</Example>
+
+### Timing
+
+<Example id="text-flip-basic" settings={{ interval: 1000 }}>
+
+Set `interval` to the time in milliseconds each item stays before the next one flips in. The default is `2000`. Set
+`autoplay` to `false` to start paused, and `defaultIndex` to start on another item.
+
+</Example>
+
+## Styling
+
+The root is an inline grid and every item sits in the same cell, so the root is as wide as the widest item. Each item
+gets `data-state` set to `visible` for the first item before any flip, `entering` for the current item, `exiting` for
+the one it replaced and `hidden` for the rest. The Panda recipe animates `entering` and `exiting` with a blurred slide,
+and turns the animation off when people prefer reduced motion.
+
+## Accessibility
+
+Items that aren't shown get `aria-hidden`, so screen readers only read the current one, and they don't announce each
+flip. When the words are decoration, like a list of supported frameworks, hide the root with `aria-hidden` and put the
+full list in visually hidden text next to it.
+
+## Props
+
+<ApiTable name="text-flip" kind="context" />
+
+## API
+
+<ApiTable name="text-flip" kind="api" />

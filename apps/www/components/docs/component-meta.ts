@@ -1,4 +1,4 @@
-export const componentIds = ["wheel-picker", "masonry"] as const
+export const componentIds = ["wheel-picker", "masonry", "text-flip"] as const
 
 export type ComponentId = (typeof componentIds)[number]
 
@@ -37,6 +37,18 @@ export const componentMeta: Record<ComponentId, ComponentMeta> = {
       ark: "Ask me where the masonry should go and what it should show, and suggest a spot if one stands out. Then render it there: copy the installed component, give it a name that fits, replace the items with mine (each `Masonry.Item` needs a unique `value` and must be a direct child of `Masonry.Root`), and keep the layout props that fit (`columns`, `gap`, `sequential`).",
     },
     check: "check that the items render in columns without gaps and re-flow when the window is resized",
+  },
+  "text-flip": {
+    name: "text flip",
+    summary: "It cycles through words or phrases in place, flipping the next one in as the current one flips out.",
+    preset: "textFlipPreset",
+    pandaPackage: "@isbatak/panda-text-flip",
+    frame: "sm",
+    usage: {
+      zag: "Ask me where the text flip should go and which words it should cycle through, and suggest a spot if one stands out. Then render it there: copy the installed component, give it a name that fits, replace the items with mine (each item needs its zero-based `index`), and keep the timing options that fit (`interval`, `autoplay`).",
+      ark: "Ask me where the text flip should go and which words it should cycle through, and suggest a spot if one stands out. Then render it there: copy the installed component, give it a name that fits, replace the items with mine (each `TextFlip.Item` needs its zero-based `index`), and keep the timing props that fit (`interval`, `autoplay`).",
+    },
+    check: "check that the words flip in place on a timer without shifting the text around them",
   },
 }
 
