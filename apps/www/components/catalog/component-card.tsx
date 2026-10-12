@@ -25,15 +25,29 @@ const Card = styled("article", {
     bg: "bg",
     transitionProperty: "border-color, box-shadow, translate",
     transitionDuration: "moderate",
-    _hover: { borderColor: "border.emphasized", shadow: "md", translate: "0 -2px" },
-    "&:has(a:focus-visible)": { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+    _hover: {
+      borderColor: "border.emphasized",
+      shadow: "md",
+      translate: "0 -2px",
+    },
+    "&:has(a:focus-visible)": {
+      outline: "2px solid",
+      outlineColor: "colorPalette.focusRing",
+      outlineOffset: "2px",
+    },
   },
 })
 
 const CardLink = styled(ComponentLink, {
   base: {
     outline: "none",
-    _after: { content: '""', position: "absolute", inset: "0", zIndex: "1", borderRadius: "l3" },
+    _after: {
+      content: '""',
+      position: "absolute",
+      inset: "0",
+      zIndex: "1",
+      borderRadius: "l3",
+    },
   },
 })
 
@@ -82,6 +96,7 @@ const Preview = styled("div", {
     borderRadius: "max(token(radii.l1), calc(token(radii.l3) - var(--card-inset)))",
     borderWidth: "1px",
     borderStyle: "dashed",
+    p: "2",
   },
 })
 

@@ -68,12 +68,13 @@ so they flip in right-to-left layouts.
 
 <Example id="drawer/placement" />
 
-### Contained
+### Float
 
-Set `contained` to float the drawer with a gap from the viewport edges and rounded corners. Leave it off to keep the
-drawer flush against the edge.
+Set `float` to float the drawer with a gap from the viewport edges and rounded corners on every side. Leave it off to
+keep the drawer flush against the edge. This bottom drawer also sets `maxW` and `mx="auto"` on `Drawer.Content` so it
+stays centered on wide screens.
 
-<Example id="drawer/contained" />
+<Example id="drawer/float" />
 
 ### Snap points
 

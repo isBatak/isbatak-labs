@@ -12,7 +12,7 @@ export function DrawerThumbnail() {
   return (
     <Drawer.Root
       open
-      contained
+      float
       modal={false}
       trapFocus={false}
       preventScroll={false}

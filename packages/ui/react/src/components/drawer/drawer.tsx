@@ -35,8 +35,21 @@ export type DrawerBackdropProps = ComponentProps<typeof DrawerBackdrop>
 export const DrawerPositioner = withContext(Drawer.Positioner, "positioner")
 export type DrawerPositionerProps = ComponentProps<typeof DrawerPositioner>
 
-export const DrawerContent = withContext(Drawer.Content, "content")
-export type DrawerContentProps = ComponentProps<typeof DrawerContent>
+const StyledDrawerContent = withContext(Drawer.Content, "content")
+
+export type DrawerContentProps = ComponentProps<typeof StyledDrawerContent>
+
+export function DrawerContent(props: DrawerContentProps) {
+  return (
+    <StyledDrawerContent
+      {...props}
+      onPointerDown={(event) => {
+        props.onPointerDown?.(event)
+        event.stopPropagation()
+      }}
+    />
+  )
+}
 
 export const DrawerTitle = withContext(Drawer.Title, "title")
 export type DrawerTitleProps = ComponentProps<typeof DrawerTitle>
