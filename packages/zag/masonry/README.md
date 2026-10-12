@@ -1,6 +1,7 @@
 # @isbatak/zag-masonry
 
-Core logic for the masonry widget implemented as a state machine, built on [Zag](https://zagjs.com).
+Core logic for the masonry widget, built on [Zag](https://zagjs.com) utilities. There is no state machine: a small
+controller measures the items and your framework keeps the layout in its own state.
 
 Lays items of different heights out in columns, like Pinterest. Modeled on
 [MUI's Masonry](https://mui.com/material-ui/react-masonry/).
@@ -25,8 +26,18 @@ root
 └─ item
 ```
 
-Items must be direct children of the root. Use `masonry.machine` and `masonry.connect` with the Zag adapter for your
-framework (`@zag-js/react`, `@zag-js/vue`, `@zag-js/solid`, `@zag-js/svelte`, …).
+Items must be direct children of the root. Create one controller per masonry, keep the layout it reports in your
+framework state, and connect it with the `normalizeProps` of your framework.
+
+```ts
+const masonry = createMasonry()
+const api = masonry.connect({ id, columns: 4 }, layout, normalizeProps)
+
+masonry.mount(() => props, setLayout)
+masonry.reflow()
+```
+
+Call `mount` once the root is rendered, and `reflow` after `columns`, `gap`, `minColumnWidth` or `sequential` change.
 
 ## Styling
 

@@ -1,5 +1,4 @@
-import type { EventObject, Machine, Service } from "@zag-js/core"
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@zag-js/types"
+import type { DirectionProperty, NormalizeProps, PropTypes } from "@zag-js/types"
 
 export interface ItemLayout {
   /** The zero-based column the item starts in. */
@@ -29,7 +28,9 @@ export interface ElementIds {
   item?: ((value: string) => string) | undefined
 }
 
-export interface MasonryProps extends DirectionProperty, CommonProperties {
+export interface MasonryProps extends DirectionProperty {
+  /** The unique id of the masonry. */
+  id: string
   /** The ids of the elements in the masonry. Useful for composition. */
   ids?: ElementIds | undefined
   /**
@@ -54,23 +55,6 @@ export interface MasonryProps extends DirectionProperty, CommonProperties {
   onLayoutChange?: ((details: LayoutChangeDetails) => void) | undefined
 }
 
-type PropsWithDefault = "sequential"
-
-export interface MasonrySchema {
-  state: "idle"
-  props: RequiredBy<MasonryProps, PropsWithDefault>
-  context: {
-    layout: Layout | null
-  }
-  action: string
-  effect: string
-  guard: string
-  event: EventObject
-}
-
-export type MasonryService = Service<MasonrySchema>
-export type MasonryMachine = Machine<MasonrySchema>
-
 export interface ItemProps {
   /** The unique value of the item. */
   value: string
@@ -91,4 +75,20 @@ export interface MasonryApi<T extends PropTypes = PropTypes> {
 
   getRootProps: () => T["element"]
   getItemProps: (props: ItemProps) => T["element"]
+}
+
+export interface MasonryController {
+  /** Get the props of each part of the masonry from the latest layout. */
+  connect: <P extends PropTypes>(
+    props: MasonryProps,
+    layout: Layout | null,
+    normalize: NormalizeProps<P>,
+  ) => MasonryApi<P>
+  /**
+   * Start measuring once the root is rendered. `onLayout` receives each new layout, so keep it in the state of your
+   * framework. Returns a function that stops measuring.
+   */
+  mount: (getProps: () => MasonryProps, onLayout: (layout: Layout) => void) => () => void
+  /** Measure and place the items again. Call it after the layout props change. */
+  reflow: () => void
 }

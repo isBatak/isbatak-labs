@@ -1,6 +1,5 @@
 export { anatomy } from "./masonry.anatomy"
-export { connect } from "./masonry.connect"
-export { machine } from "./masonry.machine"
+export { createMasonry } from "./masonry.connect"
 export * from "./masonry.props"
 export type {
   ElementIds,
@@ -9,7 +8,6 @@ export type {
   Layout,
   LayoutChangeDetails,
   MasonryApi as Api,
-  MasonryMachine as Machine,
+  MasonryController as Controller,
   MasonryProps as Props,
-  MasonryService as Service,
 } from "./masonry.types"

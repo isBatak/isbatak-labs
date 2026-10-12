@@ -2,8 +2,7 @@
 import { masonry as masonryRecipe } from "@isbatak/storybook-shared/recipes"
 import { formatLayout, masonryArgs, masonryClasses as classes } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/vue"
-import { computed, useId } from "vue"
+import { useMasonry } from "./use-masonry"
 
 const styles = masonryRecipe()
 
@@ -19,15 +18,7 @@ const props = withDefaults(
   masonryArgs,
 )
 
-const id = useId()
-const service = useMachine(
-  masonry.machine,
-  computed(() => ({
-    id,
-    ...props,
-  })),
-)
-const api = computed(() => masonry.connect(service, normalizeProps))
+const api = useMasonry(() => props)
 </script>
 
 <template>
