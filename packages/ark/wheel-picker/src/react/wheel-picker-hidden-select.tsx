@@ -1,18 +1,19 @@
 import { ark, type HTMLProps, type PolymorphicProps } from "@ark-ui/react/factory"
 import { mergeProps } from "@zag-js/react"
-import { forwardRef } from "react"
+import type { RefAttributes } from "react"
 import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export interface WheelPickerHiddenSelectBaseProps extends PolymorphicProps {}
-export interface WheelPickerHiddenSelectProps extends HTMLProps<"select">, WheelPickerHiddenSelectBaseProps {}
+export interface WheelPickerHiddenSelectProps
+  extends HTMLProps<"select">, WheelPickerHiddenSelectBaseProps, RefAttributes<HTMLSelectElement> {}
 
-export const WheelPickerHiddenSelect = forwardRef<HTMLSelectElement, WheelPickerHiddenSelectProps>((props, ref) => {
+export const WheelPickerHiddenSelect = (props: WheelPickerHiddenSelectProps) => {
   const api = useWheelPickerContext()
   const mergedProps = mergeProps(api.getHiddenSelectProps(), props)
   const { collection } = api
 
   return (
-    <ark.select {...mergedProps} ref={ref}>
+    <ark.select {...mergedProps}>
       {collection.items.map((item) => {
         const value = collection.getItemValue(item) ?? ""
         return (
@@ -23,6 +24,4 @@ export const WheelPickerHiddenSelect = forwardRef<HTMLSelectElement, WheelPicker
       })}
     </ark.select>
   )
-})
-
-WheelPickerHiddenSelect.displayName = "WheelPickerHiddenSelect"
+}
