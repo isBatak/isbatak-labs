@@ -283,6 +283,11 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
             </Footer>
           </Content>
         </Section>
+        <NavigationMenu.Item value="blocks">
+          <Trigger asChild data-current={pathname.startsWith("/blocks") ? "" : undefined}>
+            <Link href="/blocks">Blocks</Link>
+          </Trigger>
+        </NavigationMenu.Item>
         <Section value="ds" label="DS" href="/ds/components" current={pathname.startsWith("/ds")}>
           <Content size="sm">
             <EntryLink
