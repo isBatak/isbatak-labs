@@ -1,5 +1,11 @@
 # @isbatak/ark-wheel-picker
 
+## 0.2.0
+
+### Minor Changes
+
+- a9582e5: The React components now take `ref` as a prop instead of using `forwardRef`, and require React 19.
+
 ## 0.1.2
 
 ### Patch Changes
