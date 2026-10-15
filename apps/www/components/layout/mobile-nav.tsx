@@ -87,6 +87,9 @@ export function MobileNav() {
                 <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
                   Tools
                 </NavLink>
+                <NavLink href="/plus" aria-current={pathname.startsWith("/plus") ? "page" : undefined}>
+                  Plus
+                </NavLink>
               </styled.nav>
             </Drawer.Body>
           </Drawer.Content>

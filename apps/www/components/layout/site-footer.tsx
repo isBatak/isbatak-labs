@@ -35,6 +35,7 @@ export function SiteFooter() {
           <FooterLink href="/blocks">Blocks</FooterLink>
           <FooterLink href="/ds/components">Design system</FooterLink>
           <FooterLink href="/tools">Tools</FooterLink>
+          <FooterLink href="/plus">Plus</FooterLink>
           <FooterLink href={SPONSOR_URL} target="_blank" rel="noopener">
             Sponsor
           </FooterLink>

@@ -323,6 +323,11 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
             </Footer>
           </Content>
         </Section>
+        <NavigationMenu.Item value="plus">
+          <Trigger asChild data-current={pathname.startsWith("/plus") ? "" : undefined}>
+            <Link href="/plus">Plus</Link>
+          </Trigger>
+        </NavigationMenu.Item>
       </List>
       <Positioner align="start">
         <Viewport />
