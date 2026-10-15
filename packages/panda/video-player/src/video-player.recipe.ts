@@ -155,7 +155,7 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
     },
     preview: {
       position: "absolute",
-      bottom: "full",
+      bottom: "100%",
       left: "clamp(var(--preview-half), var(--preview-x), calc(100% - var(--preview-half)))",
       "--preview-half": "{sizes.24}",
       translate: "-50% -6px",
