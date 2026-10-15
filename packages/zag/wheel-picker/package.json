@@ -1,14 +1,13 @@
 {
   "name": "@isbatak/zag-wheel-picker",
   "version": "0.1.0",
-  "description": "Core logic for the wheel-picker widget implemented as a state machine",
+  "description": "Core logic for the wheel-picker widget built on native scroll snapping",
   "keywords": [
     "js",
-    "machine",
-    "statechart",
     "component",
     "zag",
-    "wheel-picker"
+    "wheel-picker",
+    "scroll-snap"
   ],
   "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
   "license": "MIT",
@@ -67,10 +66,7 @@
   },
   "dependencies": {
     "@zag-js/anatomy": "catalog:",
-    "@zag-js/collection": "catalog:",
-    "@zag-js/core": "catalog:",
     "@zag-js/dom-query": "catalog:",
-    "@zag-js/focus-visible": "catalog:",
     "@zag-js/types": "catalog:",
     "@zag-js/utils": "catalog:"
   }

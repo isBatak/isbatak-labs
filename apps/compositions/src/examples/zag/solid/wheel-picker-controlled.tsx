@@ -1,18 +1,16 @@
 import { css } from "styled-system/css"
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, useMachine } from "@zag-js/solid"
-import { createMemo, createSignal, createUniqueId, Index } from "solid-js"
+import { normalizeProps } from "@zag-js/solid"
+import { createEffect, createMemo, createSignal, createUniqueId, Index, on, onCleanup, onMount } from "solid-js"
 
-const collection = wheelPicker.collection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+]
 
 const styles = wheelPickerRecipe()
 
@@ -33,47 +31,42 @@ const classes = {
 
 export function WheelPickerControlled() {
   const id = createUniqueId()
-  const [value, setValue] = createSignal<string | null>("react")
+  const picker = wheelPicker.createWheelPicker()
+  const [value, setValue] = createSignal("react")
 
-  const service = useMachine(wheelPicker.machine, () => ({
+  const props = createMemo<wheelPicker.Props>(() => ({
     id,
-    collection,
+    items,
     value: value(),
-    onValueChange: (details: wheelPicker.ValueChangeDetails) => setValue(details.value),
+    onValueChange: (details) => setValue(details.value),
   }))
 
-  const api = createMemo(() => wheelPicker.connect(service, normalizeProps))
+  onMount(() => onCleanup(picker.mount(props)))
+  createEffect(on(value, () => picker.sync(props())))
+
+  const api = createMemo(() => picker.connect(props(), normalizeProps))
 
   return (
     <div class={classes.root}>
       <div {...api().getRootProps()} class={styles.root}>
-        <label {...api().getLabelProps()} class={styles.label}>
+        <span {...api().getLabelProps()} class={styles.label}>
           Framework
-        </label>
+        </span>
         <div {...api().getControlProps()} class={styles.control}>
           <div {...api().getViewportProps()} class={styles.viewport}>
-            <ul {...api().getItemGroupProps()} class={styles.itemGroup}>
-              <Index each={api().items}>
+            <div {...api().getItemGroupProps()} class={styles.itemGroup}>
+              <Index each={api().rows}>
                 {(entry) => (
-                  <li {...api().getItemProps(entry())} class={styles.item}>
+                  <div {...api().getItemProps({ row: entry().row })} class={styles.item}>
                     {entry().item.label}
-                  </li>
+                  </div>
                 )}
               </Index>
-            </ul>
-            <div {...api().getHighlightProps()} class={styles.highlight}>
-              <ul {...api().getHighlightItemGroupProps()} class={styles.highlightItemGroup}>
-                <Index each={api().highlightItems}>
-                  {(entry) => (
-                    <li {...api().getHighlightItemProps(entry())} class={styles.highlightItem}>
-                      {entry().item.label}
-                    </li>
-                  )}
-                </Index>
-              </ul>
             </div>
           </div>
+          <div {...api().getHighlightProps()} class={styles.highlight} />
         </div>
+        <input {...api().getHiddenInputProps()} />
       </div>
       <div class={classes.actions}>
         <button type="button" class={classes.button} onClick={() => setValue("react")}>

@@ -9,7 +9,7 @@
     type MasonryTile,
   } from "@isbatak/storybook-shared"
   import * as masonry from "@isbatak/zag-masonry"
-  import { normalizeProps, useMachine } from "@zag-js/svelte"
+  import { useMasonry } from "./use-masonry.svelte.js"
 
   const styles = masonryRecipe()
 
@@ -19,11 +19,8 @@
 
   const props: Props = $props()
   const id = $props.id()
-  const service = useMachine(masonry.machine, () => ({
-    id,
-    ...props,
-  }))
-  const api = $derived(masonry.connect(service, normalizeProps))
+  const getApi = useMasonry(id, () => props)
+  const api = $derived(getApi())
 
   let tiles = $state<MasonryTile[]>(initialMasonryTiles)
 </script>

@@ -64,6 +64,9 @@ const Pre = styled("pre", {
     floatingActions: {
       true: { pe: "12" },
     },
+    scrollable: {
+      true: { maxH: "500px", overflowY: "auto" },
+    },
   },
 })
 
@@ -76,18 +79,21 @@ const FloatingActions = styled("div", {
 })
 
 export function highlightCode(code: string, language?: string) {
-  return highlight(code.trimEnd(), { lang: resolveLang(language ?? "") ?? "javascript" })
+  return highlight(code.trimEnd(), {
+    lang: resolveLang(language ?? "") ?? "javascript",
+  })
 }
 
 export interface CodeBodyProps {
   code: string
   lang?: string | undefined
   floatingActions?: boolean
+  scrollable?: boolean
 }
 
-export function CodeBody({ code, lang, floatingActions }: CodeBodyProps) {
+export function CodeBody({ code, lang, floatingActions, scrollable }: CodeBodyProps) {
   return (
-    <Pre floatingActions={floatingActions}>
+    <Pre floatingActions={floatingActions} scrollable={scrollable}>
       <code dangerouslySetInnerHTML={{ __html: highlightCode(code, lang) }} />
     </Pre>
   )
@@ -101,7 +107,7 @@ export function CodeBlock({ code, lang, title }: CodeBlockProps) {
   if (!title) {
     return (
       <CodeFrame>
-        <CodeBody code={code} lang={lang} floatingActions />
+        <CodeBody code={code} lang={lang} floatingActions scrollable />
         <FloatingActions>
           <CopyButton value={code.trimEnd()} />
         </FloatingActions>
@@ -115,7 +121,7 @@ export function CodeBlock({ code, lang, title }: CodeBlockProps) {
         {title}
         <CopyButton value={code.trimEnd()} />
       </CodeHeader>
-      <CodeBody code={code} lang={lang} />
+      <CodeBody code={code} lang={lang} scrollable />
     </CodeFrame>
   )
 }

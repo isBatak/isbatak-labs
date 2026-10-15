@@ -1,7 +1,6 @@
-export { anatomy as wheelPickerAnatomy, collection as createWheelPickerCollection } from "@isbatak/zag-wheel-picker"
+export { anatomy as wheelPickerAnatomy } from "@isbatak/zag-wheel-picker"
 export type {
-  CollectionItem as WheelPickerCollectionItem,
-  ScrollChangeDetails as WheelPickerScrollChangeDetails,
+  ItemData as WheelPickerItemData,
   ValueChangeDetails as WheelPickerValueChangeDetails,
 } from "@isbatak/zag-wheel-picker"
 export {
@@ -13,10 +12,8 @@ export {
 export { useWheelPickerContext, WheelPickerProvider, type UseWheelPickerContext } from "./use-wheel-picker-context"
 export { WheelPickerContext } from "./wheel-picker-context"
 export { WheelPickerControl } from "./wheel-picker-control"
-export { WheelPickerHiddenSelect } from "./wheel-picker-hidden-select"
+export { WheelPickerHiddenInput } from "./wheel-picker-hidden-input"
 export { WheelPickerHighlight } from "./wheel-picker-highlight"
-export { WheelPickerHighlightItem } from "./wheel-picker-highlight-item"
-export { WheelPickerHighlightItemGroup } from "./wheel-picker-highlight-item-group"
 export { WheelPickerItem } from "./wheel-picker-item"
 export { WheelPickerItemGroup } from "./wheel-picker-item-group"
 export { WheelPickerLabel } from "./wheel-picker-label"

@@ -1,11 +1,9 @@
 {
   "name": "@isbatak/zag-masonry",
   "version": "0.1.0",
-  "description": "Core logic for the masonry widget implemented as a state machine",
+  "description": "Core logic for the masonry widget built on measured grid layout",
   "keywords": [
     "js",
-    "machine",
-    "statechart",
     "component",
     "zag",
     "masonry",
@@ -68,7 +66,6 @@
   },
   "dependencies": {
     "@zag-js/anatomy": "catalog:",
-    "@zag-js/core": "catalog:",
     "@zag-js/dom-query": "catalog:",
     "@zag-js/types": "catalog:",
     "@zag-js/utils": "catalog:"

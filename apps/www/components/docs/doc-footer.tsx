@@ -74,7 +74,7 @@ export function DocFooter({ component, variant }: { component: Prototype; varian
       </styled.section>
 
       <styled.nav
-        aria-label="Components"
+        aria-label="Experiments"
         display="grid"
         gridTemplateColumns="1fr 1fr"
         gap="6"

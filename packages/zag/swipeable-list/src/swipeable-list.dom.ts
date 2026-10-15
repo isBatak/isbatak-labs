@@ -1,5 +1,6 @@
 import type { Scope } from "@zag-js/core"
 import type { Direction } from "@zag-js/types"
+import { parts } from "./swipeable-list.anatomy"
 import type { ActionsLayout, OpenItem, SwipeSide } from "./swipeable-list.types"
 import { clamp, getSideFromSign, getSideSign } from "./swipeable-list.utils"
 
@@ -27,7 +28,7 @@ export const getItemActionsEl = (ctx: Scope, value: string, side: SwipeSide) =>
   ctx.getById<HTMLElement>(getItemActionsId(ctx, value, side))
 
 export function getActionEls(actionsEl: HTMLElement | null) {
-  return Array.from(actionsEl?.querySelectorAll<HTMLElement>("[data-part=item-action]") ?? [])
+  return Array.from(actionsEl?.querySelectorAll<HTMLElement>(`[${parts.itemAction.attr}]`) ?? [])
 }
 
 function getOutermostFirst(actionEls: HTMLElement[], side: SwipeSide) {

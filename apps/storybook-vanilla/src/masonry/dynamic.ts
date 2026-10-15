@@ -7,7 +7,7 @@ import {
   type MasonryControls,
 } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
+import { normalizeProps, spreadProps } from "@zag-js/vanilla"
 import { createElement, mount } from "../mount"
 
 const styles = masonryRecipe()
@@ -31,12 +31,11 @@ export function createDynamic(props: DynamicProps) {
   const rows = new Map<string, HTMLElement>()
   let tiles = initialMasonryTiles
 
-  const machine = new VanillaMachine(masonry.machine, {
-    id: crypto.randomUUID(),
-    ...props,
-  })
+  const controller = masonry.createMasonry()
+  const masonryProps: masonry.Props = { id: crypto.randomUUID(), ...props }
+  let layout: masonry.Layout | null = null
 
-  const spread = (node: Element, props: object) => spreadProps(node, props, machine.scope.id)
+  const spread = (node: Element, nodeProps: object) => spreadProps(node, nodeProps, masonryProps.id)
 
   function createRow(height: number, value: string) {
     return createElement(`
@@ -57,7 +56,7 @@ export function createDynamic(props: DynamicProps) {
   })
 
   function render() {
-    const api = masonry.connect(machine.service, normalizeProps)
+    const api = controller.connect(masonryProps, layout, normalizeProps)
     spread(root, api.getRootProps())
 
     for (const value of rows.keys()) {
@@ -82,6 +81,22 @@ export function createDynamic(props: DynamicProps) {
   }
 
   render()
-  machine.subscribe(render)
-  return mount(main, [machine])
+
+  let stop: (() => void) | undefined
+  const lifecycle = {
+    start() {
+      stop = controller.mount(
+        () => masonryProps,
+        (next) => {
+          layout = next
+          render()
+        },
+      )
+    },
+    stop() {
+      stop?.()
+    },
+  }
+
+  return mount(main, [lifecycle])
 }

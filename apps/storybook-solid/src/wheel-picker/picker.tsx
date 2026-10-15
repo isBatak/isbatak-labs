@@ -1,68 +1,69 @@
 import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
+import type { WheelPickerControls } from "@isbatak/storybook-shared"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, useMachine } from "@zag-js/solid"
-import { For, Index, Show, createMemo, createUniqueId } from "solid-js"
+import { normalizeProps } from "@zag-js/solid"
+import { Index, createEffect, createMemo, createSignal, createUniqueId, on, onCleanup, onMount } from "solid-js"
 
 const styles = wheelPickerRecipe()
 
-export interface PickerProps {
+export interface PickerProps extends Partial<WheelPickerControls> {
   label: string
-  collection: wheelPicker.Props["collection"]
+  items: wheelPicker.Props["items"]
   value?: string
   defaultValue?: string
-  infinite?: boolean
   name?: string
   onValueChange?: (details: wheelPicker.ValueChangeDetails) => void
-  /** Render the hidden `<select>` used for native form submission. */
-  hiddenSelect?: boolean
 }
 
-/**
- * One wheel picker column. Solid keeps one machine per component instance, so the multi-column examples render one
- * `Picker` per column instead of mapping over an array of services.
- */
 export function Picker(props: PickerProps) {
   const id = createUniqueId()
-  const service = useMachine(wheelPicker.machine, () => {
-    const { label: _label, hiddenSelect: _hiddenSelect, ...machineProps } = props
-    return { id, ...machineProps }
+  const picker = wheelPicker.createWheelPicker()
+  const [internalValue, setInternalValue] = createSignal(props.defaultValue ?? props.items[0]?.value ?? "")
+
+  const pickerProps = createMemo<wheelPicker.Props>(() => {
+    const { label: _label, defaultValue: _defaultValue, value: controlledValue, onValueChange, ...rest } = props
+    return {
+      ...rest,
+      id,
+      value: controlledValue ?? internalValue(),
+      onValueChange(details) {
+        if (controlledValue === undefined) setInternalValue(details.value)
+        onValueChange?.(details)
+      },
+    }
   })
-  const api = createMemo(() => wheelPicker.connect(service, normalizeProps))
+
+  onMount(() => onCleanup(picker.mount(pickerProps)))
+
+  createEffect(
+    on(
+      () => [pickerProps().value, pickerProps().items.length, pickerProps().loop, pickerProps().itemHeight],
+      () => picker.sync(pickerProps()),
+    ),
+  )
+
+  const api = createMemo(() => picker.connect(pickerProps(), normalizeProps))
 
   return (
     <div {...api().getRootProps()} class={styles.root}>
-      <label {...api().getLabelProps()} class={styles.label}>
+      <span {...api().getLabelProps()} class={styles.label}>
         {props.label}
-      </label>
+      </span>
       <div {...api().getControlProps()} class={styles.control}>
         <div {...api().getViewportProps()} class={styles.viewport}>
-          <ul {...api().getItemGroupProps()} class={styles.itemGroup}>
-            <Index each={api().items}>
+          <div {...api().getItemGroupProps()} class={styles.itemGroup}>
+            <Index each={api().rows}>
               {(entry) => (
-                <li {...api().getItemProps(entry())} class={styles.item}>
+                <div {...api().getItemProps({ row: entry().row })} class={styles.item}>
                   {entry().item.label}
-                </li>
+                </div>
               )}
             </Index>
-          </ul>
-          <div {...api().getHighlightProps()} class={styles.highlight}>
-            <ul {...api().getHighlightItemGroupProps()} class={styles.highlightItemGroup}>
-              <Index each={api().highlightItems}>
-                {(entry) => (
-                  <li {...api().getHighlightItemProps(entry())} class={styles.highlightItem}>
-                    {entry().item.label}
-                  </li>
-                )}
-              </Index>
-            </ul>
           </div>
         </div>
+        <div {...api().getHighlightProps()} class={styles.highlight} />
       </div>
-      <Show when={props.hiddenSelect}>
-        <select {...api().getHiddenSelectProps()}>
-          <For each={props.collection.items}>{(item) => <option value={item.value}>{item.label}</option>}</For>
-        </select>
-      </Show>
+      <input {...api().getHiddenInputProps()} />
     </div>
   )
 }

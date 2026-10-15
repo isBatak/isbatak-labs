@@ -1,7 +1,7 @@
 import { masonry as masonryRecipe } from "@isbatak/storybook-shared/recipes"
 import { formatLayout, masonryClasses as classes, type MasonryControls } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
+import { normalizeProps, spreadProps } from "@zag-js/vanilla"
 import { createElement, mount } from "../mount"
 
 const styles = masonryRecipe()
@@ -81,15 +81,14 @@ export function createVariableHeight(props: VariableHeightProps) {
   const root = main.querySelector<HTMLElement>("[data-el=root]")!
   const items = Array.from(root.querySelectorAll<HTMLElement>("[data-el=item]"))
 
-  const machine = new VanillaMachine(masonry.machine, {
-    id: crypto.randomUUID(),
-    ...props,
-  })
+  const controller = masonry.createMasonry()
+  const masonryProps: masonry.Props = { id: crypto.randomUUID(), ...props }
+  let layout: masonry.Layout | null = null
 
-  const spread = (node: Element, props: object) => spreadProps(node, props, machine.scope.id)
+  const spread = (node: Element, nodeProps: object) => spreadProps(node, nodeProps, masonryProps.id)
 
   function render() {
-    const api = masonry.connect(machine.service, normalizeProps)
+    const api = controller.connect(masonryProps, layout, normalizeProps)
     spread(root, api.getRootProps())
     for (const item of items) {
       spread(item, api.getItemProps({ value: item.dataset.value!, span: Number(item.dataset.span) || 1 }))
@@ -98,6 +97,22 @@ export function createVariableHeight(props: VariableHeightProps) {
   }
 
   render()
-  machine.subscribe(render)
-  return mount(main, [machine])
+
+  let stop: (() => void) | undefined
+  const lifecycle = {
+    start() {
+      stop = controller.mount(
+        () => masonryProps,
+        (next) => {
+          layout = next
+          render()
+        },
+      )
+    },
+    stop() {
+      stop?.()
+    },
+  }
+
+  return mount(main, [lifecycle])
 }

@@ -18,7 +18,7 @@
     "typecheck": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
   },
   "dependencies": {
-    "@ark-ui/svelte": "5.24.2",
+    "@ark-ui/svelte": "catalog:",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

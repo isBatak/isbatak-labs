@@ -1,32 +1,44 @@
-import { useEnvironmentContext } from "@ark-ui/react/environment"
-import { useLocaleContext } from "@ark-ui/react/locale"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, type PropTypes, useMachine } from "@zag-js/react"
-import { useId } from "react"
+import { normalizeProps, type PropTypes } from "@zag-js/react"
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import type { Optional } from "../types"
 
-export interface UseWheelPickerProps<
-  T extends wheelPicker.CollectionItem = wheelPicker.CollectionItem,
-> extends Optional<Omit<wheelPicker.Props<T>, "dir" | "getRootNode">, "id"> {}
+export interface UseWheelPickerProps extends Optional<Omit<wheelPicker.Props, "value">, "id"> {
+  /** The selected value. Pass it to control the wheel picker. */
+  value?: string | undefined
+  /** The initial value when uncontrolled. Defaults to the first item. */
+  defaultValue?: string | undefined
+}
 
-export interface UseWheelPickerReturn<
-  T extends wheelPicker.CollectionItem = wheelPicker.CollectionItem,
-> extends wheelPicker.Api<PropTypes, T> {}
+export interface UseWheelPickerReturn extends wheelPicker.Api<PropTypes> {}
 
-export const useWheelPicker = <T extends wheelPicker.CollectionItem>(
-  props: UseWheelPickerProps<T>,
-): UseWheelPickerReturn<T> => {
-  const id = useId()
-  const { getRootNode } = useEnvironmentContext()
-  const { dir } = useLocaleContext()
+export const useWheelPicker = (props: UseWheelPickerProps): UseWheelPickerReturn => {
+  const generatedId = useId()
+  const { id = generatedId, value: controlledValue, defaultValue, onValueChange, ...rest } = props
+  const [internalValue, setInternalValue] = useState(defaultValue ?? rest.items[0]?.value ?? "")
+  const value = controlledValue ?? internalValue
 
-  const machineProps: wheelPicker.Props<T> = {
+  const resolved: wheelPicker.Props = {
+    ...rest,
     id,
-    dir,
-    getRootNode,
-    ...props,
+    value,
+    onValueChange(details) {
+      if (controlledValue === undefined) setInternalValue(details.value)
+      onValueChange?.(details)
+    },
   }
 
-  const service = useMachine(wheelPicker.machine as wheelPicker.Machine<T>, machineProps)
-  return wheelPicker.connect(service, normalizeProps)
+  const resolvedRef = useRef(resolved)
+  resolvedRef.current = resolved
+  const pickerRef = useRef<wheelPicker.Controller>(null)
+  pickerRef.current ??= wheelPicker.createWheelPicker()
+  const picker = pickerRef.current
+
+  useEffect(() => picker.mount(() => resolvedRef.current), [picker, id])
+  useLayoutEffect(
+    () => picker.sync(resolvedRef.current),
+    [picker, value, rest.items.length, rest.loop, rest.itemHeight],
+  )
+
+  return picker.connect(resolved, normalizeProps)
 }

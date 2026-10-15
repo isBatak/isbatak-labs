@@ -1,8 +1,7 @@
 import { masonry as masonryRecipe } from "@isbatak/storybook-shared/recipes"
 import { formatLayout, masonryClasses as classes, type MasonryControls } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/preact"
-import { useId } from "preact/hooks"
+import { useMasonry } from "./use-masonry"
 
 const styles = masonryRecipe()
 
@@ -11,12 +10,7 @@ export interface VariableHeightProps extends Partial<MasonryControls> {
 }
 
 export function VariableHeight(props: VariableHeightProps) {
-  const service = useMachine(masonry.machine, {
-    id: useId(),
-    ...props,
-  })
-
-  const api = masonry.connect(service, normalizeProps)
+  const api = useMasonry(props)
 
   return (
     <main className={classes.story}>

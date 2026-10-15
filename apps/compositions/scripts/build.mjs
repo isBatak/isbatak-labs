@@ -36,8 +36,8 @@ const components = [
     ark: "@isbatak/ark-wheel-picker",
     panda: "@isbatak/panda-wheel-picker",
     recipe: "wheelPicker",
-    machine: "withSnapshot",
-    collection: "createWheelPickerCollection",
+    controller: "createWheelPicker",
+    machine: "withPickerControls",
   },
   {
     id: "masonry",
@@ -45,7 +45,8 @@ const components = [
     ark: "@isbatak/ark-masonry",
     panda: "@isbatak/panda-masonry",
     recipe: "masonry",
-    machine: "withControls",
+    controller: "createMasonry",
+    machine: "withMasonryControls",
   },
   {
     id: "text-flip",
@@ -316,8 +317,6 @@ function exampleState() {
       const component = components.find(({ zag }) => zag === source)
       if (component && api === "zag") return `${prefix}machine:${component.id}:${example}`
       if (component && arkSource(component).test(importer)) return `${prefix}machine:${component.id}:`
-      const arkComponent = components.find(({ ark }) => source.startsWith(`${ark}/`))
-      if (arkComponent?.collection && api === "ark") return `${prefix}ark:${arkComponent.id}:${example}:${source}`
       return undefined
     },
     load(id) {
@@ -333,21 +332,15 @@ function exampleState() {
           `export const ${recipe} = withRecipeControls(recipe, ${JSON.stringify(example)})`,
         ].join("\n")
       }
-      const [componentId, example, source] = rest
+      const [componentId, example] = rest
       const component = components.find(({ id }) => id === componentId)
-      if (kind === "ark")
-        return [
-          `import { ${component.collection} as create } from ${JSON.stringify(source)}`,
-          `import { tagCollection } from ${state}`,
-          `export * from ${JSON.stringify(source)}`,
-          `export const ${component.collection} = (options) => tagCollection(create(options), ${JSON.stringify(example)})`,
-        ].join("\n")
+      const exportName = component.controller ?? "machine"
       return [
-        `import { machine } from ${JSON.stringify(component.zag)}`,
+        `import { ${exportName} } from ${JSON.stringify(component.zag)}`,
         `import { ${component.machine} } from ${state}`,
         `export * from ${JSON.stringify(component.zag)}`,
-        `const controlledMachine = ${component.machine}(machine${example ? `, ${JSON.stringify(example)}` : ""})`,
-        `export { controlledMachine as machine }`,
+        `const controlled = ${component.machine}(${exportName}${example ? `, ${JSON.stringify(example)}` : ""})`,
+        `export { controlled as ${exportName} }`,
       ].join("\n")
     },
   }

@@ -1,352 +1,235 @@
-import type { CollectionItem } from "@zag-js/collection"
-import {
-  dataAttr,
-  getEventKey,
-  getEventPoint,
-  getNativeEvent,
-  isInternalChangeEvent,
-  isLeftClick,
-  visuallyHiddenStyle,
-} from "@zag-js/dom-query"
-import { isFocusVisible } from "@zag-js/focus-visible"
-import type { EventKeyMap, NormalizeProps, PropTypes } from "@zag-js/types"
+import { dataAttr, getByTypeahead, type TypeaheadState } from "@zag-js/dom-query"
+import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import { parts } from "./wheel-picker.anatomy"
-import * as dom from "./wheel-picker.dom"
-import type { ItemProps, ItemState, WheelPickerApi, WheelPickerService } from "./wheel-picker.types"
+import type { ItemProps, WheelPickerApi, WheelPickerController, WheelPickerProps } from "./wheel-picker.types"
 import {
-  getExpandedItems,
-  getHighlightItems,
-  getRenderItems,
-  getWheelGeometry,
-  normalizeScroll,
+  getCenterRow,
+  getItemAt,
+  getRowOf,
+  getRows,
+  MIDDLE,
+  resolveProps,
+  scrollToRow,
+  stepRow,
+  trackScrollEnd,
 } from "./wheel-picker.utils"
 
-export function connect<P extends PropTypes, T extends CollectionItem = CollectionItem>(
-  service: WheelPickerService<T>,
-  normalize: NormalizeProps<P>,
-): WheelPickerApi<P, T> {
-  const { context, prop, scope, send, state, computed } = service
-  const itemCollection = prop("collection")
-  const value = context.get("value")
-  const selectedItem = itemCollection.find(value)
-  const valueAsString = itemCollection.stringifyItem(selectedItem) ?? ""
-  const geometry = getWheelGeometry(prop("visibleCount"), prop("optionItemHeight"))
-  const expandedItems = getExpandedItems(itemCollection.items, prop("infinite"), prop("visibleCount"))
-  const selectedIndex = context.get("index")
-  const disabled = prop("disabled") || context.get("fieldsetDisabled")
-  const readOnly = prop("readOnly")
-  const invalid = prop("invalid")
-  const interactive = computed("interactive")
+const getRootId = (props: WheelPickerProps) => props.ids?.root ?? `wheel-picker:${props.id}`
+const getLabelId = (props: WheelPickerProps) => props.ids?.label ?? `wheel-picker:${props.id}:label`
+const getViewportId = (props: WheelPickerProps) => props.ids?.viewport ?? `wheel-picker:${props.id}:viewport`
+const getViewportEl = (props: WheelPickerProps) => document.getElementById(getViewportId(props))
 
-  function getItemState(props: ItemProps<T>): ItemState {
+export function createWheelPicker(): WheelPickerController {
+  let pendingRow: number | undefined
+  let mounted = false
+  const typeahead: TypeaheadState = { ...getByTypeahead.defaultOptions }
+
+  function settle(props: WheelPickerProps, el: HTMLElement) {
+    const { items, loop } = resolveProps(props)
+    if (items.length === 0) return
+
+    const n = items.length
+    const row = getCenterRow(props, el)
+    const item = getItemAt(items, row)!
+
+    pendingRow = undefined
+
+    if (item.disabled) {
+      let next = stepRow(props, row, 1)
+      if (next === row) next = stepRow(props, row, -1)
+      scrollToRow(props, el, next, "smooth")
+      return
+    }
+
+    if (loop && Math.abs(Math.floor(row / n) - MIDDLE) > 1) {
+      scrollToRow(props, el, getRowOf(props, item.value), "instant")
+    }
+
+    if (item.value !== props.value) props.onValueChange?.({ value: item.value, item })
+  }
+
+  function connect<P extends PropTypes>(props: WheelPickerProps, normalize: NormalizeProps<P>): WheelPickerApi<P> {
+    const { items, value, itemHeight, visibleCount, disabled } = resolveProps(props)
+    const index = items.findIndex((item) => item.value === value)
+    const selectedItem = items[index]
+    const padding = ((visibleCount - 1) / 2) * itemHeight
+
     return {
-      disabled: !!disabled || itemCollection.getItemDisabled(props.item),
-      index: props.index,
-      selected: props.index === selectedIndex,
-      value: itemCollection.getItemValue(props.item),
+      value,
+      selectedItem,
+      rows: getRows(props),
+
+      getRootProps() {
+        return normalize.element({
+          ...parts.root.attrs(props.id),
+          id: getRootId(props),
+          "data-disabled": dataAttr(disabled),
+          style: {
+            position: "relative",
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            "--wheel-picker-item-height": `${itemHeight}px`,
+            "--wheel-picker-visible-count": visibleCount,
+          },
+        })
+      },
+
+      getLabelProps() {
+        return normalize.element({
+          ...parts.label.attrs(props.id),
+          id: getLabelId(props),
+          "data-disabled": dataAttr(disabled),
+          onClick() {
+            if (!disabled) getViewportEl(props)?.focus({ preventScroll: true })
+          },
+        })
+      },
+
+      getControlProps() {
+        return normalize.element({
+          ...parts.control.attrs(props.id),
+          "data-disabled": dataAttr(disabled),
+          style: { position: "relative", isolation: "isolate" },
+        })
+      },
+
+      getViewportProps() {
+        return normalize.element({
+          ...parts.viewport.attrs(props.id),
+          id: getViewportId(props),
+          role: "spinbutton",
+          tabIndex: disabled ? undefined : 0,
+          "aria-label": props["aria-label"],
+          "aria-labelledby": props["aria-label"] ? undefined : (props["aria-labelledby"] ?? getLabelId(props)),
+          "aria-valuemin": 0,
+          "aria-valuemax": Math.max(0, items.length - 1),
+          "aria-valuenow": Math.max(0, index),
+          "aria-valuetext": selectedItem?.label,
+          "aria-disabled": disabled || undefined,
+          "data-disabled": dataAttr(disabled),
+          style: {
+            position: "relative",
+            zIndex: 1,
+            height: `${itemHeight * visibleCount}px`,
+            overflowY: disabled ? "hidden" : "auto",
+            scrollSnapType: "y mandatory",
+            scrollbarWidth: "none",
+            overscrollBehavior: "contain",
+            paddingBlock: `${padding}px`,
+            outline: "none",
+          },
+          onKeyDown(event) {
+            if (disabled || items.length === 0) return
+
+            const el = event.currentTarget as HTMLElement
+            const from = pendingRow ?? getCenterRow(props, el)
+            const n = items.length
+            const copyStart = from - (from % n)
+
+            const keyMap: Record<string, () => number> = {
+              ArrowDown: () => stepRow(props, from, 1),
+              ArrowUp: () => stepRow(props, from, -1),
+              PageDown: () => stepRow(props, from, visibleCount - 1),
+              PageUp: () => stepRow(props, from, -(visibleCount - 1)),
+              Home: () => stepRow(props, copyStart - 1, 1),
+              End: () => stepRow(props, copyStart + n, -1),
+            }
+
+            let row = keyMap[event.key]?.()
+
+            if (row === undefined && getByTypeahead.isValidEvent(event)) {
+              const match = getByTypeahead(
+                items.filter((item) => !item.disabled).map((item) => ({ id: item.value, textContent: item.label })),
+                { state: typeahead, activeId: value, key: event.key },
+              )
+              if (match) row = getRowOf(props, match.id, from)
+            }
+
+            if (row === undefined) return
+            event.preventDefault()
+            if (row === getCenterRow(props, el)) return
+
+            pendingRow = row
+            scrollToRow(props, el, row, "smooth")
+            const item = getItemAt(items, row)!
+            if (item.value !== value) props.onValueChange?.({ value: item.value, item })
+          },
+        })
+      },
+
+      getItemGroupProps() {
+        return normalize.element({
+          ...parts.itemGroup.attrs(props.id),
+          "aria-hidden": true,
+        })
+      },
+
+      getItemProps({ row }: ItemProps) {
+        const item = getItemAt(items, row)!
+        return normalize.element({
+          ...parts.item.attrs(props.id),
+          "data-value": item.value,
+          "data-selected": dataAttr(item.value === value),
+          "data-disabled": dataAttr(item.disabled),
+          style: { height: `${itemHeight}px`, scrollSnapAlign: "center" },
+        })
+      },
+
+      getHighlightProps() {
+        return normalize.element({
+          ...parts.highlight.attrs(props.id),
+          "aria-hidden": true,
+          style: {
+            position: "absolute",
+            insetInline: 0,
+            top: `${padding}px`,
+            height: `${itemHeight}px`,
+            pointerEvents: "none",
+          },
+        })
+      },
+
+      getHiddenInputProps() {
+        return normalize.input({
+          type: "hidden",
+          name: props.name,
+          form: props.form,
+          value,
+          disabled,
+        })
+      },
     }
   }
 
-  return {
-    collection: itemCollection,
-    value,
-    valueAsString,
-    selectedItem,
-    index: itemCollection.indexOf(value),
-    focused: context.get("focused"),
-    dragging: state.matches("dragging"),
-    scrolling: state.matches("scrolling"),
-    items: getRenderItems(itemCollection.items, prop("infinite"), prop("visibleCount")),
-    highlightItems: getHighlightItems(itemCollection.items, prop("infinite"), prop("visibleCount")),
-
-    setValue(value) {
-      send({ type: "VALUE.SET", value })
-    },
-    scrollToIndex(index) {
-      send({ type: "INDEX.SCROLL_TO", index })
-    },
-    getItemState,
-
-    getRootProps() {
-      return normalize.element({
-        ...parts.root.attrs,
-        id: dom.getRootId(scope),
-        dir: prop("dir"),
-        "data-disabled": dataAttr(disabled),
-        "data-invalid": dataAttr(invalid),
-        "data-readonly": dataAttr(readOnly),
-        style: {
-          position: "relative",
-          userSelect: "none",
-          WebkitUserSelect: "none",
-        },
-      })
-    },
-
-    getLabelProps() {
-      return normalize.label({
-        ...parts.label.attrs,
-        id: dom.getLabelId(scope),
-        htmlFor: dom.getHiddenSelectId(scope),
-        dir: prop("dir"),
-        "data-disabled": dataAttr(disabled),
-        "data-invalid": dataAttr(invalid),
-        onClick(event) {
-          if (!interactive) return
-          event.preventDefault()
-          dom.getControlEl(scope)?.focus({ preventScroll: true })
-        },
-      })
-    },
-
-    getControlProps() {
-      const originalIndex = itemCollection.indexOf(value)
-
-      return normalize.element({
-        ...parts.control.attrs,
-        id: dom.getControlId(scope),
-        role: "spinbutton",
-        tabIndex: disabled ? undefined : 0,
-        dir: prop("dir"),
-        "aria-label": prop("aria-label"),
-        "aria-labelledby": prop("aria-labelledby") ?? dom.getLabelId(scope),
-        "aria-valuemin": 0,
-        "aria-valuemax": Math.max(0, itemCollection.size - 1),
-        "aria-valuenow": Math.max(0, originalIndex),
-        "aria-valuetext": valueAsString,
-        "aria-disabled": disabled || undefined,
-        "aria-readonly": readOnly || undefined,
-        "aria-invalid": invalid || undefined,
-        "data-disabled": dataAttr(disabled),
-        "data-dragging": dataAttr(state.matches("dragging")),
-        "data-focus": dataAttr(context.get("focused")),
-        "data-focus-visible": dataAttr(context.get("focusVisible")),
-        "data-invalid": dataAttr(invalid),
-        "data-readonly": dataAttr(readOnly),
-        "data-scrolling": dataAttr(state.matches("scrolling")),
-        style: {
-          position: "relative",
-          touchAction: "none",
-        },
-        onFocus() {
-          send({ type: "CONTROL.FOCUS", focusVisible: isFocusVisible() })
-        },
-        onBlur() {
-          send({ type: "CONTROL.BLUR", focusVisible: false })
-        },
-        onPointerDown(event) {
-          if (!interactive || event.pointerType === "touch" || !isLeftClick(event)) return
-          const point = getEventPoint(event)
-          send({ type: "CONTROL.POINTER_DOWN", point, timestamp: event.timeStamp })
-          event.preventDefault()
-        },
-        onKeyDown(event) {
-          if (!interactive) return
-
-          const keyMap: EventKeyMap = {
-            ArrowUp() {
-              send({ type: "CONTROL.STEP", step: -1 })
-            },
-            ArrowDown() {
-              send({ type: "CONTROL.STEP", step: 1 })
-            },
-            ArrowLeft() {
-              dom.focusSiblingControl(scope, prop("dir") === "rtl" ? 1 : -1)
-            },
-            ArrowRight() {
-              dom.focusSiblingControl(scope, prop("dir") === "rtl" ? -1 : 1)
-            },
-            Home() {
-              if (!prop("infinite")) send({ type: "CONTROL.HOME" })
-            },
-            End() {
-              if (!prop("infinite")) send({ type: "CONTROL.END" })
-            },
-          }
-
-          const exec = keyMap[getEventKey(event)]
-          if (exec) {
-            exec(event)
-            event.preventDefault()
-            return
-          }
-
-          if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
-            send({ type: "CONTROL.TYPEAHEAD", key: event.key })
-            event.preventDefault()
-          }
-        },
-      })
-    },
-
-    getViewportProps() {
-      return normalize.element({
-        ...parts.viewport.attrs,
-        id: dom.getViewportId(scope),
-        role: "presentation",
-        dir: prop("dir"),
-        style: {
-          position: "relative",
-          overflow: "hidden",
-          height: "100%",
-          perspective: "2000px",
-        },
-      })
-    },
-
-    getItemGroupProps() {
-      const scroll =
-        expandedItems.length > 0 && prop("infinite")
-          ? normalizeScroll(selectedIndex, expandedItems.length)
-          : selectedIndex
-
-      return normalize.element({
-        ...parts.itemGroup.attrs,
-        id: dom.getItemGroupId(scope),
-        role: "presentation",
-        "aria-hidden": true,
-        style: {
-          position: "absolute",
-          top: "50%",
-          left: 0,
-          display: "block",
-          width: "100%",
-          height: 0,
-          margin: "0 auto",
-          padding: 0,
-          listStyle: "none",
-          WebkitFontSmoothing: "subpixel-antialiased",
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          transformStyle: "preserve-3d",
-          transform: `translateZ(${-geometry.radius}px) rotateX(${geometry.itemAngle * scroll}deg)`,
-        },
-      })
-    },
-
-    getItemProps(props) {
-      const itemState = getItemState(props)
-      const distance = Math.abs(props.index - selectedIndex)
-
-      return normalize.element({
-        ...parts.item.attrs,
-        id: dom.getItemId(scope, props.index),
-        role: "presentation",
-        "aria-hidden": true,
-        "data-disabled": dataAttr(itemState.disabled),
-        "data-index": props.index,
-        "data-selected": dataAttr(itemState.selected),
-        "data-value": itemState.value ?? undefined,
-        style: {
-          position: "absolute",
-          top: `${-geometry.halfItemHeight}px`,
-          left: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          height: `${prop("optionItemHeight")}px`,
-          margin: 0,
-          padding: 0,
-          lineHeight: `${prop("optionItemHeight")}px`,
-          transform: `rotateX(${-geometry.itemAngle * props.index}deg) translateZ(${geometry.radius}px)`,
-          visibility: distance > geometry.quarterCount ? "hidden" : "visible",
-          WebkitFontSmoothing: "subpixel-antialiased",
-          willChange: "visibility",
-          pointerEvents: itemState.disabled ? "none" : undefined,
-        },
-      })
-    },
-
-    getHighlightProps() {
-      return normalize.element({
-        ...parts.highlight.attrs,
-        id: dom.getHighlightId(scope),
-        role: "presentation",
-        "aria-hidden": true,
-        "data-focus": dataAttr(context.get("focused")),
-        style: {
-          position: "absolute",
-          overflow: "hidden",
-          top: "50%",
-          width: "100%",
-          height: `${prop("optionItemHeight")}px`,
-          lineHeight: `${prop("optionItemHeight")}px`,
-          transform: "translateY(-50%)",
-          pointerEvents: "none",
-        },
-      })
-    },
-
-    getHighlightItemGroupProps() {
-      const scroll =
-        expandedItems.length > 0 && prop("infinite")
-          ? normalizeScroll(selectedIndex, expandedItems.length)
-          : selectedIndex
-
-      return normalize.element({
-        ...parts.highlightItemGroup.attrs,
-        id: dom.getHighlightItemGroupId(scope),
-        role: "presentation",
-        style: {
-          position: "absolute",
-          top: prop("infinite") ? `${-prop("optionItemHeight")}px` : undefined,
-          width: "100%",
-          margin: 0,
-          padding: 0,
-          listStyle: "none",
-          transform: `translateY(${-scroll * prop("optionItemHeight")}px)`,
-          willChange: "transform",
-        },
-      })
-    },
-
-    getHighlightItemProps(props) {
-      const itemState = getItemState(props)
-
-      return normalize.element({
-        ...parts.highlightItem.attrs,
-        id: dom.getHighlightItemId(scope, props.index),
-        role: "presentation",
-        "data-disabled": dataAttr(itemState.disabled),
-        "data-index": props.index,
-        "data-selected": dataAttr(itemState.selected),
-        "data-value": itemState.value ?? undefined,
-        style: {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: `${prop("optionItemHeight")}px`,
-          margin: 0,
-          padding: 0,
-          pointerEvents: "none",
-        },
-      })
-    },
-
-    getHiddenSelectProps() {
-      const handleChange = (event: { currentTarget: HTMLSelectElement; nativeEvent?: Event }) => {
-        if (isInternalChangeEvent(getNativeEvent(event))) return
-        send({ type: "VALUE.SET", value: event.currentTarget.value || null })
-      }
-
-      return normalize.select({
-        id: dom.getHiddenSelectId(scope),
-        name: prop("name"),
-        form: prop("form"),
-        disabled,
-        required: prop("required"),
-        "aria-hidden": true,
-        "aria-labelledby": dom.getLabelId(scope),
-        defaultValue: value ?? undefined,
-        style: visuallyHiddenStyle,
-        tabIndex: -1,
-        onChange: handleChange,
-        onInput: handleChange,
-        onFocus() {
-          dom.getControlEl(scope)?.focus({ preventScroll: true })
-        },
-      })
-    },
+  function restore(props: WheelPickerProps, el: HTMLElement, behavior: ScrollBehavior, fromRow?: number) {
+    const current = getCenterRow(props, el)
+    const row = getRowOf(props, props.value, fromRow)
+    if (row !== -1 && row !== current) scrollToRow(props, el, row, behavior)
   }
+
+  function mount(getProps: () => WheelPickerProps) {
+    const el = getViewportEl(getProps())
+    if (!el) return () => {}
+
+    const stopTracking = trackScrollEnd(el, () => settle(getProps(), el))
+    const observer = new ResizeObserver(() => {
+      if (el.clientHeight > 0 && pendingRow === undefined) restore(getProps(), el, "instant")
+    })
+    observer.observe(el)
+
+    return () => {
+      stopTracking()
+      observer.disconnect()
+    }
+  }
+
+  function sync(props: WheelPickerProps) {
+    const el = getViewportEl(props)
+    if (!el || pendingRow !== undefined) return
+
+    restore(props, el, mounted ? "smooth" : "instant", mounted ? getCenterRow(props, el) : undefined)
+    mounted = true
+  }
+
+  return { connect, mount, sync }
 }

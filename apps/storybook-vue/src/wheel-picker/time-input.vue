@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
 import {
-  getDayPeriodCollection,
-  getHourCollection,
+  getDayPeriodItems,
   getHourCycle,
-  getMinuteCollection,
+  getHourItems,
+  getMinuteItems,
   getTimeFormatter,
   getTimeParts,
   isDayPeriod,
@@ -13,13 +12,11 @@ import {
   type Locale,
   type TimeParts,
 } from "@isbatak/storybook-shared"
-import * as wheelPicker from "@isbatak/zag-wheel-picker"
 import * as dateInput from "@zag-js/date-input"
 import * as popover from "@zag-js/popover"
 import { normalizeProps, useMachine } from "@zag-js/vue"
 import { computed, shallowRef, useId } from "vue"
-
-const styles = wheelPickerRecipe()
+import Picker from "./picker.vue"
 
 const props = defineProps<{ locale: Locale }>()
 
@@ -27,9 +24,9 @@ const id = useId()
 const value = shallowRef<dateInput.DateValue[]>([])
 const hourCycle = computed(() => getHourCycle(props.locale))
 const formatter = computed(() => getTimeFormatter(props.locale))
-const hourCollection = computed(() => getHourCollection(props.locale, hourCycle.value))
-const minuteCollection = computed(() => getMinuteCollection(props.locale))
-const dayPeriodCollection = computed(() => getDayPeriodCollection(props.locale))
+const hourItems = computed(() => getHourItems(props.locale, hourCycle.value))
+const minuteItems = computed(() => getMinuteItems(props.locale))
+const dayPeriodItems = computed(() => getDayPeriodItems(props.locale))
 
 const dateInputService = useMachine(
   dateInput.machine,
@@ -62,50 +59,7 @@ const popoverService = useMachine(popover.machine, {
   positioning: { placement: "bottom" },
   modal: true,
 })
-const hourService = useMachine(
-  wheelPicker.machine,
-  computed(() => ({
-    id: `${id}:hour`,
-    collection: hourCollection.value,
-    value: time.value.hour,
-    infinite: true,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (details.value) updateTime("hour", details.value)
-    },
-  })),
-)
-const minuteService = useMachine(
-  wheelPicker.machine,
-  computed(() => ({
-    id: `${id}:minute`,
-    collection: minuteCollection.value,
-    value: time.value.minute,
-    infinite: true,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (details.value) updateTime("minute", details.value)
-    },
-  })),
-)
-const dayPeriodService = useMachine(
-  wheelPicker.machine,
-  computed(() => ({
-    id: `${id}:day-period`,
-    collection: dayPeriodCollection.value,
-    value: time.value.dayPeriod,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (isDayPeriod(details.value)) updateTime("dayPeriod", details.value)
-    },
-  })),
-)
-
 const popoverApi = computed(() => popover.connect(popoverService, normalizeProps))
-const pickers = computed(() => [
-  { api: wheelPicker.connect(hourService, normalizeProps), label: "Hour" },
-  { api: wheelPicker.connect(minuteService, normalizeProps), label: "Minute" },
-  ...(isTwelveHourCycle(hourCycle.value)
-    ? [{ api: wheelPicker.connect(dayPeriodService, normalizeProps), label: "Day period" }]
-    : []),
-])
 </script>
 
 <template>
@@ -133,35 +87,27 @@ const pickers = computed(() => [
         <div class="sr-only" v-bind="popoverApi.getTitleProps()">Select time</div>
         <div class="sr-only" v-bind="popoverApi.getDescriptionProps()">Choose an hour, minute, and day period.</div>
         <div class="wheel-picker-group" role="group" aria-label="Time picker">
-          <div v-for="{ api, label } in pickers" :key="label" v-bind="api.getRootProps()" :class="styles.root">
-            <label v-bind="api.getLabelProps()" :class="styles.label">{{ label }}</label>
-            <div v-bind="api.getControlProps()" :class="styles.control">
-              <div v-bind="api.getViewportProps()" :class="styles.viewport">
-                <ul v-bind="api.getItemGroupProps()" :class="styles.itemGroup">
-                  <li
-                    v-for="{ item, index, key } in api.items"
-                    :key="key"
-                    v-bind="api.getItemProps({ item, index })"
-                    :class="styles.item"
-                  >
-                    {{ item.label }}
-                  </li>
-                </ul>
-                <div v-bind="api.getHighlightProps()" :class="styles.highlight">
-                  <ul v-bind="api.getHighlightItemGroupProps()" :class="styles.highlightItemGroup">
-                    <li
-                      v-for="{ item, index, key } in api.highlightItems"
-                      :key="key"
-                      v-bind="api.getHighlightItemProps({ item, index })"
-                      :class="styles.highlightItem"
-                    >
-                      {{ item.label }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Picker
+            label="Hour"
+            loop
+            :items="hourItems"
+            :model-value="time.hour"
+            @update:model-value="updateTime('hour', $event)"
+          />
+          <Picker
+            label="Minute"
+            loop
+            :items="minuteItems"
+            :model-value="time.minute"
+            @update:model-value="updateTime('minute', $event)"
+          />
+          <Picker
+            v-if="isTwelveHourCycle(hourCycle)"
+            label="Day period"
+            :items="dayPeriodItems"
+            :model-value="time.dayPeriod"
+            @update:model-value="isDayPeriod($event) && updateTime('dayPeriod', $event)"
+          />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ type VariantComponentProps<P> = Omit<P, keyof DocVariant>
 const variantComponents = (variant: DocVariant, docsUrl: string): MDXComponents => ({
   Example: (props: VariantComponentProps<ComponentProps<typeof Example>>) => <Example {...props} {...variant} />,
   ExampleCode: (props: VariantComponentProps<ComponentProps<typeof ExampleSource>>) => (
-    <ExampleSource {...props} {...variant} />
+    <ExampleSource {...props} {...variant} scrollable />
   ),
   FrameworkInstall: (props: VariantComponentProps<ComponentProps<typeof FrameworkInstall>>) => (
     <FrameworkInstall {...props} {...variant} />

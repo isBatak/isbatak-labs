@@ -238,16 +238,13 @@ function ControlsPanel({ id }: { id: string }) {
     <styled.div display="grid" gridTemplateColumns="repeat(auto-fit, minmax(13rem, 1fr))" columnGap="8" rowGap="6">
       <Section role="group" aria-labelledby={`${id}-behavior`}>
         <SectionTitle id={`${id}-behavior`}>Behavior</SectionTitle>
-        <SwitchField id={id} name="infinite" label="Infinite" />
+        <SwitchField id={id} name="loop" label="Loop" />
         <SwitchField id={id} name="disabled" label="Disabled" />
-        <SwitchField id={id} name="readOnly" label="Read-only" />
-        <SwitchField id={id} name="invalid" label="Invalid" />
       </Section>
       <Section role="group" aria-labelledby={`${id}-tuning`}>
         <SectionTitle id={`${id}-tuning`}>Tuning</SectionTitle>
-        <SliderField id={id} name="visibleCount" label="Visible count" min={4} max={40} step={4} />
-        <SliderField id={id} name="dragSensitivity" label="Drag sensitivity" min={1} max={10} step={1} />
-        <SliderField id={id} name="scrollSensitivity" label="Scroll sensitivity" min={1} max={10} step={1} />
+        <SliderField id={id} name="visibleCount" label="Visible count" min={3} max={9} step={2} />
+        <SliderField id={id} name="itemHeight" label="Item height" min={24} max={64} step={4} />
       </Section>
       <Section role="group" aria-labelledby={`${id}-style`}>
         <SectionTitle id={`${id}-style`}>Style</SectionTitle>

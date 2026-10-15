@@ -5,12 +5,13 @@ import type { RefAttributes } from "react"
 import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export interface WheelPickerItemBaseProps extends wheelPicker.ItemProps, PolymorphicProps {}
-export interface WheelPickerItemProps extends HTMLProps<"li">, WheelPickerItemBaseProps, RefAttributes<HTMLLIElement> {}
+export interface WheelPickerItemProps
+  extends HTMLProps<"div">, WheelPickerItemBaseProps, RefAttributes<HTMLDivElement> {}
 
 export const WheelPickerItem = (props: WheelPickerItemProps) => {
-  const { item, index, ...localProps } = props
+  const { row, ...localProps } = props
   const api = useWheelPickerContext()
-  const mergedProps = mergeProps(api.getItemProps({ item, index }), localProps)
+  const mergedProps = mergeProps(api.getItemProps({ row }), localProps)
 
-  return <ark.li {...mergedProps} />
+  return <ark.div {...mergedProps} />
 }

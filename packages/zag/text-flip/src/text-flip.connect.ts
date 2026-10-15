@@ -40,7 +40,7 @@ export function connect<T extends PropTypes>(service: TextFlipService, normalize
 
     getRootProps() {
       return normalize.element({
-        ...parts.root.attrs,
+        ...parts.root.attrs(scope.id),
         id: dom.getRootId(scope),
         "data-state": playing ? "playing" : "paused",
         style: {
@@ -53,7 +53,7 @@ export function connect<T extends PropTypes>(service: TextFlipService, normalize
       const itemState = getItemState(props.index, index, previousIndex)
 
       return normalize.element({
-        ...parts.item.attrs,
+        ...parts.item.attrs(scope.id),
         id: dom.getItemId(scope, props.index),
         "data-index": props.index,
         "data-state": itemState,

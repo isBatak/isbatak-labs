@@ -1,7 +1,6 @@
-export { anatomy as wheelPickerAnatomy, collection as createWheelPickerCollection } from "@isbatak/zag-wheel-picker"
+export { anatomy as wheelPickerAnatomy } from "@isbatak/zag-wheel-picker"
 export type {
-  CollectionItem as WheelPickerCollectionItem,
-  ScrollChangeDetails as WheelPickerScrollChangeDetails,
+  ItemData as WheelPickerItemData,
   ValueChangeDetails as WheelPickerValueChangeDetails,
 } from "@isbatak/zag-wheel-picker"
 export { useWheelPicker, type UseWheelPickerProps, type UseWheelPickerReturn } from "./use-wheel-picker"
@@ -13,25 +12,15 @@ export {
   type WheelPickerControlProps,
 } from "./wheel-picker-control"
 export {
-  WheelPickerHiddenSelect,
-  type WheelPickerHiddenSelectBaseProps,
-  type WheelPickerHiddenSelectProps,
-} from "./wheel-picker-hidden-select"
+  WheelPickerHiddenInput,
+  type WheelPickerHiddenInputBaseProps,
+  type WheelPickerHiddenInputProps,
+} from "./wheel-picker-hidden-input"
 export {
   WheelPickerHighlight,
   type WheelPickerHighlightBaseProps,
   type WheelPickerHighlightProps,
 } from "./wheel-picker-highlight"
-export {
-  WheelPickerHighlightItem,
-  type WheelPickerHighlightItemBaseProps,
-  type WheelPickerHighlightItemProps,
-} from "./wheel-picker-highlight-item"
-export {
-  WheelPickerHighlightItemGroup,
-  type WheelPickerHighlightItemGroupBaseProps,
-  type WheelPickerHighlightItemGroupProps,
-} from "./wheel-picker-highlight-item-group"
 export { WheelPickerItem, type WheelPickerItemBaseProps, type WheelPickerItemProps } from "./wheel-picker-item"
 export {
   WheelPickerItemGroup,

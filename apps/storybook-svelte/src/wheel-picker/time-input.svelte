@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { wheelPicker as wheelPickerRecipe } from "@isbatak/storybook-shared/recipes"
   import {
-    getDayPeriodCollection,
-    getHourCollection,
+    getDayPeriodItems,
     getHourCycle,
-    getMinuteCollection,
+    getHourItems,
+    getMinuteItems,
     getTimeFormatter,
     getTimeParts,
     isDayPeriod,
@@ -13,21 +12,19 @@
     type TimeInputControls,
     type TimeParts,
   } from "@isbatak/storybook-shared"
-  import * as wheelPicker from "@isbatak/zag-wheel-picker"
   import * as dateInput from "@zag-js/date-input"
   import * as popover from "@zag-js/popover"
   import { normalizeProps, useMachine } from "@zag-js/svelte"
-
-  const styles = wheelPickerRecipe()
+  import Picker from "./picker.svelte"
 
   const props: TimeInputControls = $props()
   const id = $props.id()
   let value = $state.raw<dateInput.DateValue[]>([])
   const hourCycle = $derived(getHourCycle(props.locale))
   const formatter = $derived(getTimeFormatter(props.locale))
-  const hourCollection = $derived(getHourCollection(props.locale, hourCycle))
-  const minuteCollection = $derived(getMinuteCollection(props.locale))
-  const dayPeriodCollection = $derived(getDayPeriodCollection(props.locale))
+  const hourItems = $derived(getHourItems(props.locale, hourCycle))
+  const minuteItems = $derived(getMinuteItems(props.locale))
+  const dayPeriodItems = $derived(getDayPeriodItems(props.locale))
 
   const dateInputService = useMachine(dateInput.machine, () => ({
     id: `${id}:input`,
@@ -54,41 +51,7 @@
     positioning: { placement: "bottom" },
     modal: true,
   })
-  const hourService = useMachine(wheelPicker.machine, () => ({
-    id: `${id}:hour`,
-    collection: hourCollection,
-    value: time.hour,
-    infinite: true,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (details.value) updateTime("hour", details.value)
-    },
-  }))
-  const minuteService = useMachine(wheelPicker.machine, () => ({
-    id: `${id}:minute`,
-    collection: minuteCollection,
-    value: time.minute,
-    infinite: true,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (details.value) updateTime("minute", details.value)
-    },
-  }))
-  const dayPeriodService = useMachine(wheelPicker.machine, () => ({
-    id: `${id}:day-period`,
-    collection: dayPeriodCollection,
-    value: time.dayPeriod,
-    onValueChange(details: wheelPicker.ValueChangeDetails) {
-      if (isDayPeriod(details.value)) updateTime("dayPeriod", details.value)
-    },
-  }))
-
   const popoverApi = $derived(popover.connect(popoverService, normalizeProps))
-  const pickers = $derived([
-    { api: wheelPicker.connect(hourService, normalizeProps), label: "Hour" },
-    { api: wheelPicker.connect(minuteService, normalizeProps), label: "Minute" },
-    ...(isTwelveHourCycle(hourCycle)
-      ? [{ api: wheelPicker.connect(dayPeriodService, normalizeProps), label: "Day period" }]
-      : []),
-  ])
 </script>
 
 <main class="date-input wheel-picker wheel-picker-time-input">
@@ -113,28 +76,28 @@
       <div class="sr-only" {...popoverApi.getTitleProps()}>Select time</div>
       <div class="sr-only" {...popoverApi.getDescriptionProps()}>Choose an hour, minute, and day period.</div>
       <div class="wheel-picker-group" role="group" aria-label="Time picker">
-        {#each pickers as { api, label } (label)}
-          <div {...api.getRootProps()} class={styles.root}>
-            <!-- svelte-ignore a11y_label_has_associated_control -->
-            <label {...api.getLabelProps()} class={styles.label}>{label}</label>
-            <div {...api.getControlProps()} class={styles.control}>
-              <div {...api.getViewportProps()} class={styles.viewport}>
-                <ul {...api.getItemGroupProps()} class={styles.itemGroup}>
-                  {#each api.items as { item, index, key } (key)}
-                    <li {...api.getItemProps({ item, index })} class={styles.item}>{item.label}</li>
-                  {/each}
-                </ul>
-                <div {...api.getHighlightProps()} class={styles.highlight}>
-                  <ul {...api.getHighlightItemGroupProps()} class={styles.highlightItemGroup}>
-                    {#each api.highlightItems as { item, index, key } (key)}
-                      <li {...api.getHighlightItemProps({ item, index })} class={styles.highlightItem}>{item.label}</li>
-                    {/each}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        {/each}
+        <Picker
+          label="Hour"
+          items={hourItems}
+          value={time.hour}
+          loop
+          onValueChange={(details) => updateTime("hour", details.value)}
+        />
+        <Picker
+          label="Minute"
+          items={minuteItems}
+          value={time.minute}
+          loop
+          onValueChange={(details) => updateTime("minute", details.value)}
+        />
+        {#if isTwelveHourCycle(hourCycle)}
+          <Picker
+            label="Day period"
+            items={dayPeriodItems}
+            value={time.dayPeriod}
+            onValueChange={(details) => isDayPeriod(details.value) && updateTime("dayPeriod", details.value)}
+          />
+        {/if}
       </div>
     </div>
   </div>

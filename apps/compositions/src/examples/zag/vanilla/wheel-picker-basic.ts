@@ -1,93 +1,82 @@
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, spreadProps, VanillaMachine } from "@zag-js/vanilla"
+import { normalizeProps, spreadProps } from "@zag-js/vanilla"
 
-const collection = wheelPicker.collection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular", disabled: true },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-    { label: "Preact", value: "preact" },
-    { label: "Qwik", value: "qwik" },
-    { label: "Lit", value: "lit" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular", disabled: true },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+  { label: "Preact", value: "preact" },
+  { label: "Qwik", value: "qwik" },
+  { label: "Lit", value: "lit" },
+]
 
 const styles = wheelPickerRecipe()
 
 export function createWheelPickerBasic(container: HTMLElement) {
   container.innerHTML = `
     <div data-el="root" class="${styles.root}">
-      <label data-el="label" class="${styles.label}">Framework</label>
+      <span data-el="label" class="${styles.label}">Framework</span>
       <div data-el="control" class="${styles.control}">
         <div data-el="viewport" class="${styles.viewport}">
-          <ul data-el="item-group" class="${styles.itemGroup}"></ul>
-          <div data-el="highlight" class="${styles.highlight}">
-            <ul data-el="highlight-item-group" class="${styles.highlightItemGroup}"></ul>
-          </div>
+          <div data-el="item-group" class="${styles.itemGroup}"></div>
         </div>
+        <div data-el="highlight" class="${styles.highlight}"></div>
       </div>
-      <select data-el="hidden-select"></select>
+      <input data-el="hidden-input" />
     </div>
   `
 
   const el = (name: string) => container.querySelector(`[data-el="${name}"]`)!
 
-  const machine = new VanillaMachine(wheelPicker.machine, {
+  const picker = wheelPicker.createWheelPicker()
+  const props: wheelPicker.Props = {
     id: crypto.randomUUID(),
-    collection,
-    defaultValue: "react",
-  })
-
-  const spread = (node: Element, props: object) => spreadProps(node, props, machine.scope.id)
-
-  const renderItems = (
-    group: Element,
-    entries: wheelPicker.Api["items"],
-    getProps: (props: wheelPicker.ItemProps) => object,
-    className = "",
-  ) => {
-    group.replaceChildren(
-      ...entries.map(({ item, index }) => {
-        const li = document.createElement("li")
-        li.className = className
-        li.textContent = item.label
-        spread(li, getProps({ item, index }))
-        return li
-      }),
-    )
+    items,
+    value: "react",
+    onValueChange: (details) => setValue(details.value),
   }
 
-  el("hidden-select").replaceChildren(
-    ...collection.items.map((item) => {
-      const option = new Option(item.label, item.value)
-      option.disabled = !!item.disabled
-      return option
-    }),
-  )
+  const spread = (node: Element, nodeProps: object) => spreadProps(node, nodeProps, props.id)
 
   const render = () => {
-    const api = wheelPicker.connect(machine.service, normalizeProps)
+    const api = picker.connect(props, normalizeProps)
     spread(el("root"), api.getRootProps())
     spread(el("label"), api.getLabelProps())
     spread(el("control"), api.getControlProps())
     spread(el("viewport"), api.getViewportProps())
     spread(el("item-group"), api.getItemGroupProps())
     spread(el("highlight"), api.getHighlightProps())
-    spread(el("highlight-item-group"), api.getHighlightItemGroupProps())
-    spread(el("hidden-select"), api.getHiddenSelectProps())
-    renderItems(el("item-group"), api.items, api.getItemProps, styles.item)
-    renderItems(el("highlight-item-group"), api.highlightItems, api.getHighlightItemProps, styles.highlightItem)
+    spread(el("hidden-input"), api.getHiddenInputProps())
+
+    const group = el("item-group")
+    if (group.children.length !== api.rows.length) {
+      group.replaceChildren(
+        ...api.rows.map(({ item }) => {
+          const row = document.createElement("div")
+          row.className = styles.item ?? ""
+          row.textContent = item.label
+          return row
+        }),
+      )
+    }
+    api.rows.forEach(({ row }, index) => spread(group.children[index]!, api.getItemProps({ row })))
   }
 
-  machine.subscribe(render)
-  machine.start()
+  const setValue = (value: string) => {
+    props.value = value
+    render()
+    picker.sync(props)
+  }
+
   render()
+  const stop = picker.mount(() => props)
+  picker.sync(props)
 
   return () => {
-    machine.stop()
+    stop()
     container.replaceChildren()
   }
 }

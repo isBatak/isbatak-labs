@@ -8,8 +8,6 @@ export const anatomy = createAnatomy("wheel-picker").parts(
   "itemGroup",
   "item",
   "highlight",
-  "highlightItemGroup",
-  "highlightItem",
 )
 
 export const parts = anatomy.build()

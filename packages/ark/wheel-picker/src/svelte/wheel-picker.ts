@@ -1,4 +1,4 @@
-export type { CollectionItem, ScrollChangeDetails, ValueChangeDetails } from "@isbatak/zag-wheel-picker"
+export type { ItemData, ValueChangeDetails } from "@isbatak/zag-wheel-picker"
 export { default as Context, type WheelPickerContextProps as ContextProps } from "./wheel-picker-context.svelte"
 export {
   default as Control,
@@ -6,25 +6,15 @@ export {
   type WheelPickerControlProps as ControlProps,
 } from "./wheel-picker-control.svelte"
 export {
-  default as HiddenSelect,
-  type WheelPickerHiddenSelectBaseProps as HiddenSelectBaseProps,
-  type WheelPickerHiddenSelectProps as HiddenSelectProps,
-} from "./wheel-picker-hidden-select.svelte"
+  default as HiddenInput,
+  type WheelPickerHiddenInputBaseProps as HiddenInputBaseProps,
+  type WheelPickerHiddenInputProps as HiddenInputProps,
+} from "./wheel-picker-hidden-input.svelte"
 export {
   default as Highlight,
   type WheelPickerHighlightBaseProps as HighlightBaseProps,
   type WheelPickerHighlightProps as HighlightProps,
 } from "./wheel-picker-highlight.svelte"
-export {
-  default as HighlightItem,
-  type WheelPickerHighlightItemBaseProps as HighlightItemBaseProps,
-  type WheelPickerHighlightItemProps as HighlightItemProps,
-} from "./wheel-picker-highlight-item.svelte"
-export {
-  default as HighlightItemGroup,
-  type WheelPickerHighlightItemGroupBaseProps as HighlightItemGroupBaseProps,
-  type WheelPickerHighlightItemGroupProps as HighlightItemGroupProps,
-} from "./wheel-picker-highlight-item-group.svelte"
 export {
   default as Item,
   type WheelPickerItemBaseProps as ItemBaseProps,

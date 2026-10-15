@@ -16,7 +16,7 @@ export const componentMeta: Record<ComponentId, ComponentMeta> = {
   "wheel-picker": {
     name: "wheel picker",
     summary:
-      "It's a scrollable wheel for picking one value from a list, with inertia scrolling, snapping and optional looping.",
+      "It's a scrollable wheel for picking one value from a list, built on native scroll snapping with optional looping.",
     preset: "wheelPickerPreset",
     pandaPackage: "@isbatak/panda-wheel-picker",
     frame: "sm",

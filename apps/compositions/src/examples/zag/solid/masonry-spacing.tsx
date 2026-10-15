@@ -1,8 +1,8 @@
 import { css, cx } from "styled-system/css"
 import { masonry as masonryRecipe } from "styled-system/recipes"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/solid"
-import { createMemo, createUniqueId } from "solid-js"
+import { normalizeProps } from "@zag-js/solid"
+import { createMemo, createSignal, createUniqueId, onCleanup, onMount } from "solid-js"
 
 const styles = masonryRecipe()
 
@@ -18,12 +18,13 @@ const classes = {
 }
 
 export function MasonrySpacing() {
-  const service = useMachine(masonry.machine, {
-    id: createUniqueId(),
-    columns: 3,
-  })
+  const controller = masonry.createMasonry()
+  const [layout, setLayout] = createSignal<masonry.Layout | null>(null)
+  const masonryProps: masonry.Props = { id: createUniqueId(), columns: 3 }
 
-  const api = createMemo(() => masonry.connect(service, normalizeProps))
+  onMount(() => onCleanup(controller.mount(() => masonryProps, setLayout)))
+
+  const api = createMemo(() => controller.connect(masonryProps, layout(), normalizeProps))
 
   return (
     <div {...api().getRootProps()} class={cx(styles.root, classes.root)}>

@@ -6,7 +6,6 @@ export const props = createProps<MasonryProps>()([
   "columns",
   "dir",
   "gap",
-  "getRootNode",
   "id",
   "ids",
   "minColumnWidth",

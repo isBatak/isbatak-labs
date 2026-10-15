@@ -1,17 +1,15 @@
 <script lang="ts">
   import { css } from "styled-system/css"
   import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
-  import { createWheelPickerCollection, WheelPicker } from "@isbatak/ark-wheel-picker/svelte"
+  import { WheelPicker } from "@isbatak/ark-wheel-picker/svelte"
 
-  const collection = createWheelPickerCollection({
-    items: [
-      { label: "React", value: "react" },
-      { label: "Vue", value: "vue" },
-      { label: "Angular", value: "angular" },
-      { label: "Svelte", value: "svelte" },
-      { label: "Solid", value: "solid" },
-    ],
-  })
+  const items = [
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Angular", value: "angular" },
+    { label: "Svelte", value: "svelte" },
+    { label: "Solid", value: "solid" },
+  ]
 
   const styles = wheelPickerRecipe()
 
@@ -30,36 +28,27 @@
     output: css({ color: "fg.muted", textStyle: "sm", textAlign: "center" }),
   }
 
-  let value = $state<string | null>("react")
+  let value = $state("react")
 </script>
 
 <div class={classes.root}>
-  <WheelPicker.Root {collection} bind:value class={styles.root}>
+  <WheelPicker.Root {items} bind:value class={styles.root}>
     <WheelPicker.Label class={styles.label}>Framework</WheelPicker.Label>
     <WheelPicker.Control class={styles.control}>
       <WheelPicker.Viewport class={styles.viewport}>
         <WheelPicker.ItemGroup class={styles.itemGroup}>
           <WheelPicker.Context>
             {#snippet render(api)}
-              {#each api().items as { item, index, key } (key)}
-                <WheelPicker.Item {item} {index} class={styles.item}>{item.label}</WheelPicker.Item>
+              {#each api().rows as { row, item } (row)}
+                <WheelPicker.Item {row} class={styles.item}>{item.label}</WheelPicker.Item>
               {/each}
             {/snippet}
           </WheelPicker.Context>
         </WheelPicker.ItemGroup>
-        <WheelPicker.Highlight class={styles.highlight}>
-          <WheelPicker.HighlightItemGroup class={styles.highlightItemGroup}>
-            <WheelPicker.Context>
-              {#snippet render(api)}
-                {#each api().highlightItems as { item, index, key } (key)}
-                  <WheelPicker.HighlightItem {item} {index} class={styles.highlightItem}>{item.label}</WheelPicker.HighlightItem>
-                {/each}
-              {/snippet}
-            </WheelPicker.Context>
-          </WheelPicker.HighlightItemGroup>
-        </WheelPicker.Highlight>
       </WheelPicker.Viewport>
+      <WheelPicker.Highlight class={styles.highlight}></WheelPicker.Highlight>
     </WheelPicker.Control>
+    <WheelPicker.HiddenInput />
   </WheelPicker.Root>
   <div class={classes.actions}>
     <button type="button" class={classes.button} onclick={() => (value = "react")}>React</button>

@@ -23,7 +23,7 @@
     "typecheck": "panda codegen && tsc --noEmit"
   },
   "dependencies": {
-    "@ark-ui/solid": "5.39.2",
+    "@ark-ui/solid": "catalog:",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

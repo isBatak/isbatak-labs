@@ -1,11 +1,20 @@
-import { DEFAULT_ENVIRONMENT, useEnvironmentContext } from "@ark-ui/vue/environment"
 import { DEFAULT_LOCALE, useLocaleContext } from "@ark-ui/vue/locale"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, type PropTypes, useMachine } from "@zag-js/vue"
-import { computed, type ComputedRef, type MaybeRefOrGetter, toValue, useId } from "vue"
+import { normalizeProps, type PropTypes } from "@zag-js/vue"
+import {
+  computed,
+  type ComputedRef,
+  type MaybeRefOrGetter,
+  onBeforeUnmount,
+  onMounted,
+  shallowRef,
+  toValue,
+  useId,
+  watch,
+} from "vue"
 import type { Optional } from "../types"
 
-export interface UseMasonryProps extends Optional<Omit<masonry.Props, "dir" | "getRootNode">, "id"> {}
+export interface UseMasonryProps extends Optional<Omit<masonry.Props, "dir">, "id"> {}
 
 export interface UseMasonryReturn extends ComputedRef<masonry.Api<PropTypes>> {}
 
@@ -21,15 +30,15 @@ export const useMasonry = (
   emit?: MasonryRootEmits,
 ): UseMasonryReturn => {
   const id = useId()
-  const env = useEnvironmentContext(DEFAULT_ENVIRONMENT)
   const locale = useLocaleContext(DEFAULT_LOCALE)
+  const controller = masonry.createMasonry()
+  const layout = shallowRef<masonry.Layout | null>(null)
 
-  const context = computed<masonry.Props>(() => {
+  const resolved = computed<masonry.Props>(() => {
     const localProps = toValue(props)
     return {
       id,
       dir: locale.value.dir,
-      getRootNode: env.value.getRootNode,
       ...cleanProps(localProps),
       onLayoutChange(details) {
         emit?.("layoutChange", details)
@@ -38,6 +47,22 @@ export const useMasonry = (
     }
   })
 
-  const service = useMachine(masonry.machine, context)
-  return computed(() => masonry.connect(service, normalizeProps))
+  let stop: (() => void) | undefined
+
+  onMounted(() => {
+    stop = controller.mount(
+      () => resolved.value,
+      (next) => (layout.value = next),
+    )
+  })
+
+  onBeforeUnmount(() => stop?.())
+
+  watch(
+    () => [resolved.value.sequential, resolved.value.columns, resolved.value.minColumnWidth, resolved.value.gap],
+    () => controller.reflow(),
+    { flush: "post" },
+  )
+
+  return computed(() => controller.connect(resolved.value, layout.value, normalizeProps))
 }
