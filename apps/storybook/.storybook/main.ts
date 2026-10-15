@@ -15,6 +15,7 @@ const frameworks = [
   { id: "solid", title: "Solid", port: 6010 },
   { id: "preact", title: "Preact", port: 6011 },
   { id: "vanilla", title: "Vanilla", port: 6012 },
+  { id: "lit", title: "Lit", port: 6013 },
 ]
 
 const staticDir = (id: string) => fileURLToPath(new URL(`../../storybook-${id}/storybook-static`, import.meta.url))
