@@ -2,7 +2,7 @@ import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import { parts } from "./video-player.anatomy"
 import * as dom from "./video-player.dom"
 import type { VideoPlayerApi, VideoPlayerService } from "./video-player.types"
-import { formatTime } from "./video-player.utils"
+import { findActiveCue, formatTime } from "./video-player.utils"
 
 export function connect<T extends PropTypes>(
   service: VideoPlayerService,
@@ -16,6 +16,10 @@ export function connect<T extends PropTypes>(
   const muted = context.get("muted")
   const fullscreen = context.get("fullscreen")
   const following = context.get("following")
+  const loop = context.get("loop")
+  const previewFraction = context.get("previewFraction")
+  const previewTime = previewFraction < 0 ? -1 : previewFraction * duration
+  const previewCue = previewTime < 0 ? -1 : findActiveCue(prop("cues"), previewTime)
   const activeCue = computed("activeCue")
   const cues = prop("cues")
 
@@ -29,6 +33,9 @@ export function connect<T extends PropTypes>(
     muted,
     fullscreen,
     following,
+    loop,
+    previewTime,
+    previewText: previewCue < 0 ? "" : (cues[previewCue]?.text ?? ""),
     activeCue,
     timeLabel: `${formatTime(currentTime)} / ${formatTime(duration)}`,
 
@@ -53,6 +60,12 @@ export function connect<T extends PropTypes>(
     },
     toggleFullscreen() {
       send({ type: "FULLSCREEN.TOGGLE" })
+    },
+    toggleLoop() {
+      send({ type: "LOOP.TOGGLE" })
+    },
+    togglePip() {
+      send({ type: "PIP.TOGGLE" })
     },
     resumeFollow() {
       send({ type: "FOLLOW.RESUME" })
@@ -91,6 +104,23 @@ export function connect<T extends PropTypes>(
       })
     },
 
+    getFrameProps() {
+      return normalize.element({
+        ...parts.frame.attrs(scope.id),
+        id: dom.getFrameId(scope),
+        "data-state": playing ? "playing" : "paused",
+        "data-fullscreen": fullscreen ? "" : undefined,
+      })
+    },
+
+    getOverlayProps() {
+      return normalize.element({
+        ...parts.overlay.attrs(scope.id),
+        "aria-hidden": true,
+        "data-state": playing ? "playing" : "paused",
+      })
+    },
+
     getVideoProps() {
       return normalize.element({
         ...parts.video.attrs(scope.id),
@@ -118,6 +148,77 @@ export function connect<T extends PropTypes>(
         "data-state": playing ? "playing" : "paused",
         onClick() {
           send({ type: "TOGGLE" })
+        },
+      })
+    },
+
+    getSeekGroupProps() {
+      return normalize.element({
+        ...parts.seekGroup.attrs(scope.id),
+        onPointerMove(event) {
+          const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
+          send({ type: "PREVIEW.SET", fraction: (event.clientX - rect.left) / rect.width })
+        },
+        onPointerLeave() {
+          send({ type: "PREVIEW.CLEAR" })
+        },
+      })
+    },
+
+    getPreviewProps() {
+      return normalize.element({
+        ...parts.preview.attrs(scope.id),
+        hidden: previewFraction < 0,
+        "aria-hidden": true,
+        style: {
+          "--preview-x": `${previewFraction * 100}%`,
+        },
+      })
+    },
+
+    getSkipBackTriggerProps() {
+      return normalize.element({
+        ...parts.skipBackTrigger.attrs(scope.id),
+        type: "button",
+        "aria-label": `Back ${prop("skipStep")} seconds`,
+        onClick() {
+          send({ type: "SEEK.BY", seconds: -prop("skipStep") })
+        },
+      })
+    },
+
+    getSkipForwardTriggerProps() {
+      return normalize.element({
+        ...parts.skipForwardTrigger.attrs(scope.id),
+        type: "button",
+        "aria-label": `Forward ${prop("skipStep")} seconds`,
+        onClick() {
+          send({ type: "SEEK.BY", seconds: prop("skipStep") })
+        },
+      })
+    },
+
+    getPipTriggerProps() {
+      return normalize.element({
+        ...parts.pipTrigger.attrs(scope.id),
+        type: "button",
+        "aria-label": "Picture in picture",
+        hidden: !scope.getDoc().pictureInPictureEnabled,
+        onClick() {
+          send({ type: "PIP.TOGGLE" })
+        },
+      })
+    },
+
+    getLoopTriggerProps() {
+      return normalize.element({
+        ...parts.loopTrigger.attrs(scope.id),
+        type: "button",
+        "aria-label": "Loop",
+        "aria-pressed": loop,
+        "data-state": loop ? "on" : "off",
+        onClick() {
+          send({ type: "LOOP.TOGGLE" })
         },
       })
     },

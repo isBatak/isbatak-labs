@@ -1,46 +1,71 @@
 import type { SlotRecipeDefinition } from "@isbatak/panda-ds/types"
 import { anatomy } from "@isbatak/zag-video-player/anatomy"
-import { defineSlotRecipe } from "@pandacss/dev"
-import type { SlotRecipeConfig } from "@pandacss/types"
+import { defineKeyframes, defineSlotRecipe } from "@pandacss/dev"
+import type { CssKeyframes, SlotRecipeConfig } from "@pandacss/types"
+import { icons } from "./video-player.icons"
 
 export const videoPlayerSlots = anatomy.keys()
 
 type VideoPlayerStyles = SlotRecipeDefinition<(typeof videoPlayerSlots)[number]>
 
-const range = {
-  appearance: "none",
-  height: "1",
-  borderRadius: "full",
-  bg: "linear-gradient(to right, white var(--progress, 0%), rgb(255 255 255 / 0.3) var(--progress, 0%))",
-  cursor: "pointer",
-  focusVisibleRing: "outside",
-  "&::-webkit-slider-thumb": {
-    appearance: "none",
-    width: "3",
-    height: "3",
-    borderRadius: "full",
-    bg: "white",
+export const videoPlayerKeyframes: CssKeyframes = defineKeyframes({
+  "video-player-flash": {
+    "0%": { opacity: "0.9", scale: "0.8" },
+    "100%": { opacity: "0", scale: "1.3" },
   },
-  "&::-moz-range-thumb": {
-    width: "3",
-    height: "3",
-    border: "none",
-    borderRadius: "full",
-    bg: "white",
-  },
-} as const
+})
+
+const icon = (image: string) => ({
+  content: '""',
+  display: "block",
+  width: "full",
+  height: "full",
+  bg: "currentColor",
+  mask: `${image} center / contain no-repeat`,
+})
 
 const trigger = {
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
+  flex: "none",
   width: "9",
   height: "9",
+  p: "1.5",
   borderRadius: "full",
   color: "white",
   cursor: "pointer",
-  _hover: { bg: "rgb(255 255 255 / 0.2)" },
+  opacity: "0.9",
+  transitionProperty: "opacity, background-color",
+  transitionDuration: "fast",
+  _hover: { opacity: "1", bg: "rgb(255 255 255 / 0.18)" },
   focusVisibleRing: "inside",
+  "&[hidden]": { display: "none" },
+} as const
+
+const range = {
+  appearance: "none",
+  height: "1",
+  m: "0",
+  borderRadius: "full",
+  bg: "linear-gradient(to right, var(--accent) var(--progress, 0%), rgb(255 255 255 / 0.3) var(--progress, 0%))",
+  cursor: "pointer",
+  focusVisibleRing: "outside",
+  "&::-webkit-slider-thumb": {
+    appearance: "none",
+    width: "3.5",
+    height: "3.5",
+    borderRadius: "full",
+    bg: "var(--accent)",
+    boxShadow: "0 0 0 3px rgb(255 255 255 / 0.25)",
+  },
+  "&::-moz-range-thumb": {
+    width: "3.5",
+    height: "3.5",
+    border: "none",
+    borderRadius: "full",
+    bg: "var(--accent)",
+  },
 } as const
 
 export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
@@ -49,64 +74,142 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
   slots: videoPlayerSlots,
   base: {
     root: {
-      position: "relative",
+      "--accent": "{colors.purple.500}",
       display: "grid",
       gridTemplateColumns: { base: "1fr", lg: "minmax(0, 1fr) 22rem" },
-      gridTemplateRows: { base: "auto", lg: "minmax(0, auto)" },
       gap: "4",
       width: "full",
-      "&[data-fullscreen]": {
-        gridTemplateColumns: "minmax(0, 1fr)",
-        bg: "black",
-      },
+    },
+    frame: {
+      position: "relative",
+      overflow: "hidden",
+      aspectRatio: "16 / 9",
+      borderRadius: "3xl",
+      bg: "black",
+      boxShadow: "xl",
+      "&:fullscreen": { borderRadius: "0", aspectRatio: "auto" },
     },
     video: {
+      position: "absolute",
+      inset: "0",
       width: "full",
-      aspectRatio: "16 / 9",
-      borderRadius: "xl",
-      bg: "black",
+      height: "full",
       objectFit: "contain",
       cursor: "pointer",
-      gridColumn: "1",
+    },
+    overlay: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: "16",
+      height: "16",
+      translate: "-50% -50%",
+      p: "4",
+      borderRadius: "full",
+      bg: "rgb(0 0 0 / 0.45)",
+      color: "white",
+      pointerEvents: "none",
+      backdropFilter: "blur(6px)",
+      "&::before": icon(icons.pause),
+      "&[data-state=paused]": { opacity: "1" },
+      "&[data-state=paused]::before": icon(icons.play),
+      "&[data-state=playing]": {
+        opacity: "0",
+        animation: "video-player-flash 600ms ease-out",
+      },
     },
     controls: {
+      position: "absolute",
+      insetInline: "0",
+      bottom: "0",
       display: "flex",
-      alignItems: "center",
-      gap: "2",
-      gridColumn: "1",
-      gridRow: "2",
-      px: "3",
-      py: "2",
-      borderRadius: "xl",
-      bg: "gray.900",
+      flexDirection: "column",
+      gap: "1",
+      px: "4",
+      pt: "12",
+      pb: "3",
       color: "white",
+      bg: "linear-gradient(to top, rgb(0 0 0 / 0.7), transparent)",
+      transitionProperty: "opacity",
+      transitionDuration: "normal",
+      "[data-part=frame][data-state=playing]:not(:hover):not(:focus-within) > &": { opacity: "0" },
     },
     playTrigger: {
       ...trigger,
-      "&[data-state=playing]::before": { content: '"❚❚"', fontSize: "xs" },
-      "&[data-state=paused]::before": { content: '"▶"', fontSize: "sm" },
+      width: "10",
+      height: "10",
+      "&::before": icon(icons.play),
+      "&[data-state=playing]::before": icon(icons.pause),
+    },
+    seekGroup: {
+      position: "relative",
+      display: "flex",
+      alignItems: "center",
+      flex: "1",
+      height: "10",
     },
     seek: {
       ...range,
       flex: "1",
+      width: "full",
+    },
+    preview: {
+      position: "absolute",
+      bottom: "full",
+      left: "var(--preview-x)",
+      translate: "-50% -4px",
+      display: "grid",
+      gap: "0.5",
+      justifyItems: "center",
+      maxWidth: "64",
+      px: "3",
+      py: "1.5",
+      borderRadius: "xl",
+      bg: "rgb(30 34 44 / 0.85)",
+      backdropFilter: "blur(8px)",
+      color: "white",
+      textStyle: "sm",
+      textAlign: "center",
+      pointerEvents: "none",
+      "&[hidden]": { display: "none" },
     },
     time: {
       textStyle: "xs",
       fontVariantNumeric: "tabular-nums",
       whiteSpace: "nowrap",
+      opacity: "0.9",
+    },
+    skipBackTrigger: {
+      ...trigger,
+      "&::before": icon(icons.skipBack),
+    },
+    skipForwardTrigger: {
+      ...trigger,
+      "&::before": icon(icons.skipForward),
     },
     muteTrigger: {
       ...trigger,
-      "&[data-state=unmuted]::before": { content: '"🔊"', fontSize: "sm" },
-      "&[data-state=muted]::before": { content: '"🔇"', fontSize: "sm" },
+      "&[data-state=unmuted]::before": icon(icons.volume),
+      "&[data-state=muted]::before": icon(icons.muted),
     },
     volume: {
       ...range,
       width: "20",
     },
+    pipTrigger: {
+      ...trigger,
+      "&::before": icon(icons.pip),
+    },
+    loopTrigger: {
+      ...trigger,
+      "&::before": icon(icons.loop),
+      "&[data-state=off]": { opacity: "0.6" },
+      "&[data-state=on]": { opacity: "1", color: "{colors.purple.300}" },
+    },
     fullscreenTrigger: {
       ...trigger,
-      "&::before": { content: '"⛶"', fontSize: "md" },
+      "&[data-state=windowed]::before": icon(icons.enterFullscreen),
+      "&[data-state=fullscreen]::before": icon(icons.exitFullscreen),
     },
     transcript: {
       position: "relative",
@@ -114,14 +217,13 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       flexDirection: "column",
       gap: "1",
       gridColumn: { base: "1", lg: "2" },
-      gridRow: { base: "auto", lg: "1 / span 2" },
       maxHeight: { base: "64", lg: "none" },
       height: { lg: "0" },
       minHeight: { lg: "full" },
       overflowY: "auto",
       p: "2",
       borderWidth: "1px",
-      borderRadius: "xl",
+      borderRadius: "2xl",
       bg: "bg",
       scrollbarWidth: "thin",
     },
@@ -147,8 +249,8 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       "&[data-active]": {
         bg: "bg.muted",
         color: "fg",
-        boxShadow: "inset 3px 0 0 {colors.fg}",
         fontWeight: "medium",
+        boxShadow: "inset 3px 0 0 var(--accent)",
       },
     },
     followTrigger: {

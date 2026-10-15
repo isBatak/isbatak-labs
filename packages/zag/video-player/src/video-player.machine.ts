@@ -9,6 +9,7 @@ export const machine = createMachine<VideoPlayerSchema>({
       cues: [],
       follow: true,
       seekStep: 5,
+      skipStep: 10,
       ...props,
     }
   },
@@ -26,6 +27,8 @@ export const machine = createMachine<VideoPlayerSchema>({
       muted: bindable<boolean>(() => ({ defaultValue: false })),
       fullscreen: bindable<boolean>(() => ({ defaultValue: false })),
       following: bindable<boolean>(() => ({ defaultValue: prop("follow") })),
+      loop: bindable<boolean>(() => ({ defaultValue: false })),
+      previewFraction: bindable<number>(() => ({ defaultValue: -1 })),
     }
   },
 
@@ -59,6 +62,10 @@ export const machine = createMachine<VideoPlayerSchema>({
     "VOLUME.SET": { actions: ["setVolume"] },
     "MUTE.TOGGLE": { actions: ["toggleMute"] },
     "FULLSCREEN.TOGGLE": { actions: ["toggleFullscreen"] },
+    "PREVIEW.SET": { actions: ["setPreview"] },
+    "PREVIEW.CLEAR": { actions: ["clearPreview"] },
+    "LOOP.TOGGLE": { actions: ["toggleLoop"] },
+    "PIP.TOGGLE": { actions: ["togglePip"] },
     "FOLLOW.PAUSE": { actions: ["pauseFollow"] },
     "FOLLOW.RESUME": { actions: ["resumeFollow"] },
   },
@@ -147,7 +154,7 @@ export const machine = createMachine<VideoPlayerSchema>({
         context.set("muted", video.muted)
       },
       syncFullscreen({ scope, context }) {
-        context.set("fullscreen", scope.getDoc().fullscreenElement === dom.getRootEl(scope))
+        context.set("fullscreen", scope.getDoc().fullscreenElement === dom.getFrameEl(scope))
       },
       seek({ scope, event, context }) {
         const video = dom.getVideoEl(scope)
@@ -173,9 +180,27 @@ export const machine = createMachine<VideoPlayerSchema>({
       },
       toggleFullscreen({ scope }) {
         const doc = scope.getDoc()
-        const root = dom.getRootEl(scope)
+        const frame = dom.getFrameEl(scope)
         if (doc.fullscreenElement) void doc.exitFullscreen()
-        else void root?.requestFullscreen()
+        else void frame?.requestFullscreen()
+      },
+      setPreview({ context, event }) {
+        context.set("previewFraction", clamp(event.fraction, 0, 1))
+      },
+      clearPreview({ context }) {
+        context.set("previewFraction", -1)
+      },
+      toggleLoop({ scope, context }) {
+        const video = dom.getVideoEl(scope)
+        if (!video) return
+        video.loop = !video.loop
+        context.set("loop", video.loop)
+      },
+      togglePip({ scope }) {
+        const video = dom.getVideoEl(scope)
+        const doc = scope.getDoc()
+        if (doc.pictureInPictureElement) void doc.exitPictureInPicture()
+        else void video?.requestPictureInPicture()
       },
       pauseFollow({ context }) {
         context.set("following", false)
