@@ -136,6 +136,7 @@ export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   getSeekGroupProps: () => T["element"]
   getSeekProps: () => T["element"]
   getPreviewProps: () => T["element"]
+  getPreviewVideoProps: () => T["element"]
   getTimeProps: () => T["element"]
   getSkipBackTriggerProps: () => T["element"]
   getSkipForwardTriggerProps: () => T["element"]
