@@ -355,6 +355,9 @@ importers:
       '@isbatak/zag-lit':
         specifier: workspace:*
         version: link:../../packages/zag/lit
+      '@isbatak/zag-swipeable-list':
+        specifier: workspace:*
+        version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-text-flip':
         specifier: workspace:*
         version: link:../../packages/zag/text-flip

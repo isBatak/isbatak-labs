@@ -10,6 +10,7 @@
   "dependencies": {
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/zag-lit": "workspace:*",
+    "@isbatak/zag-swipeable-list": "workspace:*",
     "@isbatak/zag-text-flip": "workspace:*",
     "lit": "catalog:"
   },
