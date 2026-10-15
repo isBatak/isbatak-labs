@@ -1,0 +1,21 @@
+{
+  "name": "@isbatak/storybook-lit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6013 --no-open",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@isbatak/storybook-shared": "workspace:*",
+    "@isbatak/zag-lit": "workspace:*",
+    "@isbatak/zag-text-flip": "workspace:*",
+    "lit": "catalog:"
+  },
+  "devDependencies": {
+    "@storybook/web-components-vite": "catalog:",
+    "storybook": "catalog:",
+    "vite": "catalog:"
+  }
+}
