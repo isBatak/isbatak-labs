@@ -81,6 +81,7 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       width: "full",
     },
     frame: {
+      display: "block",
       position: "relative",
       overflow: "hidden",
       aspectRatio: "16 / 9",
