@@ -1011,6 +1011,22 @@ importers:
         specifier: 16.4.0
         version: 16.4.0(@babel/core@7.29.7(supports-color@8.1.1))(@types/node@25.9.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
+  packages/panda/video-player:
+    dependencies:
+      '@isbatak/zag-video-player':
+        specifier: workspace:*
+        version: link:../../zag/video-player
+    devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.2.0(postcss@8.5.28)
+      '@pandacss/types':
+        specifier: 'catalog:'
+        version: 2.2.0
+
   packages/panda/wheel-picker:
     dependencies:
       '@isbatak/zag-wheel-picker':
@@ -1175,6 +1191,24 @@ importers:
         version: 2.0.0-next.3
 
   packages/zag/text-flip:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+
+  packages/zag/video-player:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
