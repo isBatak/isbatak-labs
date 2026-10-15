@@ -12,6 +12,7 @@ export const props = createProps<VideoPlayerProps>()([
   "onPlayingChange",
   "onTimeChange",
   "seekStep",
+  "skipStep",
 ])
 
 export const splitProps = createSplitProps<Partial<VideoPlayerProps>>(props)
