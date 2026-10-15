@@ -4,7 +4,7 @@ import { defineKeyframes, defineSlotRecipe } from "@pandacss/dev"
 import type { CssKeyframes, SlotRecipeConfig } from "@pandacss/types"
 import { icons } from "./video-player.icons"
 
-export const videoPlayerSlots = anatomy.keys()
+export const videoPlayerSlots = [...anatomy.keys(), "row", "spacer", "thumb", "previewText", "previewTime"] as const
 
 type VideoPlayerStyles = SlotRecipeDefinition<(typeof videoPlayerSlots)[number]>
 
@@ -29,8 +29,8 @@ const trigger = {
   alignItems: "center",
   justifyContent: "center",
   flex: "none",
-  width: "9",
-  height: "9",
+  width: "var(--control-size)",
+  height: "var(--control-size)",
   p: "1.5",
   borderRadius: "full",
   color: "white",
@@ -74,7 +74,6 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
   slots: videoPlayerSlots,
   base: {
     root: {
-      "--accent": "{colors.purple.500}",
       display: "grid",
       gridTemplateColumns: { base: "1fr", lg: "minmax(0, 1fr) 22rem" },
       gap: "4",
@@ -137,8 +136,6 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
     },
     playTrigger: {
       ...trigger,
-      width: "10",
-      height: "10",
       "&::before": icon(icons.play),
       "&[data-state=playing]::before": icon(icons.pause),
     },
@@ -147,7 +144,7 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       display: "flex",
       alignItems: "center",
       flex: "1",
-      height: "10",
+      height: "var(--control-size)",
     },
     seek: {
       ...range,
@@ -213,7 +210,7 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       ...trigger,
       "&::before": icon(icons.loop),
       "&[data-state=off]": { opacity: "0.6" },
-      "&[data-state=on]": { opacity: "1", color: "{colors.purple.300}" },
+      "&[data-state=on]": { opacity: "1", color: "var(--accent)" },
     },
     fullscreenTrigger: {
       ...trigger,
@@ -243,7 +240,6 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       px: "3",
       py: "2",
       borderRadius: "lg",
-      textStyle: "sm",
       color: "fg.muted",
       cursor: "pointer",
       transitionProperty: "background-color, color",
@@ -277,5 +273,70 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       focusVisibleRing: "outside",
       "&[hidden]": { display: "none" },
     },
+    row: {
+      display: "flex",
+      alignItems: "center",
+      gap: "2",
+    },
+    spacer: {
+      flex: "1",
+    },
+    thumb: {
+      position: "relative",
+      width: "full",
+    },
+    previewText: {
+      textStyle: "xs",
+      fontWeight: "medium",
+      px: "1",
+      pb: "0.5",
+      minHeight: "4",
+    },
+    previewTime: {
+      position: "absolute",
+      insetInline: "0",
+      bottom: "1.5",
+      textAlign: "center",
+      textStyle: "sm",
+      fontWeight: "semibold",
+      fontVariantNumeric: "tabular-nums",
+      textShadow: "0 1px 3px rgb(0 0 0 / 0.8)",
+    },
   } satisfies VideoPlayerStyles["base"],
+  variants: {
+    variant: {
+      accent: {
+        root: { "--accent": "{colors.purple.500}" },
+      },
+      neutral: {
+        root: { "--accent": "{colors.white}" },
+        cue: { "&[data-active]": { boxShadow: "inset 3px 0 0 {colors.fg}" } },
+      },
+    },
+    size: {
+      sm: {
+        root: { "--control-size": "{sizes.8}" },
+        cue: { textStyle: "xs" },
+        controls: { px: "3", pt: "8", pb: "2" },
+        time: { textStyle: "xs" },
+      },
+      md: {
+        root: { "--control-size": "{sizes.9}" },
+        cue: { textStyle: "sm" },
+        controls: { px: "4", pt: "12", pb: "3" },
+        playTrigger: { width: "10", height: "10" },
+      },
+      lg: {
+        root: { "--control-size": "{sizes.11}" },
+        cue: { textStyle: "md" },
+        controls: { px: "6", pt: "16", pb: "4" },
+        playTrigger: { width: "12", height: "12" },
+        time: { textStyle: "sm" },
+      },
+    },
+  } satisfies VideoPlayerStyles["variants"],
+  defaultVariants: {
+    variant: "accent",
+    size: "md",
+  },
 })
