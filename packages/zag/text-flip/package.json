@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/zag-text-flip",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Core logic for the text flip widget implemented as a state machine",
   "keywords": [
     "js",
