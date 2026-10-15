@@ -34,6 +34,7 @@ catalog:
   "@pandacss/transformer": 2.2.0
   "@pandacss/types": 2.2.0
   "@zag-js/anatomy": 2.0.0-next.3
+  "@zag-js/checkbox": 2.0.0-next.3
   "@zag-js/collection": 2.0.0-next.3
   "@zag-js/core": 2.0.0-next.3
   "@zag-js/date-input": 2.0.0-next.3
@@ -43,6 +44,7 @@ catalog:
   "@zag-js/preact": 2.0.0-next.3
   "@zag-js/react": 2.0.0-next.3
   "@zag-js/solid": 2.0.0-next.3
+  "@zag-js/store": 2.0.0-next.3
   "@zag-js/svelte": 2.0.0-next.3
   "@zag-js/types": 2.0.0-next.3
   "@zag-js/utils": 2.0.0-next.3
@@ -62,4 +64,6 @@ catalog:
   "@vitejs/plugin-react": ^6.1.1
   react: ^19.3.0
   react-dom: ^19.3.0
+  jsdom: ^30.1.0
+  lit: ^3.3.3
   vitest: 4.1.10
