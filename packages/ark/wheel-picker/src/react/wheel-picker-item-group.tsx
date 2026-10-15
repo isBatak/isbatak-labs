@@ -5,11 +5,11 @@ import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export interface WheelPickerItemGroupBaseProps extends PolymorphicProps {}
 export interface WheelPickerItemGroupProps
-  extends HTMLProps<"ul">, WheelPickerItemGroupBaseProps, RefAttributes<HTMLUListElement> {}
+  extends HTMLProps<"div">, WheelPickerItemGroupBaseProps, RefAttributes<HTMLDivElement> {}
 
 export const WheelPickerItemGroup = (props: WheelPickerItemGroupProps) => {
   const api = useWheelPickerContext()
   const mergedProps = mergeProps(api.getItemGroupProps(), props)
 
-  return <ark.ul {...mergedProps} />
+  return <ark.div {...mergedProps} />
 }

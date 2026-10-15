@@ -1,23 +1,17 @@
 import { ark } from "@ark-ui/vue/factory"
-import type * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { type Component, defineComponent, h, type PropType } from "vue"
+import { type Component, defineComponent, h } from "vue"
 import { useWheelPickerContext } from "./use-wheel-picker-context"
 
 export const WheelPickerItem = defineComponent({
   name: "WheelPickerItem",
   props: {
     asChild: Boolean,
-    index: { type: Number, required: true },
-    item: { type: null as unknown as PropType<wheelPicker.CollectionItem>, required: true },
+    row: { type: Number, required: true },
   },
   setup(props, { slots }) {
     const api = useWheelPickerContext()
 
     return () =>
-      h(
-        ark.li as Component,
-        { ...api.value.getItemProps({ item: props.item, index: props.index }), asChild: props.asChild },
-        slots,
-      )
+      h(ark.div as Component, { ...api.value.getItemProps({ row: props.row }), asChild: props.asChild }, slots)
   },
 })

@@ -135,7 +135,7 @@ function ManualInstall(props: VariantProps) {
       )}
       <li>
         Copy these files into <code>{folderOf(example)}</code>:
-        <ExampleSource {...props} />
+        <ExampleSource {...props} scrollable />
       </li>
     </ol>
   )
@@ -168,7 +168,7 @@ export function Installation({ docsUrl, ...props }: VariantProps & { docsUrl: st
   )
 }
 
-export function ExampleSource(props: VariantProps) {
+export function ExampleSource({ scrollable, ...props }: VariantProps & { scrollable?: boolean }) {
   const example = getExample(props)
   if (!example) return <NotAvailable {...props} />
 
@@ -178,7 +178,7 @@ export function ExampleSource(props: VariantProps) {
     <CodeTabs key={`${id}-${framework}-${styling}-${api}`} files={example.files}>
       {example.files.map((file) => (
         <Tabs.Content key={file.name} value={file.name} p="0">
-          <CodeBody code={file.code} lang={file.lang} />
+          <CodeBody code={file.code} lang={file.lang} scrollable={scrollable} />
         </Tabs.Content>
       ))}
     </CodeTabs>

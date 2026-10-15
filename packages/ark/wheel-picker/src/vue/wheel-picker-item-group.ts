@@ -10,6 +10,6 @@ export const WheelPickerItemGroup = defineComponent({
   setup(props, { slots }) {
     const api = useWheelPickerContext()
 
-    return () => h(ark.ul as Component, { ...api.value.getItemGroupProps(), asChild: props.asChild }, slots)
+    return () => h(ark.div as Component, { ...api.value.getItemGroupProps(), asChild: props.asChild }, slots)
   },
 })

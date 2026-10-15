@@ -1,7 +1,6 @@
-import * as wheelPicker from "@isbatak/zag-wheel-picker"
 import { DateFormatter } from "@internationalized/date"
 import type { DateValue } from "@zag-js/date-input"
-import { createNumberItems } from "./data"
+import { createNumberItems, type WheelPickerOption } from "./data"
 
 export type ResolvedHourCycle = "h11" | "h12" | "h23" | "h24"
 
@@ -92,18 +91,14 @@ export function setTimePart<Part extends keyof TimeParts>(
   return current.set({ hour: get24Hour(nextTime, hourCycle), minute: Number(nextTime.minute) })
 }
 
-export const getHourCollection = (locale: string, hourCycle: ResolvedHourCycle) => {
+export const getHourItems = (locale: string, hourCycle: ResolvedHourCycle) => {
   const { length, add } = getHourConfig(hourCycle)
-  return wheelPicker.collection({ items: createNumberItems(length, add, locale) })
+  return createNumberItems(length, add, locale)
 }
 
-export const getMinuteCollection = (locale: string) =>
-  wheelPicker.collection({ items: createNumberItems(60, 0, locale) })
+export const getMinuteItems = (locale: string) => createNumberItems(60, 0, locale)
 
-export const getDayPeriodCollection = (locale: string) =>
-  wheelPicker.collection({
-    items: [
-      { label: getDayPeriodLabel(locale, 0), value: "am" },
-      { label: getDayPeriodLabel(locale, 12), value: "pm" },
-    ],
-  })
+export const getDayPeriodItems = (locale: string): WheelPickerOption[] => [
+  { label: getDayPeriodLabel(locale, 0), value: "am" },
+  { label: getDayPeriodLabel(locale, 12), value: "pm" },
+]

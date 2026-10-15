@@ -7,8 +7,8 @@ import {
   type MasonryControls,
 } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/preact"
-import { useId, useState } from "preact/hooks"
+import { useMasonry } from "./use-masonry"
+import { useState } from "preact/hooks"
 
 const styles = masonryRecipe()
 
@@ -19,12 +19,7 @@ export interface DynamicProps extends Partial<MasonryControls> {
 export function Dynamic(props: DynamicProps) {
   const [tiles, setTiles] = useState(initialMasonryTiles)
 
-  const service = useMachine(masonry.machine, {
-    id: useId(),
-    ...props,
-  })
-
-  const api = masonry.connect(service, normalizeProps)
+  const api = useMasonry(props)
 
   return (
     <main className={classes.story}>

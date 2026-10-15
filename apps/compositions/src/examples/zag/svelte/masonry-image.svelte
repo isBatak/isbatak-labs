@@ -2,7 +2,7 @@
   import { css } from "styled-system/css"
   import { masonry as masonryRecipe } from "styled-system/recipes"
   import * as masonry from "@isbatak/zag-masonry"
-  import { normalizeProps, useMachine } from "@zag-js/svelte"
+  import { normalizeProps } from "@zag-js/svelte"
 
   const styles = masonryRecipe()
 
@@ -11,12 +11,13 @@
   }
 
   const id = $props.id()
-  const service = useMachine(masonry.machine, {
-    id,
-    columns: 3,
-  })
+  const controller = masonry.createMasonry()
+  let layout = $state.raw<masonry.Layout | null>(null)
+  const masonryProps: masonry.Props = { id, columns: 3 }
 
-  const api = $derived(masonry.connect(service, normalizeProps))
+  $effect(() => controller.mount(() => masonryProps, (next) => (layout = next)))
+
+  const api = $derived(controller.connect(masonryProps, layout, normalizeProps))
 </script>
 
 <div {...api.getRootProps()} class={styles.root}>

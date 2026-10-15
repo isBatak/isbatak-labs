@@ -1,12 +1,9 @@
-import { hourCollection, meridiemCollection, minuteCollection } from "@isbatak/storybook-shared"
-import type * as wheelPicker from "@isbatak/zag-wheel-picker"
+import { hourItems, meridiemItems, minuteItems } from "@isbatak/storybook-shared"
 import { createSignal } from "solid-js"
 import { Picker } from "./picker"
 
-const toLabel = (details: wheelPicker.ValueChangeDetails) => details.item?.label ?? ""
-
 export function Multiple() {
-  const [hour, setHour] = createSignal("09")
+  const [hour, setHour] = createSignal("9")
   const [minute, setMinute] = createSignal("41")
   const [meridiem, setMeridiem] = createSignal("AM")
 
@@ -15,29 +12,26 @@ export function Multiple() {
       <div class="wheel-picker-group" role="group" aria-label="Time">
         <Picker
           label="Hour"
-          collection={hourCollection}
-          defaultValue="9"
-          infinite
           name="hour"
-          hiddenSelect
-          onValueChange={(details) => setHour(toLabel(details))}
+          items={hourItems}
+          value={hour()}
+          loop
+          onValueChange={(d) => setHour(d.value)}
         />
         <Picker
           label="Minute"
-          collection={minuteCollection}
-          defaultValue="41"
-          infinite
           name="minute"
-          hiddenSelect
-          onValueChange={(details) => setMinute(toLabel(details))}
+          items={minuteItems}
+          value={minute()}
+          loop
+          onValueChange={(d) => setMinute(d.value)}
         />
         <Picker
           label="Meridiem"
-          collection={meridiemCollection}
-          defaultValue="AM"
           name="meridiem"
-          hiddenSelect
-          onValueChange={(details) => setMeridiem(toLabel(details))}
+          items={meridiemItems}
+          value={meridiem()}
+          onValueChange={(d) => setMeridiem(d.value)}
         />
       </div>
       <output data-testid="value">

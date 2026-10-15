@@ -2,18 +2,16 @@
 
 import { css } from "styled-system/css"
 import { wheelPicker as wheelPickerRecipe } from "styled-system/recipes"
-import { createWheelPickerCollection, WheelPicker } from "@isbatak/ark-wheel-picker/react"
+import { WheelPicker } from "@isbatak/ark-wheel-picker/react"
 import { useState } from "react"
 
-const collection = createWheelPickerCollection({
-  items: [
-    { label: "React", value: "react" },
-    { label: "Vue", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-    { label: "Solid", value: "solid" },
-  ],
-})
+const items = [
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
+  { label: "Svelte", value: "svelte" },
+  { label: "Solid", value: "solid" },
+]
 
 const styles = wheelPickerRecipe()
 
@@ -33,12 +31,12 @@ const classes = {
 }
 
 export function WheelPickerControlled() {
-  const [value, setValue] = useState<string | null>("react")
+  const [value, setValue] = useState("react")
 
   return (
     <div className={classes.root}>
       <WheelPicker.Root
-        collection={collection}
+        items={items}
         value={value}
         onValueChange={(details) => setValue(details.value)}
         className={styles.root}
@@ -49,29 +47,18 @@ export function WheelPickerControlled() {
             <WheelPicker.ItemGroup className={styles.itemGroup}>
               <WheelPicker.Context>
                 {(api) =>
-                  api.items.map(({ item, index, key }) => (
-                    <WheelPicker.Item key={key} item={item} index={index} className={styles.item}>
+                  api.rows.map(({ row, item }) => (
+                    <WheelPicker.Item key={row} row={row} className={styles.item}>
                       {item.label}
                     </WheelPicker.Item>
                   ))
                 }
               </WheelPicker.Context>
             </WheelPicker.ItemGroup>
-            <WheelPicker.Highlight className={styles.highlight}>
-              <WheelPicker.HighlightItemGroup className={styles.highlightItemGroup}>
-                <WheelPicker.Context>
-                  {(api) =>
-                    api.highlightItems.map(({ item, index, key }) => (
-                      <WheelPicker.HighlightItem key={key} item={item} index={index} className={styles.highlightItem}>
-                        {item.label}
-                      </WheelPicker.HighlightItem>
-                    ))
-                  }
-                </WheelPicker.Context>
-              </WheelPicker.HighlightItemGroup>
-            </WheelPicker.Highlight>
           </WheelPicker.Viewport>
+          <WheelPicker.Highlight className={styles.highlight} />
         </WheelPicker.Control>
+        <WheelPicker.HiddenInput />
       </WheelPicker.Root>
       <div className={classes.actions}>
         <button type="button" className={classes.button} onClick={() => setValue("react")}>

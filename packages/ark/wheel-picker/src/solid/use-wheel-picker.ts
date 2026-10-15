@@ -1,34 +1,46 @@
-import { useEnvironmentContext } from "@ark-ui/solid/environment"
-import { useLocaleContext } from "@ark-ui/solid/locale"
 import * as wheelPicker from "@isbatak/zag-wheel-picker"
-import { normalizeProps, type PropTypes, useMachine } from "@zag-js/solid"
-import { type Accessor, createMemo, createUniqueId } from "solid-js"
+import { normalizeProps, type PropTypes } from "@zag-js/solid"
+import { type Accessor, createEffect, createMemo, createSignal, createUniqueId, on, onCleanup, onMount } from "solid-js"
 import type { Optional } from "../types"
 
-export interface UseWheelPickerProps<
-  T extends wheelPicker.CollectionItem = wheelPicker.CollectionItem,
-> extends Optional<Omit<wheelPicker.Props<T>, "dir" | "getRootNode">, "id"> {}
+export interface UseWheelPickerProps extends Optional<Omit<wheelPicker.Props, "value">, "id"> {
+  /** The selected value. Pass it to control the wheel picker. */
+  value?: string | undefined
+  /** The initial value when uncontrolled. Defaults to the first item. */
+  defaultValue?: string | undefined
+}
 
-export interface UseWheelPickerReturn<
-  T extends wheelPicker.CollectionItem = wheelPicker.CollectionItem,
-> extends Accessor<wheelPicker.Api<PropTypes, T>> {}
+export interface UseWheelPickerReturn extends Accessor<wheelPicker.Api<PropTypes>> {}
 
 type MaybeAccessor<T> = T | Accessor<T>
 
-export const useWheelPicker = <T extends wheelPicker.CollectionItem>(
-  props: MaybeAccessor<UseWheelPickerProps<T>>,
-): UseWheelPickerReturn<T> => {
-  const id = createUniqueId()
-  const locale = useLocaleContext()
-  const environment = useEnvironmentContext()
+export const useWheelPicker = (props: MaybeAccessor<UseWheelPickerProps>): UseWheelPickerReturn => {
+  const generatedId = createUniqueId()
+  const picker = wheelPicker.createWheelPicker()
+  const getProps = () => (typeof props === "function" ? props() : props)
+  const [internalValue, setInternalValue] = createSignal(getProps().defaultValue ?? getProps().items[0]?.value ?? "")
 
-  const machineProps = createMemo<wheelPicker.Props<T>>(() => ({
-    id,
-    dir: locale().dir,
-    getRootNode: environment().getRootNode,
-    ...(typeof props === "function" ? props() : props),
-  }))
+  const resolved = createMemo<wheelPicker.Props>(() => {
+    const { id = generatedId, value: controlledValue, defaultValue: _, onValueChange, ...rest } = getProps()
+    return {
+      ...rest,
+      id,
+      value: controlledValue ?? internalValue(),
+      onValueChange(details) {
+        if (controlledValue === undefined) setInternalValue(details.value)
+        onValueChange?.(details)
+      },
+    }
+  })
 
-  const service = useMachine(wheelPicker.machine as wheelPicker.Machine<T>, machineProps)
-  return createMemo(() => wheelPicker.connect(service, normalizeProps))
+  onMount(() => onCleanup(picker.mount(resolved)))
+
+  createEffect(
+    on(
+      () => [resolved().value, resolved().items.length, resolved().loop, resolved().itemHeight],
+      () => picker.sync(resolved()),
+    ),
+  )
+
+  return createMemo(() => picker.connect(resolved(), normalizeProps))
 }

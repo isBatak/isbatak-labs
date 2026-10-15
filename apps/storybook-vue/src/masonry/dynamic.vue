@@ -8,8 +8,8 @@ import {
   nextMasonryTile,
 } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/vue"
-import { computed, ref, useId } from "vue"
+import { useMasonry } from "./use-masonry"
+import { ref } from "vue"
 
 const styles = masonryRecipe()
 
@@ -27,15 +27,7 @@ const props = withDefaults(
 
 const tiles = ref(initialMasonryTiles)
 
-const id = useId()
-const service = useMachine(
-  masonry.machine,
-  computed(() => ({
-    id,
-    ...props,
-  })),
-)
-const api = computed(() => masonry.connect(service, normalizeProps))
+const api = useMasonry(() => props)
 </script>
 
 <template>

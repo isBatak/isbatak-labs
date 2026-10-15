@@ -1,8 +1,8 @@
 import { masonry as masonryRecipe } from "@isbatak/storybook-shared/recipes"
 import { formatLayout, masonryClasses as classes, type MasonryControls } from "@isbatak/storybook-shared"
 import * as masonry from "@isbatak/zag-masonry"
-import { normalizeProps, useMachine } from "@zag-js/solid"
-import { createMemo, createUniqueId } from "solid-js"
+import { useMasonry } from "./use-masonry"
+import {} from "solid-js"
 
 const styles = masonryRecipe()
 
@@ -11,12 +11,7 @@ export interface SpanningProps extends Partial<MasonryControls> {
 }
 
 export function Spanning(props: SpanningProps) {
-  const id = createUniqueId()
-  const service = useMachine(masonry.machine, () => ({
-    id,
-    ...props,
-  }))
-  const api = createMemo(() => masonry.connect(service, normalizeProps))
+  const api = useMasonry(() => props)
 
   return (
     <main class={classes.story}>

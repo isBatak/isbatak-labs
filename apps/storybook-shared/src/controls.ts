@@ -1,38 +1,22 @@
 export interface WheelPickerControls {
   disabled: boolean
-  readOnly: boolean
-  invalid: boolean
-  infinite: boolean
-  dir: "ltr" | "rtl"
+  loop: boolean
   visibleCount: number
-  optionItemHeight: number
-  dragSensitivity: number
-  scrollSensitivity: number
+  itemHeight: number
 }
 
-/** Defaults mirror the machine's own defaults (see `wheel-picker.machine.ts`). */
 export const wheelPickerArgs: WheelPickerControls = {
   disabled: false,
-  readOnly: false,
-  invalid: false,
-  infinite: false,
-  dir: "ltr",
-  visibleCount: 20,
-  optionItemHeight: 30,
-  dragSensitivity: 5,
-  scrollSensitivity: 5,
+  loop: false,
+  visibleCount: 5,
+  itemHeight: 36,
 }
 
 export const wheelPickerArgTypes = {
   disabled: { control: "boolean" },
-  readOnly: { control: "boolean" },
-  invalid: { control: "boolean" },
-  infinite: { control: "boolean" },
-  dir: { control: "inline-radio", options: ["ltr", "rtl"] },
-  visibleCount: { control: { type: "number", min: 4 } },
-  optionItemHeight: { control: { type: "number", min: 1 } },
-  dragSensitivity: { control: { type: "number", min: 1 } },
-  scrollSensitivity: { control: { type: "number", min: 1 } },
+  loop: { control: "boolean" },
+  visibleCount: { control: { type: "number", min: 1, step: 2 } },
+  itemHeight: { control: { type: "number", min: 1 } },
   onValueChange: { table: { disable: true } },
 } as const
 

@@ -1,7 +1,6 @@
-export { anatomy as wheelPickerAnatomy, collection as createWheelPickerCollection } from "@isbatak/zag-wheel-picker"
+export { anatomy as wheelPickerAnatomy } from "@isbatak/zag-wheel-picker"
 export type {
-  CollectionItem as WheelPickerCollectionItem,
-  ScrollChangeDetails as WheelPickerScrollChangeDetails,
+  ItemData as WheelPickerItemData,
   ValueChangeDetails as WheelPickerValueChangeDetails,
 } from "@isbatak/zag-wheel-picker"
 export { useWheelPicker, type UseWheelPickerProps, type UseWheelPickerReturn } from "./use-wheel-picker.svelte.js"

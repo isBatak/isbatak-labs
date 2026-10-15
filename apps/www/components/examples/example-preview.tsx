@@ -1,6 +1,5 @@
 "use client"
 
-import { resetSnapshot } from "@isbatak/compositions/react"
 import { startTransition, useEffect, useRef, useState, ViewTransition } from "react"
 import { flushSync } from "react-dom"
 import { viewTransition } from "styled-system/css"
@@ -125,7 +124,6 @@ export function ExamplePreview() {
           showSource={showSource}
           onShowSourceChange={(next) => startTransition(() => setShowSource(next))}
           onReset={() => {
-            if (activeId) resetSnapshot(activeId)
             startTransition(() => setResetKey((key) => key + 1))
           }}
         />

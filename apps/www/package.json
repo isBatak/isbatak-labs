@@ -15,7 +15,8 @@
     "dev:compositions": "pnpm --filter @isbatak/compositions dev"
   },
   "dependencies": {
-    "@ark-ui/react": "5.39.2",
+    "@ark-ui/react": "catalog:",
+    "@internationalized/date": "3.12.3",
     "@isbatak/ark-masonry": "workspace:*",
     "@isbatak/ark-text-flip": "workspace:*",
     "@isbatak/ark-wheel-picker": "workspace:*",

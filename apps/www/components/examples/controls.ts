@@ -1,13 +1,10 @@
 import type { ComponentId } from "../docs/component-meta"
 
 export interface ControlValues {
-  infinite: boolean
+  loop: boolean
   disabled: boolean
-  readOnly: boolean
-  invalid: boolean
   visibleCount: number
-  dragSensitivity: number
-  scrollSensitivity: number
+  itemHeight: number
   variant: "subtle" | "outline" | "solid"
   size: "sm" | "md" | "lg"
   columns: number
@@ -25,13 +22,10 @@ export interface ExampleSettings extends Partial<ControlValues> {
 }
 
 export const controlDefaults: ControlValues = {
-  infinite: false,
+  loop: false,
   disabled: false,
-  readOnly: false,
-  invalid: false,
-  visibleCount: 20,
-  dragSensitivity: 5,
-  scrollSensitivity: 5,
+  visibleCount: 5,
+  itemHeight: 36,
   variant: "subtle",
   size: "md",
   columns: 4,
@@ -48,7 +42,7 @@ interface ComponentControls {
 
 export const componentControls: Record<ComponentId, ComponentControls> = {
   "wheel-picker": {
-    machine: ["infinite", "disabled", "readOnly", "invalid", "visibleCount", "dragSensitivity", "scrollSensitivity"],
+    machine: ["loop", "disabled", "visibleCount", "itemHeight"],
     recipe: ["variant", "size"],
   },
   masonry: {

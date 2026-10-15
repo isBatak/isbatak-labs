@@ -19,7 +19,7 @@
     "typecheck": "panda codegen && tsc --noEmit"
   },
   "dependencies": {
-    "@ark-ui/vue": "5.39.2",
+    "@ark-ui/vue": "catalog:",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

@@ -1,122 +1,64 @@
-import { ListCollection } from "@zag-js/collection"
-import { describe, expect, test } from "vitest"
-import {
-  findNearestEnabledIndex,
-  getClickedStep,
-  getDragVelocity,
-  getExpandedItems,
-  getHighlightItems,
-  getInertiaTarget,
-  getRenderItems,
-  getWheelGeometry,
-  normalizeScroll,
-  normalizeVisibleCount,
-  resolveEnabledIndex,
-} from "../src/wheel-picker.utils"
+import { describe, expect, it } from "vitest"
+import type { WheelPickerProps } from "../src/wheel-picker.types"
+import { COPIES, getItemAt, getRowOf, getRows, MIDDLE, stepRow } from "../src/wheel-picker.utils"
 
 const items = [
-  { label: "One", value: "one" },
-  { disabled: true, label: "Two", value: "two" },
-  { label: "Three", value: "three" },
+  { value: "a", label: "A" },
+  { value: "b", label: "B", disabled: true },
+  { value: "c", label: "C" },
+  { value: "d", label: "D" },
 ]
 
-const collection = new ListCollection({ items })
+const props: WheelPickerProps = { id: "test", items, value: "a" }
+const looping: WheelPickerProps = { ...props, loop: true }
 
-describe("wheel picker utilities", () => {
-  test("normalizes scroll positions", () => {
-    expect(normalizeScroll(-1, 5)).toBe(4)
-    expect(normalizeScroll(5, 5)).toBe(0)
-    expect(normalizeScroll(2.5, 5)).toBe(2.5)
-    expect(normalizeScroll(1, 0)).toBe(0)
+describe("getRows", () => {
+  it("renders each item once", () => {
+    expect(getRows(props).map(({ item }) => item.value)).toEqual(["a", "b", "c", "d"])
   })
 
-  test("normalizes visible count to a usable multiple of four", () => {
-    expect(normalizeVisibleCount(2)).toBe(4)
-    expect(normalizeVisibleCount(19)).toBe(16)
-    expect(normalizeVisibleCount(20)).toBe(20)
-    expect(normalizeVisibleCount(Number.NaN)).toBe(20)
+  it("repeats the items when looping", () => {
+    expect(getRows(looping)).toHaveLength(items.length * COPIES)
+  })
+})
+
+describe("getRowOf", () => {
+  it("finds the row of a value", () => {
+    expect(getRowOf(props, "c")).toBe(2)
+    expect(getRowOf(props, "missing")).toBe(-1)
   })
 
-  test("calculates the reference wheel geometry", () => {
-    expect(getWheelGeometry(20, 30)).toEqual({
-      containerHeight: 192,
-      halfItemHeight: 15,
-      itemAngle: 18,
-      quarterCount: 5,
-      radius: expect.closeTo(92.3305, 4),
-      visibleCount: 20,
-    })
+  it("starts in the middle copy when looping", () => {
+    expect(getRowOf(looping, "c")).toBe(MIDDLE * items.length + 2)
   })
 
-  test("expands short infinite collections and adds edge render items", () => {
-    const expanded = getExpandedItems(items, true, 20)
-    expect(expanded).toHaveLength(12)
+  it("picks the copy closest to the current row", () => {
+    expect(getRowOf(looping, "a", 2 * items.length + 3)).toBe(3 * items.length)
+    expect(getRowOf(looping, "d", 3 * items.length)).toBe(3 * items.length - 1)
+  })
+})
 
-    const rendered = getRenderItems(items, true, 20)
-    expect(rendered).toHaveLength(22)
-    expect(rendered[0]?.index).toBe(-5)
-    expect(rendered.at(-1)?.index).toBe(16)
-
-    const highlighted = getHighlightItems(items, true, 20)
-    expect(highlighted).toHaveLength(14)
-    expect(highlighted[0]?.index).toBe(-1)
-    expect(highlighted.at(-1)?.index).toBe(12)
+describe("stepRow", () => {
+  it("skips disabled rows", () => {
+    expect(stepRow(props, 0, 1)).toBe(2)
+    expect(stepRow(props, 2, -1)).toBe(0)
   })
 
-  test("skips disabled items in either direction", () => {
-    expect(findNearestEnabledIndex(1, 1, items, false, collection)).toBe(2)
-    expect(findNearestEnabledIndex(1, -1, items, false, collection)).toBe(0)
-    expect(resolveEnabledIndex(1, 1, items, false, collection)).toBe(2)
-    expect(resolveEnabledIndex(0, -1, items, true, collection)).toBe(0)
+  it("stops at the ends", () => {
+    expect(stepRow(props, 0, -1)).toBe(0)
+    expect(stepRow(props, 3, 1)).toBe(3)
+    expect(stepRow(props, 0, 10)).toBe(3)
   })
 
-  test("maps projected click segments to relative steps", () => {
-    const geometry = getWheelGeometry(20, 30)
-    expect(getClickedStep(0, 0, geometry, 30)).toBe(-4)
-    expect(getClickedStep(geometry.containerHeight / 2, 0, geometry, 30)).toBe(0)
-    expect(getClickedStep(geometry.containerHeight - 4, 0, geometry, 30)).toBe(4)
+  it("runs across copies when looping", () => {
+    const from = MIDDLE * items.length + 3
+    expect(stepRow(looping, from, 1)).toBe(from + 1)
   })
+})
 
-  test("projects and clamps inertia targets", () => {
-    expect(getInertiaTarget({ current: 2, dragSensitivity: 5, infinite: false, itemCount: 5, velocity: 30 })).toEqual({
-      duration: expect.any(Number),
-      target: 4,
-    })
-
-    expect(getInertiaTarget({ current: -0.5, dragSensitivity: 5, infinite: false, itemCount: 5, velocity: 0 })).toEqual(
-      { duration: expect.any(Number), target: 0 },
-    )
-
-    expect(
-      getInertiaTarget({ current: 2, dragSensitivity: 5, infinite: true, itemCount: 5, velocity: 30 }).target,
-    ).toBeGreaterThan(4)
-
-    const lowSensitivity = getInertiaTarget({
-      current: 0,
-      dragSensitivity: 1,
-      infinite: true,
-      itemCount: 5,
-      velocity: 10,
-    })
-    const highSensitivity = getInertiaTarget({
-      current: 0,
-      dragSensitivity: 6,
-      infinite: true,
-      itemCount: 5,
-      velocity: 10,
-    })
-
-    expect(highSensitivity.target).toBeGreaterThan(lowSensitivity.target)
-    expect(highSensitivity.duration).toBeGreaterThan(lowSensitivity.duration)
-  })
-
-  test("calculates drag velocity from recent movement samples", () => {
-    const samples = [
-      { time: 0, y: 100 },
-      { time: 50, y: 70 },
-    ]
-
-    expect(getDragVelocity(samples, 30)).toBe(20)
-    expect(getDragVelocity([{ time: 0, y: 100 }], 30)).toBe(0)
+describe("getItemAt", () => {
+  it("wraps rows around the items", () => {
+    expect(getItemAt(items, 5)?.value).toBe("b")
+    expect(getItemAt(items, -1)?.value).toBe("d")
   })
 })
