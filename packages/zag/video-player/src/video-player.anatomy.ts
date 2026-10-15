@@ -10,6 +10,7 @@ export const anatomy = createAnatomy("video-player").parts(
   "seekGroup",
   "seek",
   "preview",
+  "previewVideo",
   "time",
   "skipBackTrigger",
   "skipForwardTrigger",

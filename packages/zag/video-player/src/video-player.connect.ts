@@ -176,6 +176,17 @@ export function connect<T extends PropTypes>(
       })
     },
 
+    getPreviewVideoProps() {
+      return normalize.element({
+        ...parts.previewVideo.attrs(scope.id),
+        muted: true,
+        playsInline: true,
+        preload: "auto",
+        tabIndex: -1,
+        "aria-hidden": true,
+      })
+    },
+
     getSkipBackTriggerProps() {
       return normalize.element({
         ...parts.skipBackTrigger.attrs(scope.id),
