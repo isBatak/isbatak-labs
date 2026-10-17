@@ -1,29 +1,25 @@
 import { describe, expect, test } from "vitest"
-import { findActiveCue, formatTime } from "../src/video-player.utils"
-
-const cues = [
-  { start: 0, end: 2, text: "a" },
-  { start: 2, end: 5, text: "b" },
-  { start: 8, end: 10, text: "c" },
-]
+import { clamp, formatTime, fractionAt } from "../src/video-player.utils"
 
 describe("video player utilities", () => {
-  test("finds the cue at a time", () => {
-    expect(findActiveCue(cues, 0)).toBe(0)
-    expect(findActiveCue(cues, 2)).toBe(1)
-    expect(findActiveCue(cues, 4.9)).toBe(1)
-    expect(findActiveCue(cues, 10)).toBe(-1)
-  })
-
-  test("returns -1 in gaps and without cues", () => {
-    expect(findActiveCue(cues, 6)).toBe(-1)
-    expect(findActiveCue([], 1)).toBe(-1)
-  })
-
   test("formats time", () => {
     expect(formatTime(0)).toBe("0:00")
     expect(formatTime(65.7)).toBe("1:05")
     expect(formatTime(3725)).toBe("1:02:05")
     expect(formatTime(Number.NaN)).toBe("0:00")
+  })
+
+  test("clamps values", () => {
+    expect(clamp(5, 0, 3)).toBe(3)
+    expect(clamp(-1, 0, 3)).toBe(0)
+    expect(clamp(2, 0, 3)).toBe(2)
+  })
+
+  test("finds the fraction under the pointer", () => {
+    const rect = { left: 100, width: 200 }
+    expect(fractionAt(rect, 200)).toBe(0.5)
+    expect(fractionAt(rect, 50)).toBe(0)
+    expect(fractionAt(rect, 400)).toBe(1)
+    expect(fractionAt({ left: 0, width: 0 }, 10)).toBe(0)
   })
 })

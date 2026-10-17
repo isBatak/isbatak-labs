@@ -4,7 +4,14 @@ import { defineKeyframes, defineSlotRecipe } from "@pandacss/dev"
 import type { CssKeyframes, SlotRecipeConfig } from "@pandacss/types"
 import { icons } from "./video-player.icons"
 
-export const videoPlayerSlots = [...anatomy.keys(), "row", "spacer", "thumb", "previewText", "previewTime"] as const
+export const videoPlayerSlots = [
+  ...anatomy.keys(),
+  "row",
+  "spacer",
+  "previewThumb",
+  "previewText",
+  "previewTime",
+] as const
 
 type VideoPlayerStyles = SlotRecipeDefinition<(typeof videoPlayerSlots)[number]>
 
@@ -43,29 +50,42 @@ const trigger = {
   "&[hidden]": { display: "none" },
 } as const
 
-const range = {
-  appearance: "none",
-  height: "1",
-  m: "0",
-  borderRadius: "full",
-  bg: "linear-gradient(to right, var(--accent) var(--progress, 0%), rgb(255 255 255 / 0.3) var(--progress, 0%))",
+const slider = {
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  height: "var(--control-size)",
   cursor: "pointer",
+} as const
+
+const sliderTrack = {
+  position: "relative",
+  flex: "1",
+  height: "1",
+  borderRadius: "full",
+  bg: "rgb(255 255 255 / 0.3)",
+} as const
+
+const sliderRange = {
+  position: "absolute",
+  insetBlock: "0",
+  insetInlineStart: "0",
+  width: "var(--value-percent)",
+  borderRadius: "inherit",
+  bg: "var(--accent)",
+} as const
+
+const sliderThumb = {
+  position: "absolute",
+  top: "50%",
+  left: "var(--value-percent)",
+  translate: "-50% -50%",
+  width: "3.5",
+  height: "3.5",
+  borderRadius: "full",
+  bg: "var(--accent)",
+  boxShadow: "0 0 0 3px rgb(255 255 255 / 0.25)",
   focusVisibleRing: "outside",
-  "&::-webkit-slider-thumb": {
-    appearance: "none",
-    width: "3.5",
-    height: "3.5",
-    borderRadius: "full",
-    bg: "var(--accent)",
-    boxShadow: "0 0 0 3px rgb(255 255 255 / 0.25)",
-  },
-  "&::-moz-range-thumb": {
-    width: "3.5",
-    height: "3.5",
-    border: "none",
-    borderRadius: "full",
-    bg: "var(--accent)",
-  },
 } as const
 
 export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
@@ -74,9 +94,7 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
   slots: videoPlayerSlots,
   base: {
     root: {
-      display: "grid",
-      gridTemplateColumns: { base: "1fr", lg: "minmax(0, 1fr) 22rem" },
-      gap: "4",
+      display: "block",
       width: "full",
     },
     frame: {
@@ -147,10 +165,12 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       height: "var(--control-size)",
     },
     seek: {
-      ...range,
+      ...slider,
       flex: "1",
-      width: "full",
     },
+    seekTrack: sliderTrack,
+    seekRange: sliderRange,
+    seekThumb: sliderThumb,
     preview: {
       position: "absolute",
       bottom: "100%",
@@ -199,9 +219,13 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       "&[data-state=muted]::before": icon(icons.muted),
     },
     volume: {
-      ...range,
+      ...slider,
+      flex: "none",
       width: "20",
     },
+    volumeTrack: sliderTrack,
+    volumeRange: sliderRange,
+    volumeThumb: sliderThumb,
     pipTrigger: {
       ...trigger,
       "&::before": icon(icons.pip),
@@ -217,62 +241,6 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       "&[data-state=windowed]::before": icon(icons.enterFullscreen),
       "&[data-state=fullscreen]::before": icon(icons.exitFullscreen),
     },
-    transcript: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      gap: "1",
-      gridColumn: { base: "1", lg: "2" },
-      maxHeight: { base: "64", lg: "none" },
-      height: { lg: "0" },
-      minHeight: { lg: "full" },
-      overflowY: "auto",
-      p: "2",
-      borderWidth: "1px",
-      borderRadius: "2xl",
-      bg: "bg",
-      scrollbarWidth: "thin",
-    },
-    cue: {
-      display: "grid",
-      gridTemplateColumns: "auto 1fr",
-      gap: "3",
-      px: "3",
-      py: "2",
-      borderRadius: "lg",
-      color: "fg.muted",
-      cursor: "pointer",
-      transitionProperty: "background-color, color",
-      transitionDuration: "fast",
-      _hover: { bg: "bg.muted" },
-      focusVisibleRing: "inside",
-      "&::before": {
-        content: "attr(data-time)",
-        color: "fg.subtle",
-        fontVariantNumeric: "tabular-nums",
-      },
-      "&[data-active]": {
-        bg: "bg.muted",
-        color: "fg",
-        fontWeight: "medium",
-        boxShadow: "inset 3px 0 0 var(--accent)",
-      },
-    },
-    followTrigger: {
-      position: "sticky",
-      bottom: "2",
-      alignSelf: "center",
-      px: "3",
-      py: "1.5",
-      borderRadius: "full",
-      bg: "gray.900",
-      color: "white",
-      textStyle: "xs",
-      cursor: "pointer",
-      boxShadow: "md",
-      focusVisibleRing: "outside",
-      "&[hidden]": { display: "none" },
-    },
     row: {
       display: "flex",
       alignItems: "center",
@@ -281,11 +249,13 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
     spacer: {
       flex: "1",
     },
-    thumb: {
+    previewThumb: {
+      display: "block",
       position: "relative",
       width: "full",
     },
     previewText: {
+      display: "block",
       textStyle: "xs",
       fontWeight: "medium",
       px: "1",
@@ -310,25 +280,21 @@ export const videoPlayerRecipe: SlotRecipeConfig = defineSlotRecipe({
       },
       neutral: {
         root: { "--accent": "{colors.white}" },
-        cue: { "&[data-active]": { boxShadow: "inset 3px 0 0 {colors.fg}" } },
       },
     },
     size: {
       sm: {
         root: { "--control-size": "{sizes.8}" },
-        cue: { textStyle: "xs" },
         controls: { px: "3", pt: "8", pb: "2" },
         time: { textStyle: "xs" },
       },
       md: {
         root: { "--control-size": "{sizes.9}" },
-        cue: { textStyle: "sm" },
         controls: { px: "4", pt: "12", pb: "3" },
         playTrigger: { width: "10", height: "10" },
       },
       lg: {
         root: { "--control-size": "{sizes.11}" },
-        cue: { textStyle: "md" },
         controls: { px: "6", pt: "16", pb: "4" },
         playTrigger: { width: "12", height: "12" },
         time: { textStyle: "sm" },

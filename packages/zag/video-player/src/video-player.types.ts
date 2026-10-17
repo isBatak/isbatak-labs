@@ -1,45 +1,25 @@
 import type { EventObject, Machine, Service } from "@zag-js/core"
 import type { CommonProperties, PropTypes, RequiredBy } from "@zag-js/types"
 
-export interface Cue {
-  /** The time in seconds the cue starts. */
-  start: number
-  /** The time in seconds the cue ends. */
-  end: number
-  text: string
-}
-
 export interface TimeChangeDetails {
   time: number
-}
-
-export interface ActiveCueChangeDetails {
-  index: number
-  cue: Cue | undefined
 }
 
 export interface PlayingChangeDetails {
   playing: boolean
 }
 
+export type DraggingSlider = "seek" | "volume"
+
 export interface ElementIds {
   root?: string | undefined
   frame?: string | undefined
   video?: string | undefined
-  transcript?: string | undefined
-  cue?: ((index: number) => string) | undefined
 }
 
 export interface VideoPlayerProps extends CommonProperties {
   /** The ids of the elements in the video player. Useful for composition. */
   ids?: ElementIds | undefined
-  /** The transcript cues, sorted by start time. */
-  cues?: Cue[] | undefined
-  /**
-   * Whether the transcript scrolls along with the video.
-   * @default true
-   */
-  follow?: boolean | undefined
   /**
    * The seconds skipped by the arrow keys.
    * @default 5
@@ -52,13 +32,13 @@ export interface VideoPlayerProps extends CommonProperties {
   skipStep?: number | undefined
   /** Function called when the playback position changes. */
   onTimeChange?: ((details: TimeChangeDetails) => void) | undefined
-  /** Function called when the cue at the playback position changes. */
-  onActiveCueChange?: ((details: ActiveCueChangeDetails) => void) | undefined
+  /** Returns the caption shown in the seek preview for a time in seconds. */
+  getPreviewText?: ((time: number) => string) | undefined
   /** Function called when the video starts or stops playing. */
   onPlayingChange?: ((details: PlayingChangeDetails) => void) | undefined
 }
 
-type PropsWithDefault = "cues" | "follow" | "seekStep" | "skipStep"
+type PropsWithDefault = "seekStep" | "skipStep"
 
 export interface VideoPlayerSchema {
   state: "paused" | "playing"
@@ -69,12 +49,9 @@ export interface VideoPlayerSchema {
     volume: number
     muted: boolean
     fullscreen: boolean
-    following: boolean
     loop: boolean
     previewFraction: number
-  }
-  computed: {
-    activeCue: number
+    dragging: DraggingSlider | null
   }
   action: string
   effect: string
@@ -84,11 +61,6 @@ export interface VideoPlayerSchema {
 
 export type VideoPlayerService = Service<VideoPlayerSchema>
 export type VideoPlayerMachine = Machine<VideoPlayerSchema>
-
-export interface CueProps {
-  /** The zero-based position of the cue. */
-  index: number
-}
 
 export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   /** Whether the video is playing. */
@@ -100,14 +72,10 @@ export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   volume: number
   muted: boolean
   fullscreen: boolean
-  /** Whether the transcript scrolls along with the video. */
-  following: boolean
-  /** The index of the cue at the playback position, or -1. */
-  activeCue: number
   loop: boolean
   /** The time under the pointer on the seek bar, or -1. */
   previewTime: number
-  /** The cue text at the time under the pointer on the seek bar. */
+  /** The caption at the time under the pointer on the seek bar. */
   previewText: string
   /** The playback position and length formatted as `m:ss / m:ss`. */
   timeLabel: string
@@ -121,11 +89,6 @@ export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   toggleFullscreen: () => void
   toggleLoop: () => void
   togglePip: () => void
-  /** Scroll the transcript along with the video again. */
-  resumeFollow: () => void
-  /** Seek to the start of a cue. */
-  seekToCue: (index: number) => void
-  isCueActive: (props: CueProps) => boolean
 
   getRootProps: () => T["element"]
   getFrameProps: () => T["element"]
@@ -135,6 +98,10 @@ export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   getPlayTriggerProps: () => T["element"]
   getSeekGroupProps: () => T["element"]
   getSeekProps: () => T["element"]
+  getSeekTrackProps: () => T["element"]
+  getSeekRangeProps: () => T["element"]
+  getSeekThumbProps: () => T["element"]
+  getSeekInputProps: () => T["input"]
   getPreviewProps: () => T["element"]
   getPreviewVideoProps: () => T["element"]
   getTimeProps: () => T["element"]
@@ -142,10 +109,11 @@ export interface VideoPlayerApi<T extends PropTypes = PropTypes> {
   getSkipForwardTriggerProps: () => T["element"]
   getMuteTriggerProps: () => T["element"]
   getVolumeProps: () => T["element"]
+  getVolumeTrackProps: () => T["element"]
+  getVolumeRangeProps: () => T["element"]
+  getVolumeThumbProps: () => T["element"]
+  getVolumeInputProps: () => T["input"]
   getPipTriggerProps: () => T["element"]
   getLoopTriggerProps: () => T["element"]
   getFullscreenTriggerProps: () => T["element"]
-  getTranscriptProps: () => T["element"]
-  getCueProps: (props: CueProps) => T["element"]
-  getFollowTriggerProps: () => T["element"]
 }
