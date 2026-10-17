@@ -1,29 +1,163 @@
 import type { NormalizeProps, PropTypes } from "@zag-js/types"
 import { parts } from "./video-player.anatomy"
 import * as dom from "./video-player.dom"
-import type { VideoPlayerApi, VideoPlayerService } from "./video-player.types"
-import { findActiveCue, formatTime } from "./video-player.utils"
+import type { DraggingSlider, VideoPlayerApi, VideoPlayerService } from "./video-player.types"
+import { clamp, formatTime, fractionAt } from "./video-player.utils"
+
+interface SliderOptions {
+  name: DraggingSlider
+  value: number
+  max: number
+  step: number
+  pageStep: number
+  label: string
+  valueText: string
+  onChange: (value: number) => void
+}
+
+const sliderParts = {
+  seek: {
+    control: parts.seek,
+    track: parts.seekTrack,
+    range: parts.seekRange,
+    thumb: parts.seekThumb,
+    input: parts.seekInput,
+  },
+  volume: {
+    control: parts.volume,
+    track: parts.volumeTrack,
+    range: parts.volumeRange,
+    thumb: parts.volumeThumb,
+    input: parts.volumeInput,
+  },
+}
 
 export function connect<T extends PropTypes>(
   service: VideoPlayerService,
   normalize: NormalizeProps<T>,
 ): VideoPlayerApi<T> {
-  const { computed, context, prop, scope, send, state } = service
+  const { context, prop, scope, send, state } = service
   const playing = state.matches("playing")
   const currentTime = context.get("currentTime")
   const duration = context.get("duration")
   const volume = context.get("volume")
   const muted = context.get("muted")
   const fullscreen = context.get("fullscreen")
-  const following = context.get("following")
   const loop = context.get("loop")
   const previewFraction = context.get("previewFraction")
   const previewTime = previewFraction < 0 ? -1 : previewFraction * duration
-  const previewCue = previewTime < 0 ? -1 : findActiveCue(prop("cues"), previewTime)
-  const activeCue = computed("activeCue")
-  const cues = prop("cues")
+
+  const dragging = context.get("dragging")
 
   const seek = (time: number) => send({ type: "SEEK", time })
+  const setVolume = (volume: number) => send({ type: "VOLUME.SET", volume })
+
+  const seekSlider = createSlider({
+    name: "seek",
+    value: currentTime,
+    max: duration,
+    step: prop("seekStep"),
+    pageStep: prop("skipStep"),
+    label: "Seek",
+    valueText: `${formatTime(currentTime)} of ${formatTime(duration)}`,
+    onChange: seek,
+  })
+
+  const volumeSlider = createSlider({
+    name: "volume",
+    value: muted ? 0 : volume,
+    max: 1,
+    step: 0.05,
+    pageStep: 0.1,
+    label: "Volume",
+    valueText: `${Math.round((muted ? 0 : volume) * 100)}%`,
+    onChange: setVolume,
+  })
+
+  function createSlider(options: SliderOptions) {
+    const { name, value, max, step, pageStep, label, valueText, onChange } = options
+    const percent = max > 0 ? `${(clamp(value, 0, max) / max) * 100}%` : "0%"
+    const active = dragging === name
+    const anatomy = sliderParts[name]
+    const valueAt = (element: HTMLElement, clientX: number) =>
+      fractionAt(element.getBoundingClientRect(), clientX) * max
+
+    return {
+      control: normalize.element({
+        ...anatomy.control.attrs(scope.id),
+        "data-dragging": active ? "" : undefined,
+        style: {
+          "--value-percent": percent,
+          touchAction: "none",
+        },
+        onPointerDown(event) {
+          if (event.button !== 0) return
+          const element = event.currentTarget as HTMLElement
+          event.preventDefault()
+          element.setPointerCapture(event.pointerId)
+          element.querySelector<HTMLElement>("[role=slider]")?.focus({ preventScroll: true })
+          send({ type: "DRAG.START", slider: name })
+          onChange(valueAt(element, event.clientX))
+        },
+        onPointerMove(event) {
+          const element = event.currentTarget as HTMLElement
+          if (!element.hasPointerCapture(event.pointerId)) return
+          onChange(valueAt(element, event.clientX))
+        },
+        onPointerUp() {
+          send({ type: "DRAG.END" })
+        },
+        onPointerCancel() {
+          send({ type: "DRAG.END" })
+        },
+      }),
+
+      track: normalize.element({
+        ...anatomy.track.attrs(scope.id),
+        "data-dragging": active ? "" : undefined,
+      }),
+
+      range: normalize.element({
+        ...anatomy.range.attrs(scope.id),
+        "data-dragging": active ? "" : undefined,
+      }),
+
+      thumb: normalize.element({
+        ...anatomy.thumb.attrs(scope.id),
+        role: "slider",
+        tabIndex: 0,
+        "aria-label": label,
+        "aria-valuemin": 0,
+        "aria-valuemax": max,
+        "aria-valuenow": value,
+        "aria-valuetext": valueText,
+        "aria-orientation": "horizontal",
+        "data-dragging": active ? "" : undefined,
+        onKeyDown(event) {
+          const keys: Record<string, number> = {
+            ArrowLeft: value - step,
+            ArrowDown: value - step,
+            ArrowRight: value + step,
+            ArrowUp: value + step,
+            PageDown: value - pageStep,
+            PageUp: value + pageStep,
+            Home: 0,
+            End: max,
+          }
+          const next = keys[event.key]
+          if (next === undefined) return
+          event.preventDefault()
+          onChange(clamp(next, 0, max))
+        },
+      }),
+
+      input: normalize.input({
+        ...anatomy.input.attrs(scope.id),
+        type: "hidden",
+        value: String(value),
+      }),
+    }
+  }
 
   return {
     playing,
@@ -32,11 +166,9 @@ export function connect<T extends PropTypes>(
     volume,
     muted,
     fullscreen,
-    following,
     loop,
     previewTime,
-    previewText: previewCue < 0 ? "" : (cues[previewCue]?.text ?? ""),
-    activeCue,
+    previewText: previewTime < 0 ? "" : (prop("getPreviewText")?.(previewTime) ?? ""),
     timeLabel: `${formatTime(currentTime)} / ${formatTime(duration)}`,
 
     play() {
@@ -52,9 +184,7 @@ export function connect<T extends PropTypes>(
     seekBy(seconds) {
       send({ type: "SEEK.BY", seconds })
     },
-    setVolume(volume) {
-      send({ type: "VOLUME.SET", volume })
-    },
+    setVolume,
     toggleMute() {
       send({ type: "MUTE.TOGGLE" })
     },
@@ -67,16 +197,6 @@ export function connect<T extends PropTypes>(
     togglePip() {
       send({ type: "PIP.TOGGLE" })
     },
-    resumeFollow() {
-      send({ type: "FOLLOW.RESUME" })
-    },
-    seekToCue(index) {
-      const cue = cues[index]
-      if (cue) seek(cue.start)
-    },
-    isCueActive(props) {
-      return props.index === activeCue
-    },
 
     getRootProps() {
       return normalize.element({
@@ -87,7 +207,7 @@ export function connect<T extends PropTypes>(
         "data-fullscreen": fullscreen ? "" : undefined,
         onKeyDown(event) {
           const target = event.target as HTMLElement
-          if (target.matches("input, textarea")) return
+          if (event.defaultPrevented || target.matches("input, textarea")) return
           const actions: Record<string, () => void> = {
             " ": () => send({ type: "TOGGLE" }),
             k: () => send({ type: "TOGGLE" }),
@@ -157,7 +277,10 @@ export function connect<T extends PropTypes>(
         ...parts.seekGroup.attrs(scope.id),
         onPointerMove(event) {
           const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
-          send({ type: "PREVIEW.SET", fraction: (event.clientX - rect.left) / rect.width })
+          send({
+            type: "PREVIEW.SET",
+            fraction: fractionAt(rect, event.clientX),
+          })
         },
         onPointerLeave() {
           send({ type: "PREVIEW.CLEAR" })
@@ -235,22 +358,23 @@ export function connect<T extends PropTypes>(
     },
 
     getSeekProps() {
-      return normalize.input({
-        ...parts.seek.attrs(scope.id),
-        type: "range",
-        min: 0,
-        max: duration,
-        step: 0.1,
-        value: currentTime,
-        "aria-label": "Seek",
-        "aria-valuetext": `${formatTime(currentTime)} of ${formatTime(duration)}`,
-        style: {
-          "--progress": duration > 0 ? `${(currentTime / duration) * 100}%` : "0%",
-        },
-        onInput(event) {
-          seek(Number((event.currentTarget as HTMLInputElement).value))
-        },
-      })
+      return seekSlider.control
+    },
+
+    getSeekTrackProps() {
+      return seekSlider.track
+    },
+
+    getSeekRangeProps() {
+      return seekSlider.range
+    },
+
+    getSeekThumbProps() {
+      return seekSlider.thumb
+    },
+
+    getSeekInputProps() {
+      return seekSlider.input
     },
 
     getTimeProps() {
@@ -273,21 +397,23 @@ export function connect<T extends PropTypes>(
     },
 
     getVolumeProps() {
-      return normalize.input({
-        ...parts.volume.attrs(scope.id),
-        type: "range",
-        min: 0,
-        max: 1,
-        step: 0.05,
-        value: muted ? 0 : volume,
-        "aria-label": "Volume",
-        style: {
-          "--progress": `${(muted ? 0 : volume) * 100}%`,
-        },
-        onInput(event) {
-          send({ type: "VOLUME.SET", volume: Number((event.currentTarget as HTMLInputElement).value) })
-        },
-      })
+      return volumeSlider.control
+    },
+
+    getVolumeTrackProps() {
+      return volumeSlider.track
+    },
+
+    getVolumeRangeProps() {
+      return volumeSlider.range
+    },
+
+    getVolumeThumbProps() {
+      return volumeSlider.thumb
+    },
+
+    getVolumeInputProps() {
+      return volumeSlider.input
     },
 
     getFullscreenTriggerProps() {
@@ -298,59 +424,6 @@ export function connect<T extends PropTypes>(
         "data-state": fullscreen ? "fullscreen" : "windowed",
         onClick() {
           send({ type: "FULLSCREEN.TOGGLE" })
-        },
-      })
-    },
-
-    getTranscriptProps() {
-      const detach = () => {
-        if (following) send({ type: "FOLLOW.PAUSE" })
-      }
-      return normalize.element({
-        ...parts.transcript.attrs(scope.id),
-        id: dom.getTranscriptId(scope),
-        role: "list",
-        "aria-label": "Transcript",
-        "data-following": following ? "" : undefined,
-        onWheel: detach,
-        onTouchStart: detach,
-      })
-    },
-
-    getCueProps(props) {
-      const active = props.index === activeCue
-      const cue = cues[props.index]
-      return normalize.element({
-        ...parts.cue.attrs(scope.id),
-        id: dom.getCueId(scope, props.index),
-        role: "listitem",
-        tabIndex: 0,
-        "data-index": props.index,
-        "data-start": cue?.start,
-        "data-time": cue ? formatTime(cue.start) : undefined,
-        "data-active": active ? "" : undefined,
-        "aria-current": active ? "true" : undefined,
-        onClick() {
-          if (cue) seek(cue.start)
-          send({ type: "FOLLOW.RESUME" })
-        },
-        onKeyDown(event) {
-          if (event.key !== "Enter" && event.key !== " ") return
-          event.preventDefault()
-          event.stopPropagation()
-          if (cue) seek(cue.start)
-          send({ type: "FOLLOW.RESUME" })
-        },
-      })
-    },
-
-    getFollowTriggerProps() {
-      return normalize.element({
-        ...parts.followTrigger.attrs(scope.id),
-        type: "button",
-        hidden: following,
-        onClick() {
-          send({ type: "FOLLOW.RESUME" })
         },
       })
     },

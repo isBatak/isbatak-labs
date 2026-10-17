@@ -9,6 +9,10 @@ export const anatomy = createAnatomy("video-player").parts(
   "playTrigger",
   "seekGroup",
   "seek",
+  "seekTrack",
+  "seekRange",
+  "seekThumb",
+  "seekInput",
   "preview",
   "previewVideo",
   "time",
@@ -16,12 +20,13 @@ export const anatomy = createAnatomy("video-player").parts(
   "skipForwardTrigger",
   "muteTrigger",
   "volume",
+  "volumeTrack",
+  "volumeRange",
+  "volumeThumb",
+  "volumeInput",
   "pipTrigger",
   "loopTrigger",
   "fullscreenTrigger",
-  "transcript",
-  "cue",
-  "followTrigger",
 )
 
 export const parts = anatomy.build()

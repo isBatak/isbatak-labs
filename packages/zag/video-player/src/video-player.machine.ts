@@ -1,13 +1,11 @@
 import { createMachine } from "@zag-js/core"
 import * as dom from "./video-player.dom"
-import type { VideoPlayerSchema } from "./video-player.types"
-import { clamp, findActiveCue } from "./video-player.utils"
+import type { DraggingSlider, VideoPlayerSchema } from "./video-player.types"
+import { clamp } from "./video-player.utils"
 
 export const machine = createMachine<VideoPlayerSchema>({
   props({ props }) {
     return {
-      cues: [],
-      follow: true,
       seekStep: 5,
       skipStep: 10,
       ...props,
@@ -26,31 +24,17 @@ export const machine = createMachine<VideoPlayerSchema>({
       volume: bindable<number>(() => ({ defaultValue: 1 })),
       muted: bindable<boolean>(() => ({ defaultValue: false })),
       fullscreen: bindable<boolean>(() => ({ defaultValue: false })),
-      following: bindable<boolean>(() => ({ defaultValue: prop("follow") })),
       loop: bindable<boolean>(() => ({ defaultValue: false })),
       previewFraction: bindable<number>(() => ({ defaultValue: -1 })),
+      dragging: bindable<DraggingSlider | null>(() => ({ defaultValue: null })),
     }
-  },
-
-  computed: {
-    activeCue: ({ context, prop }) => findActiveCue(prop("cues"), context.get("currentTime")),
   },
 
   initialState() {
     return "paused"
   },
 
-  effects: ["trackVideo", "followTranscript"],
-
-  watch({ track, prop, context, computed }) {
-    track([() => prop("follow")], () => {
-      context.set("following", prop("follow"))
-    })
-    track([() => computed("activeCue")], () => {
-      const index = computed("activeCue")
-      prop("onActiveCueChange")?.({ index, cue: prop("cues")[index] })
-    })
-  },
+  effects: ["trackVideo"],
 
   on: {
     "TIME.UPDATE": { actions: ["syncTime"] },
@@ -64,10 +48,10 @@ export const machine = createMachine<VideoPlayerSchema>({
     "FULLSCREEN.TOGGLE": { actions: ["toggleFullscreen"] },
     "PREVIEW.SET": { actions: ["setPreview"] },
     "PREVIEW.CLEAR": { actions: ["clearPreview"] },
+    "DRAG.START": { actions: ["startDrag"] },
+    "DRAG.END": { actions: ["endDrag"] },
     "LOOP.TOGGLE": { actions: ["toggleLoop"] },
     "PIP.TOGGLE": { actions: ["togglePip"] },
-    "FOLLOW.PAUSE": { actions: ["pauseFollow"] },
-    "FOLLOW.RESUME": { actions: ["resumeFollow"] },
   },
 
   states: {
@@ -119,14 +103,6 @@ export const machine = createMachine<VideoPlayerSchema>({
           doc.removeEventListener("fullscreenchange", onFullscreen)
         }
       },
-
-      followTranscript({ computed, context, scope, watchEffect }) {
-        const transcript = dom.getTranscriptEl(scope)
-        if (!transcript) return
-        return watchEffect([() => computed("activeCue"), () => context.get("following")], () => {
-          scrollToCue(scope, computed("activeCue"), context.get("following"))
-        })
-      },
     },
 
     actions: {
@@ -141,7 +117,7 @@ export const machine = createMachine<VideoPlayerSchema>({
       },
       syncTime({ scope, context }) {
         const video = dom.getVideoEl(scope)
-        if (video) context.set("currentTime", video.currentTime)
+        if (video && context.get("dragging") !== "seek") context.set("currentTime", video.currentTime)
       },
       syncDuration({ scope, context }) {
         const video = dom.getVideoEl(scope)
@@ -154,7 +130,7 @@ export const machine = createMachine<VideoPlayerSchema>({
         context.set("muted", video.muted)
       },
       syncFullscreen({ scope, context }) {
-        context.set("fullscreen", scope.getDoc().fullscreenElement === dom.getFrameEl(scope))
+        context.set("fullscreen", dom.getFullscreenElement(scope) === dom.getFrameEl(scope))
       },
       seek({ scope, event, context }) {
         const video = dom.getVideoEl(scope)
@@ -166,7 +142,10 @@ export const machine = createMachine<VideoPlayerSchema>({
       seekBy({ scope, event, context, send }) {
         const video = dom.getVideoEl(scope)
         if (!video) return
-        send({ type: "SEEK", time: clamp(video.currentTime + event.seconds, 0, context.get("duration")) })
+        send({
+          type: "SEEK",
+          time: clamp(video.currentTime + event.seconds, 0, context.get("duration")),
+        })
       },
       setVolume({ scope, event }) {
         const video = dom.getVideoEl(scope)
@@ -190,6 +169,12 @@ export const machine = createMachine<VideoPlayerSchema>({
       clearPreview({ context }) {
         context.set("previewFraction", -1)
       },
+      startDrag({ context, event }) {
+        context.set("dragging", event.slider)
+      },
+      endDrag({ context }) {
+        context.set("dragging", null)
+      },
       toggleLoop({ scope, context }) {
         const video = dom.getVideoEl(scope)
         if (!video) return
@@ -202,22 +187,6 @@ export const machine = createMachine<VideoPlayerSchema>({
         if (doc.pictureInPictureElement) void doc.exitPictureInPicture()
         else void video?.requestPictureInPicture()
       },
-      pauseFollow({ context }) {
-        context.set("following", false)
-      },
-      resumeFollow({ context }) {
-        context.set("following", true)
-      },
     },
   },
 })
-
-function scrollToCue(scope: Parameters<typeof dom.getCueEl>[0], index: number, following: boolean) {
-  if (!following || index < 0) return
-  const transcript = dom.getTranscriptEl(scope)
-  const cue = dom.getCueEl(scope, index)
-  if (!transcript || !cue) return
-  const offset = cue.getBoundingClientRect().top - transcript.getBoundingClientRect().top
-  const top = transcript.scrollTop + offset - transcript.clientHeight / 2 + cue.clientHeight / 2
-  transcript.scrollTo({ top: Math.max(top, 0), behavior: "smooth" })
-}
