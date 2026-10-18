@@ -1,0 +1,70 @@
+{
+  "name": "@isbatak/zag-lit",
+  "version": "0.0.0",
+  "description": "Lit adapter for Zag v2 state machines",
+  "keywords": [
+    "js",
+    "lit",
+    "web-components",
+    "zag",
+    "state-machine"
+  ],
+  "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/zag/lit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isBatak/isbatak-labs.git",
+    "directory": "packages/zag/lit"
+  },
+  "bugs": {
+    "url": "https://github.com/isBatak/isbatak-labs/issues"
+  },
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.mts",
+          "default": "./dist/index.mjs"
+        },
+        "require": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        }
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@zag-js/core": "catalog:",
+    "@zag-js/store": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
+  },
+  "devDependencies": {
+    "@zag-js/checkbox": "catalog:",
+    "jsdom": "catalog:",
+    "lit": "catalog:"
+  },
+  "peerDependencies": {
+    "lit": "^3.3.0"
+  }
+}
