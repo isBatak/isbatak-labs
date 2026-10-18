@@ -185,8 +185,8 @@ export const segmentVariants = {
       _horizontal: {
         borderTopRadius: "var(--segment-radius)",
         marginBottom: "var(--line-offset)",
-        marginEnd: {
-          _notLast: "var(--line-offset)",
+        _notLast: {
+          marginEnd: "var(--line-offset)",
         },
         "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
           borderColor: "border",
@@ -196,8 +196,8 @@ export const segmentVariants = {
       _vertical: {
         borderStartRadius: "var(--segment-radius)",
         marginEnd: "var(--line-offset)",
-        marginBottom: {
-          _notLast: "var(--line-offset)",
+        _notLast: {
+          marginBottom: "var(--line-offset)",
         },
         "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
           borderColor: "border",
