@@ -1,0 +1,77 @@
+{
+  "name": "@isbatak/zag-video-transcript",
+  "version": "0.0.0",
+  "description": "Core logic for a transcript that follows a video, implemented as a state machine",
+  "keywords": [
+    "js",
+    "machine",
+    "statechart",
+    "component",
+    "zag",
+    "video-transcript",
+    "transcript",
+    "video"
+  ],
+  "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/zag/video-transcript#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isBatak/isbatak-labs.git",
+    "directory": "packages/zag/video-transcript"
+  },
+  "bugs": {
+    "url": "https://github.com/isBatak/isbatak-labs/issues"
+  },
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./anatomy": "./src/video-transcript.anatomy.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.mts",
+          "default": "./dist/index.mjs"
+        },
+        "require": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        }
+      },
+      "./anatomy": {
+        "import": {
+          "types": "./dist/video-transcript.anatomy.d.mts",
+          "default": "./dist/video-transcript.anatomy.mjs"
+        },
+        "require": {
+          "types": "./dist/video-transcript.anatomy.d.ts",
+          "default": "./dist/video-transcript.anatomy.js"
+        }
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@zag-js/anatomy": "catalog:",
+    "@zag-js/core": "catalog:",
+    "@zag-js/dom-query": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
+  }
+}
