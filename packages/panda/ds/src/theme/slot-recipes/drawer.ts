@@ -159,7 +159,8 @@ export const drawerSlotRecipe = defineSlotRecipe({
         animationDuration: "slow",
       },
       _closed: {
-        animationName: "fade-out",
+        "--fade-out-from": "calc(1 - var(--drawer-swipe-progress, 0))",
+        animationName: "fade-out-from",
         animationDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slower})",
       },
     },
