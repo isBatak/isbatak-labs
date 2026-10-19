@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/zag-video-player",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Core logic for a video player with a synced transcript implemented as a state machine",
   "keywords": [
     "js",

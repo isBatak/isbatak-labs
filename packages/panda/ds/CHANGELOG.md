@@ -1,5 +1,17 @@
 # @isbatak/panda-ds
 
+## 0.5.0
+
+### Minor Changes
+
+- ab6dae0: Add a boolean `icon` variant to the `button` recipe for square, icon-only buttons. `IconButton` now uses it
+  instead of style props.
+
+### Patch Changes
+
+- 86eefaf: Fix the spacing between `line` variant items in `tabs` and `segmentGroup`. The `_notLast` margin was nested
+  inside the property, which Panda emits as an invalid CSS property, so it never applied.
+
 ## 0.4.0
 
 ### Minor Changes
