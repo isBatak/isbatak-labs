@@ -173,6 +173,12 @@ export const buttonRecipe = defineRecipe({
         color: "colorPalette.fg",
       },
     },
+    icon: {
+      true: {
+        px: "0",
+        py: "0",
+      },
+    },
   },
   defaultVariants: {
     size: "md",
