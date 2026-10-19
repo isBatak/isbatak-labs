@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/zag-lit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Lit adapter for Zag v2 state machines",
   "keywords": [
     "js",

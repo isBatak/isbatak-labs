@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/zag-video-transcript",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Core logic for a transcript that follows a video, implemented as a state machine",
   "keywords": [
     "js",
