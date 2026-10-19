@@ -23,7 +23,7 @@ export type DrawerRootProps = ComponentProps<typeof StyledDrawerRoot>
 export function DrawerRoot(props: DrawerRootProps) {
   const { placement = "end" } = props
   const swipeDirection = typeof placement === "string" ? swipeDirections[placement] : undefined
-  return <StyledDrawerRoot swipeDirection={swipeDirection} {...props} />
+  return <StyledDrawerRoot swipeDirection={swipeDirection} {...props} placement={placement} />
 }
 
 export const DrawerTrigger = withContext(Drawer.Trigger, "trigger")
@@ -68,6 +68,18 @@ export type DrawerGrabberProps = ComponentProps<typeof DrawerGrabber>
 
 export const DrawerGrabberIndicator = withContext(Drawer.GrabberIndicator, "grabberIndicator")
 export type DrawerGrabberIndicatorProps = ComponentProps<typeof DrawerGrabberIndicator>
+
+export const DrawerSwipeArea = withContext(Drawer.SwipeArea, "swipeArea")
+export type DrawerSwipeAreaProps = ComponentProps<typeof DrawerSwipeArea>
+
+export const DrawerStack = Drawer.Stack
+export type DrawerStackProps = ComponentProps<typeof DrawerStack>
+
+export const DrawerIndent = withContext(Drawer.Indent, "indent")
+export type DrawerIndentProps = ComponentProps<typeof DrawerIndent>
+
+export const DrawerIndentBackground = withContext(Drawer.IndentBackground, "indentBackground")
+export type DrawerIndentBackgroundProps = ComponentProps<typeof DrawerIndentBackground>
 
 export const DrawerHeader = withContext("div", "header")
 export type DrawerHeaderProps = ComponentProps<typeof DrawerHeader>
