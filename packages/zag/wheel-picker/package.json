@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/zag-wheel-picker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Core logic for the wheel-picker widget built on native scroll snapping",
   "keywords": [
     "js",
