@@ -1,5 +1,13 @@
 # @isbatak/panda-ds
 
+## 0.5.1
+
+### Patch Changes
+
+- 379834b: Fix the `button` recipe's `icon` variant losing to the `size` padding. Sizes now set `--button-padding-x` and
+  `--button-min-width`, and only the `icon` variant applies the padding, so `icon` buttons are square again. You can
+  remove any `compoundVariants` workaround for `icon: true`.
+
 ## 0.5.0
 
 ### Minor Changes
