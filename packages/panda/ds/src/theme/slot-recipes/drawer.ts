@@ -1,5 +1,123 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+const vertical = {
+  maxW: "100%",
+  _after: {
+    insetInline: 0,
+    w: "auto",
+    h: "var(--drawer-bleed)",
+  },
+}
+
+const horizontal = {
+  maxW: "var(--drawer-max-width)",
+  maxH: "100dvh",
+  transformOrigin: "center",
+  borderTopRadius: "0",
+  pb: "0",
+  _after: {
+    insetBlock: 0,
+    w: "var(--drawer-bleed)",
+    h: "auto",
+  },
+}
+
+const down = {
+  positioner: {
+    justifyContent: "stretch",
+    alignItems: "flex-end",
+  },
+  content: {
+    ...vertical,
+    maxH: "calc(100dvh - {spacing.12})",
+    transformOrigin: "top",
+    translate: "0 calc(var(--drawer-stack-offset) * -1)",
+    borderTopRadius: "l3",
+    pb: "[env(safe-area-inset-bottom)]",
+    _after: {
+      ...vertical._after,
+      top: "100%",
+      bottom: "auto",
+    },
+    _open: {
+      animationName: "slide-from-bottom-full, fade-in",
+    },
+    _closed: {
+      animationName: "slide-to-bottom-full, fade-out",
+    },
+  },
+}
+
+const up = {
+  positioner: {
+    justifyContent: "stretch",
+    alignItems: "flex-start",
+  },
+  content: {
+    ...vertical,
+    maxH: "100dvh",
+    transformOrigin: "bottom",
+    translate: "0 var(--drawer-stack-offset)",
+    borderTopRadius: "0",
+    pb: "0",
+    _after: {
+      ...vertical._after,
+      top: "auto",
+      bottom: "100%",
+    },
+    _open: {
+      animationName: "slide-from-top-full, fade-in",
+    },
+    _closed: {
+      animationName: "slide-to-top-full, fade-out",
+    },
+  },
+}
+
+const left = {
+  positioner: {
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+  },
+  content: {
+    ...horizontal,
+    translate: "var(--drawer-stack-offset) 0",
+    _after: {
+      ...horizontal._after,
+      left: "auto",
+      right: "100%",
+    },
+    _open: {
+      animationName: "slide-from-left-full, fade-in",
+    },
+    _closed: {
+      animationName: "slide-to-left-full, fade-out",
+    },
+  },
+}
+
+const right = {
+  positioner: {
+    justifyContent: "flex-end",
+    alignItems: "stretch",
+  },
+  content: {
+    ...horizontal,
+    translate: "calc(var(--drawer-stack-offset) * -1) 0",
+    _after: {
+      ...horizontal._after,
+      left: "100%",
+      right: "auto",
+    },
+    _open: {
+      animationName: "slide-from-right-full, fade-in",
+    },
+    _closed: {
+      animationName: "slide-to-right-full, fade-out",
+    },
+  },
+}
+
 export const drawerSlotRecipe = defineSlotRecipe({
   slots: [
     "trigger",
@@ -14,6 +132,9 @@ export const drawerSlotRecipe = defineSlotRecipe({
     "footer",
     "grabber",
     "grabberIndicator",
+    "swipeArea",
+    "indent",
+    "indentBackground",
   ],
   className: "drawer",
   base: {
@@ -52,6 +173,10 @@ export const drawerSlotRecipe = defineSlotRecipe({
       "--drawer-z-index": "zIndex.popover",
       zIndex: "calc(var(--drawer-z-index) + var(--layer-index, 0))",
       overscrollBehaviorY: "none",
+      "&[data-swipe-direction=down]": down.positioner,
+      "&[data-swipe-direction=up]": up.positioner,
+      "&[data-swipe-direction=left]": left.positioner,
+      "&[data-swipe-direction=right]": right.positioner,
     },
     content: {
       display: "flex",
@@ -60,6 +185,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
       width: "100%",
       outline: 0,
       "--drawer-z-index": "zIndex.popover",
+      "--drawer-bleed": "spacing.12",
       zIndex: "calc(var(--drawer-z-index) + var(--layer-index, 0))",
       textStyle: "sm",
       maxW: "var(--drawer-max-width)",
@@ -73,6 +199,12 @@ export const drawerSlotRecipe = defineSlotRecipe({
       transitionProperty: "transform, scale, translate",
       transitionDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slowest})",
       transitionTimingFunction: "ease-in-smooth",
+      _after: {
+        content: '""',
+        position: "absolute",
+        bg: "inherit",
+        pointerEvents: "none",
+      },
       _open: {
         animationDuration: "slowest",
         animationTimingFunction: "ease-in-smooth",
@@ -81,6 +213,10 @@ export const drawerSlotRecipe = defineSlotRecipe({
         animationDuration: "calc(var(--drawer-swipe-strength, 1) * {durations.slower})",
         animationTimingFunction: "ease-in-smooth",
       },
+      "&[data-swipe-direction=down]": down.content,
+      "&[data-swipe-direction=up]": up.content,
+      "&[data-swipe-direction=left]": left.content,
+      "&[data-swipe-direction=right]": right.content,
     },
     header: {
       display: "flex",
@@ -135,6 +271,57 @@ export const drawerSlotRecipe = defineSlotRecipe({
       top: "3",
       insetEnd: "2",
     },
+    swipeArea: {
+      pos: "fixed",
+      zIndex: "docked",
+      "&[data-swipe-direction=up]": {
+        insetInline: 0,
+        bottom: 0,
+        h: "6",
+      },
+      "&[data-swipe-direction=down]": {
+        insetInline: 0,
+        top: 0,
+        h: "6",
+      },
+      "&[data-swipe-direction=left]": {
+        insetBlock: 0,
+        right: 0,
+        w: "6",
+      },
+      "&[data-swipe-direction=right]": {
+        insetBlock: 0,
+        left: 0,
+        w: "6",
+      },
+    },
+    indentBackground: {
+      pos: "absolute",
+      inset: 0,
+      bg: "black",
+      opacity: 0,
+      transitionProperty: "opacity",
+      transitionDuration: "slowest",
+      transitionTimingFunction: "ease-in-smooth",
+      "&[data-active]": {
+        opacity: 1,
+      },
+    },
+    indent: {
+      pos: "relative",
+      minH: "100dvh",
+      bg: "bg",
+      transformOrigin: "center top",
+      transitionProperty: "scale, translate, border-radius",
+      transitionDuration: "slowest",
+      transitionTimingFunction: "ease-in-smooth",
+      "&[data-active]": {
+        rounded: "l3",
+        overflow: "hidden",
+        scale: "calc(0.94 + 0.06 * var(--drawer-swipe-progress, 0))",
+        translate: "0 calc({spacing.3} * (1 - var(--drawer-swipe-progress, 0)))",
+      },
+    },
   },
   variants: {
     size: {
@@ -172,84 +359,15 @@ export const drawerSlotRecipe = defineSlotRecipe({
     },
     placement: {
       start: {
-        positioner: {
-          justifyContent: "flex-start",
-          alignItems: "stretch",
-        },
-        content: {
-          translate: "var(--drawer-stack-offset) 0",
-          _open: {
-            animationName: {
-              base: "slide-from-left-full, fade-in",
-              _rtl: "slide-from-right-full, fade-in",
-            },
-          },
-          _closed: {
-            animationName: {
-              base: "slide-to-left-full, fade-out",
-              _rtl: "slide-to-right-full, fade-out",
-            },
-          },
-        },
+        positioner: { ...left.positioner, _rtl: right.positioner },
+        content: { ...left.content, _rtl: right.content },
       },
       end: {
-        positioner: {
-          justifyContent: "flex-end",
-          alignItems: "stretch",
-        },
-        content: {
-          translate: "calc(var(--drawer-stack-offset) * -1) 0",
-          _open: {
-            animationName: {
-              base: "slide-from-right-full, fade-in",
-              _rtl: "slide-from-left-full, fade-in",
-            },
-          },
-          _closed: {
-            animationName: {
-              base: "slide-to-right-full, fade-out",
-              _rtl: "slide-to-left-full, fade-out",
-            },
-          },
-        },
+        positioner: { ...right.positioner, _rtl: left.positioner },
+        content: { ...right.content, _rtl: left.content },
       },
-      top: {
-        positioner: {
-          justifyContent: "stretch",
-          alignItems: "flex-start",
-        },
-        content: {
-          maxW: "100%",
-          transformOrigin: "bottom",
-          translate: "0 var(--drawer-stack-offset)",
-          _open: {
-            animationName: "slide-from-top-full, fade-in",
-          },
-          _closed: {
-            animationName: "slide-to-top-full, fade-out",
-          },
-        },
-      },
-      bottom: {
-        positioner: {
-          justifyContent: "stretch",
-          alignItems: "flex-end",
-        },
-        content: {
-          maxW: "100%",
-          transformOrigin: "top",
-          translate: "0 calc(var(--drawer-stack-offset) * -1)",
-          maxH: "calc(100dvh - {spacing.12})",
-          borderTopRadius: "l3",
-          pb: "[env(safe-area-inset-bottom)]",
-          _open: {
-            animationName: "slide-from-bottom-full, fade-in",
-          },
-          _closed: {
-            animationName: "slide-to-bottom-full, fade-out",
-          },
-        },
-      },
+      top: up,
+      bottom: down,
     },
     float: {
       true: {
@@ -258,12 +376,14 @@ export const drawerSlotRecipe = defineSlotRecipe({
         },
         content: {
           borderRadius: "l3",
+          _after: {
+            display: "none",
+          },
         },
       },
     },
   },
   defaultVariants: {
     size: "xs",
-    placement: "end",
   },
 })
