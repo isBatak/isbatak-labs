@@ -27,6 +27,7 @@ export const buttonRecipe = defineRecipe({
     _disabled: {
       layerStyle: "disabled",
     },
+    minW: "var(--button-min-width)",
     _icon: {
       flexShrink: "0",
     },
@@ -35,9 +36,9 @@ export const buttonRecipe = defineRecipe({
     size: {
       "2xs": {
         h: "6",
-        minW: "6",
+        "--button-min-width": "sizes.6",
         textStyle: "xs",
-        px: "2",
+        "--button-padding-x": "spacing.2",
         gap: "1",
         _icon: {
           width: "3.5",
@@ -46,9 +47,9 @@ export const buttonRecipe = defineRecipe({
       },
       xs: {
         h: "8",
-        minW: "8",
+        "--button-min-width": "sizes.8",
         textStyle: "xs",
-        px: "2.5",
+        "--button-padding-x": "spacing.2.5",
         gap: "1",
         _icon: {
           width: "4",
@@ -57,8 +58,8 @@ export const buttonRecipe = defineRecipe({
       },
       sm: {
         h: "9",
-        minW: "9",
-        px: "3.5",
+        "--button-min-width": "sizes.9",
+        "--button-padding-x": "spacing.3.5",
         textStyle: "sm",
         gap: "2",
         _icon: {
@@ -68,9 +69,9 @@ export const buttonRecipe = defineRecipe({
       },
       md: {
         h: "10",
-        minW: "10",
+        "--button-min-width": "sizes.10",
         textStyle: "sm",
-        px: "4",
+        "--button-padding-x": "spacing.4",
         gap: "2",
         _icon: {
           width: "5",
@@ -79,9 +80,9 @@ export const buttonRecipe = defineRecipe({
       },
       lg: {
         h: "11",
-        minW: "11",
+        "--button-min-width": "sizes.11",
         textStyle: "md",
-        px: "5",
+        "--button-padding-x": "spacing.5",
         gap: "3",
         _icon: {
           width: "5",
@@ -90,9 +91,9 @@ export const buttonRecipe = defineRecipe({
       },
       xl: {
         h: "12",
-        minW: "12",
+        "--button-min-width": "sizes.12",
         textStyle: "md",
-        px: "5",
+        "--button-padding-x": "spacing.5",
         gap: "2.5",
         _icon: {
           width: "5",
@@ -101,9 +102,9 @@ export const buttonRecipe = defineRecipe({
       },
       "2xl": {
         h: "16",
-        minW: "16",
+        "--button-min-width": "sizes.16",
         textStyle: "lg",
-        px: "7",
+        "--button-padding-x": "spacing.7",
         gap: "3",
         _icon: {
           width: "6",
@@ -176,12 +177,16 @@ export const buttonRecipe = defineRecipe({
     icon: {
       true: {
         px: "0",
-        py: "0",
+        w: "var(--button-min-width)",
+      },
+      false: {
+        px: "var(--button-padding-x)",
       },
     },
   },
   defaultVariants: {
     size: "md",
     variant: "solid",
+    icon: false,
   },
 })
