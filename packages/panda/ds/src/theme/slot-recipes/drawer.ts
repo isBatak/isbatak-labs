@@ -36,7 +36,7 @@ const down = {
     pb: "[env(safe-area-inset-bottom)]",
     _after: {
       ...vertical._after,
-      top: "100%",
+      top: "calc(100% - 1px)",
       bottom: "auto",
     },
     _open: {
@@ -63,7 +63,7 @@ const up = {
     _after: {
       ...vertical._after,
       top: "auto",
-      bottom: "100%",
+      bottom: "calc(100% - 1px)",
     },
     _open: {
       animationName: "slide-from-top-full, fade-in",
@@ -85,7 +85,7 @@ const left = {
     _after: {
       ...horizontal._after,
       left: "auto",
-      right: "100%",
+      right: "calc(100% - 1px)",
     },
     _open: {
       animationName: "slide-from-left-full, fade-in",
@@ -106,7 +106,7 @@ const right = {
     translate: "calc(var(--drawer-stack-offset) * -1) 0",
     _after: {
       ...horizontal._after,
-      left: "100%",
+      left: "calc(100% - 1px)",
       right: "auto",
     },
     _open: {
