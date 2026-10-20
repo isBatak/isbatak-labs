@@ -27,6 +27,7 @@ export const prototypeItems = (): CatalogItem[] =>
 
 export const componentItems = (): CatalogItem[] =>
   components
+    .filter((component) => !component.hidden)
     .map(({ slug, permalink, title, description, category }: Component) => ({
       slug,
       permalink,

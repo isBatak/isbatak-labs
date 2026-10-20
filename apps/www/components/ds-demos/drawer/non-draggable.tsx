@@ -4,27 +4,31 @@ import { Portal } from "@ark-ui/react/portal"
 import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
 
-export function DrawerPreventDismissalDemo() {
+export function DrawerNonDraggableDemo() {
   return (
-    <Drawer.Root closeOnEscape={false} closeOnInteractOutside={false}>
+    <Drawer.Root placement="bottom">
       <Drawer.Trigger asChild>
-        <Button>Review changes</Button>
+        <Button>Open drawer</Button>
       </Drawer.Trigger>
       <Portal>
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content draggable={false}>
+            <Drawer.Grabber>
+              <Drawer.GrabberIndicator />
+            </Drawer.Grabber>
             <Drawer.Header>
-              <Drawer.Title>Review changes</Drawer.Title>
+              <Drawer.Title>Drag the handle</Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
               <Drawer.Description>
-                Clicking outside, pressing Escape or swiping keeps this drawer open. Close it with the button below.
+                Dragging the content does nothing. The grabber above still drags the drawer, so you can swipe it closed
+                from there.
               </Drawer.Description>
             </Drawer.Body>
             <Drawer.Footer>
               <Drawer.ActionTrigger asChild>
-                <Button>Done</Button>
+                <Button variant="outline">Close</Button>
               </Drawer.ActionTrigger>
             </Drawer.Footer>
           </Drawer.Content>

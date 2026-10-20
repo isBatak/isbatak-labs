@@ -1,41 +1,33 @@
 import type { ComponentType } from "react"
 
 import { DrawerDemo } from "./basic"
-import { DrawerCloseTriggerDemo } from "./close-trigger"
-import { DrawerConditionalVariantsDemo } from "./conditional-variants"
-import { DrawerContextDemo } from "./context"
 import { DrawerControlledDemo } from "./controlled"
-import { DrawerCustomContainerDemo } from "./custom-container"
 import { DrawerFloatDemo } from "./float"
-import { DrawerHeaderActionsDemo } from "./header-actions"
-import { DrawerInitialFocusDemo } from "./initial-focus"
-import { DrawerMenuDemo } from "./menu"
+import { DrawerIndentBackgroundDemo } from "./indent-background"
+import { DrawerMultipleTriggersDemo } from "./multiple-triggers"
+import { DrawerNoDragAreaDemo } from "./no-drag-area"
+import { DrawerNonDraggableDemo } from "./non-draggable"
 import { DrawerNonModalDemo } from "./non-modal"
-import { DrawerPlacementDemo } from "./placement"
-import { DrawerPreventDismissalDemo } from "./prevent-dismissal"
+import { DrawerRootProviderDemo } from "./root-provider"
 import { DrawerScrollableDemo } from "./scrollable"
-import { DrawerSizesDemo } from "./sizes"
 import { DrawerSnapPointsDemo } from "./snap-points"
 import { DrawerStackingDemo } from "./stacking"
+import { DrawerSwipeDirectionDemo } from "./swipe-direction"
 
 export const drawerDemos: Record<string, ComponentType> = {
   drawer: DrawerDemo,
-  "drawer/close-trigger": DrawerCloseTriggerDemo,
-  "drawer/conditional-variants": DrawerConditionalVariantsDemo,
-  "drawer/context": DrawerContextDemo,
   "drawer/controlled": DrawerControlledDemo,
-  "drawer/custom-container": DrawerCustomContainerDemo,
   "drawer/float": DrawerFloatDemo,
-  "drawer/header-actions": DrawerHeaderActionsDemo,
-  "drawer/initial-focus": DrawerInitialFocusDemo,
-  "drawer/menu": DrawerMenuDemo,
+  "drawer/indent-background": DrawerIndentBackgroundDemo,
+  "drawer/multiple-triggers": DrawerMultipleTriggersDemo,
+  "drawer/no-drag-area": DrawerNoDragAreaDemo,
+  "drawer/non-draggable": DrawerNonDraggableDemo,
   "drawer/non-modal": DrawerNonModalDemo,
-  "drawer/placement": DrawerPlacementDemo,
-  "drawer/prevent-dismissal": DrawerPreventDismissalDemo,
+  "drawer/root-provider": DrawerRootProviderDemo,
   "drawer/scrollable": DrawerScrollableDemo,
-  "drawer/sizes": DrawerSizesDemo,
   "drawer/snap-points": DrawerSnapPointsDemo,
   "drawer/stacking": DrawerStackingDemo,
+  "drawer/swipe-direction": DrawerSwipeDirectionDemo,
 }
 
 export { DrawerThumbnail } from "./thumbnail"
