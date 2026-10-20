@@ -73,7 +73,7 @@ export function Hero() {
         >
           <Stat>
             <StatLabel>Components</StatLabel>
-            <StatValue>{components.length + prototypes.length}</StatValue>
+            <StatValue>{components.filter((component) => !component.hidden).length + prototypes.length}</StatValue>
           </Stat>
           <Dot aria-hidden />
           <Stat>

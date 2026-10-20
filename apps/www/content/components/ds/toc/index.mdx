@@ -1,0 +1,78 @@
+---
+title: Table of contents
+description: List the headings on a page and highlight the ones in view as the reader scrolls.
+category: Navigation
+hero: false
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/toc
+  recipe: packages/panda/ds/src/theme/slot-recipes/toc.ts
+  ark: https://ark-ui.com/docs/components/toc
+---
+
+Built on Ark UI's Toc. It watches the headings you pass as `items` and marks the links of the ones in view as active.
+`Toc.Indicator` follows the active links, and `variant` picks how it looks. The table of contents on the right of this
+page is one, with the `track` variant.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Toc.Root items={items}>
+  <Toc.Title />
+  <Toc.List>
+    <Toc.Track />
+    <Toc.Indicator />
+    <Toc.Item item={item}>
+      <Toc.Link href={`#${item.value}`} />
+    </Toc.Item>
+  </Toc.List>
+</Toc.Root>
+```
+
+Each item's `value` is the id of its heading, and `depth` is its level, starting at `1`. The recipe indents a link by
+`--toc-indent` for every level below the first.
+
+When the headings scroll inside an element rather than the page, pass `scrollEl` to `Toc.Root`, and to `Toc.Track` so it
+follows the same scroll. The line and track examples scroll inside the preview.
+
+## Variants
+
+### Line
+
+`line` is the default. The list has a border at the start, and a bar on it covers the active links.
+
+<Example id="toc" />
+
+### Track
+
+`track` draws the line with `Toc.Track`, an SVG that steps in for nested items with a short curve and back out after
+them. The stretch beside the active links is drawn in the text color, and the indicator is a dot at its end: at the
+bottom while the reader scrolls down, at the top while they scroll up.
+
+<Example id="toc/track" />
+
+`Toc.Track` measures the items, so render it inside `Toc.List` before the items. The `line` variant hides it, so it is
+safe to leave in when you switch variants.
+
+### Sizes
+
+`size` sets the text size and spacing of the links: `sm` or `md`, the default. These two have no headings to watch, so
+`defaultActiveIds` sets the active link.
+
+<Example id="toc/sizes" />
+
+## Recipe
+
+| Variant   | Values          | Default |
+| --------- | --------------- | ------- |
+| `variant` | `line`, `track` | `line`  |
+| `size`    | `sm`, `md`      | `md`    |
+
+| Variable            | Default     | Description                                          |
+| ------------------- | ----------- | ---------------------------------------------------- |
+| `--toc-indent`      | `10px`      | How far each level is indented, link and track alike |
+| `--toc-link-offset` | `spacing.4` | The space between the line and a top-level link      |
+
+`--toc-indent` must be a pixel length, since `Toc.Track` reads it to draw the line.

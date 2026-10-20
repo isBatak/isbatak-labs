@@ -8,7 +8,7 @@ import { useState } from "react"
 
 type Placement = NonNullable<DrawerVariant["placement"]>
 
-export function DrawerPlacementDemo() {
+export function DrawerSwipeDirectionDemo() {
   const [open, setOpen] = useState(false)
   const [placement, setPlacement] = useState<Placement>("end")
 
@@ -29,11 +29,12 @@ export function DrawerPlacementDemo() {
           <Drawer.Positioner>
             <Drawer.Content>
               <Drawer.Header>
-                <Drawer.Title>Placement {placement}</Drawer.Title>
+                <Drawer.Title>Opens from {placement}</Drawer.Title>
               </Drawer.Header>
               <Drawer.Body>
                 <Drawer.Description>
-                  This drawer opens from the {placement} edge. Swipe it back toward that edge to close it.
+                  Swipe it back toward the {placement} edge to close it. Turn on right-to-left in the preview toolbar
+                  and start and end swap sides.
                 </Drawer.Description>
               </Drawer.Body>
               <Drawer.Footer>
