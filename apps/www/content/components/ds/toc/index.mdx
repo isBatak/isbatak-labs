@@ -70,9 +70,10 @@ safe to leave in when you switch variants.
 | `variant` | `line`, `track` | `line`  |
 | `size`    | `sm`, `md`      | `md`    |
 
-| Variable            | Default     | Description                                          |
-| ------------------- | ----------- | ---------------------------------------------------- |
-| `--toc-indent`      | `10px`      | How far each level is indented, link and track alike |
-| `--toc-link-offset` | `spacing.4` | The space between the line and a top-level link      |
+| Variable            | Default       | Description                                          |
+| ------------------- | ------------- | ---------------------------------------------------- |
+| `--toc-indent`      | `spacing.2.5` | How far each level is indented, link and track alike |
+| `--toc-link-offset` | `spacing.4`   | The space between the line and a top-level link      |
 
-`--toc-indent` must be a pixel length, since `Toc.Track` reads it to draw the line.
+Both take any length or token. `Toc.Track` measures `--toc-indent` to draw the line, so changing it moves the line with
+the links.

@@ -1,5 +1,7 @@
 import { type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
 import * as runtime from "react/jsx-runtime"
+import { Table as DsTable } from "@isbatak/react-ui/table"
+import { styled } from "styled-system/jsx"
 
 import { CodeBlock } from "./code/code-block"
 import { ApiTable } from "./docs/api-table"
@@ -16,8 +18,38 @@ function Pre({ children }: { children?: ReactNode }) {
   return <CodeBlock code={String(code ?? "")} lang={className?.replace("language-", "")} />
 }
 
+function Table({ children }: { children?: ReactNode }) {
+  return (
+    <styled.div
+      className="not-prose"
+      overflowX="auto"
+      my="6"
+      css={{
+        "& code": {
+          fontFamily: "mono",
+          fontSize: "0.875em",
+          whiteSpace: "nowrap",
+          px: "1",
+          py: "0.5",
+          borderRadius: "l1",
+          bg: "bg.muted",
+        },
+      }}
+    >
+      <DsTable.Root size="sm">{children}</DsTable.Root>
+    </styled.div>
+  )
+}
+
 const sharedComponents: MDXComponents = {
   pre: Pre,
+  table: Table,
+  thead: DsTable.Header,
+  tbody: DsTable.Body,
+  tfoot: DsTable.Footer,
+  tr: DsTable.Row,
+  th: DsTable.ColumnHeader,
+  td: DsTable.Cell,
   ApiTable,
   FrameworkHint,
   UpstreamNotice,
