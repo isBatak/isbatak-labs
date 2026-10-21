@@ -1,5 +1,6 @@
 export {
   DrawerRoot,
+  DrawerRootProvider,
   DrawerTrigger,
   DrawerBackdrop,
   DrawerPositioner,
@@ -22,6 +23,7 @@ export {
 
 export type {
   DrawerRootProps,
+  DrawerRootProviderProps,
   DrawerTriggerProps,
   DrawerBackdropProps,
   DrawerPositionerProps,

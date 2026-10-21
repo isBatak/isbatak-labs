@@ -1,3 +1,4 @@
+import rehypeSlug from "rehype-slug"
 import { defineCollection, defineConfig, s } from "velite"
 
 const category = s.enum([
@@ -8,6 +9,7 @@ const category = s.enum([
   "Forms",
   "Collections",
   "Overlays",
+  "Navigation",
   "Disclosure",
   "Feedback",
   "Data Display",
@@ -25,6 +27,8 @@ const components = defineCollection({
       order: s.number().default(0),
       category,
       status,
+      hidden: s.boolean().default(false),
+      hero: s.boolean().default(true),
       frameworks: s.array(s.enum(["react", "vue", "solid", "svelte"])),
       links: s.object({
         source: s.string(),
@@ -32,6 +36,7 @@ const components = defineCollection({
         ark: s.string().url().optional(),
       }),
       path: s.path(),
+      toc: s.toc(),
       code: s.mdx(),
     })
     .transform(({ path, ...data }) => {
@@ -117,4 +122,7 @@ export default defineConfig({
     clean: true,
   },
   collections: { components, prototypes, tools },
+  mdx: {
+    rehypePlugins: [rehypeSlug],
+  },
 })

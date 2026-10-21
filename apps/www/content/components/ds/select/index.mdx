@@ -9,9 +9,181 @@ links:
   ark: https://ark-ui.com/docs/components/select
 ---
 
-Built on Ark UI's Select. The items come from a collection made with `createListCollection`, and `multiple` allows
-several values. You render the trigger yourself, for example as a `Button` like above.
+Built on Ark UI's Select. The items come from a collection made with `createListCollection`, or `useListCollection` when
+they change. The trigger looks like an input: a border that darkens on hover and takes the focus color while the list is
+open.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Select.Root collection={collection}>
+  <Select.HiddenSelect />
+  <Select.Label />
+  <Select.Control>
+    <Select.Trigger>
+      <Select.ValueText />
+    </Select.Trigger>
+    <Select.IndicatorGroup>
+      <Select.ClearTrigger />
+      <Select.Indicator />
+    </Select.IndicatorGroup>
+  </Select.Control>
+  <Portal>
+    <Select.Positioner>
+      <Select.Content>
+        <Select.ItemGroup>
+          <Select.ItemGroupLabel />
+          <Select.Item item={item}>
+            <Select.ItemText />
+            <Select.ItemIndicator />
+          </Select.Item>
+        </Select.ItemGroup>
+      </Select.Content>
+    </Select.Positioner>
+  </Portal>
+</Select.Root>
+```
+
+`Select.Indicator`, `Select.ItemIndicator` and `Select.ClearTrigger` render a chevron, a check and a cross when they
+have no children. `Select.HiddenSelect` renders a native `<select>` so the value is sent with a form.
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="select/sizes" />
+
+### Variants
+
+Set `variant` to `outline`, `subtle` or `ghost`. The default is `outline`.
+
+<Example id="select/variants" />
+
+### Option group
+
+Pass `groupBy` to the collection and render each group with `Select.ItemGroup` and `Select.ItemGroupLabel`.
+
+<Example id="select/option-group" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the selected values. The value is always an array, even for a single select.
+
+<Example id="select/controlled" />
+
+### Disabled
+
+Set `disabled` on the root to disable the whole select. To disable single items, pass `isItemDisabled` to the
+collection.
+
+<Example id="select/disabled" />
+
+### Invalid
+
+Set `invalid` to give the trigger the error border. Add the error text below it, here with the `field` recipe's
+`errorText`.
+
+<Example id="select/invalid" />
+
+### Multiple
+
+Set `multiple` to let people pick several values. The list stays open after each pick, and the value text lists them
+all.
+
+<Example id="select/multiple" />
+
+### Align item with trigger
+
+The list opens below the trigger by default. Set `alignItemWithTrigger` to open it over the trigger instead, with the
+selected item's text where the trigger shows the value, like a native select on macOS. It only does this for mouse and
+keyboard input, and falls back to opening below the trigger on touch or when there is not enough room.
+
+<Example id="select/align-item-with-trigger" />
+
+### Anchor tracking
+
+The list follows the trigger when it moves or resizes. Set `disableAnchorTracking` to stop following layout shifts of
+the trigger, so the list only moves when the page scrolls or the window resizes.
+
+### Positioning
+
+Pass `positioning` to change where the list opens. An aligned list ignores the placement, so leave
+`alignItemWithTrigger` off. The root sets `sameWidth: true`, so the list matches the trigger width unless you turn it
+off.
+
+<Example id="select/positioning" />
+
+### Clear trigger
+
+Add `Select.ClearTrigger` to the indicator group to let people clear the value. It only shows when there is one.
+
+<Example id="select/clear-trigger" />
+
+### Overflow
+
+Long lists scroll inside the content. Set `maxH` on `Select.Content` to change the height, `24rem` by default.
+
+<Example id="select/overflow" />
+
+### Item description
+
+Put more than the text in an item, like a second line. `Select.ItemText` still sets the label the trigger shows.
+
+<Example id="select/item-description" />
+
+### Searchable
+
+Put `Select.Search` at the top of `Select.Content`, with the items in `Select.List`, and filter a `useListCollection`
+with `useFilter` as people type. With a list, only the list scrolls and the search stays at the top. Add the icon with
+`InputGroup` from `@isbatak/react-ui/input-group`. The arrow keys still move through the list and Enter picks the
+highlighted item, while other keys go to the search. Focus the search when the list opens, clear the filter when it
+closes, and show `Select.Empty` when nothing matches.
+
+<Example id="select/searchable" />
+
+### Fit
+
+Set `fit` to size the trigger to its value instead of filling the width.
+
+<Example id="select/fit" />
+
+### Icon button
+
+Render the trigger as any element with `asChild`, here an `IconButton`. Turn off `sameWidth` so the list can be wider
+than the button.
+
+<Example id="select/icon-button" />
+
+### Open from a popover
+
+A select inside a popover can keep its `Portal`. Here it renders in place, which also works.
+
+<Example id="select/popover" />
+
+### Open from a drawer
+
+Leave out the `Portal` when the select is inside a drawer or dialog, so the list stays in the drawer's layer and focus
+trap.
+
+<Example id="select/drawer" />
+
+## Recipe
+
+| Variant   | Values                       | Default   |
+| --------- | ---------------------------- | --------- |
+| `variant` | `outline`, `subtle`, `ghost` | `outline` |
+| `size`    | `xs`, `sm`, `md`, `lg`       | `md`      |
+| `fit`     | `true`                       |           |
+
+| Variable                     | Description                                     |
+| ---------------------------- | ----------------------------------------------- |
+| `--select-trigger-height`    | The trigger's minimum height, set by `size`     |
+| `--select-trigger-padding-x` | The trigger's horizontal padding, set by `size` |
+| `--input-border-color`       | The trigger border, `colors.border`             |
+| `--input-border-hover-color` | The border on hover, `colors.border.emphasized` |
+| `--input-border-focus-color` | The border on focus and while open              |
+| `--input-border-error-color` | The border when `invalid`                       |

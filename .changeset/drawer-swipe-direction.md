@@ -10,3 +10,6 @@ The content now has an `::after` that fills the gap behind the drawer when it is
 size comes from `--drawer-bleed`, and `float` drawers hide it.
 
 Adds `swipeArea`, `indent` and `indentBackground` slots.
+
+Adds a `fade-out-from` keyframe that fades from `var(--fade-out-from, 1)` to `0`. The drawer backdrop uses it on close,
+starting from its swiped opacity instead of jumping back to fully opaque.

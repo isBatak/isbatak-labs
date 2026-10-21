@@ -1,0 +1,145 @@
+---
+title: Code preview
+description: Show a live example next to its source, with a resizable stage and theme, direction and copy controls.
+category: Data Display
+status: new
+hidden: true
+frameworks: [react, vue, solid, svelte]
+links:
+  source: packages/ark/code-preview/src
+  recipe: packages/panda/code-preview/src/code-preview.recipe.ts
+---
+
+The code preview frames a live example: drag the handle to resize it, switch its theme or text direction, open its
+source and copy it. Every example on these pages runs inside one.
+
+It ships as two packages. `@isbatak/ark-code-preview` has Ark UI style parts for React, Solid, Vue and Svelte, built on
+Zag.js helpers rather than a state machine. `@isbatak/panda-code-preview` is a Panda CSS preset with the `codePreview`
+slot recipe.
+
+- Resize the preview by dragging the handle or with the arrow keys, Home and End. Double-click the handle to reset it
+- Switch the preview between light and dark without changing the page
+- Flip the preview to right-to-left through Ark's `LocaleProvider`, so Ark components inside follow it
+- Show or hide the source, and copy it to the clipboard
+
+## Installation
+
+```bash
+pnpm add @isbatak/ark-code-preview @isbatak/panda-code-preview
+```
+
+Add the preset to your Panda config.
+
+```ts
+import { codePreviewPreset } from "@isbatak/panda-code-preview"
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  presets: [codePreviewPreset],
+})
+```
+
+Then connect the recipe to the parts, here for React.
+
+```tsx
+"use client"
+
+import { CodePreview } from "@isbatak/ark-code-preview/react"
+import { createSlotRecipeContext } from "styled-system/jsx"
+import { codePreview } from "styled-system/recipes"
+
+const { withProvider, withContext } = createSlotRecipeContext(codePreview)
+
+export const Root = withProvider(CodePreview.Root, "root")
+export const Stage = withContext(CodePreview.Stage, "stage")
+export const Preview = withContext(CodePreview.Preview, "preview")
+export const Resizer = withContext(CodePreview.Resizer, "resizer")
+export const Content = withContext(CodePreview.Content, "content")
+export const Toolbar = withContext(CodePreview.Toolbar, "toolbar")
+export const Trigger = withContext(CodePreview.Trigger, "trigger")
+export const ThemeTrigger = withContext(CodePreview.ThemeTrigger, "themeTrigger")
+export const DirTrigger = withContext(CodePreview.DirTrigger, "dirTrigger")
+export const CopyTrigger = withContext(CodePreview.CopyTrigger, "copyTrigger")
+```
+
+## Usage
+
+<Usage />
+
+```tsx
+<CodePreview.Root code={source}>
+  <CodePreview.Stage>
+    <CodePreview.Preview />
+    <CodePreview.Resizer />
+  </CodePreview.Stage>
+  <CodePreview.Content />
+  <CodePreview.Toolbar>
+    <CodePreview.Trigger />
+    <CodePreview.ThemeTrigger />
+    <CodePreview.DirTrigger />
+    <CodePreview.CopyTrigger />
+  </CodePreview.Toolbar>
+</CodePreview.Root>
+```
+
+`CodePreview.Content` holds the highlighted source and starts hidden. `CopyTrigger` copies `code`, or the text in
+`Content` when `code` is not set.
+
+The recipe shows and hides icons by their `data-icon` attribute: `moon` and `sun` in `ThemeTrigger`, `copy` and `check`
+in `CopyTrigger`. The theme trigger shows the theme a click switches to.
+
+## Examples
+
+### Default open
+
+Set `defaultOpen` to show the source from the start. Leave out the parts you don't need: this preview has no resizer,
+theme or direction controls.
+
+<Example id="code-preview/default-open" />
+
+### Right-to-left
+
+`CodePreview.Preview` wraps its children in Ark's `LocaleProvider`. `DirTrigger` switches it to `rtlLocale`, `"ar"` by
+default, so Ark components inside read right-to-left from context: this slider fills and moves the other way. When the
+page is right-to-left already, it switches to `ltrLocale` instead.
+
+<Example id="code-preview/rtl-locale" />
+
+## Theme
+
+`ThemeTrigger` puts a `dark` or `light` class on `CodePreview.Preview`. Semantic tokens are CSS variables, so the
+preview and everything in it take the other theme. Until the first click, the preview follows the page.
+
+Panda writes the light values of semantic tokens to `:root` only, so a light preview on a dark page needs them on
+`.light` too. Set `cssVarRoot` in your Panda config:
+
+```ts
+export default defineConfig({
+  cssVarRoot: ":where(:root, :host, .light)",
+})
+```
+
+Content that a component portals out of the preview, such as a drawer or a menu, renders in the page and keeps the page
+theme. Direction still follows the preview, since it comes from the locale context.
+
+## Keyboard
+
+| Key                      | Description                                |
+| ------------------------ | ------------------------------------------ |
+| `ArrowLeft` `ArrowRight` | With the resizer focused, resize by `step` |
+| `Home`                   | Shrink the preview to `minWidth`           |
+| `End`                    | Reset the preview to the full width        |
+
+## Props
+
+| Prop            | Default   | Description                                                       |
+| --------------- | --------- | ----------------------------------------------------------------- |
+| `code`          |           | The text `CopyTrigger` copies                                     |
+| `defaultOpen`   | `false`   | Show the source when the preview mounts                           |
+| `onOpenChange`  |           | Called with `{ open }` when the source opens or closes            |
+| `minWidth`      | `240`     | The narrowest the preview resizes to, in pixels                   |
+| `step`          | `16`      | How far one arrow key press resizes, in pixels                    |
+| `copiedTimeout` | `2000`    | How long `CopyTrigger` keeps `data-copied`, in ms                 |
+| `rtlLocale`     | `"ar"`    | The locale the preview switches to for right-to-left              |
+| `ltrLocale`     | `"en-US"` | The locale it switches to on a right-to-left page                 |
+| `translations`  |           | Labels for the resizer and the theme, direction and copy triggers |

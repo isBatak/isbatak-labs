@@ -69,6 +69,8 @@ const icons = {
   "brand-vscode": "outline/brand-vscode",
   sparkles: "outline/sparkles",
   menu: "outline/menu-2",
+  "grip-vertical": "outline/grip-vertical",
+  "text-direction": "outline/text-direction-ltr",
 }
 
 const SIMPLE_ICONS_VERSION = "15"

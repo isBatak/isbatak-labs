@@ -2,7 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const tableSlotRecipe = defineSlotRecipe({
   className: "table",
-  slots: ["root", "header", "body", "row", "columnHeader", "cell", "footer", "caption"],
+  slots: ["root", "header", "body", "footer", "columnHeader", "row", "cell", "caption"],
   base: {
     root: {
       fontVariantNumeric: "lining-nums tabular-nums",
@@ -10,24 +10,70 @@ export const tableSlotRecipe = defineSlotRecipe({
       width: "full",
       textAlign: "start",
       verticalAlign: "top",
+      "--table-border-color": "colors.border",
+      "--table-row-hover-bg": "colors.bg.muted",
+      "--table-row-selected-bg": "colors.colorPalette.subtle",
+      "--table-sticky-cell-bg": "colors.bg",
+      "--table-sticky-column-header-bg": "var(--table-header-bg, {colors.bg})",
+      "--table-sticky-start-angle": "90deg",
+      "--table-sticky-end-angle": "270deg",
+      _rtl: {
+        "--table-sticky-start-angle": "270deg",
+        "--table-sticky-end-angle": "90deg",
+      },
     },
     row: {
       _selected: {
-        bg: "colorPalette.subtle",
+        bg: "var(--table-row-selected-bg)",
+        "& [data-sticky]": {
+          "--table-sticky-cell-bg": "var(--table-row-selected-bg)",
+        },
       },
     },
     cell: {
       textAlign: "start",
-      alignItems: "center",
+      verticalAlign: "top",
+      borderColor: "var(--table-border-color)",
+      position: "relative",
+      zIndex: 0,
+      "&[data-sticky]": {
+        position: "sticky",
+        zIndex: 1,
+      },
+      "&[data-sticky=start]": {
+        insetInlineStart: "0",
+        bg: "linear-gradient(var(--table-sticky-start-angle), var(--table-sticky-cell-bg) 90%, transparent 100%)",
+      },
+      "&[data-sticky=end]": {
+        insetInlineEnd: "0",
+        bg: "linear-gradient(var(--table-sticky-end-angle), var(--table-sticky-cell-bg) 90%, transparent 100%)",
+      },
     },
     columnHeader: {
-      fontWeight: "medium",
       textAlign: "start",
-      color: "fg",
+      verticalAlign: "middle",
+      fontWeight: "medium",
+      color: "fg.muted",
+      bg: "var(--table-header-bg)",
+      borderColor: "var(--table-border-color)",
+      "&[data-sticky]": {
+        position: "sticky",
+        zIndex: 1,
+      },
+      "&[data-sticky=start]": {
+        insetInlineStart: "0",
+        bg: "linear-gradient(var(--table-sticky-start-angle), var(--table-sticky-column-header-bg) 90%, transparent 100%)",
+      },
+      "&[data-sticky=end]": {
+        insetInlineEnd: "0",
+        bg: "linear-gradient(var(--table-sticky-end-angle), var(--table-sticky-column-header-bg) 90%, transparent 100%)",
+      },
     },
     caption: {
-      fontWeight: "medium",
+      captionSide: "bottom",
+      mt: "2",
       textStyle: "xs",
+      color: "fg.muted",
     },
     footer: {
       fontWeight: "medium",
@@ -38,8 +84,18 @@ export const tableSlotRecipe = defineSlotRecipe({
       true: {
         body: {
           "& tr": {
+            cursor: "pointer",
             _hover: {
-              bg: "colorPalette.subtle",
+              bg: "var(--table-row-hover-bg)",
+              "& [data-sticky]": {
+                "--table-sticky-cell-bg": "var(--table-row-hover-bg)",
+              },
+              _selected: {
+                bg: "var(--table-row-selected-bg)",
+                "& [data-sticky]": {
+                  "--table-sticky-cell-bg": "var(--table-row-selected-bg)",
+                },
+              },
             },
           },
         },
@@ -47,82 +103,86 @@ export const tableSlotRecipe = defineSlotRecipe({
     },
     stickyHeader: {
       true: {
+        root: {
+          "--table-header-bg": "var(--table-highlighted-header-bg, {colors.bg})",
+        },
         header: {
           "& :where(tr)": {
             top: "var(--table-sticky-offset, 0)",
             position: "sticky",
-            zIndex: 1,
+            zIndex: "3",
+          },
+          "& tr": {
+            bg: "var(--table-header-bg)",
           },
         },
       },
     },
-    striped: {
+    highlightedHeader: {
       true: {
-        row: {
-          "&:nth-of-type(odd) td": {
-            bg: "bg.muted",
-          },
+        root: {
+          "--table-highlighted-header-bg": "colors.bg.muted",
+          "--table-header-bg": "colors.bg.muted",
         },
       },
     },
     showColumnBorder: {
       true: {
         columnHeader: {
-          "&:not(:last-of-type)": {
+          "&:not(:last-child)": {
             borderInlineEndWidth: "1px",
           },
         },
         cell: {
-          "&:not(:last-of-type)": {
+          "&:not(:last-child)": {
             borderInlineEndWidth: "1px",
+          },
+        },
+      },
+      false: {
+        columnHeader: {
+          "&:not(:last-child)": {
+            borderInlineEndWidth: "0",
+          },
+        },
+        cell: {
+          "&:not(:last-child)": {
+            borderInlineEndWidth: "0",
           },
         },
       },
     },
-    variant: {
-      line: {
+    showRowBorder: {
+      true: {
         columnHeader: {
           borderBottomWidth: "1px",
         },
         cell: {
           borderBottomWidth: "1px",
         },
-        row: {
-          bg: "bg",
-        },
       },
-      outline: {
-        root: {
-          boxShadow: "0 0 0 1px {colors.border}",
-        },
+      false: {
         columnHeader: {
-          borderBottomWidth: "1px",
+          borderBottomWidth: "0",
         },
-        header: {
-          bg: "bg.muted",
-        },
-        row: {
-          "&:not(:last-of-type)": {
-            borderBottomWidth: "1px",
-          },
-        },
-        footer: {
-          borderTopWidth: "1px",
+        cell: {
+          borderBottomWidth: "0",
         },
       },
     },
     size: {
       sm: {
         root: {
-          textStyle: "sm",
+          textStyle: "xs",
         },
         columnHeader: {
           px: "2",
-          py: "2",
+          h: "8",
         },
         cell: {
           px: "2",
-          py: "2",
+          py: "1.5",
+          h: "8",
         },
       },
       md: {
@@ -131,11 +191,12 @@ export const tableSlotRecipe = defineSlotRecipe({
         },
         columnHeader: {
           px: "3",
-          py: "3",
+          h: "10",
         },
         cell: {
           px: "3",
-          py: "3",
+          py: "2.5",
+          h: "10",
         },
       },
       lg: {
@@ -144,17 +205,18 @@ export const tableSlotRecipe = defineSlotRecipe({
         },
         columnHeader: {
           px: "4",
-          py: "3",
+          h: "12",
         },
         cell: {
           px: "4",
           py: "3",
+          h: "12",
         },
       },
     },
   },
   defaultVariants: {
-    variant: "line",
     size: "md",
+    showRowBorder: true,
   },
 })

@@ -1,3 +1,4 @@
+import { codePreviewPreset } from "@isbatak/panda-code-preview"
 import { masonryPreset } from "@isbatak/panda-masonry"
 import { textFlipPreset } from "@isbatak/panda-text-flip"
 import { wheelPickerPreset } from "@isbatak/panda-wheel-picker"
@@ -8,8 +9,9 @@ import { globalCss } from "./theme/global-css"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [masonryPreset, textFlipPreset, wheelPickerPreset],
+  presets: [codePreviewPreset, masonryPreset, textFlipPreset, wheelPickerPreset],
   preflight: true,
+  cssVarRoot: ":where(:root, :host, .light)",
   jsxFramework: "react",
   include: [
     "./app/**/*.{ts,tsx}",
