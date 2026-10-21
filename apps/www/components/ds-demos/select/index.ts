@@ -1,5 +1,6 @@
 import type { ComponentType } from "react"
 
+import { SelectAlignItemWithTriggerDemo } from "./align-item-with-trigger"
 import { SelectDemo } from "./basic"
 import { SelectClearTriggerDemo } from "./clear-trigger"
 import { SelectControlledDemo } from "./controlled"
@@ -20,6 +21,7 @@ import { SelectVariantsDemo } from "./variants"
 
 export const selectDemos: Record<string, ComponentType> = {
   select: SelectDemo,
+  "select/align-item-with-trigger": SelectAlignItemWithTriggerDemo,
   "select/clear-trigger": SelectClearTriggerDemo,
   "select/controlled": SelectControlledDemo,
   "select/disabled": SelectDisabledDemo,

@@ -7,7 +7,12 @@ const frameworks = createListCollection({ items: ["React", "Vue", "Solid", "Svel
 
 export function SelectPositioningDemo() {
   return (
-    <Select.Root collection={frameworks} positioning={{ placement: "top", flip: false, sameWidth: false }} maxW="xs">
+    <Select.Root
+      collection={frameworks}
+
+      positioning={{ placement: "top", flip: false, sameWidth: false }}
+      maxW="xs"
+    >
       <Select.HiddenSelect />
       <Select.Label>Framework</Select.Label>
       <Select.Control>

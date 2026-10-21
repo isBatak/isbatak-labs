@@ -96,10 +96,24 @@ all.
 
 <Example id="select/multiple" />
 
+### Align item with trigger
+
+The list opens below the trigger by default. Set `alignItemWithTrigger` to open it over the trigger instead, with the
+selected item's text where the trigger shows the value, like a native select on macOS. It only does this for mouse and
+keyboard input, and falls back to opening below the trigger on touch or when there is not enough room.
+
+<Example id="select/align-item-with-trigger" />
+
+### Anchor tracking
+
+The list follows the trigger when it moves or resizes. Set `disableAnchorTracking` to stop following layout shifts of
+the trigger, so the list only moves when the page scrolls or the window resizes.
+
 ### Positioning
 
-Pass `positioning` to change where the list opens. The root sets `sameWidth: true`, so the list matches the trigger
-width unless you turn it off.
+Pass `positioning` to change where the list opens. An aligned list ignores the placement, so leave
+`alignItemWithTrigger` off. The root sets `sameWidth: true`, so the list matches the trigger width unless you turn it
+off.
 
 <Example id="select/positioning" />
 

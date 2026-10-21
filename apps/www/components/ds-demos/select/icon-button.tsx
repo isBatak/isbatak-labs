@@ -16,7 +16,13 @@ function SortIcon() {
 
 export function SelectIconButtonDemo() {
   return (
-    <Select.Root collection={sorts} defaultValue={["Newest"]} positioning={{ sameWidth: false }} w="auto">
+    <Select.Root
+      collection={sorts}
+      defaultValue={["Newest"]}
+
+      positioning={{ sameWidth: false }}
+      w="auto"
+    >
       <Select.HiddenSelect />
       <Select.Control>
         <Select.Trigger asChild>
