@@ -156,7 +156,10 @@ export const selectSlotRecipe = defineSlotRecipe({
         display: "none",
       },
     },
-    positioner: {},
+    positioner: {
+      "--select-z-index": "zIndex.popover",
+      zIndex: "calc(var(--select-z-index) + var(--layer-index, 0)) !important",
+    },
     content: {
       display: "flex",
       flexDirection: "column",
@@ -182,6 +185,14 @@ export const selectSlotRecipe = defineSlotRecipe({
       _closed: {
         animationStyle: "slide-fade-out",
         animationDuration: "fastest",
+      },
+      "&[data-align-item-with-trigger], &[data-align-item-with-trigger][data-placement]": {
+        _open: {
+          animationName: "fade-in",
+        },
+        _closed: {
+          animationName: "fade-out",
+        },
       },
     },
     list: {

@@ -3,23 +3,49 @@
 import type { CollectionItem } from "@ark-ui/react/collection"
 import { ark } from "@ark-ui/react/factory"
 import { Select } from "@ark-ui/react/select"
-import type { ComponentProps, JSX } from "react"
+import { type ComponentProps, createContext, type JSX, useContext } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { select } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(select)
 
-const StyledSelectRoot = withProvider(Select.Root, "root", {
-  defaultProps: { positioning: { sameWidth: true } },
-})
+const StyledSelectRoot = withProvider(Select.Root, "root")
+
+const AlignItemWithTriggerContext = createContext(false)
+
+const untrackedAnchorListeners = {
+  ancestorScroll: true,
+  ancestorResize: true,
+  elementResize: false,
+  layoutShift: false,
+}
 
 export type SelectRootProps<T extends CollectionItem = CollectionItem> = Omit<
   ComponentProps<typeof StyledSelectRoot>,
   keyof Select.RootProps<T>
 > &
-  Select.RootProps<T>
+  Select.RootProps<T> & {
+    disableAnchorTracking?: boolean | undefined
+  }
 
-export const SelectRoot = StyledSelectRoot as <T extends CollectionItem>(props: SelectRootProps<T>) => JSX.Element
+export function SelectRoot<T extends CollectionItem>(props: SelectRootProps<T>): JSX.Element {
+  const { alignItemWithTrigger = false, disableAnchorTracking = false, positioning, ...rest } = props
+  const Root = StyledSelectRoot as (props: SelectRootProps<T>) => JSX.Element
+
+  return (
+    <AlignItemWithTriggerContext.Provider value={alignItemWithTrigger}>
+      <Root
+        alignItemWithTrigger={alignItemWithTrigger}
+        positioning={{
+          sameWidth: true,
+          ...positioning,
+          ...(disableAnchorTracking && { listeners: untrackedAnchorListeners }),
+        }}
+        {...rest}
+      />
+    </AlignItemWithTriggerContext.Provider>
+  )
+}
 
 const StyledSelectRootProvider = withProvider(Select.RootProvider, "root")
 
@@ -93,8 +119,13 @@ export function SelectClearTrigger({ children, ...props }: SelectClearTriggerPro
 export const SelectPositioner = withContext(Select.Positioner, "positioner")
 export type SelectPositionerProps = ComponentProps<typeof SelectPositioner>
 
-export const SelectContent = withContext(Select.Content, "content")
-export type SelectContentProps = ComponentProps<typeof SelectContent>
+const StyledSelectContent = withContext(Select.Content, "content")
+export type SelectContentProps = ComponentProps<typeof StyledSelectContent>
+
+export function SelectContent(props: SelectContentProps) {
+  const alignItemWithTrigger = useContext(AlignItemWithTriggerContext)
+  return <StyledSelectContent data-align-item-with-trigger={alignItemWithTrigger ? "" : undefined} {...props} />
+}
 
 export const SelectList = withContext(Select.List, "list")
 export type SelectListProps = ComponentProps<typeof SelectList>
