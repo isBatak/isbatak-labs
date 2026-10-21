@@ -1,38 +1,45 @@
 "use client"
 
-import { createListCollection } from "@ark-ui/react/collection"
 import { Portal } from "@ark-ui/react/portal"
-import { Button } from "@isbatak/react-ui/button"
-import { Select } from "@isbatak/react-ui/select"
+import { createListCollection, Select } from "@isbatak/react-ui/select"
 
-const fruits = createListCollection({ items: ["Apple", "Banana", "Cherry"] })
+const frameworks = createListCollection({ items: ["React", "Vue", "Solid", "Svelte", "Angular"] })
 
 export function SelectDemo() {
   return (
-    <Select.Root collection={fruits} defaultValue={["Apple"]} width="48">
-      <Select.Context>
-        {(select) => (
-          <Select.Trigger asChild>
-            <Button variant="outline" justifyContent="space-between" width="full">
-              {select.valueAsString || "Pick a fruit"}
-            </Button>
-          </Select.Trigger>
-        )}
-      </Select.Context>
+    <Select.Root collection={frameworks} maxW="xs">
+      <Select.HiddenSelect />
+      <Select.Label>Framework</Select.Label>
+      <Select.Control>
+        <Select.Trigger>
+          <Select.ValueText placeholder="Select framework" />
+        </Select.Trigger>
+        <Select.IndicatorGroup>
+          <Select.Indicator />
+        </Select.IndicatorGroup>
+      </Select.Control>
       <Portal>
         <Select.Positioner>
           <Select.Content>
-            <Select.Item item="Apple">
-              <Select.ItemText>Apple</Select.ItemText>
-              <Select.ItemIndicator>✓</Select.ItemIndicator>
+            <Select.Item item="React">
+              <Select.ItemText>React</Select.ItemText>
+              <Select.ItemIndicator />
             </Select.Item>
-            <Select.Item item="Banana">
-              <Select.ItemText>Banana</Select.ItemText>
-              <Select.ItemIndicator>✓</Select.ItemIndicator>
+            <Select.Item item="Vue">
+              <Select.ItemText>Vue</Select.ItemText>
+              <Select.ItemIndicator />
             </Select.Item>
-            <Select.Item item="Cherry">
-              <Select.ItemText>Cherry</Select.ItemText>
-              <Select.ItemIndicator>✓</Select.ItemIndicator>
+            <Select.Item item="Solid">
+              <Select.ItemText>Solid</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+            <Select.Item item="Svelte">
+              <Select.ItemText>Svelte</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+            <Select.Item item="Angular">
+              <Select.ItemText>Angular</Select.ItemText>
+              <Select.ItemIndicator />
             </Select.Item>
           </Select.Content>
         </Select.Positioner>
