@@ -1,0 +1,81 @@
+---
+title: Table
+description: Show rows of data in columns, with sticky headers and columns, selectable rows and borders.
+category: Data Display
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/table
+  recipe: packages/panda/ds/src/theme/slot-recipes/table.ts
+---
+
+A native `<table>` with the `table` recipe on each part. The tables in these docs are this component.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Table.Root>
+  <Table.Header>
+    <Table.Row>
+      <Table.ColumnHeader />
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell />
+    </Table.Row>
+  </Table.Body>
+  <Table.Footer />
+  <Table.Caption />
+</Table.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm`, `md` or `lg` to change the text size and row height. The default is `md`.
+
+<Example id="table/sizes" />
+
+### Borders
+
+Rows have a bottom border by default. Set `showColumnBorder` to add borders between columns, and `showRowBorder={false}`
+to remove the row borders.
+
+<Example id="table/borders" />
+
+### Interactive
+
+Set `interactive` to highlight rows on hover and show a pointer. Pass `selected` to `Table.Row` to mark a row as
+selected; it sets `aria-selected` and uses `colorPalette.subtle`.
+
+<Example id="table/interactive" />
+
+### Sticky header and columns
+
+Set `stickyHeader` to keep the header in view while the table scrolls, and `highlightedHeader` to give it a background.
+Pass `sticky="start"` or `sticky="end"` to `Table.ColumnHeader` and `Table.Cell` to pin a column; it fades into the rows
+it covers and follows the text direction. Put the table in a scroll container, and set `--table-sticky-offset` when the
+header should stop below something else, such as a site header.
+
+<Example id="table/sticky" />
+
+## Recipe
+
+| Variant             | Values           | Default |
+| ------------------- | ---------------- | ------- |
+| `size`              | `sm`, `md`, `lg` | `md`    |
+| `showRowBorder`     | `true`, `false`  | `true`  |
+| `showColumnBorder`  | `true`, `false`  |         |
+| `interactive`       | `true`           |         |
+| `stickyHeader`      | `true`           |         |
+| `highlightedHeader` | `true`           |         |
+
+| Variable                  | Default               | Description                                  |
+| ------------------------- | --------------------- | -------------------------------------------- |
+| `--table-border-color`    | `colors.border`       | The row and column border color              |
+| `--table-row-hover-bg`    | `colors.bg.muted`     | The background of a hovered interactive row  |
+| `--table-row-selected-bg` | `colorPalette.subtle` | The background of a selected row             |
+| `--table-sticky-offset`   | `0`                   | How far from the top the sticky header stops |
