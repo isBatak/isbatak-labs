@@ -5,7 +5,7 @@ export const tocSlotRecipe = defineSlotRecipe({
   className: "toc",
   base: {
     root: {
-      "--toc-indent": "10px",
+      "--toc-indent": "spacing.2.5",
       "--toc-link-offset": "spacing.4",
     },
     title: {

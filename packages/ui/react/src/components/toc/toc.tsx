@@ -39,8 +39,17 @@ interface Track {
   x: Record<string, number>
 }
 
+function resolveLength(parentEl: HTMLElement, value: string) {
+  const probe = document.createElement("div")
+  probe.style.cssText = `position:absolute;visibility:hidden;inline-size:${value}`
+  parentEl.append(probe)
+  const length = probe.getBoundingClientRect().width
+  probe.remove()
+  return length
+}
+
 function measureTrack(listEl: HTMLElement): Track {
-  const indent = parseFloat(getComputedStyle(listEl).getPropertyValue("--toc-indent")) || 10
+  const indent = resolveLength(listEl, "var(--toc-indent)")
   const x: Record<string, number> = {}
   let path = ""
   let prevX: number | null = null

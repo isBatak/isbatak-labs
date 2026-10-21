@@ -23,6 +23,7 @@ import { fieldSlotRecipe } from "./field"
 import { fieldsetSlotRecipe } from "./fieldset"
 import { fileUploadSlotRecipe } from "./file-upload"
 import { floatingPanelSlotRecipe } from "./floating-panel"
+import { gridTableSlotRecipe } from "./grid-table"
 import { hoverCardSlotRecipe } from "./hover-card"
 import { listSlotRecipe } from "./list"
 import { listboxSlotRecipe } from "./listbox"
@@ -118,4 +119,5 @@ export const slotRecipes = {
   treeView: treeViewSlotRecipe,
   marquee: marqueeSlotRecipe,
   floatingPanel: floatingPanelSlotRecipe,
+  gridTable: gridTableSlotRecipe,
 }
