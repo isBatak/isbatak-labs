@@ -29,5 +29,3 @@ export const drawerDemos: Record<string, ComponentType> = {
   "drawer/stacking": DrawerStackingDemo,
   "drawer/swipe-direction": DrawerSwipeDirectionDemo,
 }
-
-export { DrawerThumbnail } from "./thumbnail"

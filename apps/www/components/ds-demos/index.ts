@@ -4,7 +4,7 @@ import { AccordionDemo } from "./accordion"
 import { BadgeDemo } from "./badge"
 import { ButtonDemo } from "./button"
 import { codePreviewDemos } from "./code-preview"
-import { DrawerThumbnail, drawerDemos } from "./drawer"
+import { drawerDemos } from "./drawer"
 import { gridTableDemos } from "./grid-table"
 import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
@@ -46,8 +46,4 @@ export const demos: Record<string, ComponentType> = {
   ...tocDemos,
   tooltip: TooltipDemo,
   tour: TourDemo,
-}
-
-export const thumbnails: Record<string, ComponentType> = {
-  drawer: DrawerThumbnail,
 }
