@@ -23,6 +23,7 @@ import { fieldSlotRecipe } from "./field"
 import { fieldsetSlotRecipe } from "./fieldset"
 import { fileUploadSlotRecipe } from "./file-upload"
 import { floatingPanelSlotRecipe } from "./floating-panel"
+import { gridTableSlotRecipe } from "./grid-table"
 import { hoverCardSlotRecipe } from "./hover-card"
 import { listSlotRecipe } from "./list"
 import { listboxSlotRecipe } from "./listbox"
@@ -53,6 +54,7 @@ import { tagSlotRecipe } from "./tag"
 import { tagsInputSlotRecipe } from "./tags-input"
 import { timelineSlotRecipe } from "./timeline"
 import { toastSlotRecipe } from "./toast"
+import { tocSlotRecipe } from "./toc"
 import { tooltipSlotRecipe } from "./tooltip"
 import { tourSlotRecipe } from "./tour"
 import { treeViewSlotRecipe } from "./tree-view"
@@ -107,6 +109,7 @@ export const slotRecipes = {
   tag: tagSlotRecipe,
   tagsInput: tagsInputSlotRecipe,
   toast: toastSlotRecipe,
+  toc: tocSlotRecipe,
   tooltip: tooltipSlotRecipe,
   tour: tourSlotRecipe,
   status: statusSlotRecipe,
@@ -116,4 +119,5 @@ export const slotRecipes = {
   treeView: treeViewSlotRecipe,
   marquee: marqueeSlotRecipe,
   floatingPanel: floatingPanelSlotRecipe,
+  gridTable: gridTableSlotRecipe,
 }

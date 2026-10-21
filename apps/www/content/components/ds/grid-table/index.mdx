@@ -1,0 +1,64 @@
+---
+title: Grid table
+description:
+  A table laid out with CSS grid, for column sizes a native table can't express and rows built from any element.
+category: Data Display
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/grid-table
+  recipe: packages/panda/ds/src/theme/slot-recipes/grid-table.ts
+---
+
+The same look as [Table](/ds/components/table), built from `div`s with table roles. The columns come from one grid
+template, and rows use `subgrid`, so every row lines up with the header however the columns are sized.
+
+## Usage
+
+<Usage />
+
+```tsx
+<GridTable.Root columns="2fr 1fr auto">
+  <GridTable.Header>
+    <GridTable.HeaderRow>
+      <GridTable.ColumnHeader />
+    </GridTable.HeaderRow>
+  </GridTable.Header>
+  <GridTable.Body>
+    <GridTable.Row>
+      <GridTable.Cell />
+    </GridTable.Row>
+  </GridTable.Body>
+</GridTable.Root>
+```
+
+`columns` is a `grid-template-columns` value, set on the root as `--grid-template-columns`. The default fits as many
+`10rem` columns as there is room for.
+
+## Examples
+
+### Sticky header and columns
+
+The root scrolls, so give it a `maxH` and `stickyHeader` keeps the header in view. Pass `sticky="start"` or
+`sticky="end"` to `GridTable.ColumnHeader` and `GridTable.Cell` to pin a column.
+
+<Example id="grid-table/sticky" />
+
+### Interactive and borders
+
+`interactive` highlights rows on hover, `selected` on `GridTable.Row` marks a row, and `showColumnBorder` adds borders
+between columns. `size` and `showRowBorder` work as they do on Table.
+
+<Example id="grid-table/interactive" />
+
+## Recipe
+
+| Variant             | Values           | Default |
+| ------------------- | ---------------- | ------- |
+| `size`              | `sm`, `md`, `lg` | `md`    |
+| `showRowBorder`     | `true`, `false`  | `true`  |
+| `showColumnBorder`  | `true`, `false`  |         |
+| `interactive`       | `true`           |         |
+| `stickyHeader`      | `true`           |         |
+| `highlightedHeader` | `true`           |         |
+
+The variables are the same as Table's, plus `--grid-template-columns`.

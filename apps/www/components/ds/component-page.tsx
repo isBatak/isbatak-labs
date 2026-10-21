@@ -5,11 +5,14 @@ import { styled } from "styled-system/jsx"
 import { CodeBlock } from "../code/code-block"
 import { ResourceLink } from "../docs/resource-link"
 import { demos } from "../ds-demos"
+import { LayoutContainer } from "../layout/layout-container"
 import { REPO_URL } from "../layout/site-links"
 import { MDXContent, type MDXComponents } from "../mdx-content"
 import { Icon } from "../ui/icon"
 import { Prose } from "../ui/prose"
 import { DsExample } from "./ds-example"
+import { DsSidebar } from "./ds-sidebar"
+import { DsToc } from "./ds-toc"
 
 const BreadcrumbLink = styled(Link, {
   base: {
@@ -29,71 +32,71 @@ interface ComponentPageProps {
 
 export function ComponentPage({ component, source }: ComponentPageProps) {
   const { title, description, frameworks, links } = component
-  const Demo = demos[component.slug]
   const mdxComponents: MDXComponents = {
     Example: DsExample,
     Usage: () => <CodeBlock code={source} lang="tsx" />,
   }
 
   return (
-    <styled.div maxW="3xl" mx="auto" pt={{ base: "10", md: "16" }} pb="24">
-      <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm">
-        <BreadcrumbLink href="/ds/components">Design system</BreadcrumbLink>
-        <Icon name="chevron-right" color="fg.subtle" />
-        <styled.span color="fg" aria-current="page">
+    <LayoutContainer
+      display="grid"
+      gridTemplateColumns={{
+        base: "minmax(0, 1fr)",
+        lg: "15rem minmax(0, 1fr)",
+        xl: "15rem minmax(0, 1fr) 14rem",
+      }}
+      columnGap={{ lg: "10", xl: "12" }}
+    >
+      <DsSidebar current={component.slug} />
+      <styled.div minW="0" w="full" maxW="3xl" mx="auto" pt={{ base: "10", md: "16" }} pb="24">
+        <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm">
+          <BreadcrumbLink href="/ds/components">Design system</BreadcrumbLink>
+          <Icon name="chevron-right" color="fg.subtle" />
+          <styled.span color="fg" aria-current="page">
+            {title}
+          </styled.span>
+        </styled.nav>
+
+        <styled.h1 mt="8" textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
           {title}
-        </styled.span>
-      </styled.nav>
+        </styled.h1>
+        <styled.p mt="4" color="fg.muted" textStyle="md" lineHeight="1.8" maxW="2xl">
+          {description}
+        </styled.p>
 
-      <styled.h1 mt="8" textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
-        {title}
-      </styled.h1>
-      <styled.p mt="4" color="fg.muted" textStyle="md" lineHeight="1.8" maxW="2xl">
-        {description}
-      </styled.p>
+        <styled.p mt="3" textStyle="sm" color="fg.subtle">
+          {new Intl.ListFormat("en", { type: "conjunction" }).format(
+            frameworks.map((framework) => frameworkLabels[framework]),
+          )}
+        </styled.p>
 
-      <styled.p mt="3" textStyle="sm" color="fg.subtle">
-        {new Intl.ListFormat("en", { type: "conjunction" }).format(
-          frameworks.map((framework) => frameworkLabels[framework]),
-        )}
-      </styled.p>
-
-      <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
-        <ResourceLink href={repoUrl(links.source)} icon="brand-github">
-          Source
-        </ResourceLink>
-        {links.recipe && (
-          <ResourceLink href={repoUrl(links.recipe)} icon="brand-github">
-            Recipe
+        <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
+          <ResourceLink href={repoUrl(links.source)} icon="brand-github">
+            Source
           </ResourceLink>
-        )}
-        {links.ark && (
-          <ResourceLink href={links.ark} icon="brand-ark">
-            Ark UI docs
-          </ResourceLink>
-        )}
-      </styled.div>
-
-      {Demo && (
-        <styled.div
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          minH="72"
-          mt="10"
-          mb="8"
-          p="8"
-          borderRadius="l3"
-          borderWidth="1px"
-          bg="bg.subtle"
-        >
-          <Demo />
+          {links.recipe && (
+            <ResourceLink href={repoUrl(links.recipe)} icon="brand-github">
+              Recipe
+            </ResourceLink>
+          )}
+          {links.ark && (
+            <ResourceLink href={links.ark} icon="brand-ark">
+              Ark UI docs
+            </ResourceLink>
+          )}
         </styled.div>
-      )}
 
-      <Prose>
-        <MDXContent code={component.code} components={mdxComponents} />
-      </Prose>
-    </styled.div>
+        {component.hero && component.slug in demos && (
+          <styled.div mt="10" mb="8">
+            <DsExample id={component.slug} />
+          </styled.div>
+        )}
+
+        <Prose>
+          <MDXContent code={component.code} components={mdxComponents} />
+        </Prose>
+      </styled.div>
+      <DsToc toc={component.toc} />
+    </LayoutContainer>
   )
 }

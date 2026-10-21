@@ -2,10 +2,10 @@ import Link from "next/link"
 import type { ComponentProps } from "react"
 import { styled } from "styled-system/jsx"
 
-import { demos, thumbnails } from "../ds-demos"
 import { DocLink } from "../docs/doc-link"
 import { ExampleThumbnail } from "../examples/example-view"
 import { Icon } from "../ui/icon"
+import { staticThumbnails } from "./thumbs"
 
 // Inline `styled()` configs: don't pass style props to these, the Panda transformer would drop the base styles.
 
@@ -139,13 +139,13 @@ export interface ComponentCardProps {
   example?: string | undefined
 }
 
-function DemoThumbnail({ slug }: { slug: string }) {
-  const Demo = thumbnails[slug] ?? demos[slug]
-  if (!Demo) return null
+function StaticThumbnail({ slug }: { slug: string }) {
+  const Thumbnail = staticThumbnails[slug]
+  if (!Thumbnail) return null
 
   return (
     <styled.div display="contents" inert aria-hidden>
-      <Demo />
+      <Thumbnail />
     </styled.div>
   )
 }
@@ -162,7 +162,7 @@ export function ComponentCard(props: ComponentCardProps) {
           <Icon name="chevron-right" />
         </Action>
       </Header>
-      <Preview>{prototype ? example && <ExampleThumbnail id={example} /> : <DemoThumbnail slug={slug} />}</Preview>
+      <Preview>{prototype ? example && <ExampleThumbnail id={example} /> : <StaticThumbnail slug={slug} />}</Preview>
       <Body>
         <Title>
           <CardLink href={href} prototype={prototype}>

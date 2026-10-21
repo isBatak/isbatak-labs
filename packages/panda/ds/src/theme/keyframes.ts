@@ -117,6 +117,14 @@ export const keyframes = defineKeyframes({
       opacity: 0,
     },
   },
+  "fade-out-from": {
+    from: {
+      opacity: "var(--fade-out-from, 1)",
+    },
+    to: {
+      opacity: 0,
+    },
+  },
   "slide-from-left-full": {
     from: {
       translate: "-100% 0",

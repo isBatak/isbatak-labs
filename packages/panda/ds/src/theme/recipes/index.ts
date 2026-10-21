@@ -8,6 +8,7 @@ import { headingRecipe } from "./heading"
 import { iconRecipe } from "./icon"
 import { inputRecipe } from "./input"
 import { inputAddonRecipe } from "./input-addon"
+import { inputElementRecipe } from "./input-element"
 import { kbdRecipe } from "./kbd"
 import { linkRecipe } from "./link"
 import { markRecipe } from "./mark"
@@ -25,6 +26,7 @@ export const recipes = {
   heading: headingRecipe,
   input: inputRecipe,
   inputAddon: inputAddonRecipe,
+  inputElement: inputElementRecipe,
   kbd: kbdRecipe,
   link: linkRecipe,
   mark: markRecipe,

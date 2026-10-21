@@ -5,7 +5,7 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { drawer } from "@isbatak/panda-ds/recipes"
 
-const { withRootProvider, withContext } = createSlotRecipeContext(drawer)
+const { withProvider, withRootProvider, withContext } = createSlotRecipeContext(drawer)
 
 const StyledDrawerRoot = withRootProvider(Drawer.Root, {
   defaultProps: { lazyMount: true, unmountOnExit: true },
@@ -21,10 +21,15 @@ const swipeDirections = {
 export type DrawerRootProps = ComponentProps<typeof StyledDrawerRoot>
 
 export function DrawerRoot(props: DrawerRootProps) {
-  const { placement = "end" } = props
+  const { placement = props.swipeDirection ? undefined : "end" } = props
   const swipeDirection = typeof placement === "string" ? swipeDirections[placement] : undefined
   return <StyledDrawerRoot swipeDirection={swipeDirection} {...props} placement={placement} />
 }
+
+export const DrawerRootProvider = withRootProvider(Drawer.RootProvider, {
+  defaultProps: { lazyMount: true, unmountOnExit: true },
+})
+export type DrawerRootProviderProps = ComponentProps<typeof DrawerRootProvider>
 
 export const DrawerTrigger = withContext(Drawer.Trigger, "trigger")
 export type DrawerTriggerProps = ComponentProps<typeof DrawerTrigger>
@@ -75,10 +80,10 @@ export type DrawerSwipeAreaProps = ComponentProps<typeof DrawerSwipeArea>
 export const DrawerStack = Drawer.Stack
 export type DrawerStackProps = ComponentProps<typeof DrawerStack>
 
-export const DrawerIndent = withContext(Drawer.Indent, "indent")
+export const DrawerIndent = withProvider(Drawer.Indent, "indent")
 export type DrawerIndentProps = ComponentProps<typeof DrawerIndent>
 
-export const DrawerIndentBackground = withContext(Drawer.IndentBackground, "indentBackground")
+export const DrawerIndentBackground = withProvider(Drawer.IndentBackground, "indentBackground")
 export type DrawerIndentBackgroundProps = ComponentProps<typeof DrawerIndentBackground>
 
 export const DrawerHeader = withContext("div", "header")
