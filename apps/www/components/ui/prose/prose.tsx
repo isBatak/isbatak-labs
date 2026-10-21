@@ -1,14 +1,15 @@
-import type { ReactNode } from "react"
-import { css, cx } from "styled-system/css"
-import { prose } from "styled-system/recipes"
+import type { ReactNode } from "react";
+import { css, cx } from "styled-system/css";
+import { prose } from "styled-system/recipes";
 
 const docsProse = css({
   "--prose-leading": "1.7",
   "--prose-flow": "1em",
   maxWidth: "none",
-  '& :where(h1, h2, h3, h4):not(:where([class~="not-prose"],[class~="not-prose"] *))': {
-    scrollMarginTop: "20",
-  },
+  '& :where(h1, h2, h3, h4):not(:where([class~="not-prose"],[class~="not-prose"] *))':
+    {
+      scrollMarginTop: "20",
+    },
   // Section labels, e.g. "Installation", "Usage"
   '& :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *))': {
     textStyle: "overline",
@@ -16,12 +17,13 @@ const docsProse = css({
     color: "fg.muted",
     marginBlockStart: "11",
   },
-  '& :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)):hover': {
-    textDecorationColor: "fg",
-  },
-})
+  '& :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)):hover':
+    {
+      textDecorationColor: "fg",
+    },
+});
 
 // Typography for rendered MDX content
 export function Prose({ children }: { children: ReactNode }) {
-  return <div className={cx(prose({ size: "sm" }), docsProse)}>{children}</div>
+  return <div className={cx(prose({ size: "sm" }), docsProse)}>{children}</div>;
 }
