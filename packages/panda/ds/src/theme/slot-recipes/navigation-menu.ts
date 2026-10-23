@@ -1,4 +1,4 @@
-import { defineSlotRecipe } from "@pandacss/dev";
+import { defineSlotRecipe } from "@pandacss/dev"
 
 export const navigationMenuSlotRecipe = defineSlotRecipe({
   className: "navigation-menu",
@@ -135,4 +135,4 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       "--arrow-background": "colors.bg.panel",
     },
   },
-});
+})
