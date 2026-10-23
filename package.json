@@ -14,6 +14,7 @@
     "storybook": "pnpm --filter @isbatak/panda-ds --filter @isbatak/storybook-shared build && pnpm --parallel --filter \"./apps/storybook*\" storybook",
     "build:storybook": "pnpm --filter @isbatak/panda-ds --filter @isbatak/storybook-shared build && pnpm --filter \"./apps/storybook-*\" build-storybook && pnpm --filter @isbatak/storybook build-storybook",
     "www": "pnpm --parallel --filter \"./apps/www*\"",
+    "studio": "pnpm --filter @isbatak/panda-ds build && pnpm --filter @isbatak/panda-studio dev",
     "changeset": "changeset",
     "version-packages": "changeset version && oxfmt",
     "clean": "pnpm -r exec rm -rf dist node_modules/.cache && rm -rf node_modules"
