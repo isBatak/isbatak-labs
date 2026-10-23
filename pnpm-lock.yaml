@@ -191,6 +191,9 @@ importers:
       '@isbatak/ark-wheel-picker':
         specifier: workspace:*
         version: link:../../packages/ark/wheel-picker
+      '@isbatak/panda-concentric':
+        specifier: workspace:*
+        version: link:../../packages/panda/concentric
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../packages/panda/ds
@@ -475,6 +478,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.12.4
         version: 3.12.4
+      '@isbatak/panda-concentric':
+        specifier: workspace:*
+        version: link:../../packages/panda/concentric
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../packages/panda/ds
@@ -696,6 +702,9 @@ importers:
       '@isbatak/panda-code-preview':
         specifier: workspace:*
         version: link:../../packages/panda/code-preview
+      '@isbatak/panda-concentric':
+        specifier: workspace:*
+        version: link:../../packages/panda/concentric
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../../packages/panda/ds
@@ -1008,6 +1017,15 @@ importers:
       '@isbatak/panda-ds':
         specifier: workspace:*
         version: link:../ds
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.2.0(postcss@8.5.28)
+      '@pandacss/types':
+        specifier: 'catalog:'
+        version: 2.2.0
+
+  packages/panda/concentric:
+    devDependencies:
       '@pandacss/dev':
         specifier: 'catalog:'
         version: 2.2.0(postcss@8.5.28)

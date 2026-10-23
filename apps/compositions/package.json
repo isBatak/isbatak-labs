@@ -43,6 +43,7 @@
     "@isbatak/ark-masonry": "workspace:*",
     "@isbatak/ark-text-flip": "workspace:*",
     "@isbatak/ark-wheel-picker": "workspace:*",
+    "@isbatak/panda-concentric": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-text-flip": "workspace:*",
