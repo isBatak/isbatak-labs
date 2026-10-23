@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
-import { Drawer } from "@isbatak/react-ui/drawer"
-import { Button } from "@isbatak/react-ui/button"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Portal } from "@ark-ui/react/portal"
-import { styled } from "styled-system/jsx"
+import { Drawer } from "@isbatak/react-ui/drawer";
+import { Button } from "@isbatak/react-ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Portal } from "@ark-ui/react/portal";
+import { styled } from "styled-system/jsx";
 
-import { Icon } from "../ui/icon"
-import { Wordmark } from "./wordmark"
+import { Icon } from "../ui/icon";
 
 const NavLink = styled(Link, {
   base: {
@@ -24,18 +23,23 @@ const NavLink = styled(Link, {
     _hover: { bg: "bg.muted", color: "fg" },
     _currentPage: { bg: "bg.muted", color: "fg" },
   },
-})
+});
 
 export function MobileNav() {
-  const pathname = usePathname()
-  const [open, setOpen] = useState(false)
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setOpen(false)
-  }, [pathname])
+    setOpen(false);
+  }, [pathname]);
 
   return (
-    <Drawer.Root open={open} onOpenChange={(details) => setOpen(details.open)} placement="bottom">
+    <Drawer.Root
+      open={open}
+      onOpenChange={(details) => setOpen(details.open)}
+      placement="bottom"
+      float
+    >
       <Drawer.Trigger asChild>
         <Button
           variant="ghost"
@@ -56,38 +60,53 @@ export function MobileNav() {
               <Drawer.GrabberIndicator />
             </Drawer.Grabber>
             <Drawer.Header>
-              <Drawer.Title asChild>
-                <Link href="/" aria-label="Home">
-                  <Wordmark />
-                </Link>
-              </Drawer.Title>
               <Drawer.CloseTrigger asChild>
-                <Button variant="ghost" size="xs" px="0" aspectRatio="square" aria-label="Close navigation menu">
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  icon
+                  aria-label="Close navigation menu"
+                >
                   <Icon size="sm" name="x" />
                 </Button>
               </Drawer.CloseTrigger>
             </Drawer.Header>
             <Drawer.Body>
-              <styled.nav display="flex" flexDirection="column" gap="1" pb="4">
-                <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
+              <styled.nav
+                aria-label="Main"
+                display="flex"
+                flexDirection="column"
+                gap="1"
+                pb="4"
+              >
+                <NavLink
+                  href="/components"
+                  aria-current={
+                    pathname.startsWith("/components") ? "page" : undefined
+                  }
+                >
                   Experiments
                 </NavLink>
-                <NavLink href="/blocks" aria-current={pathname.startsWith("/blocks") ? "page" : undefined}>
+                <NavLink
+                  href="/blocks"
+                  aria-current={
+                    pathname.startsWith("/blocks") ? "page" : undefined
+                  }
+                >
                   Blocks
-                </NavLink>
-                <NavLink href="/ds/installation" aria-current={pathname === "/ds/installation" ? "page" : undefined}>
-                  DS installation
                 </NavLink>
                 <NavLink
                   href="/ds/components"
-                  aria-current={pathname.startsWith("/ds/components") ? "page" : undefined}
+                  aria-current={pathname.startsWith("/ds") ? "page" : undefined}
                 >
-                  DS components
+                  DS
                 </NavLink>
-                <NavLink href="/ds/styles" aria-current={pathname.startsWith("/ds/styles") ? "page" : undefined}>
-                  DS styles
-                </NavLink>
-                <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
+                <NavLink
+                  href="/tools"
+                  aria-current={
+                    pathname.startsWith("/tools") ? "page" : undefined
+                  }
+                >
                   Tools
                 </NavLink>
               </styled.nav>
@@ -96,5 +115,5 @@ export function MobileNav() {
         </Drawer.Positioner>
       </Portal>
     </Drawer.Root>
-  )
+  );
 }

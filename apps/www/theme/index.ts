@@ -1,5 +1,6 @@
 import type { ExtendableTheme } from "@pandacss/types"
 
+import { avatar } from "./recipes/avatar"
 import { hint } from "./recipes/hint"
 import { layoutContainer } from "./recipes/layout-container"
 
@@ -58,6 +59,7 @@ export const theme = {
       icon: { base: { boxSize: "1em" } },
     },
     slotRecipes: {
+      avatar,
       hint,
     },
   },

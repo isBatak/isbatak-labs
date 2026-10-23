@@ -32,7 +32,7 @@ export default function StylesPage() {
 
   return (
     <Section>
-      <DsDocLayout section="styles" current="" toc={[]}>
+      <DsDocLayout section="styles" toc={[]}>
         <Eyebrow>Design system</Eyebrow>
         <styled.h1 mt="4" textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
           Styles

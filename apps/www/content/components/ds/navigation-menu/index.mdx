@@ -1,0 +1,40 @@
+---
+title: Navigation menu
+description: A row of site links whose menus open in a shared panel that resizes to fit them.
+category: Navigation
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/navigation-menu
+  recipe: packages/panda/ds/src/theme/slot-recipes/navigation-menu.ts
+  ark: https://ark-ui.com/docs/components/navigation-menu
+---
+
+Built on Ark UI's NavigationMenu. Each `NavigationMenu.Item` pairs a trigger with its content. The open content renders
+inside `NavigationMenu.Viewport`, which moves under the active trigger and animates its size between menus.
+`NavigationMenu.Indicator` is the highlight that slides between triggers. The header of this site is one.
+
+## Usage
+
+<Usage />
+
+```tsx
+<NavigationMenu.Root>
+  <NavigationMenu.List>
+    <NavigationMenu.Indicator />
+    <NavigationMenu.Item value="product">
+      <NavigationMenu.Trigger />
+      <NavigationMenu.Content>
+        <NavigationMenu.Link href="/analytics" />
+      </NavigationMenu.Content>
+    </NavigationMenu.Item>
+  </NavigationMenu.List>
+  <NavigationMenu.ViewportPositioner>
+    <NavigationMenu.Viewport />
+  </NavigationMenu.ViewportPositioner>
+</NavigationMenu.Root>
+```
+
+Give `NavigationMenu.Content` a width. The viewport measures it and resizes to match when you move between menus.
+
+Set `current` on a link to mark the page you are on. A trigger takes the current color with `data-current` or
+`aria-current="true"`, for example when one of its links is the current page.

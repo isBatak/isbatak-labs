@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { Button } from "@isbatak/react-ui/button"
-import { useTheme } from "next-themes"
+import { Button } from "@isbatak/react-ui/button";
+import { useTheme } from "next-themes";
 
-import { Icon } from "./ui/icon"
+import { Icon } from "./ui/icon";
 
 export function ColorModeButton() {
-  const { resolvedTheme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="xs"
       px="0"
-      aspectRatio="square"
+      icon
       aria-label="Toggle color mode"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
@@ -26,5 +26,5 @@ export function ColorModeButton() {
         _dark={{ rotate: "180deg" }}
       />
     </Button>
-  )
+  );
 }

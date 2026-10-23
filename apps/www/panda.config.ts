@@ -7,6 +7,7 @@ import { defineConfig } from "@pandacss/dev"
 
 import { theme } from "./theme"
 import { globalCss } from "./theme/global-css"
+import { utilities } from "./theme/utilities"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
@@ -32,6 +33,9 @@ export default defineConfig({
   },
   globalCss: {
     extend: globalCss,
+  },
+  utilities: {
+    extend: utilities,
   },
   theme,
   optimize: {
