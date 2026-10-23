@@ -1,6 +1,7 @@
 "use client"
 
-import { NavigationMenu } from "@ark-ui/react/navigation-menu"
+import { NavigationMenu as ArkNavigationMenu } from "@ark-ui/react/navigation-menu"
+import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type { MouseEvent, ReactNode } from "react"
@@ -14,142 +15,6 @@ export interface NavEntry {
   href: string
   external?: boolean
 }
-
-const Root = styled(NavigationMenu.Root, {
-  base: {
-    position: "relative",
-    display: { base: "none", md: "flex" },
-    alignItems: "center",
-  },
-})
-
-const List = styled(NavigationMenu.List, {
-  base: {
-    display: "flex",
-    alignItems: "center",
-    gap: "1",
-    isolation: "isolate",
-  },
-})
-
-const Highlight = styled(NavigationMenu.Indicator, {
-  base: {
-    zIndex: "-1",
-    top: "var(--trigger-y)",
-    left: "var(--trigger-x)",
-    width: "var(--trigger-width)",
-    height: "var(--trigger-height)",
-    borderRadius: "l2",
-    bg: "bg.muted",
-    transitionProperty: "left, width",
-    transitionDuration: "moderate",
-    transitionTimingFunction: "ease-in-smooth",
-    _open: { animationName: "fade-in", animationDuration: "fast" },
-    _closed: { animationName: "fade-out", animationDuration: "faster" },
-  },
-})
-
-const Trigger = styled(NavigationMenu.Trigger, {
-  base: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "1",
-    h: "8",
-    px: "3",
-    borderRadius: "l2",
-    textStyle: "sm",
-    fontWeight: "medium",
-    letterSpacing: "wide",
-    color: "fg.muted",
-    cursor: "pointer",
-    outline: "none",
-    transitionProperty: "color",
-    transitionDuration: "fast",
-    _hover: { color: "fg" },
-    _open: { color: "fg" },
-    "&[data-current]": { color: "fg" },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing" },
-    "& svg": {
-      color: "fg.subtle",
-      transitionProperty: "rotate",
-      transitionDuration: "moderate",
-      transitionTimingFunction: "ease-in-smooth",
-    },
-    "&[data-state=open] svg": { rotate: "180deg" },
-  },
-})
-
-const Content = styled(NavigationMenu.Content, {
-  base: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5",
-    p: "2",
-    _open: { animationName: "fade-in, slide-from-bottom", animationDuration: "moderate" },
-    _closed: { animationName: "fade-out", animationDuration: "fast" },
-    _motionReduce: { animationName: "none!" },
-  },
-  variants: {
-    size: {
-      sm: { w: "xs" },
-      md: { w: "sm" },
-    },
-  },
-  defaultVariants: {
-    size: "md",
-  },
-})
-
-const Positioner = styled(NavigationMenu.ViewportPositioner, {
-  base: {
-    position: "absolute",
-    top: "100%",
-    left: "0",
-    zIndex: "dropdown",
-    pt: "3",
-  },
-})
-
-const Viewport = styled(NavigationMenu.Viewport, {
-  base: {
-    position: "relative",
-    width: "var(--viewport-width)",
-    height: "var(--viewport-height)",
-    transform: "translateX(var(--viewport-x))",
-    transformOrigin: "top center",
-    overflow: "hidden",
-    bg: "bg.panel",
-    borderWidth: "1px",
-    borderRadius: "l3",
-    boxShadow: "lg",
-    transitionProperty: "width, height, transform",
-    transitionDuration: "moderate",
-    transitionTimingFunction: "ease-in-smooth",
-    _open: { animationStyle: "scale-fade-in", animationDuration: "fast" },
-    _closed: { animationStyle: "scale-fade-out", animationDuration: "faster" },
-    _motionReduce: { transitionDuration: "0s" },
-  },
-})
-
-const MenuLink = styled(NavigationMenu.Link, {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5",
-    px: "3",
-    py: "2.5",
-    borderRadius: "l2",
-    outline: "none",
-    transitionProperty: "background",
-    transitionDuration: "fast",
-    _hover: { bg: "bg.muted" },
-    _focusVisible: { bg: "bg.muted" },
-    _currentPage: { bg: "bg.muted" },
-  },
-})
 
 const LinkTitle = styled("span", {
   base: {
@@ -179,7 +44,7 @@ const Footer = styled("div", {
   },
 })
 
-const FooterLink = styled(NavigationMenu.Link, {
+const FooterLink = styled(ArkNavigationMenu.Link, {
   base: {
     display: "flex",
     alignItems: "center",
@@ -211,16 +76,16 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
 
   if (entry.external) {
     return (
-      <MenuLink href={entry.href} target="_blank" rel="noopener">
+      <NavigationMenu.Link href={entry.href} target="_blank" rel="noopener">
         {body}
-      </MenuLink>
+      </NavigationMenu.Link>
     )
   }
 
   return (
-    <MenuLink asChild current={pathname === entry.href}>
+    <NavigationMenu.Link asChild current={pathname === entry.href}>
       <Link href={entry.href}>{body}</Link>
-    </MenuLink>
+    </NavigationMenu.Link>
   )
 }
 
@@ -239,7 +104,7 @@ function Section({
 }) {
   return (
     <NavigationMenu.Item value={value}>
-      <Trigger
+      <NavigationMenu.Trigger
         asChild
         data-current={current ? "" : undefined}
         onClick={(event: MouseEvent) => {
@@ -250,7 +115,7 @@ function Section({
           {label}
           <Icon name="chevron-down" />
         </Link>
-      </Trigger>
+      </NavigationMenu.Trigger>
       {children}
     </NavigationMenu.Item>
   )
@@ -265,11 +130,11 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
   const pathname = usePathname()
 
   return (
-    <Root aria-label="Main">
-      <List>
-        <Highlight />
+    <NavigationMenu.Root aria-label="Main" display={{ base: "none", md: "flex" }}>
+      <NavigationMenu.List>
+        <NavigationMenu.Indicator />
         <Section value="components" label="Experiments" href="/components" current={pathname.startsWith("/components")}>
-          <Content>
+          <NavigationMenu.Content w="sm">
             {prototypes.map((entry) => (
               <EntryLink key={entry.href} entry={entry} pathname={pathname} />
             ))}
@@ -281,15 +146,15 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
                 </Link>
               </FooterLink>
             </Footer>
-          </Content>
+          </NavigationMenu.Content>
         </Section>
         <NavigationMenu.Item value="blocks">
-          <Trigger asChild data-current={pathname.startsWith("/blocks") ? "" : undefined}>
+          <NavigationMenu.Trigger asChild data-current={pathname.startsWith("/blocks") ? "" : undefined}>
             <Link href="/blocks">Blocks</Link>
-          </Trigger>
+          </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         <Section value="ds" label="DS" href="/ds/components" current={pathname.startsWith("/ds")}>
-          <Content size="sm">
+          <NavigationMenu.Content w="xs">
             <EntryLink
               entry={{
                 title: "Installation",
@@ -314,10 +179,10 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
               }}
               pathname={pathname}
             />
-          </Content>
+          </NavigationMenu.Content>
         </Section>
         <Section value="tools" label="Tools" href="/tools" current={pathname.startsWith("/tools")}>
-          <Content>
+          <NavigationMenu.Content w="sm">
             {tools.map((entry) => (
               <EntryLink key={entry.href} entry={entry} pathname={pathname} />
             ))}
@@ -329,12 +194,12 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
                 </Link>
               </FooterLink>
             </Footer>
-          </Content>
+          </NavigationMenu.Content>
         </Section>
-      </List>
-      <Positioner align="start">
-        <Viewport />
-      </Positioner>
-    </Root>
+      </NavigationMenu.List>
+      <NavigationMenu.ViewportPositioner align="start">
+        <NavigationMenu.Viewport />
+      </NavigationMenu.ViewportPositioner>
+    </NavigationMenu.Root>
   )
 }

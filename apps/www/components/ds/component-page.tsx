@@ -36,7 +36,7 @@ export function ComponentPage({ component, source }: ComponentPageProps) {
   }
 
   return (
-    <DsDocLayout section="components" current={component.slug} toc={component.toc}>
+    <DsDocLayout section="components" toc={component.toc}>
       <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm">
         <BreadcrumbLink href="/ds/components">Design system</BreadcrumbLink>
         <Icon name="chevron-right" color="fg.subtle" />

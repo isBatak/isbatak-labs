@@ -2,17 +2,17 @@ import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { LayoutContainer } from "../layout/layout-container"
-import { type DsSection, DsSidebar } from "./ds-sidebar"
+import type { DsSection } from "./ds-nav-data"
+import { DsSidebar } from "./ds-sidebar"
 import { DsToc, type TocEntry } from "./ds-toc"
 
 interface DsDocLayoutProps {
   section: DsSection
-  current: string
   toc: TocEntry[]
   children: ReactNode
 }
 
-export function DsDocLayout({ section, current, toc, children }: DsDocLayoutProps) {
+export function DsDocLayout({ section, toc, children }: DsDocLayoutProps) {
   return (
     <LayoutContainer
       size="wide"
@@ -24,7 +24,7 @@ export function DsDocLayout({ section, current, toc, children }: DsDocLayoutProp
       }}
       columnGap={{ lg: "10", xl: "16" }}
     >
-      <DsSidebar section={section} current={current} />
+      <DsSidebar section={section} />
       <styled.div minW="0" w="full" pt={{ base: "10", md: "14" }} pb="24">
         {children}
       </styled.div>
