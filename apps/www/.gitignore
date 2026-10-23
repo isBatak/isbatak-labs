@@ -6,3 +6,5 @@ assets/sprite.svg
 .velite
 public/static
 .panda
+test-results
+playwright-report

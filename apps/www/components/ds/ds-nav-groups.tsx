@@ -32,28 +32,32 @@ const List = styled("ul", {
   },
 })
 
-const NavLink = styled(Link, {
-  base: {
-    display: "block",
-    px: "3",
-    py: "1.5",
-    borderRadius: "l2",
-    textStyle: "sm",
-    color: "fg.muted",
-    transitionProperty: "background, color",
-    transitionDuration: "fast",
-    focusVisibleRing: "inside",
-    _hover: {
-      bg: "bg.muted",
-      color: "fg",
-    },
-    _currentPage: {
-      bg: "bg.muted",
-      color: "fg",
-      fontWeight: "medium",
+const NavLink = styled(
+  Link,
+  {
+    base: {
+      display: "block",
+      px: "3",
+      py: "1.5",
+      borderRadius: "l2",
+      textStyle: "sm",
+      color: "fg.muted",
+      transitionProperty: "background, color",
+      transitionDuration: "fast",
+      focusVisibleRing: "inside",
+      _hover: {
+        bg: "bg.muted",
+        color: "fg",
+      },
+      _currentPage: {
+        bg: "bg.muted",
+        color: "fg",
+        fontWeight: "medium",
+      },
     },
   },
-})
+  { defaultProps: { prefetch: true } },
+)
 
 export function DsNavGroups({ groups }: { groups: DsNavGroup[] }) {
   const pathname = usePathname()
