@@ -1,3 +1,4 @@
+import { concentricPreset } from "@isbatak/panda-concentric"
 import { masonryPreset } from "@isbatak/panda-masonry"
 import { swipeableListPreset } from "@isbatak/panda-swipeable-list"
 import { textFlipPreset } from "@isbatak/panda-text-flip"
@@ -6,7 +7,7 @@ import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [masonryPreset, swipeableListPreset, textFlipPreset, wheelPickerPreset],
+  presets: [concentricPreset, masonryPreset, swipeableListPreset, textFlipPreset, wheelPickerPreset],
   preflight: true,
   include: ["../storybook-*/src/**/*.{ts,tsx,vue,svelte}"],
   outdir: "styled-system",

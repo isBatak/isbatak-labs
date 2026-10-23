@@ -3,6 +3,8 @@ import type { NextConfig } from "next"
 import { withPandaCss } from "@isbatak/panda-turbopack/next"
 import { withSourcery } from "@isbatak/sourcery/next"
 
+const exposeTestingApi = process.env.EXPOSE_TESTING_API === "1"
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   reactCompiler: true,
@@ -12,6 +14,7 @@ const nextConfig: NextConfig = {
     turbopackRustReactCompiler: true,
     turbopackLazyDynamicImports: true,
     turbopackGc: true,
+    exposeTestingApiInProductionBuild: exposeTestingApi,
   },
   // Workspace packages that export their TypeScript source
   transpilePackages: [
