@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/panda-code-preview",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Panda CSS slot recipe and preset for the code preview component",
   "keywords": [
     "panda",
