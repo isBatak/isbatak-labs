@@ -14,10 +14,11 @@ const FooterLink = styled(Link, {
   },
 })
 
-export function SiteFooter() {
+export function SiteFooter({ size }: { size?: "default" | "wide" }) {
   return (
     <styled.footer px="2">
       <LayoutContainer
+        size={size}
         display="flex"
         flexDirection={{ base: "column", sm: "row" }}
         alignItems={{ sm: "center" }}

@@ -14,6 +14,8 @@ export const theme = {
       sizes: {
         header: { value: "3.5rem" },
         layout: { value: "{sizes.6xl}" },
+        layoutWide: { value: "86rem" },
+        subnav: { value: "3.25rem" },
       },
     },
     semanticTokens: {

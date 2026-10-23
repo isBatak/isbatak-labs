@@ -28,10 +28,11 @@ const toolEntries: NavEntry[] = tools
   .toSorted((a, b) => a.order - b.order)
   .map(({ title, description, permalink, external }) => ({ title, description, href: permalink, external }))
 
-export function SiteHeader() {
+export function SiteHeader({ size }: { size?: "default" | "wide" }) {
   return (
     <styled.header position="sticky" top="0" zIndex="sticky" bg="bg" px="2" maxW="100vw" overflowX="clip">
       <LayoutContainer
+        size={size}
         display="flex"
         alignItems="center"
         gap={{ base: "2", sm: "4" }}

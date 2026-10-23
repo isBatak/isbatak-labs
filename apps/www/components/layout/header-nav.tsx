@@ -306,6 +306,14 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
               }}
               pathname={pathname}
             />
+            <EntryLink
+              entry={{
+                title: "Styles",
+                description: "Style props that extend the design system, like concentric radius.",
+                href: "/ds/styles",
+              }}
+              pathname={pathname}
+            />
           </Content>
         </Section>
         <Section value="tools" label="Tools" href="/tools" current={pathname.startsWith("/tools")}>

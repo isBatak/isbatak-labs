@@ -76,6 +76,29 @@ const prototypes = defineCollection({
     }),
 })
 
+const styles = defineCollection({
+  name: "Style",
+  pattern: "styles/*/index.mdx",
+  schema: s
+    .object({
+      title: s.string().max(99),
+      description: s.string().max(999),
+      order: s.number().default(0),
+      status,
+      links: s.object({
+        source: s.string(),
+        package: s.string(),
+      }),
+      path: s.path(),
+      toc: s.toc(),
+      code: s.mdx(),
+    })
+    .transform(({ path, ...data }) => {
+      const slug = path.replace(/^styles\//, "")
+      return { ...data, slug, permalink: `/ds/styles/${slug}` }
+    }),
+})
+
 const tools = defineCollection({
   name: "Tool",
   pattern: "tools/*/index.mdx",
@@ -121,7 +144,7 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { components, prototypes, tools },
+  collections: { components, prototypes, styles, tools },
   mdx: {
     rehypePlugins: [rehypeSlug],
   },

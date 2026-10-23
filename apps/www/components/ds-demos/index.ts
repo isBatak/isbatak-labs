@@ -4,6 +4,7 @@ import { AccordionDemo } from "./accordion"
 import { BadgeDemo } from "./badge"
 import { ButtonDemo } from "./button"
 import { codePreviewDemos } from "./code-preview"
+import { concentricDemos } from "./concentric"
 import { drawerDemos } from "./drawer"
 import { gridTableDemos } from "./grid-table"
 import { GroupDemo } from "./group"
@@ -28,6 +29,7 @@ export const demos: Record<string, ComponentType> = {
   badge: BadgeDemo,
   button: ButtonDemo,
   ...codePreviewDemos,
+  ...concentricDemos,
   ...drawerDemos,
   ...gridTableDemos,
   group: GroupDemo,

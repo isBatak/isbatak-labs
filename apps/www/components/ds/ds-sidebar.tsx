@@ -1,4 +1,4 @@
-import { type Component, components } from "#site/content"
+import { components, styles } from "#site/content"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
@@ -6,9 +6,9 @@ const Nav = styled("nav", {
   base: {
     display: { base: "none", lg: "block" },
     position: "sticky",
-    top: "{sizes.header}",
+    top: "calc({sizes.header} + {sizes.subnav})",
     alignSelf: "start",
-    maxH: "calc(100dvh - {sizes.header})",
+    maxH: "calc(100dvh - {sizes.header} - {sizes.subnav})",
     overflowY: "auto",
     py: { base: "10", md: "16" },
     pe: "2",
@@ -58,18 +58,33 @@ const NavLink = styled(Link, {
   },
 })
 
-function groupByCategory(items: Component[]) {
-  const groups = new Map<string, Component[]>()
-  for (const item of items) groups.set(item.category, [...(groups.get(item.category) ?? []), item])
+interface SidebarItem {
+  slug: string
+  title: string
+  permalink: string
+}
+
+type SidebarGroup = [string, SidebarItem[]]
+
+function componentGroups(): SidebarGroup[] {
+  const groups = new Map<string, SidebarItem[]>()
+  const visible = components.filter((component) => !component.hidden).toSorted((a, b) => a.title.localeCompare(b.title))
+  for (const item of visible) groups.set(item.category, [...(groups.get(item.category) ?? []), item])
   return [...groups].toSorted(([a], [b]) => a.localeCompare(b))
 }
 
-export function DsSidebar({ current }: { current: string }) {
-  const visible = components.filter((component) => !component.hidden).toSorted((a, b) => a.title.localeCompare(b.title))
+function styleGroups(): SidebarGroup[] {
+  return [["Styles", styles.toSorted((a, b) => a.order - b.order || a.title.localeCompare(b.title))]]
+}
+
+export type DsSection = "components" | "styles"
+
+export function DsSidebar({ section, current }: { section: DsSection; current: string }) {
+  const groups = section === "styles" ? styleGroups() : componentGroups()
 
   return (
-    <Nav aria-label="Components">
-      {groupByCategory(visible).map(([category, items]) => (
+    <Nav aria-label={section === "styles" ? "Styles" : "Components"}>
+      {groups.map(([category, items]) => (
         <div key={category}>
           <Heading>{category}</Heading>
           <List>
