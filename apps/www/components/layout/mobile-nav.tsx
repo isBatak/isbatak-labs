@@ -84,6 +84,9 @@ export function MobileNav() {
                 >
                   DS components
                 </NavLink>
+                <NavLink href="/ds/styles" aria-current={pathname.startsWith("/ds/styles") ? "page" : undefined}>
+                  DS styles
+                </NavLink>
                 <NavLink href="/tools" aria-current={pathname.startsWith("/tools") ? "page" : undefined}>
                   Tools
                 </NavLink>
