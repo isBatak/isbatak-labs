@@ -4,12 +4,14 @@ import { AccordionDemo } from "./accordion"
 import { BadgeDemo } from "./badge"
 import { ButtonDemo } from "./button"
 import { codePreviewDemos } from "./code-preview"
+import { concentricDemos } from "./concentric"
 import { drawerDemos } from "./drawer"
 import { gridTableDemos } from "./grid-table"
 import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
 import { LoaderDemo } from "./loader"
 import { MenuDemo } from "./menu"
+import { NavigationMenuDemo } from "./navigation-menu"
 import { PopoverDemo } from "./popover"
 import { RadioCardDemo } from "./radio-card"
 import { SegmentGroupDemo } from "./segment-group"
@@ -28,12 +30,14 @@ export const demos: Record<string, ComponentType> = {
   badge: BadgeDemo,
   button: ButtonDemo,
   ...codePreviewDemos,
+  ...concentricDemos,
   ...drawerDemos,
   ...gridTableDemos,
   group: GroupDemo,
   "hover-card": HoverCardDemo,
   loader: LoaderDemo,
   menu: MenuDemo,
+  "navigation-menu": NavigationMenuDemo,
   popover: PopoverDemo,
   "radio-card": RadioCardDemo,
   "segment-group": SegmentGroupDemo,

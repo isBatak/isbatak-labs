@@ -30,6 +30,7 @@ import { listboxSlotRecipe } from "./listbox"
 import { marqueeSlotRecipe } from "./marquee"
 import { menuSlotRecipe } from "./menu"
 import { nativeSelectSlotRecipe } from "./native-select"
+import { navigationMenuSlotRecipe } from "./navigation-menu"
 import { numberInputSlotRecipe } from "./number-input"
 import { pinInputSlotRecipe } from "./pin-input"
 import { popoverSlotRecipe } from "./popover"
@@ -87,6 +88,7 @@ export const slotRecipes = {
   listbox: listboxSlotRecipe,
   menu: menuSlotRecipe,
   nativeSelect: nativeSelectSlotRecipe,
+  navigationMenu: navigationMenuSlotRecipe,
   numberInput: numberInputSlotRecipe,
   pinInput: pinInputSlotRecipe,
   popover: popoverSlotRecipe,

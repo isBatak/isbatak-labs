@@ -1,0 +1,227 @@
+---
+title: Concentric radius
+description:
+  Nested rounded corners that share a center. Give a child rounded="concentric" and its radius follows its rounded
+  parent.
+order: 1
+status: new
+links:
+  source: packages/panda/concentric
+  package: "@isbatak/panda-concentric"
+---
+
+Nested rounded corners only look right when they share a center. Give a card a 24px radius and 12px of padding, and the
+image inside needs a 12px radius, not 24px. The concentric preset does that math for you.
+
+Add `rounded="concentric"` to the child. It reads the radius, padding and border from the style props you already wrote
+on the parent, subtracts in CSS, and keeps working through every breakpoint, state and nesting level.
+
+<Example id="concentric/compare" />
+
+Same markup on both sides, three levels with `rounded="36px" p="3" borderWidth="1px"`. The left copies the parent's
+radius onto every child, the right uses `rounded="concentric"`.
+
+## How it works
+
+Two rounded shapes look concentric when their corners share a center point. That happens when the inner radius equals
+the outer radius minus the space between the two edges.
+
+<Formula>
+  <Term>inner radius</Term> = <Term>outer radius</Term> − <Term>gap</Term>
+</Formula>
+
+The gap is the parent's padding and border width, plus a padded wrapper in between and the child's own margin. For an
+absolutely positioned child it is the inset. `rounded="concentric"` reads all of it from the style props you already
+wrote, does the subtraction in CSS, and publishes its own radius so the next level down can do the same.
+
+When the gap is bigger than the radius, the corner goes square instead of negative. A `rounded="full"` parent stays a
+pill all the way down.
+
+## Installation
+
+Add the preset to your project.
+
+<PackageInstall name="@isbatak/panda-concentric" dev />
+
+Add it to `presets` in your Panda config, next to the design system. There is no JavaScript at runtime.
+
+```ts title="panda.config.ts"
+import { concentricPreset } from "@isbatak/panda-concentric"
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  designSystem: "@isbatak/panda-ds",
+  presets: [concentricPreset],
+})
+```
+
+Then add one prop to any child of a rounded element.
+
+```tsx title="card.tsx"
+<Box rounded="3xl" borderWidth="1px" p="3">
+  <Box rounded="concentric" /> {/* 24 − (12 + 1) = 11px */}
+</Box>
+```
+
+<Example id="concentric/card-image" />
+
+## Playground
+
+Every radius below comes from the preset. The root takes its radius, padding and border from CSS variables, and each
+inner level only adds `rounded="concentric"`. The table reads the result back with `getComputedStyle`, so it shows what
+the browser rendered, next to the formula it should match.
+
+<Example id="concentric/playground" />
+
+The same settings as style props:
+
+```tsx title="nested.tsx"
+<Box rounded="64px" p="5">
+  <Box rounded="concentric" p="5">
+    <Box rounded="concentric" p="5">
+      <Box rounded="concentric" p="5">
+        …
+      </Box>
+    </Box>
+  </Box>
+</Box>
+```
+
+<Example id="concentric/nested" />
+
+## In real components
+
+Each example keeps the props you would already write on the parent. Only the child changes, from a copied radius to
+`rounded="concentric"`. Change any of the parent's props, at any breakpoint, and the child follows.
+
+### Card
+
+The image uses `roundedTop="concentric"`: 28px minus 6px padding and a 1px border is 21px.
+
+<Example id="concentric/card" />
+
+### Dialog
+
+The buttons sit in a plain grid inside a 24px dialog with 8px of padding, so they get 16px.
+
+<Example id="concentric/dialog" />
+
+### Segmented control
+
+A `SegmentGroup` with `rounded="20px" p="1.5"` on the root. Its indicator is absolutely positioned 6px inside the track,
+so it gets 14px wherever it moves. The root's radius normally comes from the recipe, so the `rounded` prop is what makes
+it the rounded parent.
+
+<Example id="concentric/segmented" />
+
+### Search
+
+The button sits inside a 20px field with 6px of padding and a 1px border, so it gets 13px.
+
+<Example id="concentric/search" />
+
+### Pricing
+
+Two levels. The card is 36px with 8px of padding and a 1px border, so the panel gets 27px. The panel has 16px of
+padding, so its button gets 11px.
+
+<Example id="concentric/pricing" />
+
+### Edge to edge
+
+A negative margin makes the radius larger, for media that bleeds to the card's edge.
+
+<Example id="concentric/bleed" />
+
+### Inset ring
+
+An `absolute` or `fixed` child is measured by its inset plus the parent's border width.
+
+<Example id="concentric/ring" />
+
+## API
+
+Every radius prop accepts `"concentric"`, in the same shapes as the other radius values.
+
+| Prop                                                                           | Effect                                                                                            |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `rounded="concentric"`                                                         | All four corners follow the nearest rounded ancestor: its radius minus the gap between the edges. |
+| `roundedTop`, `roundedRight`, `roundedBottom`, `roundedLeft`                   | One side only. The other corners keep whatever radius they already have.                          |
+| `roundedTopLeft`, `roundedTopRight`, `roundedBottomRight`, `roundedBottomLeft` | One corner only.                                                                                  |
+| `roundedStart`, `roundedEnd`, `roundedStartStart`, `roundedStartEnd`, …        | Logical sides and corners. They flip with the nearest `dir` attribute.                            |
+| `concentricGap="3"`                                                            | An explicit gap that replaces the measured one, for spacing the preset can't read.                |
+| `concentricElliptical`                                                         | Keeps one radius per axis when the horizontal and vertical gaps differ.                           |
+| `concentricSquircle`                                                           | Sets `corner-shape: squircle` and scales the gap to match, where the browser supports it.         |
+| `concentricFloor="sm"`                                                         | A minimum radius for every concentric element inside.                                             |
+
+Nothing new is needed on the parent: `rounded`, `p`, `borderWidth`, `border`, `m` and `inset` props are read as they
+are. Tokens, raw values and CSS variables all work, and so do conditions like `md` and `_hover`.
+
+The math is `r = max(floor, R − min(gap x, gap y))`. The gap is the parent's padding and border width, plus the padding
+and border of a wrapper in between and the child's own margin. For `absolute` and `fixed` children it is the inset plus
+the parent's border width.
+
+## Set a floor
+
+Set `concentricFloor` to stop small radii from collapsing to a sharp corner. It sets `--concentric-floor`, which
+inherits like any custom property, so you can set it once on the page or per element.
+
+```tsx title="tight.tsx"
+<Box concentricFloor="sm" rounded="lg" p="4">
+  <Box rounded="concentric" /> {/* 4px instead of 0 */}
+</Box>
+```
+
+<Example id="concentric/floor" />
+
+## Limitations
+
+- Only the nearest wrapper's padding and border count on each side, so a second padded wrapper is skipped, and so are
+  margins on wrappers. Give the outer wrapper `rounded="concentric"`, as shown below.
+- Only style props are read. Padding from config recipes, inline styles or global CSS needs `concentricGap`. A recipe's
+  root is not a rounded ancestor either: add a `rounded` prop to it.
+- Percentage radii are not supported. Percentage insets fall back to the parent's padding, and `auto` margins count
+  as 0.
+- Absolute and fixed elements are measured from the nearest rounded ancestor, so that ancestor should be their
+  containing block.
+- Direction comes from `dir` attributes, including `dir="auto"` at any depth in browsers with `@scope`. Older browsers
+  read up to three nested levels.
+- Nine stacked levels are exact. Every element with a radius prop counts, and deeper ones reuse the last level.
+
+The first two have a one-prop fix. A wrapper in the chain passes its padding on, however many wrappers sit inside it.
+Without a background or border, its own radius is invisible.
+
+<Example id="concentric/wrapper" />
+
+Only the inner wrapper's 4px reaches the items on the left. With the outer wrapper in the chain they get 24 − 1 − 8 − 4
+= 11px.
+
+Padding the preset can't read needs an explicit gap. `concentricGap="3"` subtracts 12px wherever the padding comes from.
+
+<Example id="concentric/gap" />
+
+## FAQ
+
+<Faq>
+  <FaqItem question="Why not just pick a smaller radius?">
+    A hardcoded smaller radius is only right for one combination of values. It breaks as soon as the padding, the border
+    or the outer radius changes, and it doesn't compose across nesting levels or breakpoints. `rounded="concentric"`
+    recalculates for every one of them.
+  </FaqItem>
+  <FaqItem question="Does it ship any JavaScript?">
+    No. The preset adds registered custom properties, a few global rules and the radius value to your Panda config. The
+    browser does the rest in CSS.
+  </FaqItem>
+  <FaqItem question="Which browsers are supported?">
+    Chrome 111, Safari 16.4 and Firefox 128 or newer, the browsers with `@property`. Browsers with `@scope` (Chrome 118,
+    Safari 17.4, Firefox 146) also follow `dir="auto"` and direction changes nested at any depth.
+  </FaqItem>
+  <FaqItem question="What happens when the gap is bigger than the radius?">
+    The child gets a square corner, or the floor if you set one. A `rounded="full"` parent stays a pill all the way
+    down.
+  </FaqItem>
+  <FaqItem question="Does it change my other style props?">
+    Padding, border, margin, inset and position props still output the same CSS. They also write a few custom
+    properties, so concentric children can measure them.
+  </FaqItem>
+</Faq>

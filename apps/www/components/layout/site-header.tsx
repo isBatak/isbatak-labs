@@ -22,16 +22,39 @@ const Separator = styled("div", {
 
 const prototypeEntries: NavEntry[] = prototypes
   .toSorted((a, b) => a.order - b.order)
-  .map(({ title, description, permalink }) => ({ title, description, href: permalink }))
+  .map(({ title, description, permalink }) => ({
+    title,
+    description,
+    href: permalink,
+  }))
 
 const toolEntries: NavEntry[] = tools
   .toSorted((a, b) => a.order - b.order)
-  .map(({ title, description, permalink, external }) => ({ title, description, href: permalink, external }))
+  .map(({ title, description, permalink, external }) => ({
+    title,
+    description,
+    href: permalink,
+    external,
+  }))
 
-export function SiteHeader() {
+export interface SiteHeaderProps {
+  size?: "default" | "wide"
+}
+
+export function SiteHeader({ size }: SiteHeaderProps) {
   return (
-    <styled.header position="sticky" top="0" zIndex="sticky" bg="bg" px="2" maxW="100vw" overflowX="clip">
+    <styled.nav
+      aria-label="Site"
+      position="sticky"
+      top="0"
+      zIndex="banner"
+      bg="bg"
+      px="2"
+      maxW="100vw"
+      overflowX="clip"
+    >
       <LayoutContainer
+        size={size}
         display="flex"
         alignItems="center"
         gap={{ base: "2", sm: "4" }}
@@ -46,7 +69,7 @@ export function SiteHeader() {
         <HeaderNav prototypes={prototypeEntries} tools={toolEntries} />
         <styled.div flex="1" />
         <styled.div display="flex" alignItems="center">
-          <Button asChild variant="ghost" size="xs" px="0" aspectRatio="square">
+          <Button asChild variant="ghost" size="xs" px="0" icon>
             <a href={REPO_URL} target="_blank" rel="noopener" aria-label="GitHub repository">
               <Icon size="sm" name="brand-github" />
             </a>
@@ -56,6 +79,6 @@ export function SiteHeader() {
           <MobileNav />
         </styled.div>
       </LayoutContainer>
-    </styled.header>
+    </styled.nav>
   )
 }

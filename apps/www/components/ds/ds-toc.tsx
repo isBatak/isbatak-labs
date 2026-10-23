@@ -25,9 +25,9 @@ const Aside = styled("aside", {
   base: {
     display: { base: "none", xl: "block" },
     position: "sticky",
-    top: "{sizes.header}",
+    top: "calc({sizes.header} + {sizes.subnav})",
     alignSelf: "start",
-    maxH: "calc(100dvh - {sizes.header})",
+    maxH: "calc(100dvh - {sizes.header} - {sizes.subnav})",
     overflowY: "auto",
     py: { base: "10", md: "16" },
   },
@@ -39,7 +39,7 @@ export function DsToc({ toc }: { toc: TocEntry[] }) {
 
   return (
     <Aside>
-      <Toc.Root variant="track" items={items} rootMargin="-80px 0px -60% 0px" aria-label="On this page">
+      <Toc.Root variant="track" items={items} rootMargin="-120px 0px -60% 0px" aria-label="On this page">
         <Toc.List>
           <Toc.Track />
           <Toc.Indicator />
