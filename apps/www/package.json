@@ -27,6 +27,7 @@
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/panda-masonry": "workspace:*",
     "@isbatak/panda-text-flip": "workspace:*",
+    "@isbatak/panda-theme-analog": "workspace:*",
     "@isbatak/panda-wheel-picker": "workspace:*",
     "@isbatak/react-ui": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
