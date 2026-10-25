@@ -1,5 +1,6 @@
 import { prototypes, tools } from "#site/content"
 import { Button } from "@isbatak/react-ui/button"
+import { Wordmark } from "@isbatak/react-ui/wordmark"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
@@ -9,7 +10,6 @@ import { HeaderNav, type NavEntry } from "./header-nav"
 import { LayoutContainer } from "./layout-container"
 import { MobileNav } from "./mobile-nav"
 import { REPO_URL } from "./site-links"
-import { Wordmark } from "./wordmark"
 
 const Separator = styled("div", {
   base: {
