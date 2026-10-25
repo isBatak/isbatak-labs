@@ -63,7 +63,7 @@ export const shadows = defineSemanticTokens.shadows({
       value: {
         base: "0 0 0 1px {colors.black/8}, 0 8px 16px -6px {colors.black/20}, 0 1px 2px {colors.black/10}, inset 0 1px 0 {colors.white/80}, inset 0 -2px 3px {colors.black/6}",
         _dark:
-          "0 0 0 1px {colors.black/70}, 0 10px 18px -6px {colors.black/70}, 0 2px 4px {colors.black/50}, inset 0 1px 0 {colors.white/7}, inset 0 -2px 4px {colors.black/30}",
+          "0 0 0 1px {colors.black/70}, 0 10px 18px -6px {colors.black/70}, 0 2px 4px {colors.black/50}, inset 0 1px 0 {colors.white/20}, inset 0 -2px 4px {colors.black/30}",
       },
     },
     floating: {
