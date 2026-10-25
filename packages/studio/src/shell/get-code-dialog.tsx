@@ -78,9 +78,7 @@ export function GetCodeDialog(props: { studio: Studio }) {
                   Plain CSS layered like Panda's output. Load it after the Panda stylesheet to apply the theme.
                 </Muted>
               )}
-              {format === "json" && (
-                <Muted>The raw studio document. Share it or save it under .panda-studio/themes.</Muted>
-              )}
+              {format === "json" && <Muted>The raw studio document, to share or keep.</Muted>}
               <pre className={codeBlock} style={{ maxHeight: "24rem" }}>
                 {code}
               </pre>

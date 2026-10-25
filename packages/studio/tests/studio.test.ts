@@ -1,6 +1,7 @@
 import { generateCss } from "../src/lib/css"
 import { emptyDoc, listRules, setRule, setSemanticToken, setToken } from "../src/lib/doc"
 import { toPresetObject } from "../src/lib/export"
+import { parseShadow, serializeShadow } from "../src/lib/shadow"
 import { cssVarName, longhand, partFromClassList, resolveStyleValue } from "../src/lib/theme-meta"
 
 describe("theme-meta", () => {
@@ -94,5 +95,33 @@ describe("toPresetObject", () => {
   test("keeps dotted token names as one key", () => {
     const doc = setToken(emptyDoc(), "spacing.2.5", "0.7rem")
     expect(toPresetObject(doc).tokens.spacing).toEqual({ "2.5": { value: "0.7rem" } })
+  })
+})
+
+describe("shadow", () => {
+  const raised =
+    "0 0 0 1px {colors.black/70}, 0 10px 18px -6px {colors.black/70}, 0 2px 4px {colors.black/50}, inset 0 1px 0 {colors.white/7}, inset 0 -2px 4px {colors.black/30}"
+
+  test("serializes an untouched value back unchanged", () => {
+    expect(serializeShadow(parseShadow(raised))).toBe(raised)
+  })
+
+  test("changes only the edited layer", () => {
+    const layers = parseShadow(raised)
+    layers[1] = { ...layers[1]!, y: 24 }
+    expect(serializeShadow(layers)).toBe(raised.replace("0 10px 18px -6px", "0 24px 18px -6px"))
+  })
+
+  test("reads inset, opacity and raw colors", () => {
+    const [inner, raw] = parseShadow("inset 0 2px 6px {colors.black/55}, 0 1px 2px rgba(0, 0, 0, 0.2)")
+    expect(inner).toMatchObject({ inset: true, y: 2, blur: 6, color: "black", opacity: 55 })
+    expect(raw).toMatchObject({ inset: false, color: "rgba(0, 0, 0, 0.2)", opacity: 100 })
+  })
+
+  test("drops hidden layers and writes none when nothing is left", () => {
+    const layers = parseShadow(raised).map((layer, index) => ({ ...layer, visible: index === 0 }))
+    expect(serializeShadow(layers)).toBe("0 0 0 1px {colors.black/70}")
+    expect(serializeShadow(layers.map((layer) => ({ ...layer, visible: false })))).toBe("none")
+    expect(parseShadow("none")).toEqual([])
   })
 })

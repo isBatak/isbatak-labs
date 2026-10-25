@@ -5,7 +5,7 @@ import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 import { themeVariants } from "virtual:panda-studio/project"
 
-import { emptyDoc } from "../lib/doc"
+import { countOverrides, emptyDoc } from "../lib/doc"
 import { GetCodeDialog } from "./get-code-dialog"
 import { IconButton, MoonIcon, NativeSelect, RedoIcon, SunIcon, Toggle, ToggleItem, UndoIcon } from "./ui"
 import { type Studio, encodeShare } from "./use-studio"
@@ -13,7 +13,7 @@ import { type Studio, encodeShare } from "./use-studio"
 const NEW_THEME = "__new__"
 
 export function TopBar(props: { studio: Studio }) {
-  const { state, dispatch, saveToRepo } = props.studio
+  const { state, dispatch, saveToSource } = props.studio
   const [status, setStatus] = useState<string>()
 
   const flash = (message: string) => {
@@ -129,15 +129,21 @@ export function TopBar(props: { studio: Studio }) {
           <Button
             size="xs"
             variant="outline"
-            title={`Writes .panda-studio/themes/${state.themeName}.json and .preset.ts`}
+            title="Writes the edits into the theme's source files"
+            disabled={!countOverrides(state.doc)}
             onClick={() =>
-              saveToRepo().then(
-                () => flash(`Saved themes/${state.themeName}`),
+              saveToSource().then(
+                ({ saved, written, skipped }) =>
+                  flash(
+                    skipped.length
+                      ? `Saved ${saved}, kept ${skipped.length} (${skipped[0]!.reason})`
+                      : `Saved ${saved} to ${written.join(", ")}`,
+                  ),
                 (error: unknown) => flash(`Save failed: ${String(error)}`),
               )
             }
           >
-            Save to repo
+            Save to source
           </Button>
         )}
         <GetCodeDialog studio={props.studio} />

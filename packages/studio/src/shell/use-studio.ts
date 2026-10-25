@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useReducer } from "react"
 import { components } from "../components"
 import { generateCss } from "../lib/css"
 import { type ColorMode, type StudioDoc, emptyDoc, isStudioDoc } from "../lib/doc"
-import { toPresetSource } from "../lib/export"
+import { toSourceEdits, withoutSourceEdits } from "../lib/export"
 import type { ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
 import { recipes } from "../lib/theme-meta"
 
@@ -47,7 +47,6 @@ type Action =
   | { type: "condition"; condition: string }
   | { type: "select-token"; token: string | undefined }
   | { type: "switch-theme"; name: string; doc?: StudioDoc | undefined }
-  | { type: "merge-themes"; themes: Record<string, StudioDoc> }
   | { type: "delete-theme"; name: string }
   | { type: "lint"; results: LintResult[] }
   | { type: "layers"; layers: LayerNode[] }
@@ -242,15 +241,6 @@ function reducer(state: StudioState, action: Action): StudioState {
         lastEdit: undefined,
       }
     }
-    case "merge-themes": {
-      const themes = { ...action.themes, ...state.themes }
-      // Repository themes win over an untouched local copy
-      for (const [name, doc] of Object.entries(action.themes)) {
-        const local = state.themes[name]
-        if (!local || JSON.stringify(local) === JSON.stringify(emptyDoc())) themes[name] = doc
-      }
-      return { ...state, themes, doc: themes[state.themeName] ?? state.doc }
-    }
     case "delete-theme": {
       const themes = { ...state.themes }
       delete themes[action.name]
@@ -297,18 +287,6 @@ export function useStudio() {
     return () => window.removeEventListener("hashchange", onHashChange)
   }, [])
 
-  // In dev, themes saved into the repository (`.panda-studio/themes` in the project) are loaded too
-  useEffect(() => {
-    if (!import.meta.env.DEV) return
-    fetch("/__studio/themes/")
-      .then((response) => (response.ok ? response.json() : {}))
-      .then((themes: Record<string, unknown>) => {
-        const valid = Object.fromEntries(Object.entries(themes).filter(([, doc]) => isStudioDoc(doc)))
-        dispatch({ type: "merge-themes", themes: valid as Record<string, StudioDoc> })
-      })
-      .catch(() => {})
-  }, [])
-
   const css = useMemo(() => generateCss(state.doc), [state.doc])
 
   const edit = useCallback(
@@ -316,16 +294,22 @@ export function useStudio() {
     [],
   )
 
-  const saveToRepo = useCallback(async () => {
-    const response = await fetch(`/__studio/themes/${encodeURIComponent(state.themeName)}`, {
-      method: "PUT",
+  const saveToSource = useCallback(async () => {
+    const edits = toSourceEdits(state.doc)
+    const response = await fetch("/__studio/source", {
+      method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ doc: state.doc, preset: toPresetSource(state.doc, state.themeName) }),
+      body: JSON.stringify({ edits }),
     })
     if (!response.ok) throw new Error(await response.text())
-  }, [state.doc, state.themeName])
+    const result = (await response.json()) as { written: string[]; skipped: Array<{ key: string; reason: string }> }
+    const skipped = new Set(result.skipped.map((entry) => entry.key))
+    const saved = new Set(edits.map((entry) => entry.key).filter((key) => !skipped.has(key)))
+    dispatch({ type: "edit", update: (doc) => withoutSourceEdits(doc, saved) })
+    return { ...result, saved: saved.size }
+  }, [state.doc])
 
-  return { state, dispatch, css, edit, saveToRepo }
+  return { state, dispatch, css, edit, saveToSource }
 }
 
 export type Studio = ReturnType<typeof useStudio>

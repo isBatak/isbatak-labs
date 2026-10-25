@@ -85,6 +85,7 @@ export async function prepareProject({ cwd: invocationDir, config }) {
 
   return {
     cwd,
+    configPath,
     cacheDir,
     shell: { ...shell, redirect: designSystemRedirect(designSystem, configPath, themeEntries) },
     canvas: { ...canvas, redirect: designSystemRedirect(designSystem, configPath, designSystemEntries) },
