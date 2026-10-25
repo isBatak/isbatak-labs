@@ -3,6 +3,7 @@ linkWorkspacePackages: true
 packages:
   - packages/*/*
   - packages/panda/themes/*
+  - packages/studio
   - apps/*
 
 allowBuilds:
