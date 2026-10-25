@@ -2,7 +2,6 @@ import { codePreviewPreset } from "@isbatak/panda-code-preview"
 import { concentricPreset } from "@isbatak/panda-concentric"
 import { masonryPreset } from "@isbatak/panda-masonry"
 import { textFlipPreset } from "@isbatak/panda-text-flip"
-import { createAnalogPreset } from "@isbatak/panda-theme-analog"
 import { wheelPickerPreset } from "@isbatak/panda-wheel-picker"
 import { defineConfig } from "@pandacss/dev"
 
@@ -12,14 +11,7 @@ import { utilities } from "./theme/utilities"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [
-    concentricPreset,
-    codePreviewPreset,
-    masonryPreset,
-    textFlipPreset,
-    wheelPickerPreset,
-    createAnalogPreset({ grainUrl: "/themes/analog/grain.png" }),
-  ],
+  presets: [concentricPreset, codePreviewPreset, masonryPreset, textFlipPreset, wheelPickerPreset],
   preflight: true,
   cssVarRoot: ":where(:root, :host, .light)",
   jsxFramework: "react",
