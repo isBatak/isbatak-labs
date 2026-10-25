@@ -1,10 +1,11 @@
 import { defineConfig } from "tsup"
 
 export default defineConfig({
+  entry: ["src/index.ts", "src/colors.ts", "src/radius.ts"],
+  outDir: "dist/theme",
   clean: true,
-  dts: true,
-  entry: ["src/index.ts"],
+  format: ["esm"],
   target: "es2020",
-  format: ["esm", "cjs"],
-  external: ["@pandacss/dev"],
+  dts: true,
+  external: ["@pandacss/dev", "@isbatak/panda-ds"],
 })

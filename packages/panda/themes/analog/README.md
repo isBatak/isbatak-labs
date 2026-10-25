@@ -1,35 +1,95 @@
 # @isbatak/panda-theme-analog
 
-Analog dark theme for [`@isbatak/panda-ds`](../../ds), shipped as a Panda preset built on Panda
-[theme variants](https://panda-css.com/docs/themes/theme-variants).
+An analog hardware design system for [Panda CSS](https://panda-css.com): grainy dark surfaces, raised and pressed
+controls, and remote-control style buttons. It is built with `panda lib` like [`@isbatak/panda-ds`](../../ds) and reuses
+its foundations.
 
 ## Usage
 
+With the default palettes (`gray` neutral, `red` accent), use the prebuilt design system:
+
 ```ts
-import { createAnalogPreset } from "@isbatak/panda-theme-analog"
 import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
-  designSystem: "@isbatak/panda-ds",
-  presets: [createAnalogPreset({ grainUrl: "/themes/analog/grain.png" })],
+  designSystem: "@isbatak/panda-theme-analog",
+  preflight: true,
+  include: ["./src/**/*.{ts,tsx}"],
 })
 ```
 
+Styles are imported from the package itself, like any Panda design system:
+
 ```tsx
-<main data-panda-theme="analog" className="dark">
-  …
-</main>
+import { css } from "@isbatak/panda-theme-analog/css"
+import { button } from "@isbatak/panda-theme-analog/recipes"
 ```
 
-## What the preset adds
+## Choosing the neutral and accent
 
-- `themes.analog`: semantic color and shadow overrides, scoped to `[data-panda-theme=analog]`
-- `staticCss.themes`: the variant is always emitted
-- `_analog` condition for theme-specific styles in recipes or `css()`
-- `assets.grain` token pointing at the repeating transparent PNG noise tile (`grainUrl` option, default `/grain.png`)
-- `raised`, `pressed` and `recessed` shadows and layer styles for skeuomorphic surfaces
-- Global styles that put the grain over `bg` on the themed root
+Pick any two palettes from `@isbatak/panda-theme-analog/colors` and add the preset to your own config:
 
-Serve `@isbatak/panda-theme-analog/grain.png` from your app at `grainUrl`, e.g. by copying it into `public/` or from a
-route handler. It is a 512px seamless tile of 2×2 px specks drawn at 256px, so it stays crisp on 1x and 2x screens.
-Regenerate it with `pnpm generate:grain`.
+```ts
+import { analog } from "@isbatak/panda-theme-analog/theme"
+import { orange, sand } from "@isbatak/panda-theme-analog/colors"
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  presets: ["@pandacss/preset-base", analog({ neutral: sand, accent: orange })],
+  preflight: true,
+  include: ["./src/**/*.{ts,tsx}"],
+  outdir: "styled-system",
+})
+```
+
+| Neutral (19 steps, `25` to `950`)                                   | Accent (11 steps, `50` to `950`)                                                      |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `gray`, `sand`, `stone`, `taupe`, `slate`, `olive`, `sage`, `mauve` | `red`, `orange`, `amber`, `yellow`, `green`, `teal`, `cyan`, `blue`, `purple`, `pink` |
+
+A neutral needs the in-between steps (`75`, `150`, `850`, …) the surfaces use, so it is typed `NeutralPalette`. Make
+your own with `neutralPalette(hue, chroma, darkChroma)` or `accentPalette(hue, chroma)`.
+
+## What it inherits and what it changes
+
+Everything comes from `@isbatak/panda-ds` except what lives in `src/`:
+
+- `src/colors.ts`: the palettes above. The theme's only palette tokens are `neutral` and `accent`
+- `src/semantic-tokens`: light and dark values for the grain (`assets.grain`), the elevation colors and shadows, `bg`,
+  `fg`, `border` (including `error`, `warning`, `success` and `info`), and the `neutral` and `accent` color palettes
+  (`colorPalette="accent"`). They replace the DS semantic colors; every value references a palette step
+- `src/recipes`: recipes that replace the DS ones. `button` is a raised hardware key with `shape` (`rounded`, `circle`),
+  `size` (`sm` to `xl`) and `icon`. `alert`, `checkbox`, `checkbox-card`, `checkmark`, `code-block`, `radio-card`,
+  `radio-group`, `radiomark`, `scroll-area`, `select` and `toast` are copies of the DS recipes that name a palette, with
+  `gray`, `green`, `blue` and `teal` changed to `neutral` and `red` and `orange` to `accent`
+- `src/layer-styles.ts`: one grained layer style per elevation level, plus `pressed` and `grain`
+- `src/global-css.ts`: the grain over `bg` on `html`
+
+Foundation tokens (spacing, sizes, radii, fonts, …), all other recipes, conditions, utilities and patterns are the DS
+ones.
+
+## Elevation
+
+Each level has a color (`elevation.<level>`), a shadow (`elevation.<level>`) and a grained layer style
+(`layerStyle: "elevation.<level>"`), in light and dark mode:
+
+| Level      | Use                          |
+| ---------- | ---------------------------- |
+| `sunken`   | wells, inputs                |
+| `base`     | the page (`bg`)              |
+| `raised`   | keys, cards                  |
+| `floating` | popovers, menus (`bg.panel`) |
+| `overlay`  | dialogs, drawers             |
+
+`pressed` is the active state of a raised key.
+
+## Light and dark mode
+
+Light mode is a warm off-white, dark mode is charcoal. Dark mode follows the DS `.dark` class. The grain has a tile per
+mode, because the same speck needs a different opacity on a light and a dark surface to read the same.
+
+Both tiles are 384px seamless palette PNGs of 2×2 px specks drawn at 192px, about 25 KB each (66 KB of base64 together),
+inlined as data URIs in `--assets-grain`. Regenerate `src/grain.ts` with `pnpm generate:grain`.
+
+## Studio
+
+From the repo root, `pnpm studio:analog` opens Panda Studio on this design system.

@@ -1,11 +1,12 @@
 import { writeFileSync } from "node:fs"
 import { deflateSync } from "node:zlib"
 
-const size = 256
+const size = Number(process.env.GRAIN_SIZE ?? 192)
 const scale = 2
 const sigma = 6
 const limit = 18
-const base = 43
+const step = 2
+const bases = { dark: 43, light: 231 }
 const output = size * scale
 
 let seed = 0x2f6b4c1d
@@ -18,12 +19,21 @@ const random = () => {
 
 const gaussian = () => Math.sqrt(-2 * Math.log(1 - random())) * Math.cos(2 * Math.PI * random())
 
-const grain = Array.from({ length: size * size }, () =>
-  Math.max(-limit, Math.min(limit, Math.round(gaussian() * sigma))),
+const levels = limit / step
+const deltas = Array.from({ length: levels * 2 + 1 }, (_, index) => (index - levels) * step)
+
+const grain = Array.from(
+  { length: size * size },
+  () => Math.max(-levels, Math.min(levels, Math.round((gaussian() * sigma) / step))) + levels,
 )
 
-const toPixel = (delta) =>
-  delta >= 0 ? [255, Math.round((delta * 255) / (255 - base))] : [0, Math.round((-delta * 255) / base)]
+const palette = Buffer.from(deltas.flatMap((delta) => (delta >= 0 ? [255, 255, 255] : [0, 0, 0])))
+const transparency = (base) =>
+  Buffer.from(
+    deltas.map((delta) =>
+      Math.min(255, delta >= 0 ? Math.round((delta * 255) / (255 - base)) : Math.round((-delta * 255) / base)),
+    ),
+  )
 
 const crcTable = Array.from({ length: 256 }, (_, n) => {
   let c = n
@@ -50,9 +60,9 @@ const header = Buffer.alloc(13)
 header.writeUInt32BE(output, 0)
 header.writeUInt32BE(output, 4)
 header[8] = 8
-header[9] = 4
+header[9] = 3
 
-const stride = 1 + output * 2
+const stride = 1 + output
 const rows = Buffer.alloc(output * stride)
 for (let y = 0; y < output; y++) {
   const row = y * stride
@@ -61,19 +71,29 @@ for (let y = 0; y < output; y++) {
     continue
   }
   for (let x = 0; x < output; x++) {
-    const pixel = row + 1 + x * 2
-    const [luminance, alpha] = toPixel(grain[(y / scale) * size + Math.floor(x / scale)])
-    rows[pixel] = luminance
-    rows[pixel + 1] = alpha
+    rows[row + 1 + x] = grain[(y / scale) * size + Math.floor(x / scale)]
   }
 }
 
-const png = Buffer.concat([
-  Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
-  chunk("IHDR", header),
-  chunk("IDAT", deflateSync(rows, { level: 9 })),
-  chunk("IEND", Buffer.alloc(0)),
-])
+const pixels = deflateSync(rows, { level: 9 })
 
-writeFileSync(new URL("../assets/grain.png", import.meta.url), png)
-console.log(`grain.png ${png.length} bytes`)
+const png = (base) =>
+  Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    chunk("IHDR", header),
+    chunk("PLTE", palette),
+    chunk("tRNS", transparency(base)),
+    chunk("IDAT", pixels),
+    chunk("IEND", Buffer.alloc(0)),
+  ])
+
+const tiles = Object.entries(bases).map(([mode, base]) => [mode, png(base)])
+
+writeFileSync(
+  new URL("../src/grain.ts", import.meta.url),
+  `${tiles.map(([mode, tile]) => `export const grain${mode[0].toUpperCase()}${mode.slice(1)} = "data:image/png;base64,${tile.toString("base64")}"`).join("\n")}\n`,
+)
+console.log(
+  tiles.map(([mode, tile]) => `${mode} ${tile.length} bytes`).join(", "),
+  `for a ${size}px tile drawn at ${size}px`,
+)
