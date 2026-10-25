@@ -1,9 +1,9 @@
+import { Wordmark } from "@isbatak/react-ui/wordmark"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { LayoutContainer } from "./layout-container"
 import { REPO_URL, SPONSOR_URL } from "./site-links"
-import { Wordmark } from "./wordmark"
 
 const FooterLink = styled(Link, {
   base: {
