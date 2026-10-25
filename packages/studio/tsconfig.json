@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "tests", "styled-system", "vitest.config.mts", "panda.config.ts"],
+  "include": ["src", "tests", "styled-system", "vitest.config.mts", "panda.config.ts", "cli"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "declaration": false,

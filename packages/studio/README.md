@@ -59,10 +59,15 @@ system. The website serves static builds of both, at `/studio` and `/studio/anal
   `colorPicker` recipe). **Tokens** links to a palette or semantic token; **Custom** picks a raw color with an area, eye
   dropper, hue/alpha sliders and RGBA/HSLA/HSBA inputs. The Light and Dark rows are the colors the page palette uses;
   Recent keeps your last custom colors.
+- **Effects**: every shadow token, per light and dark mode, in the inspector's Effects tab, so you can edit them while a
+  component is on the canvas. Opening one shows a live preview and its layers (show, hide, add, remove); a layer has
+  drop or inner type, X, Y, blur, spread, color and opacity. Drag a field's label to scrub its value (⇧ for steps of
+  10).
 - **Lint**: WCAG contrast of the semantic color pairs, measured on the canvas with your edits applied.
 - **Themes**: edits are saved per theme in the browser, with undo/redo (⌘Z / ⇧⌘Z). **Share** copies a link that opens
-  the theme; **Save to repo** (dev only) writes `.panda-studio/themes/<name>.json` and `<name>.preset.ts` in the
-  project.
+  the theme; **Save to source** (dev only) writes the edits into the theme's own files: the file that defines each token
+  or recipe, in the project first and then its design system. Values that aren't literals in the source (spreads,
+  generated palettes) are kept in the studio and reported.
 - **Get code**: exports the theme as a Panda preset, CSS, or studio JSON.
 
 ## How it works

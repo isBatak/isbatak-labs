@@ -6,7 +6,7 @@ import { searchForWorkspaceRoot } from "vite"
 
 import { studioRoot } from "./project.mjs"
 import { staticDirs } from "./static-dirs.mjs"
-import { studioThemes } from "./studio-themes.mjs"
+import { studioSource } from "./source-writer.mjs"
 
 const projectModule = "virtual:panda-studio/project"
 
@@ -94,7 +94,7 @@ export function createViteConfigs({
       inspector(),
       studioProject(project),
       designSystemRedirect(project.shell.redirect),
-      studioThemes({ dir: join(project.cwd, ".panda-studio/themes") }),
+      studioSource({ projectRoot: project.cwd, designSystem: project.designSystem, configPath: project.configPath }),
       staticDirs(mappings),
     ],
     server: { port, fs: { allow } },

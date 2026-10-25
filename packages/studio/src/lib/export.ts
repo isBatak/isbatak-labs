@@ -1,4 +1,4 @@
-import { type StudioDoc, listRules } from "./doc"
+import { type ColorMode, type StudioDoc, listRules, ruleKey } from "./doc"
 import { getToken, recipeStyles, recipes, styleKey } from "./theme-meta"
 
 /**
@@ -51,6 +51,66 @@ export function toPresetObject(doc: StudioDoc) {
   }
 
   return extend
+}
+
+export type SourceEdit =
+  | { key: string; type: "token"; category: string; path: string[]; value: string }
+  | { key: string; type: "semantic"; category: string; path: string[]; mode: ColorMode; value: string }
+  | { key: string; type: "recipe"; className: string; path: string[]; value: string }
+
+export function toSourceEdits(doc: StudioDoc): SourceEdit[] {
+  const edits: SourceEdit[] = []
+
+  for (const [key, value] of Object.entries(doc.tokens)) {
+    const [category, ...path] = tokenPath(key)
+    edits.push({ key, type: "token", category: category!, path: [...path, "value"], value })
+  }
+
+  for (const [key, modes] of Object.entries(doc.semanticTokens)) {
+    const [category, ...path] = tokenPath(key)
+    for (const [mode, value] of Object.entries(modes) as Array<[ColorMode, string]>) {
+      edits.push({
+        key: `${key}:${mode}`,
+        type: "semantic",
+        category: category!,
+        path: [...path, "value"],
+        mode,
+        value,
+      })
+    }
+  }
+
+  for (const rule of listRules(doc)) {
+    const recipe = recipes[rule.recipe]
+    if (!recipe) continue
+    const scopePath = rule.scope === "base" ? ["base"] : ["variants", ...rule.scope.split(":")]
+    const path = [...scopePath, ...(rule.slot ? [rule.slot] : [])]
+    if (rule.state) path.push(`_${rule.state}`)
+    path.push(styleKey(recipeStyles(recipe, rule.scope, rule.slot), rule.property, rule.state))
+    edits.push({
+      key: ruleKey(rule, rule.property),
+      type: "recipe",
+      className: recipe.className,
+      path,
+      value: rule.value,
+    })
+  }
+
+  return edits
+}
+
+export function withoutSourceEdits(doc: StudioDoc, keys: Set<string>): StudioDoc {
+  const semanticTokens: StudioDoc["semanticTokens"] = {}
+  for (const [key, modes] of Object.entries(doc.semanticTokens)) {
+    const kept = Object.fromEntries(Object.entries(modes).filter(([mode]) => !keys.has(`${key}:${mode}`)))
+    if (Object.keys(kept).length) semanticTokens[key] = kept
+  }
+  return {
+    ...doc,
+    tokens: Object.fromEntries(Object.entries(doc.tokens).filter(([key]) => !keys.has(key))),
+    semanticTokens,
+    rules: Object.fromEntries(Object.entries(doc.rules).filter(([key]) => !keys.has(key))),
+  }
 }
 
 export function toPresetSource(doc: StudioDoc, name = "panda-studio") {
