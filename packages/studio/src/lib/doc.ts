@@ -13,9 +13,10 @@ export interface StudioDoc {
   semanticTokens: Record<string, Partial<Record<ColorMode, string>>>
   /** Recipe overrides keyed by {@link ruleKey} */
   rules: Record<string, string>
+  presets?: Record<string, Record<string, number>>
 }
 
-export const emptyDoc = (): StudioDoc => ({ version: 1, tokens: {}, semanticTokens: {}, rules: {} })
+export const emptyDoc = (): StudioDoc => ({ version: 1, tokens: {}, semanticTokens: {}, rules: {}, presets: {} })
 
 export interface RuleTarget {
   recipe: string
@@ -54,7 +55,12 @@ export function listRules(doc: StudioDoc, filter?: Partial<RuleTarget>) {
 }
 
 export function countOverrides(doc: StudioDoc) {
-  return Object.keys(doc.tokens).length + Object.keys(doc.semanticTokens).length + Object.keys(doc.rules).length
+  return (
+    Object.keys(doc.tokens).length +
+    Object.keys(doc.semanticTokens).length +
+    Object.keys(doc.rules).length +
+    Object.values(doc.presets ?? {}).reduce((total, options) => total + Object.keys(options).length, 0)
+  )
 }
 
 export function isStudioDoc(value: unknown): value is StudioDoc {
@@ -95,6 +101,15 @@ export function setSemanticToken(doc: StudioDoc, key: string, mode: ColorMode, v
 
 export function setRule(doc: StudioDoc, target: RuleTarget, property: string, value: string | undefined): StudioDoc {
   return { ...doc, rules: withEntry(doc.rules, ruleKey(target, property), value?.trim() || undefined) }
+}
+
+export function setPresetOption(doc: StudioDoc, pkg: string, path: string, value: number | undefined): StudioDoc {
+  const options = withEntry(doc.presets?.[pkg] ?? {}, path, value)
+  return { ...doc, presets: withEntry(doc.presets ?? {}, pkg, Object.keys(options).length ? options : undefined) }
+}
+
+export function clearPresetOptions(doc: StudioDoc, pkg: string): StudioDoc {
+  return { ...doc, presets: withEntry(doc.presets ?? {}, pkg, undefined) }
 }
 
 export function clearRules(doc: StudioDoc, filter: Partial<RuleTarget>): StudioDoc {

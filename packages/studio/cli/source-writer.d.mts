@@ -14,4 +14,8 @@ export interface SourceWriteResult {
 
 export function writeEditsToSource(options: SourceWriterOptions & { edits: unknown[] }): SourceWriteResult
 
+export function readPresetOptions(
+  options: SourceWriterOptions & { packageName: string },
+): { file: string; options: Record<string, number> } | undefined
+
 export function studioSource(options: SourceWriterOptions): Plugin

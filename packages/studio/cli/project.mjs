@@ -92,7 +92,32 @@ export async function prepareProject({ cwd: invocationDir, config }) {
     designSystem,
     themeVariants: Object.keys(resolved.themes ?? {}),
     projectName: projectPackage.name ?? "project",
+    presetControls: discoverPresetControls([cwd, designSystemRoot(designSystem, configPath)]),
   }
+}
+
+function designSystemRoot(designSystem, configPath) {
+  try {
+    return dirname(createRequire(configPath).resolve(`${designSystem}/package.json`))
+  } catch {
+    return undefined
+  }
+}
+
+function discoverPresetControls(dirs) {
+  const found = new Map()
+  for (const dir of dirs.filter(Boolean)) {
+    const pkg = readNearestPackage(dir)
+    const resolveFrom = createRequire(join(dir, "package.json"))
+    const names = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies, ...pkg.peerDependencies })
+    for (const name of names) {
+      if (found.has(name)) continue
+      try {
+        found.set(name, resolveFrom.resolve(`${name}/studio`))
+      } catch {}
+    }
+  }
+  return [...found].map(([name, module]) => ({ package: name, module }))
 }
 
 function designSystemRedirect(designSystem, configPath, entries) {

@@ -7,8 +7,8 @@ import { useState } from "react"
 import { styled } from "styled-system/jsx"
 import { designSystem } from "virtual:panda-studio/project"
 
-import { generateCss } from "../lib/css"
 import { toPresetSource } from "../lib/export"
+import { studioCss, withPresetTokens } from "../lib/presets"
 import { codeBlock } from "./inspector"
 import { Muted, Toggle, ToggleItem } from "./ui"
 import type { Studio } from "./use-studio"
@@ -41,9 +41,9 @@ export function GetCodeDialog(props: { studio: Studio }) {
 
   const code =
     format === "preset"
-      ? toPresetSource(doc, themeName)
+      ? toPresetSource(withPresetTokens(doc), themeName)
       : format === "css"
-        ? generateCss(doc) || "/* No edits yet */\n"
+        ? studioCss(doc) || "/* No edits yet */\n"
         : `${JSON.stringify(doc, null, 2)}\n`
   const filename =
     format === "preset" ? `${themeName}.preset.ts` : format === "css" ? `${themeName}.css` : `${themeName}.json`

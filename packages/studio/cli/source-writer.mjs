@@ -80,10 +80,17 @@ function lineIndent(code, position) {
 
 function insertProperty(code, magic, object, path, value) {
   const [key, ...rest] = path
-  const text = `${quoteKey(key)}: ${literal(rest, value)}`
+  insertText(code, magic, object, `${quoteKey(key)}: ${literal(rest, value)}`)
+}
+
+function insertText(code, magic, object, text) {
   const last = object.properties.at(-1)
   if (!last) {
     magic.appendLeft(object.start + 1, ` ${text} `)
+    return
+  }
+  if (!code.slice(object.start, object.end).includes("\n")) {
+    magic.appendLeft(last.end, `, ${text}`)
     return
   }
   const indent = lineIndent(code, last.start)
@@ -104,7 +111,115 @@ function locate(object, path) {
   return {}
 }
 
+const numberValue = (node) => {
+  if (node.type === "Literal" && typeof node.value === "number") return node.value
+  if (node.type === "UnaryExpression" && node.operator === "-") {
+    const value = numberValue(node.argument)
+    return value === undefined ? undefined : -value
+  }
+  return undefined
+}
+
+function presetCall(program, packageName) {
+  const locals = new Set()
+  for (const node of program.body) {
+    if (node.type !== "ImportDeclaration" || node.source.value !== packageName) continue
+    for (const specifier of node.specifiers) {
+      if (specifier.type === "ImportSpecifier") locals.add(specifier.local.name)
+    }
+  }
+  let found
+  walk(program, (node) => {
+    if (found || node.type !== "CallExpression" || node.callee.type !== "Identifier") return
+    if (!locals.has(node.callee.name)) return
+    const [argument] = node.arguments
+    if (!argument || argument.type === "ObjectExpression") found = node
+  })
+  return found
+}
+
+function literalOptions(object, path = [], out = {}) {
+  for (const property of object.properties) {
+    if (property.type !== "Property" || property.computed) continue
+    const key = keyName(property.key)
+    if (key === null) continue
+    if (property.value.type === "ObjectExpression") literalOptions(property.value, [...path, key], out)
+    const value = numberValue(property.value)
+    if (value !== undefined) out[[...path, key].join(".")] = value
+  }
+  return out
+}
+
+function nestOptions(options) {
+  const out = {}
+  for (const [path, value] of Object.entries(options)) {
+    const segments = path.split(".")
+    let node = out
+    for (const segment of segments.slice(0, -1)) node = node[segment] ??= {}
+    node[segments.at(-1)] = value
+  }
+  return out
+}
+
+const objectText = (value) =>
+  typeof value === "object"
+    ? `{ ${Object.entries(value)
+        .map(([key, child]) => `${quoteKey(key)}: ${objectText(child)}`)
+        .join(", ")} }`
+    : JSON.stringify(value)
+
+function writeOptions(code, magic, object, values, dryRun) {
+  for (const [key, value] of Object.entries(values)) {
+    const property = findProperty(object, key)
+    if (!property) {
+      if (!dryRun) insertText(code, magic, object, `${quoteKey(key)}: ${objectText(value)}`)
+      continue
+    }
+    if (typeof value === "object") {
+      if (property.value.type !== "ObjectExpression") return false
+      if (!writeOptions(code, magic, property.value, value, dryRun)) return false
+      continue
+    }
+    if (numberValue(property.value) === undefined) return false
+    if (!dryRun) magic.overwrite(property.value.start, property.value.end, JSON.stringify(value))
+  }
+  return true
+}
+
+function applyPresetEdit(file, edit) {
+  const call = presetCall(file.program, edit.package)
+  if (!call) return undefined
+  const values = nestOptions(edit.options)
+  const [argument] = call.arguments
+  if (!argument) {
+    file.magic.appendLeft(call.end - 1, objectText(values))
+    return { ok: true }
+  }
+  if (!writeOptions(file.code, file.magic, argument, values, true)) return { ok: false, reason: "computed value" }
+  writeOptions(file.code, file.magic, argument, values, false)
+  return { ok: true }
+}
+
+function sourcePaths({ projectRoot, designSystem, configPath }) {
+  const roots = [projectRoot, designSystemSources(designSystem, configPath)].filter(Boolean)
+  return [...new Set(roots.flatMap((root) => sourceFiles(root)))]
+}
+
+export function readPresetOptions({ packageName, ...options }) {
+  for (const path of sourcePaths(options)) {
+    const code = readFileSync(path, "utf8")
+    if (!code.includes(packageName)) continue
+    const { program } = parseSync(path, code, { sourceType: "module" })
+    const call = presetCall(program, packageName)
+    if (!call) continue
+    const [argument] = call.arguments
+    return { file: path, options: argument ? literalOptions(argument) : {} }
+  }
+  return undefined
+}
+
 function applyEdit(file, edit) {
+  if (edit.type === "preset") return applyPresetEdit(file, edit)
   const { code, calls, magic } = file
   const candidates = calls.filter((call) => {
     if (edit.type === "recipe") {
@@ -158,16 +273,18 @@ function applyEdit(file, edit) {
 }
 
 export function writeEditsToSource({ edits, projectRoot, designSystem, configPath }) {
-  const roots = [projectRoot, designSystemSources(designSystem, configPath)].filter(Boolean)
-  const paths = [...new Set(roots.flatMap((root) => sourceFiles(root)))]
+  const paths = sourcePaths({ projectRoot, designSystem, configPath })
+  const presetPackages = edits.filter((edit) => edit.type === "preset").map((edit) => edit.package)
   const files = new Map()
   const load = (path) => {
     if (!files.has(path)) {
       const code = readFileSync(path, "utf8")
-      if (!/define(Semantic)?Tokens|define(Slot)?Recipe/.test(code)) files.set(path, null)
+      const relevant =
+        /define(Semantic)?Tokens|define(Slot)?Recipe/.test(code) || presetPackages.some((pkg) => code.includes(pkg))
+      if (!relevant) files.set(path, null)
       else {
         const { program } = parseSync(path, code, { sourceType: "module" })
-        files.set(path, { path, code, calls: definitionCalls(program), magic: new MagicString(code) })
+        files.set(path, { path, code, program, calls: definitionCalls(program), magic: new MagicString(code) })
       }
     }
     return files.get(path)

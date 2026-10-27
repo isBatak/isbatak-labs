@@ -59,16 +59,41 @@ system. The website serves static builds of both, at `/studio` and `/studio/anal
   `colorPicker` recipe). **Tokens** links to a palette or semantic token; **Custom** picks a raw color with an area, eye
   dropper, hue/alpha sliders and RGBA/HSLA/HSBA inputs. The Light and Dark rows are the colors the page palette uses;
   Recent keeps your last custom colors.
-- **Effects**: every shadow token, per light and dark mode, in the inspector's Effects tab, so you can edit them while a
-  component is on the canvas. Opening one shows a live preview and its layers (show, hide, add, remove); a layer has
-  drop or inner type, X, Y, blur, spread, color and opacity. Drag a field's label to scrub its value (⇧ for steps of
+- **Shadows**: every shadow token, per condition (`base`, `_dark`), in the inspector's Shadows tab, so you can edit them
+  while a component is on the canvas. Opening one shows a live preview and its layers (show, hide, add, remove); a layer
+  has drop or inner type, X, Y, blur, spread, color and opacity. Drag a field's label to scrub its value (⇧ for steps of
   10).
+- **Layer styles**: the theme's `layerStyles` in the inspector's Layer styles tab. Opening one shows its styles. A layer
+  style that comes from a preset with a `./studio` entry (like `grain` from `@isbatak/panda-grain-preset`) also gets a
+  live preview and the preset's options, per condition. The edits are applied through the preset's own theme function,
+  and **Save to source** writes them into the preset's call (`grainTheme({ frequency: 0.6 })`).
 - **Lint**: WCAG contrast of the semantic color pairs, measured on the canvas with your edits applied.
 - **Themes**: edits are saved per theme in the browser, with undo/redo (⌘Z / ⇧⌘Z). **Share** copies a link that opens
   the theme; **Save to source** (dev only) writes the edits into the theme's own files: the file that defines each token
   or recipe, in the project first and then its design system. Values that aren't literals in the source (spreads,
   generated palettes) are kept in the studio and reported.
 - **Get code**: exports the theme as a Panda preset, CSS, or studio JSON.
+
+## Preset options
+
+A preset package can describe its options to the studio with a `./studio` export. The CLI looks for one in every
+dependency of the project and its design system:
+
+```ts
+export default {
+  layerStyles: ["grain"],
+  defaults: grainDefaults,
+  theme: grainTheme,
+  options: [
+    { path: "frequency", min: 0.2, max: 2, step: 0.05 },
+    { path: "dark.black", condition: "_dark", min: 0, max: 3, step: 0.05 },
+  ],
+}
+```
+
+`theme` turns the options into the `tokens` and `semanticTokens` the preset adds. The studio reads the current options
+from the first call of a function imported from the package (`grainTheme()` or `grainPreset()`), and only numeric
+literals are edited there.
 
 ## How it works
 

@@ -57,6 +57,9 @@ export type SourceEdit =
   | { key: string; type: "token"; category: string; path: string[]; value: string }
   | { key: string; type: "semantic"; category: string; path: string[]; mode: ColorMode; value: string }
   | { key: string; type: "recipe"; className: string; path: string[]; value: string }
+  | { key: string; type: "preset"; package: string; options: Record<string, number> }
+
+export const presetEditKey = (pkg: string) => `preset:${pkg}`
 
 export function toSourceEdits(doc: StudioDoc): SourceEdit[] {
   const edits: SourceEdit[] = []
@@ -96,6 +99,10 @@ export function toSourceEdits(doc: StudioDoc): SourceEdit[] {
     })
   }
 
+  for (const [pkg, options] of Object.entries(doc.presets ?? {})) {
+    edits.push({ key: presetEditKey(pkg), type: "preset", package: pkg, options })
+  }
+
   return edits
 }
 
@@ -110,6 +117,7 @@ export function withoutSourceEdits(doc: StudioDoc, keys: Set<string>): StudioDoc
     tokens: Object.fromEntries(Object.entries(doc.tokens).filter(([key]) => !keys.has(key))),
     semanticTokens,
     rules: Object.fromEntries(Object.entries(doc.rules).filter(([key]) => !keys.has(key))),
+    presets: Object.fromEntries(Object.entries(doc.presets ?? {}).filter(([pkg]) => !keys.has(presetEditKey(pkg)))),
   }
 }
 

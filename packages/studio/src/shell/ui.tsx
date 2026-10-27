@@ -1,4 +1,13 @@
-import { type ComponentProps, type ReactNode, createContext, use, useCallback, useState } from "react"
+import {
+  type ComponentProps,
+  type PointerEvent as ReactPointerEvent,
+  type ReactNode,
+  createContext,
+  use,
+  useCallback,
+  useEffect,
+  useState,
+} from "react"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 import { input } from "styled-system/recipes"
@@ -182,6 +191,7 @@ const toggleItem = css({
   px: "2.5",
   textStyle: "xs",
   fontWeight: "medium",
+  whiteSpace: "nowrap",
   color: "fg.muted",
   borderRadius: "sm",
   cursor: "pointer",
@@ -312,5 +322,128 @@ export function ResizeHandle(props: {
         event.preventDefault()
       }}
     />
+  )
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * Floating editors
+ * -----------------------------------------------------------------------------------------------*/
+
+export const floating = css({
+  position: "fixed",
+  top: "16",
+  w: "19rem",
+  zIndex: "popover",
+  bg: "bg.panel",
+  borderRadius: "xl",
+  boxShadow: "lg",
+  borderWidth: "1px",
+  borderColor: "border.muted",
+  overflow: "hidden",
+})
+
+export const panelHeader = css({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "2",
+  h: "11",
+  ps: "4",
+  pe: "2",
+  borderBottomWidth: "1px",
+  borderColor: "border.muted",
+  textStyle: "sm",
+  fontWeight: "semibold",
+})
+
+export function useEscape(onClose: () => void) {
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && onClose()
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [onClose])
+}
+
+const numberField = css({
+  display: "flex",
+  alignItems: "center",
+  gap: "1.5",
+  minW: "0",
+  "& > span": {
+    flexShrink: "0",
+    minW: "4",
+    textStyle: "xs",
+    color: "fg.muted",
+    cursor: "ew-resize",
+    userSelect: "none",
+    touchAction: "none",
+  },
+})
+
+const decimalsOf = (value: number) => String(value).split(".")[1]?.length ?? 0
+
+export function NumberField(props: {
+  label: string
+  value: number
+  min?: number
+  max?: number
+  suffix?: string
+  step?: number
+  handle?: string
+  onChange: (value: number) => void
+}) {
+  const [draft, setDraft] = useState(String(props.value))
+  useEffect(() => setDraft(String(props.value)), [props.value])
+  const step = props.step ?? 1
+  const decimals = Math.max(decimalsOf(step), decimalsOf(props.value))
+  const clamp = (value: number) => Math.min(props.max ?? Infinity, Math.max(props.min ?? -Infinity, value))
+  const snap = (value: number) => Number(clamp(value).toFixed(decimals))
+
+  const scrub = (event: ReactPointerEvent<HTMLSpanElement>) => {
+    const startX = event.clientX
+    const start = props.value
+    const target = event.currentTarget
+    target.setPointerCapture(event.pointerId)
+    const move = (moveEvent: PointerEvent) => {
+      const factor = moveEvent.shiftKey ? 10 : 1
+      props.onChange(snap(start + Math.round((moveEvent.clientX - startX) / 2) * step * factor))
+    }
+    const up = () => {
+      target.removeEventListener("pointermove", move)
+      target.removeEventListener("pointerup", up)
+    }
+    target.addEventListener("pointermove", move)
+    target.addEventListener("pointerup", up)
+  }
+
+  return (
+    <label className={cx(numberField)}>
+      <span onPointerDown={scrub}>{props.handle ?? (props.suffix ? "" : props.label)}</span>
+      <TextInput
+        aria-label={props.label}
+        inputMode="decimal"
+        value={draft}
+        onChange={(event) => {
+          setDraft(event.target.value)
+          const parsed = Number.parseFloat(event.target.value)
+          if (!Number.isNaN(parsed)) props.onChange(clamp(parsed))
+        }}
+        onKeyDown={(event) => {
+          if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return
+          event.preventDefault()
+          const direction = event.key === "ArrowUp" ? 1 : -1
+          props.onChange(snap(props.value + direction * step * (event.shiftKey ? 10 : 1)))
+        }}
+      />
+      {props.suffix && <span>{props.suffix}</span>}
+    </label>
+  )
+}
+
+export function CloseIcon() {
+  return (
+    <Icon>
+      <path d="M18 6 6 18M6 6l12 12" />
+    </Icon>
   )
 }
