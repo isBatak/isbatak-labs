@@ -1,16 +1,18 @@
 import { conditions, theme as dsTheme, patterns, utilities } from "@isbatak/panda-ds/theme"
+import { grainTheme } from "@isbatak/panda-grain-preset"
 import { definePreset, defineThemeVariant } from "@pandacss/dev"
 
 import { gray, red } from "./colors"
 import { globalCss } from "./global-css"
 import { layerStyles } from "./layer-styles"
 import { recipes, slotRecipes } from "./recipes"
-import { assets } from "./semantic-tokens/assets"
 import { colors as semanticColors } from "./semantic-tokens/colors"
 import { shadows } from "./semantic-tokens/shadows"
-import { type ColorOptions, createColors, tokenAdditions } from "./tokens"
+import { type ColorOptions, createColors } from "./tokens"
 
 export type AnalogOptions = Partial<ColorOptions>
+
+const grain = grainTheme()
 
 export const createAnalogTheme = ({ neutral = gray, accent = red }: AnalogOptions = {}) =>
   defineThemeVariant({
@@ -21,9 +23,9 @@ export const createAnalogTheme = ({ neutral = gray, accent = red }: AnalogOption
     slotRecipes,
     extend: {
       ...dsTheme.extend,
-      tokens: tokenAdditions,
-      semanticTokens: { assets, shadows },
-      layerStyles,
+      tokens: grain.tokens,
+      semanticTokens: { ...grain.semanticTokens, shadows },
+      layerStyles: { ...grain.layerStyles, ...layerStyles },
     },
   })
 
@@ -41,4 +43,3 @@ export const theme = createAnalogTheme()
 
 export { conditions, patterns, utilities }
 export { globalCss }
-export { grainDark, grainLight } from "./grain"

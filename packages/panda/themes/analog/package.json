@@ -81,7 +81,6 @@
     }
   },
   "scripts": {
-    "generate:grain": "node scripts/generate-grain.mjs",
     "codegen": "panda codegen",
     "build": "panda codegen && panda lib -o dist && tsup",
     "typecheck": "panda codegen && panda lib -o dist && tsc --noEmit"
@@ -149,7 +148,8 @@
     }
   },
   "dependencies": {
-    "@isbatak/panda-ds": "workspace:*"
+    "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/panda-grain-preset": "workspace:*"
   },
   "peerDependencies": {
     "@pandacss/dev": ">=2.2.0",
