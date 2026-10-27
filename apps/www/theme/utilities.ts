@@ -1,4 +1,4 @@
-import { concentricUtilities } from "@isbatak/panda-concentric"
+import { concentricUtilities } from "@isbatak/panda-concentric-preset"
 import type { PropertyConfig, UtilityConfig } from "@pandacss/types"
 
 const isRound = (value: unknown, raw: unknown) => raw === "full" || /%|9999|radii-full|infinity/.test(String(value))

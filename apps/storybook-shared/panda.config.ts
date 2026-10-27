@@ -1,4 +1,4 @@
-import { concentricPreset } from "@isbatak/panda-concentric"
+import { concentricPreset } from "@isbatak/panda-concentric-preset"
 import { masonryPreset } from "@isbatak/panda-masonry"
 import { swipeableListPreset } from "@isbatak/panda-swipeable-list"
 import { textFlipPreset } from "@isbatak/panda-text-flip"

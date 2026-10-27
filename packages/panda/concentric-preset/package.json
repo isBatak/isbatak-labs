@@ -1,5 +1,5 @@
 {
-  "name": "@isbatak/panda-concentric",
+  "name": "@isbatak/panda-concentric-preset",
   "version": "0.0.0",
   "description": "Panda CSS preset for concentric border radii",
   "keywords": [
@@ -11,11 +11,11 @@
   ],
   "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/panda/concentric#readme",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/panda/concentric-preset#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/isBatak/isbatak-labs.git",
-    "directory": "packages/panda/concentric"
+    "directory": "packages/panda/concentric-preset"
   },
   "bugs": {
     "url": "https://github.com/isBatak/isbatak-labs/issues"
