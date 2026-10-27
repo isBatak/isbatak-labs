@@ -54,9 +54,9 @@ your own with `neutralPalette(hue, chroma, darkChroma)` or `accentPalette(hue, c
 Everything comes from `@isbatak/panda-ds` except what lives in `src/`:
 
 - `src/colors.ts`: the palettes above. The theme's only palette tokens are `neutral` and `accent`
-- `src/semantic-tokens`: light and dark values for the grain (`assets.grain`), the elevation colors and shadows, `bg`,
-  `fg`, `border` (including `error`, `warning`, `success` and `info`), and the `neutral` and `accent` color palettes
-  (`colorPalette="accent"`). They replace the DS semantic colors; every value references a palette step
+- `src/semantic-tokens`: light and dark values for the elevation colors and shadows, `bg`, `fg`, `border` (including
+  `error`, `warning`, `success` and `info`), and the `neutral` and `accent` color palettes (`colorPalette="accent"`).
+  They replace the DS semantic colors; every value references a palette step
 - `src/recipes`: recipes that replace the DS ones. `button` is a raised hardware key with `shape` (`rounded`, `circle`),
   `size` (`sm` to `xl`) and `icon`. `alert`, `checkbox`, `checkbox-card`, `checkmark`, `code-block`, `radio-card`,
   `radio-group`, `radiomark`, `scroll-area`, `select` and `toast` are copies of the DS recipes that name a palette, with
@@ -87,8 +87,8 @@ Each level has a color (`elevation.<level>`), a shadow (`elevation.<level>`) and
 Light mode is a warm off-white, dark mode is charcoal. Dark mode follows the DS `.dark` class. The grain has a tile per
 mode, because the same speck needs a different opacity on a light and a dark surface to read the same.
 
-Both tiles are 384px seamless palette PNGs of 2×2 px specks drawn at 192px, about 25 KB each (66 KB of base64 together),
-inlined as data URIs in `--assets-grain`. Regenerate `src/grain.ts` with `pnpm generate:grain`.
+The grain tokens (`assets.grain`, `sizes.grain` and the `grain` layer style) come from
+[`@isbatak/panda-grain-preset`](../../grain-preset).
 
 ## Studio
 

@@ -11,13 +11,6 @@ const grained = (level: string) => ({
 })
 
 export const layerStyles = defineLayerStyles({
-  grain: {
-    value: {
-      backgroundImage: "{assets.grain}",
-      backgroundRepeat: "repeat",
-      backgroundSize: "{sizes.grain}",
-    },
-  },
   "elevation.sunken": {
     value: {
       backgroundColor: "elevation.sunken",
