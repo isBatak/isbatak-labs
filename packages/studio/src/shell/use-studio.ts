@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react"
 
 import { components } from "../components"
-import { generateCss } from "../lib/css"
 import { type ColorMode, type StudioDoc, emptyDoc, isStudioDoc } from "../lib/doc"
 import { toSourceEdits, withoutSourceEdits } from "../lib/export"
 import type { ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
+import { studioCss } from "../lib/presets"
 import { recipes } from "../lib/theme-meta"
 
 const STORAGE_KEY = "panda-studio:themes"
@@ -287,7 +287,7 @@ export function useStudio() {
     return () => window.removeEventListener("hashchange", onHashChange)
   }, [])
 
-  const css = useMemo(() => generateCss(state.doc), [state.doc])
+  const css = useMemo(() => studioCss(state.doc), [state.doc])
 
   const edit = useCallback(
     (update: (doc: StudioDoc) => StudioDoc, key?: string) => dispatch({ type: "edit", update, key }),

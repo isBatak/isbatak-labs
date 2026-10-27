@@ -2,7 +2,7 @@ import { mkdtempSync, readFileSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 
-import { writeEditsToSource } from "../cli/source-writer.mjs"
+import { readPresetOptions, writeEditsToSource } from "../cli/source-writer.mjs"
 
 function project() {
   const root = mkdtempSync(join(tmpdir(), "studio-source-"))
@@ -85,5 +85,52 @@ describe("source writer", () => {
     },
     _hover: { opacity: "0.9" },`)
     expect(result.skipped).toEqual([{ key: "size", reason: "computed value" }])
+  })
+
+  test("reads preset options from the call and writes edited ones back", () => {
+    const root = project()
+    const options = { projectRoot: root, designSystem: "none", configPath: join(root, "panda.config.ts") }
+    writeFileSync(
+      join(root, "theme.ts"),
+      `import { grainTheme } from "grain"
+
+const strength = 1
+
+export const grain = grainTheme({
+  frequency: 0.6,
+  light: { white: 2 },
+  dark: { white: strength },
+})
+`,
+    )
+    expect(readPresetOptions({ ...options, packageName: "grain" })).toEqual({
+      file: join(root, "theme.ts"),
+      options: { frequency: 0.6, "light.white": 2 },
+    })
+
+    const result = run(root, [
+      {
+        key: "preset:grain",
+        type: "preset",
+        package: "grain",
+        options: { frequency: 1, "light.white": 2.5, "light.black": 0.3, size: 256 },
+      },
+      { key: "computed", type: "preset", package: "grain", options: { "dark.white": 0.5 } },
+    ])
+    const code = readFileSync(join(root, "theme.ts"), "utf8")
+    expect(code).toContain(`grainTheme({
+  frequency: 1,
+  light: { white: 2.5, black: 0.3 },
+  dark: { white: strength },
+  size: 256,
+})`)
+    expect(result.skipped).toEqual([{ key: "computed", reason: "computed value" }])
+  })
+
+  test("adds options to a preset call without arguments", () => {
+    const root = project()
+    writeFileSync(join(root, "theme.ts"), `import { grainTheme } from "grain"\n\nexport const grain = grainTheme()\n`)
+    run(root, [{ key: "preset:grain", type: "preset", package: "grain", options: { "dark.black": 1.4 } }])
+    expect(readFileSync(join(root, "theme.ts"), "utf8")).toContain(`grainTheme({ dark: { black: 1.4 } })`)
   })
 })

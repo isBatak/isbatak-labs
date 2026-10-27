@@ -1,5 +1,5 @@
-import { type PointerEvent, useEffect, useState } from "react"
-import { css, cx } from "styled-system/css"
+import { useState } from "react"
+import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { type ColorMode, setSemanticToken, setToken } from "../lib/doc"
@@ -13,7 +13,19 @@ import {
 } from "../lib/shadow"
 import { type TokenEntry, listTokens } from "../lib/theme-meta"
 import { ColorPill, ColorTokenPicker } from "./color-token-picker"
-import { Icon, IconButton, Muted, NativeSelect, PanelSection, TextInput } from "./ui"
+import {
+  CloseIcon,
+  Icon,
+  IconButton,
+  Muted,
+  NativeSelect,
+  NumberField,
+  PanelSection,
+  TextInput,
+  floating,
+  panelHeader,
+  useEscape,
+} from "./ui"
 import type { Studio } from "./use-studio"
 
 interface EditingTarget {
@@ -26,7 +38,7 @@ const modesOf = (entry: TokenEntry): ColorMode[] =>
 
 const keyOf = (entry: TokenEntry) => `shadows.${entry.name}`
 
-export function EffectsPanel(props: { studio: Studio }) {
+export function ShadowsPanel(props: { studio: Studio }) {
   const shadows = listTokens("shadows").filter(
     (entry, index, all) => all.findIndex((other) => other.name === entry.name) === index,
   )
@@ -34,8 +46,8 @@ export function EffectsPanel(props: { studio: Studio }) {
   const conditional = shadows.some((entry) => modesOf(entry).length > 1)
   const groups: Array<[ColorMode, string]> = conditional
     ? [
-        ["base", "Light"],
-        ["_dark", "Dark"],
+        ["base", "base"],
+        ["_dark", "_dark"],
       ]
     : [["base", "Shadows"]]
 
@@ -46,7 +58,7 @@ export function EffectsPanel(props: { studio: Studio }) {
           {shadows
             .filter((entry) => modesOf(entry).includes(mode))
             .map((entry) => (
-              <EffectRow
+              <ShadowRow
                 key={entry.name}
                 studio={props.studio}
                 entry={entry}
@@ -58,7 +70,7 @@ export function EffectsPanel(props: { studio: Studio }) {
         </PanelSection>
       ))}
       {editing && (
-        <EffectEditor
+        <ShadowEditor
           key={`${editing.entry.name}:${editing.mode}`}
           studio={props.studio}
           target={editing}
@@ -84,7 +96,7 @@ const row = css({
   "&[data-selected]": { bg: "bg.emphasized" },
 })
 
-function EffectRow(props: {
+function ShadowRow(props: {
   studio: Studio
   entry: TokenEntry
   mode: ColorMode
@@ -118,42 +130,7 @@ function Swatch(props: { shadow: string; mode: ColorMode; size: string }) {
   )
 }
 
-const floating = css({
-  position: "fixed",
-  top: "16",
-  w: "19rem",
-  zIndex: "popover",
-  bg: "bg.panel",
-  borderRadius: "xl",
-  boxShadow: "lg",
-  borderWidth: "1px",
-  borderColor: "border.muted",
-  overflow: "hidden",
-})
-
-const panelHeader = css({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "2",
-  h: "11",
-  ps: "4",
-  pe: "2",
-  borderBottomWidth: "1px",
-  borderColor: "border.muted",
-  textStyle: "sm",
-  fontWeight: "semibold",
-})
-
-function useEscape(onClose: () => void) {
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => event.key === "Escape" && onClose()
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [onClose])
-}
-
-function EffectEditor(props: { studio: Studio; target: EditingTarget; onClose: () => void }) {
+function ShadowEditor(props: { studio: Studio; target: EditingTarget; onClose: () => void }) {
   const { studio, target } = props
   const { doc } = studio.state
   const key = keyOf(target.entry)
@@ -179,7 +156,7 @@ function EffectEditor(props: { studio: Studio; target: EditingTarget; onClose: (
     <>
       <div className={floating} style={{ right: "calc(20rem + 12px)" }}>
         <div className={panelHeader}>
-          Edit effect style
+          Edit shadow
           <IconButton label="Close" onClick={props.onClose}>
             <CloseIcon />
           </IconButton>
@@ -188,8 +165,8 @@ function EffectEditor(props: { studio: Studio; target: EditingTarget; onClose: (
         <styled.div display="grid" gridTemplateColumns="5rem 1fr" alignItems="center" gap="2" px="4" py="3">
           <Muted>Name</Muted>
           <TextInput value={target.entry.name} readOnly aria-label="Name" />
-          <Muted>Mode</Muted>
-          <TextInput value={target.mode === "_dark" ? "Dark" : "Light"} readOnly aria-label="Mode" />
+          <Muted>Condition</Muted>
+          <TextInput value={target.mode} readOnly aria-label="Condition" />
         </styled.div>
         <styled.div display="flex" alignItems="center" justifyContent="space-between" px="4" pt="1" pb="2">
           <styled.span textStyle="sm" fontWeight="semibold">
@@ -379,76 +356,6 @@ function LayerEditor(props: { layer: ShadowLayer; onChange: (layer: ShadowLayer)
   )
 }
 
-const numberField = css({
-  display: "flex",
-  alignItems: "center",
-  gap: "1.5",
-  minW: "0",
-  "& > span": {
-    flexShrink: "0",
-    minW: "4",
-    textStyle: "xs",
-    color: "fg.muted",
-    cursor: "ew-resize",
-    userSelect: "none",
-    touchAction: "none",
-  },
-})
-
-function NumberField(props: {
-  label: string
-  value: number
-  min?: number
-  max?: number
-  suffix?: string
-  handle?: string
-  onChange: (value: number) => void
-}) {
-  const [draft, setDraft] = useState(String(props.value))
-  useEffect(() => setDraft(String(props.value)), [props.value])
-  const clamp = (value: number) => Math.min(props.max ?? Infinity, Math.max(props.min ?? -Infinity, value))
-
-  const scrub = (event: PointerEvent<HTMLSpanElement>) => {
-    const startX = event.clientX
-    const start = props.value
-    const target = event.currentTarget
-    target.setPointerCapture(event.pointerId)
-    const move = (moveEvent: globalThis.PointerEvent) => {
-      const step = moveEvent.shiftKey ? 10 : 1
-      props.onChange(clamp(Math.round(start + ((moveEvent.clientX - startX) / 2) * step)))
-    }
-    const up = () => {
-      target.removeEventListener("pointermove", move)
-      target.removeEventListener("pointerup", up)
-    }
-    target.addEventListener("pointermove", move)
-    target.addEventListener("pointerup", up)
-  }
-
-  return (
-    <label className={cx(numberField)}>
-      <span onPointerDown={scrub}>{props.handle ?? (props.suffix ? "" : props.label)}</span>
-      <TextInput
-        aria-label={props.label}
-        inputMode="decimal"
-        value={draft}
-        onChange={(event) => {
-          setDraft(event.target.value)
-          const parsed = Number.parseFloat(event.target.value)
-          if (!Number.isNaN(parsed)) props.onChange(clamp(parsed))
-        }}
-        onKeyDown={(event) => {
-          if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return
-          event.preventDefault()
-          const step = (event.shiftKey ? 10 : 1) * (event.key === "ArrowUp" ? 1 : -1)
-          props.onChange(clamp(props.value + step))
-        }}
-      />
-      {props.suffix && <span>{props.suffix}</span>}
-    </label>
-  )
-}
-
 function LayerIcon(props: { inset: boolean }) {
   return (
     <styled.span
@@ -460,14 +367,6 @@ function LayerIcon(props: { inset: boolean }) {
       borderColor="currentColor"
       style={{ boxShadow: props.inset ? "inset 0 2px 0 currentColor" : "0 2px 0 currentColor" }}
     />
-  )
-}
-
-function CloseIcon() {
-  return (
-    <Icon>
-      <path d="M18 6 6 18M6 6l12 12" />
-    </Icon>
   )
 }
 

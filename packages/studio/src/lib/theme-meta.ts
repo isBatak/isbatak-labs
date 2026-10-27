@@ -93,6 +93,23 @@ for (const entry of tokenEntries) {
   if (!tokenMap.has(key) || entry.semantic) tokenMap.set(key, entry)
 }
 
+export interface LayerStyleEntry {
+  name: string
+  styles: Dict
+}
+
+function flattenLayerStyles(node: Dict, path: string[] = [], out: LayerStyleEntry[] = []) {
+  for (const [key, child] of Object.entries(node)) {
+    if (!isDict(child)) continue
+    const segments = [...path, key]
+    if (isDict(child.value)) out.push({ name: segments.join("."), styles: child.value })
+    else flattenLayerStyles(child, segments, out)
+  }
+  return out
+}
+
+export const layerStyles = flattenLayerStyles(mergeTokens(rawTheme.layerStyles, rawTheme.extend?.layerStyles))
+
 export function getToken(category: string, name: string) {
   return tokenMap.get(`${category}.${name}`)
 }

@@ -4,14 +4,15 @@ import { styled } from "styled-system/jsx"
 import { designSystem } from "virtual:panda-studio/project"
 
 import { toPresetSource } from "../lib/export"
-import { generateCss } from "../lib/css"
-import { EffectsPanel } from "./effects-panel"
+import { studioCss, withPresetTokens } from "../lib/presets"
+import { LayerStylesPanel } from "./layer-styles-panel"
 import { PartStylePanel } from "./part-style-panel"
+import { ShadowsPanel } from "./shadows-panel"
 import { ColorPanel, OverviewPanel, RadiusPanel, ShadowPanel, SpacingPanel, TypographyPanel } from "./token-panels"
 import { Muted, PanelSection, Toggle, ToggleItem } from "./ui"
 import type { Studio } from "./use-studio"
 
-type Tab = "style" | "effects" | "code" | "lint"
+type Tab = "style" | "shadows" | "layerStyles" | "code" | "lint"
 
 export function Inspector(props: { studio: Studio }) {
   const [tab, setTab] = useState<Tab>("style")
@@ -25,10 +26,19 @@ export function Inspector(props: { studio: Studio }) {
       borderColor="border.muted"
       bg="bg"
     >
-      <styled.div display="flex" alignItems="center" h="12" px="3" borderBottomWidth="1px" borderColor="border.muted">
+      <styled.div
+        display="flex"
+        alignItems="center"
+        h="12"
+        px="2"
+        borderBottomWidth="1px"
+        borderColor="border.muted"
+        css={{ "& [role=radio]": { px: "1.5" } }}
+      >
         <Toggle aria-label="Inspector" value={tab} onChange={setTab}>
           <ToggleItem value="style">Style</ToggleItem>
-          <ToggleItem value="effects">Effects</ToggleItem>
+          <ToggleItem value="shadows">Shadows</ToggleItem>
+          <ToggleItem value="layerStyles">Layer styles</ToggleItem>
           <ToggleItem value="code">Code</ToggleItem>
           <ToggleItem value="lint">
             Lint
@@ -38,7 +48,8 @@ export function Inspector(props: { studio: Studio }) {
       </styled.div>
       <styled.div flex="1" minH="0" overflowY="auto" pb="8">
         {tab === "style" && <StyleTab studio={props.studio} />}
-        {tab === "effects" && <EffectsPanel studio={props.studio} />}
+        {tab === "shadows" && <ShadowsPanel studio={props.studio} />}
+        {tab === "layerStyles" && <LayerStylesPanel studio={props.studio} />}
         {tab === "code" && <CodeTab studio={props.studio} />}
         {tab === "lint" && <LintTab studio={props.studio} />}
       </styled.div>
@@ -86,10 +97,10 @@ function CodeTab(props: { studio: Studio }) {
     <>
       <PanelSection title="Panda preset">
         <Muted>Add it to `presets` in a Panda config that uses {designSystem}.</Muted>
-        <pre className={codeBlock}>{toPresetSource(doc, themeName)}</pre>
+        <pre className={codeBlock}>{toPresetSource(withPresetTokens(doc), themeName)}</pre>
       </PanelSection>
       <PanelSection title="Generated CSS">
-        <pre className={codeBlock}>{generateCss(doc) || "/* No edits yet */"}</pre>
+        <pre className={codeBlock}>{studioCss(doc) || "/* No edits yet */"}</pre>
       </PanelSection>
     </>
   )

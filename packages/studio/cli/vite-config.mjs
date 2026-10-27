@@ -6,7 +6,7 @@ import { searchForWorkspaceRoot } from "vite"
 
 import { studioRoot } from "./project.mjs"
 import { staticDirs } from "./static-dirs.mjs"
-import { studioSource } from "./source-writer.mjs"
+import { readPresetOptions, studioSource } from "./source-writer.mjs"
 
 const projectModule = "virtual:panda-studio/project"
 
@@ -19,15 +19,40 @@ const inspector = () =>
   })
 
 function studioProject(project) {
+  const presetSources = new Set()
   return {
     name: "panda-studio:project",
     resolveId: (id) => (id === projectModule ? `\0${projectModule}` : undefined),
-    load: (id) =>
-      id === `\0${projectModule}`
-        ? `export const projectName = ${JSON.stringify(project.projectName)}
+    configureServer(server) {
+      server.watcher.on("change", (file) => {
+        if (!presetSources.has(file)) return
+        const module = server.moduleGraph.getModuleById(`\0${projectModule}`)
+        if (module) server.moduleGraph.invalidateModule(module)
+      })
+    },
+    load(id) {
+      if (id !== `\0${projectModule}`) return undefined
+      const controls = project.presetControls.map((entry) => {
+        const source = readPresetOptions({
+          packageName: entry.package,
+          projectRoot: project.cwd,
+          designSystem: project.designSystem,
+          configPath: project.configPath,
+        })
+        if (source) presetSources.add(source.file)
+        return { ...entry, options: source?.options ?? {} }
+      })
+      return `${controls.map((entry, index) => `import controls${index} from ${JSON.stringify(entry.module)}\n`).join("")}
+export const projectName = ${JSON.stringify(project.projectName)}
 export const designSystem = ${JSON.stringify(project.designSystem)}
-export const themeVariants = ${JSON.stringify(project.themeVariants)}`
-        : undefined,
+export const themeVariants = ${JSON.stringify(project.themeVariants)}
+export const presetControls = [${controls
+        .map(
+          (entry, index) =>
+            `{ ...controls${index}, package: ${JSON.stringify(entry.package)}, sourceOptions: ${JSON.stringify(entry.options)} }`,
+        )
+        .join(", ")}]`
+    },
   }
 }
 
