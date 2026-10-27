@@ -6,7 +6,7 @@ import { concentricUtilities } from "./concentric.utilities"
 import { concentricVars } from "./concentric.vars"
 
 export const concentricPreset: Preset = definePreset({
-  name: "@isbatak/panda-concentric",
+  name: "@isbatak/panda-concentric-preset",
   globalVars: {
     extend: concentricVars,
   },

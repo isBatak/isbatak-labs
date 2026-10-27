@@ -1,4 +1,4 @@
-# @isbatak/panda-concentric
+# @isbatak/panda-concentric-preset
 
 [Panda CSS](https://panda-css.com) preset for nested rounded corners that line up. Give a child `rounded="concentric"`
 and its radius follows its rounded parent:
@@ -17,7 +17,7 @@ A port of [tailwindcss-concentric](https://github.com/diip3sh/tailwindcss-concen
 ## Installation
 
 ```sh
-pnpm add -D @isbatak/panda-concentric
+pnpm add -D @isbatak/panda-concentric-preset
 ```
 
 ## Usage
@@ -25,11 +25,10 @@ pnpm add -D @isbatak/panda-concentric
 Add the preset after the base preset or design system:
 
 ```ts
-import { concentricPreset } from "@isbatak/panda-concentric"
 import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
-  presets: ["@pandacss/preset-base", concentricPreset],
+  presets: ["@pandacss/preset-base", "@isbatak/panda-concentric-preset"],
 })
 ```
 
