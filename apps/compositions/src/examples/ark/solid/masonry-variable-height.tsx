@@ -6,7 +6,7 @@ const styles = masonryRecipe()
 
 const classes = {
   details: css({ color: "fg.muted", textStyle: "sm" }),
-  summary: css({ px: "3", py: "2", color: "fg", fontWeight: "medium", cursor: "pointer" }),
+  summary: css({ px: "3", py: "2", color: "fg", fontWeight: "medium", cursor: "button" }),
   content: css({ px: "3", pb: "3" }),
 }
 
