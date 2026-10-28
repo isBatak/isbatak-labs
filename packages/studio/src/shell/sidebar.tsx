@@ -43,20 +43,27 @@ const heading = css({ textStyle: "xs", fontWeight: "semibold", px: "2", pt: "4",
 const isPage = (a: Page, b: Page) =>
   a.kind === b.kind && (a.kind === "components" || (a as { id: string }).id === (b as { id: string }).id)
 
+const toPage = (page: Page): Page =>
+  page.kind === "components"
+    ? { kind: page.kind }
+    : page.kind === "foundation"
+      ? { kind: page.kind, id: page.id }
+      : { kind: page.kind, id: page.id }
+
 const SidebarContext = createContext<{ studio: Studio; query: string } | null>(null)
 
-function NavItem(props: { page: Page; label: string; icon: ReactNode }) {
+function NavItem(props: Page & { label: string; icon: ReactNode }) {
+  const page = toPage(props)
   const { studio, query } = use(SidebarContext)!
   const { state, dispatch } = studio
   if (!props.label.toLowerCase().includes(query.trim().toLowerCase())) return null
-  const modified =
-    props.page.kind === "component" && listRules(state.doc, { recipe: components[props.page.id].recipe }).length > 0
+  const modified = page.kind === "component" && listRules(state.doc, { recipe: components[page.id].recipe }).length > 0
   return (
     <button
       type="button"
       className={navItem}
-      aria-selected={isPage(state.page, props.page)}
-      onClick={() => dispatch({ type: "navigate", page: props.page })}
+      aria-selected={isPage(state.page, page)}
+      onClick={() => dispatch({ type: "navigate", page })}
     >
       {props.icon}
       <styled.span flex="1">{props.label}</styled.span>
@@ -66,13 +73,11 @@ function NavItem(props: { page: Page; label: string; icon: ReactNode }) {
 }
 
 function Foundation(props: { id: FoundationId; label: string; icon: ReactNode }) {
-  return <NavItem page={{ kind: "foundation", id: props.id }} label={props.label} icon={props.icon} />
+  return <NavItem kind="foundation" id={props.id} label={props.label} icon={props.icon} />
 }
 
 function Component(props: { id: ComponentId }) {
-  return (
-    <NavItem page={{ kind: "component", id: props.id }} label={components[props.id].label} icon={<ComponentIcon />} />
-  )
+  return <NavItem kind="component" id={props.id} label={components[props.id].label} icon={<ComponentIcon />} />
 }
 
 export function Sidebar(props: { studio: Studio; width: number; onResize: (width: number) => void }) {
@@ -126,7 +131,7 @@ export function Sidebar(props: { studio: Studio; width: number; onResize: (width
           <Foundation id="spacing" label="Spacing" icon={<SpacingIcon />} />
 
           <div className={heading}>Components</div>
-          <NavItem page={{ kind: "components" }} label="All components" icon={<ComponentIcon />} />
+          <NavItem kind="components" label="All components" icon={<ComponentIcon />} />
           <Component id="accordion" />
           <Component id="alert" />
           <Component id="avatar" />
