@@ -3,8 +3,9 @@ import { useCallback, useEffect, useMemo, useReducer } from "react"
 import { components } from "../components"
 import { type ColorMode, type StudioDoc, emptyDoc, isStudioDoc } from "../lib/doc"
 import { toSourceEdits, withoutSourceEdits } from "../lib/export"
-import type { ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
+import type { Cell, ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
 import { studioCss } from "../lib/presets"
+import { primaryVariant } from "../lib/states"
 import { recipes } from "../lib/theme-meta"
 
 const STORAGE_KEY = "panda-studio:themes"
@@ -27,6 +28,8 @@ export interface StudioState {
   selectedPart: Part | undefined
   scope: string
   condition: string
+  selectedCell: Cell | undefined
+  addedStates: Record<string, string[]>
   selectedToken: string | undefined
   lint: LintResult[]
   /** Parts rendered on the canvas, reported by it */
@@ -45,6 +48,8 @@ type Action =
   | { type: "select-part"; part: Part | undefined }
   | { type: "scope"; scope: string }
   | { type: "condition"; condition: string }
+  | { type: "select-cell"; cell: Cell; part: Part | undefined }
+  | { type: "add-state"; recipe: string; condition: string }
   | { type: "select-token"; token: string | undefined }
   | { type: "switch-theme"; name: string; doc?: StudioDoc | undefined }
   | { type: "delete-theme"; name: string }
@@ -150,6 +155,8 @@ function init(): StudioState {
     selectedPart: page.kind === "component" ? withRootSlot({ recipe: components[page.id].recipe }) : undefined,
     scope: "base",
     condition: "",
+    selectedCell: undefined,
+    addedStates: {},
     selectedToken: undefined,
     lint: [],
     layers: [],
@@ -204,6 +211,7 @@ function reducer(state: StudioState, action: Action): StudioState {
         selectedPart: sameComponent ? state.selectedPart : part && withRootSlot(part),
         scope: sameComponent ? state.scope : "base",
         condition: sameComponent ? state.condition : "",
+        selectedCell: sameComponent ? state.selectedCell : undefined,
         selectedToken: undefined,
         // The canvas reports the new page's layers once it renders
         layers: JSON.stringify(action.page) === JSON.stringify(state.page) ? state.layers : [],
@@ -227,6 +235,24 @@ function reducer(state: StudioState, action: Action): StudioState {
       return { ...state, scope: action.scope }
     case "condition":
       return { ...state, condition: action.condition }
+    case "select-cell": {
+      const recipeKey = action.part?.recipe ?? state.selectedPart?.recipe
+      const recipe = recipeKey ? recipes[recipeKey] : undefined
+      const primary = recipe && primaryVariant(recipe)
+      const value = primary ? action.cell.variants[primary] : undefined
+      return {
+        ...state,
+        selectedCell: action.cell,
+        selectedPart: action.part ? withRootSlot(action.part) : state.selectedPart,
+        scope: primary && value ? `${primary}:${value}` : "base",
+        condition: action.cell.state,
+      }
+    }
+    case "add-state": {
+      const current = state.addedStates[action.recipe] ?? []
+      if (current.includes(action.condition)) return state
+      return { ...state, addedStates: { ...state.addedStates, [action.recipe]: [...current, action.condition] } }
+    }
     case "select-token":
       return { ...state, selectedToken: action.token }
     case "switch-theme": {

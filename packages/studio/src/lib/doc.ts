@@ -33,6 +33,23 @@ export interface Rule extends RuleTarget {
   value: string
 }
 
+export type ScopeValues = Record<string, string>
+
+export function parseScope(scope: string): ScopeValues {
+  if (scope === "base") return {}
+  return Object.fromEntries(scope.split("+").map((part) => part.split(":") as [string, string]))
+}
+
+export function formatScope(values: ScopeValues) {
+  const entries = Object.entries(values)
+  return entries.length ? entries.map(([key, value]) => `${key}:${value}`).join("+") : "base"
+}
+
+export const isCompoundScope = (scope: string) => scope.includes("+")
+
+export const scopeMatches = (scope: string, values: ScopeValues) =>
+  Object.entries(parseScope(scope)).every(([key, value]) => values[key] === value)
+
 export function ruleKey(target: RuleTarget, property: string) {
   return [target.recipe, target.slot ?? "", target.scope, target.state, property].join("|")
 }

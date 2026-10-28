@@ -2,7 +2,8 @@ import { generateCss } from "../src/lib/css"
 import { emptyDoc, listRules, setRule, setSemanticToken, setToken } from "../src/lib/doc"
 import { toPresetObject } from "../src/lib/export"
 import { parseShadow, serializeShadow } from "../src/lib/shadow"
-import { cssVarName, longhand, partFromClassList, resolveStyleValue } from "../src/lib/theme-meta"
+import { recipeStates, stateProps } from "../src/lib/states"
+import { cssVarName, longhand, partFromClassList, recipes, resolveStyleValue } from "../src/lib/theme-meta"
 
 describe("theme-meta", () => {
   test("css variable names follow Panda's escaping", () => {
@@ -123,5 +124,39 @@ describe("shadow", () => {
     expect(serializeShadow(layers)).toBe("0 0 0 1px {colors.black/70}")
     expect(serializeShadow(layers.map((layer) => ({ ...layer, visible: false })))).toBe("none")
     expect(parseShadow("none")).toEqual([])
+  })
+})
+
+describe("states", () => {
+  test("maps conditions to the data or aria attributes their selectors match", () => {
+    expect(stateProps("")).toEqual({})
+    expect(stateProps("hover")).toEqual({ "data-hover": "" })
+    expect(stateProps("focusVisible")).toEqual({ "data-focus-visible": "" })
+    expect(stateProps("disabled")).toEqual({ "data-disabled": "" })
+    expect(stateProps("selected")).toEqual({ "data-selected": "" })
+    expect(stateProps("groupHover")).toBeUndefined()
+    expect(stateProps("dark")).toBeUndefined()
+  })
+
+  test("lists the states a recipe styles, plus added and edited ones", () => {
+    let doc = setRule(emptyDoc(), { recipe: "button", scope: "base", state: "active" }, "opacity", "0.8")
+    expect(recipeStates(recipes.button!, doc, ["focusVisible"])).toEqual([
+      "",
+      "hover",
+      "focusVisible",
+      "active",
+      "expanded",
+      "disabled",
+    ])
+    doc = emptyDoc()
+    expect(recipeStates(recipes.button!, doc)).not.toContain("icon")
+  })
+
+  test("compound scopes target the combination of variant classes", () => {
+    const doc = setRule(emptyDoc(), { recipe: "button", scope: "variant:ghost+size:sm", state: "hover" }, "gap", "1")
+    expect(generateCss(doc)).toContain(".button--variant_ghost:where(.button--size_sm):is(:hover, [data-hover])")
+    expect(toPresetObject(doc).recipes.button.compoundVariants).toEqual([
+      { variant: "ghost", size: "sm", css: { _hover: { gap: "1" } } },
+    ])
   })
 })

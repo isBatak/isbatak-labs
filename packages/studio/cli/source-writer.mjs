@@ -84,9 +84,13 @@ function insertProperty(code, magic, object, path, value) {
 }
 
 function insertText(code, magic, object, text) {
-  const last = object.properties.at(-1)
+  appendItem(code, magic, object, object.properties, text)
+}
+
+function appendItem(code, magic, object, items, text) {
+  const last = items.at(-1)
   if (!last) {
-    magic.appendLeft(object.start + 1, ` ${text} `)
+    magic.appendLeft(object.start + 1, object.type === "ArrayExpression" ? text : ` ${text} `)
     return
   }
   if (!code.slice(object.start, object.end).includes("\n")) {
@@ -218,6 +222,52 @@ export function readPresetOptions({ packageName, ...options }) {
   return undefined
 }
 
+const literalValue = (node) =>
+  isString(node) ? node.value : node.type === "Literal" && typeof node.value === "boolean" ? node.value : undefined
+
+function matchesCompound(entry, compound) {
+  const conditions = entry.properties.filter((property) => keyName(property.key) !== "css")
+  return (
+    conditions.length === Object.keys(compound).length &&
+    conditions.every((property) => literalValue(property.value) === compound[keyName(property.key)])
+  )
+}
+
+function applyCompoundEdit(file, recipe, edit) {
+  const { code, magic } = file
+  const conditions = Object.entries(edit.compound).map(([key, value]) => `${quoteKey(key)}: ${JSON.stringify(value)}`)
+  const entryText = `{ ${conditions.join(", ")}, css: ${literal(edit.path, edit.value)} }`
+  const list = findProperty(recipe, "compoundVariants")
+  if (!list) {
+    insertText(code, magic, recipe, `compoundVariants: [${entryText}]`)
+    return { ok: true }
+  }
+  if (list.value.type !== "ArrayExpression") return { ok: false, reason: "computed value" }
+  const entry = list.value.elements.find(
+    (element) => element?.type === "ObjectExpression" && matchesCompound(element, edit.compound),
+  )
+  if (!entry) {
+    appendItem(code, magic, list.value, list.value.elements, entryText)
+    return { ok: true }
+  }
+  const css = findProperty(entry, "css")
+  if (!css) {
+    insertText(code, magic, entry, `css: ${literal(edit.path, edit.value)}`)
+    return { ok: true }
+  }
+  if (css.value.type !== "ObjectExpression") return { ok: false, reason: "computed value" }
+  const found = locate(css.value, edit.path)
+  if (found.property && isString(found.property.value)) {
+    magic.overwrite(found.property.value.start, found.property.value.end, JSON.stringify(edit.value))
+    return { ok: true }
+  }
+  if (found.missing) {
+    insertProperty(code, magic, found.parent, found.missing, edit.value)
+    return { ok: true }
+  }
+  return { ok: false, reason: "computed value" }
+}
+
 function applyEdit(file, edit) {
   if (edit.type === "preset") return applyPresetEdit(file, edit)
   const { code, calls, magic } = file
@@ -230,6 +280,11 @@ function applyEdit(file, edit) {
     const kind = edit.type === "token" ? "defineTokens" : "defineSemanticTokens"
     return call.kind === kind && (call.category === edit.category || call.category === undefined)
   })
+
+  if (edit.type === "recipe" && edit.compound) {
+    const [call] = candidates
+    return call ? applyCompoundEdit(file, call.object, edit) : undefined
+  }
 
   for (const call of candidates) {
     const path = call.category === undefined && edit.type !== "recipe" ? [edit.category, ...edit.path] : edit.path

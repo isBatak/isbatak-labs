@@ -48,7 +48,7 @@ const tag = css({
   fontFamily: "body",
 })
 
-function findPart(target: EventTarget | null) {
+export function findPart(target: EventTarget | null) {
   let element = target instanceof Element ? target : null
   while (element && element !== document.body) {
     const part = partFromClassList(element.classList)

@@ -1,6 +1,8 @@
 import { conditions as dsConditions, theme } from "@isbatak/panda-ds/theme"
 import presetBase from "@pandacss/preset-base"
 
+import { type ScopeValues, formatScope, isCompoundScope, parseScope } from "./doc"
+
 /**
  * A read-only index over the raw `@isbatak/panda-ds` theme: tokens, semantic tokens and recipes, plus the
  * preset-base utilities and conditions needed to turn Panda style objects into plain CSS at runtime.
@@ -201,9 +203,11 @@ const conditions: Record<string, string> = {
   ...((dsConditions as Dict).extend as Record<string, string>),
 }
 
+export const conditionNames = Object.keys(conditions)
+
 export function conditionSelector(condition: string, selector: string) {
   const template = conditions[condition]
-  if (!template || template.startsWith("@")) return undefined
+  if (typeof template !== "string" || template.startsWith("@")) return undefined
   return template.replace(/&/g, selector)
 }
 
@@ -268,11 +272,40 @@ export function recipeStyles(recipe: RecipeMeta, scope: string, slot?: string): 
   let styles: Dict | undefined
   if (scope === "base") {
     styles = config.base
+  } else if (isCompoundScope(scope)) {
+    styles = compoundEntry(recipe, parseScope(scope))?.css
   } else {
     const [variant, value] = scope.split(":")
     styles = config.variants?.[variant!]?.[value!]
   }
   return slot ? styles?.[slot] : styles
+}
+
+const compoundValues = (entry: Dict): ScopeValues | undefined => {
+  const values: ScopeValues = {}
+  for (const [key, value] of Object.entries(entry)) {
+    if (key === "css") continue
+    if (typeof value !== "string" && typeof value !== "boolean") return undefined
+    values[key] = String(value)
+  }
+  return values
+}
+
+const sameValues = (a: ScopeValues, b: ScopeValues) =>
+  Object.keys(a).length === Object.keys(b).length && Object.entries(a).every(([key, value]) => b[key] === value)
+
+function compoundEntry(recipe: RecipeMeta, values: ScopeValues): Dict | undefined {
+  return ((recipe.config.compoundVariants ?? []) as Dict[]).find((entry) => {
+    const own = compoundValues(entry)
+    return own && sameValues(own, values)
+  })
+}
+
+export function compoundScopes(recipe: RecipeMeta) {
+  return ((recipe.config.compoundVariants ?? []) as Dict[]).flatMap((entry) => {
+    const values = compoundValues(entry)
+    return values ? [formatScope(values)] : []
+  })
 }
 
 /** Current value of a longhand property inside a style object, honoring shorthands and a condition */

@@ -2,6 +2,7 @@ import { Button } from "@isbatak/react-ui/button"
 
 import { Row, Section } from "../canvas/layout"
 import { colorPalettes, recipes } from "../lib/theme-meta"
+import { PlusIcon } from "./primitives"
 import type { SampleProps } from "./types"
 
 export const title = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
@@ -9,7 +10,7 @@ export const title = (value: string) => value.charAt(0).toUpperCase() + value.sl
 export const variantGroups = Object.entries(recipes.button?.variantMap ?? {}).filter(([name]) => name !== "icon")
 
 export function ButtonSample(props: SampleProps) {
-  return <Button {...props}>Button</Button>
+  return <Button {...props}>{props.icon ? <PlusIcon /> : "Button"}</Button>
 }
 
 export function ButtonDemo() {
