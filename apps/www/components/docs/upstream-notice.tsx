@@ -75,7 +75,7 @@ function UpstreamRow({ url, project, logo, title, label }: UpstreamItem) {
         borderRadius="l2"
         borderWidth="1px"
         overflow="hidden"
-        bg="bg.default"
+        bg="bg"
       >
         {logoSrc ? (
           <styled.img src={logoSrc} alt="" w="full" h="full" objectFit="cover" />
