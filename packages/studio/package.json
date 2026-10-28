@@ -1,0 +1,43 @@
+{
+  "name": "@isbatak/panda-studio",
+  "version": "0.0.0",
+  "description": "Visual editor for Panda CSS design systems built on @isbatak/panda-ds",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "panda-studio": "./cli/index.mjs"
+  },
+  "files": [
+    "cli",
+    "src",
+    "index.html",
+    "canvas.html"
+  ],
+  "scripts": {
+    "dev": "node cli/index.mjs",
+    "build": "node cli/index.mjs build",
+    "typecheck": "panda codegen && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ark-ui/react": "catalog:",
+    "@isbatak/panda-ds": "workspace:*",
+    "@isbatak/react-ui": "workspace:*",
+    "@isbatak/sourcery": "workspace:*",
+    "@pandacss/dev": "catalog:",
+    "@pandacss/preset-base": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "magic-string": "^0.30.21",
+    "oxc-parser": "^0.127.0",
+    "postcss": "8.5.28",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "vite": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -1,4 +1,4 @@
-import { styled } from "styled-system/jsx";
+import { styled } from "styled-system/jsx"
 
 export function ConcentricWrapperDemo() {
   return (
@@ -9,30 +9,12 @@ export function ConcentricWrapperDemo() {
       w="full"
       maxW="lg"
     >
-      <styled.figure
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        gap="3"
-      >
+      <styled.figure display="flex" flexDirection="column" alignItems="center" gap="3">
         <styled.div w="full" rounded="3xl" borderWidth="1px" bg="bg.subtle">
           <styled.div p="2">
-            <styled.div
-              p="1"
-              display="grid"
-              gridTemplateColumns="1fr 1fr"
-              gap="1"
-            >
-              <styled.div
-                rounded="concentric"
-                h="14"
-                bg="colorPalette.emphasized"
-              />
-              <styled.div
-                rounded="concentric"
-                h="14"
-                bg="colorPalette.emphasized"
-              />
+            <styled.div p="1" display="grid" gridTemplateColumns="1fr 1fr" gap="1">
+              <styled.div rounded="concentric" h="14" bg="colorPalette.emphasized" />
+              <styled.div rounded="concentric" h="14" bg="colorPalette.emphasized" />
             </styled.div>
           </styled.div>
         </styled.div>
@@ -40,30 +22,12 @@ export function ConcentricWrapperDemo() {
           plain wrapper → 19px
         </styled.figcaption>
       </styled.figure>
-      <styled.figure
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        gap="3"
-      >
+      <styled.figure display="flex" flexDirection="column" alignItems="center" gap="3">
         <styled.div w="full" rounded="3xl" borderWidth="1px" bg="bg.subtle">
           <styled.div rounded="concentric" p="2">
-            <styled.div
-              p="1"
-              display="grid"
-              gridTemplateColumns="1fr 1fr"
-              gap="1"
-            >
-              <styled.div
-                rounded="concentric"
-                h="14"
-                bg="colorPalette.emphasized"
-              />
-              <styled.div
-                rounded="concentric"
-                h="14"
-                bg="colorPalette.emphasized"
-              />
+            <styled.div p="1" display="grid" gridTemplateColumns="1fr 1fr" gap="1">
+              <styled.div rounded="concentric" h="14" bg="colorPalette.emphasized" />
+              <styled.div rounded="concentric" h="14" bg="colorPalette.emphasized" />
             </styled.div>
           </styled.div>
         </styled.div>
@@ -72,5 +36,5 @@ export function ConcentricWrapperDemo() {
         </styled.figcaption>
       </styled.figure>
     </styled.div>
-  );
+  )
 }

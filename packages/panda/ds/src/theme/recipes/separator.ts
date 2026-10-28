@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const separatorRecipe = defineRecipe({
   className: "separator",
+  description: "Horizontal or vertical divider line",
   base: {
     display: "block",
     borderColor: "border",

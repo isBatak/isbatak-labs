@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { Button } from "@isbatak/react-ui/button";
-import { useTheme } from "next-themes";
+import { Button } from "@isbatak/react-ui/button"
+import { useTheme } from "next-themes"
 
-import { Icon } from "./ui/icon";
+import { Icon } from "./ui/icon"
 
 export function ColorModeButton() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme()
 
   return (
     <Button
@@ -26,5 +26,5 @@ export function ColorModeButton() {
         _dark={{ rotate: "180deg" }}
       />
     </Button>
-  );
+  )
 }

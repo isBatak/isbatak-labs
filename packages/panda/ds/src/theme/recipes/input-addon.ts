@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const inputAddonRecipe = defineRecipe({
   className: "input-addon",
+  description: "Static text or element attached to the side of an input, outside its border",
   base: {
     flex: "0 0 auto",
     width: "auto",

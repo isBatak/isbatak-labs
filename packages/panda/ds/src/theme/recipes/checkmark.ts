@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const checkmarkRecipe = defineRecipe({
   className: "checkmark",
+  description: "Standalone check indicator, used inside checkbox-like controls",
   base: {
     display: "inline-flex",
     alignItems: "center",

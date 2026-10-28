@@ -5,6 +5,7 @@ styled-system
 assets/sprite.svg
 .velite
 public/static
+.studio
 .panda
 test-results
 playwright-report

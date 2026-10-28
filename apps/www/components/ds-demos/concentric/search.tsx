@@ -1,5 +1,5 @@
-import { Button } from "@isbatak/react-ui/button";
-import { styled } from "styled-system/jsx";
+import { Button } from "@isbatak/react-ui/button"
+import { styled } from "styled-system/jsx"
 
 export function ConcentricSearchDemo() {
   return (
@@ -14,18 +14,10 @@ export function ConcentricSearchDemo() {
       borderWidth="1px"
       bg="bg.panel"
     >
-      <styled.input
-        flex="1"
-        minW="0"
-        ps="3"
-        h="9"
-        bg="transparent"
-        outline="none"
-        placeholder="Search docs"
-      />
+      <styled.input flex="1" minW="0" ps="3" h="9" bg="transparent" outline="none" placeholder="Search docs" />
       <Button rounded="concentric" colorPalette="gray">
         Search
       </Button>
     </styled.form>
-  );
+  )
 }

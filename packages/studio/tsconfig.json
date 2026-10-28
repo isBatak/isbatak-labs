@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src", "tests", "styled-system", "vitest.config.mts", "panda.config.ts", "cli"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "declaration": false,
+    "exactOptionalPropertyTypes": false,
+    "types": ["vite/client", "node", "vitest/globals"],
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo",
+    "paths": {
+      "styled-system/*": ["./styled-system/*"]
+    },
+    "allowImportingTsExtensions": true
+  }
+}

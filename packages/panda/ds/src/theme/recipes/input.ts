@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const inputRecipe = defineRecipe({
   className: "input",
+  description: "Single-line text input",
   base: {
     width: "100%",
     minWidth: "0",

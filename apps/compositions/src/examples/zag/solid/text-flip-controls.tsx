@@ -16,7 +16,7 @@ const classes = {
     borderWidth: "1px",
     borderRadius: "l2",
     textStyle: "sm",
-    cursor: "pointer",
+    cursor: "button",
     _hover: { bg: "bg.muted" },
   }),
 }

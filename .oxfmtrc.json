@@ -9,5 +9,5 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "sortPackageJson": false,
-  "ignorePatterns": ["apps/www/AGENTS.md"]
+  "ignorePatterns": ["apps/www/AGENTS.md", ".claude/skills/**", "skills-lock.json"]
 }

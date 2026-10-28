@@ -4,8 +4,27 @@
   "categories": {
     "correctness": "error"
   },
-  "rules": {},
+  "rules": {
+    "@pandacss/prefer-token": [
+      "warn",
+      {
+        "categories": ["colors", "spacing", "radii", "fontSizes"],
+        "allow": ["0"]
+      }
+    ],
+    "@pandacss/no-invalid-token-paths": "error",
+    "@pandacss/no-invalid-nesting": "error"
+  },
   "env": {
     "builtin": true
-  }
+  },
+  "jsPlugins": ["./oxlint-panda.mjs"],
+  "overrides": [
+    {
+      "files": ["apps/promos/**"],
+      "rules": {
+        "@pandacss/prefer-token": "off"
+      }
+    }
+  ]
 }

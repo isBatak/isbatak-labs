@@ -14,7 +14,7 @@ const Summary = styled("summary", {
     px: "4",
     py: "2.5",
     listStyle: "none",
-    cursor: "pointer",
+    cursor: "button",
     textStyle: "xs",
     color: "fg.muted",
     _hover: { color: "fg" },

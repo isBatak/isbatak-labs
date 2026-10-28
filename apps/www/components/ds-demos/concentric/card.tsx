@@ -1,19 +1,9 @@
-import { styled } from "styled-system/jsx";
+import { styled } from "styled-system/jsx"
 
 export function ConcentricCardDemo() {
   return (
-    <styled.article
-      w="72"
-      rounded="28px"
-      p="1.5"
-      borderWidth="1px"
-      bg="bg.panel"
-    >
-      <styled.div
-        roundedTop="concentric"
-        aspectRatio="16/10"
-        bg="colorPalette.muted"
-      />
+    <styled.article w="72" rounded="28px" p="1.5" borderWidth="1px" bg="bg.panel">
+      <styled.div roundedTop="concentric" aspectRatio="16/10" bg="colorPalette.muted" />
       <styled.div px="3.5" pt="4" pb="3.5">
         <styled.p textStyle="xs" color="fg.subtle">
           Field notes · 6 min read
@@ -26,5 +16,5 @@ export function ConcentricCardDemo() {
         </styled.p>
       </styled.div>
     </styled.article>
-  );
+  )
 }

@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const kbdRecipe = defineRecipe({
   className: "kbd",
+  description: "Keyboard key or shortcut",
   base: {
     display: "inline-flex",
     alignItems: "center",
