@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const emptyStateSlotRecipe = defineSlotRecipe({
   slots: ["root", "content", "indicator", "title", "description"],
   className: "empty-state",
+  description: "Placeholder for lists and views with no data yet",
   base: {
     root: {
       width: "full",

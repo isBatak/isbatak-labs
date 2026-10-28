@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const fieldsetSlotRecipe = defineSlotRecipe({
   className: "fieldset",
+  description: "Groups related fields under a legend",
   slots: ["root", "errorText", "helperText", "legend", "content"],
   base: {
     root: {

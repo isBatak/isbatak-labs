@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const tableSlotRecipe = defineSlotRecipe({
   className: "table",
+  description: "Semantic HTML table for tabular data",
   slots: ["root", "header", "body", "footer", "columnHeader", "row", "cell", "caption"],
   base: {
     root: {

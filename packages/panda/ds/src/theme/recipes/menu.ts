@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const menuSlotRecipe = defineSlotRecipe({
   className: "menu",
+  description: "Dropdown of actions opened from a trigger",
   slots: [
     "arrow",
     "arrowTip",

@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const hoverCardSlotRecipe = defineSlotRecipe({
   className: "hover-card",
+  description: "Preview popover shown on hover over a link",
   slots: ["arrow", "arrowTip", "trigger", "positioner", "content"],
   base: {
     content: {

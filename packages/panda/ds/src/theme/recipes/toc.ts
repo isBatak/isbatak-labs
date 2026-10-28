@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const tocSlotRecipe = defineSlotRecipe({
   slots: ["root", "title", "list", "item", "link", "indicator", "track"],
   className: "toc",
+  description: "Table of contents with active section indicator",
   base: {
     root: {
       "--toc-indent": "spacing.2.5",

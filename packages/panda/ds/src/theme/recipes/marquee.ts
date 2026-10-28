@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const marqueeSlotRecipe = defineSlotRecipe({
   className: "marquee",
+  description: "Continuously scrolling strip of content",
   slots: ["root", "viewport", "content", "edge", "item"],
   base: {
     root: {

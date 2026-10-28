@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const navigationMenuSlotRecipe = defineSlotRecipe({
   className: "navigation-menu",
+  description: "Site navigation with dropdown panels",
   slots: [
     "root",
     "list",

@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const toastSlotRecipe = defineSlotRecipe({
   slots: ["root", "title", "description", "indicator", "closeTrigger", "actionTrigger"],
   className: "toast",
+  description: "Temporary notification",
   base: {
     root: {
       width: "full",

@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const datePickerSlotRecipe = defineSlotRecipe({
   className: "date-picker",
+  description: "Date input with a calendar popover",
   slots: [
     "clearTrigger",
     "content",

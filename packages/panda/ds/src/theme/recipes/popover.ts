@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const popoverSlotRecipe = defineSlotRecipe({
   className: "popover",
+  description: "Non-modal floating panel anchored to a trigger",
   slots: [
     "arrow",
     "arrowTip",

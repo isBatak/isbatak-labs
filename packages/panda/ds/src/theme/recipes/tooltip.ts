@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const tooltipSlotRecipe = defineSlotRecipe({
   slots: ["trigger", "arrow", "arrowTip", "positioner", "content"],
   className: "tooltip",
+  description: "Short hint shown on hover or focus",
   base: {
     content: {
       "--tooltip-bg": "colors.bg.inverted",

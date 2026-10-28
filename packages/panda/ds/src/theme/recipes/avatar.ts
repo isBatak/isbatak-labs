@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const avatarSlotRecipe = defineSlotRecipe({
   slots: ["root", "image", "fallback"],
   className: "avatar",
+  description: "User image with initials or icon fallback",
   base: {
     root: {
       display: "inline-flex",

@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const qrCodeSlotRecipe = defineSlotRecipe({
   slots: ["root", "frame", "pattern", "overlay", "downloadTrigger"],
   className: "qr-code",
+  description: "QR code",
   base: {
     root: {
       position: "relative",

@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const pinInputSlotRecipe = defineSlotRecipe({
   className: "pin-input",
+  description: "Row of single-character inputs for codes",
   slots: ["root", "label", "input", "control"],
   base: {
     input: {

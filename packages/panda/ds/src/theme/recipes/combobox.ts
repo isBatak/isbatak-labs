@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const comboboxSlotRecipe = defineSlotRecipe({
   className: "combobox",
+  description: "Text input with a filterable list of options",
   slots: [
     "root",
     "clearTrigger",

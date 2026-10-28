@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const numberInputSlotRecipe = defineSlotRecipe({
   className: "number-input",
+  description: "Numeric input with increment and decrement controls",
   slots: ["root", "label", "input", "control", "valueText", "incrementTrigger", "decrementTrigger", "scrubber"],
   base: {
     root: {

@@ -13,6 +13,7 @@ import {
 export const tabsSlotRecipe = defineSlotRecipe({
   slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
   className: "tabs",
+  description: "Switches between panels of content",
   base: {
     root: {
       ...segmentVars,

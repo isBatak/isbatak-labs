@@ -15,6 +15,7 @@ export const dialogSlotRecipe = defineSlotRecipe({
     "backdrop",
   ],
   className: "dialog",
+  description: "Modal window that blocks the page",
   base: {
     backdrop: {
       bg: "blackAlpha.500",

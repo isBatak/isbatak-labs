@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const inputElementRecipe = defineRecipe({
   className: "input-element",
+  description: "Icon or element placed inside an input's border, at the start or end",
   base: {
     position: "absolute",
     zIndex: "2",

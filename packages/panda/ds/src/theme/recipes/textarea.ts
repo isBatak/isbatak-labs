@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const textareaRecipe = defineRecipe({
   className: "textarea",
+  description: "Multi-line text input",
   base: {
     width: "100%",
     minWidth: "0",

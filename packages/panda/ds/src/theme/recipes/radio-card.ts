@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const radioCardSlotRecipe = defineSlotRecipe({
   className: "radio-card",
+  description: "Card-sized radio for picking one rich option",
   slots: [
     "root",
     "label",

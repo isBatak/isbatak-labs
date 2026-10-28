@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const carouselSlotRecipe = defineSlotRecipe({
   className: "carousel",
+  description: "Horizontally scrolling slides with controls and indicators",
   slots: [
     "root",
     "itemGroup",

@@ -3,60 +3,70 @@ import { defineSemanticTokens } from "@pandacss/dev"
 export const colors = defineSemanticTokens.colors({
   bg: {
     DEFAULT: {
+      description: "Page background",
       value: {
         base: "{colors.white}",
         _dark: "{colors.black}",
       },
     },
     subtle: {
+      description: "Faint surface for secondary areas like sidebars, table stripes and code blocks",
       value: {
         base: "{colors.gray.50}",
         _dark: "{colors.gray.950}",
       },
     },
     muted: {
+      description: "Low-emphasis fill for hovered rows, ghost button hover and tracks",
       value: {
         base: "{colors.gray.100}",
         _dark: "{colors.gray.900}",
       },
     },
     emphasized: {
+      description: "Stronger neutral fill for pressed or selected states",
       value: {
         base: "{colors.gray.200}",
         _dark: "{colors.gray.800}",
       },
     },
     inverted: {
+      description: "Inverted surface, for tooltips and high-contrast chips",
       value: {
         base: "{colors.black}",
         _dark: "{colors.white}",
       },
     },
     panel: {
+      description: "Raised surfaces: cards, popovers, menus, dialogs",
       value: {
         base: "{colors.white}",
         _dark: "{colors.gray.950}",
       },
     },
     error: {
+      description: "Tinted background for error alerts and callouts",
       value: {
         base: "{colors.red.50}",
         _dark: "{colors.red.950}",
       },
     },
     warning: {
+      description: "Tinted background for warning alerts and callouts",
       value: {
         base: "{colors.orange.50}",
         _dark: "{colors.orange.950}",
       },
     },
     success: {
+      description: "Tinted background for success alerts and callouts",
       value: {
         base: "{colors.green.50}",
         _dark: "{colors.green.950}",
       },
     },
     info: {
+      description: "Tinted background for info alerts and callouts",
       value: {
         base: "{colors.blue.50}",
         _dark: "{colors.blue.950}",
@@ -65,48 +75,56 @@ export const colors = defineSemanticTokens.colors({
   },
   fg: {
     DEFAULT: {
+      description: "Primary text and icons",
       value: {
         base: "{colors.black}",
         _dark: "{colors.gray.50}",
       },
     },
     muted: {
+      description: "Secondary text: descriptions, helper text, metadata",
       value: {
         base: "{colors.gray.600}",
         _dark: "{colors.gray.400}",
       },
     },
     subtle: {
+      description: "Lowest-emphasis text: placeholders, disabled labels, hints",
       value: {
         base: "{colors.gray.400}",
         _dark: "{colors.gray.500}",
       },
     },
     inverted: {
+      description: "Text on bg.inverted",
       value: {
         base: "{colors.gray.50}",
         _dark: "{colors.black}",
       },
     },
     error: {
+      description: "Error text, e.g. field error messages",
       value: {
         base: "{colors.red.500}",
         _dark: "{colors.red.400}",
       },
     },
     warning: {
+      description: "Warning text",
       value: {
         base: "{colors.orange.600}",
         _dark: "{colors.orange.300}",
       },
     },
     success: {
+      description: "Success text",
       value: {
         base: "{colors.green.600}",
         _dark: "{colors.green.300}",
       },
     },
     info: {
+      description: "Info text",
       value: {
         base: "{colors.blue.600}",
         _dark: "{colors.blue.300}",
@@ -115,54 +133,63 @@ export const colors = defineSemanticTokens.colors({
   },
   border: {
     DEFAULT: {
+      description: "Default border for inputs, cards and dividers",
       value: {
         base: "{colors.gray.200}",
         _dark: "{colors.gray.800}",
       },
     },
     muted: {
+      description: "Softer border for separators inside panels",
       value: {
         base: "{colors.gray.100}",
         _dark: "{colors.gray.900}",
       },
     },
     subtle: {
+      description: "Faintest hairline, for low-contrast dividers",
       value: {
         base: "{colors.gray.50}",
         _dark: "{colors.gray.950}",
       },
     },
     emphasized: {
+      description: "Stronger border for hovered inputs or emphasized outlines",
       value: {
         base: "{colors.gray.300}",
         _dark: "{colors.gray.700}",
       },
     },
     inverted: {
+      description: "Border on bg.inverted",
       value: {
         base: "{colors.gray.800}",
         _dark: "{colors.gray.200}",
       },
     },
     error: {
+      description: "Border for invalid fields and error callouts",
       value: {
         base: "{colors.red.500}",
         _dark: "{colors.red.400}",
       },
     },
     warning: {
+      description: "Border for warning callouts",
       value: {
         base: "{colors.orange.500}",
         _dark: "{colors.orange.400}",
       },
     },
     success: {
+      description: "Border for success callouts",
       value: {
         base: "{colors.green.500}",
         _dark: "{colors.green.400}",
       },
     },
     info: {
+      description: "Border for info callouts",
       value: {
         base: "{colors.blue.500}",
         _dark: "{colors.blue.400}",

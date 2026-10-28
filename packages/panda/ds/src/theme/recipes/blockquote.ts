@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const blockquoteSlotRecipe = defineSlotRecipe({
   className: "blockquote",
+  description: "Quoted text with optional citation",
   slots: ["root", "icon", "content", "caption"],
   base: {
     root: {

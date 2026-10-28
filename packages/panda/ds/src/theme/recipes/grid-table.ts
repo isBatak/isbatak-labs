@@ -18,6 +18,7 @@ const stickyEnd = (bg: string): SystemStyleObject => ({
 
 export const gridTableSlotRecipe = defineSlotRecipe({
   className: "grid-table",
+  description: "Table built on CSS grid, for virtualized or custom layouts; use table for plain tabular data",
   slots: ["root", "header", "headerRow", "columnHeader", "body", "row", "cell"],
   base: {
     root: {

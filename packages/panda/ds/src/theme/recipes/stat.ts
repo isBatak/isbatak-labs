@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const statSlotRecipe = defineSlotRecipe({
   className: "stat",
+  description: "Metric with label, value, unit and change indicator",
   slots: ["root", "label", "helpText", "valueText", "valueUnit", "indicator"],
   base: {
     root: {

@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const radiomarkRecipe = defineRecipe({
   className: "radiomark",
+  description: "Standalone radio indicator, used inside radio-like controls",
   base: {
     display: "inline-flex",
     alignItems: "center",

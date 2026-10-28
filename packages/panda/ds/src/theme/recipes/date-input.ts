@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const dateInputSlotRecipe = defineSlotRecipe({
   className: "date-input",
+  description: "Segmented date entry field",
   slots: ["root", "label", "control", "segmentGroup", "segment", "hiddenInput"],
   base: {
     root: {
