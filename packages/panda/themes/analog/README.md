@@ -58,9 +58,9 @@ Everything comes from `@isbatak/panda-ds` except what lives in `src/`:
   `error`, `warning`, `success` and `info`), and the `neutral` and `accent` color palettes (`colorPalette="accent"`).
   They replace the DS semantic colors; every value references a palette step
 - `src/recipes`: recipes that replace the DS ones. `button` is a raised hardware key with `shape` (`rounded`, `circle`),
-  `size` (`sm` to `xl`) and `icon`. `alert`, `checkbox`, `checkbox-card`, `checkmark`, `code-block`, `radio-card`,
-  `radio-group`, `radiomark`, `scroll-area`, `select` and `toast` are copies of the DS recipes that name a palette, with
-  `gray`, `green`, `blue` and `teal` changed to `neutral` and `red` and `orange` to `accent`
+  `size` (`sm` to `xl`) and `icon`. `alert`, `checkbox`, `checkbox-card`, `checkmark`, `radio-card`, `radio-group`,
+  `radiomark`, `scroll-area`, `select` and `toast` are copies of the DS recipes that name a palette, with `gray`,
+  `green`, `blue` and `teal` changed to `neutral` and `red` and `orange` to `accent`
 - `src/layer-styles.ts`: one grained layer style per elevation level, plus `pressed` and `grain`
 - `src/global-css.ts`: the grain over `bg` on `html`
 
