@@ -23,6 +23,8 @@
   "devDependencies": {
     "@changesets/cli": "3.0.3",
     "@next/playwright": "16.4.2",
+    "@oxlint/plugins": "1.85.0",
+    "@pandacss/eslint-plugin": "2.2.0",
     "@playwright/test": "^1.64.1",
     "@types/node": "25.9.5",
     "esbuild-plugin-file-path-extensions": "^2.1.4",
