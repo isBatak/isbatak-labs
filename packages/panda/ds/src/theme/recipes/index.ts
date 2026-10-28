@@ -12,7 +12,6 @@ import { checkboxSlotRecipe } from "./checkbox"
 import { checkboxCardSlotRecipe } from "./checkbox-card"
 import { checkmarkRecipe } from "./checkmark"
 import { codeRecipe } from "./code"
-import { codeBlockSlotRecipe } from "./code-block"
 import { collapsibleSlotRecipe } from "./collapsible"
 import { colorPickerSlotRecipe } from "./color-picker"
 import { colorSwatchRecipe } from "./color-swatch"
@@ -114,7 +113,6 @@ export const slotRecipes = {
   carousel: carouselSlotRecipe,
   checkbox: checkboxSlotRecipe,
   checkboxCard: checkboxCardSlotRecipe,
-  codeBlock: codeBlockSlotRecipe,
   collapsible: collapsibleSlotRecipe,
   dataList: dataListSlotRecipe,
   dateInput: dateInputSlotRecipe,
