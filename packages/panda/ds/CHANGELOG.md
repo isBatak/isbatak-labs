@@ -1,5 +1,42 @@
 # @isbatak/panda-ds
 
+## 0.6.0
+
+### Minor Changes
+
+- 5555ebe: Style the `drawer` recipe from Zag.js 2's `data-swipe-direction`, so a drawer built on Zag or Ark directly
+  gets the right edge, radius, animation and stacking offset without setting `placement`. `placement` still works and
+  overrides the attribute, which keeps responsive placements working, but it no longer has a recipe default.
+
+  The content now has an `::after` that fills the gap behind the drawer when it is dragged past its open position. Its
+  size comes from `--drawer-bleed`, and `float` drawers hide it.
+
+  Adds `swipeArea`, `indent` and `indentBackground` slots.
+
+  Adds a `fade-out-from` keyframe that fades from `var(--fade-out-from, 1)` to `0`. The drawer backdrop uses it on
+  close, starting from its swiped opacity instead of jumping back to fully opaque.
+
+- c885fbe: Add a `navigationMenu` slot recipe for Ark UI's NavigationMenu. Triggers sit in a row with a highlight that
+  slides between them, and their content opens in a shared viewport panel that resizes to fit it.
+- 752aac2: Restyle the `select` recipe after the tl-ds select. The trigger uses input border colors that darken on hover
+  and take the focus color while the list is open, set through `--input-border-*` variables. Items and group labels get
+  spacing per size, `xs` and `lg` join `sm` and `md`, and a `fit` variant sizes the trigger to its value. New `search`
+  and `empty` slots style a search field at the top of the list and the text shown when nothing matches. When the
+  content holds a `list`, the list scrolls and the search stays above it. Adds an `inputElement` recipe for icons and
+  text inside an input. Content marked with `data-align-item-with-trigger` fades in without sliding so an aligned list
+  lines up, and the positioner stacks above the trigger it overlaps.
+- 9e9cb46: Rebuild the `table` recipe and add a `grid-table` recipe, both modeled on the tl-ds tables. They share the
+  variants `size` (`sm`, `md`, `lg`), `showRowBorder`, `showColumnBorder`, `interactive`, `stickyHeader` and
+  `highlightedHeader`, and support sticky start and end columns through `data-sticky`. The `table` recipe drops its
+  `variant` (`line`, `outline`) and `striped` variants.
+
+  `--toc-indent` on the `toc` recipe is now a spacing token, `spacing.2.5`, and takes any length.
+
+- 5d4efb2: Add a `toc` slot recipe for Ark UI's table of contents. The `line` variant puts a bar on a border at the
+  start of the list, and the `track` variant styles a `track` slot, an SVG line that steps in for nested items, with a
+  dot at the end of the active stretch. `size` takes `sm` or `md`, and `--toc-indent` sets how far each level is
+  indented.
+
 ## 0.5.1
 
 ### Patch Changes
