@@ -1,9 +1,8 @@
-import { defineSlotRecipe } from "@pandacss/dev";
+import { defineSlotRecipe } from "@pandacss/dev"
 
 export const cardSlotRecipe = defineSlotRecipe({
   className: "card",
-  description:
-    "Container for displaying content related to a single subject with header, body and footer",
+  description: "Container for displaying content related to a single subject with header, body and footer",
   slots: ["root", "header", "body", "footer", "title", "description"],
   base: {
     root: {
@@ -96,4 +95,4 @@ export const cardSlotRecipe = defineSlotRecipe({
     variant: "outline",
     size: "md",
   },
-});
+})
