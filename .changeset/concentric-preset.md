@@ -1,5 +1,5 @@
 ---
-"@isbatak/panda-concentric": minor
+"@isbatak/panda-concentric-preset": minor
 ---
 
 Add the concentric preset: `rounded="concentric"` (and every other radius prop) sets a child's radius to its rounded

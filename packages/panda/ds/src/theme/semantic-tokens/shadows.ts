@@ -38,12 +38,14 @@ export const shadows = defineSemanticTokens.shadows({
     },
   },
   inner: {
+    description: "Recessed look for wells and pressed surfaces",
     value: {
       base: "inset 0 2px 4px 0 {colors.black/5}",
       _dark: "inset 0 2px 4px 0 {colors.black}",
     },
   },
   inset: {
+    description: "Hairline ring drawn inside the element instead of a border",
     value: {
       base: "inset 0 0 0 1px {colors.black/5}",
       _dark: "inset 0 0 0 1px {colors.gray.300/5}",

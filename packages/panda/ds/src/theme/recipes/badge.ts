@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const badgeRecipe = defineRecipe({
   className: "badge",
+  description: "Small non-interactive label for status or counts; use tag when it can be removed",
   base: {
     display: "inline-flex",
     alignItems: "center",

@@ -1,5 +1,5 @@
-import { Button } from "@isbatak/react-ui/button";
-import { styled } from "styled-system/jsx";
+import { Button } from "@isbatak/react-ui/button"
+import { styled } from "styled-system/jsx"
 
 export function ConcentricDialogDemo() {
   return (
@@ -21,5 +21,5 @@ export function ConcentricDialogDemo() {
         </Button>
       </styled.div>
     </styled.div>
-  );
+  )
 }

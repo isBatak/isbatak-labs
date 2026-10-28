@@ -2,6 +2,8 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const buttonRecipe = defineRecipe({
   className: "button",
+  description:
+    "Clickable action, also used by IconButton, CloseButton and ButtonGroup; pick a variant, never restyle colors by hand",
   jsx: ["Button", "IconButton", "CloseButton", "ButtonGroup"],
   base: {
     display: "inline-flex",

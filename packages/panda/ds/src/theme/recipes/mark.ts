@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const markRecipe = defineRecipe({
   className: "mark",
+  description: "Highlighted run of text",
   base: {
     bg: "transparent",
     color: "inherit",

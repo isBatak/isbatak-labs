@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const skeletonRecipe = defineRecipe({
   className: "skeleton",
+  description: "Loading placeholder shaped like the content",
   base: {},
   variants: {
     loading: {

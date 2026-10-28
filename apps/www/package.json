@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate": "node scripts/generate-api-docs.mjs && pnpm --filter @isbatak/sourcery --filter @isbatak/panda-turbopack --filter @isbatak/panda-ds build && pnpm --filter @isbatak/compositions build && ikona && velite build --strict",
+    "generate": "node scripts/generate-api-docs.mjs && pnpm --filter @isbatak/sourcery --filter @isbatak/panda-turbopack --filter @isbatak/panda-ds --filter @isbatak/panda-theme-analog build && pnpm --filter @isbatak/compositions build && panda-studio build --base /studio/ --out .studio && panda-studio build --config ../../packages/panda/themes/analog/panda.config.ts --base /studio/analog/ --out .studio/analog && ikona && velite build --strict",
     "api:generate": "node scripts/generate-api-docs.mjs",
     "icons:import": "node scripts/import-tabler-icons.mjs && ikona",
     "dev": "pnpm generate && pnpm run \"/^dev:/\"",
@@ -12,7 +12,9 @@
     "build": "pnpm generate && next build",
     "start": "next start",
     "typecheck": "pnpm generate && next typegen && tsc --noEmit",
-    "dev:compositions": "pnpm --filter @isbatak/compositions dev"
+    "dev:compositions": "pnpm --filter @isbatak/compositions dev",
+    "studio": "panda-studio",
+    "studio:analog": "panda-studio --config ../../packages/panda/themes/analog/panda.config.ts"
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
@@ -23,7 +25,7 @@
     "@isbatak/ark-wheel-picker": "workspace:*",
     "@isbatak/compositions": "workspace:*",
     "@isbatak/panda-code-preview": "workspace:*",
-    "@isbatak/panda-concentric": "workspace:*",
+    "@isbatak/panda-concentric-preset": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/panda-masonry": "workspace:*",
     "@isbatak/panda-text-flip": "workspace:*",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@ikona/cli": "0.2.1",
+    "@isbatak/panda-studio": "workspace:*",
     "@isbatak/panda-turbopack": "workspace:*",
     "@isbatak/sourcery": "workspace:*",
     "@pandacss/dev": "catalog:",

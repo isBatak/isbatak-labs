@@ -6,8 +6,8 @@ description:
 order: 1
 status: new
 links:
-  source: packages/panda/concentric
-  package: "@isbatak/panda-concentric"
+  source: packages/panda/concentric-preset
+  package: "@isbatak/panda-concentric-preset"
 ---
 
 Nested rounded corners only look right when they share a center. Give a card a 24px radius and 12px of padding, and the
@@ -41,17 +41,16 @@ pill all the way down.
 
 Add the preset to your project.
 
-<PackageInstall name="@isbatak/panda-concentric" dev />
+<PackageInstall name="@isbatak/panda-concentric-preset" dev />
 
 Add it to `presets` in your Panda config, next to the design system. There is no JavaScript at runtime.
 
 ```ts title="panda.config.ts"
-import { concentricPreset } from "@isbatak/panda-concentric"
 import { defineConfig } from "@pandacss/dev"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [concentricPreset],
+  presets: ["@isbatak/panda-concentric-preset"],
 })
 ```
 

@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const colorSwatchRecipe = defineRecipe({
   className: "color-swatch",
+  description: "Square preview of a single color",
   base: {
     boxSize: "var(--swatch-size)",
     shadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)",
