@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/panda-theme-analog",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Analog hardware design system built on @isbatak/panda-ds foundations",
   "keywords": [
     "panda",
