@@ -8,4 +8,4 @@
   `cursor: "button"`. Never write hex colors or px values where a token exists.
 - If a token you need doesn't exist, stop and say so. Don't invent one.
 - `apps/compositions` uses `strictTokens`. Before you say you're done, run `pnpm typecheck` in every package you touched
-  and fix every error.
+  and `pnpm lint` at the root, and fix every error and Panda warning.

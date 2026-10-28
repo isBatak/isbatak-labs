@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "panda-css": {
+      "source": "chakra-ui/panda",
+      "sourceType": "github",
+      "skillPath": "skills/panda-css/SKILL.md",
+      "computedHash": "1235bfc5bf49652d07cb63c9f79038ac8566f850e1b3e75c9d87984a0d8c21c3"
+    },
+    "panda-css-theming": {
+      "source": "chakra-ui/panda",
+      "sourceType": "github",
+      "skillPath": "skills/panda-css-theming/SKILL.md",
+      "computedHash": "511cca15c717a6a44e4cc70f4301d0f59431d43510a2829968d30cc20bddc336"
+    }
+  }
+}
