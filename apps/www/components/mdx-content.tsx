@@ -1,5 +1,6 @@
-import { type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
+import { Children, type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
 import * as runtime from "react/jsx-runtime"
+import { code as codeRecipe } from "@isbatak/panda-ds/recipes"
 import { Table as DsTable } from "@isbatak/react-ui/table"
 import { styled } from "styled-system/jsx"
 
@@ -20,26 +21,20 @@ function Pre({ children }: { children?: ReactNode }) {
 
 function Table({ children }: { children?: ReactNode }) {
   return (
-    <styled.div
-      className="not-prose"
-      overflowX="auto"
-      my="6"
-      css={{
-        "& code": {
-          fontFamily: "mono",
-          fontSize: "0.875em",
-          whiteSpace: "nowrap",
-          px: "1",
-          py: "0.5",
-          borderRadius: "l1",
-          bg: "bg.muted",
-        },
-      }}
-    >
+    <styled.div className="not-prose" overflowX="auto" my="6">
       <DsTable.Root size="sm">{children}</DsTable.Root>
     </styled.div>
   )
 }
+
+const withInlineCode = (children: ReactNode) =>
+  Children.map(children, (child) =>
+    isValidElement<{ children?: ReactNode }>(child) && child.type === "code" ? (
+      <code className={codeRecipe()}>{child.props.children}</code>
+    ) : (
+      child
+    ),
+  )
 
 const sharedComponents: MDXComponents = {
   pre: Pre,
@@ -48,8 +43,12 @@ const sharedComponents: MDXComponents = {
   tbody: DsTable.Body,
   tfoot: DsTable.Footer,
   tr: DsTable.Row,
-  th: DsTable.ColumnHeader,
-  td: DsTable.Cell,
+  th: (props: ComponentProps<typeof DsTable.ColumnHeader>) => (
+    <DsTable.ColumnHeader {...props}>{withInlineCode(props.children)}</DsTable.ColumnHeader>
+  ),
+  td: (props: ComponentProps<typeof DsTable.Cell>) => (
+    <DsTable.Cell {...props}>{withInlineCode(props.children)}</DsTable.Cell>
+  ),
   ApiTable,
   FrameworkHint,
   UpstreamNotice,
