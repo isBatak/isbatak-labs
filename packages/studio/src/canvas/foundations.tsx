@@ -47,7 +47,7 @@ const swatchCard = css({
   borderWidth: "1px",
   borderColor: "border.muted",
   bg: "bg",
-  cursor: "pointer",
+  cursor: "button",
   transition: "box-shadow 0.15s",
   _hover: { shadow: "sm" },
 })
@@ -251,7 +251,7 @@ export function ShadowPage(props: FoundationProps) {
             type="button"
             key={entry.name}
             className={cx(
-              css({ h: "24", borderRadius: "l3", bg: "bg.panel", textStyle: "xs", cursor: "pointer" }),
+              css({ h: "24", borderRadius: "l3", bg: "bg.panel", textStyle: "xs", cursor: "button" }),
               props.selectedToken === `shadows.${entry.name}` && selectedCard,
             )}
             style={{ boxShadow: `var(${entry.cssVar})` }}

@@ -31,7 +31,7 @@ const navItem = css({
   textStyle: "xs",
   color: "fg",
   borderRadius: "md",
-  cursor: "pointer",
+  cursor: "button",
   textAlign: "start",
   _hover: { bg: "bg.muted" },
   _selected: { bg: "bg.emphasized", fontWeight: "medium" },
@@ -248,7 +248,7 @@ const layerRow = css({
   textStyle: "xs",
   color: "fg",
   borderRadius: "md",
-  cursor: "pointer",
+  cursor: "button",
   textAlign: "start",
   whiteSpace: "nowrap",
   _hover: { bg: "bg.muted" },
@@ -406,7 +406,7 @@ function Variations(props: { studio: Studio; recipe: RecipeMeta }) {
           gap="1"
           textStyle="xs"
           fontWeight="semibold"
-          cursor="pointer"
+          cursor="button"
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >

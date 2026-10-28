@@ -67,7 +67,7 @@ const chip = css({
   borderColor: "border.muted",
   textStyle: "xs",
   fontFamily: "mono",
-  cursor: "pointer",
+  cursor: "button",
   _hover: { bg: "bg.muted" },
   _pressed: { bg: "bg.emphasized", borderColor: "border", fontWeight: "medium" },
 })
@@ -246,7 +246,7 @@ export function PartStylePanel(props: { studio: Studio }) {
               gap="2"
               textStyle="xs"
               textAlign="start"
-              cursor="pointer"
+              cursor="button"
               _hover={{ color: "blue.600" }}
               onClick={() => {
                 dispatch({ type: "scope", scope: rule.scope })
