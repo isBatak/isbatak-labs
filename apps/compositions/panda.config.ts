@@ -8,6 +8,7 @@ export default defineConfig({
   designSystem: "@isbatak/panda-ds",
   presets: [concentricPreset, masonryPreset, textFlipPreset, wheelPickerPreset],
   include: ["./src/examples/**/*.{ts,tsx,vue,svelte}"],
+  strictTokens: true,
   outdir: "styled-system",
   optimize: {
     removeUnusedTokens: true,
