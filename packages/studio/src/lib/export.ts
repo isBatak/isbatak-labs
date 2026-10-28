@@ -1,4 +1,12 @@
-import { type ColorMode, type StudioDoc, listRules, ruleKey } from "./doc"
+import {
+  type ColorMode,
+  type ScopeValues,
+  type StudioDoc,
+  isCompoundScope,
+  listRules,
+  parseScope,
+  ruleKey,
+} from "./doc"
 import { getToken, recipeStyles, recipes, styleKey } from "./theme-meta"
 
 /**
@@ -15,6 +23,24 @@ function setPath(target: Dict, path: string[], value: unknown) {
     node = node[segment]
   }
   node[path.at(-1)!] = value
+}
+
+const compoundLiteral = (values: ScopeValues) =>
+  Object.fromEntries(
+    Object.entries(values).map(([key, value]) => [key, value === "true" ? true : value === "false" ? false : value]),
+  )
+
+function compoundCss(group: Dict, values: ScopeValues): Dict {
+  group.compoundVariants ??= []
+  const literal = compoundLiteral(values)
+  let entry = (group.compoundVariants as Dict[]).find(
+    (item) => JSON.stringify({ ...item, css: undefined }) === JSON.stringify({ ...literal, css: undefined }),
+  )
+  if (!entry) {
+    entry = { ...literal, css: {} }
+    group.compoundVariants.push(entry)
+  }
+  return entry.css
 }
 
 function tokenPath(key: string) {
@@ -43,11 +69,16 @@ export function toPresetObject(doc: StudioDoc) {
     const recipe = recipes[rule.recipe]
     if (!recipe) continue
     const group = recipe.slots ? "slotRecipes" : "recipes"
-    const scopePath = rule.scope === "base" ? ["base"] : ["variants", ...rule.scope.split(":")]
-    const path = [group, rule.recipe, ...scopePath, ...(rule.slot ? [rule.slot] : [])]
-    if (rule.state) path.push(`_${rule.state}`)
     const key = styleKey(recipeStyles(recipe, rule.scope, rule.slot), rule.property, rule.state)
-    setPath(extend, [...path, key], rule.value)
+    const inner = [...(rule.slot ? [rule.slot] : []), ...(rule.state ? [`_${rule.state}`] : []), key]
+    if (isCompoundScope(rule.scope)) {
+      extend[group] ??= {}
+      extend[group][rule.recipe] ??= {}
+      setPath(compoundCss(extend[group][rule.recipe], parseScope(rule.scope)), inner, rule.value)
+      continue
+    }
+    const scopePath = rule.scope === "base" ? ["base"] : ["variants", ...rule.scope.split(":")]
+    setPath(extend, [group, rule.recipe, ...scopePath, ...inner], rule.value)
   }
 
   return extend
@@ -56,7 +87,14 @@ export function toPresetObject(doc: StudioDoc) {
 export type SourceEdit =
   | { key: string; type: "token"; category: string; path: string[]; value: string }
   | { key: string; type: "semantic"; category: string; path: string[]; mode: ColorMode; value: string }
-  | { key: string; type: "recipe"; className: string; path: string[]; value: string }
+  | {
+      key: string
+      type: "recipe"
+      className: string
+      path: string[]
+      value: string
+      compound?: Record<string, string | boolean>
+    }
   | { key: string; type: "preset"; package: string; options: Record<string, number> }
 
 export const presetEditKey = (pkg: string) => `preset:${pkg}`
@@ -86,7 +124,8 @@ export function toSourceEdits(doc: StudioDoc): SourceEdit[] {
   for (const rule of listRules(doc)) {
     const recipe = recipes[rule.recipe]
     if (!recipe) continue
-    const scopePath = rule.scope === "base" ? ["base"] : ["variants", ...rule.scope.split(":")]
+    const compound = isCompoundScope(rule.scope)
+    const scopePath = compound ? [] : rule.scope === "base" ? ["base"] : ["variants", ...rule.scope.split(":")]
     const path = [...scopePath, ...(rule.slot ? [rule.slot] : [])]
     if (rule.state) path.push(`_${rule.state}`)
     path.push(styleKey(recipeStyles(recipe, rule.scope, rule.slot), rule.property, rule.state))
@@ -96,6 +135,7 @@ export function toSourceEdits(doc: StudioDoc): SourceEdit[] {
       className: recipe.className,
       path,
       value: rule.value,
+      ...(compound && { compound: compoundLiteral(parseScope(rule.scope)) }),
     })
   }
 

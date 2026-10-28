@@ -47,14 +47,22 @@ system. The website serves static builds of both, at `/studio` and `/studio/anal
   shows the system's identity, foundation values and change counts, with actions to duplicate, reset or delete it.
 - **Foundations**: Overview, Color, Typography, Radius, Shadow and Spacing pages show tokens next to live components.
   Click a swatch to edit it; semantic tokens are edited per color mode (Light / Dark).
-- **Components**: every component in `@isbatak/react-ui` (plus a few recipe-only ones) has a Demo page and a Matrix of
-  all variant combinations. **⌘/Ctrl-click** any part on the canvas, or pick it in **Component Layers**, to edit it in
-  the Style panel.
+- **Components**: every component in `@isbatak/react-ui` (plus a few recipe-only ones) has a Demo page and a Matrix.
+  **⌘/Ctrl-click** any part on the canvas, or pick it in **Component Layers**, to edit it in the Style panel.
+- **Matrix**: every combination of the recipe's variants and states, laid out like Figma's Propstar: the state and
+  variant groups alternate between rows and columns, default values first, booleans as `true`/`false`. States are the
+  conditions the recipe styles (plus ones you add with **+ state** in Variations), simulated with the data or aria
+  attribute their Panda selector matches (`stateProps("hover")` → `data-hover`). Click a sample to target its variant
+  and state; click an axis label to target that value.
+- **Variations**: the recipe's variants in the sidebar (all variants, each value of each group, compound variants and
+  states). Selecting one targets it and dims everything else in the matrix.
 - **Component Layers**: a tree of the parts rendered on the canvas, nested the way they are in the DOM (a Button inside
   a Card footer shows up there). Hover a layer to outline it on the canvas; drag the panel edges to resize the sidebar
   and the layers panel.
-- **Style panel**: a part is edited for _all variants_ or a single variant value, and for a state (hover, open,
-  disabled, …). Values accept token names (`blue.500`, `4`, `l2`) with suggestions, or raw CSS.
+- **Style panel**: a part is edited for _all variants_, a single variant value or a compound of values, and for a state
+  picked in the matrix or Variations. After clicking a sample, its values show as chips; the ◇ chip combines the values
+  that differ from the defaults (`ghost + sm`) and opts into a `compoundVariants` entry, which Save to source finds or
+  adds in the recipe. Values accept token names (`blue.500`, `4`, `l2`) with suggestions, or raw CSS.
 - **Color picker**: color tokens and color properties open a picker (Ark UI `ColorPicker`, styled by the design system's
   `colorPicker` recipe). **Tokens** links to a palette or semantic token; **Custom** picks a raw color with an area, eye
   dropper, hue/alpha sliders and RGBA/HSLA/HSBA inputs. The Light and Dark rows are the colors the page palette uses;

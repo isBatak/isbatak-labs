@@ -1,4 +1,4 @@
-import { type StudioDoc, listRules } from "./doc"
+import { type StudioDoc, listRules, parseScope } from "./doc"
 import {
   conditionSelector,
   getToken,
@@ -50,12 +50,15 @@ function recipeCss(doc: StudioDoc) {
     if (!recipe) continue
 
     const part = partClassName(recipe, rule.slot)
-    const [variant, value] = rule.scope.split(":")
-    const base = rule.scope === "base" ? `.${part}` : `.${part}--${variant}_${value}`
+    const classes = Object.entries(parseScope(rule.scope)).map(([variant, value]) => `.${part}--${variant}_${value}`)
+    const compound = classes.length > 1
+    const base = compound ? `${classes[0]}:where(${classes.slice(1).join("")})` : (classes[0] ?? `.${part}`)
     const selector = rule.state ? conditionSelector(rule.state, base) : base
     if (!selector) continue
 
-    const layer = `recipes.${recipe.slots ? "slots." : ""}${rule.scope === "base" ? "base" : "variants"}`
+    const layer = compound
+      ? "utilities"
+      : `recipes.${recipe.slots ? "slots." : ""}${rule.scope === "base" ? "base" : "variants"}`
     const declaration = `${kebab(rule.property)}: ${resolveStyleValue(utilityCategory(rule.property), rule.value)};`
 
     const blocks = layers.get(layer) ?? new Map<string, string[]>()

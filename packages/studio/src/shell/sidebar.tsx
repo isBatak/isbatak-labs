@@ -3,10 +3,22 @@ import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { components } from "../components"
-import { listRules } from "../lib/doc"
+import { isCompoundScope, listRules } from "../lib/doc"
 import type { ComponentId, FoundationId, LayerNode, Page } from "../lib/messages"
-import { partLabel, recipes } from "../lib/theme-meta"
-import { ComponentIcon, Icon, LayersIcon, ResizeHandle, SearchIcon, dot, useStoredSize } from "./ui"
+import { orderedValues, primaryVariant, recipeStates, simulatableStates, stateLabel } from "../lib/states"
+import { type RecipeMeta, partLabel, recipes } from "../lib/theme-meta"
+import { recipeCompounds, scopeTitle } from "./part-style-panel"
+import {
+  ComponentIcon,
+  Icon,
+  IconButton,
+  LayersIcon,
+  NativeSelect,
+  ResizeHandle,
+  SearchIcon,
+  dot,
+  useStoredSize,
+} from "./ui"
 import type { Studio } from "./use-studio"
 
 const navItem = css({
@@ -174,6 +186,7 @@ function ComponentLayers(props: { studio: Studio }) {
       style={{ height, maxHeight: "calc(100% - 8rem)" }}
     >
       <ResizeHandle orientation="horizontal" size={height} onResize={setHeight} label="Resize component layers" />
+      {recipe && <Variations studio={props.studio} recipe={recipe} />}
       <div className={heading} style={{ paddingInline: "1rem" }}>
         Component Layers
       </div>
@@ -319,6 +332,177 @@ function Layer(props: { studio: Studio; node: LayerNode; depth: number; path: st
         <LayerList studio={studio} nodes={node.children} depth={depth + 1} path={props.path} />
       )}
     </>
+  )
+}
+
+const sectionHeader = css({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: "1",
+  ps: "2",
+  pe: "1",
+  pt: "3",
+  pb: "1",
+})
+
+const subheading = css({
+  textStyle: "2xs",
+  fontFamily: "mono",
+  color: "fg.subtle",
+  px: "2",
+  pt: "2",
+  pb: "0.5",
+})
+
+function Variations(props: { studio: Studio; recipe: RecipeMeta }) {
+  const { studio, recipe } = props
+  const { state, dispatch } = studio
+  const [open, setOpen] = useState(true)
+  const rules = listRules(state.doc, { recipe: recipe.key })
+  const primary = primaryVariant(recipe)
+  const names = Object.keys(recipe.variantMap).sort((a, b) => Number(b === primary) - Number(a === primary))
+  const compounds = recipeCompounds(recipe, rules, state.scope)
+  const states = recipeStates(recipe, state.doc, state.addedStates[recipe.key])
+  const addable = simulatableStates.filter((name) => !states.includes(name))
+
+  const scopeItem = (scope: string, label: string) => (
+    <button
+      type="button"
+      key={scope}
+      className={layerRow}
+      style={{ paddingInlineStart: "8px" }}
+      aria-selected={state.scope === scope}
+      onClick={() => dispatch({ type: "scope", scope })}
+    >
+      <VariationIcon />
+      <styled.span flex="1" truncate>
+        {label}
+      </styled.span>
+      {rules.some((rule) => rule.scope === scope) && <span className={dot} />}
+    </button>
+  )
+
+  return (
+    <styled.div
+      flexShrink="0"
+      maxH="50%"
+      overflowY="auto"
+      px="2"
+      pb="2"
+      borderBottomWidth="1px"
+      borderColor="border.muted"
+    >
+      <div className={sectionHeader}>
+        <styled.button
+          type="button"
+          display="flex"
+          alignItems="center"
+          gap="1"
+          textStyle="xs"
+          fontWeight="semibold"
+          cursor="pointer"
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          <span className={chevron} data-collapsed={open ? undefined : ""}>
+            <Icon>
+              <path d="m6 9 6 6 6-6" />
+            </Icon>
+          </span>
+          Variations
+        </styled.button>
+        <IconButton
+          label="Show every combination in the matrix"
+          aria-pressed={state.view === "matrix"}
+          onClick={() => dispatch({ type: "view", view: "matrix" })}
+        >
+          <MatrixIcon />
+        </IconButton>
+      </div>
+      {open && (
+        <>
+          {scopeItem("base", "All variants")}
+          {names.map((name) => (
+            <div key={name}>
+              <div className={subheading}>{name}</div>
+              {orderedValues(recipe, name).map((value) => scopeItem(`${name}:${value}`, value))}
+            </div>
+          ))}
+          {compounds.length > 0 && (
+            <div>
+              <div className={subheading}>◇ compound</div>
+              {compounds.filter(isCompoundScope).map((scope) => scopeItem(scope, scopeTitle(scope)))}
+            </div>
+          )}
+          <styled.div display="flex" alignItems="center" justifyContent="space-between" pe="1">
+            <div className={subheading}>state</div>
+            <NativeSelect
+              aria-label="Add a state"
+              value=""
+              className={css({ w: "auto", h: "5", mt: "1.5", fontSize: "10px" })}
+              onChange={(event) => {
+                if (!event.target.value) return
+                dispatch({ type: "add-state", recipe: recipe.key, condition: event.target.value })
+                dispatch({ type: "condition", condition: event.target.value })
+              }}
+            >
+              <option value="">+ state</option>
+              {addable.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </NativeSelect>
+          </styled.div>
+          {states.map((condition) => (
+            <button
+              type="button"
+              key={condition || "default"}
+              className={layerRow}
+              style={{ paddingInlineStart: "8px" }}
+              aria-selected={state.condition === condition}
+              onClick={() => dispatch({ type: "condition", condition })}
+            >
+              <StateIcon />
+              <styled.span flex="1" truncate>
+                {stateLabel(condition)}
+              </styled.span>
+              {condition && rules.some((rule) => rule.state === condition) && <span className={dot} />}
+            </button>
+          ))}
+        </>
+      )}
+    </styled.div>
+  )
+}
+
+function VariationIcon() {
+  return (
+    <Icon>
+      <rect x="3" y="3" width="7" height="7" rx="2" />
+      <rect x="14" y="3" width="7" height="7" rx="2" fill="currentColor" />
+      <rect x="3" y="14" width="7" height="7" rx="2" />
+      <rect x="14" y="14" width="7" height="7" rx="2" />
+    </Icon>
+  )
+}
+
+function StateIcon() {
+  return (
+    <Icon>
+      <path d="M9 9l5 12 1.8-5.2L21 14Z" />
+      <path d="M7.2 2.2 8 5.1M5.1 8l-2.9-.8M14 4.1 12 6.5M6.5 12 4.1 14" />
+    </Icon>
+  )
+}
+
+function MatrixIcon() {
+  return (
+    <Icon>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
+    </Icon>
   )
 }
 

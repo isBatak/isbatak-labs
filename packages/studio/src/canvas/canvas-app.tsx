@@ -5,9 +5,9 @@ import { styled } from "styled-system/jsx"
 import { components } from "../components"
 import { demos } from "../demos"
 import type { CanvasMessage, ComponentId, Part, RenderMessage } from "../lib/messages"
-import { recipes } from "../lib/theme-meta"
 import { ColorPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
 import { collectLayers } from "./layers"
+import { Matrix } from "./matrix"
 import { runLint } from "./lint"
 import { OverviewBoard } from "./overview"
 import { SelectionLayer } from "./selection"
@@ -100,7 +100,16 @@ export function CanvasApp() {
   } else if (page.kind === "components") {
     content = <ComponentGallery />
   } else if (state.view === "matrix") {
-    content = <Matrix id={page.id} />
+    content = (
+      <Matrix
+        id={page.id}
+        states={state.states}
+        scope={state.scope}
+        condition={state.condition}
+        selectedCell={state.selectedCell}
+        post={post}
+      />
+    )
   } else {
     const { Demo } = demos[page.id]
     content = <Demo />
@@ -131,7 +140,11 @@ export function CanvasApp() {
       >
         {content}
       </styled.div>
-      <SelectionLayer selected={state.selectedPart} highlighted={state.hoveredPart} onSelect={onSelectPart} />
+      <SelectionLayer
+        selected={page.kind === "component" && state.view === "matrix" ? undefined : state.selectedPart}
+        highlighted={state.hoveredPart}
+        onSelect={onSelectPart}
+      />
     </styled.main>
   )
 }
@@ -189,78 +202,6 @@ function BoardPanning(props: { enabled: boolean; pageKey: string }) {
     }
   }, [props.enabled, props.pageKey])
   return null
-}
-
-/* -------------------------------------------------------------------------------------------------
- * Matrix: every combination of the recipe's two main variant axes
- * -----------------------------------------------------------------------------------------------*/
-
-function matrixAxes(variantMap: Record<string, string[]>) {
-  const keys = Object.keys(variantMap).filter((key) => variantMap[key]!.length > 1)
-  const rows = keys.includes("variant") ? "variant" : keys[0]
-  const columns = keys.includes("size") && rows !== "size" ? "size" : keys.find((key) => key !== rows)
-  return { rows, columns }
-}
-
-const cell = css({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  p: "4",
-  bg: "bg",
-  borderRadius: "lg",
-  borderWidth: "1px",
-  borderColor: "border.muted",
-  minW: "0",
-  overflow: "hidden",
-})
-
-const axisLabel = css({ textStyle: "xs", color: "fg.muted", fontFamily: "mono" })
-
-function Matrix(props: { id: ComponentId }) {
-  const recipe = recipes[components[props.id].recipe]!
-  const { Sample } = demos[props.id]
-  const { rows, columns } = matrixAxes(recipe.variantMap)
-  const rowValues = rows ? recipe.variantMap[rows]! : [undefined]
-  const columnValues = columns ? recipe.variantMap[columns]! : [undefined]
-
-  return (
-    <styled.div overflowX="auto">
-      <styled.div
-        display="grid"
-        gap="2"
-        alignItems="stretch"
-        style={{ gridTemplateColumns: `auto repeat(${columnValues.length}, minmax(10rem, 1fr))` }}
-      >
-        <span />
-        {columnValues.map((column) => (
-          <span key={String(column)} className={axisLabel}>
-            {columns ? `${columns}=${column}` : "default"}
-          </span>
-        ))}
-        {rowValues.map((row) => (
-          <RowCells key={String(row)} label={rows ? `${rows}=${row}` : "default"}>
-            {columnValues.map((column) => (
-              <div key={String(column)} className={cell}>
-                <Sample {...(rows ? { [rows]: row } : {})} {...(columns ? { [columns]: column } : {})} />
-              </div>
-            ))}
-          </RowCells>
-        ))}
-      </styled.div>
-    </styled.div>
-  )
-}
-
-function RowCells(props: { label: string; children: ReactNode }) {
-  return (
-    <>
-      <styled.span className={axisLabel} alignSelf="center" pe="2">
-        {props.label}
-      </styled.span>
-      {props.children}
-    </>
-  )
 }
 
 /* -------------------------------------------------------------------------------------------------

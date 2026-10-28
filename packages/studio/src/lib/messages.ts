@@ -16,6 +16,11 @@ export interface Part {
   slot?: string | undefined
 }
 
+export interface Cell {
+  variants: Record<string, string>
+  state: string
+}
+
 /** Shell → canvas */
 export interface RenderMessage {
   type: "render"
@@ -29,12 +34,19 @@ export interface RenderMessage {
   /** Part hovered in the Component Layers tree, outlined on the canvas */
   hoveredPart: Part | undefined
   selectedToken: string | undefined
+  scope: string
+  condition: string
+  selectedCell: Cell | undefined
+  states: string[]
 }
 
 /** Canvas → shell */
 export type CanvasMessage =
   | { type: "ready" }
   | { type: "select-part"; part: Part }
+  | { type: "select-cell"; cell: Cell; part: Part | undefined }
+  | { type: "select-scope"; scope: string }
+  | { type: "select-state"; condition: string }
   | { type: "select-token"; token: string }
   | { type: "navigate"; page: Page }
   | { type: "lint"; results: LintResult[] }

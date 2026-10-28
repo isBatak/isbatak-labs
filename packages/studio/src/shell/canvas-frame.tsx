@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { styled } from "styled-system/jsx"
 
+import { components } from "../components"
 import { type RenderMessage, isCanvasMessage } from "../lib/messages"
+import { recipeStates } from "../lib/states"
+import { recipes } from "../lib/theme-meta"
 import type { Studio } from "./use-studio"
 
 /**
@@ -26,6 +29,15 @@ export function CanvasFrame(props: { studio: Studio }) {
         case "select-part":
           dispatch({ type: "select-part", part: message.part })
           break
+        case "select-cell":
+          dispatch({ type: "select-cell", cell: message.cell, part: message.part })
+          break
+        case "select-scope":
+          dispatch({ type: "scope", scope: message.scope })
+          break
+        case "select-state":
+          dispatch({ type: "condition", condition: message.condition })
+          break
         case "select-token":
           dispatch({ type: "select-token", token: message.token })
           break
@@ -44,6 +56,12 @@ export function CanvasFrame(props: { studio: Studio }) {
     return () => window.removeEventListener("message", onMessage)
   }, [dispatch])
 
+  const recipe = state.page.kind === "component" ? recipes[components[state.page.id].recipe] : undefined
+  const states = useMemo(
+    () => (recipe ? recipeStates(recipe, state.doc, state.addedStates[recipe.key]) : [""]),
+    [recipe, state.doc, state.addedStates],
+  )
+
   useEffect(() => {
     if (!ready) return
     const message: RenderMessage = {
@@ -57,6 +75,10 @@ export function CanvasFrame(props: { studio: Studio }) {
       selectedPart: state.selectedPart,
       hoveredPart: state.hoveredPart,
       selectedToken: state.selectedToken,
+      scope: state.scope,
+      condition: state.condition,
+      selectedCell: state.selectedCell,
+      states,
     }
     frame.current?.contentWindow?.postMessage(message, window.location.origin)
   }, [
@@ -70,6 +92,10 @@ export function CanvasFrame(props: { studio: Studio }) {
     state.selectedPart,
     state.hoveredPart,
     state.selectedToken,
+    state.scope,
+    state.condition,
+    state.selectedCell,
+    states,
   ])
 
   return (

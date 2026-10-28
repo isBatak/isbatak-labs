@@ -127,6 +127,30 @@ export const grain = grainTheme({
     expect(result.skipped).toEqual([{ key: "computed", reason: "computed value" }])
   })
 
+  test("writes compound variant edits into a matching entry or a new one", () => {
+    const root = project()
+    const compound = (key: string, values: Record<string, string | boolean>, path: string[], value: string) => ({
+      key,
+      type: "recipe",
+      className: "button",
+      path,
+      value,
+      compound: values,
+    })
+    run(root, [compound("a", { variant: "ghost", size: "sm" }, ["_hover", "px"], "3")])
+    expect(readFileSync(join(root, "button.ts"), "utf8")).toContain(
+      `compoundVariants: [{ variant: "ghost", size: "sm", css: { _hover: { px: "3" } } }]`,
+    )
+    run(root, [
+      compound("b", { variant: "ghost", size: "sm" }, ["_hover", "px"], "4"),
+      compound("c", { variant: "ghost", size: "sm" }, ["gap"], "1"),
+      compound("d", { variant: "solid", icon: true }, ["h"], "8"),
+    ])
+    expect(readFileSync(join(root, "button.ts"), "utf8")).toContain(
+      `compoundVariants: [{ variant: "ghost", size: "sm", css: { _hover: { px: "4" }, gap: "1" } }, { variant: "solid", icon: true, css: { h: "8" } }]`,
+    )
+  })
+
   test("adds options to a preset call without arguments", () => {
     const root = project()
     writeFileSync(join(root, "theme.ts"), `import { grainTheme } from "grain"\n\nexport const grain = grainTheme()\n`)
