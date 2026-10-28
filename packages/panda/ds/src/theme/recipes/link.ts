@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const linkRecipe = defineRecipe({
   className: "link",
+  description: "Inline text link",
   base: {
     display: "inline-flex",
     alignItems: "center",

@@ -137,6 +137,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
     "indentBackground",
   ],
   className: "drawer",
+  description: "Panel that slides in from a screen edge",
   base: {
     backdrop: {
       bg: "blackAlpha.500",

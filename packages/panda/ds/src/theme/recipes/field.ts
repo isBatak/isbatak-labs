@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const fieldSlotRecipe = defineSlotRecipe({
   className: "field",
+  description: "Wraps a form control with label, helper text and error text",
   slots: [
     "root",
     "errorText",

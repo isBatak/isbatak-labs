@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const listSlotRecipe = defineSlotRecipe({
   className: "list",
+  description: "Ordered or unordered list",
   slots: ["root", "item", "indicator"],
   base: {
     root: {

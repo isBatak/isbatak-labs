@@ -10,6 +10,7 @@ export const splitterSlotRecipe = defineSlotRecipe({
     "resizeTriggerIndicator",
   ],
   className: "splitter",
+  description: "Resizable panels separated by drag handles",
   base: {
     resizeTrigger: {
       "--splitter-border-color": "colors.border",

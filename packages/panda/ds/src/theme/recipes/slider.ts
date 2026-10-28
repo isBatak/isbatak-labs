@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const sliderSlotRecipe = defineSlotRecipe({
   className: "slider",
+  description: "Range input with one or more thumbs",
   slots: [
     "root",
     "label",

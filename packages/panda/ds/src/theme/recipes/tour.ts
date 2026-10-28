@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const tourSlotRecipe = defineSlotRecipe({
   className: "tour",
+  description: "Guided walkthrough of steps anchored to UI elements",
   slots: [
     "backdrop",
     "spotlight",

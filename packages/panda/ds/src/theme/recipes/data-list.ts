@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const dataListSlotRecipe = defineSlotRecipe({
   slots: ["root", "item", "itemLabel", "itemValue"],
   className: "data-list",
+  description: "Label and value pairs, for detail views",
   base: {
     itemLabel: {
       display: "flex",

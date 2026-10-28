@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const headingRecipe = defineRecipe({
   className: "heading",
+  description: "Heading text with a size scale",
   base: {
     fontFamily: "heading",
     fontWeight: "semibold",

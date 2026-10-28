@@ -12,6 +12,7 @@ import {
 
 export const segmentGroupSlotRecipe = defineSlotRecipe({
   className: "segment-group",
+  description: "Segmented control for switching between a few options",
   slots: ["root", "label", "item", "itemText", "itemControl", "indicator"],
   base: {
     root: {

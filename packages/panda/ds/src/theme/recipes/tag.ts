@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const tagSlotRecipe = defineSlotRecipe({
   slots: ["root", "label", "closeTrigger", "startElement", "endElement"],
   className: "tag",
+  description: "Interactive or removable label; use badge for static status",
   base: {
     root: {
       display: "inline-flex",

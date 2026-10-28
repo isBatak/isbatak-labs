@@ -15,6 +15,7 @@ export const floatingPanelSlotRecipe = defineSlotRecipe({
     "control",
   ],
   className: "floating-panel",
+  description: "Draggable, resizable non-modal panel",
   base: {
     positioner: {
       "--floating-panel-z-index": "zIndex.popover",

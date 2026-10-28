@@ -14,6 +14,7 @@ export const tagsInputSlotRecipe = defineSlotRecipe({
     "itemDeleteTrigger",
   ],
   className: "tags-input",
+  description: "Input that turns entries into removable tags",
   base: {
     root: {
       display: "flex",

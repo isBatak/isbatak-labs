@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const radioGroupSlotRecipe = defineSlotRecipe({
   className: "radio-group",
+  description: "Group of radios for picking one option",
   slots: ["root", "label", "item", "itemText", "itemControl", "indicator", "itemAddon", "itemIndicator"],
   base: {
     item: {

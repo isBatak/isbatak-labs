@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const fileUploadSlotRecipe = defineSlotRecipe({
   className: "file-upload",
+  description: "Dropzone and trigger for picking files, with a file list",
   slots: [
     "root",
     "dropzone",

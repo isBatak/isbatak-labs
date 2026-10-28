@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const breadcrumbSlotRecipe = defineSlotRecipe({
   className: "breadcrumb",
+  description: "Hierarchical navigation trail",
   slots: ["link", "currentLink", "item", "list", "root", "ellipsis", "separator"],
   base: {
     list: {

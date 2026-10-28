@@ -19,6 +19,7 @@ export const treeViewSlotRecipe = defineSlotRecipe({
     "tree",
   ],
   className: "tree-view",
+  description: "Expandable hierarchical list",
   base: {
     root: {
       width: "full",

@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const listboxSlotRecipe = defineSlotRecipe({
   className: "listbox",
+  description: "Selectable list of options without a trigger",
   slots: [
     "label",
     "input",

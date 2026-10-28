@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const scrollAreaSlotRecipe = defineSlotRecipe({
   className: "scroll-area",
+  description: "Scroll container with custom scrollbars",
   slots: ["root", "viewport", "content", "scrollbar", "thumb", "corner"],
   base: {
     root: {

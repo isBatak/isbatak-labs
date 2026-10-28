@@ -14,6 +14,7 @@ export const editableSlotRecipe = defineSlotRecipe({
     "textarea",
   ],
   className: "editable",
+  description: "Text that turns into an input when edited in place",
   base: {
     root: {
       display: "inline-flex",

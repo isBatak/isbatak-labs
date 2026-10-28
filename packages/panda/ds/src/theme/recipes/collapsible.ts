@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const collapsibleSlotRecipe = defineSlotRecipe({
   slots: ["root", "trigger", "content", "indicator"],
   className: "collapsible",
+  description: "Single section that expands and collapses",
   base: {
     content: {
       overflow: "hidden",

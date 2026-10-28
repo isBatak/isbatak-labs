@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const alertSlotRecipe = defineSlotRecipe({
   slots: ["title", "description", "root", "indicator", "content"],
   className: "alert",
+  description: "Inline status message; pick a status instead of coloring it by hand",
   base: {
     root: {
       width: "full",

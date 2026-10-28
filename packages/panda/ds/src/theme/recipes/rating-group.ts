@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const ratingGroupSlotRecipe = defineSlotRecipe({
   className: "rating-group",
+  description: "Star rating input",
   slots: ["root", "label", "item", "control", "itemIndicator"],
   base: {
     root: {

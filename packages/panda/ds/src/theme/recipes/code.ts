@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const codeRecipe = defineRecipe({
   className: "code",
+  description: "Inline code",
   base: {
     fontFamily: "mono",
     alignItems: "center",

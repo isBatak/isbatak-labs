@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const timelineSlotRecipe = defineSlotRecipe({
   slots: ["root", "item", "content", "separator", "indicator", "connector", "title", "description"],
   className: "timeline",
+  description: "Vertical sequence of events",
   base: {
     root: {
       display: "flex",

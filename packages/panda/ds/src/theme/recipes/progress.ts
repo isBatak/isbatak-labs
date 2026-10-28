@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const progressSlotRecipe = defineSlotRecipe({
   slots: ["root", "label", "track", "range", "valueText", "view", "circle", "circleTrack", "circleRange"],
   className: "progress",
+  description: "Linear progress bar",
   base: {
     root: {
       textStyle: "sm",

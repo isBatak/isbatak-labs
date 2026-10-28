@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const accordionSlotRecipe = defineSlotRecipe({
   className: "accordion",
+  description: "Expandable sections, e.g. FAQs, settings groups, filters. Use collapsible for a single toggle",
   slots: ["root", "item", "itemTrigger", "itemContent", "itemIndicator", "itemBody"],
   base: {
     root: {

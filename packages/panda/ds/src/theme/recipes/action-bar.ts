@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const actionBarSlotRecipe = defineSlotRecipe({
   className: "action-bar",
+  description: "Floating bar of bulk actions shown while items are selected",
   slots: ["positioner", "content", "separator", "selectionTrigger", "closeTrigger"],
   base: {
     positioner: {

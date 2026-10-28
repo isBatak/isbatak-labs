@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const spinnerRecipe = defineRecipe({
   className: "spinner",
+  description: "Indeterminate loading spinner",
   base: {
     display: "inline-block",
     borderColor: "currentColor",

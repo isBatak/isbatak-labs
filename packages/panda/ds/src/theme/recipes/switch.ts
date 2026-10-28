@@ -4,6 +4,7 @@ export const switchSlotRecipe = defineSlotRecipe({
   jsx: ["Switch", /^Switch\./],
   slots: ["root", "label", "control", "thumb", "indicator"],
   className: "switch",
+  description: "On and off toggle",
   base: {
     root: {
       display: "inline-flex",

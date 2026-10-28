@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const skipNavLinkRecipe = defineRecipe({
   className: "skip-nav",
+  description: "Keyboard link that skips to the main content",
   base: {
     display: "inline-flex",
     bg: "bg.panel",

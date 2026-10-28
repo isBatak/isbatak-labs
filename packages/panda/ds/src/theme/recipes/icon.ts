@@ -2,6 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const iconRecipe = defineRecipe({
   className: "icon",
+  description: "Sizes an inline SVG icon to the text",
   base: {
     display: "inline-block",
     lineHeight: "1em",

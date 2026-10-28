@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const stepsSlotRecipe = defineSlotRecipe({
   className: "steps",
+  description: "Multi-step progress indicator",
   slots: [
     "root",
     "list",

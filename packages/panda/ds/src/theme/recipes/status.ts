@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const statusSlotRecipe = defineSlotRecipe({
   className: "status",
+  description: "Colored dot with a label for online or health state",
   slots: ["root", "indicator"],
   base: {
     root: {

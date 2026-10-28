@@ -2,6 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const progressCircleSlotRecipe = defineSlotRecipe({
   className: "progress-circle",
+  description: "Circular progress indicator",
   slots: ["root", "label", "track", "range", "valueText", "view", "circle", "circleTrack", "circleRange"],
   base: {
     root: {
