@@ -58,7 +58,7 @@ const iconButton = css({
   h: "7",
   borderRadius: "md",
   color: "fg.muted",
-  cursor: "pointer",
+  cursor: "button",
   _hover: { bg: "bg.muted", color: "fg" },
   _disabled: { opacity: "0.4", cursor: "not-allowed", _hover: { bg: "transparent" } },
   "& svg": { w: "4", h: "4" },
@@ -194,7 +194,7 @@ const toggleItem = css({
   whiteSpace: "nowrap",
   color: "fg.muted",
   borderRadius: "sm",
-  cursor: "pointer",
+  cursor: "button",
   _checked: { bg: "bg", color: "fg", shadow: "xs" },
   "& svg": { w: "3.5", h: "3.5" },
 })

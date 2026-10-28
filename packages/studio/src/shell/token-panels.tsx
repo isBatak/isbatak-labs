@@ -151,7 +151,7 @@ function RadiusPresetButton(props: { studio: Studio; preset: RadiusPreset }) {
       borderColor={active ? "blue.500" : "border"}
       bg={active ? "blue.50" : "bg"}
       borderRadius="md"
-      cursor="pointer"
+      cursor="button"
       onClick={() => studio.edit((doc) => applyRadiusPreset(doc, preset))}
     >
       {preset}
@@ -299,7 +299,7 @@ function EditRow(props: { label: string; value: string; onRemove?: () => void })
         <styled.button
           type="button"
           color="fg.subtle"
-          cursor="pointer"
+          cursor="button"
           _hover={{ color: "fg.error" }}
           onClick={props.onRemove}
         >
@@ -352,7 +352,7 @@ const actionButton = {
   textStyle: "xs",
   fontWeight: "medium",
   borderRadius: "md",
-  cursor: "pointer",
+  cursor: "button",
 } as const
 
 function ThemeActions(props: { studio: Studio }) {

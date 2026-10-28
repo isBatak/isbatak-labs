@@ -230,7 +230,7 @@ const tileLink = css({
   textStyle: "sm",
   fontWeight: "medium",
   textAlign: "start",
-  cursor: "pointer",
+  cursor: "button",
   outline: "0",
   _after: { content: '""', position: "absolute", inset: "0", borderRadius: "xl" },
   _focusVisible: { _after: { outline: "2px solid", outlineColor: "blue.500" } },

@@ -38,7 +38,7 @@ const row = css({
   borderRadius: "md",
   textStyle: "sm",
   textAlign: "start",
-  cursor: "pointer",
+  cursor: "button",
   _hover: { bg: "bg.muted" },
   "&[data-selected]": { bg: "bg.emphasized" },
 })

@@ -91,7 +91,7 @@ const row = css({
   borderRadius: "md",
   textStyle: "sm",
   textAlign: "start",
-  cursor: "pointer",
+  cursor: "button",
   _hover: { bg: "bg.muted" },
   "&[data-selected]": { bg: "bg.emphasized" },
 })
@@ -265,7 +265,7 @@ const layerRow = css({
     borderWidth: "1px",
     borderColor: "border.muted",
     textStyle: "sm",
-    cursor: "pointer",
+    cursor: "button",
     _hover: { bg: "bg.muted" },
   },
   "&[data-selected] > button:first-child": { bg: "blue.subtle", borderColor: "blue.muted", color: "blue.fg" },
