@@ -67,7 +67,6 @@ export function CanvasFrame(props: { studio: Studio }) {
     const message: RenderMessage = {
       type: "render",
       page: state.page,
-      view: state.view,
       css,
       doc: state.doc,
       colorMode: state.colorMode,
@@ -84,7 +83,6 @@ export function CanvasFrame(props: { studio: Studio }) {
   }, [
     ready,
     state.page,
-    state.view,
     css,
     state.doc,
     state.colorMode,

@@ -7,7 +7,7 @@ import { themeVariants } from "virtual:panda-studio/project"
 
 import { countOverrides, emptyDoc } from "../lib/doc"
 import { GetCodeDialog } from "./get-code-dialog"
-import { IconButton, MoonIcon, NativeSelect, RedoIcon, SunIcon, Toggle, ToggleItem, UndoIcon } from "./ui"
+import { IconButton, MoonIcon, RedoIcon, SelectInput, SunIcon, Toggle, ToggleItem, UndoIcon } from "./ui"
 import { type Studio, encodeShare } from "./use-studio"
 
 const NEW_THEME = "__new__"
@@ -38,13 +38,17 @@ export function TopBar(props: { studio: Studio }) {
       </styled.div>
 
       <styled.div display="flex" alignItems="center" gap="1">
-        <NativeSelect
+        <SelectInput
           aria-label="Theme"
           value={state.themeName}
           className={css({ w: "40" })}
-          onChange={(event) => {
-            if (event.target.value !== NEW_THEME) {
-              dispatch({ type: "switch-theme", name: event.target.value })
+          options={[
+            ...Object.keys(state.themes).map((name) => ({ value: name, label: name })),
+            { value: NEW_THEME, label: "New theme…" },
+          ]}
+          onValueChange={(value) => {
+            if (value !== NEW_THEME) {
+              dispatch({ type: "switch-theme", name: value })
               return
             }
             const name = window.prompt("Theme name (letters, numbers, dashes)")?.trim()
@@ -59,14 +63,7 @@ export function TopBar(props: { studio: Studio }) {
               doc: state.themes[name] ?? emptyDoc(),
             })
           }}
-        >
-          {Object.keys(state.themes).map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-          <option value={NEW_THEME}>New theme…</option>
-        </NativeSelect>
+        />
         <IconButton label="Undo (⌘Z)" disabled={!state.past.length} onClick={() => dispatch({ type: "undo" })}>
           <UndoIcon />
         </IconButton>
@@ -82,24 +79,18 @@ export function TopBar(props: { studio: Studio }) {
           </styled.span>
         )}
         {themeVariants.length > 0 && (
-          <NativeSelect
+          <SelectInput
             aria-label="Theme variant"
             value={state.themeVariant ?? ""}
             className={css({ w: "32" })}
-            onChange={(event) =>
+            options={[{ value: "", label: "Default" }, ...themeVariants.map((name) => ({ value: name, label: name }))]}
+            onValueChange={(value) =>
               dispatch({
                 type: "theme-variant",
-                themeVariant: event.target.value || undefined,
+                themeVariant: value || undefined,
               })
             }
-          >
-            <option value="">Default</option>
-            {themeVariants.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </NativeSelect>
+          />
         )}
         <Toggle
           aria-label="Canvas color mode"

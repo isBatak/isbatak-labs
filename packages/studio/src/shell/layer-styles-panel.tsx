@@ -48,7 +48,7 @@ const badge = css({
   borderRadius: "full",
   bg: "bg.muted",
   color: "fg.muted",
-  fontSize: "10px",
+  fontSize: "2xs",
   lineHeight: "16px",
 })
 

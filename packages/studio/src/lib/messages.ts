@@ -9,8 +9,6 @@ export type FoundationId = "overview" | "color" | "typography" | "radius" | "sha
 
 export type ComponentId = keyof typeof import("../components").components
 
-export type View = "demo" | "matrix"
-
 export interface Part {
   recipe: string
   slot?: string | undefined
@@ -25,7 +23,6 @@ export interface Cell {
 export interface RenderMessage {
   type: "render"
   page: Page
-  view: View
   css: string
   doc: StudioDoc
   colorMode: ColorMode

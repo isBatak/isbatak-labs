@@ -18,9 +18,9 @@ import {
   Icon,
   IconButton,
   Muted,
-  NativeSelect,
   NumberField,
   PanelSection,
+  SelectInput,
   TextInput,
   floating,
   panelHeader,
@@ -302,15 +302,16 @@ function LayerEditor(props: { layer: ShadowLayer; onChange: (layer: ShadowLayer)
   return (
     <div className={floating} style={{ right: "calc(20rem + 12px + 19rem + 8px)" }}>
       <div className={panelHeader}>
-        <NativeSelect
+        <SelectInput
           aria-label="Shadow type"
           value={layer.inset ? "inner" : "drop"}
           className={css({ w: "36" })}
-          onChange={(event) => set({ inset: event.target.value === "inner" })}
-        >
-          <option value="drop">Drop shadow</option>
-          <option value="inner">Inner shadow</option>
-        </NativeSelect>
+          options={[
+            { value: "drop", label: "Drop shadow" },
+            { value: "inner", label: "Inner shadow" },
+          ]}
+          onValueChange={(value) => set({ inset: value === "inner" })}
+        />
         <IconButton label="Close" onClick={props.onClose}>
           <CloseIcon />
         </IconButton>

@@ -8,17 +8,7 @@ import type { ComponentId, FoundationId, LayerNode, Page } from "../lib/messages
 import { orderedValues, primaryVariant, recipeStates, simulatableStates, stateLabel } from "../lib/states"
 import { type RecipeMeta, partLabel, recipes } from "../lib/theme-meta"
 import { recipeCompounds, scopeTitle } from "./part-style-panel"
-import {
-  ComponentIcon,
-  Icon,
-  IconButton,
-  LayersIcon,
-  NativeSelect,
-  ResizeHandle,
-  SearchIcon,
-  dot,
-  useStoredSize,
-} from "./ui"
+import { ComponentIcon, Icon, LayersIcon, ResizeHandle, SearchIcon, SelectInput, dot, useStoredSize } from "./ui"
 import type { Studio } from "./use-studio"
 
 const navItem = css({
@@ -417,13 +407,6 @@ function Variations(props: { studio: Studio; recipe: RecipeMeta }) {
           </span>
           Variations
         </styled.button>
-        <IconButton
-          label="Show every combination in the matrix"
-          aria-pressed={state.view === "matrix"}
-          onClick={() => dispatch({ type: "view", view: "matrix" })}
-        >
-          <MatrixIcon />
-        </IconButton>
       </div>
       {open && (
         <>
@@ -442,23 +425,18 @@ function Variations(props: { studio: Studio; recipe: RecipeMeta }) {
           )}
           <styled.div display="flex" alignItems="center" justifyContent="space-between" pe="1">
             <div className={subheading}>state</div>
-            <NativeSelect
+            <SelectInput
               aria-label="Add a state"
-              value=""
-              className={css({ w: "auto", h: "5", mt: "1.5", fontSize: "10px" })}
-              onChange={(event) => {
-                if (!event.target.value) return
-                dispatch({ type: "add-state", recipe: recipe.key, condition: event.target.value })
-                dispatch({ type: "condition", condition: event.target.value })
+              value={undefined}
+              placeholder="+ state"
+              variant="ghost"
+              className={css({ w: "auto", mt: "1.5" })}
+              options={addable.map((name) => ({ value: name, label: name }))}
+              onValueChange={(value) => {
+                dispatch({ type: "add-state", recipe: recipe.key, condition: value })
+                dispatch({ type: "condition", condition: value })
               }}
-            >
-              <option value="">+ state</option>
-              {addable.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </NativeSelect>
+            />
           </styled.div>
           {states.map((condition) => (
             <button
@@ -498,15 +476,6 @@ function StateIcon() {
     <Icon>
       <path d="M9 9l5 12 1.8-5.2L21 14Z" />
       <path d="M7.2 2.2 8 5.1M5.1 8l-2.9-.8M14 4.1 12 6.5M6.5 12 4.1 14" />
-    </Icon>
-  )
-}
-
-function MatrixIcon() {
-  return (
-    <Icon>
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
     </Icon>
   )
 }

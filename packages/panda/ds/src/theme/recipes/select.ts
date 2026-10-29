@@ -40,7 +40,7 @@ const triggerInteraction = defineStyles({
 
 export const selectSlotRecipe = defineSlotRecipe({
   className: "select",
-  description: "Custom select with a trigger and option list",
+  description: "Dropdown for picking from a list; the default over nativeSelect",
   slots: [
     "label",
     "positioner",

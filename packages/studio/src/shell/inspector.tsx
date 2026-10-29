@@ -110,7 +110,7 @@ function LintCount(props: { studio: Studio }) {
   const failing = props.studio.state.lint.filter((result) => result.ratio < 4.5).length
   if (!failing) return null
   return (
-    <styled.span px="1" minW="4" h="4" borderRadius="full" bg="red.500" color="white" fontSize="10px" lineHeight="16px">
+    <styled.span px="1" minW="4" h="4" borderRadius="full" bg="red.500" color="white" fontSize="2xs" lineHeight="16px">
       {failing}
     </styled.span>
   )
@@ -145,7 +145,7 @@ function LintTab(props: { studio: Studio }) {
             w="9"
             textAlign="center"
             borderRadius="sm"
-            fontSize="10px"
+            fontSize="2xs"
             fontWeight="semibold"
             bg={
               result.ratio >= 7

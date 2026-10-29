@@ -1,8 +1,7 @@
 import { Button } from "@isbatak/react-ui/button"
 import { Popover } from "@isbatak/react-ui/popover"
-import { Portal } from "@ark-ui/react/portal"
 
-import { Section, StaticOverlay } from "../canvas/layout"
+import { StaticOverlay } from "../canvas/layout"
 import type { SampleProps } from "./types"
 
 function PopoverPanel() {
@@ -31,27 +30,5 @@ export function PopoverSample(props: SampleProps) {
         </Popover.Positioner>
       </Popover.Root>
     </StaticOverlay>
-  )
-}
-
-export function PopoverDemo() {
-  return (
-    <>
-      <Section title="Interactive">
-        <Popover.Root>
-          <Popover.Trigger asChild>
-            <Button variant="outline">Open popover</Button>
-          </Popover.Trigger>
-          <Portal>
-            <Popover.Positioner>
-              <PopoverPanel />
-            </Popover.Positioner>
-          </Portal>
-        </Popover.Root>
-      </Section>
-      <Section title="Open">
-        <PopoverSample />
-      </Section>
-    </>
   )
 }

@@ -6,8 +6,11 @@ import {
   use,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react"
+import { Portal } from "@ark-ui/react/portal"
+import { createListCollection, Select } from "@isbatak/react-ui/select"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 import { input } from "styled-system/recipes"
@@ -43,9 +46,65 @@ export function TextInput(props: ComponentProps<"input">) {
   return <input type="text" spellCheck={false} autoComplete="off" {...props} className={cx(control, props.className)} />
 }
 
-export function NativeSelect(props: ComponentProps<"select">) {
-  // The input recipe removes the native appearance; keep the select's arrow
-  return <select {...props} className={cx(control, css({ appearance: "auto", pe: "1" }), props.className)} />
+export interface SelectOption {
+  value: string
+  label: string
+  group?: string
+}
+
+export function SelectInput(props: {
+  "aria-label": string
+  options: SelectOption[]
+  value: string | undefined
+  onValueChange: (value: string) => void
+  placeholder?: string
+  variant?: "subtle" | "ghost"
+  className?: string
+}) {
+  const collection = useMemo(
+    () => createListCollection({ items: props.options, groupBy: (item) => item.group ?? "" }),
+    [props.options],
+  )
+  return (
+    <Select.Root
+      collection={collection}
+      value={props.value === undefined ? [] : [props.value]}
+      onValueChange={(details) => {
+        const [value] = details.value
+        if (value !== undefined) props.onValueChange(value)
+      }}
+      positioning={{ sameWidth: false }}
+      variant={props.variant ?? "subtle"}
+      size="xs"
+      className={props.className}
+    >
+      <Select.Control>
+        <Select.Trigger aria-label={props["aria-label"]}>
+          <Select.ValueText placeholder={props.placeholder} />
+        </Select.Trigger>
+        <Select.IndicatorGroup>
+          <Select.Indicator />
+        </Select.IndicatorGroup>
+      </Select.Control>
+      <Portal>
+        <Select.Positioner>
+          <Select.Content minW="40">
+            {collection.group().map(([group, items]) => (
+              <Select.ItemGroup key={group}>
+                {group && <Select.ItemGroupLabel>{group}</Select.ItemGroupLabel>}
+                {items.map((item) => (
+                  <Select.Item key={item.value} item={item}>
+                    <Select.ItemText>{item.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.ItemGroup>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Portal>
+    </Select.Root>
+  )
 }
 
 export const dot = css({ w: "1.5", h: "1.5", borderRadius: "full", bg: "blue.500", flexShrink: "0" })
@@ -253,18 +312,18 @@ const resizeHandle = css({
   "&[data-orientation=vertical]": {
     top: "0",
     bottom: "0",
-    right: "-3px",
-    w: "6px",
+    right: "-1",
+    w: "2",
     cursor: "col-resize",
-    _after: { insetBlock: "0", left: "2px", w: "2px" },
+    _after: { inset: "0", mx: "auto", w: "0.5" },
   },
   "&[data-orientation=horizontal]": {
     left: "0",
     right: "0",
-    top: "-3px",
-    h: "6px",
+    top: "-1",
+    h: "2",
     cursor: "row-resize",
-    _after: { insetInline: "0", top: "2px", h: "2px" },
+    _after: { inset: "0", my: "auto", h: "0.5" },
   },
 })
 

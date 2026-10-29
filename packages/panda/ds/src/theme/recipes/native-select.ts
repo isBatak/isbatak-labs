@@ -2,7 +2,7 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const nativeSelectSlotRecipe = defineSlotRecipe({
   className: "native-select",
-  description: "Styled native select element",
+  description: "Browser <select>; only when the OS picker is required, otherwise use select",
   slots: ["root", "field", "indicator"],
   base: {
     root: {

@@ -20,30 +20,32 @@ const overlay = css({
   position: "fixed",
   pointerEvents: "none",
   zIndex: "2147483646",
-  outline: "2px solid #3b82f6",
+  outline: "2px solid",
+  outlineColor: "blue.500",
   outlineOffset: "1px",
-  borderRadius: "2px",
+  borderRadius: "xs",
 })
 
 const hoverOverlay = css({
   position: "fixed",
   pointerEvents: "none",
   zIndex: "2147483646",
-  outline: "1px dashed #3b82f6",
+  outline: "1px dashed",
+  outlineColor: "blue.500",
   outlineOffset: "1px",
-  bg: "rgba(59, 130, 246, 0.06)",
+  bg: "blue.500/6",
 })
 
 const tag = css({
   position: "absolute",
-  bottom: "calc(100% + 4px)",
-  left: "-2px",
-  bg: "#3b82f6",
+  bottom: "calc(100% + token(spacing.1))",
+  left: "-0.5",
+  bg: "blue.500",
   color: "white",
   fontSize: "11px",
   lineHeight: "16px",
   px: "1.5",
-  borderRadius: "2px",
+  borderRadius: "xs",
   whiteSpace: "nowrap",
   fontFamily: "body",
 })

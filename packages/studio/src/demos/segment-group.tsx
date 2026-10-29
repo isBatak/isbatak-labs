@@ -1,6 +1,5 @@
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 
-import { Section, Stack } from "../canvas/layout"
 import type { SampleProps } from "./types"
 
 export function SegmentGroupSample(props: SampleProps) {
@@ -23,23 +22,5 @@ export function SegmentGroupSample(props: SampleProps) {
         <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
     </SegmentGroup.Root>
-  )
-}
-
-export function SegmentGroupDemo() {
-  return (
-    <>
-      <Section title="Basic">
-        <SegmentGroupSample />
-      </Section>
-      <Section title="Variants">
-        <Stack>
-          <SegmentGroupSample variant="enclosed" />
-          <SegmentGroupSample variant="line" />
-          <SegmentGroupSample variant="subtle" />
-          <SegmentGroupSample variant="outline" />
-        </Stack>
-      </Section>
-    </>
   )
 }

@@ -24,7 +24,7 @@ import {
   utilityCategory,
 } from "../lib/theme-meta"
 import { Field } from "./fields"
-import { IconButton, LayersIcon, Muted, NativeSelect, PanelSection, ResetIcon } from "./ui"
+import { IconButton, LayersIcon, Muted, PanelSection, ResetIcon, SelectInput } from "./ui"
 import type { Studio } from "./use-studio"
 
 /**
@@ -143,32 +143,22 @@ export function PartStylePanel(props: { studio: Studio }) {
       <PanelSection title="Target">
         <styled.div display="grid" gridTemplateColumns="6.5rem 1fr" alignItems="center" gap="2">
           <Muted>Applies to</Muted>
-          <NativeSelect
+          <SelectInput
             aria-label="Applies to"
             value={state.scope}
-            onChange={(event) => dispatch({ type: "scope", scope: event.target.value })}
-          >
-            <option value="base">All variants</option>
-            {Object.entries(recipe.variantMap).map(([variant, values]) => (
-              <optgroup key={variant} label={variant}>
-                {values.map((value) => (
-                  <option key={value} value={`${variant}:${value}`}>
-                    {variant}: {value}
-                    {recipe.defaultVariants[variant] === value ? " (default)" : ""}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-            {compounds.length > 0 && (
-              <optgroup label="compound">
-                {compounds.map((scope) => (
-                  <option key={scope} value={scope}>
-                    ◇ {scopeTitle(scope)}
-                  </option>
-                ))}
-              </optgroup>
-            )}
-          </NativeSelect>
+            options={[
+              { value: "base", label: "All variants" },
+              ...Object.entries(recipe.variantMap).flatMap(([variant, values]) =>
+                values.map((value) => ({
+                  value: `${variant}:${value}`,
+                  label: `${variant}: ${value}${recipe.defaultVariants[variant] === value ? " (default)" : ""}`,
+                  group: variant,
+                })),
+              ),
+              ...compounds.map((scope) => ({ value: scope, label: `◇ ${scopeTitle(scope)}`, group: "compound" })),
+            ]}
+            onValueChange={(scope) => dispatch({ type: "scope", scope })}
+          />
           {cell && (
             <>
               <Muted>Cell</Muted>

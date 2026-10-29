@@ -51,7 +51,7 @@ export function CanvasApp() {
 
   // Report the rendered part tree for Component Layers, and again whenever the DOM changes (tabs, accordions, ...)
   const contentRef = useRef<HTMLDivElement>(null)
-  const pageKey = state ? JSON.stringify(state.page) + state.view : ""
+  const pageKey = state ? JSON.stringify(state.page) : ""
   useEffect(() => {
     const root = contentRef.current
     if (!root) return
@@ -99,7 +99,7 @@ export function CanvasApp() {
     if (page.id === "spacing") content = <SpacingPage {...foundationProps} />
   } else if (page.kind === "components") {
     content = <ComponentGallery />
-  } else if (state.view === "matrix") {
+  } else {
     content = (
       <Matrix
         id={page.id}
@@ -110,13 +110,9 @@ export function CanvasApp() {
         post={post}
       />
     )
-  } else {
-    const { Demo } = demos[page.id]
-    content = <Demo />
   }
 
   const board = page.kind === "foundation" && page.id === "overview"
-  const wide = page.kind !== "component" || state.view === "matrix"
 
   return (
     <styled.main
@@ -133,7 +129,7 @@ export function CanvasApp() {
         key={pageKey}
         ref={contentRef}
         mx="auto"
-        maxW={board ? undefined : wide ? "6xl" : "3xl"}
+        maxW={board ? undefined : "6xl"}
         display="flex"
         flexDirection="column"
         gap="12"
@@ -141,7 +137,7 @@ export function CanvasApp() {
         {content}
       </styled.div>
       <SelectionLayer
-        selected={page.kind === "component" && state.view === "matrix" ? undefined : state.selectedPart}
+        selected={page.kind === "component" ? undefined : state.selectedPart}
         highlighted={state.hoveredPart}
         onSelect={onSelectPart}
       />
