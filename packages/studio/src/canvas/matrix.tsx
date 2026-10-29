@@ -1,4 +1,4 @@
-import { type MouseEvent, type PointerEvent, useEffect, useRef } from "react"
+import { type CSSProperties, type MouseEvent, type PointerEvent, useEffect, useRef } from "react"
 import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
@@ -61,9 +61,19 @@ const label = css({
   "& b": { fontWeight: "semibold", color: "fg" },
 })
 
-const columnLabel = css({ justifyContent: "center", borderBottomWidth: "1px", borderColor: "border.muted" })
+const columnLabel = css({ justifySelf: "center", alignSelf: "end" })
 
-const rowLabel = css({ justifyContent: "flex-end", borderEndWidth: "1px", borderColor: "border.muted" })
+const rowLabel = css({ alignSelf: "center", justifySelf: "end" })
+
+const columnGroup = css({ display: "flex", flexDirection: "column", alignItems: "center", gap: "1" })
+
+const rowGroup = css({ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "1" })
+
+const bracket = css({ flexShrink: "0", alignSelf: "stretch", borderColor: "border.emphasized", borderWidth: "1px" })
+
+const columnBracket = css({ h: "2", borderBottomWidth: "0", borderTopRadius: "md" })
+
+const rowBracket = css({ w: "2", borderEndWidth: "0", borderStartRadius: "md" })
 
 const cell = css({
   display: "flex",
@@ -78,7 +88,7 @@ const cell = css({
   transition: "opacity 0.15s",
   _hover: { borderColor: "border" },
   "&[data-dimmed]": { opacity: "0.3" },
-  "&[data-selected]": { outline: "2px solid #3b82f6", outlineOffset: "1px" },
+  "&[data-selected]": { outline: "2px solid", outlineColor: "blue.500", outlineOffset: "1px" },
 })
 
 export function Matrix(props: {
@@ -127,12 +137,25 @@ export function Matrix(props: {
       </span>
     )
 
+  const axisButton = (name: string, value: string, className: string, style?: CSSProperties, key?: string) => (
+    <button
+      type="button"
+      key={key}
+      className={className}
+      data-active={isActive(name, value) || undefined}
+      style={style}
+      onClick={() => select(name, value)}
+    >
+      {axisLabel(name, value)}
+    </button>
+  )
+
   return (
     <styled.div overflowX="auto" pb="4">
       <div
         ref={grid}
         className={frame}
-        style={{ gridTemplateColumns: `repeat(${rowAxes.length}, auto) repeat(${columns.length}, max-content)` }}
+        style={{ gridTemplateColumns: `repeat(${rowAxes.length + columns.length}, max-content)` }}
       >
         {columnAxes.flatMap((axis, level) => {
           const span = spanOf(columnAxes, level)
@@ -140,20 +163,17 @@ export function Matrix(props: {
             .filter((_, index) => index % span === 0)
             .map((combo, index) => {
               const value = combo[axis.name]!
-              return (
-                <button
-                  type="button"
-                  key={`${axis.name}-${index}`}
-                  className={`${label} ${columnLabel}`}
-                  data-active={isActive(axis.name, value) || undefined}
-                  style={{
-                    gridRow: level + 1,
-                    gridColumn: `${rowAxes.length + index * span + 1} / span ${span}`,
-                  }}
-                  onClick={() => select(axis.name, value)}
-                >
-                  {axisLabel(axis.name, value)}
-                </button>
+              const placement = {
+                gridRow: level + 1,
+                gridColumn: `${rowAxes.length + index * span + 1} / span ${span}`,
+              }
+              return level < columnAxes.length - 1 ? (
+                <div key={`${axis.name}-${index}`} className={columnGroup} style={placement}>
+                  {axisButton(axis.name, value, label)}
+                  <span className={`${bracket} ${columnBracket}`} />
+                </div>
+              ) : (
+                axisButton(axis.name, value, `${label} ${columnLabel}`, placement, `${axis.name}-${index}`)
               )
             })
         })}
@@ -163,17 +183,14 @@ export function Matrix(props: {
             .filter((_, index) => index % span === 0)
             .map((combo, index) => {
               const value = combo[axis.name]!
-              return (
-                <button
-                  type="button"
-                  key={`${axis.name}-${index}`}
-                  className={`${label} ${rowLabel}`}
-                  data-active={isActive(axis.name, value) || undefined}
-                  style={{ gridColumn: level + 1, gridRow: `${headerRows + index * span + 1} / span ${span}` }}
-                  onClick={() => select(axis.name, value)}
-                >
-                  {axisLabel(axis.name, value)}
-                </button>
+              const placement = { gridColumn: level + 1, gridRow: `${headerRows + index * span + 1} / span ${span}` }
+              return level < rowAxes.length - 1 ? (
+                <div key={`${axis.name}-${index}`} className={rowGroup} style={placement}>
+                  {axisButton(axis.name, value, label)}
+                  <span className={`${bracket} ${rowBracket}`} />
+                </div>
+              ) : (
+                axisButton(axis.name, value, `${label} ${rowLabel}`, placement, `${axis.name}-${index}`)
               )
             })
         })}

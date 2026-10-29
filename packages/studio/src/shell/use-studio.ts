@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useReducer } from "react"
 import { components } from "../components"
 import { type ColorMode, type StudioDoc, emptyDoc, isStudioDoc } from "../lib/doc"
 import { toSourceEdits, withoutSourceEdits } from "../lib/export"
-import type { Cell, ComponentId, FoundationId, LayerNode, LintResult, Page, Part, View } from "../lib/messages"
+import type { Cell, ComponentId, FoundationId, LayerNode, LintResult, Page, Part } from "../lib/messages"
 import { studioCss } from "../lib/presets"
 import { primaryVariant } from "../lib/states"
 import { recipes } from "../lib/theme-meta"
@@ -22,7 +22,6 @@ export interface StudioState {
   themeName: string
   themes: Record<string, StudioDoc>
   page: Page
-  view: View
   colorMode: ColorMode
   themeVariant: string | undefined
   selectedPart: Part | undefined
@@ -42,7 +41,6 @@ type Action =
   | { type: "undo" }
   | { type: "redo" }
   | { type: "navigate"; page: Page }
-  | { type: "view"; view: View }
   | { type: "color-mode"; colorMode: ColorMode }
   | { type: "theme-variant"; themeVariant: string | undefined }
   | { type: "select-part"; part: Part | undefined }
@@ -97,28 +95,24 @@ function replaceUrl(url: string | URL) {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * Routing (`#/color`, `#/components`, `#/components/accordion?view=matrix`)
+ * Routing (`#/color`, `#/components`, `#/components/accordion`)
  * -----------------------------------------------------------------------------------------------*/
 
 const foundationIds: FoundationId[] = ["overview", "color", "typography", "radius", "shadow", "spacing"]
 
-function pageFromHash(hash: string): { page: Page; view: View } {
-  const [path = "", query = ""] = hash.replace(/^#\/?/, "").split("?")
-  const view: View = new URLSearchParams(query).get("view") === "matrix" ? "matrix" : "demo"
+function pageFromHash(hash: string): Page {
+  const [path = ""] = hash.replace(/^#\/?/, "").split("?")
   const [first, second] = path.split("/")
-  if (first === "components" && second && second in components) {
-    return { page: { kind: "component", id: second as ComponentId }, view }
-  }
-  if (first === "components") return { page: { kind: "components" }, view }
-  if (foundationIds.includes(first as FoundationId))
-    return { page: { kind: "foundation", id: first as FoundationId }, view }
-  return { page: { kind: "foundation", id: "overview" }, view }
+  if (first === "components" && second && second in components) return { kind: "component", id: second as ComponentId }
+  if (first === "components") return { kind: "components" }
+  if (foundationIds.includes(first as FoundationId)) return { kind: "foundation", id: first as FoundationId }
+  return { kind: "foundation", id: "overview" }
 }
 
-function hashFromPage(page: Page, view: View) {
+function hashFromPage(page: Page) {
   if (page.kind === "foundation") return `#/${page.id}`
   if (page.kind === "components") return "#/components"
-  return `#/components/${page.id}${view === "matrix" ? "?view=matrix" : ""}`
+  return `#/components/${page.id}`
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -139,7 +133,7 @@ function init(): StudioState {
     replaceUrl(url)
   }
 
-  const { page, view } = pageFromHash(window.location.hash)
+  const page = pageFromHash(window.location.hash)
 
   return {
     doc: themes[themeName] ?? emptyDoc(),
@@ -149,7 +143,6 @@ function init(): StudioState {
     themeName,
     themes: { [DEFAULT_THEME]: emptyDoc(), ...themes },
     page,
-    view,
     colorMode: "base",
     themeVariant: undefined,
     selectedPart: page.kind === "component" ? withRootSlot({ recipe: components[page.id].recipe }) : undefined,
@@ -207,7 +200,6 @@ function reducer(state: StudioState, action: Action): StudioState {
       return {
         ...state,
         page: action.page,
-        view: action.page.kind === "component" ? state.view : "demo",
         selectedPart: sameComponent ? state.selectedPart : part && withRootSlot(part),
         scope: sameComponent ? state.scope : "base",
         condition: sameComponent ? state.condition : "",
@@ -218,8 +210,6 @@ function reducer(state: StudioState, action: Action): StudioState {
         hoveredPart: undefined,
       }
     }
-    case "view":
-      return { ...state, view: action.view }
     case "color-mode":
       return { ...state, colorMode: action.colorMode }
     case "theme-variant":
@@ -303,12 +293,12 @@ export function useStudio() {
   }, [state.themes, state.themeName])
 
   useEffect(() => {
-    const hash = hashFromPage(state.page, state.view)
+    const hash = hashFromPage(state.page)
     if (window.location.hash !== hash) replaceUrl(hash)
-  }, [state.page, state.view])
+  }, [state.page])
 
   useEffect(() => {
-    const onHashChange = () => dispatch({ type: "navigate", page: pageFromHash(window.location.hash).page })
+    const onHashChange = () => dispatch({ type: "navigate", page: pageFromHash(window.location.hash) })
     window.addEventListener("hashchange", onHashChange)
     return () => window.removeEventListener("hashchange", onHashChange)
   }, [])

@@ -1,8 +1,6 @@
-import { Button } from "@isbatak/react-ui/button"
 import { Menu } from "@isbatak/react-ui/menu"
-import { Portal } from "@ark-ui/react/portal"
 
-import { Section, StaticOverlay } from "../canvas/layout"
+import { StaticOverlay } from "../canvas/layout"
 import type { SampleProps } from "./types"
 
 function MenuItems() {
@@ -27,27 +25,5 @@ export function MenuSample(props: SampleProps) {
         </Menu.Positioner>
       </Menu.Root>
     </StaticOverlay>
-  )
-}
-
-export function MenuDemo() {
-  return (
-    <>
-      <Section title="Interactive">
-        <Menu.Root>
-          <Menu.Trigger asChild>
-            <Button variant="outline">Open menu</Button>
-          </Menu.Trigger>
-          <Portal>
-            <Menu.Positioner>
-              <MenuItems />
-            </Menu.Positioner>
-          </Portal>
-        </Menu.Root>
-      </Section>
-      <Section title="Open">
-        <MenuSample />
-      </Section>
-    </>
   )
 }

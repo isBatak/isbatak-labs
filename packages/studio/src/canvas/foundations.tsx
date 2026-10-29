@@ -52,7 +52,7 @@ const swatchCard = css({
   _hover: { shadow: "sm" },
 })
 
-const selectedCard = css({ outline: "2px solid #3b82f6", outlineOffset: "2px" })
+const selectedCard = css({ outline: "2px solid", outlineColor: "blue.500", outlineOffset: "0.5" })
 
 function Swatch(props: FoundationProps & { entry: TokenEntry }) {
   const { entry } = props

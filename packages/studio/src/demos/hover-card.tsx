@@ -1,9 +1,6 @@
 import { HoverCard } from "@isbatak/react-ui/hover-card"
-import { Portal } from "@ark-ui/react/portal"
 
-import { styled } from "styled-system/jsx"
-
-import { Section, StaticOverlay } from "../canvas/layout"
+import { StaticOverlay } from "../canvas/layout"
 import { Avatar } from "./primitives"
 import type { SampleProps } from "./types"
 
@@ -32,36 +29,5 @@ export function HoverCardSample(props: SampleProps) {
         </HoverCard.Positioner>
       </HoverCard.Root>
     </StaticOverlay>
-  )
-}
-
-export function HoverCardDemo() {
-  return (
-    <>
-      <Section title="Interactive">
-        <HoverCard.Root>
-          <HoverCard.Trigger asChild>
-            <styled.a
-              href="#"
-              color="colorPalette.fg"
-              textDecoration="underline"
-              onClick={(event) => event.preventDefault()}
-            >
-              @panda-studio
-            </styled.a>
-          </HoverCard.Trigger>
-          <Portal>
-            <HoverCard.Positioner>
-              <HoverCard.Content>
-                <Profile />
-              </HoverCard.Content>
-            </HoverCard.Positioner>
-          </Portal>
-        </HoverCard.Root>
-      </Section>
-      <Section title="Open">
-        <HoverCardSample />
-      </Section>
-    </>
   )
 }

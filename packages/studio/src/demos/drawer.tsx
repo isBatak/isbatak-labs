@@ -1,8 +1,7 @@
 import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
-import { Portal } from "@ark-ui/react/portal"
 
-import { Section, StaticOverlay } from "../canvas/layout"
+import { StaticOverlay } from "../canvas/layout"
 import type { SampleProps } from "./types"
 
 function DrawerPanel() {
@@ -30,28 +29,5 @@ export function DrawerSample(props: SampleProps) {
         </Drawer.Positioner>
       </Drawer.Root>
     </StaticOverlay>
-  )
-}
-
-export function DrawerDemo() {
-  return (
-    <>
-      <Section title="Interactive">
-        <Drawer.Root>
-          <Drawer.Trigger asChild>
-            <Button variant="outline">Open drawer</Button>
-          </Drawer.Trigger>
-          <Portal>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <DrawerPanel />
-            </Drawer.Positioner>
-          </Portal>
-        </Drawer.Root>
-      </Section>
-      <Section title="Open" description="Rendered in place so every part can be selected">
-        <DrawerSample />
-      </Section>
-    </>
   )
 }

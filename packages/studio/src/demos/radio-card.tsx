@@ -1,6 +1,5 @@
 import { RadioCard } from "@isbatak/react-ui/radio-card"
 
-import { Section } from "../canvas/layout"
 import type { SampleProps } from "./types"
 
 export function RadioCardSample(props: SampleProps) {
@@ -28,21 +27,5 @@ export function RadioCardSample(props: SampleProps) {
         </RadioCard.ItemControl>
       </RadioCard.Item>
     </RadioCard.Root>
-  )
-}
-
-export function RadioCardDemo() {
-  return (
-    <>
-      <Section title="Basic">
-        <RadioCardSample />
-      </Section>
-      <Section title="Subtle">
-        <RadioCardSample variant="subtle" />
-      </Section>
-      <Section title="Solid">
-        <RadioCardSample variant="solid" />
-      </Section>
-    </>
   )
 }
