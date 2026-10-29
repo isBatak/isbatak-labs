@@ -2,14 +2,13 @@ import {
   type ComponentProps,
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
-  createContext,
-  use,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from "react"
 import { Portal } from "@ark-ui/react/portal"
+import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 import { createListCollection, Select } from "@isbatak/react-ui/select"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
@@ -213,7 +212,7 @@ export function LayersIcon() {
   )
 }
 
-/** Small segmented toggle used for Demo/Matrix, Light/Dark and inspector tabs */
+/** Segmented control used for Light/Dark, inspector tabs and other small choices */
 export function Toggle<T extends string>(props: {
   value: T
   onChange: (value: T) => void
@@ -221,57 +220,30 @@ export function Toggle<T extends string>(props: {
   "aria-label": string
 }) {
   return (
-    <styled.div
-      role="radiogroup"
+    <SegmentGroup.Root
+      size="xs"
+      orientation="horizontal"
       aria-label={props["aria-label"]}
-      display="inline-flex"
-      gap="0.5"
-      p="0.5"
-      bg="bg.muted"
-      borderRadius="md"
+      value={props.value}
+      onValueChange={(details) => {
+        if (details.value) props.onChange(details.value as T)
+      }}
     >
-      <ToggleContext value={{ value: props.value, onChange: props.onChange as (value: string) => void }}>
-        {props.children}
-      </ToggleContext>
-    </styled.div>
+      <SegmentGroup.Indicator />
+      {props.children}
+    </SegmentGroup.Root>
   )
 }
 
-const ToggleContext = createContext<{ value: string; onChange: (value: string) => void }>({
-  value: "",
-  onChange: () => {},
-})
-
-const toggleItem = css({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "1.5",
-  h: "6",
-  px: "2.5",
-  textStyle: "xs",
-  fontWeight: "medium",
-  whiteSpace: "nowrap",
-  color: "fg.muted",
-  borderRadius: "sm",
-  cursor: "button",
-  _checked: { bg: "bg", color: "fg", shadow: "xs" },
-  "& svg": { w: "3.5", h: "3.5" },
-})
+const toggleItem = css({ "& svg": { w: "3.5", h: "3.5" } })
 
 export function ToggleItem(props: { value: string; children: ReactNode }) {
-  const context = use(ToggleContext)
-  const checked = context.value === props.value
   return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={checked}
-      data-checked={checked ? "" : undefined}
-      className={toggleItem}
-      onClick={() => context.onChange(props.value)}
-    >
-      {props.children}
-    </button>
+    <SegmentGroup.Item value={props.value} className={toggleItem}>
+      <SegmentGroup.ItemText>{props.children}</SegmentGroup.ItemText>
+      <SegmentGroup.ItemControl />
+      <SegmentGroup.ItemHiddenInput />
+    </SegmentGroup.Item>
   )
 }
 
