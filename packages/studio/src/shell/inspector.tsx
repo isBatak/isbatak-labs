@@ -30,10 +30,10 @@ export function Inspector(props: { studio: Studio }) {
         display="flex"
         alignItems="center"
         h="12"
-        px="2"
+        px="1.5"
         borderBottomWidth="1px"
         borderColor="border.muted"
-        css={{ "& [role=radio]": { px: "1.5" } }}
+        css={{ "& [data-slot=item]": { px: "1.5" } }}
       >
         <Toggle aria-label="Inspector" value={tab} onChange={setTab}>
           <ToggleItem value="style">Style</ToggleItem>
@@ -60,7 +60,6 @@ export function Inspector(props: { studio: Studio }) {
 function StyleTab(props: { studio: Studio }) {
   const { page } = props.studio.state
   if (page.kind === "component") return <PartStylePanel studio={props.studio} />
-  if (page.kind === "components") return <OverviewPanel studio={props.studio} />
   switch (page.id) {
     case "color":
       return <ColorPanel studio={props.studio} />

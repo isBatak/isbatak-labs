@@ -41,9 +41,6 @@ export function CanvasFrame(props: { studio: Studio }) {
         case "select-token":
           dispatch({ type: "select-token", token: message.token })
           break
-        case "navigate":
-          dispatch({ type: "navigate", page: message.page })
-          break
         case "lint":
           dispatch({ type: "lint", results: message.results })
           break

@@ -2,7 +2,6 @@ import type { ColorMode, StudioDoc } from "./doc"
 
 export type Page =
   | { kind: "foundation"; id: FoundationId }
-  | { kind: "components" }
   | { kind: "component"; id: ComponentId }
 
 export type FoundationId = "overview" | "color" | "typography" | "radius" | "shadow" | "spacing"
@@ -45,7 +44,6 @@ export type CanvasMessage =
   | { type: "select-scope"; scope: string }
   | { type: "select-state"; condition: string }
   | { type: "select-token"; token: string }
-  | { type: "navigate"; page: Page }
   | { type: "lint"; results: LintResult[] }
   | { type: "layers"; layers: LayerNode[] }
 

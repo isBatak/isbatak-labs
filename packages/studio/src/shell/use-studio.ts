@@ -95,7 +95,7 @@ function replaceUrl(url: string | URL) {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * Routing (`#/color`, `#/components`, `#/components/accordion`)
+ * Routing (`#/color`, `#/components/accordion`)
  * -----------------------------------------------------------------------------------------------*/
 
 const foundationIds: FoundationId[] = ["overview", "color", "typography", "radius", "shadow", "spacing"]
@@ -104,14 +104,12 @@ function pageFromHash(hash: string): Page {
   const [path = ""] = hash.replace(/^#\/?/, "").split("?")
   const [first, second] = path.split("/")
   if (first === "components" && second && second in components) return { kind: "component", id: second as ComponentId }
-  if (first === "components") return { kind: "components" }
   if (foundationIds.includes(first as FoundationId)) return { kind: "foundation", id: first as FoundationId }
   return { kind: "foundation", id: "overview" }
 }
 
 function hashFromPage(page: Page) {
   if (page.kind === "foundation") return `#/${page.id}`
-  if (page.kind === "components") return "#/components"
   return `#/components/${page.id}`
 }
 

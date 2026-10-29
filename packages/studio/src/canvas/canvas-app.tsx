@@ -1,10 +1,7 @@
 import { type ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
-import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
-import { components } from "../components"
-import { demos } from "../demos"
-import type { CanvasMessage, ComponentId, Part, RenderMessage } from "../lib/messages"
+import type { CanvasMessage, Part, RenderMessage } from "../lib/messages"
 import { ColorPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
 import { collectLayers } from "./layers"
 import { Matrix } from "./matrix"
@@ -97,8 +94,6 @@ export function CanvasApp() {
     if (page.id === "radius") content = <RadiusPage {...foundationProps} />
     if (page.id === "shadow") content = <ShadowPage {...foundationProps} />
     if (page.id === "spacing") content = <SpacingPage {...foundationProps} />
-  } else if (page.kind === "components") {
-    content = <ComponentGallery />
   } else {
     content = (
       <Matrix
@@ -198,96 +193,4 @@ function BoardPanning(props: { enabled: boolean; pageKey: string }) {
     }
   }, [props.enabled, props.pageKey])
   return null
-}
-
-/* -------------------------------------------------------------------------------------------------
- * Gallery of every component
- * -----------------------------------------------------------------------------------------------*/
-
-const tile = css({
-  position: "relative",
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: "xl",
-  borderWidth: "1px",
-  borderColor: "border.muted",
-  bg: "bg",
-  overflow: "hidden",
-  textAlign: "start",
-  transition: "box-shadow 0.15s",
-  _hover: { shadow: "md" },
-})
-
-const tileLink = css({
-  px: "4",
-  py: "3",
-  borderTopWidth: "1px",
-  borderColor: "border.muted",
-  textStyle: "sm",
-  fontWeight: "medium",
-  textAlign: "start",
-  cursor: "button",
-  outline: "0",
-  _after: { content: '""', position: "absolute", inset: "0", borderRadius: "xl" },
-  _focusVisible: { _after: { outline: "2px solid", outlineColor: "blue.500" } },
-})
-
-const tilePreview = css({
-  h: "48",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  p: "6",
-  overflow: "hidden",
-  pointerEvents: "none",
-  "& > *": { maxW: "full" },
-})
-
-function Tile(props: { id: ComponentId }) {
-  const { Sample } = demos[props.id]
-  return (
-    <div className={tile}>
-      <div className={tilePreview} inert>
-        <Sample />
-      </div>
-      {/* Stretched over the whole tile, so the preview stays non-interactive markup */}
-      <button
-        type="button"
-        className={tileLink}
-        onClick={() => post({ type: "navigate", page: { kind: "component", id: props.id } })}
-      >
-        {components[props.id].label}
-      </button>
-    </div>
-  )
-}
-
-function ComponentGallery() {
-  return (
-    <styled.div display="grid" gridTemplateColumns="repeat(auto-fill, minmax(16rem, 1fr))" gap="4">
-      <Tile id="accordion" />
-      <Tile id="alert" />
-      <Tile id="avatar" />
-      <Tile id="badge" />
-      <Tile id="button" />
-      <Tile id="card" />
-      <Tile id="checkbox" />
-      <Tile id="closeButton" />
-      <Tile id="drawer" />
-      <Tile id="hoverCard" />
-      <Tile id="iconButton" />
-      <Tile id="input" />
-      <Tile id="kbd" />
-      <Tile id="menu" />
-      <Tile id="popover" />
-      <Tile id="radioCard" />
-      <Tile id="segmentGroup" />
-      <Tile id="select" />
-      <Tile id="slider" />
-      <Tile id="spinner" />
-      <Tile id="switch" />
-      <Tile id="tabs" />
-      <Tile id="tooltip" />
-    </styled.div>
-  )
 }
