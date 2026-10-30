@@ -1,0 +1,196 @@
+diff --git a/dist/layer-stack.js b/dist/layer-stack.js
+index d491149a5a4f45e35b79d2cdbca1a7fad6a789eb..5e56f360b57b112f8dcc967061b6d55a886aaaf3 100644
+--- a/dist/layer-stack.js
++++ b/dist/layer-stack.js
+@@ -32,6 +32,11 @@ function isPointerBlocking(layer) {
+   const value = layer.pointerBlocking;
+   return typeof value === "function" ? value() : !!value;
+ }
++function indexById(layers) {
++  const byId = /* @__PURE__ */ new Map();
++  for (const layer of layers) if (!byId.has(layer.id)) byId.set(layer.id, layer);
++  return byId;
++}
+ var layerStack = {
+   layers: [],
+   branches: [],
+@@ -68,25 +73,25 @@ var layerStack = {
+     }
+     return void 0;
+   },
+-  isDescendantOf(layer, ancestorId) {
++  isDescendantOf(layer, ancestorId, byId = indexById(this.layers)) {
+     if (!ancestorId) return false;
+     const seen = /* @__PURE__ */ new Set();
+     let parentId = layer.parentId;
+     while (parentId && !seen.has(parentId)) {
+       if (parentId === ancestorId) return true;
+       seen.add(parentId);
+-      parentId = this.layers.find((l) => l.id === parentId)?.parentId;
++      parentId = byId.get(parentId)?.parentId;
+     }
+     return false;
+   },
+-  depthOf(layer) {
++  depthOf(layer, byId = indexById(this.layers)) {
+     const seen = /* @__PURE__ */ new Set();
+     let depth = 0;
+     let parentId = layer.parentId;
+     while (parentId && !seen.has(parentId)) {
+       depth++;
+       seen.add(parentId);
+-      parentId = this.layers.find((l) => l.id === parentId)?.parentId;
++      parentId = byId.get(parentId)?.parentId;
+     }
+     return depth;
+   },
+@@ -94,7 +99,10 @@ var layerStack = {
+   getNestedLayers(node) {
+     const id = this.layerFor(node)?.id;
+     if (!id) return [];
+-    return this.layers.filter((layer) => this.isDescendantOf(layer, id)).sort((a, b) => this.depthOf(a) - this.depthOf(b));
++    const byId = indexById(this.layers);
++    const nested = this.layers.filter((layer) => this.isDescendantOf(layer, id, byId));
++    const depth = new Map(nested.map((layer) => [layer, this.depthOf(layer, byId)]));
++    return nested.sort((a, b) => depth.get(a) - depth.get(b));
+   },
+   getLayersByType(type) {
+     return this.layers.filter((layer) => layer.type === type);
+@@ -177,9 +185,28 @@ var layerStack = {
+     if (index >= 0) this.branches.splice(index, 1);
+   },
+   syncLayers() {
++    const byId = indexById(this.layers);
++    const nestedCounts = /* @__PURE__ */ new Map();
++    const parentsOfSameType = /* @__PURE__ */ new Map();
++    for (const layer of this.layers) {
++      const seen = /* @__PURE__ */ new Set();
++      let parentId = layer.parentId;
++      while (parentId && !seen.has(parentId)) {
++        seen.add(parentId);
++        const parent = byId.get(parentId);
++        if (!parent) break;
++        if (parent.type === layer.type) {
++          nestedCounts.set(parent, (nestedCounts.get(parent) ?? 0) + 1);
++          if (!parentsOfSameType.has(layer)) parentsOfSameType.set(layer, parent);
++        }
++        parentId = parent.parentId;
++      }
++    }
++    const topBlocking = layerStack.topMostPointerBlockingLayer();
++    const highestBlockingIndex = topBlocking ? layerStack.indexOf(topBlocking.node) : -1;
+     this.layers.forEach((layer, index) => {
+-      const parentOfSameType = layerStack.getParentLayerOfType(layer.node, layer.type);
+-      const nestedCount = layerStack.countNestedLayersOfType(layer.node, layer.type);
++      const parentOfSameType = parentsOfSameType.get(layer);
++      const nestedCount = nestedCounts.get(layer) ?? 0;
+       const snapshot = {
+         active: true,
+         type: layer.type,
+@@ -187,7 +214,7 @@ var layerStack = {
+         nested: parentOfSameType != null,
+         hasNested: nestedCount > 0,
+         nestedCount,
+-        blocked: layerStack.isBelowPointerBlockingLayer(layer.node)
++        blocked: layerStack.indexOf(layer.node) < highestBlockingIndex
+       };
+       if (!(0, import_utils.isEqual)(layer.snapshot, snapshot)) {
+         publishSnapshot(layer, snapshot);
+diff --git a/dist/layer-stack.mjs b/dist/layer-stack.mjs
+index c27605b628aa13a22784fe60a628d6a89ec48069..a42a9ee3e432165d5fb0c6bfa5c8cd71079aac91 100644
+--- a/dist/layer-stack.mjs
++++ b/dist/layer-stack.mjs
+@@ -7,6 +7,11 @@ function isPointerBlocking(layer) {
+   const value = layer.pointerBlocking;
+   return typeof value === "function" ? value() : !!value;
+ }
++function indexById(layers) {
++  const byId = /* @__PURE__ */ new Map();
++  for (const layer of layers) if (!byId.has(layer.id)) byId.set(layer.id, layer);
++  return byId;
++}
+ var layerStack = {
+   layers: [],
+   branches: [],
+@@ -43,25 +48,25 @@ var layerStack = {
+     }
+     return void 0;
+   },
+-  isDescendantOf(layer, ancestorId) {
++  isDescendantOf(layer, ancestorId, byId = indexById(this.layers)) {
+     if (!ancestorId) return false;
+     const seen = /* @__PURE__ */ new Set();
+     let parentId = layer.parentId;
+     while (parentId && !seen.has(parentId)) {
+       if (parentId === ancestorId) return true;
+       seen.add(parentId);
+-      parentId = this.layers.find((l) => l.id === parentId)?.parentId;
++      parentId = byId.get(parentId)?.parentId;
+     }
+     return false;
+   },
+-  depthOf(layer) {
++  depthOf(layer, byId = indexById(this.layers)) {
+     const seen = /* @__PURE__ */ new Set();
+     let depth = 0;
+     let parentId = layer.parentId;
+     while (parentId && !seen.has(parentId)) {
+       depth++;
+       seen.add(parentId);
+-      parentId = this.layers.find((l) => l.id === parentId)?.parentId;
++      parentId = byId.get(parentId)?.parentId;
+     }
+     return depth;
+   },
+@@ -69,7 +74,10 @@ var layerStack = {
+   getNestedLayers(node) {
+     const id = this.layerFor(node)?.id;
+     if (!id) return [];
+-    return this.layers.filter((layer) => this.isDescendantOf(layer, id)).sort((a, b) => this.depthOf(a) - this.depthOf(b));
++    const byId = indexById(this.layers);
++    const nested = this.layers.filter((layer) => this.isDescendantOf(layer, id, byId));
++    const depth = new Map(nested.map((layer) => [layer, this.depthOf(layer, byId)]));
++    return nested.sort((a, b) => depth.get(a) - depth.get(b));
+   },
+   getLayersByType(type) {
+     return this.layers.filter((layer) => layer.type === type);
+@@ -152,9 +160,28 @@ var layerStack = {
+     if (index >= 0) this.branches.splice(index, 1);
+   },
+   syncLayers() {
++    const byId = indexById(this.layers);
++    const nestedCounts = /* @__PURE__ */ new Map();
++    const parentsOfSameType = /* @__PURE__ */ new Map();
++    for (const layer of this.layers) {
++      const seen = /* @__PURE__ */ new Set();
++      let parentId = layer.parentId;
++      while (parentId && !seen.has(parentId)) {
++        seen.add(parentId);
++        const parent = byId.get(parentId);
++        if (!parent) break;
++        if (parent.type === layer.type) {
++          nestedCounts.set(parent, (nestedCounts.get(parent) ?? 0) + 1);
++          if (!parentsOfSameType.has(layer)) parentsOfSameType.set(layer, parent);
++        }
++        parentId = parent.parentId;
++      }
++    }
++    const topBlocking = layerStack.topMostPointerBlockingLayer();
++    const highestBlockingIndex = topBlocking ? layerStack.indexOf(topBlocking.node) : -1;
+     this.layers.forEach((layer, index) => {
+-      const parentOfSameType = layerStack.getParentLayerOfType(layer.node, layer.type);
+-      const nestedCount = layerStack.countNestedLayersOfType(layer.node, layer.type);
++      const parentOfSameType = parentsOfSameType.get(layer);
++      const nestedCount = nestedCounts.get(layer) ?? 0;
+       const snapshot = {
+         active: true,
+         type: layer.type,
+@@ -162,7 +189,7 @@ var layerStack = {
+         nested: parentOfSameType != null,
+         hasNested: nestedCount > 0,
+         nestedCount,
+-        blocked: layerStack.isBelowPointerBlockingLayer(layer.node)
++        blocked: layerStack.indexOf(layer.node) < highestBlockingIndex
+       };
+       if (!isEqual(layer.snapshot, snapshot)) {
+         publishSnapshot(layer, snapshot);
