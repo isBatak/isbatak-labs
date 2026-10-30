@@ -46,6 +46,12 @@ export const buttonRecipe = defineRecipe({
           width: "3.5",
           height: "3.5",
         },
+        _iconStart: {
+          ms: "-0.5",
+        },
+        _iconEnd: {
+          me: "-0.5",
+        },
       },
       xs: {
         h: "8",
@@ -56,6 +62,12 @@ export const buttonRecipe = defineRecipe({
         _icon: {
           width: "4",
           height: "4",
+        },
+        _iconStart: {
+          ms: "-0.5",
+        },
+        _iconEnd: {
+          me: "-0.5",
         },
       },
       sm: {
@@ -68,6 +80,12 @@ export const buttonRecipe = defineRecipe({
           width: "4",
           height: "4",
         },
+        _iconStart: {
+          ms: "-0.5",
+        },
+        _iconEnd: {
+          me: "-0.5",
+        },
       },
       md: {
         h: "10",
@@ -78,6 +96,12 @@ export const buttonRecipe = defineRecipe({
         _icon: {
           width: "5",
           height: "5",
+        },
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
         },
       },
       lg: {
@@ -90,6 +114,12 @@ export const buttonRecipe = defineRecipe({
           width: "5",
           height: "5",
         },
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
+        },
       },
       xl: {
         h: "12",
@@ -101,6 +131,12 @@ export const buttonRecipe = defineRecipe({
           width: "5",
           height: "5",
         },
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
+        },
       },
       "2xl": {
         h: "16",
@@ -111,6 +147,12 @@ export const buttonRecipe = defineRecipe({
         _icon: {
           width: "6",
           height: "6",
+        },
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
         },
       },
     },

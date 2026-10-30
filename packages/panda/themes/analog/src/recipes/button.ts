@@ -1,4 +1,4 @@
-import { defineRecipe } from "@pandacss/dev"
+import { defineRecipe } from "@pandacss/dev";
 
 export const buttonRecipe = defineRecipe({
   className: "button",
@@ -30,7 +30,6 @@ export const buttonRecipe = defineRecipe({
     _icon: {
       flexShrink: "0",
       boxSize: "var(--button-icon-size)",
-      strokeWidth: "1.5",
     },
     layerStyle: "elevation.raised",
     _active: {
@@ -48,8 +47,6 @@ export const buttonRecipe = defineRecipe({
       },
       circle: {
         borderRadius: "full",
-        w: "var(--button-size)",
-        "--button-padding-scale": "0",
       },
     },
     size: {
@@ -58,24 +55,48 @@ export const buttonRecipe = defineRecipe({
         "--button-padding-x": "spacing.3.5",
         "--button-icon-size": "sizes.4",
         textStyle: "sm",
+        _iconStart: {
+          ms: "-0.5",
+        },
+        _iconEnd: {
+          me: "-0.5",
+        },
       },
       md: {
         "--button-size": "sizes.12",
         "--button-padding-x": "spacing.5",
         "--button-icon-size": "sizes.5",
         textStyle: "sm",
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
+        },
       },
       lg: {
         "--button-size": "sizes.16",
         "--button-padding-x": "spacing.6",
         "--button-icon-size": "sizes.6",
         textStyle: "md",
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
+        },
       },
       xl: {
         "--button-size": "76px",
         "--button-padding-x": "spacing.7",
         "--button-icon-size": "sizes.8",
         textStyle: "lg",
+        _iconStart: {
+          ms: "-1",
+        },
+        _iconEnd: {
+          me: "-1",
+        },
       },
     },
     icon: {
@@ -91,4 +112,4 @@ export const buttonRecipe = defineRecipe({
     size: "md",
     icon: false,
   },
-})
+});
