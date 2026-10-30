@@ -1,16 +1,19 @@
 import { Accordion } from "@isbatak/react-ui/accordion"
+import { accordion } from "@isbatak/panda-ds/recipes"
 
-import { ChevronDownIcon } from "./primitives"
-import type { SampleProps } from "./types"
+import { defineComponentMatrix } from "../component-matrix/define-component-matrix"
 
-export function AccordionSample(props: SampleProps) {
-  return (
+export const accordionMatrix = defineComponentMatrix({
+  recipe: accordion,
+  render: (props) => (
     <Accordion.Root defaultValue={["a"]} collapsible {...props}>
       <Accordion.Item value="a">
         <Accordion.ItemTrigger>
           Is it accessible?
           <Accordion.ItemIndicator ms="auto">
-            <ChevronDownIcon />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
           </Accordion.ItemIndicator>
         </Accordion.ItemTrigger>
         <Accordion.ItemContent>
@@ -21,7 +24,9 @@ export function AccordionSample(props: SampleProps) {
         <Accordion.ItemTrigger>
           Is it styled?
           <Accordion.ItemIndicator ms="auto">
-            <ChevronDownIcon />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
           </Accordion.ItemIndicator>
         </Accordion.ItemTrigger>
         <Accordion.ItemContent>
@@ -29,5 +34,5 @@ export function AccordionSample(props: SampleProps) {
         </Accordion.ItemContent>
       </Accordion.Item>
     </Accordion.Root>
-  )
-}
+  ),
+})

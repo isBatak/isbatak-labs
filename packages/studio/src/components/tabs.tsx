@@ -1,9 +1,10 @@
 import { Tabs } from "@isbatak/react-ui/tabs"
+import { tabs } from "@isbatak/panda-ds/recipes"
+import { defineComponentMatrix } from "../component-matrix/define-component-matrix"
 
-import type { SampleProps } from "./types"
-
-export function TabsSample(props: SampleProps) {
-  return (
+export const tabsMatrix = defineComponentMatrix({
+  recipe: tabs,
+  render: (props) => (
     <Tabs.Root defaultValue="account" {...props}>
       <Tabs.List>
         <Tabs.Trigger value="account">Account</Tabs.Trigger>
@@ -15,5 +16,5 @@ export function TabsSample(props: SampleProps) {
       <Tabs.Content value="password">Change your password.</Tabs.Content>
       <Tabs.Content value="billing">Manage your billing.</Tabs.Content>
     </Tabs.Root>
-  )
-}
+  ),
+})
