@@ -3,7 +3,16 @@ import { emptyDoc, listRules, setRule, setSemanticToken, setToken } from "../src
 import { toPresetObject } from "../src/lib/export"
 import { parseShadow, serializeShadow } from "../src/lib/shadow"
 import { recipeStates, stateProps } from "../src/lib/states"
-import { cssVarName, longhand, partFromClassList, recipes, resolveStyleValue } from "../src/lib/theme-meta"
+import {
+  type RecipeMeta,
+  cssVarName,
+  longhand,
+  partFromClassList,
+  recipes,
+  resolveStyleValue,
+} from "../src/lib/theme-meta"
+import { formatAxisValue, resolveAxes } from "../src/component-matrix/axes"
+import { defineComponentMatrix } from "../src/component-matrix/define-component-matrix"
 
 describe("theme-meta", () => {
   test("css variable names follow Panda's escaping", () => {
@@ -158,5 +167,80 @@ describe("states", () => {
     expect(toPresetObject(doc).recipes.button.compoundVariants).toEqual([
       { variant: "ghost", size: "sm", css: { _hover: { gap: "1" } } },
     ])
+  })
+})
+
+describe("defineComponentMatrix", () => {
+  const meta: RecipeMeta = {
+    key: "button",
+    className: "button",
+    slots: undefined,
+    variantMap: { size: ["sm", "md"], variant: ["solid", "outline"], icon: ["true", "false"] },
+    defaultVariants: { variant: "outline", size: "md" },
+    config: {},
+  }
+  const recipe = {
+    variantKeys: ["size", "variant", "icon"],
+    raw: (props?: { size?: "sm" | "md"; variant?: "solid" | "outline"; icon?: boolean }) => props,
+  }
+  const states = ["", "hover"]
+  const names = (axes: { name: string }[]) => axes.map((axis) => axis.name)
+  const render = () => null
+
+  test("alternates state and variants between rows and columns by default", () => {
+    const { x, y } = resolveAxes(defineComponentMatrix({ recipe, render }), meta, states)
+    expect(names(y)).toEqual(["state", "size"])
+    expect(names(x)).toEqual(["variant", "icon"])
+    expect(x[0]!.values).toEqual(["outline", "solid"])
+    expect(x[1]!.config.type).toBe("boolean")
+  })
+
+  test("places listed props first and appends the rest to the shorter axis", () => {
+    const { x, y } = resolveAxes(
+      defineComponentMatrix({ recipe, x: ["size"], y: ["variant", "state"], render }),
+      meta,
+      states,
+    )
+    expect(names(y)).toEqual(["variant", "state"])
+    expect(names(x)).toEqual(["size", "icon"])
+  })
+
+  test("ignored props leave the axes and pass their default to every cell", () => {
+    const matrix = defineComponentMatrix({
+      recipe,
+      props: { icon: { ignore: true, defaultValue: true }, state: { ignore: true } },
+      render,
+    })
+    const { x, y, fixed } = resolveAxes(matrix, meta, states)
+    expect([...names(x), ...names(y)]).not.toContain("icon")
+    expect([...names(x), ...names(y)]).not.toContain("state")
+    expect(fixed).toEqual({ icon: true, state: "" })
+  })
+
+  test("extra props, option overrides and label formatting", () => {
+    const matrix = defineComponentMatrix({
+      recipe,
+      x: ["label"],
+      props: {
+        label: { type: "variant", options: ["Short", "A much longer label"], showPropName: false },
+        size: { options: ["sm"], labelFormatter: (value) => `size ${String(value).toUpperCase()}` },
+      },
+      render: (props) => props.label,
+    })
+    const { x, y } = resolveAxes(matrix, meta, states)
+    const axes = [...x, ...y]
+    const label = axes.find((axis) => axis.name === "label")!
+    const size = axes.find((axis) => axis.name === "size")!
+    expect(x[0]).toBe(label)
+    expect(label.values).toEqual(["Short", "A much longer label"])
+    expect(label.config.showPropName).toBe(false)
+    expect(size.values).toEqual(["sm"])
+    expect(formatAxisValue(size, "sm")).toBe("size SM")
+    expect(
+      formatAxisValue(
+        axes.find((axis) => axis.name === "state")!,
+        "",
+      ),
+    ).toBe("default")
   })
 })

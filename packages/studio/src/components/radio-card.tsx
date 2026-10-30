@@ -1,9 +1,10 @@
 import { RadioCard } from "@isbatak/react-ui/radio-card"
+import { radioCard } from "@isbatak/panda-ds/recipes"
+import { defineComponentMatrix } from "../component-matrix/define-component-matrix"
 
-import type { SampleProps } from "./types"
-
-export function RadioCardSample(props: SampleProps) {
-  return (
+export const radioCardMatrix = defineComponentMatrix({
+  recipe: radioCard,
+  render: (props) => (
     <RadioCard.Root defaultValue="react" {...props}>
       <RadioCard.Label>Framework</RadioCard.Label>
       <RadioCard.Item value="react">
@@ -27,5 +28,5 @@ export function RadioCardSample(props: SampleProps) {
         </RadioCard.ItemControl>
       </RadioCard.Item>
     </RadioCard.Root>
-  )
-}
+  ),
+})

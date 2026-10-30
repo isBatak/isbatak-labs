@@ -1,9 +1,10 @@
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
+import { segmentGroup } from "@isbatak/panda-ds/recipes"
+import { defineComponentMatrix } from "../component-matrix/define-component-matrix"
 
-import type { SampleProps } from "./types"
-
-export function SegmentGroupSample(props: SampleProps) {
-  return (
+export const segmentGroupMatrix = defineComponentMatrix({
+  recipe: segmentGroup,
+  render: (props) => (
     <SegmentGroup.Root defaultValue="react" {...props}>
       <SegmentGroup.Indicator />
       <SegmentGroup.Item value="react">
@@ -22,5 +23,5 @@ export function SegmentGroupSample(props: SampleProps) {
         <SegmentGroup.ItemHiddenInput />
       </SegmentGroup.Item>
     </SegmentGroup.Root>
-  )
-}
+  ),
+})

@@ -3,7 +3,7 @@ import { Button } from "@isbatak/react-ui/button"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
-import { Card, Input, Kbd } from "../demos/primitives"
+import { Card, Input, Kbd } from "./primitives"
 import type { ColorMode, StudioDoc } from "../lib/doc"
 import { type TokenEntry, listTokens } from "../lib/theme-meta"
 import { Row, Section, Stack } from "./layout"

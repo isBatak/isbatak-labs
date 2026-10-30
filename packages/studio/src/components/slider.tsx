@@ -1,9 +1,10 @@
 import { Slider } from "@isbatak/react-ui/slider"
+import { slider } from "@isbatak/panda-ds/recipes"
+import { defineComponentMatrix } from "../component-matrix/define-component-matrix"
 
-import type { SampleProps } from "./types"
-
-export function SliderSample(props: SampleProps) {
-  return (
+export const sliderMatrix = defineComponentMatrix({
+  recipe: slider,
+  render: (props) => (
     <Slider.Root defaultValue={[40]} w="full" {...props}>
       <Slider.Label>Volume</Slider.Label>
       <Slider.Control>
@@ -15,5 +16,5 @@ export function SliderSample(props: SampleProps) {
         </Slider.Thumb>
       </Slider.Control>
     </Slider.Root>
-  )
-}
+  ),
+})

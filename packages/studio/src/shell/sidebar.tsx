@@ -150,7 +150,7 @@ function ComponentLayers(props: { studio: Studio }) {
   const recipeKey = state.page.kind === "component" ? components[state.page.id].recipe : undefined
   const recipe = recipeKey ? recipes[recipeKey] : undefined
 
-  // Slots of the page's component that the demos don't render, so they stay editable
+  // Slots of the page's component that the matrix doesn't render, so they stay editable
   const rendered = new Set<string>()
   const walk = (nodes: LayerNode[]) => {
     for (const node of nodes) {
@@ -203,7 +203,7 @@ function ComponentLayers(props: { studio: Studio }) {
           {recipe && unrendered.length > 0 && (
             <>
               <styled.div textStyle="2xs" color="fg.subtle" px="2" pt="3" pb="1">
-                Not rendered in the demos
+                Not rendered in the matrix
               </styled.div>
               <LayerList
                 studio={props.studio}

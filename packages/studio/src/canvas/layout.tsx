@@ -39,15 +39,3 @@ export function Section(props: { title: string; children: ReactNode; description
     </styled.section>
   )
 }
-
-/**
- * Renders overlay content (menus, popovers, drawers) in the document flow instead of floating it, so it can be
- * inspected and edited next to the other demos.
- */
-export function StaticOverlay(props: { children: ReactNode; height?: string }) {
-  return (
-    <styled.div className="studio-static-overlay" position="relative" minH={props.height}>
-      {props.children}
-    </styled.div>
-  )
-}

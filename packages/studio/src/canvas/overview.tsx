@@ -11,18 +11,7 @@ import { Tabs } from "@isbatak/react-ui/tabs"
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
-import {
-  Alert,
-  Avatar,
-  Card,
-  CheckIcon,
-  ChevronDownIcon,
-  Checkbox,
-  InfoIcon,
-  Input,
-  Kbd,
-  Switch,
-} from "../demos/primitives"
+import { Alert, Avatar, Card, CheckIcon, ChevronDownIcon, Checkbox, InfoIcon, Input, Kbd, Switch } from "./primitives"
 import { availablePalette } from "../lib/theme-meta"
 import { Row, Stack } from "./layout"
 

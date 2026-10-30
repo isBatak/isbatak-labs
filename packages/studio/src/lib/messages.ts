@@ -1,8 +1,6 @@
 import type { ColorMode, StudioDoc } from "./doc"
 
-export type Page =
-  | { kind: "foundation"; id: FoundationId }
-  | { kind: "component"; id: ComponentId }
+export type Page = { kind: "foundation"; id: FoundationId } | { kind: "component"; id: ComponentId }
 
 export type FoundationId = "overview" | "color" | "typography" | "radius" | "shadow" | "spacing"
 
@@ -14,6 +12,8 @@ export interface Part {
 }
 
 export interface Cell {
+  /** Index of the matrix on the page */
+  matrix: number
   variants: Record<string, string>
   state: string
 }
