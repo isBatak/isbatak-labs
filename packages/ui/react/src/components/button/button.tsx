@@ -37,3 +37,13 @@ export function Button(props: ButtonProps) {
 }
 
 export const ButtonPropsProvider = PropsProvider
+
+export type ButtonStartIconProps = ComponentProps<typeof ark.span>
+export function ButtonStartIcon(props: ButtonStartIconProps) {
+  return <ark.span data-icon-start="" aria-hidden {...props} />
+}
+
+export type ButtonEndIconProps = ComponentProps<typeof ark.span>
+export function ButtonEndIcon(props: ButtonEndIconProps) {
+  return <ark.span data-icon-end="" aria-hidden {...props} />
+}

@@ -1,5 +1,5 @@
-export { Button, ButtonPropsProvider } from "./button"
-export type { ButtonLoadingProps, ButtonProps } from "./button"
+export { Button, ButtonEndIcon, ButtonPropsProvider, ButtonStartIcon } from "./button"
+export type { ButtonEndIconProps, ButtonLoadingProps, ButtonProps, ButtonStartIconProps } from "./button"
 
 export { IconButton } from "./icon-button"
 export type { IconButtonProps } from "./icon-button"
