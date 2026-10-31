@@ -42,7 +42,7 @@
     "sugar-high": "2.5.0"
   },
   "devDependencies": {
-    "@ikona/cli": "0.2.1",
+    "@ikona/cli": "0.2.2",
     "@isbatak/panda-studio": "workspace:*",
     "@isbatak/panda-turbopack": "workspace:*",
     "@isbatak/sourcery": "workspace:*",

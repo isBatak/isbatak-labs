@@ -1,6 +1,6 @@
 # Icons TODO
 
-1. [ ] Fix the ikona `icons.ts` template to use `import type`, then drop the patch in the icons generate script.
+1. [x] Fix the ikona `icons.ts` template to use `import type`, then drop the patch in the icons generate script.
 1. [ ] Render the Solid, Svelte and Vue `Icon` in their storybooks to check they work.
 1. [ ] Decide whether www moves from its Tabler sprite to `@isbatak/icons`.
 1. [ ] Update the studio button states test to expect the `iconStart` and `iconEnd` states.

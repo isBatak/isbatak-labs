@@ -1,12 +1,11 @@
 import { execFileSync } from "node:child_process"
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
+import { mkdir, rm, writeFile } from "node:fs/promises"
 import { iconManifest } from "@boring-icons/react/manifest"
 import * as icons from "@boring-icons/react"
 import { createElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
 const svgDir = new URL("../svg/", import.meta.url)
-const iconList = new URL("../generated/icons.ts", import.meta.url)
 
 await rm(svgDir, { recursive: true, force: true })
 await mkdir(svgDir, { recursive: true })
@@ -21,6 +20,3 @@ for (const entry of iconManifest.icons) {
 console.log(`Extracted ${iconManifest.icons.length} icons from @boring-icons/react ${iconManifest.sourceVersion}`)
 
 execFileSync("ikona", ["--force"], { stdio: "inherit" })
-
-const list = await readFile(iconList, "utf8")
-await writeFile(iconList, list.replace("import { IconName }", "import type { IconName }"))

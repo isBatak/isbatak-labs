@@ -16,6 +16,7 @@ allowBuilds:
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - sugar-high@2.5.0
+  - "@ikona/cli@0.2.2"
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 trustPolicyExclude:
