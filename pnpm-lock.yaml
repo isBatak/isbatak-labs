@@ -773,8 +773,8 @@ importers:
         version: 2.5.0
     devDependencies:
       '@ikona/cli':
-        specifier: 0.2.1
-        version: 0.2.1
+        specifier: 0.2.2
+        version: 0.2.2
       '@isbatak/panda-studio':
         specifier: workspace:*
         version: link:../../packages/studio
@@ -1304,8 +1304,8 @@ importers:
         specifier: 0.11.2
         version: 0.11.2(react@19.3.1)
       '@ikona/cli':
-        specifier: 0.2.1
-        version: 0.2.1
+        specifier: 0.2.2
+        version: 0.2.2
       react:
         specifier: 'catalog:'
         version: 19.3.1
@@ -2428,8 +2428,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@ikona/cli@0.2.1':
-    resolution: {integrity: sha512-fVDxQ0YVke7puRM3WLKqFsq7N3C9of1dwokqmAIGh0yqXLpudzQE2ZwLjHb2Vl4Mx1wACflzIGI/mlPTkgG48w==}
+  '@ikona/cli@0.2.2':
+    resolution: {integrity: sha512-39/UHoO1XwITXuOKzeqm9Jro/2nHDYK7IiO6Zo9ix682zu/+3b/lLRAYkK8VPAdN8zCQX4sv+Y6oBpquXwsC5A==}
     hasBin: true
 
   '@img/colour@1.1.0':
@@ -9081,7 +9081,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@ikona/cli@0.2.1':
+  '@ikona/cli@0.2.2':
     dependencies:
       '@types/fs-extra': 11.0.4
       bundle-n-require: 1.1.2
@@ -12365,7 +12365,7 @@ snapshots:
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@3.2.1:
     dependencies:
