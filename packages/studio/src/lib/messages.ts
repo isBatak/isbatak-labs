@@ -2,7 +2,7 @@ import type { ColorMode, StudioDoc } from "./doc"
 
 export type Page = { kind: "foundation"; id: FoundationId } | { kind: "component"; id: ComponentId }
 
-export type FoundationId = "overview" | "color" | "typography" | "radius" | "shadow" | "spacing"
+export type FoundationId = "overview" | "color" | "typography" | "radius" | "shadow" | "spacing" | "icons"
 
 export type ComponentId = keyof typeof import("../components").components
 

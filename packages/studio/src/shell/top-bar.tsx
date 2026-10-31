@@ -5,12 +5,10 @@ import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 import { themeVariants } from "virtual:panda-studio/project"
 
-import { countOverrides, emptyDoc } from "../lib/doc"
+import { countOverrides } from "../lib/doc"
 import { GetCodeDialog } from "./get-code-dialog"
-import { IconButton, MoonIcon, RedoIcon, SelectInput, SunIcon, Toggle, ToggleItem, UndoIcon } from "./ui"
+import { MoonIcon, SelectInput, SunIcon, Toggle, ToggleItem } from "./ui"
 import { type Studio, encodeShare } from "./use-studio"
-
-const NEW_THEME = "__new__"
 
 export function TopBar(props: { studio: Studio }) {
   const { state, dispatch, saveToSource } = props.studio
@@ -24,8 +22,8 @@ export function TopBar(props: { studio: Studio }) {
   return (
     <styled.header
       gridColumn="1 / -1"
-      display="grid"
-      gridTemplateColumns="1fr auto 1fr"
+      display="flex"
+      justifyContent="space-between"
       alignItems="center"
       h="12"
       px="3"
@@ -37,42 +35,7 @@ export function TopBar(props: { studio: Studio }) {
         <Wordmark product="studio" />
       </styled.div>
 
-      <styled.div display="flex" alignItems="center" gap="1">
-        <SelectInput
-          aria-label="Theme"
-          value={state.themeName}
-          className={css({ w: "40" })}
-          options={[
-            ...Object.keys(state.themes).map((name) => ({ value: name, label: name })),
-            { value: NEW_THEME, label: "New theme…" },
-          ]}
-          onValueChange={(value) => {
-            if (value !== NEW_THEME) {
-              dispatch({ type: "switch-theme", name: value })
-              return
-            }
-            const name = window.prompt("Theme name (letters, numbers, dashes)")?.trim()
-            if (!name) return
-            if (!/^[\w-]+$/.test(name)) {
-              window.alert("Use letters, numbers, dashes and underscores only.")
-              return
-            }
-            dispatch({
-              type: "switch-theme",
-              name,
-              doc: state.themes[name] ?? emptyDoc(),
-            })
-          }}
-        />
-        <IconButton label="Undo (⌘Z)" disabled={!state.past.length} onClick={() => dispatch({ type: "undo" })}>
-          <UndoIcon />
-        </IconButton>
-        <IconButton label="Redo (⇧⌘Z)" disabled={!state.future.length} onClick={() => dispatch({ type: "redo" })}>
-          <RedoIcon />
-        </IconButton>
-      </styled.div>
-
-      <styled.div display="flex" alignItems="center" justifyContent="flex-end" gap="2">
+      <styled.div display="flex" alignItems="center" gap="2">
         {status && (
           <styled.span textStyle="xs" color="fg.muted">
             {status}
