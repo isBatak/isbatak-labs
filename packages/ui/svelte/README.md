@@ -7,7 +7,7 @@ import { Button } from "@isbatak/svelte-ui/button"
 import { Tabs } from "@isbatak/svelte-ui/tabs"
 ```
 
-Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `loader`, `menu`, `popover`, `radio-card`,
+Available: `accordion`, `badge`, `button`, `group`, `hover-card`, `icon`, `loader`, `menu`, `popover`, `radio-card`,
 `segment-group`, `select`, `slider`, `spinner`, `tabs`, `tooltip` and `tour`.
 
 Panda has no `jsx` helpers for Svelte, so each part applies its recipe through `class` and shares slot styles with

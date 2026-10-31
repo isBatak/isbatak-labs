@@ -1,4 +1,5 @@
 - Never `.map()` over static data to render JSX; write the structure inline instead.
+- Put plans, todo lists and notes in the `plans/` folder at the root, never loose in the repo root or a package.
 
 ## Styling
 

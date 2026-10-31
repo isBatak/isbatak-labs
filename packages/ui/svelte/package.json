@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ark-ui/svelte": "catalog:",
+    "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

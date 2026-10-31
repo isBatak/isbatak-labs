@@ -10,6 +10,7 @@ import { checkboxMatrix } from "./checkbox"
 import { closeButtonMatrix } from "./close-button"
 import { drawerMatrix } from "./drawer"
 import { hoverCardMatrix } from "./hover-card"
+import { iconMatrix } from "./icon"
 import { iconButtonMatrix } from "./icon-button"
 import { inputMatrix } from "./input"
 import { kbdMatrix } from "./kbd"
@@ -42,6 +43,7 @@ export const components = {
   closeButton: component("Close Button", [closeButtonMatrix]),
   drawer: component("Drawer", [drawerMatrix]),
   hoverCard: component("Hover Card", [hoverCardMatrix]),
+  icon: component("Icon", [iconMatrix]),
   iconButton: component("Icon Button", [iconButtonMatrix]),
   input: component("Input", [inputMatrix]),
   kbd: component("Kbd", [kbdMatrix]),

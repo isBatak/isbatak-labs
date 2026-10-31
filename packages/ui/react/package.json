@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
+    "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

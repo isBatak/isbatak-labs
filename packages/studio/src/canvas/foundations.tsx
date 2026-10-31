@@ -1,5 +1,6 @@
 import { Badge } from "@isbatak/react-ui/badge"
-import { Button } from "@isbatak/react-ui/button"
+import { Button, ButtonStartIcon, IconButton } from "@isbatak/react-ui/button"
+import { Icon, iconNames } from "@isbatak/react-ui/icon"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
@@ -279,5 +280,44 @@ export function SpacingPage(_props: FoundationProps) {
         ))}
       </Stack>
     </Section>
+  )
+}
+
+export function IconsPage() {
+  return (
+    <>
+      <Section title="Icons" description={`${iconNames.length} Boring Icons in one sprite, built with ikona`}>
+        <styled.div w="full" display="grid" gridTemplateColumns="repeat(auto-fill, minmax(6rem, 1fr))" gap="2">
+          {iconNames.map((name) => (
+            <Stack key={name} gap="2" alignItems="center" py="3" borderRadius="l2" _hover={{ bg: "bg.muted" }}>
+              <Icon name={name} size="lg" />
+              <styled.span textStyle="xs" color="fg.muted" textAlign="center">
+                {name}
+              </styled.span>
+            </Stack>
+          ))}
+        </styled.div>
+      </Section>
+      <Section title="In context" description="Icons take the text color and scale with the size variant">
+        <Row>
+          <Button>
+            <ButtonStartIcon asChild>
+              <Icon name="download" />
+            </ButtonStartIcon>
+            Download
+          </Button>
+          <IconButton variant="outline" aria-label="Settings">
+            <Icon name="settings" />
+          </IconButton>
+          <Badge>
+            <Icon name="check" />
+            Done
+          </Badge>
+          <styled.span color="fg.error">
+            <Icon name="warning" size="md" />
+          </styled.span>
+        </Row>
+      </Section>
+    </>
   )
 }
