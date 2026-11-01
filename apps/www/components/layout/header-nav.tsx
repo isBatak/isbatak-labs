@@ -68,7 +68,7 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
     <>
       <LinkTitle>
         {entry.title}
-        {entry.external && <Icon name="arrow-up-right" color="fg.subtle" />}
+        {entry.external && <Icon name="external-link" color="fg.subtle" />}
       </LinkTitle>
       {entry.description && <LinkDescription>{entry.description}</LinkDescription>}
     </>

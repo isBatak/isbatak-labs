@@ -49,7 +49,7 @@ interface EditorProps {
   children: ReactNode
 }
 
-export function Editor({ name, icon = "code", children }: EditorProps) {
+export function Editor({ name, icon = "code-brackets", children }: EditorProps) {
   return (
     <HoverCard.Root openDelay={150} closeDelay={100} positioning={{ placement: "top" }} lazyMount unmountOnExit>
       <HoverCard.Trigger asChild>

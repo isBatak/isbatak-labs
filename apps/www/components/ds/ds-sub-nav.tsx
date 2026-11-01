@@ -68,7 +68,7 @@ function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string 
             <Drawer.Header>
               <Drawer.CloseTrigger asChild>
                 <Button variant="ghost" size="xs" px="0" aspectRatio="square" aria-label="Close navigation">
-                  <Icon size="sm" name="x" />
+                  <Icon size="sm" name="close" />
                 </Button>
               </Drawer.CloseTrigger>
             </Drawer.Header>
