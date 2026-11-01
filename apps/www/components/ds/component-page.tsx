@@ -19,7 +19,7 @@ const BreadcrumbLink = styled(Link, {
   },
 })
 
-const frameworkLabels = { react: "React", vue: "Vue", solid: "Solid", svelte: "Svelte" }
+const frameworkLabels = { react: "React", vue: "Vue", solid: "Solid", svelte: "Svelte", preact: "Preact", lit: "Lit" }
 
 const repoUrl = (path: string) => `${REPO_URL}/tree/main/${path}`
 

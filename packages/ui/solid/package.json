@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ark-ui/solid": "catalog:",
+    "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {

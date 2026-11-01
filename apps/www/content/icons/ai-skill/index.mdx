@@ -1,0 +1,65 @@
+---
+title: AI skills
+description:
+  Agent skills that find the right icon name for the Icon component, and draw new icons in the Boring Icons style.
+order: 4
+---
+
+Two agent skills come with the icons:
+
+- `find-icons` searches the set by meaning, so your coding agent finds `delete` when it looks for "trash" and `settings`
+  when it looks for "cog", then renders it with the `Icon` component.
+- `boring-icons` draws the icons the set doesn't have yet. It gives your agent the style of Boring Icons, measured from
+  the set itself, and a way to check each new icon next to the real ones before it's done.
+
+## Install
+
+In Claude Code, install the `isbatak-icons` plugin, which bundles both:
+
+```sh
+/plugin install isbatak-icons --marketplace isBatak/isbatak-labs
+```
+
+For Codex, Cursor and the other agents the [`skills`](https://github.com/vercel-labs/skills) CLI supports, add them
+with:
+
+```sh
+npx skills add isBatak/isbatak-labs --skill find-icons --skill boring-icons
+```
+
+It asks which agents to install to, or pass `-a codex` to pick one. Add `-g` to install them for every project.
+
+## Find an icon
+
+Ask your agent for UI that needs icons, for example "add a delete button to each row". `find-icons` runs a search with
+one query per icon, picks names from the results, and renders them with the `Icon` from your framework's UI package.
+When nothing matches, it says so and offers the closest icon or drawing a new one with `boring-icons`.
+
+## Draw an icon
+
+`boring-icons` comes with two scripts that render Boring's own icons next to the ones it draws. They need a few dev
+dependencies and Playwright's browser:
+
+```sh
+npm install --save-dev @boring-icons/react react react-dom playwright
+npx playwright install chromium
+```
+
+Ask your agent for the icon you need, for example "draw a `rocket` icon in the Boring style". The skill then:
+
+1. Checks that the set doesn't already cover it under another name (`close`, not `x`).
+2. Prints the paths of the closest Boring icons and borrows their geometry, like the `folder` or `file` frame.
+3. Draws the icon on the same grid.
+4. Renders it next to those icons at 96, 24 and 16px, on light and dark, and redraws until it matches at 24px.
+
+### What it knows
+
+- **Grid and stroke.** A 24px grid with a 1.5 stroke, round caps and joins, and mostly whole-number coordinates.
+- **Shapes.** Square frames on 4 to 20, circles of radius 9, square corners, straight lines and 45° diagonals, and
+  curves only where the subject is round.
+- **Detail.** A silhouette plus one or two inner marks, with deliberate gaps in the outline where a mark needs room.
+- **Variants.** `-filled` icons, `-duotone` icons with a 20% tint under the outline, and letter badges like the `ai-*`
+  icons.
+- **Third-party icons.** Restyling icons from Tabler or Lucide to match: stroke 1.5 and square frames.
+
+The media controls, text formatting, image cropper and other icons added to fill in this set were drawn with it.

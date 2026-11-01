@@ -1,4 +1,5 @@
 import { Hero } from "../../components/home/hero"
+import { IconsPromo } from "../../components/home/icons-promo"
 import { PandaTurbopackPromo } from "../../components/home/panda-turbopack-promo"
 import { SponsorCta } from "../../components/home/sponsor-cta"
 import { Sponsors } from "../../components/home/sponsors"
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <StackPreferences />
       <PandaTurbopackPromo />
+      <IconsPromo />
       <Sponsors />
       <SponsorCta />
     </>

@@ -1,4 +1,4 @@
-import { defineRecipe } from "@pandacss/dev";
+import { defineRecipe } from "@pandacss/dev"
 
 export const buttonRecipe = defineRecipe({
   className: "button",
@@ -112,4 +112,4 @@ export const buttonRecipe = defineRecipe({
     size: "md",
     icon: false,
   },
-});
+})

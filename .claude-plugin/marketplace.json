@@ -1,0 +1,12 @@
+{
+  "name": "isbatak-labs",
+  "owner": { "name": "Ivica Batinić" },
+  "description": "Claude Code plugins for the @isbatak design system and UI packages",
+  "plugins": [
+    {
+      "name": "isbatak-icons",
+      "source": "./plugins/isbatak-icons",
+      "description": "Find @isbatak/icons names by meaning and use them with the Icon component, or draw a missing icon in the Boring Icons style"
+    }
+  ]
+}

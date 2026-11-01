@@ -104,7 +104,7 @@ function UpstreamRow({ url, project, logo, title, label }: UpstreamItem) {
           {label}
         </styled.span>
       )}
-      <Icon name="arrow-up-right" color="fg.subtle" />
+      <Icon name="external-link" color="fg.subtle" />
     </Row>
   )
 }

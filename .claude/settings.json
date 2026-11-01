@@ -1,4 +1,8 @@
 {
+  "extraKnownMarketplaces": {
+    "isbatak-labs": { "source": { "source": "github", "repo": "isBatak/isbatak-labs" } }
+  },
+  "enabledPlugins": { "isbatak-icons@isbatak-labs": true },
   "hooks": {
     "PostToolUse": [
       {

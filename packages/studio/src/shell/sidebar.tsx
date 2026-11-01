@@ -111,6 +111,7 @@ export function Sidebar(props: { studio: Studio; width: number; onResize: (width
           <Foundation id="radius" label="Radius" icon={<RadiusIcon />} />
           <Foundation id="shadow" label="Shadow" icon={<ShadowIcon />} />
           <Foundation id="spacing" label="Spacing" icon={<SpacingIcon />} />
+          <Foundation id="icons" label="Icons" icon={<IconsIcon />} />
 
           <div className={heading}>Components</div>
           <Component id="accordion" />
@@ -123,6 +124,7 @@ export function Sidebar(props: { studio: Studio; width: number; onResize: (width
           <Component id="closeButton" />
           <Component id="drawer" />
           <Component id="hoverCard" />
+          <Component id="icon" />
           <Component id="iconButton" />
           <Component id="input" />
           <Component id="kbd" />
@@ -522,6 +524,14 @@ function SpacingIcon() {
   return (
     <Icon>
       <path d="M5 3v18M19 3v18M9 12h6" />
+    </Icon>
+  )
+}
+
+function IconsIcon() {
+  return (
+    <Icon>
+      <path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z" />
     </Icon>
   )
 }

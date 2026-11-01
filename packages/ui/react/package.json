@@ -15,13 +15,17 @@
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
+    "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=19.0.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "devDependencies": {
     "@types/react": "catalog:",
-    "react": "catalog:"
+    "@types/react-dom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

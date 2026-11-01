@@ -11,6 +11,7 @@ import { styled } from "styled-system/jsx"
 import { LayoutContainer } from "../layout/layout-container"
 import { Icon } from "../ui/icon"
 import type { DsNavGroup } from "./ds-nav-data"
+import { sectionLabels } from "./ds-sections"
 import { DsNavGroups } from "./ds-nav-groups"
 
 const NavLink = styled(Link, {
@@ -34,6 +35,7 @@ const NavLink = styled(Link, {
 export interface DsSubNavProps {
   components: DsNavGroup[]
   styles: DsNavGroup[]
+  icons: DsNavGroup[]
 }
 
 function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string }) {
@@ -68,7 +70,7 @@ function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string 
             <Drawer.Header>
               <Drawer.CloseTrigger asChild>
                 <Button variant="ghost" size="xs" px="0" aspectRatio="square" aria-label="Close navigation">
-                  <Icon size="sm" name="x" />
+                  <Icon size="sm" name="close" />
                 </Button>
               </Drawer.CloseTrigger>
             </Drawer.Header>
@@ -84,10 +86,15 @@ function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string 
   )
 }
 
-export function DsSubNav({ components, styles }: DsSubNavProps) {
+export function DsSubNav({ components, styles, icons }: DsSubNavProps) {
   const pathname = usePathname()
   const current = (href: string) => (pathname.startsWith(href) ? "page" : undefined)
-  const inStyles = pathname.startsWith("/ds/styles")
+  const section = pathname.startsWith("/ds/styles")
+    ? "styles"
+    : pathname.startsWith("/ds/icons")
+      ? "icons"
+      : "components"
+  const groups = { components, styles, icons }[section]
 
   return (
     <styled.div
@@ -102,13 +109,16 @@ export function DsSubNav({ components, styles }: DsSubNavProps) {
       overflowX="clip"
     >
       <LayoutContainer size="wide" display="flex" alignItems="center" gap="2" h="full" px={{ base: "3", md: "8" }}>
-        <SectionDrawer groups={inStyles ? styles : components} label={inStyles ? "Styles" : "Components"} />
+        <SectionDrawer groups={groups} label={sectionLabels[section]} />
         <styled.nav aria-label="Design system" display="flex" alignItems="center" gap="1">
           <NavLink href="/ds/components" aria-current={current("/ds/components")}>
             Components
           </NavLink>
           <NavLink href="/ds/styles" aria-current={current("/ds/styles")}>
             Styles
+          </NavLink>
+          <NavLink href="/ds/icons" aria-current={current("/ds/icons")}>
+            Icons
           </NavLink>
         </styled.nav>
       </LayoutContainer>

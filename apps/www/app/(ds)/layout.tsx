@@ -12,7 +12,7 @@ export default function DesignSystemLayout({ children }: { children: ReactNode }
   return (
     <>
       <SiteHeader size="wide" />
-      <DsSubNav components={dsNavGroups("components")} styles={dsNavGroups("styles")} />
+      <DsSubNav components={dsNavGroups("components")} styles={dsNavGroups("styles")} icons={dsNavGroups("icons")} />
       <styled.main px="2">
         <LayoutContainer size="wide" minH="calc(100dvh - {sizes.header} - {sizes.subnav})">
           {children}

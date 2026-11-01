@@ -1,0 +1,25 @@
+{
+  "name": "@isbatak/icons",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Boring Icons plus extra UI and brand icons as an ikona SVG sprite with typed icon names, for every @isbatak UI framework",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./sprite.svg": "./generated/sprite.svg",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "import:extra": "node scripts/import-extra-icons.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@boring-icons/react": "0.11.2",
+    "@ikona/cli": "0.2.2",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

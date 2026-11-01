@@ -26,6 +26,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
+      - run: pnpm --filter @isbatak/panda-ds build
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test

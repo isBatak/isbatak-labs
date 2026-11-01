@@ -8,7 +8,6 @@
     "styled-system",
     "panda.config.ts",
     "velite.config.ts",
-    "ikona.config.ts",
     "next.config.ts",
     "proxy.ts",
     ".next/types/**/*.ts"

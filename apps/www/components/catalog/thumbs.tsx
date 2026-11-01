@@ -2,6 +2,8 @@ import type { ComponentType } from "react"
 import { cva } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
+import { Icon } from "../ui/icon"
+
 const frame = cva({
   base: {
     position: "relative",
@@ -369,6 +371,42 @@ function HoverCardThumb() {
         </styled.span>
         <span className={bar({ w: "full" })} />
         <span className={bar({ w: "3/4" })} />
+      </styled.span>
+    </span>
+  )
+}
+
+function IconThumb() {
+  return (
+    <span className={frame()}>
+      <styled.span className={center()}>
+        <styled.span display="grid" gridTemplateColumns="repeat(3, auto)" gap="1.5">
+          <styled.span display="grid" placeItems="center" boxSize="8" borderRadius="md" bg="bg.muted" color="fg">
+            <Icon name="home" size="sm" />
+          </styled.span>
+          <styled.span
+            display="grid"
+            placeItems="center"
+            boxSize="8"
+            borderRadius="md"
+            bg="colorPalette.solid"
+            color="colorPalette.contrast"
+          >
+            <Icon name="star" size="sm" />
+          </styled.span>
+          <styled.span display="grid" placeItems="center" boxSize="8" borderRadius="md" bg="bg.muted" color="fg">
+            <Icon name="bell" size="sm" />
+          </styled.span>
+          <styled.span display="grid" placeItems="center" boxSize="8" borderRadius="md" bg="bg.muted" color="fg">
+            <Icon name="search" size="sm" />
+          </styled.span>
+          <styled.span display="grid" placeItems="center" boxSize="8" borderRadius="md" bg="bg.muted" color="fg">
+            <Icon name="settings" size="sm" />
+          </styled.span>
+          <styled.span display="grid" placeItems="center" boxSize="8" borderRadius="md" bg="bg.muted" color="fg">
+            <Icon name="heart" size="sm" />
+          </styled.span>
+        </styled.span>
       </styled.span>
     </span>
   )
@@ -798,6 +836,7 @@ export const staticThumbnails: Record<string, ComponentType> = {
   "grid-table": GridTableThumb,
   group: GroupThumb,
   "hover-card": HoverCardThumb,
+  icon: IconThumb,
   loader: LoaderThumb,
   menu: MenuThumb,
   popover: PopoverThumb,

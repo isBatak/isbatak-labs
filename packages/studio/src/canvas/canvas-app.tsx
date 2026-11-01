@@ -2,7 +2,7 @@ import { type ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useSta
 import { styled } from "styled-system/jsx"
 
 import type { CanvasMessage, Part, RenderMessage } from "../lib/messages"
-import { ColorPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
+import { ColorPage, IconsPage, RadiusPage, ShadowPage, SpacingPage, TypographyPage } from "./foundations"
 import { collectLayers } from "./layers"
 import { Matrix } from "./matrix"
 import { runLint } from "./lint"
@@ -94,6 +94,7 @@ export function CanvasApp() {
     if (page.id === "radius") content = <RadiusPage {...foundationProps} />
     if (page.id === "shadow") content = <ShadowPage {...foundationProps} />
     if (page.id === "spacing") content = <SpacingPage {...foundationProps} />
+    if (page.id === "icons") content = <IconsPage />
   } else {
     content = (
       <Matrix

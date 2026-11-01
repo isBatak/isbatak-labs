@@ -29,7 +29,7 @@ const components = defineCollection({
       status,
       hidden: s.boolean().default(false),
       hero: s.boolean().default(true),
-      frameworks: s.array(s.enum(["react", "vue", "solid", "svelte"])),
+      frameworks: s.array(s.enum(["react", "vue", "solid", "svelte", "preact", "lit"])),
       links: s.object({
         source: s.string(),
         recipe: s.string().optional(),
@@ -99,6 +99,24 @@ const styles = defineCollection({
     }),
 })
 
+const icons = defineCollection({
+  name: "IconDoc",
+  pattern: "icons/*/index.mdx",
+  schema: s
+    .object({
+      title: s.string().max(99),
+      description: s.string().max(999),
+      order: s.number().default(0),
+      path: s.path(),
+      toc: s.toc(),
+      code: s.mdx(),
+    })
+    .transform(({ path, ...data }) => {
+      const slug = path.replace(/^icons\//, "")
+      return { ...data, slug, permalink: slug === "overview" ? "/ds/icons" : `/ds/icons/${slug}` }
+    }),
+})
+
 const tools = defineCollection({
   name: "Tool",
   pattern: "tools/*/index.mdx",
@@ -144,7 +162,7 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { components, prototypes, styles, tools },
+  collections: { components, icons, prototypes, styles, tools },
   mdx: {
     rehypePlugins: [rehypeSlug],
   },
