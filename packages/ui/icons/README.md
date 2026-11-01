@@ -10,9 +10,24 @@ import { Icon } from "@isbatak/react-ui/icon"
 export const Next = () => <Icon name="arrow-right" size="sm" />
 ```
 
-The same `Icon` is exported from `@isbatak/solid-ui/icon`, `@isbatak/svelte-ui/icon` and `@isbatak/vue-ui/icon`. It
-renders `<svg><use href="sprite.svg#name" /></svg>`, sized by the `icon` recipe (`1em` by default, so it follows the
-font size) and colored with `currentColor`.
+The same `Icon` is exported from `@isbatak/preact-ui/icon`, `@isbatak/solid-ui/icon`, `@isbatak/svelte-ui/icon` and
+`@isbatak/vue-ui/icon`. For Lit and plain HTML, `@isbatak/lit-ui/icon` registers the `<ib-icon>` custom element:
+
+```html
+<ib-icon name="arrow-right" size="sm"></ib-icon>
+```
+
+Without any component, render the SVG yourself with `spriteUrl` and the `icon` recipe:
+
+```ts
+import { spriteUrl } from "@isbatak/icons"
+import { icon } from "@isbatak/panda-ds/recipes"
+
+const html = `<svg aria-hidden="true" class="${icon({ size: "sm" })}"><use href="${spriteUrl}#arrow-right"></use></svg>`
+```
+
+Each one renders `<svg><use href="sprite.svg#name" /></svg>`, sized by the `icon` recipe (`1em` by default, so it
+follows the font size) and colored with `currentColor`.
 
 This package exports:
 
