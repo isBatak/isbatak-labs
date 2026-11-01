@@ -44,7 +44,7 @@ export function VideoDemo({ src, poster, title }: VideoDemoProps) {
             bg="bg"
             color="fg"
           >
-            <Icon name="player-play" size="lg" />
+            <Icon name="play" size="lg" />
           </styled.span>
           <styled.figcaption textStyle="sm">Video demo coming soon</styled.figcaption>
         </styled.div>

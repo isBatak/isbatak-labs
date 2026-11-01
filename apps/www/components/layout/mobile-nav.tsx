@@ -57,7 +57,7 @@ export function MobileNav() {
             <Drawer.Header>
               <Drawer.CloseTrigger asChild>
                 <Button variant="ghost" size="xs" icon aria-label="Close navigation menu">
-                  <Icon size="sm" name="x" />
+                  <Icon size="sm" name="close" />
                 </Button>
               </Drawer.CloseTrigger>
             </Drawer.Header>

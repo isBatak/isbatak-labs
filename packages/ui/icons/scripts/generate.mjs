@@ -1,11 +1,12 @@
 import { execFileSync } from "node:child_process"
-import { mkdir, rm, writeFile } from "node:fs/promises"
+import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises"
 import { iconManifest } from "@boring-icons/react/manifest"
 import * as icons from "@boring-icons/react"
 import { createElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
 const svgDir = new URL("../svg/", import.meta.url)
+const extraDir = new URL("../extra/", import.meta.url)
 
 await rm(svgDir, { recursive: true, force: true })
 await mkdir(svgDir, { recursive: true })
@@ -18,5 +19,12 @@ for (const entry of iconManifest.icons) {
 }
 
 console.log(`Extracted ${iconManifest.icons.length} icons from @boring-icons/react ${iconManifest.sourceVersion}`)
+
+const extras = (await readdir(extraDir)).filter((file) => file.endsWith(".svg"))
+const clashes = extras.filter((file) => iconManifest.icons.some((entry) => entry.sourceFile === file))
+if (clashes.length) throw new Error(`Extra icons clash with Boring Icons: ${clashes.join(", ")}`)
+await cp(extraDir, svgDir, { recursive: true, filter: (source) => !source.endsWith(".md") })
+
+console.log(`Added ${extras.length} extra icons`)
 
 execFileSync("ikona", ["--force"], { stdio: "inherit" })

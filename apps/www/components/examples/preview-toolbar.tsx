@@ -144,7 +144,7 @@ export function PreviewToolbar({
         aria-pressed={showSource}
         onClick={() => onShowSourceChange(!showSource)}
       >
-        <Icon size="md" name={showSource ? "components" : "code"} />
+        <Icon size="md" name={showSource ? "components" : "code-brackets"} />
       </ToolbarButton>
       <ToolbarButton aria-label="Reset preview" onClick={onReset}>
         <Icon size="md" name="refresh" />
@@ -154,7 +154,7 @@ export function PreviewToolbar({
         aria-pressed={fullscreen}
         onClick={() => onFullscreenChange(!fullscreen)}
       >
-        <Icon size="md" name={fullscreen ? "minimize" : "maximize"} />
+        <Icon size="md" name={fullscreen ? "collapse" : "expand"} />
       </ToolbarButton>
       <ToolbarButton
         aria-label="Toggle color mode"

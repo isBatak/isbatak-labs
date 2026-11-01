@@ -3,8 +3,8 @@ import { preload } from "react-dom"
 import { styled } from "styled-system/jsx"
 import { icon } from "styled-system/recipes"
 
-import type { IconName } from "../../../.ikona/types/icon-name"
-import sprite from "../../../assets/sprite.svg"
+import type { IconName } from "@isbatak/icons"
+import sprite from "@isbatak/icons/sprite.svg"
 
 const BaseIcon = styled("svg", icon)
 

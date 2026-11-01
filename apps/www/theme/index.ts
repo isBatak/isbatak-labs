@@ -55,8 +55,6 @@ export const theme = {
     },
     recipes: {
       layoutContainer,
-      // Icons default to the surrounding font size; `size` variants override it
-      icon: { base: { boxSize: "1em" } },
     },
     slotRecipes: {
       avatar,
