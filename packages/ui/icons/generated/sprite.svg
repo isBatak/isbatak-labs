@@ -166,6 +166,9 @@
     <path d="M7.5 8h3v8l-2-1m8-7H14a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1.423a.5.5 0 0 1 .495.57L15.5 15.5l-2 .5"></path>
   </g>
 </symbol>
+<symbol viewBox="0 0 24 24" id="brand-lit">
+  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4 10 4 4v8l-4-4zm4-4v8l4-4V2zm4 4v8l4-4V6zm4 4v8l4-4v-8z"></path>
+</symbol>
 <symbol viewBox="0 0 24 24" id="brand-nextjs">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 15V9l7.745 10.65A9 9 0 1 1 19 17.657M15 12V9"></path>
 </symbol>

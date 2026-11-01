@@ -40,6 +40,7 @@ import type { IconName } from './types/icon-name';
       "brand-css3",
       "brand-github",
       "brand-javascript",
+      "brand-lit",
       "brand-nextjs",
       "brand-npm",
       "brand-openai",

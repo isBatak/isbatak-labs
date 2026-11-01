@@ -38,6 +38,7 @@ export type IconName =
   | 'brand-css3'
   | 'brand-github'
   | 'brand-javascript'
+  | 'brand-lit'
   | 'brand-nextjs'
   | 'brand-npm'
   | 'brand-openai'
