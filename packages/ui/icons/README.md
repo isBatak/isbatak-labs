@@ -32,10 +32,17 @@ follows the font size) and colored with `currentColor`.
 
 This package exports:
 
-- `spriteUrl`: the sprite's URL, resolved with `new URL(…, import.meta.url)` so any bundler emits it as an asset
-- `iconNames`: every icon name
-- `IconName`: the union of icon names
+- `spriteUrl`: the built-in sprite's URL, resolved with `new URL(…, import.meta.url)` so any bundler emits it as an
+  asset
+- `setIconSprite(url)` / `getIconSprite()`: replace the built-in sprite with your own; every `Icon` reads it
+- `preloadIconSprite()`: adds a `<link rel="preload">` for the active sprite, for Lit and plain HTML. The other UI
+  packages export an `IconSpritePreload` component.
+- `iconNames`: every built-in icon name
+- `IconName`: the union of icon names, or your own names once you augment `IconRegistry` with `iconName`
+- `BuiltinIconName`: the built-in names, whatever `IconRegistry` says
 - `@isbatak/icons/sprite.svg`: the sprite file, to serve it yourself
+
+The [Icons docs](../../../apps/www/content/icons/setup/index.mdx) show how to bring your own sprite.
 
 ## Updating the icons
 
@@ -51,5 +58,5 @@ To add an icon Boring Icons doesn't have, put its SVG in `extra/` with a stroke 
 restyled Tabler icon goes in `scripts/import-extra-icons.mjs` rather than being copied by hand.
 
 To draw a new one, use the [`boring-icons` skill](../../../.claude/skills/boring-icons/SKILL.md). Run its scripts from
-this folder, where `@boring-icons/react` resolves, and pass `--sprite generated/sprite.svg` to compare against the
-extra icons too.
+this folder, where `@boring-icons/react` resolves, and pass `--sprite generated/sprite.svg` to compare against the extra
+icons too.

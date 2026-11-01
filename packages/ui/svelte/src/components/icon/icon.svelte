@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-  import { spriteUrl } from "@isbatak/icons"
+  import { getIconSprite } from "@isbatak/icons"
 
   let { ref = $bindable(null), name, class: className, ...props }: IconProps = $props()
   const [variantProps, localProps] = $derived(icon.splitVariantProps(props))
@@ -23,5 +23,5 @@
   {...localProps}
   class={[icon(variantProps), className]}
 >
-  <use href="{spriteUrl}#{name}" />
+  <use href="{getIconSprite()}#{name}" />
 </svg>

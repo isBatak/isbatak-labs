@@ -1,4 +1,4 @@
-import { type IconName, spriteUrl } from "@isbatak/icons"
+import { type IconName, getIconSprite } from "@isbatak/icons"
 import { icon, type IconVariant } from "@isbatak/panda-ds/recipes"
 import { LitElement, html } from "lit"
 
@@ -17,7 +17,7 @@ export class IbIcon extends LitElement {
 
   protected render() {
     return html`<svg aria-hidden="true" data-name=${this.name} class=${icon({ size: this.size })}>
-      <use href=${`${spriteUrl}#${this.name}`}></use>
+      <use href=${`${getIconSprite()}#${this.name}`}></use>
     </svg>`
   }
 }

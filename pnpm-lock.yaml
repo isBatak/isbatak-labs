@@ -1276,7 +1276,7 @@ importers:
         version: link:../tools/sourcery
       '@pandacss/dev':
         specifier: 'catalog:'
-        version: 2.4.0(postcss@8.5.28)
+        version: 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(postcss@8.5.28)
       '@pandacss/preset-base':
         specifier: 'catalog:'
         version: 2.4.0
@@ -1384,9 +1384,15 @@ importers:
       '@types/react':
         specifier: 'catalog:'
         version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
       react:
         specifier: 'catalog:'
         version: 19.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.1(react@19.3.1)
 
   packages/ui/solid:
     dependencies:
@@ -8836,7 +8842,6 @@ snapshots:
     dependencies:
       '@emnapi/wasi-threads': 1.2.1
       tslib: 2.8.1
-    optional: true
 
   '@emnapi/runtime@1.11.0':
     dependencies:
@@ -8850,12 +8855,10 @@ snapshots:
   '@emnapi/runtime@1.9.2':
     dependencies:
       tslib: 2.8.1
-    optional: true
 
   '@emnapi/wasi-threads@1.2.1':
     dependencies:
       tslib: 2.8.1
-    optional: true
 
   '@emnapi/wasi-threads@1.2.2':
     dependencies:
@@ -9594,7 +9597,6 @@ snapshots:
       '@emnapi/core': 1.9.2
       '@emnapi/runtime': 1.9.2
       '@tybys/wasm-util': 0.10.4
-    optional: true
 
   '@next/env@16.4.2': {}
 
@@ -9923,6 +9925,22 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
+  '@pandacss/cli@2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
+    dependencies:
+      '@clack/prompts': 1.7.0
+      '@pandacss/compiler': 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+      '@pandacss/compiler-shared': 2.4.0
+      '@pandacss/config': 2.4.0
+      '@pandacss/types': 2.4.0
+      '@parcel/watcher': 2.5.6
+      citty: 0.2.2
+      fflate: 0.8.3
+      picocolors: 1.1.1
+      string-width: 7.2.0
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+
   '@pandacss/compiler-darwin-arm64@2.4.0':
     optional: true
 
@@ -9989,6 +10007,25 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
+  '@pandacss/compiler@2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
+    dependencies:
+      '@napi-rs/wasm-runtime': 1.2.4(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+      '@pandacss/compiler-shared': 2.4.0
+      '@pandacss/config': 2.4.0
+      '@pandacss/types': 2.4.0
+    optionalDependencies:
+      '@pandacss/compiler-darwin-arm64': 2.4.0
+      '@pandacss/compiler-darwin-x64': 2.4.0
+      '@pandacss/compiler-linux-arm64-gnu': 2.4.0
+      '@pandacss/compiler-linux-arm64-musl': 2.4.0
+      '@pandacss/compiler-linux-x64-gnu': 2.4.0
+      '@pandacss/compiler-linux-x64-musl': 2.4.0
+      '@pandacss/compiler-win32-arm64-msvc': 2.4.0
+      '@pandacss/compiler-win32-x64-msvc': 2.4.0
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+
   '@pandacss/config@2.4.0':
     dependencies:
       '@pandacss/compiler-shared': 2.4.0
@@ -10013,12 +10050,12 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@pandacss/dev@2.4.0(postcss@8.5.28)':
+  '@pandacss/dev@2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(postcss@8.5.28)':
     dependencies:
-      '@pandacss/cli': 2.4.0
-      '@pandacss/compiler': 2.4.0
+      '@pandacss/cli': 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+      '@pandacss/compiler': 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
       '@pandacss/config': 2.4.0
-      '@pandacss/postcss': 2.4.0(postcss@8.5.28)
+      '@pandacss/postcss': 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(postcss@8.5.28)
       '@pandacss/types': 2.4.0
     optionalDependencies:
       postcss: 8.5.28
@@ -10070,9 +10107,9 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@pandacss/postcss@2.4.0(postcss@8.5.28)':
+  '@pandacss/postcss@2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(postcss@8.5.28)':
     dependencies:
-      '@pandacss/compiler': 2.4.0
+      '@pandacss/compiler': 2.4.0(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
       '@pandacss/compiler-shared': 2.4.0
       postcss: 8.5.28
     transitivePeerDependencies:
