@@ -18,7 +18,7 @@
    1. [x] Add `Box` to `@isbatak/svelte-ui`: style props, conditions and the `css` prop on any tag through `as`.
 1. [x] Create a Claude Code plugin, like the [Hugeicons plugin for Codex](https://lnkd.in/p/dVXSz2vN), that helps agents
        find icon names and use them with the `Icon` component.
-1. [ ] Add a Boring Icons promo page to the main www navigation that shows the icon set and promotes its author.
+1. [x] Add a Boring Icons promo page to the main www navigation that shows the icon set and promotes its author.
 1. [x] Add boring icon skill for creating new icons in the same style
    1. [x] document skill on www icons docs
 1. [ ] Make a promo content adn post on social media
