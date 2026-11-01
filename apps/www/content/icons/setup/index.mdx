@@ -1,0 +1,185 @@
+---
+title: Setup
+description: Install the icons, render them in your framework, preload the sprite, or replace the set with your own.
+order: 2
+---
+
+## Installation
+
+<PackageInstall name="@isbatak/icons" />
+
+Every UI package has an `Icon`. It renders `<svg><use href="sprite.svg#name" /></svg>`, styled by the design system's
+`icon` recipe.
+
+<CodeFiles>
+<CodeFile name="React">
+
+```tsx
+import { Icon } from "@isbatak/react-ui/icon"
+
+export function NextButton() {
+  return (
+    <button type="button">
+      Next <Icon name="arrow-right" size="sm" />
+    </button>
+  )
+}
+```
+
+</CodeFile>
+<CodeFile name="Vue">
+
+```vue
+<script setup lang="ts">
+import { Icon } from "@isbatak/vue-ui/icon"
+</script>
+
+<template>
+  <button type="button">Next <Icon name="arrow-right" size="sm" /></button>
+</template>
+```
+
+</CodeFile>
+<CodeFile name="Svelte">
+
+```svelte
+<script lang="ts">
+  import { Icon } from "@isbatak/svelte-ui/icon"
+</script>
+
+<button type="button">Next <Icon name="arrow-right" size="sm" /></button>
+```
+
+</CodeFile>
+<CodeFile name="Solid">
+
+```tsx
+import { Icon } from "@isbatak/solid-ui/icon"
+
+export function NextButton() {
+  return (
+    <button type="button">
+      Next <Icon name="arrow-right" size="sm" />
+    </button>
+  )
+}
+```
+
+</CodeFile>
+<CodeFile name="Preact">
+
+```tsx
+import { Icon } from "@isbatak/preact-ui/icon"
+
+export function NextButton() {
+  return (
+    <button type="button">
+      Next <Icon name="arrow-right" size="sm" />
+    </button>
+  )
+}
+```
+
+</CodeFile>
+<CodeFile name="Lit">
+
+```ts
+import "@isbatak/lit-ui/icon"
+import { html, LitElement } from "lit"
+
+class NextButton extends LitElement {
+  render() {
+    return html`<button type="button">Next <ib-icon name="arrow-right" size="sm"></ib-icon></button>`
+  }
+}
+
+customElements.define("next-button", NextButton)
+```
+
+</CodeFile>
+<CodeFile name="Vanilla">
+
+```ts
+import { spriteUrl } from "@isbatak/icons"
+import { icon } from "@isbatak/panda-ds/recipes"
+
+const button = document.querySelector("button")!
+button.insertAdjacentHTML(
+  "beforeend",
+  `<svg aria-hidden="true" class="${icon({ size: "sm" })}"><use href="${spriteUrl}#arrow-right"></use></svg>`,
+)
+```
+
+</CodeFile>
+</CodeFiles>
+
+## Preload the sprite
+
+Icons inside the sprite can't start loading until the browser finds the first `<use>`. Preload it so they show up with
+the first paint. Render `IconSpritePreload` once, near the top of the page:
+
+```tsx title="app/layout.tsx"
+import { IconSpritePreload } from "@isbatak/react-ui/icon"
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <IconSpritePreload />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+In React it calls `preload()` from `react-dom`, which puts the `<link>` in the head; Svelte's version uses
+`<svelte:head>`. With Lit or no framework, call `preloadIconSprite()` from `@isbatak/icons` instead. All of them preload
+whichever sprite is active, including your own.
+
+## Use your own icons
+
+You can replace the built-in icons with your own set. Every `Icon` then draws from your sprite, and `name` accepts your
+icon names instead of ours. It's all or nothing: the built-in icons are no longer used.
+
+1. Build a sprite from a folder of SVGs with [ikona](https://www.npmjs.com/package/@ikona/cli):
+
+   ```ts title="ikona.config.ts"
+   import type { FileConfig } from "@ikona/cli"
+
+   export default {
+     outputDir: ".ikona",
+     icons: {
+       inputDir: "./icons",
+       spriteOutputDir: "./public",
+       optimize: true,
+     },
+   } satisfies FileConfig
+   ```
+
+   Run `ikona`. It writes `public/sprite.svg` and the union of your icon names to `.ikona/types/icon-name.d.ts`.
+
+2. Point the icons at your sprite, once, before anything renders:
+
+   ```ts title="app/icons.ts"
+   import { setIconSprite } from "@isbatak/icons"
+
+   setIconSprite("/sprite.svg")
+   ```
+
+3. Swap the name type for yours:
+
+   ```ts title="icons.d.ts"
+   import type { IconName as AppIconName } from "./.ikona/types/icon-name"
+
+   declare module "@isbatak/icons" {
+     interface IconRegistry {
+       iconName: AppIconName
+     }
+   }
+   ```
+
+   Now `<Icon name="rocket" />` type-checks if you have a `rocket.svg`, and a built-in name like `check` is an error
+   until you add your own `check.svg`.
+
+`IconSpritePreload` and `preloadIconSprite()` pick up the new sprite on their own.
