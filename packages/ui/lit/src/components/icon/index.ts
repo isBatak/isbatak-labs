@@ -1,2 +1,2 @@
 export { IbIcon } from "./icon"
-export { type IconName, iconNames } from "@isbatak/icons"
+export { type IconName, iconNames, preloadIconSprite } from "@isbatak/icons"
