@@ -28,6 +28,10 @@ const CodeTabsHeader = styled("div", {
 })
 
 const fileIcons: Record<string, IconName> = {
+  react: "brand-react",
+  preact: "brand-preact",
+  solid: "brand-solidjs",
+  vanilla: "brand-javascript",
   ts: "brand-typescript",
   tsx: "brand-typescript",
   js: "brand-javascript",
@@ -35,9 +39,11 @@ const fileIcons: Record<string, IconName> = {
   css: "brand-css3",
   vue: "brand-vue",
   svelte: "brand-svelte",
+  lit: "brand-lit",
 }
 
-const fileIcon = (name: string) => fileIcons[name.split(".").pop() ?? ""] ?? "file"
+const fileIcon = (name: string) =>
+  fileIcons[name.toLowerCase()] ?? fileIcons[name.split(".").pop()?.toLowerCase() ?? ""] ?? "file"
 
 interface CodeFile {
   name: string

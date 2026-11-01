@@ -80,7 +80,7 @@ function ItemBody({ tool }: { tool: Tool }) {
       <styled.div minW="0">
         <Title>
           {tool.title}
-          {tool.external && <Icon name="arrow-up-right" color="fg.subtle" />}
+          {tool.external && <Icon name="external-link" color="fg.subtle" />}
         </Title>
         <Description>{tool.description}</Description>
       </styled.div>

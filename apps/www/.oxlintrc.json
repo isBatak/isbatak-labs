@@ -1,0 +1,25 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "builtin": true
+  },
+  "jsPlugins": [{ "name": "pandacss-www", "specifier": "./oxlint-panda.mjs" }],
+  "rules": {
+    "@pandacss/prefer-token": "off",
+    "@pandacss/no-invalid-token-paths": "off",
+    "@pandacss/no-invalid-nesting": "off",
+    "pandacss-www/prefer-token": [
+      "warn",
+      {
+        "categories": ["colors", "spacing", "radii", "fontSizes"],
+        "allow": ["0"]
+      }
+    ],
+    "pandacss-www/no-invalid-token-paths": "error",
+    "pandacss-www/no-invalid-nesting": "error"
+  }
+}

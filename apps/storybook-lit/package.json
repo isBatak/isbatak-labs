@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@isbatak/lit-ui": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/zag-lit": "workspace:*",
     "@isbatak/zag-swipeable-list": "workspace:*",

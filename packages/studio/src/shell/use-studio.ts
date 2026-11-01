@@ -98,7 +98,7 @@ function replaceUrl(url: string | URL) {
  * Routing (`#/color`, `#/components/accordion`)
  * -----------------------------------------------------------------------------------------------*/
 
-const foundationIds: FoundationId[] = ["overview", "color", "typography", "radius", "shadow", "spacing"]
+const foundationIds: FoundationId[] = ["overview", "color", "typography", "radius", "shadow", "spacing", "icons"]
 
 function pageFromHash(hash: string): Page {
   const [path = ""] = hash.replace(/^#\/?/, "").split("?")

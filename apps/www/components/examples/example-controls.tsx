@@ -356,7 +356,7 @@ export function ExampleControls({ id, pickers }: ExampleControlsProps) {
                 aria-controls={drawerId}
                 onClick={() => change(false)}
               >
-                <Icon size="md" name="x" />
+                <Icon size="md" name="close" />
               </ToggleButton>
             </ViewTransition>
           </styled.div>

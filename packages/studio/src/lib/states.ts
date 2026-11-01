@@ -17,7 +17,7 @@ const preferredOrder = [
 export function stateProps(condition: string): Record<string, string> | undefined {
   if (!condition) return {}
   const template = conditionSelector(condition, "&")
-  if (!template?.startsWith("&")) return undefined
+  if (!template?.startsWith("&") || /^&\s*[\s>~+]/.test(template)) return undefined
   const data = template.match(/\[(data-[\w-]+)\]/)
   if (data) return { [data[1]!]: "" }
   const aria = template.match(/\[(aria-[\w-]+)=(\w+)\]/)

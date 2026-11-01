@@ -34,7 +34,7 @@ export function ResourceLink({ href, icon, children }: ResourceLinkProps) {
     <Anchor href={href} target="_blank" rel="noopener">
       <Icon name={icon} color="fg" />
       <span>{children}</span>
-      <Icon name="arrow-up-right" color="fg.subtle" />
+      <Icon name="external-link" color="fg.subtle" />
     </Anchor>
   )
 }

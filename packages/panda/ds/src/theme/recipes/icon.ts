@@ -5,6 +5,7 @@ export const iconRecipe = defineRecipe({
   description: "Sizes an inline SVG icon to the text",
   base: {
     display: "inline-block",
+    boxSize: "1em",
     lineHeight: "1em",
     flexShrink: "0",
     color: "currentcolor",

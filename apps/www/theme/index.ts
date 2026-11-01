@@ -38,6 +38,9 @@ export const theme = {
       "scroll-blur-out": {
         to: { opacity: "0", backdropFilter: "blur(0)" },
       },
+      "fly-from-center": {
+        from: { translate: "0 0", scale: "0.4", opacity: "0" },
+      },
     },
     viewTransitions: {
       "drawer-slide": {
@@ -55,8 +58,6 @@ export const theme = {
     },
     recipes: {
       layoutContainer,
-      // Icons default to the surrounding font size; `size` variants override it
-      icon: { base: { boxSize: "1em" } },
     },
     slotRecipes: {
       avatar,

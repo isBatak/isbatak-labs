@@ -1,6 +1,7 @@
 import { styled } from "styled-system/jsx"
 
 import { type DsSection, dsNavGroups } from "./ds-nav-data"
+import { sectionLabels } from "./ds-sections"
 import { DsNavGroups } from "./ds-nav-groups"
 
 const Nav = styled("nav", {
@@ -18,7 +19,7 @@ const Nav = styled("nav", {
 
 export function DsSidebar({ section }: { section: DsSection }) {
   return (
-    <Nav aria-label={section === "styles" ? "Styles" : "Components"}>
+    <Nav aria-label={sectionLabels[section]}>
       <DsNavGroups groups={dsNavGroups(section)} />
     </Nav>
   )

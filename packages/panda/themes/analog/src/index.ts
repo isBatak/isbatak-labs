@@ -12,7 +12,7 @@ import { type ColorOptions, createColors } from "./tokens"
 
 export type AnalogOptions = Partial<ColorOptions>
 
-const grain = grainTheme()
+const grain = grainTheme({ frequency: 0.9, size: 432 })
 
 export const createAnalogTheme = ({ neutral = gray, accent = red }: AnalogOptions = {}) =>
   defineThemeVariant({

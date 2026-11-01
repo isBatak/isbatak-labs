@@ -14,6 +14,8 @@ function getStyle(slug: string) {
   return styles.find((style) => style.slug === slug)
 }
 
+export const instant = false
+
 export function generateStaticParams() {
   return styles.map(({ slug }) => ({ slug }))
 }
