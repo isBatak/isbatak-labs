@@ -3,7 +3,8 @@
 1. [x] Fix the ikona `icons.ts` template to use `import type`, then drop the patch in the icons generate script.
 1. [x] Render the Solid, Svelte and Vue `Icon` in their storybooks to check they work.
 1. [x] Move www from its Tabler sprite to `@isbatak/icons`, with the icons Boring lacks added to the library.
-1. [ ] Update the studio button states test to expect the `iconStart` and `iconEnd` states.
+1. [x] Fix the studio button states test: `iconStart` and `iconEnd` style descendants, so they're no longer listed as
+       states.
 1. [ ] Fix the www lint errors for the missing `sizes.header`, `sizes.subnav` and `colors.code.*` tokens.
 1. [ ] Add icons docs to the www ds docs
    1. [ ] Explain how to install and use `@isbatak/icons` and the `Icon` component.
