@@ -5,7 +5,8 @@
 1. [x] Move www from its Tabler sprite to `@isbatak/icons`, with the icons Boring lacks added to the library.
 1. [x] Fix the studio button states test: `iconStart` and `iconEnd` style descendants, so they're no longer listed as
        states.
-1. [ ] Fix the www lint errors for the missing `sizes.header`, `sizes.subnav` and `colors.code.*` tokens.
+1. [x] Fix the www lint errors for `sizes.header`, `sizes.subnav` and `colors.code.*`: lint www against its own Panda
+       config.
 1. [ ] Add icons docs to the www ds docs
    1. [ ] Explain how to install and use `@isbatak/icons` and the `Icon` component.
    1. [ ] Add a `createIcon` util so users can build their own sprite with ikona, and let them extend the `name` prop

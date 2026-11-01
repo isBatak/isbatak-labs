@@ -31,6 +31,7 @@
     "esbuild-plugin-file-path-extensions": "^2.1.4",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
+    "oxlint-tsgolint": "7.0.2005",
     "tsup": "8.5.1",
     "typescript": "6.0.3",
     "vitest": "catalog:"
