@@ -8,6 +8,15 @@ Zag state machines developed outside [Zag](https://github.com/chakra-ui/zag) bef
 - [`@isbatak/zag-text-flip`](packages/zag/text-flip): text flip state machine
 - [`@isbatak/zag-wheel-picker`](packages/zag/wheel-picker): wheel picker state machine
 
+## Claude Code plugin
+
+[`plugins/isbatak-icons`](plugins/isbatak-icons) helps agents find `@isbatak/icons` names and use them with the `Icon`
+component, and draw new icons in the Boring Icons style:
+
+```sh
+/plugin install isbatak-icons --marketplace isBatak/isbatak-labs
+```
+
 ## Development
 
 ```sh

@@ -1,0 +1,10 @@
+{
+  "name": "isbatak-icons",
+  "description": "Find @isbatak/icons names by meaning and use them with the Icon component, or draw a missing icon in the Boring Icons style",
+  "version": "0.1.0",
+  "author": { "name": "Ivica Batinić" },
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/plugins/isbatak-icons",
+  "repository": "https://github.com/isBatak/isbatak-labs",
+  "license": "MIT",
+  "keywords": ["icons", "boring-icons", "ikona", "svg-sprite"]
+}

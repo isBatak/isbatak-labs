@@ -9,5 +9,12 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "sortPackageJson": false,
-  "ignorePatterns": ["apps/www/AGENTS.md", "packages/ui/icons/generated/**", ".claude/skills/**", "skills-lock.json"]
+  "ignorePatterns": [
+    "apps/www/AGENTS.md",
+    "packages/ui/icons/generated/**",
+    ".claude/skills/**",
+    "plugins/isbatak-icons/skills/boring-icons/**",
+    "plugins/isbatak-icons/skills/find-icons/catalog.json",
+    "skills-lock.json"
+  ]
 }
