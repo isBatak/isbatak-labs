@@ -145,6 +145,8 @@ describe("states", () => {
     expect(stateProps("selected")).toEqual({ "data-selected": "" })
     expect(stateProps("groupHover")).toBeUndefined()
     expect(stateProps("dark")).toBeUndefined()
+    expect(stateProps("iconStart")).toBeUndefined()
+    expect(stateProps("iconEnd")).toBeUndefined()
   })
 
   test("lists the states a recipe styles, plus added and edited ones", () => {
