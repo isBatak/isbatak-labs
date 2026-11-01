@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@isbatak/storybook-shared": "workspace:*",
+    "@isbatak/svelte-ui": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-swipeable-list": "workspace:*",
     "@isbatak/zag-text-flip": "workspace:*",

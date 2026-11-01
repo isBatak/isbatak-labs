@@ -8,6 +8,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@isbatak/icons": "workspace:*",
+    "@isbatak/panda-ds": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-swipeable-list": "workspace:*",

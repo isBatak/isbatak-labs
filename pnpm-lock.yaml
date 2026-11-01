@@ -376,6 +376,9 @@ importers:
 
   apps/storybook-lit:
     dependencies:
+      '@isbatak/lit-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/lit
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -404,6 +407,9 @@ importers:
 
   apps/storybook-preact:
     dependencies:
+      '@isbatak/preact-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/preact
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -447,6 +453,9 @@ importers:
 
   apps/storybook-react:
     dependencies:
+      '@isbatak/react-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/react
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -502,6 +511,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.12.4
         version: 3.12.4
+      '@isbatak/icons':
+        specifier: workspace:*
+        version: link:../../packages/ui/icons
       '@isbatak/panda-concentric-preset':
         specifier: workspace:*
         version: link:../../packages/panda/concentric-preset
@@ -536,6 +548,9 @@ importers:
 
   apps/storybook-solid:
     dependencies:
+      '@isbatak/solid-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/solid
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -582,6 +597,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/svelte-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/svelte
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../packages/zag/masonry
@@ -625,6 +643,12 @@ importers:
 
   apps/storybook-vanilla:
     dependencies:
+      '@isbatak/icons':
+        specifier: workspace:*
+        version: link:../../packages/ui/icons
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../packages/panda/ds
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
@@ -659,6 +683,9 @@ importers:
       '@isbatak/storybook-shared':
         specifier: workspace:*
         version: link:../storybook-shared
+      '@isbatak/vue-ui':
+        specifier: workspace:*
+        version: link:../../packages/ui/vue
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../packages/zag/masonry
@@ -1312,6 +1339,32 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.3.1(react@19.3.1)
+
+  packages/ui/lit:
+    dependencies:
+      '@isbatak/icons':
+        specifier: workspace:*
+        version: link:../icons
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.3
+
+  packages/ui/preact:
+    dependencies:
+      '@isbatak/icons':
+        specifier: workspace:*
+        version: link:../icons
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../../panda/ds
+    devDependencies:
+      preact:
+        specifier: ^10.29.8
+        version: 10.29.8
 
   packages/ui/react:
     dependencies:
