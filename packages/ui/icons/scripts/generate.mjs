@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process"
-import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises"
+import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises"
 import { iconManifest } from "@boring-icons/react/manifest"
 import * as icons from "@boring-icons/react"
 import { createElement } from "react"
@@ -7,6 +7,8 @@ import { renderToStaticMarkup } from "react-dom/server"
 
 const svgDir = new URL("../svg/", import.meta.url)
 const extraDir = new URL("../extra/", import.meta.url)
+const tagsFile = new URL("../tags.json", import.meta.url)
+const catalogFile = new URL("../../../../plugins/isbatak-icons/skills/find-icons/catalog.json", import.meta.url)
 
 await rm(svgDir, { recursive: true, force: true })
 await mkdir(svgDir, { recursive: true })
@@ -26,5 +28,20 @@ if (clashes.length) throw new Error(`Extra icons clash with Boring Icons: ${clas
 await cp(extraDir, svgDir, { recursive: true, filter: (source) => !source.endsWith(".md") })
 
 console.log(`Added ${extras.length} extra icons`)
+
+const names = (await readdir(svgDir))
+  .filter((file) => file.endsWith(".svg"))
+  .map((file) => file.slice(0, -4))
+  .sort()
+const tags = JSON.parse(await readFile(tagsFile, "utf8"))
+const untagged = names.filter((name) => !tags[name]?.length)
+if (untagged.length) throw new Error(`Add tags for these icons to tags.json: ${untagged.join(", ")}`)
+const stale = Object.keys(tags).filter((name) => !names.includes(name))
+if (stale.length) throw new Error(`tags.json lists icons that don't exist: ${stale.join(", ")}`)
+
+const catalog = names.map((name) => ({ name, tags: tags[name] }))
+await writeFile(catalogFile, `${JSON.stringify(catalog, null, 2)}\n`)
+
+console.log(`Wrote ${catalog.length} icons to the find-icons skill catalog`)
 
 execFileSync("ikona", ["--force"], { stdio: "inherit" })

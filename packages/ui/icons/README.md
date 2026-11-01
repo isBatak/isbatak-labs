@@ -51,12 +51,15 @@ pnpm --filter @isbatak/icons generate
 ```
 
 This renders each `@boring-icons/react` component to an SVG in `svg/` (git-ignored), adds the SVGs in `extra/`, then
-runs ikona, which writes the sprite and the name types to `generated/`. Commit `generated/`.
+runs ikona, which writes the sprite and the name types to `generated/`. It also writes the
+[`find-icons` skill](../../../plugins/isbatak-icons/skills/find-icons/SKILL.md)'s catalog from
+[`tags.json`](./tags.json), the search keywords for every icon, and fails when an icon has no tags. Commit `generated/`
+and the catalog.
 
 To add an icon Boring Icons doesn't have, put its SVG in `extra/` with a stroke width of 1.5, list its source in
-[`extra/README.md`](./extra/README.md), and run `generate`. An extra icon can't reuse a Boring Icons name, and a
-restyled Tabler icon goes in `scripts/import-extra-icons.mjs` rather than being copied by hand.
+[`extra/README.md`](./extra/README.md), add its tags to `tags.json`, and run `generate`. An extra icon can't reuse a
+Boring Icons name, and a restyled Tabler icon goes in `scripts/import-extra-icons.mjs` rather than being copied by hand.
 
-To draw a new one, use the [`boring-icons` skill](../../../.claude/skills/boring-icons/SKILL.md). Run its scripts from
-this folder, where `@boring-icons/react` resolves, and pass `--sprite generated/sprite.svg` to compare against the extra
-icons too.
+To draw a new one, use the [`boring-icons` skill](../../../plugins/isbatak-icons/skills/boring-icons/SKILL.md). Run its
+scripts from this folder, where `@boring-icons/react` resolves, and pass `--sprite generated/sprite.svg` to compare
+against the extra icons too.

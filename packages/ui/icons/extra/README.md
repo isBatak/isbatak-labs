@@ -13,4 +13,5 @@ the Boring set.
 Brand logos are trademarks of their owners.
 
 `pnpm --filter @isbatak/icons import:extra` downloads the Simple Icons, Ark UI and Tabler ones again. Everything else is
-kept by hand; draw new ones with the [`boring-icons` skill](../../../../.claude/skills/boring-icons/SKILL.md).
+kept by hand; draw new ones with the
+[`boring-icons` skill](../../../../plugins/isbatak-icons/skills/boring-icons/SKILL.md).

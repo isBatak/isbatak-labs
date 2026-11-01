@@ -16,7 +16,7 @@
 1. [x] Check why Svelte has no Panda `styled` helpers and whether we can add them. See
        [SVELTE-STYLED.md](./SVELTE-STYLED.md).
    1. [x] Add `Box` to `@isbatak/svelte-ui`: style props, conditions and the `css` prop on any tag through `as`.
-1. [ ] Create a Claude Code plugin, like the [Hugeicons plugin for Codex](https://lnkd.in/p/dVXSz2vN), that helps agents
+1. [x] Create a Claude Code plugin, like the [Hugeicons plugin for Codex](https://lnkd.in/p/dVXSz2vN), that helps agents
        find icon names and use them with the `Icon` component.
 1. [ ] Add a Boring Icons promo page to the main www navigation that shows the icon set and promotes its author.
 1. [x] Add boring icon skill for creating new icons in the same style
