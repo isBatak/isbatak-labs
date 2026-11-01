@@ -13,9 +13,16 @@
           `IconRegistry` swaps the `name` type for their generated `IconName`. `IconSpritePreload` preloads either
           sprite.
    1. [x] Explain how to replace the library icons with your own (all or nothing).
-1. [ ] Check why Svelte has no Panda `styled` helpers and whether we can add them.
+1. [x] Check why Svelte has no Panda `styled` helpers and whether we can add them. See
+       [SVELTE-STYLED.md](./SVELTE-STYLED.md).
+   1. [x] Add `Box` to `@isbatak/svelte-ui`: style props, conditions and the `css` prop on any tag through `as`.
+1. [ ] Port the layout primitives from tl-ds (`Box`, `Flex`, `Span`, `Stack`, `Center`, `Grid`, …) to every UI
+       framework: re-export Panda's generated `jsx` components with `asChild` for React, Preact, Solid and Vue, and
+       write them as Svelte components like `Box`. Then use them in place of hand-written layout classes, such as the
+       storybook class maps.
 1. [ ] Create a Claude Code plugin, like the [Hugeicons plugin for Codex](https://lnkd.in/p/dVXSz2vN), that helps agents
        find icon names and use them with the `Icon` component.
 1. [ ] Add a Boring Icons promo page to the main www navigation that shows the icon set and promotes its author.
 1. [x] Add boring icon skill for creating new icons in the same style
    1. [x] document skill on www icons docs
+1. [ ] Make a promo content adn post on social media
