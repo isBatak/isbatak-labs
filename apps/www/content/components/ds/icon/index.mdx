@@ -1,0 +1,45 @@
+---
+title: Icon
+description: An SVG icon from the icon sprite, picked by a typed name.
+category: Data Display
+frameworks: [react, vue, solid, svelte, preact, lit]
+links:
+  source: packages/ui/react/src/components/icon
+  recipe: packages/panda/ds/src/theme/recipes/icon.ts
+---
+
+An `svg` that points at one icon in the [sprite](/ds/icons) with `<use>`, styled with the `icon` recipe. `name` only
+accepts icons that exist, and the icon takes the text color. In Lit and plain HTML it's the `<ib-icon>` element.
+
+## Usage
+
+<Usage />
+
+## Sizes
+
+`size` sets a fixed box from the spacing scale, from `xs` to `2xl`.
+
+<Example id="icons/sizes" />
+
+## Font size
+
+Leave `size` out and the icon is `1em`, so it scales with the text around it.
+
+<Example id="icons/font-size" />
+
+## Color
+
+An icon takes the text color, so it matches the label next to it.
+
+<Example id="icons/basic" />
+
+## Props
+
+| Prop   | Default   | Description                                                                                               |
+| ------ | --------- | --------------------------------------------------------------------------------------------------------- |
+| `name` |           | The icon to show. Only built-in names type-check, or your own once you [replace the set](/ds/icons/setup) |
+| `size` | `inherit` | `inherit` sizes the icon to `1em`. `xs`, `sm`, `md`, `lg`, `xl` and `2xl` set a fixed box                 |
+
+Other SVG attributes pass through to the `svg`, and in React, Solid and Vue so do Panda style props like `color`. Icons
+render with `aria-hidden`, so put the accessible name on the button or link around them. `<ib-icon>` takes `name` and
+`size` as attributes.

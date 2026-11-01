@@ -10,7 +10,13 @@ has to look like it was drawn by the same hand: the same grid, weight, corners a
 
 The scripts next to this file render Boring's own icons as references. Run them from a folder where
 `@boring-icons/react`, `react`, `react-dom` and `playwright` (or `@playwright/test`) resolve, or pass
-`--sprite <file>` to take references from an SVG sprite instead.
+`--sprite <file>` to take references from an SVG sprite instead. If a script reports a package it couldn't resolve, set
+the project up once:
+
+```sh
+npm install --save-dev @boring-icons/react react react-dom playwright
+npx playwright install chromium
+```
 
 ## Steps
 

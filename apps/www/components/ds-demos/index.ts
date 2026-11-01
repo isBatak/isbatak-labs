@@ -9,6 +9,8 @@ import { drawerDemos } from "./drawer"
 import { gridTableDemos } from "./grid-table"
 import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
+import { IconDemo } from "./icon"
+import { iconsDemos } from "./icons"
 import { LoaderDemo } from "./loader"
 import { MenuDemo } from "./menu"
 import { NavigationMenuDemo } from "./navigation-menu"
@@ -35,6 +37,8 @@ export const demos: Record<string, ComponentType> = {
   ...gridTableDemos,
   group: GroupDemo,
   "hover-card": HoverCardDemo,
+  icon: IconDemo,
+  ...iconsDemos,
   loader: LoaderDemo,
   menu: MenuDemo,
   "navigation-menu": NavigationMenuDemo,

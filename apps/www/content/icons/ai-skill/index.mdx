@@ -1,0 +1,48 @@
+---
+title: AI skill
+description: An agent skill that draws new icons in the Boring Icons style, so they sit with the rest of the set.
+order: 4
+---
+
+`boring-icons` is an agent skill for drawing icons the set doesn't have yet. It gives your coding agent the style of
+Boring Icons, measured from the set itself, and a way to check each new icon next to the real ones before it's done.
+
+## Install
+
+Add it to your project with the [`skills`](https://github.com/vercel-labs/skills) CLI:
+
+```sh
+npx skills add isBatak/isbatak-labs --skill boring-icons
+```
+
+It works with Claude Code, Codex, Cursor and the other agents the CLI supports; it asks which ones to install to, or
+pass `-a claude-code` to pick one. Add `-g` to install it for every project.
+
+The skill comes with two scripts that render Boring's own icons next to the ones it draws. They need a few dev
+dependencies and Playwright's browser:
+
+```sh
+npm install --save-dev @boring-icons/react react react-dom playwright
+npx playwright install chromium
+```
+
+## Use it
+
+Ask your agent for the icon you need, for example "draw a `rocket` icon in the Boring style". The skill then:
+
+1. Checks that the set doesn't already cover it under another name (`close`, not `x`).
+2. Prints the paths of the closest Boring icons and borrows their geometry, like the `folder` or `file` frame.
+3. Draws the icon on the same grid.
+4. Renders it next to those icons at 96, 24 and 16px, on light and dark, and redraws until it matches at 24px.
+
+## What it knows
+
+- **Grid and stroke.** A 24px grid with a 1.5 stroke, round caps and joins, and mostly whole-number coordinates.
+- **Shapes.** Square frames on 4 to 20, circles of radius 9, square corners, straight lines and 45° diagonals, and
+  curves only where the subject is round.
+- **Detail.** A silhouette plus one or two inner marks, with deliberate gaps in the outline where a mark needs room.
+- **Variants.** `-filled` icons, `-duotone` icons with a 20% tint under the outline, and letter badges like the `ai-*`
+  icons.
+- **Third-party icons.** Restyling icons from Tabler or Lucide to match: stroke 1.5 and square frames.
+
+The media controls, text formatting, image cropper and other icons added to fill in this set were drawn with it.

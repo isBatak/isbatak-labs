@@ -1,4 +1,8 @@
-import { components, styles } from "#site/content"
+import { components, icons, styles } from "#site/content"
+
+import type { DsSection } from "./ds-sections"
+
+export type { DsSection }
 
 export interface DsNavItem {
   title: string
@@ -9,8 +13,6 @@ export interface DsNavGroup {
   title: string
   items: DsNavItem[]
 }
-
-export type DsSection = "components" | "styles"
 
 const toItem = ({ title, permalink }: DsNavItem): DsNavItem => ({ title, permalink })
 
@@ -33,6 +35,16 @@ function styleGroups(): DsNavGroup[] {
   ]
 }
 
+function iconGroups(): DsNavGroup[] {
+  return [{ title: "Icons", items: icons.toSorted((a, b) => a.order - b.order).map(toItem) }]
+}
+
+const sectionGroups: Record<DsSection, () => DsNavGroup[]> = {
+  components: componentGroups,
+  styles: styleGroups,
+  icons: iconGroups,
+}
+
 export function dsNavGroups(section: DsSection): DsNavGroup[] {
-  return section === "styles" ? styleGroups() : componentGroups()
+  return sectionGroups[section]()
 }
