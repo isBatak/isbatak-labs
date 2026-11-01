@@ -39,6 +39,7 @@ const fileIcons: Record<string, IconName> = {
   css: "brand-css3",
   vue: "brand-vue",
   svelte: "brand-svelte",
+  lit: "brand-lit",
 }
 
 const fileIcon = (name: string) =>
