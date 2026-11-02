@@ -140,9 +140,9 @@ The plugin does everything the CLI did, so remove the old pieces. Keeping them g
   Turbopack only resolves files on disk.
 - It adds Turbopack rules that run its loader on your JavaScript and TypeScript modules and on `*.css`. Nothing in
   `node_modules` is touched.
-- On a module, the loader rewrites `css()`, `cva()`, recipes, patterns and style props into static class names.
-  Dynamic values and `cx()` calls with runtime arguments stay as they are and use the `styled-system` runtime, as they
-  do with the Panda CLI.
+- On a module, the loader rewrites `css()`, `cva()`, recipes, patterns and style props into static class names. Dynamic
+  values and `cx()` calls with runtime arguments stay as they are and use the `styled-system` runtime, as they do with
+  the Panda CLI.
 - On a stylesheet that declares Panda's layers, the loader extracts the styles your sources use and appends the
   generated CSS. Stylesheets without the layers pass through unchanged.
 - It tells Turbopack which files the CSS came from: your sources and their folders, the Panda config and the design
