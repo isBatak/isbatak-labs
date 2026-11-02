@@ -1,5 +1,7 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+import { inputBase, inputSizes, inputVariants } from "./shared/input"
+
 export const numberInputSlotRecipe = defineSlotRecipe({
   className: "number-input",
   description: "Numeric input with increment and decrement controls",
@@ -11,24 +13,7 @@ export const numberInputSlotRecipe = defineSlotRecipe({
       isolation: "isolate",
     },
     input: {
-      width: "100%",
-      minWidth: "0",
-      outline: "0",
-      position: "relative",
-      appearance: "none",
-      textAlign: "start",
-      borderRadius: "l2",
-      _disabled: {
-        layerStyle: "disabled",
-      },
-      height: "var(--input-height)",
-      minW: "var(--input-height)",
-      "--focus-color": "colors.colorPalette.focusRing",
-      "--error-color": "colors.border.error",
-      _invalid: {
-        focusRingColor: "var(--error-color)",
-        borderColor: "var(--error-color)",
-      },
+      ...inputBase,
       verticalAlign: "top",
       pe: "calc(var(--stepper-width) + 0.5rem)",
     },
@@ -104,44 +89,28 @@ export const numberInputSlotRecipe = defineSlotRecipe({
   variants: {
     size: {
       xs: {
-        input: {
-          textStyle: "xs",
-          px: "2",
-          "--input-height": "sizes.8",
-        },
+        input: inputSizes.xs,
         control: {
           fontSize: "2xs",
           "--stepper-width": "sizes.4",
         },
       },
       sm: {
-        input: {
-          textStyle: "sm",
-          px: "2.5",
-          "--input-height": "sizes.9",
-        },
+        input: inputSizes.sm,
         control: {
           fontSize: "xs",
           "--stepper-width": "sizes.5",
         },
       },
       md: {
-        input: {
-          textStyle: "sm",
-          px: "3",
-          "--input-height": "sizes.10",
-        },
+        input: inputSizes.md,
         control: {
           fontSize: "sm",
           "--stepper-width": "sizes.6",
         },
       },
       lg: {
-        input: {
-          textStyle: "md",
-          px: "4",
-          "--input-height": "sizes.11",
-        },
+        input: inputSizes.lg,
         control: {
           fontSize: "sm",
           "--stepper-width": "sizes.6",
@@ -149,41 +118,9 @@ export const numberInputSlotRecipe = defineSlotRecipe({
       },
     },
     variant: {
-      outline: {
-        input: {
-          bg: "transparent",
-          borderWidth: "1px",
-          borderColor: "border",
-          focusVisibleRing: "inside",
-          focusRingColor: "var(--focus-color)",
-        },
-      },
-      subtle: {
-        input: {
-          borderWidth: "1px",
-          borderColor: "transparent",
-          bg: "bg.muted",
-          focusVisibleRing: "inside",
-          focusRingColor: "var(--focus-color)",
-        },
-      },
-      flushed: {
-        input: {
-          bg: "transparent",
-          borderBottomWidth: "1px",
-          borderBottomColor: "border",
-          borderRadius: "0",
-          px: "0",
-          _focusVisible: {
-            borderColor: "var(--focus-color)",
-            boxShadow: "0px 1px 0px 0px var(--focus-color)",
-            _invalid: {
-              borderColor: "var(--error-color)",
-              boxShadow: "0px 1px 0px 0px var(--error-color)",
-            },
-          },
-        },
-      },
+      outline: { input: inputVariants.outline },
+      subtle: { input: inputVariants.subtle },
+      flushed: { input: inputVariants.flushed },
     },
   },
   defaultVariants: {

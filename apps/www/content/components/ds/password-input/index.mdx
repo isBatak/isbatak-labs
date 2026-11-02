@@ -1,0 +1,113 @@
+---
+title: Password Input
+description: Password field with a button that shows or hides the password.
+category: Forms
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/password-input
+  recipe: packages/panda/ds/src/theme/recipes/password-input.ts
+  ark: https://ark-ui.com/docs/components/password-input
+---
+
+Built on Ark UI's Password Input. The input shares its sizes and variants with the `input` recipe, and the visibility
+trigger sits inside the input's border at the end. Only React has this component so far.
+
+## Usage
+
+<Usage />
+
+```tsx
+<PasswordInput.Root>
+  <PasswordInput.Label />
+  <PasswordInput.Control>
+    <PasswordInput.Input />
+    <PasswordInput.VisibilityTrigger>
+      <PasswordInput.Indicator />
+    </PasswordInput.VisibilityTrigger>
+  </PasswordInput.Control>
+</PasswordInput.Root>
+```
+
+`PasswordInput.Indicator` renders its children while the password shows and its `fallback` while it is hidden. The icons
+here are `view` and `view-off` from the active sprite, so they follow
+[your own icons](/ds/icons/setup#use-your-own-icons).
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="password-input/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle` or `flushed`. The default is `outline`.
+
+<Example id="password-input/variants" />
+
+### Default visible
+
+Set `defaultVisible` to show the password when the input first renders.
+
+<Example id="password-input/default-visible" />
+
+### Controlled
+
+Pass `visible` and `onVisibilityChange` to own whether the password shows.
+
+<Example id="password-input/controlled" />
+
+### Root provider
+
+Create the state with `usePasswordInput` and pass it to `PasswordInput.RootProvider` to control the input from outside,
+here with `toggleVisible`. The returned API also has `setVisible` and `focus`.
+
+<Example id="password-input/root-provider" />
+
+### Autocomplete
+
+The input sets `autocomplete="current-password"` by default. Set `autoComplete="new-password"` on sign-up and
+change-password forms so browsers offer to generate a password instead of filling a saved one.
+
+<Example id="password-input/autocomplete" />
+
+### Ignore password managers
+
+Set `ignorePasswordManagers` for secrets that are not login passwords, like API keys, so password managers do not offer
+to fill or save them. It works with 1Password, LastPass, Bitwarden, Dashlane and Proton Pass.
+
+<Example id="password-input/ignore-password-managers" />
+
+### Disabled
+
+Set `disabled` on the root to disable the input and the visibility trigger.
+
+<Example id="password-input/disabled" />
+
+### Invalid
+
+Set `invalid` to give the input the error border. Add the error text below it, here with the `field` recipe's
+`errorText`. `readOnly` and `required` go on the root the same way.
+
+<Example id="password-input/invalid" />
+
+### Translations
+
+The visibility trigger's label is "Show password" or "Hide password". Pass `translations.visibilityTrigger` to change
+it; it gets whether the password is visible.
+
+<Example id="password-input/translations" />
+
+## Recipe
+
+| Variant   | Values                         | Default   |
+| --------- | ------------------------------ | --------- |
+| `variant` | `outline`, `subtle`, `flushed` | `outline` |
+| `size`    | `xs`, `sm`, `md`, `lg`         | `md`      |
+
+| Variable         | Description                                                               |
+| ---------------- | ------------------------------------------------------------------------- |
+| `--input-height` | The input height, set by `size`. The visibility trigger is a square of it |
+| `--focus-color`  | The focus ring color, `colors.colorPalette.focusRing`                     |
+| `--error-color`  | The border and focus ring color when `invalid`, `colors.border.error`     |

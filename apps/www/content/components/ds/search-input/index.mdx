@@ -1,0 +1,114 @@
+---
+title: Search Input
+description: Search field with a search icon and a button that clears the value.
+category: Forms
+frameworks: [react]
+links:
+  source: packages/ui/react/src/components/search-input
+  recipe: packages/panda/ds/src/theme/recipes/search-input.ts
+---
+
+Ark UI has no search input yet, so the parts come from `@isbatak/ark-search-input`, an Ark UI style package for React,
+Solid, Vue and Svelte. It keeps the value in plain component state, with no state machine. The input shares its sizes
+and variants with the `input` recipe. Only React has the styled component so far.
+
+- Renders a native `<input type="search">` and hides the browser's own clear button
+- The clear trigger only shows when there is a value, and puts focus back on the input after clearing
+- Escape clears the value while the input has focus
+
+## Usage
+
+<Usage />
+
+```tsx
+<SearchInput.Root>
+  <SearchInput.Label />
+  <SearchInput.Control>
+    <SearchInput.Icon />
+    <SearchInput.Input />
+    <SearchInput.ClearTrigger />
+  </SearchInput.Control>
+</SearchInput.Root>
+```
+
+`SearchInput.Icon` is hidden from assistive technology, and clicking it focuses the input. The clear trigger looks like
+a ghost icon button. The icons here are `search` and `close` from the active sprite, so they follow
+[your own icons](/ds/icons/setup#use-your-own-icons).
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="search-input/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle` or `flushed`. The default is `outline`.
+
+<Example id="search-input/variants" />
+
+### Default value
+
+Set `defaultValue` to start with a query.
+
+<Example id="search-input/default-value" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the query, for example to filter a list as people type.
+
+<Example id="search-input/controlled" />
+
+### Root provider
+
+Create the state with `useSearchInput` and pass it to `SearchInput.RootProvider` to control the input from outside. The
+returned API has `value`, `empty`, `setValue`, `clearValue` and `focus`.
+
+<Example id="search-input/root-provider" />
+
+### Without a label
+
+Leave out `SearchInput.Label` when the field explains itself, and give the input an `aria-label` instead.
+
+<Example id="search-input/without-label" />
+
+### Without an icon
+
+Leave out `SearchInput.Icon` and the input drops the space it reserves at its start.
+
+<Example id="search-input/without-icon" />
+
+### Disabled
+
+Set `disabled` on the root to disable the input and the clear trigger. `readOnly` keeps the value selectable and hides
+the clear trigger.
+
+<Example id="search-input/disabled" />
+
+### Invalid
+
+Set `invalid` to give the input the error border. Add the error text below it, here with the `field` recipe's
+`errorText`. `required`, `name` and `form` go on the root too.
+
+<Example id="search-input/invalid" />
+
+### Translations
+
+The clear trigger's label is "Clear search". Pass `translations.clearTrigger` to change it.
+
+<Example id="search-input/translations" />
+
+## Recipe
+
+| Variant   | Values                         | Default   |
+| --------- | ------------------------------ | --------- |
+| `variant` | `outline`, `subtle`, `flushed` | `outline` |
+| `size`    | `xs`, `sm`, `md`, `lg`         | `md`      |
+
+| Variable         | Description                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| `--input-height` | The input height, set by `size`. The icon area and the space for the clear trigger |
+| `--focus-color`  | The focus ring color, `colors.colorPalette.focusRing`                              |
+| `--error-color`  | The border and focus ring color when `invalid`, `colors.border.error`              |
