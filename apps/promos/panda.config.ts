@@ -6,7 +6,7 @@ export default defineConfig({
   jsxFramework: "react",
   include: [
     "./src/**/*.{ts,tsx}",
-    "../../packages/ui/react/src/components/{button,badge,group,loader,spinner}/**/*.tsx",
+    "../../packages/ui/react/src/components/{button,badge,group,icon,input-group,loader,password-input,search-input,select,spinner}/**/*.tsx",
   ],
   exclude: [],
   outdir: "styled-system",

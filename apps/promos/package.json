@@ -6,14 +6,19 @@
     "codegen": "panda",
     "audio": "node audio/sourcery.ts",
     "brand": "node brand/sourcery.ts",
-    "studio": "panda && pnpm audio && remotion studio",
+    "studio": "panda && pnpm audio && pnpm icons && remotion studio",
     "render:sourcery": "panda && pnpm audio && remotion render SourceryPromo ../www/public/videos/sourcery-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --audio-bitrate=128k",
     "render:sourcery-vertical": "panda && pnpm audio && remotion render SourceryPromoVertical out/sourcery-demo-vertical.mp4",
     "still:sourcery": "panda && remotion still SourceryPromo ../www/public/videos/sourcery-poster.jpg --frame=400 --image-format=jpeg --jpeg-quality=85",
-    "typecheck": "panda && tsc --noEmit"
+    "icons": "node icons/sprites.ts",
+    "render:icons": "panda && pnpm icons && remotion render IconsPromo ../www/public/videos/icons-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow",
+    "render:icons-vertical": "panda && pnpm icons && remotion render IconsPromoVertical out/icons-demo-vertical.mp4",
+    "still:icons": "panda && pnpm icons && remotion still IconsPromo ../www/public/videos/icons-poster.jpg --frame=660 --image-format=jpeg --jpeg-quality=85",
+    "typecheck": "panda && pnpm icons && tsc --noEmit"
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
+    "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/react-ui": "workspace:*",
     "@remotion/cli": "4.0.529",
@@ -24,9 +29,14 @@
     "sugar-high": "2.5.0"
   },
   "devDependencies": {
+    "@ikona/cli": "0.2.2",
+    "@material-symbols/svg-400": "0.48.2",
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
+    "@phosphor-icons/core": "2.1.1",
     "@types/node": "25.9.5",
-    "@types/react": "catalog:"
+    "@types/react": "catalog:",
+    "lucide-static": "1.66.0",
+    "pixelarticons": "2.4.2"
   }
 }

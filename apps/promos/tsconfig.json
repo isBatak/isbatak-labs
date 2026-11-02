@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "audio", "brand", "remotion.config.ts"],
+  "include": ["src", "audio", "brand", "icons", "remotion.config.ts"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "types": ["node"],
