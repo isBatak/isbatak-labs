@@ -6,12 +6,22 @@ export const badgeRecipe = defineRecipe({
   base: {
     display: "inline-flex",
     alignItems: "center",
-    borderRadius: "l2",
+    borderRadius: "full",
     gap: "1",
     fontWeight: "medium",
     fontVariantNumeric: "tabular-nums",
     whiteSpace: "nowrap",
     userSelect: "none",
+    _icon: {
+      flexShrink: 0,
+      boxSize: "var(--badge-icon-size)",
+    },
+    _iconStart: {
+      ms: "calc(var(--badge-icon-offset) * -1)",
+    },
+    _iconEnd: {
+      me: "calc(var(--badge-icon-offset) * -1)",
+    },
   },
   variants: {
     variant: {
@@ -42,29 +52,72 @@ export const badgeRecipe = defineRecipe({
     },
     size: {
       xs: {
+        "--badge-icon-size": "sizes.2.5",
+        "--badge-icon-offset": "spacing.0.5",
         textStyle: "2xs",
-        px: "1",
+        px: "1.5",
         minH: "4",
       },
       sm: {
+        "--badge-icon-size": "sizes.3",
+        "--badge-icon-offset": "spacing.0.5",
         textStyle: "xs",
-        px: "1.5",
+        px: "2",
         minH: "5",
       },
       md: {
+        "--badge-icon-size": "sizes.3.5",
+        "--badge-icon-offset": "spacing.0.5",
         textStyle: "sm",
-        px: "2",
+        px: "2.5",
         minH: "6",
       },
       lg: {
+        "--badge-icon-size": "sizes.4",
+        "--badge-icon-offset": "spacing.1",
         textStyle: "sm",
-        px: "2.5",
+        px: "3",
         minH: "7",
+        gap: "1.5",
+      },
+    },
+    status: {
+      true: {
+        _before: {
+          content: '""',
+          width: "0.64em",
+          height: "0.64em",
+          flexShrink: 0,
+          borderRadius: "full",
+          forcedColorAdjust: "none",
+          bg: "colorPalette.solid",
+          ms: "calc(var(--badge-icon-offset) * -1)",
+        },
       },
     },
   },
+  compoundVariants: [
+    {
+      variant: "solid",
+      status: true,
+      css: {
+        _before: {
+          bg: "colorPalette.contrast",
+        },
+      },
+    },
+    {
+      variant: "outline",
+      status: true,
+      css: {
+        color: "fg",
+        shadowColor: "border",
+      },
+    },
+  ],
   defaultVariants: {
     variant: "subtle",
     size: "sm",
+    status: false,
   },
 })

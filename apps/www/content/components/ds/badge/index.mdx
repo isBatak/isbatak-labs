@@ -8,8 +8,65 @@ links:
   recipe: packages/panda/ds/src/theme/recipes/badge.ts
 ---
 
-A `span` styled with the `badge` recipe. Pick a `variant` and a `size`, and set `colorPalette` to change its color.
+A `span` styled with the `badge` recipe. Pick a `variant` and a `size`, and set `colorPalette` to change its color. Use
+a `tag` instead when the label can be removed or clicked.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Badge>Badge</Badge>
+```
+
+## Examples
+
+### Variants
+
+Set `variant` to `solid`, `subtle`, `outline`, `surface` or `plain`. The default is `subtle`.
+
+<Example id="badge/variants" />
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `sm`.
+
+<Example id="badge/sizes" />
+
+### Colors
+
+Set `colorPalette` to any palette in the theme: `gray`, `blue`, `green`, `yellow`, `red`, `orange`, `teal`, `cyan`,
+`purple` or `pink`. The default is `gray`.
+
+<Example id="badge/colors" />
+
+### Status
+
+Set `status` to put a dot before the label, drawn the same way as the `status` recipe's indicator. The dot takes the
+palette's `solid` color. With `outline` the text and border stay neutral so only the dot carries the color, and with
+`solid` the dot uses the palette's `contrast` color so it stays visible.
+
+<Example id="badge/status" />
+
+### With icon
+
+Wrap an icon in `BadgeStartIcon` or `BadgeEndIcon` with `asChild`, the same way as `ButtonStartIcon` and
+`ButtonEndIcon`. They mark it with `data-icon-start` or `data-icon-end`, so the recipe sizes it for the badge's `size`
+and pulls it a little toward the edge, where it lines up with the `status` dot. Only React has these wrappers so far; in
+other frameworks put the attribute on the icon yourself. The icons here come from the active sprite, so they follow
+[your own icons](/ds/icons/setup#use-your-own-icons).
+
+<Example id="badge/with-icon" />
+
+## Recipe
+
+| Variant   | Values                                           | Default  |
+| --------- | ------------------------------------------------ | -------- |
+| `variant` | `solid`, `subtle`, `outline`, `surface`, `plain` | `subtle` |
+| `size`    | `xs`, `sm`, `md`, `lg`                           | `sm`     |
+| `status`  | `true`, `false`                                  | `false`  |
+
+| Variable              | Description                                                                 |
+| --------------------- | --------------------------------------------------------------------------- |
+| `--badge-icon-size`   | The icon size, set by `size`                                                |
+| `--badge-icon-offset` | How far a start or end icon and the `status` dot are pulled toward the edge |
