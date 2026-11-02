@@ -121,8 +121,9 @@ The button sits inside a 20px field with 6px of padding and a 1px border, so it 
 
 ### Pricing
 
-Two levels. The card is 36px with 8px of padding and a 1px border, so the panel gets 27px. The panel has 16px of
-padding, so its button gets 11px.
+The card is 36px with 8px of padding and a 1px border, so everything that touches its corners gets 27px: all four
+corners of the panel at the top, and the outer bottom corner of each button. The buttons use `roundedEndStart` and
+`roundedEndEnd`, so their other corners keep the button's own radius.
 
 <Example id="concentric/pricing" />
 

@@ -1,3 +1,4 @@
+import { Button } from "@isbatak/react-ui/button"
 import { styled } from "styled-system/jsx"
 
 export function ConcentricPricingDemo() {
@@ -17,25 +18,20 @@ export function ConcentricPricingDemo() {
         <styled.p mt="1" textStyle="sm" color="fg.muted">
           For teams shipping every day.
         </styled.p>
-        <styled.button
-          type="button"
-          mt="5"
-          w="full"
-          h="10"
-          rounded="concentric"
-          bg="colorPalette.solid"
-          color="colorPalette.contrast"
-          textStyle="sm"
-          fontWeight="medium"
-        >
-          Start free trial
-        </styled.button>
       </styled.div>
-      <styled.ul display="grid" gap="1.5" px="4" pt="4" pb="3" textStyle="sm" color="fg.muted">
+      <styled.ul display="grid" gap="1.5" px="4" pt="4" pb="5" textStyle="sm" color="fg.muted">
         <li>Unlimited projects</li>
         <li>Preview deployments</li>
         <li>Priority support</li>
       </styled.ul>
+      <styled.div display="grid" gridTemplateColumns="1fr 1fr" gap="2">
+        <Button variant="outline" colorPalette="gray" bg="bg.panel" boxShadow="xs" roundedEndStart="concentric">
+          Learn more
+        </Button>
+        <Button colorPalette="gray" roundedEndEnd="concentric">
+          Start free trial
+        </Button>
+      </styled.div>
     </styled.div>
   )
 }
