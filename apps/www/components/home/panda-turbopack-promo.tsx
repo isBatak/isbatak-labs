@@ -64,7 +64,7 @@ export function PandaTurbopackPromo() {
               </Point>
               <Point>
                 <Icon name="check" />
-                Style props compile to static class names
+                Static styles compile to class names
               </Point>
             </styled.ul>
             <styled.div display="flex" flexWrap="wrap" gap="3" mt="8">

@@ -19,12 +19,12 @@ rest: no `panda codegen` script, no `panda --watch` process next to your dev ser
 
 - Runs codegen when Next.js loads the config, so `styled-system` is always up to date
 - Appends the generated CSS to your global stylesheet, and updates it in `next dev` as you edit
-- Rewrites `css()`, recipes, patterns and JSX style props into static class names at build time
+- Rewrites static `css()`, recipes, patterns and JSX style props into class names at build time
 - The Turbopack counterpart of `@pandacss/webpack`. This site's styles are built with it.
 
 ## Requirements
 
-Next.js 15+ on Turbopack, and Panda CSS v2.
+Next.js 16+ on Turbopack, and Panda CSS v2.
 
 Turbopack is the default bundler for `next dev` and `next build` since Next.js 16. The wrapper only adds Turbopack
 rules, so `next dev --webpack` is not supported.
@@ -44,7 +44,7 @@ Set up @isbatak/panda-turbopack in this Next.js project. It runs Panda CSS v2 in
 1. Look at the project first, without changing anything:
 
 - The package manager, from the lockfile.
-- The Next.js version and config file, and any plugins already wrapping the config. Next.js 15 or newer with Turbopack is required. If the project builds with webpack (next dev --webpack or a webpack config), tell me it isn't supported and stop.
+- The Next.js version and config file, and any plugins already wrapping the config. Next.js 16 or newer with Turbopack is required. If the project builds with webpack (next dev --webpack or a webpack config), tell me it isn't supported and stop.
 - The Panda config: panda.config.ts (or .js/.mjs), its outdir, and the installed @pandacss/dev version. Panda CSS v2 is required.
 - How Panda runs today: package.json scripts that call panda or panda codegen, a postcss.config with @pandacss/dev/postcss, and imports of styled-system/styles.css.
 - The global stylesheet imported by the root layout, usually app/globals.css.
@@ -141,10 +141,15 @@ The plugin does everything the CLI did, so remove the old pieces. Keeping them g
 - It adds Turbopack rules that run its loader on your JavaScript and TypeScript modules and on `*.css`. Nothing in
   `node_modules` is touched.
 - On a module, the loader rewrites `css()`, `cva()`, recipes, patterns and style props into static class names.
+  Dynamic values and `cx()` calls with runtime arguments stay as they are and use the `styled-system` runtime, as they
+  do with the Panda CLI.
 - On a stylesheet that declares Panda's layers, the loader extracts the styles your sources use and appends the
   generated CSS. Stylesheets without the layers pass through unchanged.
 - It tells Turbopack which files the CSS came from: your sources and their folders, the Panda config and the design
   system. Editing or adding a file updates the CSS in `next dev`, and a config change reruns codegen.
+- Each Turbopack worker loads its own Panda instance, and codegen runs every time Next.js loads the config.
+- Turbopack's docs only list loaders that return JavaScript as supported. Transforming `*.css` works on Next.js 16, but
+  it relies on behavior Turbopack doesn't document.
 
 ## Options
 
