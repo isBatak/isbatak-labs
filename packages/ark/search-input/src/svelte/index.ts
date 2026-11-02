@@ -1,0 +1,5 @@
+export { anatomy as searchInputAnatomy } from "../core/index.js"
+export type { ValueChangeDetails as SearchInputValueChangeDetails } from "../core/index.js"
+export { useSearchInput, type UseSearchInputProps, type UseSearchInputReturn } from "./use-search-input.svelte.js"
+export { SearchInputProvider, useSearchInputContext, type UseSearchInputContext } from "./use-search-input-context.js"
+export * as SearchInput from "./search-input.js"

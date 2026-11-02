@@ -45,6 +45,7 @@ import { menuSlotRecipe } from "./menu"
 import { nativeSelectSlotRecipe } from "./native-select"
 import { navigationMenuSlotRecipe } from "./navigation-menu"
 import { numberInputSlotRecipe } from "./number-input"
+import { passwordInputSlotRecipe } from "./password-input"
 import { pinInputSlotRecipe } from "./pin-input"
 import { popoverSlotRecipe } from "./popover"
 import { progressSlotRecipe } from "./progress"
@@ -55,6 +56,7 @@ import { radioGroupSlotRecipe } from "./radio-group"
 import { radiomarkRecipe } from "./radiomark"
 import { ratingGroupSlotRecipe } from "./rating-group"
 import { scrollAreaSlotRecipe } from "./scroll-area"
+import { searchInputSlotRecipe } from "./search-input"
 import { segmentGroupSlotRecipe } from "./segment-group"
 import { selectSlotRecipe } from "./select"
 import { separatorRecipe } from "./separator"
@@ -131,6 +133,7 @@ export const slotRecipes = {
   nativeSelect: nativeSelectSlotRecipe,
   navigationMenu: navigationMenuSlotRecipe,
   numberInput: numberInputSlotRecipe,
+  passwordInput: passwordInputSlotRecipe,
   pinInput: pinInputSlotRecipe,
   popover: popoverSlotRecipe,
   progress: progressSlotRecipe,
@@ -139,6 +142,7 @@ export const slotRecipes = {
   radioGroup: radioGroupSlotRecipe,
   ratingGroup: ratingGroupSlotRecipe,
   scrollArea: scrollAreaSlotRecipe,
+  searchInput: searchInputSlotRecipe,
   segmentGroup: segmentGroupSlotRecipe,
   select: selectSlotRecipe,
   combobox: comboboxSlotRecipe,

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
+    "@isbatak/ark-search-input": "workspace:*",
     "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },

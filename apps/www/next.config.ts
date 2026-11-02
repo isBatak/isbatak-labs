@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
     "@isbatak/zag-wheel-picker",
     "@isbatak/ark-code-preview",
     "@isbatak/ark-masonry",
+    "@isbatak/ark-search-input",
     "@isbatak/ark-text-flip",
     "@isbatak/ark-wheel-picker",
     "@isbatak/panda-code-preview",
