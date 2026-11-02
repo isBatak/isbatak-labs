@@ -44,41 +44,41 @@ export const searchInputSlotRecipe = defineSlotRecipe({
     size: {
       xs: {
         control: inputControlSizes.xs.control,
-        icon: inputControlSizes.xs.icon,
+        icon: { _icon: { boxSize: "4" } },
         input: defineStyles({
           ...inputSizes.xs,
           pe: "var(--input-height)",
-          "[data-scope=search-input][data-part=control]:has(> [data-part=icon]) > &": { ps: "var(--input-height)" },
+          "[data-search-input-control]:has(> [data-search-input-icon]) > &": { ps: "var(--input-height)" },
         }),
         clearTrigger: inputControlSizes.xs.icon,
       },
       sm: {
         control: inputControlSizes.sm.control,
-        icon: inputControlSizes.sm.icon,
+        icon: { _icon: { boxSize: "4.5" } },
         input: defineStyles({
           ...inputSizes.sm,
           pe: "var(--input-height)",
-          "[data-scope=search-input][data-part=control]:has(> [data-part=icon]) > &": { ps: "var(--input-height)" },
+          "[data-search-input-control]:has(> [data-search-input-icon]) > &": { ps: "var(--input-height)" },
         }),
         clearTrigger: inputControlSizes.sm.icon,
       },
       md: {
         control: inputControlSizes.md.control,
-        icon: inputControlSizes.md.icon,
+        icon: { _icon: { boxSize: "5" } },
         input: defineStyles({
           ...inputSizes.md,
           pe: "var(--input-height)",
-          "[data-scope=search-input][data-part=control]:has(> [data-part=icon]) > &": { ps: "var(--input-height)" },
+          "[data-search-input-control]:has(> [data-search-input-icon]) > &": { ps: "var(--input-height)" },
         }),
         clearTrigger: inputControlSizes.md.icon,
       },
       lg: {
         control: inputControlSizes.lg.control,
-        icon: inputControlSizes.lg.icon,
+        icon: { _icon: { boxSize: "6" } },
         input: defineStyles({
           ...inputSizes.lg,
           pe: "var(--input-height)",
-          "[data-scope=search-input][data-part=control]:has(> [data-part=icon]) > &": { ps: "var(--input-height)" },
+          "[data-search-input-control]:has(> [data-search-input-icon]) > &": { ps: "var(--input-height)" },
         }),
         clearTrigger: inputControlSizes.lg.icon,
       },
@@ -90,7 +90,7 @@ export const searchInputSlotRecipe = defineSlotRecipe({
         input: defineStyles({
           ...inputVariants.flushed,
           pe: "var(--input-height)",
-          "[data-scope=search-input][data-part=control]:has(> [data-part=icon]) > &": { ps: "var(--input-height)" },
+          "[data-search-input-control]:has(> [data-search-input-icon]) > &": { ps: "var(--input-height)" },
         }),
       },
     },
