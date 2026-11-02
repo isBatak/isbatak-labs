@@ -2,6 +2,7 @@ import { Children, type ComponentProps, type ComponentType, isValidElement, type
 import * as runtime from "react/jsx-runtime"
 import { code as codeRecipe } from "@isbatak/panda-ds/recipes"
 import { Table as DsTable } from "@isbatak/react-ui/table"
+import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { CodeBlock } from "./code/code-block"
@@ -27,6 +28,40 @@ function Table({ children }: { children?: ReactNode }) {
   )
 }
 
+const headingLink = css({
+  color: "inherit",
+  fontWeight: "inherit",
+  textDecoration: "none",
+  "&:hover [data-heading-hash], &:focus-visible [data-heading-hash]": {
+    opacity: "1",
+  },
+})
+
+const headingHash = css({
+  ms: "1.5",
+  color: "fg.subtle",
+  fontWeight: "normal",
+  opacity: "0",
+  transitionProperty: "opacity",
+  transitionDuration: "fast",
+})
+
+const linkedHeading =
+  (Tag: "h2" | "h3" | "h4") =>
+  ({ id, children, ...props }: ComponentProps<"h2">) =>
+    id ? (
+      <Tag id={id} {...props}>
+        <a href={`#${id}`} className={headingLink}>
+          {children}
+          <span data-heading-hash="" aria-hidden className={headingHash}>
+            #
+          </span>
+        </a>
+      </Tag>
+    ) : (
+      <Tag {...props}>{children}</Tag>
+    )
+
 const withInlineCode = (children: ReactNode) =>
   Children.map(children, (child) =>
     isValidElement<{ children?: ReactNode }>(child) && child.type === "code" ? (
@@ -37,6 +72,9 @@ const withInlineCode = (children: ReactNode) =>
   )
 
 const sharedComponents: MDXComponents = {
+  h2: linkedHeading("h2"),
+  h3: linkedHeading("h3"),
+  h4: linkedHeading("h4"),
   pre: Pre,
   table: Table,
   thead: DsTable.Header,
