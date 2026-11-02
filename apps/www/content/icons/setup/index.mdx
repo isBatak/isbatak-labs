@@ -182,4 +182,19 @@ icon names instead of ours. It's all or nothing: the built-in icons are no longe
    Now `<Icon name="rocket" />` type-checks if you have a `rocket.svg`, and a built-in name like `check` is an error
    until you add your own `check.svg`.
 
+Components draw their own icons from the active sprite too, so your sprite has to include these names, exported as
+`componentIconNames`:
+
+| Name           | Used by                                          |
+| -------------- | ------------------------------------------------ |
+| `check`        | Select item indicator                            |
+| `chevron-down` | Select indicator                                 |
+| `close`        | Close Button, Select clear trigger, Search Input |
+| `lock`         | Password Input                                   |
+| `search`       | Search Input                                     |
+| `view`         | Password Input, while the password shows         |
+| `view-off`     | Password Input, while the password is hidden     |
+
+`name` always accepts them, even when your `IconRegistry` doesn't list them.
+
 `IconSpritePreload` and `preloadIconSprite()` pick up the new sprite on their own.

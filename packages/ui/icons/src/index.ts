@@ -3,9 +3,23 @@ import type { IconName as BuiltinIconName } from "../generated/types/icon-name"
 export type { BuiltinIconName }
 export { icons as iconNames } from "../generated/icons"
 
+export const componentIconNames = [
+  "check",
+  "chevron-down",
+  "close",
+  "lock",
+  "search",
+  "view",
+  "view-off",
+] as const satisfies readonly BuiltinIconName[]
+
+export type ComponentIconName = (typeof componentIconNames)[number]
+
 export interface IconRegistry {}
 
-export type IconName = IconRegistry extends { iconName: infer Name extends string } ? Name : BuiltinIconName
+export type IconName = IconRegistry extends { iconName: infer Name extends string }
+  ? Name | ComponentIconName
+  : BuiltinIconName
 
 export const spriteUrl = new URL("../generated/sprite.svg", import.meta.url).href
 
