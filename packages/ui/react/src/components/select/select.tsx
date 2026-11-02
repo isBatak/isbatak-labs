@@ -7,6 +7,8 @@ import { type ComponentProps, createContext, type JSX, useContext } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { select } from "@isbatak/panda-ds/recipes"
 
+import { Icon } from "../icon/icon"
+
 const { withProvider, withContext } = createSlotRecipeContext(select)
 
 const StyledSelectRoot = withProvider(Select.Root, "root")
@@ -74,35 +76,11 @@ export type SelectValueTextProps = ComponentProps<typeof SelectValueText>
 export const SelectIndicatorGroup = withContext(ark.div, "indicatorGroup")
 export type SelectIndicatorGroupProps = ComponentProps<typeof SelectIndicatorGroup>
 
-function ChevronDownIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 const StyledSelectIndicator = withContext(Select.Indicator, "indicator")
 export type SelectIndicatorProps = ComponentProps<typeof StyledSelectIndicator>
 
 export function SelectIndicator({ children, ...props }: SelectIndicatorProps) {
-  return <StyledSelectIndicator {...props}>{children ?? <ChevronDownIcon />}</StyledSelectIndicator>
+  return <StyledSelectIndicator {...props}>{children ?? <Icon name="chevron-down" />}</StyledSelectIndicator>
 }
 
 const StyledSelectClearTrigger = withContext(Select.ClearTrigger, "clearTrigger")
@@ -111,7 +89,7 @@ export type SelectClearTriggerProps = ComponentProps<typeof StyledSelectClearTri
 export function SelectClearTrigger({ children, ...props }: SelectClearTriggerProps) {
   return (
     <StyledSelectClearTrigger aria-label="Clear selection" {...props}>
-      {children ?? <XIcon />}
+      {children ?? <Icon name="close" />}
     </StyledSelectClearTrigger>
   )
 }
@@ -146,7 +124,7 @@ const StyledSelectItemIndicator = withContext(Select.ItemIndicator, "itemIndicat
 export type SelectItemIndicatorProps = ComponentProps<typeof StyledSelectItemIndicator>
 
 export function SelectItemIndicator({ children, ...props }: SelectItemIndicatorProps) {
-  return <StyledSelectItemIndicator {...props}>{children ?? <CheckIcon />}</StyledSelectItemIndicator>
+  return <StyledSelectItemIndicator {...props}>{children ?? <Icon name="check" />}</StyledSelectItemIndicator>
 }
 
 export const SelectSearch = withContext(ark.input, "search", {

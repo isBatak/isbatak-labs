@@ -38,7 +38,10 @@ This package exports:
 - `preloadIconSprite()`: adds a `<link rel="preload">` for the active sprite, for Lit and plain HTML. The other UI
   packages export an `IconSpritePreload` component.
 - `iconNames`: every built-in icon name
-- `IconName`: the union of icon names, or your own names once you augment `IconRegistry` with `iconName`
+- `componentIconNames` / `ComponentIconName`: the names components draw themselves (Select, Close Button, Password
+  Input, Search Input), which your own sprite must include
+- `IconName`: the union of icon names, or your own names plus `ComponentIconName` once you augment `IconRegistry` with
+  `iconName`
 - `BuiltinIconName`: the built-in names, whatever `IconRegistry` says
 - `@isbatak/icons/sprite.svg`: the sprite file, to serve it yourself
 
