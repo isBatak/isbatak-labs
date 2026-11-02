@@ -60,7 +60,7 @@
     "@pandacss/transformer": "catalog:"
   },
   "peerDependencies": {
-    "next": ">=15.0.0"
+    "next": ">=16.0.0"
   },
   "peerDependenciesMeta": {
     "next": {

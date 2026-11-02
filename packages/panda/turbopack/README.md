@@ -1,8 +1,12 @@
 # @isbatak/panda-turbopack
 
 Panda CSS v2 for Next.js on Turbopack, without the Panda CLI. It runs codegen, injects the generated CSS into your
-stylesheet, and rewrites `css()`, recipes, patterns and JSX style props into static class names at build time: the
+stylesheet, and rewrites static `css()`, recipes, patterns and JSX style props into class names at build time: the
 Turbopack counterpart of [`@pandacss/webpack`](https://github.com/chakra-ui/panda/tree/v2/packages/webpack).
+
+## Requirements
+
+Next.js 16+ on Turbopack, and Panda CSS v2.
 
 ## Installation
 
@@ -43,7 +47,8 @@ with other wrappers.
   virtual `@pandacss-internal/css` module to `.panda/internal-css.mjs`, aliasing the import to it because Turbopack only
   resolves files on disk. Add `.panda` to `.gitignore`.
 - It adds Turbopack rules that run `@isbatak/panda-turbopack/loader` on every `include` glob and on `*.css`.
-- On scripts, the loader calls `transformSource` from `@pandacss/transformer`.
+- On scripts, the loader calls `transformSource` from `@pandacss/transformer`. Dynamic values and `cx()` calls with
+  runtime arguments stay as they are and use the `styled-system` runtime.
 - On a stylesheet that declares Panda's layers, the loader extracts styles from your sources and appends the generated
   CSS. It registers the sources, their directories, the config and the design system as dependencies, so `next dev`
   updates the CSS when you edit or add a file. Config changes rerun codegen.
