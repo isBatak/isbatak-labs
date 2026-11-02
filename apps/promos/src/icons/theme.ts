@@ -34,10 +34,11 @@ export type IconSet = "boring" | "lucide" | "phosphor" | "material" | "pixel"
 
 export const SWAPS: readonly (readonly [number, IconSet])[] = [
   [0, "boring"],
-  [at("swap", 0), "lucide"],
-  [at("swap", 80), "phosphor"],
-  [at("swap", 160), "material"],
-  [at("swap", 240), "pixel"],
+  [at("swap", 0), "boring"],
+  [at("swap", 64), "lucide"],
+  [at("swap", 128), "phosphor"],
+  [at("swap", 192), "material"],
+  [at("swap", 256), "pixel"],
   [at("frameworks", 0), "boring"],
 ]
 

@@ -17,10 +17,10 @@ const frameworks = createListCollection({ items: ["React", "Vue", "Svelte", "Sol
 function useIconScale(from: number) {
   const frame = useCurrentFrame() + from
   const { fps } = useVideoConfig()
-  const [start] = activeSwap(frame)
-  const [next] = activeSwap(frame + 6)
-  if (next !== start) return interpolate(frame, [next - 6, next], [1, 0], clamp)
-  if (start === 0) return 1
+  const [start, set] = activeSwap(frame)
+  const [next, nextSet] = activeSwap(frame + 6)
+  if (nextSet !== set) return interpolate(frame, [next - 6, next], [1, 0], clamp)
+  if (activeSwap(start - 1)[1] === set) return 1
   return spring({ frame: frame - start, fps, config: { damping: 11, stiffness: 200, mass: 0.6 } })
 }
 

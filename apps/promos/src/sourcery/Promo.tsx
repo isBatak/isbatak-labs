@@ -22,7 +22,7 @@ const EFFECTS_VOLUME = 0.9
 export function Promo() {
   return (
     <StageProvider>
-      <AbsoluteFill style={{ background: "#ffffff", overflow: "hidden" }}>
+      <AbsoluteFill data-radius="none" style={{ background: "#ffffff", overflow: "hidden" }}>
         <Sequence name="Background" layout="none">
           <Background />
         </Sequence>
