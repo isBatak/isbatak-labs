@@ -21,4 +21,5 @@
 1. [x] Add a Boring Icons promo page to the main www navigation that shows the icon set and promotes its author.
 1. [x] Add boring icon skill for creating new icons in the same style
    1. [x] document skill on www icons docs
-1. [ ] Make a promo content adn post on social media
+1. [ ] Make a promo content adn post on social media: video and posts ready ([ICONS-PROMO.md](./ICONS-PROMO.md)),
+       posting left

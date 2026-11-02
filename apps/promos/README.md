@@ -9,6 +9,8 @@ audio
 └── sourcery.ts     the Sourcery score, timed from its theme
 brand
 └── sourcery.ts     writes the Sourcery logo and wordmark SVGs for the site and the npm README
+icons
+└── sprites.ts      builds the icon sets the icons promo swaps between, with ikona, into public/icons/
 src
 ├── Root.tsx        registers every promo's compositions
 ├── fonts.ts        fonts shared by all promos
@@ -43,7 +45,18 @@ pnpm --filter @isbatak/promos brand                     # regenerate the logo an
 pnpm --filter @isbatak/promos render:sourcery           # writes apps/www/public/videos/sourcery-demo.mp4
 pnpm --filter @isbatak/promos render:sourcery-vertical  # writes out/sourcery-demo-vertical.mp4
 pnpm --filter @isbatak/promos still:sourcery            # writes apps/www/public/videos/sourcery-poster.jpg
+pnpm --filter @isbatak/promos icons                     # rebuild the icon set sprites
+pnpm --filter @isbatak/promos render:icons              # writes apps/www/public/videos/icons-demo.mp4
+pnpm --filter @isbatak/promos render:icons-vertical     # writes out/icons-demo-vertical.mp4
+pnpm --filter @isbatak/promos still:icons               # writes apps/www/public/videos/icons-poster.jpg
 ```
+
+## Icons promo
+
+`src/icons` shows the same components under five icon sets: Boring Icons, Lucide, Phosphor fill, Material Symbols and
+Pixelarticons. `pnpm icons` maps each set's SVGs to the names the components use, builds a sprite per set with ikona,
+and writes them to `public/icons/` (gitignored). The video inlines the active sprite and calls `setIconSprite("")`, so
+every frame renders without waiting for a sprite to load.
 
 Components come from `@isbatak/react-ui` and are styled with the `@isbatak/panda-ds` design system, so the videos look
 like the site. Every script runs `panda` first to generate `styled-system`.
