@@ -17,6 +17,11 @@
 
 A promo is a showcase of the design system too, so everything on screen comes from it:
 
+- **Look it up in the Panda MCP.** Before styling anything, ask the `panda` MCP server what the design system has:
+  `get_recipes` for each recipe's variants and `description`, `get_semantic_tokens` and `get_text_styles` for colors
+  and type, `get_layer_styles` and `get_patterns` for the rest. Pick from what it returns; never guess a variant or a
+  token name.
+
 - **Components first.** Anything the packages ship (inputs, buttons, badges, selects) is the real `@isbatak/react-ui`
   component.
 - **Recipes next.** Every other surface uses a `@isbatak/panda-ds/recipes` recipe, picked by its `description`: `card`
@@ -26,6 +31,8 @@ A promo is a showcase of the design system too, so everything on screen comes fr
 - **www's accent.** Gray is the base palette and `orange` is the accent, as in `apps/www/theme/global-css.ts`: anything
   that carries the brand (step badges, highlights, solid buttons) takes `colorPalette="orange"`. Third-party brand marks
   keep their own colors.
+- **Scope theme switches.** A theme condition like `data-radius` goes on the promo's own root element, never on
+  `document`, so it can't leak into other promos.
 - **By hand last.** Hand styling is for layout (flex, grid, gaps) and brand marks the recipes don't cover, like a logo
   tile.
 - **Scale with `zoom`, not pixels.** Recipes size in tokens, so wrap each block in `zoom: k * unit` (with
@@ -63,3 +70,6 @@ Check each one on the contact sheet and the transition stills, in both orientati
 7. Stock decoration: sparkles, gradients, invented logos, or an accent other than orange.
 8. Something shown that step 1 didn't verify.
 9. A hand-styled box where a component or recipe exists, a font size in pixels, or a hex color.
+10. A component that looks different from its demo on the www docs page: square corners, an icon over the text, a
+    missing border or padding. Check the recipe with the Panda MCP and the generated CSS in `styled-system/styles.css`,
+    and fix the cause in the recipe, the component or `panda.config.ts`, never with overrides in the promo.

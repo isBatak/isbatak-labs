@@ -32,7 +32,7 @@ for the video. Simplify the words, not the context.
    live, reach (frameworks, platforms), outro with where to get it and credits.
 
 5. **Build the promo** in `apps/promos/src/<name>/` from the design system's components and recipes, following
-   [REMOTION.md](REMOTION.md).
+   [REMOTION.md](REMOTION.md). Look up every recipe, variant and token with the `panda` MCP server before using it.
    - `theme.ts`: `SEGMENT_LENGTHS`, `SEGMENTS`, `VIDEO` (fps 30, wide 1920×1080, tall 1080×1920) and `T`, the beats.
    - `layers/`: one file per segment. `Promo.tsx` stacks them as named `Sequence`s.
    - `compositions.tsx`: a `Folder` with `<Name>Promo` and `<Name>PromoVertical`, registered in `src/Root.tsx`.
@@ -51,6 +51,9 @@ for the video. Simplify the words, not the context.
    A sheet can't show a pop, so also render stills just before, during and after every transition with
    `npx remotion still <Id> <scratchpad>/f<frame>.jpg --frame=<n> --image-format=jpeg --log=error`. Sample mid-beat: a
    frame on a cut renders empty.
+
+   Hold each component on screen against its www docs demo. Any difference is a bug in the design system or the promo
+   setup, not in the video.
 
    For each beat, answer: what does the eye land on first, is that the beat's focal thing, and does one thing clearly
    lead? Any "no" is the biggest fault. Fix in this order, re-rendering after each round: framing, hierarchy, motion,
