@@ -16,9 +16,6 @@ export function CodePreviewDefaultOpenDemo() {
           <Badge colorPalette="green">Published</Badge>
         </CodePreview.Preview>
       </CodePreview.Stage>
-      <CodePreview.Content>
-        <CodeBody code={code} lang="tsx" />
-      </CodePreview.Content>
       <CodePreview.Toolbar>
         <CodePreview.Trigger>
           Code
@@ -30,6 +27,9 @@ export function CodePreviewDefaultOpenDemo() {
           Copy
         </CodePreview.CopyTrigger>
       </CodePreview.Toolbar>
+      <CodePreview.Content>
+        <CodeBody code={code} lang="tsx" />
+      </CodePreview.Content>
     </CodePreview.Root>
   )
 }

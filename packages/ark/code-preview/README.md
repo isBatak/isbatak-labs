@@ -10,13 +10,13 @@ import { CodePreview } from "@isbatak/ark-code-preview/react"
     <CodePreview.Preview>…</CodePreview.Preview>
     <CodePreview.Resizer />
   </CodePreview.Stage>
-  <CodePreview.Content>…</CodePreview.Content>
   <CodePreview.Toolbar>
     <CodePreview.Trigger>Code</CodePreview.Trigger>
     <CodePreview.ThemeTrigger />
     <CodePreview.DirTrigger />
     <CodePreview.CopyTrigger>Copy</CodePreview.CopyTrigger>
   </CodePreview.Toolbar>
+  <CodePreview.Content>…</CodePreview.Content>
 </CodePreview.Root>
 ```
 

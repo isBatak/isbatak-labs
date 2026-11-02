@@ -19,9 +19,6 @@ export function CodePreviewDemo() {
           <Icon name="grip-vertical" />
         </CodePreview.Resizer>
       </CodePreview.Stage>
-      <CodePreview.Content>
-        <CodeBody code={code} lang="tsx" />
-      </CodePreview.Content>
       <CodePreview.Toolbar>
         <CodePreview.Trigger>
           Code
@@ -40,6 +37,9 @@ export function CodePreviewDemo() {
           Copy
         </CodePreview.CopyTrigger>
       </CodePreview.Toolbar>
+      <CodePreview.Content>
+        <CodeBody code={code} lang="tsx" />
+      </CodePreview.Content>
     </CodePreview.Root>
   )
 }
