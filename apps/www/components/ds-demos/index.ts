@@ -11,6 +11,7 @@ import { GroupDemo } from "./group"
 import { HoverCardDemo } from "./hover-card"
 import { IconDemo } from "./icon"
 import { iconsDemos } from "./icons"
+import { kbdDemos } from "./kbd"
 import { LoaderDemo } from "./loader"
 import { MenuDemo } from "./menu"
 import { NavigationMenuDemo } from "./navigation-menu"
@@ -41,6 +42,7 @@ export const demos: Record<string, ComponentType> = {
   "hover-card": HoverCardDemo,
   icon: IconDemo,
   ...iconsDemos,
+  ...kbdDemos,
   loader: LoaderDemo,
   menu: MenuDemo,
   "navigation-menu": NavigationMenuDemo,

@@ -1,0 +1,66 @@
+---
+title: Kbd
+description: Shows a key or a key combination for an action.
+category: Data Display
+frameworks: [react, vue, solid, svelte]
+links:
+  source: packages/ui/react/src/components/kbd
+  recipe: packages/panda/ds/src/theme/recipes/kbd.ts
+---
+
+A `kbd` element styled with the `kbd` recipe. Pick a `variant` and a `size`, and set `colorPalette` to change its color.
+`KbdGroup` wraps the keys of one shortcut and passes its `size` and `variant` to every `Kbd` inside.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Kbd>F12</Kbd>
+```
+
+## Examples
+
+### Combinations
+
+Put the keys of a combination side by side, with the separator as plain text.
+
+<Example id="kbd/combinations" />
+
+### Group
+
+Wrap the keys of a shortcut in `KbdGroup`. Its `size` and `variant` apply to every key inside, and it renders a `kbd`
+too, so the whole shortcut reads as one input to assistive technology.
+
+<Example id="kbd/group" />
+
+### Function keys
+
+Modifier symbols are single characters, so each key keeps the recipe's minimum width and stays square.
+
+<Example id="kbd/function-keys" />
+
+### Variants
+
+Set `variant` to `raised`, `outline`, `subtle` or `plain`. The default is `raised`.
+
+<Example id="kbd/variants" />
+
+### Sizes
+
+Set `size` to `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="kbd/sizes" />
+
+### Within text
+
+`Kbd` is inline, so it sits in a sentence without extra markup.
+
+<Example id="kbd/within-text" />
+
+## Recipe
+
+| Variant   | Values                                 | Default  |
+| --------- | -------------------------------------- | -------- |
+| `variant` | `raised`, `outline`, `subtle`, `plain` | `raised` |
+| `size`    | `sm`, `md`, `lg`                       | `md`     |
