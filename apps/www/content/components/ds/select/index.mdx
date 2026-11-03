@@ -2,7 +2,6 @@
 title: Select
 description: Pick one or more values from a list in a dropdown.
 category: Forms
-frameworks: [react, vue, solid, svelte]
 links:
   source: packages/ui/react/src/components/select
   recipe: packages/panda/ds/src/theme/recipes/select.ts
@@ -173,11 +172,7 @@ trap.
 
 ## Recipe
 
-| Variant   | Values                       | Default   |
-| --------- | ---------------------------- | --------- |
-| `variant` | `outline`, `subtle`, `ghost` | `outline` |
-| `size`    | `xs`, `sm`, `md`, `lg`       | `md`      |
-| `fit`     | `true`                       |           |
+<RecipeVariants />
 
 | Variable                     | Description                                     |
 | ---------------------------- | ----------------------------------------------- |
@@ -187,3 +182,7 @@ trap.
 | `--input-border-hover-color` | The border on hover, `colors.border.emphasized` |
 | `--input-border-focus-color` | The border on focus and while open              |
 | `--input-border-error-color` | The border when `invalid`                       |
+
+## API
+
+<Api />

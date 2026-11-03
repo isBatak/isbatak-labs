@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { styled } from "styled-system/jsx"
 
 import type { DsNavGroup } from "./ds-nav-data"
+import { dsPermalink } from "./ds-framework"
 
 const Heading = styled("h2", {
   base: {
@@ -60,7 +61,7 @@ const NavLink = styled(
 )
 
 export function DsNavGroups({ groups }: { groups: DsNavGroup[] }) {
-  const pathname = usePathname()
+  const pathname = dsPermalink(usePathname())
 
   return groups.map((group) => (
     <Group key={group.title}>

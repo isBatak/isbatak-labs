@@ -1,61 +1,75 @@
 import type { Component } from "#site/content"
+import { Breadcrumb } from "@isbatak/react-ui/breadcrumb"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { CodeBlock } from "../code/code-block"
 import { ResourceLink } from "../docs/resource-link"
 import { demos } from "../ds-demos"
-import { REPO_URL } from "../layout/site-links"
+import { REPO_URL, STORYBOOK_URL } from "../layout/site-links"
 import { MDXContent, type MDXComponents } from "../mdx-content"
-import { Icon } from "../ui/icon"
 import { Prose } from "../ui/prose"
+import { DsApi, RecipeVariants } from "./ds-api"
+import { DsDemo, DsDemoSource, hasDsDemo } from "./ds-demo"
+import { demoSource } from "./demo-source"
 import { DsDocLayout } from "./ds-doc-layout"
 import { DsExample } from "./ds-example"
-
-const BreadcrumbLink = styled(Link, {
-  base: {
-    color: "fg.muted",
-    _hover: { color: "fg" },
-  },
-})
-
-const frameworkLabels = { react: "React", vue: "Vue", solid: "Solid", svelte: "Svelte", preact: "Preact", lit: "Lit" }
+import type { DsFrameworkId } from "./ds-framework"
+import { DsFrameworkPicker } from "./ds-framework-picker"
 
 const repoUrl = (path: string) => `${REPO_URL}/tree/main/${path}`
 
 interface ComponentPageProps {
   component: Component
-  source: string
+  framework: DsFrameworkId
 }
 
-export function ComponentPage({ component, source }: ComponentPageProps) {
-  const { title, description, frameworks, links } = component
+function Demo({ id, framework }: { id: string; framework: DsFrameworkId }) {
+  return id in demos ? <DsExample id={id} /> : <DsDemo id={id} framework={framework} />
+}
+
+async function Usage({ id, framework }: { id: string; framework: DsFrameworkId }) {
+  return id in demos ? (
+    <CodeBlock code={await demoSource(id)} lang="tsx" />
+  ) : (
+    <DsDemoSource id={id} framework={framework} />
+  )
+}
+
+export function ComponentPage({ component, framework }: ComponentPageProps) {
+  const { title, description, links } = component
   const mdxComponents: MDXComponents = {
-    Example: DsExample,
-    Usage: () => <CodeBlock code={source} lang="tsx" />,
+    Example: ({ id }: { id: string }) => <Demo id={id} framework={framework} />,
+    Usage: () => <Usage id={component.slug} framework={framework} />,
+    Api: () => <DsApi slug={component.slug} framework={framework} />,
+    RecipeVariants: () => <RecipeVariants slug={component.slug} />,
   }
 
   return (
     <DsDocLayout section="components" toc={component.toc}>
-      <styled.nav aria-label="Breadcrumb" display="flex" alignItems="center" gap="2" textStyle="sm">
-        <BreadcrumbLink href="/ds/components">Design system</BreadcrumbLink>
-        <Icon name="chevron-right" color="fg.subtle" />
-        <styled.span color="fg" aria-current="page">
-          {title}
-        </styled.span>
-      </styled.nav>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link asChild>
+              <Link href="/ds/components">Components</Link>
+            </Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator>/</Breadcrumb.Separator>
+          <Breadcrumb.Item>
+            <DsFrameworkPicker slug={component.slug} framework={framework} />
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator>/</Breadcrumb.Separator>
+          <Breadcrumb.Item>
+            <Breadcrumb.CurrentLink>{title}</Breadcrumb.CurrentLink>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
 
       <styled.h1 mt="8" textStyle={{ base: "4xl", md: "5xl" }} fontWeight="semibold" letterSpacing="tight">
         {title}
       </styled.h1>
       <styled.p mt="4" color="fg.muted" textStyle="md" lineHeight="1.8" maxW="2xl">
         {description}
-      </styled.p>
-
-      <styled.p mt="3" textStyle="sm" color="fg.subtle">
-        {new Intl.ListFormat("en", { type: "conjunction" }).format(
-          frameworks.map((framework) => frameworkLabels[framework]),
-        )}
       </styled.p>
 
       <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
@@ -72,11 +86,19 @@ export function ComponentPage({ component, source }: ComponentPageProps) {
             Ark UI docs
           </ResourceLink>
         )}
+        {hasDsDemo(component.slug) && (
+          <ResourceLink
+            href={`${STORYBOOK_URL}/?path=/story/${framework}_ds-${component.slug}--usage`}
+            icon="brand-storybook"
+          >
+            Storybook
+          </ResourceLink>
+        )}
       </styled.div>
 
-      {component.hero && component.slug in demos && (
+      {component.hero && (hasDsDemo(component.slug) || component.slug in demos) && (
         <styled.div mt="10" mb="8">
-          <DsExample id={component.slug} />
+          <Demo id={component.slug} framework={framework} />
         </styled.div>
       )}
 

@@ -2,7 +2,6 @@
 title: Table
 description: Show rows of data in columns, with sticky headers and columns, selectable rows and borders.
 category: Data Display
-frameworks: [react]
 links:
   source: packages/ui/react/src/components/table
   recipe: packages/panda/ds/src/theme/recipes/table.ts
@@ -64,14 +63,7 @@ header should stop below something else, such as a site header.
 
 ## Recipe
 
-| Variant             | Values           | Default |
-| ------------------- | ---------------- | ------- |
-| `size`              | `sm`, `md`, `lg` | `md`    |
-| `showRowBorder`     | `true`, `false`  | `true`  |
-| `showColumnBorder`  | `true`, `false`  |         |
-| `interactive`       | `true`           |         |
-| `stickyHeader`      | `true`           |         |
-| `highlightedHeader` | `true`           |         |
+<RecipeVariants />
 
 | Variable                  | Default               | Description                                  |
 | ------------------------- | --------------------- | -------------------------------------------- |
@@ -79,3 +71,7 @@ header should stop below something else, such as a site header.
 | `--table-row-hover-bg`    | `colors.bg.muted`     | The background of a hovered interactive row  |
 | `--table-row-selected-bg` | `colorPalette.subtle` | The background of a selected row             |
 | `--table-sticky-offset`   | `0`                   | How far from the top the sticky header stops |
+
+## API
+
+<Api />

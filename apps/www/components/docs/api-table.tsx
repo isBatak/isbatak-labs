@@ -2,7 +2,7 @@ import { styled } from "styled-system/jsx"
 
 import api from "../../data/api.json"
 
-interface ApiMember {
+export interface ApiMember {
   type: string
   description: string
   defaultValue?: string
@@ -66,7 +66,16 @@ interface ApiTableProps {
 }
 
 export function ApiTable({ name, kind }: ApiTableProps) {
-  const members = Object.entries(api[name][kind] as Record<string, ApiMember>)
+  return <MembersTable members={api[name][kind]} label={kind === "context" ? "Prop" : "Property"} />
+}
+
+interface MembersTableProps {
+  members: Record<string, ApiMember>
+  label: string
+}
+
+export function MembersTable({ members: record, label }: MembersTableProps) {
+  const members = Object.entries(record)
   const hasDefaults = members.some(([, member]) => member.defaultValue)
 
   return (
@@ -79,7 +88,7 @@ export function ApiTable({ name, kind }: ApiTableProps) {
         </colgroup>
         <thead>
           <tr>
-            <Th>{kind === "context" ? "Prop" : "Property"}</Th>
+            <Th>{label}</Th>
             <Th>Type</Th>
             {hasDefaults && <Th>Default</Th>}
           </tr>

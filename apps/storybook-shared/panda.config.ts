@@ -9,7 +9,11 @@ export default defineConfig({
   designSystem: "@isbatak/panda-ds",
   presets: [concentricPreset, masonryPreset, swipeableListPreset, textFlipPreset, wheelPickerPreset],
   preflight: true,
-  include: ["../storybook-*/src/**/*.{ts,tsx,vue,svelte}"],
+  include: [
+    "../storybook-*/src/**/*.{ts,tsx,vue,svelte}",
+    "../compositions/src/examples/ds/**/*.{ts,tsx,vue,svelte}",
+    "../../packages/ui/*/src/**/*.{ts,tsx,vue,svelte}",
+  ],
   outdir: "styled-system",
   forceImportExtension: true,
 })

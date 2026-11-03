@@ -8,6 +8,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@isbatak/compositions": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/vue-ui": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",

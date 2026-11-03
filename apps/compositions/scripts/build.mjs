@@ -70,7 +70,12 @@ const frameworks = [
     runtime: ["react", "react-dom"],
     target: "src/components",
     exportName: (name) => name,
-    external: [/^react($|\/)/, /^react-dom($|\/)/],
+    external: [
+      /^react($|\/)/,
+      /^react-dom($|\/)/,
+      /^@ark-ui\/react($|\/)/,
+      /^@isbatak\/(react-ui|panda-ds|icons)($|\/)/,
+    ],
     banner: '"use client";',
   },
   {
@@ -145,6 +150,48 @@ const packageName = (specifier) =>
     .split("/")
     .slice(0, specifier.startsWith("@") ? 2 : 1)
     .join("/")
+
+const dsFrameworks = ["react", "vue", "svelte", "solid"]
+
+const dsExamplePath = (framework, id) => {
+  const [name, demo = "usage"] = id.split("/")
+  return `${root}/src/examples/ds/${framework.id}/${name}/${demo}.${framework.ext}`
+}
+
+const dsExportName = (id) => `${pascalCase(id.replace("/", "-"))}Demo`
+
+async function listDsExamples() {
+  const ids = new Set()
+  for (const framework of dsFrameworks) {
+    const dir = `${root}/src/examples/ds/${framework}`
+    if (!existsSync(dir)) continue
+    for (const name of await readdir(dir)) {
+      for (const file of await readdir(`${dir}/${name}`)) {
+        if (file.startsWith("_")) continue
+        const demo = basename(file, extname(file))
+        ids.add(demo === "usage" ? name : `${name}/${demo}`)
+      }
+    }
+  }
+  return [...ids].sort()
+}
+
+async function readDsExamples() {
+  const ids = await listDsExamples()
+  return Promise.all(
+    ids.map(async (id) => {
+      const entries = await Promise.all(
+        frameworks
+          .filter((framework) => dsFrameworks.includes(framework.id) && existsSync(dsExamplePath(framework, id)))
+          .map(async (framework) => [
+            framework.id,
+            { lang: framework.lang, code: await readFile(dsExamplePath(framework, id), "utf8") },
+          ]),
+      )
+      return { id, frameworks: Object.fromEntries(entries) }
+    }),
+  )
+}
 
 async function listExamples() {
   const files = await readdir(`${root}/src/examples/zag/react`)
@@ -266,15 +313,17 @@ async function writeManifest() {
     }),
   )
 
+  const ds = await readDsExamples()
+
   await mkdir(`${root}/dist`, { recursive: true })
   await writeFile(
     `${root}/dist/manifest.json`,
-    `${JSON.stringify({ frameworks: frameworks.map(({ id, label }) => ({ id, label })), stylings, apis, examples }, null, 2)}\n`,
+    `${JSON.stringify({ frameworks: frameworks.map(({ id, label }) => ({ id, label })), stylings, apis, examples, ds }, null, 2)}\n`,
   )
-  return ids
+  return { ids, dsIds: ds.map(({ id }) => id) }
 }
 
-function examplesModule(framework, ids) {
+function examplesModule(framework, { ids, dsIds }) {
   const virtualId = "virtual:examples"
   const resolvedId = `\0${virtualId}`
   return {
@@ -296,7 +345,14 @@ function examplesModule(framework, ids) {
         )
         return `${api.id}: { ${members.join(", ")} }`
       })
-      return `${imports.join("\n")}\nexport const examples = { ${entries.join(", ")} }\n`
+      const ds = dsIds.filter((id) => dsFrameworks.includes(framework.id) && existsSync(dsExamplePath(framework, id)))
+      const dsImports = ds.map((id, index) =>
+        framework.exportName
+          ? `import { ${dsExportName(id)} as Demo${index} } from ${JSON.stringify(dsExamplePath(framework, id))}`
+          : `import Demo${index} from ${JSON.stringify(dsExamplePath(framework, id))}`,
+      )
+      const dsEntry = `ds: { ${ds.map((id, index) => `${JSON.stringify(id)}: Demo${index}`).join(", ")} }`
+      return `${[...imports, ...dsImports].join("\n")}\nexport const examples = { ${[...entries, dsEntry].join(", ")} }\n`
     },
   }
 }
@@ -348,7 +404,7 @@ function exampleState() {
 
 await run(`${root}/node_modules/.bin/panda`, ["codegen"], { cwd: root })
 
-const ids = await writeManifest()
+const listed = await writeManifest()
 
 if (watch) watchFiles(`${root}/src`, { recursive: true }, () => writeManifest())
 
@@ -358,7 +414,7 @@ await Promise.all(
       root,
       configFile: false,
       logLevel: "warn",
-      plugins: [exampleState(), examplesModule(framework, ids), ...(framework.plugins?.() ?? [])],
+      plugins: [exampleState(), examplesModule(framework, listed), ...(framework.plugins?.() ?? [])],
       resolve: {
         alias: [{ find: "styled-system", replacement: `${root}/styled-system` }, ...(framework.alias ?? [])],
       },

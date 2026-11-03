@@ -2,7 +2,6 @@
 title: Password Input
 description: Password field with a button that shows or hides the password.
 category: Forms
-frameworks: [react]
 links:
   source: packages/ui/react/src/components/password-input
   recipe: packages/panda/ds/src/theme/recipes/password-input.ts
@@ -101,13 +100,14 @@ it; it gets whether the password is visible.
 
 ## Recipe
 
-| Variant   | Values                         | Default   |
-| --------- | ------------------------------ | --------- |
-| `variant` | `outline`, `subtle`, `flushed` | `outline` |
-| `size`    | `xs`, `sm`, `md`, `lg`         | `md`      |
+<RecipeVariants />
 
 | Variable         | Description                                                               |
 | ---------------- | ------------------------------------------------------------------------- |
 | `--input-height` | The input height, set by `size`. The visibility trigger is a square of it |
 | `--focus-color`  | The focus ring color, `colors.colorPalette.focusRing`                     |
 | `--error-color`  | The border and focus ring color when `invalid`, `colors.border.error`     |
+
+## API
+
+<Api />

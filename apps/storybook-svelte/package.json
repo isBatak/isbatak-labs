@@ -8,6 +8,7 @@
     "typecheck": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "@isbatak/compositions": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/svelte-ui": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",

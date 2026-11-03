@@ -1,6 +1,12 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/examples/zag/solid", "src/examples/ark/solid", "mount/solid.tsx", "mount/env.d.ts"],
+  "include": [
+    "src/examples/zag/solid",
+    "src/examples/ark/solid",
+    "src/examples/ds/solid",
+    "mount/solid.tsx",
+    "mount/env.d.ts"
+  ],
   "compilerOptions": {
     "exactOptionalPropertyTypes": false,
     "jsx": "preserve",
