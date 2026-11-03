@@ -18,7 +18,7 @@
     "studio:analog": "pnpm --filter @isbatak/sourcery --filter @isbatak/panda-ds --filter @isbatak/panda-theme-analog build && pnpm --filter @isbatak/website studio:analog",
     "changeset": "changeset",
     "version-packages": "changeset version && oxfmt",
-    "prepare": "simple-git-hooks",
+    "prepare": "simple-git-hooks && node scripts/sync-mcp.mjs",
     "clean": "pnpm -r exec rm -rf dist node_modules/.cache && rm -rf node_modules"
   },
   "devDependencies": {

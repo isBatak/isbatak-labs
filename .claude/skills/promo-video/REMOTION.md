@@ -17,7 +17,7 @@
 
 A promo is a showcase of the design system too, so everything on screen comes from it:
 
-- **Look it up in the Panda MCP.** Before styling anything, ask the `panda` MCP server what the design system has:
+- **Look it up in the Panda MCP.** Before styling anything, ask the `panda-ds` MCP server what the design system has:
   `get_recipes` for each recipe's variants and `description`, `get_semantic_tokens` and `get_text_styles` for colors
   and type, `get_layer_styles` and `get_patterns` for the rest. Pick from what it returns; never guess a variant or a
   token name.

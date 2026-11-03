@@ -1,8 +1,12 @@
 {
   "mcpServers": {
-    "panda": {
+    "panda-ds": {
       "command": "node_modules/.bin/panda-mcp",
       "args": ["--cwd", "apps/www", "--silent"]
+    },
+    "panda-analog": {
+      "command": "node_modules/.bin/panda-mcp",
+      "args": ["--cwd", "packages/panda/themes/analog", "--silent"]
     }
   }
 }

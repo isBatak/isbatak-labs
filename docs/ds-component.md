@@ -42,6 +42,6 @@ Ark and Zag sources for upstream components are in `node_modules/.pnpm/@zag-js+<
 
 ## Changeset
 
-Add `.changeset/<slug>.md` naming every published package you touched: `@isbatak/panda-ds`,
-`@isbatak/panda-theme-analog`, `@isbatak/<framework>-ui`, `@isbatak/ark-<name>`, `@isbatak/zag-<name>`. Apps are not
-published.
+Add `.changeset/<slug>.md` naming every package you touched: `@isbatak/panda-ds`, `@isbatak/panda-theme-analog`,
+`@isbatak/<framework>-ui`, `@isbatak/ark-<name>`, `@isbatak/zag-<name>`. The `-ui` packages are private but still get
+changesets; apps don't.
