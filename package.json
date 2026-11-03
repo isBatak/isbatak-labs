@@ -18,6 +18,7 @@
     "studio:analog": "pnpm --filter @isbatak/sourcery --filter @isbatak/panda-ds --filter @isbatak/panda-theme-analog build && pnpm --filter @isbatak/website studio:analog",
     "changeset": "changeset",
     "version-packages": "changeset version && oxfmt",
+    "prepare": "simple-git-hooks",
     "clean": "pnpm -r exec rm -rf dist node_modules/.cache && rm -rf node_modules"
   },
   "devDependencies": {
@@ -29,11 +30,23 @@
     "@playwright/test": "^1.64.1",
     "@types/node": "25.9.5",
     "esbuild-plugin-file-path-extensions": "^2.1.4",
+    "lint-staged": "17.6.0",
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
     "oxlint-tsgolint": "7.0.2005",
+    "simple-git-hooks": "2.14.0",
     "tsup": "8.5.1",
     "typescript": "6.0.3",
     "vitest": "catalog:"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mts,mjs,js,vue,svelte}": [
+      "oxlint",
+      "oxfmt --no-error-on-unmatched-pattern"
+    ],
+    "*.{md,mdx,json,yaml,yml,css}": "oxfmt --no-error-on-unmatched-pattern"
   }
 }

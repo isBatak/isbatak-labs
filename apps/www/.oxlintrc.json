@@ -16,7 +16,7 @@
       "warn",
       {
         "categories": ["colors", "spacing", "radii", "fontSizes"],
-        "allow": ["0"]
+        "allow": ["0", "concentric"]
       }
     ],
     "pandacss-www/no-invalid-token-paths": "error",

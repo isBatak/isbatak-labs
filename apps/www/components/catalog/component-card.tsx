@@ -33,7 +33,7 @@ const Card = styled("article", {
     "&:has(a:focus-visible)": {
       outline: "2px solid",
       outlineColor: "colorPalette.focusRing",
-      outlineOffset: "2px",
+      outlineOffset: "0.5",
     },
   },
 })

@@ -32,7 +32,7 @@ const pagerItem = {
   display: "block",
   borderRadius: "l2",
   _hover: { "& > span:last-child": { textDecoration: "underline", textUnderlineOffset: "4px" } },
-  _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "4px" },
+  _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "1" },
 } as const
 
 const PagerLink = styled(Link, { base: pagerItem }, { defaultProps: { prefetch: true } })

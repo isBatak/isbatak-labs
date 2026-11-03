@@ -48,7 +48,7 @@ const Row = styled("a", {
     color: "fg",
     transition: "background 0.15s",
     _hover: { bg: "bg.muted" },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+    focusVisibleRing: "outside",
   },
 })
 

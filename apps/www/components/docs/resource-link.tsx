@@ -19,7 +19,7 @@ const Anchor = styled("a", {
       color: "fg",
       "& > span": { textDecorationColor: "fg.subtle" },
     },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "4px" },
+    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "1" },
   },
 })
 

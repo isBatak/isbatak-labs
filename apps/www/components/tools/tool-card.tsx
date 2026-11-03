@@ -17,7 +17,7 @@ const itemStyles = {
   transitionProperty: "background, border-color, box-shadow, translate",
   transitionDuration: "moderate",
   _hover: { bg: "bg", borderColor: "border.emphasized", shadow: "md", translate: "0 -2px" },
-  _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+  focusVisibleRing: "outside",
 } as const
 
 const InternalItem = styled(Link, { base: itemStyles }, { defaultProps: { prefetch: true } })

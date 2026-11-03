@@ -786,7 +786,7 @@ function TourThumb() {
         className={pill({ variant: "solid" })}
         outline="2px solid"
         outlineColor="bg"
-        outlineOffset="2px"
+        outlineOffset="0.5"
       >
         <span className={bar({ w: "8", tone: "inverted" })} />
       </styled.span>
