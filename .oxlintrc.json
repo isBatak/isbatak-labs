@@ -8,8 +8,7 @@
     "@pandacss/prefer-token": [
       "warn",
       {
-        "categories": ["colors", "spacing", "radii", "fontSizes"],
-        "allow": ["0"]
+        "categories": ["colors", "spacing", "radii", "fontSizes"]
       }
     ],
     "@pandacss/no-invalid-token-paths": "error",

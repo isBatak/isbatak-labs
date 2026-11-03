@@ -3,7 +3,6 @@ title: Grid table
 description:
   A table laid out with CSS grid, for column sizes a native table can't express and rows built from any element.
 category: Data Display
-frameworks: [react]
 links:
   source: packages/ui/react/src/components/grid-table
   recipe: packages/panda/ds/src/theme/recipes/grid-table.ts
@@ -52,13 +51,10 @@ between columns. `size` and `showRowBorder` work as they do on Table.
 
 ## Recipe
 
-| Variant             | Values           | Default |
-| ------------------- | ---------------- | ------- |
-| `size`              | `sm`, `md`, `lg` | `md`    |
-| `showRowBorder`     | `true`, `false`  | `true`  |
-| `showColumnBorder`  | `true`, `false`  |         |
-| `interactive`       | `true`           |         |
-| `stickyHeader`      | `true`           |         |
-| `highlightedHeader` | `true`           |         |
+<RecipeVariants />
 
 The variables are the same as Table's, plus `--grid-template-columns`.
+
+## API
+
+<Api />

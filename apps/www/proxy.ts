@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 
+import { defaultDsFramework, dsComponentPath, isDsFramework } from "./components/ds/ds-framework"
 import {
   API_KEY,
   defaultVariant,
@@ -16,6 +17,11 @@ export function proxy(request: NextRequest) {
   const styling = request.cookies.get(STYLING_KEY)?.value
   const api = request.cookies.get(API_KEY)?.value
   const url = request.nextUrl.clone()
+  const dsSlug = url.pathname.match(/^\/ds\/components\/([^/.]+)$/)?.[1]
+  if (dsSlug) {
+    url.pathname = dsComponentPath(isDsFramework(framework) ? framework : defaultDsFramework, dsSlug)
+    return NextResponse.rewrite(url)
+  }
   url.pathname = variantPath(url.pathname, {
     framework: isFramework(framework) ? framework : defaultVariant.framework,
     styling: isStyling(styling) ? styling : defaultVariant.styling,
@@ -26,6 +32,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/ds/components/:slug((?!react$|vue$|svelte$|solid$)[^/.]+)",
     {
       source: "/components/prototypes/:slug([^/.]+)",
       missing: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],

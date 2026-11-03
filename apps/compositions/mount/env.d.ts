@@ -7,6 +7,6 @@ declare module "*.vue" {
 declare module "*.css"
 
 declare module "virtual:examples" {
-  export type ApiId = "zag" | "ark"
+  export type ApiId = "zag" | "ark" | "ds"
   export const examples: Record<ApiId, Record<string, any>>
 }

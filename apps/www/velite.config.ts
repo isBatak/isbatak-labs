@@ -29,7 +29,6 @@ const components = defineCollection({
       status,
       hidden: s.boolean().default(false),
       hero: s.boolean().default(true),
-      frameworks: s.array(s.enum(["react", "vue", "solid", "svelte", "preact", "lit"])),
       links: s.object({
         source: s.string(),
         recipe: s.string().optional(),

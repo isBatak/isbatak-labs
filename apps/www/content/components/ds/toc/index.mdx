@@ -3,7 +3,6 @@ title: Table of contents
 description: List the headings on a page and highlight the ones in view as the reader scrolls.
 category: Navigation
 hero: false
-frameworks: [react]
 links:
   source: packages/ui/react/src/components/toc
   recipe: packages/panda/ds/src/theme/recipes/toc.ts
@@ -65,10 +64,7 @@ safe to leave in when you switch variants.
 
 ## Recipe
 
-| Variant   | Values          | Default |
-| --------- | --------------- | ------- |
-| `variant` | `line`, `track` | `line`  |
-| `size`    | `sm`, `md`      | `md`    |
+<RecipeVariants />
 
 | Variable            | Default       | Description                                          |
 | ------------------- | ------------- | ---------------------------------------------------- |
@@ -77,3 +73,7 @@ safe to leave in when you switch variants.
 
 Both take any length or token. `Toc.Track` measures `--toc-indent` to draw the line, so changing it moves the line with
 the links.
+
+## API
+
+<Api />

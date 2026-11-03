@@ -5,5 +5,5 @@ export interface ExampleControls {
   recipe?: Record<string, string>
 }
 
-export declare const examples: Record<"zag" | "ark", Record<string, ComponentType>>
+export declare const examples: Record<"zag" | "ark" | "ds", Record<string, ComponentType>>
 export declare function setControls(exampleId: string, value: ExampleControls): void

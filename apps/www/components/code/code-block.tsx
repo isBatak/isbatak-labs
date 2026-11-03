@@ -46,7 +46,7 @@ const Pre = styled("pre", {
     p: "4",
     overflowX: "auto",
     bg: "transparent",
-    borderRadius: "0",
+    borderRadius: "none",
     fontFamily: "mono",
     fontSize: "0.8125rem",
     lineHeight: "1.7",

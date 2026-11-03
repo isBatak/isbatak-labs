@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/examples/zag/vue", "src/examples/ark/vue", "mount/vue.ts", "mount/env.d.ts"],
+  "include": ["src/examples/zag/vue", "src/examples/ark/vue", "src/examples/ds/vue", "mount/vue.ts", "mount/env.d.ts"],
   "compilerOptions": {
     "exactOptionalPropertyTypes": false,
     "types": ["node"],
