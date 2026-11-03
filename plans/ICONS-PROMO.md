@@ -1,7 +1,7 @@
 # Icons promo posts
 
-Posts for the replaceable icons video ([ICONS-REPLACEABLE.md](./ICONS-REPLACEABLE.md)). Replace `<SITE_URL>` with the
-production www URL and tag Goran Tomičić on each platform before posting.
+Posts for the replaceable icons video. Replace `<SITE_URL>` with the production www URL and tag Goran Tomičić on each
+platform before posting.
 
 Video: `apps/www/public/videos/icons-demo.mp4` (16:9, 36s) for LinkedIn and X, and
 `pnpm --filter promos render:icons-vertical` for Shorts, Reels and TikTok.
