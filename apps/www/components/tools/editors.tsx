@@ -25,7 +25,7 @@ const EditorButton = styled("button", {
     transitionProperty: "border-color, background",
     transitionDuration: "fast",
     _hover: { borderColor: "border.emphasized", bg: "bg.subtle" },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "2px" },
+    focusVisibleRing: "outside",
   },
 })
 

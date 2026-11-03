@@ -11,6 +11,7 @@ allowBuilds:
   esbuild: true
   node-pty: false
   sharp: false
+  simple-git-hooks: false
 
 # Supply-chain hardening (see https://pnpm.io/supply-chain-security)
 minimumReleaseAge: 1440
