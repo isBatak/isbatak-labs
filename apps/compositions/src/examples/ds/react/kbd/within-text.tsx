@@ -1,10 +1,10 @@
 import { Kbd } from "@isbatak/react-ui/kbd"
-import { styled } from "styled-system/jsx"
+import { Text } from "@isbatak/react-ui/text"
 
 export function KbdWithinTextDemo() {
   return (
-    <styled.p textStyle="sm">
+    <Text textStyle="sm">
       Press <Kbd>F12</Kbd> to open the developer tools.
-    </styled.p>
+    </Text>
   )
 }

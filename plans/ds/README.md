@@ -68,24 +68,26 @@ Decided in [layout.md](layout.md): every recommendation accepted.
 
 ## Typography
 
-- [ ] text
-- [ ] heading — has: recipe
-- [ ] span
-- [ ] em
-- [ ] strong
-- [ ] code — has: recipe
-- [ ] code-block
-- [ ] kbd — has: recipe react vue svelte solid docs
-- [ ] link — has: recipe
-- [ ] link-overlay
-- [ ] mark — has: recipe
-- [ ] highlight
-- [ ] blockquote — has: recipe
-- [ ] quote
-- [ ] list — has: recipe
-- [ ] prose — has: recipe
-- [ ] icon — has: recipe react vue svelte solid docs
-- [ ] visually-hidden
+Decided in [typography.md](typography.md): every recommendation accepted.
+
+- [x] text
+- [x] heading
+- [x] span
+- [x] em
+- [x] strong
+- [x] code
+- [ ] code-block — deferred: plan it alongside code-preview
+- [x] kbd
+- [x] link
+- [x] link-overlay
+- [x] mark
+- [x] highlight
+- [x] blockquote
+- [x] quote
+- [x] list
+- [x] prose
+- [x] icon
+- [x] visually-hidden
 
 ## Buttons and form controls
 

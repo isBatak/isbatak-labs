@@ -1,0 +1,33 @@
+---
+title: Highlight
+description: Highlight the words in a text that match a query.
+category: Typography
+links:
+  source: packages/ui/react/src/components/highlight
+  recipe: packages/panda/ds/src/theme/recipes/mark.ts
+---
+
+Built on Ark UI's Highlight. Each match renders as a `mark` styled by the Mark recipe, so it takes the same `variant`.
+`text` must be a string.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Several queries
+
+`query` takes an array.
+
+<Example id="highlight/multiple" />
+
+### Match all
+
+`matchAll` highlights every occurrence, and `ignoreCase` ignores case.
+
+<Example id="highlight/match-all" />
+
+## API
+
+<Api />
