@@ -1,6 +1,8 @@
 import { defineConfig } from "@pandacss/dev"
 import { typographyPreset } from "@pandacss/preset-typography"
 
+import { presetBasePlugin } from "@isbatak/panda-ds/theme"
+
 import { analog } from "./src"
 
 export default defineConfig({
@@ -19,4 +21,5 @@ export default defineConfig({
   dependencies: ["./src/**/*.ts"],
   outdir: "styled-system",
   forceImportExtension: true,
+  plugins: [presetBasePlugin],
 })

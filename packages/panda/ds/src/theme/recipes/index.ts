@@ -16,6 +16,7 @@ import { collapsibleSlotRecipe } from "./collapsible"
 import { colorPickerSlotRecipe } from "./color-picker"
 import { colorSwatchRecipe } from "./color-swatch"
 import { comboboxSlotRecipe } from "./combobox"
+import { containerRecipe } from "./container"
 import { dataListSlotRecipe } from "./data-list"
 import { dateInputSlotRecipe } from "./date-input"
 import { datePickerSlotRecipe } from "./date-picker"
@@ -85,6 +86,7 @@ export const recipes = {
   badge: badgeRecipe,
   button: buttonRecipe,
   code: codeRecipe,
+  container: containerRecipe,
   heading: headingRecipe,
   input: inputRecipe,
   inputAddon: inputAddonRecipe,
