@@ -23,6 +23,7 @@ import { datePickerSlotRecipe } from "./date-picker"
 import { dialogSlotRecipe } from "./dialog"
 import { drawerSlotRecipe } from "./drawer"
 import { editableSlotRecipe } from "./editable"
+import { emRecipe } from "./em"
 import { emptyStateSlotRecipe } from "./empty-state"
 import { fieldSlotRecipe } from "./field"
 import { fieldsetSlotRecipe } from "./fieldset"
@@ -69,6 +70,7 @@ import { splitterSlotRecipe } from "./splitter"
 import { statSlotRecipe } from "./stat"
 import { statusSlotRecipe } from "./status"
 import { stepsSlotRecipe } from "./steps"
+import { strongRecipe } from "./strong"
 import { switchSlotRecipe } from "./switch"
 import { tableSlotRecipe } from "./table"
 import { tabsSlotRecipe } from "./tabs"
@@ -87,6 +89,7 @@ export const recipes = {
   button: buttonRecipe,
   code: codeRecipe,
   container: containerRecipe,
+  em: emRecipe,
   heading: headingRecipe,
   input: inputRecipe,
   inputAddon: inputAddonRecipe,
@@ -95,6 +98,7 @@ export const recipes = {
   link: linkRecipe,
   mark: markRecipe,
   separator: separatorRecipe,
+  strong: strongRecipe,
   skeleton: skeletonRecipe,
   skipNavLink: skipNavLinkRecipe,
   spinner: spinnerRecipe,

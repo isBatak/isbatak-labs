@@ -1,5 +1,5 @@
 import { Icon } from "@isbatak/react-ui/icon"
-import { HStack } from "styled-system/jsx"
+import { HStack } from "@isbatak/react-ui/stack"
 
 export function IconDemo() {
   return (

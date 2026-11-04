@@ -190,6 +190,19 @@
     ],
     "variants": {}
   },
+  "blockquote": {
+    "parts": [],
+    "variants": {
+      "justify": {
+        "values": ["start", "center", "end"],
+        "defaultValue": "start"
+      },
+      "variant": {
+        "values": ["subtle", "solid", "plain"],
+        "defaultValue": "subtle"
+      }
+    }
+  },
   "box": {
     "parts": [],
     "variants": {}
@@ -310,6 +323,19 @@
       }
     ],
     "variants": {}
+  },
+  "code": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["solid", "subtle", "outline", "surface", "plain"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "sm"
+      }
+    }
   },
   "container": {
     "parts": [],
@@ -609,6 +635,10 @@
         "values": ["true"]
       }
     }
+  },
+  "em": {
+    "parts": [],
+    "variants": {}
   },
   "flex": {
     "parts": [
@@ -921,6 +951,45 @@
       }
     }
   },
+  "heading": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl"],
+        "defaultValue": "xl"
+      }
+    }
+  },
+  "highlight": {
+    "parts": [
+      {
+        "name": "Highlight",
+        "props": {
+          "text": {
+            "type": "string",
+            "description": "The text to highlight"
+          },
+          "query": {
+            "type": "string | string[]",
+            "description": "The query to highlight in the text"
+          },
+          "ignoreCase": {
+            "type": "boolean | undefined",
+            "description": "Whether to ignore case while matching"
+          },
+          "matchAll": {
+            "type": "boolean | undefined",
+            "description": "Whether to match multiple instances of the query"
+          },
+          "exactMatch": {
+            "type": "boolean | undefined",
+            "description": "Whether to match whole words only"
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "hover-card": {
     "parts": [
       {
@@ -1088,6 +1157,31 @@
       }
     }
   },
+  "link": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["underline", "plain"],
+        "defaultValue": "plain"
+      }
+    }
+  },
+  "link-overlay": {
+    "parts": [],
+    "variants": {}
+  },
+  "list": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["marker", "plain"],
+        "defaultValue": "marker"
+      },
+      "align": {
+        "values": ["center", "start", "end"]
+      }
+    }
+  },
   "loader": {
     "parts": [
       {
@@ -1113,6 +1207,14 @@
       }
     ],
     "variants": {}
+  },
+  "mark": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "solid", "text", "plain"]
+      }
+    }
   },
   "menu": {
     "parts": [
@@ -1744,6 +1846,19 @@
         "defaultValue": "md"
       }
     }
+  },
+  "prose": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
+  "quote": {
+    "parts": [],
+    "variants": {}
   },
   "radio-card": {
     "parts": [
@@ -2522,6 +2637,10 @@
     ],
     "variants": {}
   },
+  "span": {
+    "parts": [],
+    "variants": {}
+  },
   "spinner": {
     "parts": [],
     "variants": {
@@ -2561,12 +2680,12 @@
             "type": "SystemProperties[\"gap\"]",
             "description": ""
           },
-          "align": {
-            "type": "SystemProperties[\"alignItems\"]",
-            "description": ""
-          },
           "justify": {
             "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
             "description": ""
           },
           "wrap": {
@@ -2600,6 +2719,10 @@
     "variants": {}
   },
   "sticky": {
+    "parts": [],
+    "variants": {}
+  },
+  "strong": {
     "parts": [],
     "variants": {}
   },
@@ -2842,6 +2965,10 @@
         "defaultValue": "line"
       }
     }
+  },
+  "text": {
+    "parts": [],
+    "variants": {}
   },
   "toc": {
     "parts": [
@@ -3154,6 +3281,10 @@
         }
       }
     ],
+    "variants": {}
+  },
+  "visually-hidden": {
+    "parts": [],
     "variants": {}
   },
   "wrap": {

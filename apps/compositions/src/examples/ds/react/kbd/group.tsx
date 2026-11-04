@@ -1,9 +1,9 @@
 import { Kbd, KbdGroup } from "@isbatak/react-ui/kbd"
-import { Stack } from "styled-system/jsx"
+import { Stack } from "@isbatak/react-ui/stack"
 
 export function KbdGroupDemo() {
   return (
-    <Stack gap="4" alignItems="flex-start">
+    <Stack gap="4" align="flex-start">
       <KbdGroup>
         <Kbd>⌘</Kbd>
         <Kbd>K</Kbd>

@@ -1,5 +1,5 @@
 import { Kbd } from "@isbatak/react-ui/kbd"
-import { HStack } from "styled-system/jsx"
+import { HStack } from "@isbatak/react-ui/stack"
 
 export function KbdVariantsDemo() {
   return (

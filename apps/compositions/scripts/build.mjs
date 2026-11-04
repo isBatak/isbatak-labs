@@ -431,7 +431,7 @@ await Promise.all(
           cssFileName: framework.id,
         },
         rollupOptions: {
-          external: framework.external ?? [],
+          external: framework.external ?? [/^@isbatak\/icons($|\/)/],
           output: { banner: framework.banner ?? "" },
           onLog: (level, log, handler) => log.code !== "MODULE_LEVEL_DIRECTIVE" && handler(level, log),
         },

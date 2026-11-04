@@ -11,6 +11,11 @@ export const linkRecipe = defineRecipe({
     cursor: "pointer",
     borderRadius: "l1",
     focusVisibleRing: "outside",
+    _icon: {
+      boxSize: "4",
+      minW: "0",
+      flex: "1 0 auto",
+    },
   },
   variants: {
     variant: {

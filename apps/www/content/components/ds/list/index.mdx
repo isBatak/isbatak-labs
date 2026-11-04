@@ -1,0 +1,35 @@
+---
+title: List
+description: An ordered or unordered list.
+category: Typography
+links:
+  source: packages/ui/react/src/components/list
+  recipe: packages/panda/ds/src/theme/recipes/list.ts
+---
+
+`Root` renders a `ul` with `role="list"`, so lists styled without markers are still announced as lists. Use `asChild`
+(`as` in Svelte) to render an `ol`.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Ordered
+
+<Example id="list/ordered" />
+
+### Nested
+
+<Example id="list/nested" />
+
+### With icons
+
+`variant="plain"` drops the markers, and `Indicator` holds an icon instead.
+
+<Example id="list/with-icon" />
+
+## Recipe
+
+<RecipeVariants />
