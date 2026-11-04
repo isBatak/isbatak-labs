@@ -1,0 +1,38 @@
+---
+title: Simple grid
+description: Equal columns, or as many as fit, set at runtime and per breakpoint.
+category: Layout
+links:
+  source: packages/ui/react/src/components/simple-grid
+---
+
+`SimpleGrid` writes `columns` and `minChildWidth` to CSS variables, so values that are only known at runtime still work.
+Use `Grid` when the values are written in the source.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Responsive columns
+
+<Example id="simple-grid/responsive-columns" />
+
+### Auto-fit
+
+`minChildWidth` fits as many columns as there's room for, each at least that wide.
+
+<Example id="simple-grid/autofit" />
+
+### Column span
+
+<Example id="simple-grid/col-span" />
+
+### Row and column gap
+
+<Example id="simple-grid/row-and-column-gap" />
+
+## API
+
+<Api />

@@ -1,0 +1,25 @@
+---
+title: Float gap
+description: Cut a gap into an element so a floating dot or badge sits in a notch.
+category: Layout
+links:
+  source: packages/ui/react/src/components/float-gap
+---
+
+Put `FloatGap` around the element and a `Float` with the same `placement` and `offset` next to it. `cutoutSize` (or
+`cutoutWidth` and `cutoutHeight`), `cutoutRadius` and `cutoutGap` shape the notch. It relies on CSS `shape()`, supported
+in Chromium 135+ and Safari 18.4+; Firefox shows no notch.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Placements
+
+<Example id="float-gap/placements" />
+
+## API
+
+<Api />

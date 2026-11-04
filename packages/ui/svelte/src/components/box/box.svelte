@@ -9,7 +9,7 @@
   > &
     JsxStyleProps & {
       as?: T
-      ref?: HTMLElement | null
+      ref?: HTMLElement | null | undefined
       children?: Snippet
     }
 </script>
@@ -18,7 +18,7 @@
   import { css as toClass } from "@isbatak/panda-ds/css"
   import { splitCssProps } from "@isbatak/panda-ds/jsx/is-valid-prop"
 
-  let { as, ref = $bindable(null), class: className, children, ...props }: BoxProps<T> = $props()
+  let { as, ref = $bindable(), class: className, children, ...props }: BoxProps<T> = $props()
   const [styleProps, htmlProps] = $derived(splitCssProps(props))
   const classes = $derived.by(() => {
     const { css: cssProp, ...propStyles } = styleProps

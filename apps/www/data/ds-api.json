@@ -1,4 +1,18 @@
 {
+  "absolute-center": {
+    "parts": [
+      {
+        "name": "AbsoluteCenter",
+        "props": {
+          "axis": {
+            "type": "ConditionalValue<\"horizontal\" | \"vertical\" | \"both\">",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "accordion": {
     "parts": [
       {
@@ -112,6 +126,20 @@
       }
     }
   },
+  "aspect-ratio": {
+    "parts": [
+      {
+        "name": "AspectRatio",
+        "props": {
+          "ratio": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "badge": {
     "parts": [],
     "variants": {
@@ -127,6 +155,44 @@
         "values": ["true"]
       }
     }
+  },
+  "bleed": {
+    "parts": [
+      {
+        "name": "Bleed",
+        "props": {
+          "block": {
+            "type": "SystemProperties[\"marginBlock\"]",
+            "description": ""
+          },
+          "blockEnd": {
+            "type": "SystemProperties[\"marginBlockEnd\"]",
+            "description": ""
+          },
+          "blockStart": {
+            "type": "SystemProperties[\"marginBlockStart\"]",
+            "description": ""
+          },
+          "inline": {
+            "type": "SystemProperties[\"marginInline\"]",
+            "description": ""
+          },
+          "inlineEnd": {
+            "type": "SystemProperties[\"marginInlineEnd\"]",
+            "description": ""
+          },
+          "inlineStart": {
+            "type": "SystemProperties[\"marginInlineStart\"]",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "box": {
+    "parts": [],
+    "variants": {}
   },
   "button": {
     "parts": [
@@ -214,6 +280,45 @@
       },
       "icon": {
         "values": ["true", "false"]
+      }
+    }
+  },
+  "center": {
+    "parts": [
+      {
+        "name": "Center",
+        "props": {
+          "inline": {
+            "type": "ConditionalValue<boolean>",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "circle": {
+    "parts": [
+      {
+        "name": "Circle",
+        "props": {
+          "size": {
+            "type": "SystemProperties[\"width\"]",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "container": {
+    "parts": [],
+    "variants": {
+      "centerContent": {
+        "values": ["true"]
+      },
+      "fluid": {
+        "values": ["true"]
       }
     }
   },
@@ -504,6 +609,227 @@
         "values": ["true"]
       }
     }
+  },
+  "flex": {
+    "parts": [
+      {
+        "name": "Flex",
+        "props": {
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
+            "description": ""
+          },
+          "basis": {
+            "type": "SystemProperties[\"flexBasis\"]",
+            "description": ""
+          },
+          "direction": {
+            "type": "SystemProperties[\"flexDirection\"]",
+            "description": ""
+          },
+          "grow": {
+            "type": "SystemProperties[\"flexGrow\"]",
+            "description": ""
+          },
+          "inline": {
+            "type": "ConditionalValue<boolean>",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "shrink": {
+            "type": "SystemProperties[\"flexShrink\"]",
+            "description": ""
+          },
+          "wrap": {
+            "type": "SystemProperties[\"flexWrap\"]",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "float": {
+    "parts": [
+      {
+        "name": "Float",
+        "props": {
+          "offset": {
+            "type": "ConditionalValue<TokenValue<\"spacing\"> | SystemProperties[\"top\"]>",
+            "description": ""
+          },
+          "offsetX": {
+            "type": "ConditionalValue<TokenValue<\"spacing\"> | SystemProperties[\"left\"]>",
+            "description": ""
+          },
+          "offsetY": {
+            "type": "ConditionalValue<TokenValue<\"spacing\"> | SystemProperties[\"top\"]>",
+            "description": ""
+          },
+          "placement": {
+            "type": "ConditionalValue<\"bottom-end\" | \"bottom-start\" | \"top-end\" | \"top-start\" | \"bottom-center\" | \"top-center\" | \"middle-center\" | \"middle-end\" | \"middle-start\">",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "float-gap": {
+    "parts": [
+      {
+        "name": "FloatGap",
+        "props": {
+          "cutoutGap": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "cutoutH": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "cutoutHeight": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "cutoutRadius": {
+            "type": "ConditionalValue<TokenValue<\"radii\">>",
+            "description": ""
+          },
+          "cutoutSize": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "cutoutW": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "cutoutWidth": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "offset": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "offsetX": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "offsetY": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          },
+          "placement": {
+            "type": "ConditionalValue<\"bottom-end\" | \"bottom-start\" | \"top-end\" | \"top-start\" | \"bottom-center\" | \"top-center\" | \"middle-center\" | \"middle-end\" | \"middle-start\">",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "grid": {
+    "parts": [
+      {
+        "name": "GridItem",
+        "props": {
+          "area": {
+            "type": "SystemProperties[\"gridArea\"]",
+            "description": ""
+          },
+          "colEnd": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "colSpan": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "colStart": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "rowEnd": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "rowSpan": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "rowStart": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Grid",
+        "props": {
+          "autoColumns": {
+            "type": "SystemProperties[\"gridAutoColumns\"]",
+            "description": ""
+          },
+          "autoFlow": {
+            "type": "SystemProperties[\"gridAutoFlow\"]",
+            "description": ""
+          },
+          "autoRows": {
+            "type": "SystemProperties[\"gridAutoRows\"]",
+            "description": ""
+          },
+          "column": {
+            "type": "SystemProperties[\"gridColumn\"]",
+            "description": ""
+          },
+          "columnGap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "columns": {
+            "type": "ConditionalValue<number>",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "inline": {
+            "type": "ConditionalValue<boolean>",
+            "description": ""
+          },
+          "minChildWidth": {
+            "type": "ConditionalValue<TokenValue<\"sizes\"> | SystemProperties[\"width\"]>",
+            "description": ""
+          },
+          "row": {
+            "type": "SystemProperties[\"gridRow\"]",
+            "description": ""
+          },
+          "rowGap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "templateAreas": {
+            "type": "SystemProperties[\"gridTemplateAreas\"]",
+            "description": ""
+          },
+          "templateColumns": {
+            "type": "SystemProperties[\"gridTemplateColumns\"]",
+            "description": ""
+          },
+          "templateRows": {
+            "type": "SystemProperties[\"gridTemplateRows\"]",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "grid-table": {
     "parts": [
@@ -1936,6 +2262,89 @@
       }
     }
   },
+  "separator": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["solid", "dashed", "dotted"],
+        "defaultValue": "solid"
+      },
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "horizontal"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "sm"
+      }
+    }
+  },
+  "simple-grid": {
+    "parts": [
+      {
+        "name": "SimpleGrid",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<number> | undefined",
+            "description": ""
+          },
+          "minChildWidth": {
+            "type": "ConditionalValue<string | number> | undefined",
+            "description": ""
+          },
+          "row": {
+            "type": "SystemProperties[\"gridRow\"]",
+            "description": ""
+          },
+          "columnGap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "rowGap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "inline": {
+            "type": "ConditionalValue<boolean>",
+            "description": ""
+          },
+          "autoColumns": {
+            "type": "SystemProperties[\"gridAutoColumns\"]",
+            "description": ""
+          },
+          "autoFlow": {
+            "type": "SystemProperties[\"gridAutoFlow\"]",
+            "description": ""
+          },
+          "autoRows": {
+            "type": "SystemProperties[\"gridAutoRows\"]",
+            "description": ""
+          },
+          "column": {
+            "type": "SystemProperties[\"gridColumn\"]",
+            "description": ""
+          },
+          "templateAreas": {
+            "type": "SystemProperties[\"gridTemplateAreas\"]",
+            "description": ""
+          },
+          "templateColumns": {
+            "type": "SystemProperties[\"gridTemplateColumns\"]",
+            "description": ""
+          },
+          "templateRows": {
+            "type": "SystemProperties[\"gridTemplateRows\"]",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "slider": {
     "parts": [
       {
@@ -2099,6 +2508,20 @@
       }
     }
   },
+  "spacer": {
+    "parts": [
+      {
+        "name": "Spacer",
+        "props": {
+          "size": {
+            "type": "ConditionalValue<TokenValue<\"spacing\">>",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "spinner": {
     "parts": [],
     "variants": {
@@ -2107,6 +2530,78 @@
         "defaultValue": "md"
       }
     }
+  },
+  "stack": {
+    "parts": [
+      {
+        "name": "HStack",
+        "props": {
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "separator": {
+            "type": "boolean | ReactElement | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Stack",
+        "props": {
+          "direction": {
+            "type": "SystemProperties[\"flexDirection\"]",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "wrap": {
+            "type": "SystemProperties[\"flexWrap\"]",
+            "description": ""
+          },
+          "separator": {
+            "type": "boolean | ReactElement | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "VStack",
+        "props": {
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "separator": {
+            "type": "boolean | ReactElement | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "sticky": {
+    "parts": [],
+    "variants": {}
   },
   "switch": {
     "parts": [
@@ -2357,14 +2852,14 @@
             "type": "string",
             "description": "The unique identifier of the machine."
           },
-          "ids": {
-            "type": "ElementIds | undefined",
-            "description": "The ids of the elements in the TOC. Useful for composition."
-          },
           "scrollBehavior": {
             "type": "ConditionalValue<ScrollBehaviorValue | CssAny>",
             "description": "The default scroll behavior used when auto-scrolling the TOC container\nand when scrolling to a heading (via link click or `api.scrollTo`).\nCan be overridden per-call by passing `behavior` to `api.scrollTo`.",
             "defaultValue": "\"smooth\""
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the TOC. Useful for composition."
           },
           "items": {
             "type": "TocItem[]",
@@ -2654,6 +3149,40 @@
         "props": {
           "children": {
             "type": "(context: UseTourContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "wrap": {
+    "parts": [
+      {
+        "name": "Wrap",
+        "props": {
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
+            "description": ""
+          },
+          "columnGap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "direction": {
+            "type": "SystemProperties[\"flexDirection\"]",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "rowGap": {
+            "type": "SystemProperties[\"gap\"]",
             "description": ""
           }
         }

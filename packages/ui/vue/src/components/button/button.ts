@@ -40,7 +40,10 @@ export const Button = defineComponent({
           !props.asChild && props.loading
             ? h(
                 Loader,
-                { text: props.loadingText, spinnerPlacement: props.spinnerPlacement },
+                {
+                  ...(props.loadingText !== undefined && { text: props.loadingText }),
+                  spinnerPlacement: props.spinnerPlacement ?? "start",
+                },
                 { default: slots.default, spinner: slots.spinner },
               )
             : slots.default?.(),

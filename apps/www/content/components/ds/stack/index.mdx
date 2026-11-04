@@ -1,0 +1,56 @@
+---
+title: Stack
+description: Lay out children in a column or row with even gaps, optionally divided.
+category: Layout
+links:
+  source: packages/ui/react/src/components/stack
+---
+
+`Stack` defaults to a column with a gap of `2`. `HStack` and `VStack` fix the direction and center the items on the
+cross axis.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Horizontal
+
+<Example id="stack/horizontal" />
+
+### Separator
+
+`separator` draws a line between children, with the gap on both sides of it. It works in every framework and follows
+`direction`.
+
+<Example id="stack/with-separator" />
+
+### Separator element
+
+In React, `separator` also takes an element, inserted between children as in Chakra. `StackSeparator` is a line that
+fits either direction.
+
+<Example id="stack/with-separator-element" />
+
+### Responsive direction
+
+<Example id="stack/responsive-direction" />
+
+### Responsive separator
+
+The separator switches sides when `direction` does.
+
+<Example id="stack/responsive-separator" />
+
+### HStack
+
+<Example id="stack/hstack" />
+
+### VStack
+
+<Example id="stack/vstack" />
+
+## API
+
+<Api />
