@@ -112,8 +112,9 @@ const uiChecker = uiProgram.getTypeChecker()
 const ownProp = (symbol) => {
   const file = symbol.declarations?.[0]?.getSourceFile().fileName ?? ""
   return (
-    /\/(@ark-ui|@zag-js)\/|\/packages\/ui\/react\/src\//.test(file) &&
-    !["asChild", "render", "state"].includes(symbol.getName())
+    /\/(@ark-ui|@zag-js)\/|\/packages\/ui\/react\/src\/|\/panda-ds\/styled-system\/patterns\/|\/panda\/ds\/styled-system\/patterns\//.test(
+      file,
+    ) && !["asChild", "render", "state"].includes(symbol.getName())
   )
 }
 

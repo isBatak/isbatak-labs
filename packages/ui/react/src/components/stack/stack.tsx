@@ -73,8 +73,8 @@ export const StackSeparator = styled(ark.div, {
   base: {
     alignSelf: "stretch",
     flexShrink: "0",
-    minW: "1px",
-    minH: "1px",
+    minW: "[1px]",
+    minH: "[1px]",
     bg: "border",
   },
 })

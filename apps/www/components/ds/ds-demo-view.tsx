@@ -2,6 +2,7 @@
 
 import { examples } from "@isbatak/compositions/react"
 import { useEffect, useRef } from "react"
+import { styled } from "styled-system/jsx"
 
 import type { DsFrameworkId } from "./ds-framework"
 
@@ -28,7 +29,7 @@ function MountedDemo({ id, load }: { id: string; load: () => Promise<MountModule
     }
   }, [id, load])
 
-  return <div ref={ref} />
+  return <styled.div ref={ref} display="contents" />
 }
 
 export function DsDemoView({ id, framework }: { id: string; framework: DsFrameworkId }) {

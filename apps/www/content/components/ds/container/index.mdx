@@ -1,0 +1,38 @@
+---
+title: Container
+description: Center page content at a readable width, with responsive side padding.
+category: Layout
+links:
+  source: packages/ui/react/src/components/container
+  recipe: packages/panda/ds/src/theme/recipes/container.ts
+---
+
+Container is a recipe, so themes can restyle it. It caps the width at `8xl` and pads the sides more on larger screens.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Sizes
+
+Override the width with `maxW`.
+
+<Example id="container/sizes" />
+
+### Fluid
+
+`fluid` removes the max width.
+
+<Example id="container/fluid" />
+
+### Center content
+
+`centerContent` stacks and centers the children.
+
+<Example id="container/center-content" />
+
+## Recipe
+
+<RecipeVariants />

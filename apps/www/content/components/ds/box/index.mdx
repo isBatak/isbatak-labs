@@ -1,0 +1,48 @@
+---
+title: Box
+description: The base element, a div that takes any style prop.
+category: Layout
+links:
+  source: packages/ui/react/src/components/box
+---
+
+Every layout component renders a `Box` underneath. Use it for one-off styling with style props, and `asChild` (`as` in
+Svelte) to put the styles on your own element.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### As child
+
+Pass `asChild` to style the child element instead of rendering a `div`. In Svelte, set `as` instead.
+
+<Example id="box/as-child" />
+
+### With border
+
+<Example id="box/with-border" />
+
+### With shadow
+
+<Example id="box/with-shadow" />
+
+### Pseudo props
+
+Conditions like `_hover` style other states.
+
+<Example id="box/with-pseudo-props" />
+
+### Hide below
+
+`hideBelow` hides the box below a breakpoint.
+
+<Example id="box/with-hide-below" />
+
+### Hide from
+
+`hideFrom` hides it from a breakpoint up.
+
+<Example id="box/with-hide-from" />

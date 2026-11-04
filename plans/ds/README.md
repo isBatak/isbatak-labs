@@ -46,25 +46,25 @@ the other frameworks' demos come with each component's audit. www's Panda scans 
 
 Decided in [layout.md](layout.md): every recommendation accepted.
 
-- [ ] box — has: svelte
-- [ ] flex
-- [ ] stack
-- [ ] grid
-- [ ] simple-grid
-- [ ] center
-- [ ] absolute-center
-- [ ] circle
-- [ ] square
-- [ ] container
-- [ ] bleed
-- [ ] float
-- [ ] float-gap
-- [ ] aspect-ratio
-- [ ] wrap
-- [ ] spacer
-- [ ] sticky
-- [ ] group — has: recipe react vue svelte solid docs
-- [ ] separator — has: recipe
+- [x] box
+- [x] flex
+- [x] stack
+- [x] grid
+- [x] simple-grid
+- [x] center
+- [x] absolute-center
+- [x] circle
+- [x] square
+- [x] container
+- [x] bleed
+- [x] float
+- [x] float-gap
+- [x] aspect-ratio
+- [x] wrap
+- [x] spacer
+- [x] sticky
+- [x] group
+- [x] separator
 
 ## Typography
 

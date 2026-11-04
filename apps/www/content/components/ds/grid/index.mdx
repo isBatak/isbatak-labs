@@ -1,0 +1,41 @@
+---
+title: Grid
+description: A CSS grid container, with column shortcuts and placement on GridItem.
+category: Layout
+links:
+  source: packages/ui/react/src/components/grid
+---
+
+`columns` sets equal columns and `minChildWidth` fits as many as there's room for. Unlike Panda's built-in pattern,
+`Grid` adds no gap unless you set one. `GridItem` takes `colSpan`, `rowSpan`, `colStart`, `colEnd`, `rowStart`, `rowEnd`
+and `area`.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Column span
+
+<Example id="grid/col-span" />
+
+### Spanning rows and columns
+
+<Example id="grid/spanning-columns" />
+
+### Template areas
+
+Name areas with `templateAreas` and place items with `area`.
+
+<Example id="grid/template-areas" />
+
+### Inline
+
+`inline` renders `inline-grid`.
+
+<Example id="grid/inline" />
+
+## API
+
+<Api />
