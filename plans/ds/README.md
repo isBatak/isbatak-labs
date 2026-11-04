@@ -44,6 +44,8 @@ the other frameworks' demos come with each component's audit. www's Panda scans 
 
 ## Layout
 
+Decided in [layout.md](layout.md): every recommendation accepted.
+
 - [ ] box — has: svelte
 - [ ] flex
 - [ ] stack
