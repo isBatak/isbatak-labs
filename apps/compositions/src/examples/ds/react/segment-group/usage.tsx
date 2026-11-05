@@ -2,7 +2,7 @@ import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 
 export function SegmentGroupDemo() {
   return (
-    <SegmentGroup.Root defaultValue="week" orientation="horizontal" aria-label="Range">
+    <SegmentGroup.Root orientation="horizontal" defaultValue="week" aria-label="Range">
       <SegmentGroup.Indicator />
       <SegmentGroup.Item value="day">
         <SegmentGroup.ItemText>Day</SegmentGroup.ItemText>

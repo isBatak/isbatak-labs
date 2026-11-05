@@ -28,6 +28,7 @@ export const menuSlotRecipe = defineSlotRecipe({
       boxShadow: "lg",
       color: "fg",
       maxHeight: "var(--available-height)",
+      maxW: "60",
       "--menu-z-index": "zIndex.popover",
       zIndex: "calc(var(--menu-z-index) + var(--layer-index, 0))",
       borderRadius: "l2",
@@ -64,6 +65,8 @@ export const menuSlotRecipe = defineSlotRecipe({
     },
     itemText: {
       flex: "1",
+      minW: "0",
+      truncate: true,
     },
     itemIndicator: {
       position: "absolute",
@@ -135,7 +138,8 @@ export const menuSlotRecipe = defineSlotRecipe({
           gap: "1",
           textStyle: "xs",
           py: "1",
-          px: "1.5",
+          ps: "1.5",
+          pe: "3",
         },
       },
       md: {
@@ -148,7 +152,8 @@ export const menuSlotRecipe = defineSlotRecipe({
           gap: "2",
           textStyle: "sm",
           py: "1.5",
-          px: "2",
+          ps: "2",
+          pe: "2.5",
         },
       },
     },

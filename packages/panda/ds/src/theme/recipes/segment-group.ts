@@ -17,6 +17,7 @@ export const segmentGroupSlotRecipe = defineSlotRecipe({
   base: {
     root: {
       ...segmentVars,
+      ...segmentVariants.enclosed.list,
       display: "inline-flex",
       position: "relative",
       isolation: "isolate",
@@ -26,6 +27,7 @@ export const segmentGroupSlotRecipe = defineSlotRecipe({
     },
     item: {
       ...segmentItem,
+      ...segmentVariants.enclosed.item,
       "&:has(input:focus-visible)": {
         focusRing: "outside",
       },
@@ -51,32 +53,34 @@ export const segmentGroupSlotRecipe = defineSlotRecipe({
       },
     },
     size: segmentSizes,
-    variant: {
-      enclosed: {
-        root: segmentVariants.enclosed.list,
-        item: segmentVariants.enclosed.item,
+    tinted: {
+      true: {
+        root: {
+          "--segment-indicator-bg": "colors.colorPalette.subtle",
+        },
+        indicator: {
+          transitionProperty: "colors",
+          transitionDuration: "moderate",
+        },
+        item: {
+          transitionProperty: "colors",
+          transitionDuration: "moderate",
+          _checked: {
+            color: "colorPalette.fg",
+          },
+        },
       },
-      line: {
-        root: segmentVariants.line.list,
-        item: segmentVariants.line.item,
-        indicator: segmentVariants.line.indicator,
-      },
-      subtle: {
-        item: segmentVariants.subtle.item,
-        indicator: segmentVariants.subtle.indicator,
-      },
-      outline: {
-        root: segmentVariants.outline.list,
-        item: segmentVariants.outline.item,
-        indicator: segmentVariants.outline.indicator,
-      },
-      plain: {
-        item: segmentVariants.plain.item,
+    },
+    icon: {
+      true: {
+        item: {
+          px: "0",
+          aspectRatio: "square",
+        },
       },
     },
   },
   defaultVariants: {
     size: "md",
-    variant: "enclosed",
   },
 })

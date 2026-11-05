@@ -24,6 +24,12 @@
 1. studio
    1. simplify, remove all unnecessary clutter
    1. implement theme and tokens explorer similar to figma but with panda css support
+1. [ ] Blog page in apps/www, with posts illustrated by spec figures (dashed guides, measured widths, hatched padding,
+       value pills) like the menu sizing figure
+   1. [ ] StartIcon and EndIcon: why icons are slots rather than children, spacing and sizing against the label
+   1. [ ] Concentric radius: inner radius = outer radius − padding, and how `concentric-preset` does it
+   1. [ ] Grain Panda plugin: what `grain-preset` adds, how to put grain on surface layers
+   1. [ ] Menu sizing rules: min width for short labels, fit-content with 16px trailing space, max width then truncate
 1. [ ] Heading https://github.com/chakra-ui/chakra-ui/discussions/10937
 1. [ ] Port the layout primitives from tl-ds (`Box`, `Flex`, `Span`, `Stack`, `Center`, `Grid`, …) to every UI
        framework: re-export Panda's generated `jsx` components with `asChild` for React, Preact, Solid and Vue, and

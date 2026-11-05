@@ -1,5 +1,5 @@
+import { Grid } from "@isbatak/react-ui/grid"
 import { RadioCard } from "@isbatak/react-ui/radio-card"
-import { Grid } from "styled-system/jsx"
 
 export function RadioCardDemo() {
   return (

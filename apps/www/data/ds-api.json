@@ -277,6 +277,260 @@
     ],
     "variants": {}
   },
+  "checkbox": {
+    "parts": [
+      {
+        "name": "Checkbox.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The id of the form that the checkbox belongs to."
+          },
+          "defaultChecked": {
+            "type": "CheckedState | undefined",
+            "description": "The initial checked state of the checkbox when rendered.\nUse when you don't need to control the checked state of the checkbox."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the checkbox. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The value of checkbox input. Useful for form submission.",
+            "defaultValue": "\"on\""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is disabled"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the input field in a checkbox.\nUseful for form submission."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
+          },
+          "checked": {
+            "type": "CheckedState | undefined",
+            "description": "The controlled checked state of the checkbox"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is read-only"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "The callback invoked when the checked state changes."
+          }
+        }
+      },
+      {
+        "name": "Checkbox.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseCheckboxReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Checkbox.Group",
+        "props": {
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial value of `value` when uncontrolled"
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled value of the checkbox group"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the checkbox group is disabled"
+          },
+          "onValueChange": {
+            "type": "((value: string[]) => void) | undefined",
+            "description": "The callback to call when the value changes"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the input fields in the checkbox group\n(Useful for form submission)."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the checkbox group is invalid"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the checkbox group is read-only"
+          },
+          "maxSelectedValues": {
+            "type": "number | undefined",
+            "description": "The maximum number of selected values"
+          }
+        }
+      },
+      {
+        "name": "Checkbox.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseCheckboxContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "solid", "subtle"],
+        "defaultValue": "solid"
+      }
+    }
+  },
+  "checkbox-card": {
+    "parts": [
+      {
+        "name": "CheckboxCard.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The id of the form that the checkbox belongs to."
+          },
+          "defaultChecked": {
+            "type": "CheckedState | undefined",
+            "description": "The initial checked state of the checkbox when rendered.\nUse when you don't need to control the checked state of the checkbox."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the checkbox. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The value of checkbox input. Useful for form submission.",
+            "defaultValue": "\"on\""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is disabled"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the input field in a checkbox.\nUseful for form submission."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
+          },
+          "checked": {
+            "type": "CheckedState | undefined",
+            "description": "The controlled checked state of the checkbox"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is read-only"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "The callback invoked when the checked state changes."
+          }
+        }
+      },
+      {
+        "name": "CheckboxCard.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseCheckboxReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "CheckboxCard.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseCheckboxContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["surface", "subtle", "outline", "solid"],
+        "defaultValue": "outline"
+      },
+      "justify": {
+        "values": ["start", "end", "center"]
+      },
+      "align": {
+        "values": ["start", "end", "center"],
+        "defaultValue": "start"
+      },
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "horizontal"
+      }
+    }
+  },
+  "checkmark": {
+    "parts": [
+      {
+        "name": "Checkmark",
+        "props": {
+          "checked": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "indeterminate": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["solid", "outline", "subtle", "plain", "inverted"],
+        "defaultValue": "solid"
+      },
+      "filled": {
+        "values": ["true"]
+      }
+    }
+  },
   "circle": {
     "parts": [
       {
@@ -1645,26 +1899,30 @@
             "type": "string | undefined",
             "description": "The name of the password input."
           },
-          "translations": {
-            "type": "IntlTranslations | undefined",
-            "description": "The localized messages to use."
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "The invalid state of the password input."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is read only."
+          },
+          "visible": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is visible."
           },
           "autoComplete": {
             "type": "\"current-password\" | \"new-password\" | undefined",
             "description": "The autocomplete attribute for the password input.",
             "defaultValue": "\"current-password\""
           },
-          "readOnly": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is read only."
-          },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is required."
-          },
-          "visible": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is visible."
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
           },
           "defaultVisible": {
             "type": "boolean | undefined",
@@ -1673,10 +1931,6 @@
           "onVisibilityChange": {
             "type": "((details: VisibilityChangeDetails) => void) | undefined",
             "description": "Function called when the visibility changes."
-          },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "The invalid state of the password input."
           },
           "ignorePasswordManagers": {
             "type": "boolean | undefined",
@@ -1947,17 +2201,17 @@
             "type": "string | undefined",
             "description": "The name of the input fields in the radio\n(Useful for form submission)."
           },
-          "readOnly": {
+          "invalid": {
             "type": "boolean | undefined",
-            "description": "Whether the radio group is read-only"
+            "description": "If `true`, the radio group is marked as invalid."
           },
           "required": {
             "type": "boolean | undefined",
             "description": "If `true`, the radio group is marked as required."
           },
-          "invalid": {
+          "readOnly": {
             "type": "boolean | undefined",
-            "description": "If `true`, the radio group is marked as invalid."
+            "description": "Whether the radio group is read-only"
           }
         }
       },
@@ -2019,6 +2273,147 @@
       }
     }
   },
+  "radio-group": {
+    "parts": [
+      {
+        "name": "RadioGroup.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input."
+          },
+          "defaultValue": {
+            "type": "string | null | undefined",
+            "description": "The initial value of the checked radio when rendered.\nUse when you don't need to control the value of the radio group."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the radio. Useful for composition."
+          },
+          "value": {
+            "type": "string | null | undefined",
+            "description": "The controlled value of the radio group"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the radio group will be disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called once a radio is checked"
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "Orientation of the radio group"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the input fields in the radio\n(Useful for form submission)."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the radio group is marked as invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the radio group is marked as required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the radio group is read-only"
+          }
+        }
+      },
+      {
+        "name": "RadioGroup.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseRadioGroupReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RadioGroup.Item",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RadioGroup.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseRadioGroupContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RadioGroup.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseRadioGroupItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle", "solid"],
+        "defaultValue": "solid"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
+  "radiomark": {
+    "parts": [
+      {
+        "name": "Radiomark",
+        "props": {
+          "checked": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["solid", "subtle", "outline", "inverted"],
+        "defaultValue": "solid"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "filled": {
+        "values": ["true"]
+      }
+    }
+  },
   "search-input": {
     "parts": [],
     "variants": {
@@ -2073,17 +2468,17 @@
             "type": "string | undefined",
             "description": "The name of the input fields in the radio\n(Useful for form submission)."
           },
-          "readOnly": {
+          "invalid": {
             "type": "boolean | undefined",
-            "description": "Whether the radio group is read-only"
+            "description": "If `true`, the radio group is marked as invalid."
           },
           "required": {
             "type": "boolean | undefined",
             "description": "If `true`, the radio group is marked as required."
           },
-          "invalid": {
+          "readOnly": {
             "type": "boolean | undefined",
-            "description": "If `true`, the radio group is marked as invalid."
+            "description": "Whether the radio group is read-only"
           }
         }
       },
@@ -2134,9 +2529,11 @@
         "values": ["2xs", "xs", "sm", "md", "lg"],
         "defaultValue": "md"
       },
-      "variant": {
-        "values": ["enclosed", "line", "subtle", "outline", "plain"],
-        "defaultValue": "enclosed"
+      "tinted": {
+        "values": ["true"]
+      },
+      "icon": {
+        "values": ["true"]
       }
     }
   },
@@ -2194,21 +2591,25 @@
             "type": "string | undefined",
             "description": "The `name` attribute of the underlying select."
           },
-          "translations": {
-            "type": "IntlTranslations | undefined",
-            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is invalid"
           },
-          "autoComplete": {
-            "type": "string | undefined",
-            "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is required"
           },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the select is read-only"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is required"
+          "autoComplete": {
+            "type": "string | undefined",
+            "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
           "initialFocusEl": {
             "type": "(() => HTMLElement | null) | null | undefined",
@@ -2258,10 +2659,6 @@
             "type": "boolean | undefined",
             "description": "Whether the select should close after an item is selected",
             "defaultValue": "true"
-          },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is invalid"
           },
           "scrollToIndexFn": {
             "type": "((details: ScrollToIndexDetails) => void) | undefined",
@@ -2473,6 +2870,10 @@
             "type": "ConditionalValue<boolean>",
             "description": ""
           },
+          "column": {
+            "type": "SystemProperties[\"gridColumn\"]",
+            "description": ""
+          },
           "autoColumns": {
             "type": "SystemProperties[\"gridAutoColumns\"]",
             "description": ""
@@ -2483,10 +2884,6 @@
           },
           "autoRows": {
             "type": "SystemProperties[\"gridAutoRows\"]",
-            "description": ""
-          },
-          "column": {
-            "type": "SystemProperties[\"gridColumn\"]",
             "description": ""
           },
           "templateAreas": {
@@ -2560,6 +2957,14 @@
             "type": "string | undefined",
             "description": "The name associated with each slider thumb (when used in a form)"
           },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is invalid"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is read-only"
+          },
           "max": {
             "type": "number | undefined",
             "description": "The maximum value of the slider",
@@ -2570,23 +2975,15 @@
             "description": "The minimum value of the slider",
             "defaultValue": "0"
           },
-          "readOnly": {
-            "type": "boolean | undefined",
-            "description": "Whether the slider is read-only"
-          },
-          "step": {
-            "type": "number | undefined",
-            "description": "The step value of the slider",
-            "defaultValue": "1"
-          },
           "origin": {
             "type": "SliderOrigin | undefined",
             "description": "The origin of the slider range. The track is filled from the origin to the thumb.\n- `\"start\"` / `\"end\"`: fill from `min` / `max`\n- `\"center\"`: fill from the midpoint of `min`/`max`\n- a `number`: fill from that value instead, for when the neutral point isn't the midpoint",
             "defaultValue": "\"start\""
           },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "Whether the slider is invalid"
+          "step": {
+            "type": "number | undefined",
+            "description": "The step value of the slider",
+            "defaultValue": "1"
           },
           "onValueChangeEnd": {
             "type": "((details: ValueChangeDetails) => void) | undefined",
@@ -2798,6 +3195,14 @@
             "type": "string | undefined",
             "description": "The name of the input field in a switch\n(Useful for form submission)."
           },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the switch is marked as invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the switch input is marked as required,"
+          },
           "checked": {
             "type": "boolean | undefined",
             "description": "The controlled checked state of the switch"
@@ -2806,17 +3211,36 @@
             "type": "boolean | undefined",
             "description": "Whether the switch is read-only"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the switch input is marked as required,"
-          },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the switch is marked as invalid."
-          },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
             "description": "Function to call when the switch is clicked."
+          }
+        }
+      },
+      {
+        "name": "Switch.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSwitchReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Switch.Indicator",
+        "props": {
+          "fallback": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Switch.ThumbIndicator",
+        "props": {
+          "fallback": {
+            "type": "ReactNode | undefined",
+            "description": ""
           }
         }
       },
@@ -2830,7 +3254,16 @@
         }
       }
     ],
-    "variants": {}
+    "variants": {
+      "variant": {
+        "values": ["solid", "raised"],
+        "defaultValue": "solid"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
   },
   "table": {
     "parts": [

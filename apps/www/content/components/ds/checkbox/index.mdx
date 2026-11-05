@@ -1,0 +1,55 @@
+---
+title: Checkbox
+description: Select one or more options, or toggle a single setting.
+category: Forms
+links:
+  source: packages/ui/react/src/components/checkbox
+  recipe: packages/panda/ds/src/theme/recipes/checkbox.ts
+  ark: https://ark-ui.com/docs/components/checkbox
+---
+
+Built on Ark UI's Checkbox. `Control` draws the box and shows the check by default; pass children to replace it. `Group`
+manages the checked values of several checkboxes.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Sizes
+
+<Example id="checkbox/sizes" />
+
+### Variants
+
+<Example id="checkbox/variants" />
+
+### Indeterminate
+
+Set `checked` or `defaultChecked` to `"indeterminate"` to show a dash, for a parent checkbox whose children are partly
+selected.
+
+<Example id="checkbox/indeterminate" />
+
+### Disabled
+
+<Example id="checkbox/disabled" />
+
+### Invalid
+
+<Example id="checkbox/invalid" />
+
+### Group
+
+`Checkbox.Group` holds the values of the checked boxes in `value` or `defaultValue`.
+
+<Example id="checkbox/group" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
