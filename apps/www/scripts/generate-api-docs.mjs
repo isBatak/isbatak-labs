@@ -152,8 +152,10 @@ async function namespaceOf(name) {
 const recipes = await import("@isbatak/panda-ds/recipes")
 const camelCase = (name) => name.replace(/-(\w)/g, (_, char) => char.toUpperCase())
 
+const recipeNames = { switch: "swittch" }
+
 function getVariants(name) {
-  const recipe = recipes[camelCase(name)]
+  const recipe = recipes[recipeNames[name] ?? camelCase(name)]
   if (!recipe?.variantMap) return {}
   const defaults = recipe.getVariantProps()
   return Object.fromEntries(

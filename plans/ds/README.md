@@ -97,13 +97,14 @@ text inputs, selects, pickers.
 - [x] button
 - [x] menu-button — shipped as Button `orientation="vertical"`
 - [x] toggle
-- [ ] checkmark — has: recipe
-- [ ] checkbox-card — has: recipe
-- [ ] radio-group — has: recipe
-- [ ] radiomark — has: recipe
-- [ ] radio-card — has: recipe react vue svelte solid docs
-- [ ] switch — has: recipe react docs
-- [ ] segment-group — has: recipe react vue svelte solid docs
+- [x] checkbox
+- [x] checkmark
+- [x] checkbox-card
+- [x] radio-group
+- [x] radiomark
+- [x] radio-card
+- [x] switch
+- [x] segment-group
 - [ ] input — has: recipe
 - [ ] input-addon — has: recipe
 - [ ] input-element — has: recipe
