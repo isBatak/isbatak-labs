@@ -5,6 +5,9 @@
    1. [ ] DS API tables come from React's types, so Vue, Svelte and Solid pages show React-only types, such as Stack's
           `separator: boolean | ReactElement`
    1. [ ] Stack's `separator` line is faint against the layout demo boxes, since both use soft grey tokens
+   1. [ ] Bring Button's `accessibleWhenDisabled` (aria-disabled instead of `disabled`, clicks blocked) to the other
+          components that can be disabled: menu items, select and combobox triggers, tabs, segment items, form controls.
+          Chakra wants to solve this across components rather than per component in v4.
    1. [ ] Revisit the DS components built on recipes (Container, Separator, Em, Strong, Text, Link, Mark, …) and see
           whether Panda patterns can do the job instead, so those recipes can be dropped
 1. finish swipable list

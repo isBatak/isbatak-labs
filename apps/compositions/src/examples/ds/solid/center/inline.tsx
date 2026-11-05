@@ -7,7 +7,7 @@ export function CenterInlineDemo() {
     <Box
       color="fg"
       asChild={(props) => (
-        <a href="#center" {...props()}>
+        <a {...props()} href="#center">
           <Center inline gap="2">
             <Icon name="external-link" />
             Visit the docs

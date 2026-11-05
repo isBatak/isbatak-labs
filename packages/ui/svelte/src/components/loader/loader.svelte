@@ -39,11 +39,11 @@
 {:else if text}
   <span {...props} class={[css({ display: "contents" }), className]}>
     {#if spinnerPlacement === "start"}
-      {@render spinnerNode()}
+      <span data-icon-start="" aria-hidden="true" class={css({ display: "inline-flex" })}>{@render spinnerNode()}</span>
     {/if}
     {text}
     {#if spinnerPlacement === "end"}
-      {@render spinnerNode()}
+      <span data-icon-end="" aria-hidden="true" class={css({ display: "inline-flex" })}>{@render spinnerNode()}</span>
     {/if}
   </span>
 {:else}

@@ -1,5 +1,44 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+export const fieldRoot = {
+  display: "flex",
+  width: "100%",
+  position: "relative",
+  gap: "1.5",
+} as const
+
+export const fieldLabel = {
+  display: "flex",
+  alignItems: "center",
+  textAlign: "start",
+  textStyle: "sm",
+  fontWeight: "medium",
+  gap: "1",
+  userSelect: "none",
+  _disabled: {
+    opacity: "0.5",
+  },
+} as const
+
+export const fieldOrientation = {
+  vertical: {
+    root: {
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
+  },
+  horizontal: {
+    root: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    label: {
+      flex: "0 0 var(--field-label-width, 80px)",
+    },
+  },
+} as const
+
 export const fieldSlotRecipe = defineSlotRecipe({
   className: "field",
   description: "Wraps a form control with label, helper text and error text",
@@ -19,24 +58,8 @@ export const fieldSlotRecipe = defineSlotRecipe({
       color: "fg.error",
       lineHeight: "1",
     },
-    root: {
-      display: "flex",
-      width: "100%",
-      position: "relative",
-      gap: "1.5",
-    },
-    label: {
-      display: "flex",
-      alignItems: "center",
-      textAlign: "start",
-      textStyle: "sm",
-      fontWeight: "medium",
-      gap: "1",
-      userSelect: "none",
-      _disabled: {
-        opacity: "0.5",
-      },
-    },
+    root: fieldRoot,
+    label: fieldLabel,
     errorText: {
       display: "inline-flex",
       alignItems: "center",
@@ -51,24 +74,7 @@ export const fieldSlotRecipe = defineSlotRecipe({
     },
   },
   variants: {
-    orientation: {
-      vertical: {
-        root: {
-          flexDirection: "column",
-          alignItems: "flex-start",
-        },
-      },
-      horizontal: {
-        root: {
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        },
-        label: {
-          flex: "0 0 var(--field-label-width, 80px)",
-        },
-      },
-    },
+    orientation: fieldOrientation,
   },
   defaultVariants: {
     orientation: "vertical",

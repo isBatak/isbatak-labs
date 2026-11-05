@@ -5,7 +5,7 @@ export function TextAsChildDemo() {
     <Text
       color="fg.muted"
       asChild={(props) => (
-        <label for="text-as-child" {...props()}>
+        <label {...props()} for="text-as-child">
           Rendered as a label
         </label>
       )}

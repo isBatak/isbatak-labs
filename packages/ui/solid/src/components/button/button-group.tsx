@@ -4,10 +4,12 @@ import { splitProps } from "solid-js"
 import { Group, type GroupProps } from "../group"
 import { ButtonPropsProvider } from "./button"
 
-export interface ButtonGroupProps extends GroupProps, ButtonVariantProps {}
+const sharedKeys = button.variantKeys.filter((key) => key !== "orientation")
+
+export interface ButtonGroupProps extends GroupProps, Omit<ButtonVariantProps, "orientation"> {}
 
 export function ButtonGroup(props: ButtonGroupProps) {
-  const [variantProps, groupProps] = splitProps(props, button.variantKeys)
+  const [variantProps, groupProps] = splitProps(props, sharedKeys)
   return (
     <ButtonPropsProvider value={variantProps}>
       <Group {...groupProps} />

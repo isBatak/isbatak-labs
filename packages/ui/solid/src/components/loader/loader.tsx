@@ -7,6 +7,8 @@ const Contents = styled("span", { base: { display: "contents" } })
 
 const HiddenContents = styled("span", { base: { display: "contents", visibility: "hidden" } })
 
+const SpinnerSlot = styled("span", { base: { display: "inline-flex" } })
+
 export interface LoaderProps extends ComponentProps<typeof Contents> {
   visible?: boolean | undefined
   spinner?: JSX.Element | undefined
@@ -32,9 +34,17 @@ export function Loader(props: LoaderProps) {
       <Switch fallback={<Contents {...rest}>{local.children}</Contents>}>
         <Match when={local.text}>
           <Contents {...rest}>
-            <Show when={local.spinnerPlacement === "start"}>{spinner()}</Show>
+            <Show when={local.spinnerPlacement === "start"}>
+              <SpinnerSlot data-icon-start="" aria-hidden>
+                {spinner()}
+              </SpinnerSlot>
+            </Show>
             {local.text}
-            <Show when={local.spinnerPlacement === "end"}>{spinner()}</Show>
+            <Show when={local.spinnerPlacement === "end"}>
+              <SpinnerSlot data-icon-end="" aria-hidden>
+                {spinner()}
+              </SpinnerSlot>
+            </Show>
           </Contents>
         </Match>
         <Match when={hasSpinner()}>

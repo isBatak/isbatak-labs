@@ -1,27 +1,27 @@
-import { Badge, BadgeEndIcon, BadgeStartIcon } from "@isbatak/react-ui/badge"
-import { Icon } from "@isbatak/react-ui/icon"
+import { Badge } from "@isbatak/react-ui/badge"
+import { EndIcon, Icon, StartIcon } from "@isbatak/react-ui/icon"
 import { HStack } from "styled-system/jsx"
 
 export function BadgeWithIconDemo() {
   return (
     <HStack gap="2">
       <Badge variant="solid" colorPalette="blue">
-        <BadgeStartIcon asChild>
+        <StartIcon asChild>
           <Icon name="star" />
-        </BadgeStartIcon>
+        </StartIcon>
         New
       </Badge>
       <Badge variant="surface" colorPalette="green">
-        <BadgeStartIcon asChild>
+        <StartIcon asChild>
           <Icon name="check-circle" />
-        </BadgeStartIcon>
+        </StartIcon>
         Verified
       </Badge>
       <Badge variant="outline" colorPalette="yellow">
         Expiring
-        <BadgeEndIcon asChild>
+        <EndIcon asChild>
           <Icon name="warning" />
-        </BadgeEndIcon>
+        </EndIcon>
       </Badge>
     </HStack>
   )

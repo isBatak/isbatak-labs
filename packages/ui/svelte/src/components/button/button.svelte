@@ -12,6 +12,12 @@
 
   export interface ButtonProps extends HTMLButtonAttributes, ButtonVariantProps, ButtonLoadingProps {
     ref?: Element | null
+    /**
+     * Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced
+     * while disabled. Clicks are blocked while it's disabled.
+     * @default false
+     */
+    accessibleWhenDisabled?: boolean | undefined
     asChild?: Snippet<[(props?: HTMLButtonAttributes) => HTMLAttributes<HTMLElement>]>
   }
 </script>
@@ -30,12 +36,21 @@
     spinner,
     spinnerPlacement,
     disabled,
+    accessibleWhenDisabled,
+    onclick,
     class: className,
     children,
     ...props
   }: ButtonProps = $props()
   const contextProps = hasButtonProps() ? useButtonProps() : undefined
   const [variantProps, localProps] = $derived(button.splitVariantProps({ ...contextProps?.(), ...props }))
+  const isDisabled = $derived(Boolean(loading || disabled))
+  const accessiblyDisabled = $derived(Boolean(accessibleWhenDisabled && isDisabled))
+
+  const blockClick = (event: MouseEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+  }
 </script>
 
 <Ark
@@ -44,7 +59,10 @@
   type="button"
   {...localProps}
   data-loading={dataAttr(loading)}
-  disabled={loading || disabled}
+  data-disabled={dataAttr(isDisabled)}
+  disabled={accessibleWhenDisabled ? undefined : isDisabled}
+  aria-disabled={accessiblyDisabled || undefined}
+  onclick={accessiblyDisabled ? blockClick : onclick}
   class={[button(variantProps), className]}
 >
   {#if !localProps.asChild && loading}

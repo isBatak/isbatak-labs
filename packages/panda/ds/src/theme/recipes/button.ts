@@ -156,6 +156,23 @@ export const buttonRecipe = defineRecipe({
         },
       },
     },
+    orientation: {
+      horizontal: {},
+      vertical: {
+        flexDirection: "column",
+        h: "auto",
+        minW: "var(--button-min-width)",
+        py: "1.5",
+        gap: "0.5",
+        textStyle: "xs",
+        _iconStart: {
+          ms: "0",
+        },
+        _iconEnd: {
+          me: "0",
+        },
+      },
+    },
     variant: {
       solid: {
         bg: "colorPalette.solid",
@@ -232,5 +249,6 @@ export const buttonRecipe = defineRecipe({
     size: "md",
     variant: "solid",
     icon: false,
+    orientation: "horizontal",
   },
 })

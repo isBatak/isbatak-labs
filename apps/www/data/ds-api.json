@@ -212,27 +212,11 @@
       {
         "name": "Button",
         "props": {
-          "loading": {
+          "accessibleWhenDisabled": {
             "type": "boolean | undefined",
-            "description": ""
+            "description": "Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while\ndisabled. Clicks are blocked while it's disabled.",
+            "defaultValue": "false"
           },
-          "loadingText": {
-            "type": "ReactNode | undefined",
-            "description": ""
-          },
-          "spinner": {
-            "type": "ReactNode | undefined",
-            "description": ""
-          },
-          "spinnerPlacement": {
-            "type": "\"start\" | \"end\" | undefined",
-            "description": ""
-          }
-        }
-      },
-      {
-        "name": "IconButton",
-        "props": {
           "loading": {
             "type": "boolean | undefined",
             "description": ""
@@ -259,33 +243,16 @@
             "description": ""
           }
         }
-      },
-      {
-        "name": "CloseButton",
-        "props": {
-          "loading": {
-            "type": "boolean | undefined",
-            "description": ""
-          },
-          "loadingText": {
-            "type": "ReactNode | undefined",
-            "description": ""
-          },
-          "spinner": {
-            "type": "ReactNode | undefined",
-            "description": ""
-          },
-          "spinnerPlacement": {
-            "type": "\"start\" | \"end\" | undefined",
-            "description": ""
-          }
-        }
       }
     ],
     "variants": {
       "size": {
         "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
         "defaultValue": "md"
+      },
+      "orientation": {
+        "values": ["horizontal", "vertical"],
+        "defaultValue": "horizontal"
       },
       "variant": {
         "values": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
@@ -324,6 +291,63 @@
     ],
     "variants": {}
   },
+  "clipboard": {
+    "parts": [
+      {
+        "name": "Clipboard.Root",
+        "props": {
+          "defaultValue": {
+            "type": "string | undefined",
+            "description": "The initial value to be copied to the clipboard when rendered.\nUse when you don't need to control the value of the clipboard."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the clipboard. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The controlled value of the clipboard"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "The function to be called when the value changes"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onStatusChange": {
+            "type": "((details: CopyStatusDetails) => void) | undefined",
+            "description": "The function to be called when the value is copied to the clipboard"
+          },
+          "timeout": {
+            "type": "number | undefined",
+            "description": "The timeout for the copy operation",
+            "defaultValue": "3000"
+          }
+        }
+      },
+      {
+        "name": "Clipboard.Indicator",
+        "props": {
+          "copied": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "orientation": {
+        "values": ["horizontal", "vertical"],
+        "defaultValue": "horizontal"
+      }
+    }
+  },
   "code": {
     "parts": [],
     "variants": {
@@ -347,6 +371,28 @@
         "values": ["true"]
       }
     }
+  },
+  "download-trigger": {
+    "parts": [
+      {
+        "name": "DownloadTrigger",
+        "props": {
+          "data": {
+            "type": "DownloadableData | (() => MaybePromise<DownloadableData>)",
+            "description": "The data to download"
+          },
+          "fileName": {
+            "type": "string",
+            "description": "The name of the file to download"
+          },
+          "mimeType": {
+            "type": "FileMimeType",
+            "description": "The MIME type of the data to download"
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "drawer": {
     "parts": [
@@ -1391,13 +1437,13 @@
             "type": "boolean | undefined",
             "description": "Whether the menu item is disabled"
           },
-          "closeOnSelect": {
-            "type": "boolean | undefined",
-            "description": "Whether the menu should be closed when the option is selected."
-          },
           "valueText": {
             "type": "string | undefined",
             "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether the menu should be closed when the option is selected."
           }
         }
       },
@@ -1476,6 +1522,10 @@
             "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
             "defaultValue": "'display-none'"
           },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
           "openDelay": {
             "type": "number | undefined",
             "description": "The delay before the menu opens",
@@ -1485,10 +1535,6 @@
             "type": "number | undefined",
             "description": "The delay before the menu closes",
             "defaultValue": "300"
-          },
-          "translations": {
-            "type": "IntlTranslations | undefined",
-            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
           "disableClickTrigger": {
             "type": "boolean | undefined",
@@ -1599,13 +1645,26 @@
             "type": "string | undefined",
             "description": "The name of the password input."
           },
-          "visible": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is visible."
-          },
           "translations": {
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
+          },
+          "autoComplete": {
+            "type": "\"current-password\" | \"new-password\" | undefined",
+            "description": "The autocomplete attribute for the password input.",
+            "defaultValue": "\"current-password\""
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is read only."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is required."
+          },
+          "visible": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is visible."
           },
           "defaultVisible": {
             "type": "boolean | undefined",
@@ -1619,22 +1678,9 @@
             "type": "boolean | undefined",
             "description": "The invalid state of the password input."
           },
-          "readOnly": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is read only."
-          },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is required."
-          },
           "ignorePasswordManagers": {
             "type": "boolean | undefined",
             "description": "When `true`, the input will ignore password managers.\n\n**Only works for the following password managers**\n- 1Password, LastPass, Bitwarden, Dashlane, Proton Pass"
-          },
-          "autoComplete": {
-            "type": "\"current-password\" | \"new-password\" | undefined",
-            "description": "The autocomplete attribute for the password input.",
-            "defaultValue": "\"current-password\""
           }
         }
       },
@@ -1698,6 +1744,10 @@
           "ids": {
             "type": "ElementIds | undefined",
             "description": "The ids of the elements in the popover. Useful for composition."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
           "modal": {
             "type": "boolean | undefined",
@@ -1774,10 +1824,6 @@
           "positioning": {
             "type": "PositioningOptions | undefined",
             "description": "The user provided options used to position the popover content"
-          },
-          "translations": {
-            "type": "IntlTranslations | undefined",
-            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
           "persistentElements": {
             "type": "Array<() => Element | null> | undefined",
@@ -1901,10 +1947,6 @@
             "type": "string | undefined",
             "description": "The name of the input fields in the radio\n(Useful for form submission)."
           },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the radio group is marked as invalid."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the radio group is read-only"
@@ -1912,6 +1954,10 @@
           "required": {
             "type": "boolean | undefined",
             "description": "If `true`, the radio group is marked as required."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the radio group is marked as invalid."
           }
         }
       },
@@ -2027,10 +2073,6 @@
             "type": "string | undefined",
             "description": "The name of the input fields in the radio\n(Useful for form submission)."
           },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the radio group is marked as invalid."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the radio group is read-only"
@@ -2038,6 +2080,10 @@
           "required": {
             "type": "boolean | undefined",
             "description": "If `true`, the radio group is marked as required."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the radio group is marked as invalid."
           }
         }
       },
@@ -2148,6 +2194,22 @@
             "type": "string | undefined",
             "description": "The `name` attribute of the underlying select."
           },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "autoComplete": {
+            "type": "string | undefined",
+            "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is read-only"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is required"
+          },
           "initialFocusEl": {
             "type": "(() => HTMLElement | null) | null | undefined",
             "description": "Element to receive focus when the select is opened. Defaults to the first\ntabbable element inside the content (typically the list)."
@@ -2197,25 +2259,9 @@
             "description": "Whether the select should close after an item is selected",
             "defaultValue": "true"
           },
-          "translations": {
-            "type": "IntlTranslations | undefined",
-            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
-          },
           "invalid": {
             "type": "boolean | undefined",
             "description": "Whether the select is invalid"
-          },
-          "readOnly": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is read-only"
-          },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is required"
-          },
-          "autoComplete": {
-            "type": "string | undefined",
-            "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
           },
           "scrollToIndexFn": {
             "type": "((details: ScrollToIndexDetails) => void) | undefined",
@@ -2524,15 +2570,6 @@
             "description": "The minimum value of the slider",
             "defaultValue": "0"
           },
-          "origin": {
-            "type": "SliderOrigin | undefined",
-            "description": "The origin of the slider range. The track is filled from the origin to the thumb.\n- `\"start\"` / `\"end\"`: fill from `min` / `max`\n- `\"center\"`: fill from the midpoint of `min`/`max`\n- a `number`: fill from that value instead, for when the neutral point isn't the midpoint",
-            "defaultValue": "\"start\""
-          },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "Whether the slider is invalid"
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the slider is read-only"
@@ -2541,6 +2578,15 @@
             "type": "number | undefined",
             "description": "The step value of the slider",
             "defaultValue": "1"
+          },
+          "origin": {
+            "type": "SliderOrigin | undefined",
+            "description": "The origin of the slider range. The track is filled from the origin to the thumb.\n- `\"start\"` / `\"end\"`: fill from `min` / `max`\n- `\"center\"`: fill from the midpoint of `min`/`max`\n- a `number`: fill from that value instead, for when the neutral point isn't the midpoint",
+            "defaultValue": "\"start\""
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is invalid"
           },
           "onValueChangeEnd": {
             "type": "((details: ValueChangeDetails) => void) | undefined",
@@ -2752,9 +2798,9 @@
             "type": "string | undefined",
             "description": "The name of the input field in a switch\n(Useful for form submission)."
           },
-          "invalid": {
+          "checked": {
             "type": "boolean | undefined",
-            "description": "If `true`, the switch is marked as invalid."
+            "description": "The controlled checked state of the switch"
           },
           "readOnly": {
             "type": "boolean | undefined",
@@ -2764,9 +2810,9 @@
             "type": "boolean | undefined",
             "description": "If `true`, the switch input is marked as required,"
           },
-          "checked": {
+          "invalid": {
             "type": "boolean | undefined",
-            "description": "The controlled checked state of the switch"
+            "description": "If `true`, the switch is marked as invalid."
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -2893,13 +2939,13 @@
             "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
             "defaultValue": "'display-none'"
           },
-          "navigate": {
-            "type": "((details: NavigateDetails) => void) | null | undefined",
-            "description": "Function to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
-          },
           "translations": {
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "navigate": {
+            "type": "((details: NavigateDetails) => void) | null | undefined",
+            "description": "Function to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
           },
           "deselectable": {
             "type": "boolean | undefined",
@@ -3063,6 +3109,37 @@
         "defaultValue": "md"
       }
     }
+  },
+  "toggle": {
+    "parts": [
+      {
+        "name": "Toggle.Root",
+        "props": {
+          "defaultPressed": {
+            "type": "boolean | undefined",
+            "description": "The default pressed state of the toggle."
+          },
+          "pressed": {
+            "type": "boolean | undefined",
+            "description": "The pressed state of the toggle."
+          },
+          "onPressedChange": {
+            "type": "((pressed: boolean) => void) | undefined",
+            "description": "Event handler called when the pressed state of the toggle changes."
+          }
+        }
+      },
+      {
+        "name": "Toggle.Indicator",
+        "props": {
+          "fallback": {
+            "type": "React.ReactNode | undefined",
+            "description": "The fallback content to render when the toggle is not pressed."
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "tooltip": {
     "parts": [
@@ -3320,5 +3397,99 @@
       }
     ],
     "variants": {}
+  },
+  "icon-button": {
+    "parts": [
+      {
+        "name": "IconButton",
+        "props": {
+          "accessibleWhenDisabled": {
+            "type": "boolean | undefined",
+            "description": "Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while\ndisabled. Clicks are blocked while it's disabled.",
+            "defaultValue": "false"
+          },
+          "loading": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "loadingText": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinner": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinnerPlacement": {
+            "type": "\"start\" | \"end\" | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "orientation": {
+        "values": ["horizontal", "vertical"],
+        "defaultValue": "horizontal"
+      },
+      "variant": {
+        "values": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
+        "defaultValue": "solid"
+      },
+      "icon": {
+        "values": ["true", "false"]
+      }
+    }
+  },
+  "close-button": {
+    "parts": [
+      {
+        "name": "CloseButton",
+        "props": {
+          "accessibleWhenDisabled": {
+            "type": "boolean | undefined",
+            "description": "Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while\ndisabled. Clicks are blocked while it's disabled.",
+            "defaultValue": "false"
+          },
+          "loading": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "loadingText": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinner": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinnerPlacement": {
+            "type": "\"start\" | \"end\" | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "orientation": {
+        "values": ["horizontal", "vertical"],
+        "defaultValue": "horizontal"
+      },
+      "variant": {
+        "values": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
+        "defaultValue": "solid"
+      },
+      "icon": {
+        "values": ["true", "false"]
+      }
+    }
   }
 }
