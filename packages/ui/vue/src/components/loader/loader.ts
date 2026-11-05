@@ -8,6 +8,8 @@ const Contents = styled("span", { base: { display: "contents" } })
 
 const HiddenContents = styled("span", { base: { display: "contents", visibility: "hidden" } })
 
+const SpinnerSlot = styled("span", { base: { display: "inline-flex" } })
+
 export const Loader = defineComponent({
   name: "Loader",
   props: {
@@ -23,9 +25,11 @@ export const Loader = defineComponent({
 
       if (props.text) {
         return h(Contents, null, () => [
-          props.spinnerPlacement === "start" && spinner,
+          props.spinnerPlacement === "start" &&
+            h(SpinnerSlot, { "data-icon-start": "", "aria-hidden": "true" }, () => spinner),
           props.text,
-          props.spinnerPlacement === "end" && spinner,
+          props.spinnerPlacement === "end" &&
+            h(SpinnerSlot, { "data-icon-end": "", "aria-hidden": "true" }, () => spinner),
         ])
       }
 

@@ -4,7 +4,7 @@ import { ark } from "@ark-ui/react/factory"
 import { dataAttr } from "@ark-ui/react/utils"
 import { createRecipeContext } from "@isbatak/panda-ds/jsx"
 import { button } from "@isbatak/panda-ds/recipes"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps, MouseEvent, ReactNode } from "react"
 
 import { Loader } from "../loader"
 
@@ -19,12 +19,34 @@ export interface ButtonLoadingProps {
   spinnerPlacement?: "start" | "end" | undefined
 }
 
-export interface ButtonProps extends ComponentProps<typeof StyledButton>, ButtonLoadingProps {}
+export interface ButtonProps extends ComponentProps<typeof StyledButton>, ButtonLoadingProps {
+  /**
+   * Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while
+   * disabled. Clicks are blocked while it's disabled.
+   * @default false
+   */
+  accessibleWhenDisabled?: boolean | undefined
+}
+
+const blockClick = (event: MouseEvent) => {
+  event.preventDefault()
+  event.stopPropagation()
+}
 
 export function Button(props: ButtonProps) {
-  const { loading, loadingText, spinner, spinnerPlacement, children, ...rest } = props
+  const { loading, loadingText, spinner, spinnerPlacement, accessibleWhenDisabled, children, ...rest } = props
+  const disabled = loading || rest.disabled
+  const accessiblyDisabled = Boolean(accessibleWhenDisabled && disabled)
   return (
-    <StyledButton type="button" {...rest} data-loading={dataAttr(loading)} disabled={loading || rest.disabled}>
+    <StyledButton
+      type="button"
+      {...rest}
+      data-loading={dataAttr(loading)}
+      data-disabled={dataAttr(disabled)}
+      disabled={accessibleWhenDisabled ? undefined : disabled}
+      aria-disabled={accessiblyDisabled || undefined}
+      onClick={accessiblyDisabled ? blockClick : rest.onClick}
+    >
       {!rest.asChild && loading ? (
         <Loader spinner={spinner} text={loadingText} spinnerPlacement={spinnerPlacement}>
           {children}
@@ -37,13 +59,3 @@ export function Button(props: ButtonProps) {
 }
 
 export const ButtonPropsProvider = PropsProvider
-
-export type ButtonStartIconProps = ComponentProps<typeof ark.span>
-export function ButtonStartIcon(props: ButtonStartIconProps) {
-  return <ark.span data-icon-start="" aria-hidden {...props} />
-}
-
-export type ButtonEndIconProps = ComponentProps<typeof ark.span>
-export function ButtonEndIcon(props: ButtonEndIconProps) {
-  return <ark.span data-icon-end="" aria-hidden {...props} />
-}

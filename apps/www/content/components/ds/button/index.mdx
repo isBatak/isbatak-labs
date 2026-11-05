@@ -1,8 +1,6 @@
 ---
 title: Button
-description:
-  Trigger an action, with variants, sizes and a built-in loading state. Includes IconButton, ButtonGroup and
-  CloseButton.
+description: Trigger an action, with variants, sizes and a built-in loading state.
 category: Buttons
 links:
   source: packages/ui/react/src/components/button
@@ -10,12 +8,69 @@ links:
 ---
 
 A native `button` styled with the `button` recipe. `loading` replaces the label with a spinner and disables the button,
-and `loadingText` shows text next to the spinner instead. The package also exports `IconButton`, `ButtonGroup` and
-`CloseButton`, and `ButtonPropsProvider` sets shared props for every button inside it.
+and `loadingText` shows text next to the spinner instead. `ButtonGroup` and `ButtonPropsProvider` share props with every
+button inside them. For icon-only buttons, see [Icon button](/ds/components/icon-button) and
+[Close button](/ds/components/close-button).
 
 ## Usage
 
 <Usage />
+
+## Examples
+
+### Sizes
+
+<Example id="button/sizes" />
+
+### Variants
+
+<Example id="button/variants" />
+
+### With icons
+
+<Example id="button/with-icons" />
+
+### Loading
+
+<Example id="button/loading" />
+
+### Spinner placement
+
+<Example id="button/spinner-placement" />
+
+### Disabled
+
+<Example id="button/disabled" />
+
+### Accessible when disabled
+
+A natively disabled button can't take focus, so keyboard and screen reader users can miss it and never learn why it's
+unavailable. `accessibleWhenDisabled` uses `aria-disabled` instead: the button stays focusable and is announced as
+disabled, its styles still follow `_disabled`, and clicks are blocked.
+
+<Example id="button/accessible-when-disabled" />
+
+### As a link
+
+Use `asChild` to render a link with button styles.
+
+<Example id="button/as-link" />
+
+### Group
+
+`ButtonGroup` shares `size` and `variant` with every button inside it.
+
+<Example id="button/group" />
+
+### Vertical
+
+`orientation="vertical"` puts the icon above a short label, for app rails, toolbars and bottom bars.
+
+<Example id="button/vertical" />
+
+## Recipe
+
+<RecipeVariants />
 
 ## API
 

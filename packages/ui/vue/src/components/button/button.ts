@@ -17,24 +17,37 @@ export interface ButtonLoadingProps {
   spinnerPlacement?: "start" | "end" | undefined
 }
 
+const blockClick = (event: MouseEvent) => {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
 export const Button = defineComponent({
   name: "Button",
+  inheritAttrs: false,
   props: {
+    accessibleWhenDisabled: Boolean,
     asChild: Boolean,
     disabled: { type: Boolean, default: undefined },
     loading: { type: Boolean, default: undefined },
     loadingText: String,
     spinnerPlacement: String as PropType<"start" | "end">,
   },
-  setup(props, { slots }) {
-    return () =>
-      h(
+  setup(props, { attrs, slots }) {
+    return () => {
+      const disabled = props.loading || props.disabled
+      const accessiblyDisabled = props.accessibleWhenDisabled && disabled
+      return h(
         StyledButton,
         {
           type: "button",
+          ...attrs,
           asChild: props.asChild,
           "data-loading": dataAttr(props.loading),
-          disabled: props.loading || props.disabled,
+          "data-disabled": dataAttr(disabled),
+          disabled: props.accessibleWhenDisabled ? undefined : disabled,
+          "aria-disabled": accessiblyDisabled || undefined,
+          onClick: accessiblyDisabled ? blockClick : (attrs.onClick as ((event: MouseEvent) => void) | undefined),
         },
         () =>
           !props.asChild && props.loading
@@ -48,9 +61,18 @@ export const Button = defineComponent({
               )
             : slots.default?.(),
       )
+    }
   },
 })
 
-export type ButtonProps = ComponentProps<typeof StyledButton> & ButtonLoadingProps
+export type ButtonProps = ComponentProps<typeof StyledButton> &
+  ButtonLoadingProps & {
+    /**
+     * Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced
+     * while disabled. Clicks are blocked while it's disabled.
+     * @default false
+     */
+    accessibleWhenDisabled?: boolean | undefined
+  }
 
 export const ButtonPropsProvider = PropsProvider

@@ -1,6 +1,6 @@
 import { Badge } from "@isbatak/react-ui/badge"
-import { Button, ButtonStartIcon, IconButton } from "@isbatak/react-ui/button"
-import { Icon, iconNames } from "@isbatak/react-ui/icon"
+import { Button, IconButton } from "@isbatak/react-ui/button"
+import { Icon, StartIcon, iconNames } from "@isbatak/react-ui/icon"
 import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
@@ -301,9 +301,9 @@ export function IconsPage() {
       <Section title="In context" description="Icons take the text color and scale with the size variant">
         <Row>
           <Button>
-            <ButtonStartIcon asChild>
+            <StartIcon asChild>
               <Icon name="download" />
-            </ButtonStartIcon>
+            </StartIcon>
             Download
           </Button>
           <IconButton variant="outline" aria-label="Settings">

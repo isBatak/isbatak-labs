@@ -5,7 +5,7 @@ import { Drawer } from "@isbatak/react-ui/drawer"
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 import { Switch } from "@isbatak/react-ui/switch"
 
-import { Icon } from "@isbatak/react-ui/icon"
+import { EndIcon, Icon } from "@isbatak/react-ui/icon"
 
 export function DrawerStackingDemo() {
   const fieldClasses = field()
@@ -38,7 +38,9 @@ export function DrawerStackingDemo() {
                 <Drawer.Trigger asChild>
                   <Button variant="subtle">
                     Team access
-                    <Icon name="chevron-right" />
+                    <EndIcon asChild>
+                      <Icon name="chevron-right" />
+                    </EndIcon>
                   </Button>
                 </Drawer.Trigger>
                 <Portal>
@@ -70,7 +72,9 @@ export function DrawerStackingDemo() {
                           <Drawer.Trigger asChild>
                             <Button variant="subtle">
                               Member permissions
-                              <Icon name="chevron-right" />
+                              <EndIcon asChild>
+                                <Icon name="chevron-right" />
+                              </EndIcon>
                             </Button>
                           </Drawer.Trigger>
                           <Portal>

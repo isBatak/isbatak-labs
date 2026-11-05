@@ -9,6 +9,9 @@ One `@isbatak/panda-ds` component spans these files. `<name>` is kebab-case, `<c
 - `packages/panda/ds/src/theme/recipes/shared/`: size and variant maps shared between recipes (`input.ts`,
   `segment.ts`). Reuse these so related controls line up.
 - `packages/panda/ds/src/theme/conditions.ts`: custom conditions such as `_icon`, `_iconStart`, `_iconEnd`.
+- Icons next to a label go in `StartIcon` or `EndIcon` (exported from each framework's `icon` module), which set
+  `data-icon-start` and `data-icon-end`. A recipe that shows icons beside a label styles them with `_iconStart` and
+  `_iconEnd`. Add those styles when the component's slice comes up.
 - Tokens: `theme/tokens/`, `theme/semantic-tokens/`, `theme/text-styles.ts`, `theme/layer-styles.ts`.
 - `packages/panda/themes/analog/src/recipes/<name>.ts`: the analog theme overrides some recipes. Change it too when the
   base recipe's API changes.

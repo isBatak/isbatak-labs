@@ -93,6 +93,11 @@ const docsDir = fileURLToPath(new URL("../content/components/ds", import.meta.ur
 const dsOutFile = fileURLToPath(new URL("../data/ds-api.json", import.meta.url))
 
 const documented = new Set(await readdir(docsDir))
+
+const partPages = {
+  "icon-button": { source: "button", parts: ["IconButton"] },
+  "close-button": { source: "button", parts: ["CloseButton"] },
+}
 const dsComponents = (await readdir(uiDir)).filter((name) => documented.has(name))
 const entryOf = (name) =>
   existsSync(`${uiDir}/${name}/namespace.ts`) ? `${uiDir}/${name}/namespace.ts` : `${uiDir}/${name}/index.ts`
@@ -178,6 +183,15 @@ for (const name of dsComponents) {
     if (Object.keys(props).length) parts.push({ name: namespace ? `${namespace}.${part}` : part, props })
   }
   dsData[name] = { parts, variants: getVariants(name) }
+}
+
+for (const [slug, { source, parts }] of Object.entries(partPages)) {
+  if (!dsData[source] || !documented.has(slug)) continue
+  dsData[slug] = {
+    parts: dsData[source].parts.filter((part) => parts.includes(part.name)),
+    variants: dsData[source].variants,
+  }
+  dsData[source].parts = dsData[source].parts.filter((part) => !parts.includes(part.name))
 }
 
 await writeFile(dsOutFile, `${JSON.stringify(dsData, null, 2)}\n`)

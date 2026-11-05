@@ -91,10 +91,12 @@ Decided in [typography.md](typography.md): every recommendation accepted.
 
 ## Buttons and form controls
 
-- [ ] button — has: recipe react vue svelte solid docs
-- [ ] menu-button
-- [ ] toggle
-- [ ] checkbox — has: recipe
+Decided in [buttons-and-forms.md](buttons-and-forms.md). Ships in five sub-slices: buttons and toggles, choice controls,
+text inputs, selects, pickers.
+
+- [x] button
+- [x] menu-button — shipped as Button `orientation="vertical"`
+- [x] toggle
 - [ ] checkmark — has: recipe
 - [ ] checkbox-card — has: recipe
 - [ ] radio-group — has: recipe
@@ -127,8 +129,8 @@ Decided in [typography.md](typography.md): every recommendation accepted.
 - [ ] date-input — has: recipe
 - [ ] date-picker — has: recipe
 - [ ] file-upload — has: recipe
-- [ ] clipboard
-- [ ] download-trigger
+- [x] clipboard
+- [x] download-trigger
 
 ## Overlays
 

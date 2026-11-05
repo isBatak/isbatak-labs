@@ -9,6 +9,8 @@ const Contents = styled("span", { base: { display: "contents" } })
 
 const HiddenContents = styled("span", { base: { display: "contents", visibility: "hidden" } })
 
+const SpinnerSlot = styled("span", { base: { display: "inline-flex" } })
+
 export interface LoaderProps extends ComponentProps<typeof Contents> {
   visible?: boolean | undefined
   spinner?: ReactNode | undefined
@@ -31,9 +33,17 @@ export function Loader(props: LoaderProps) {
   if (text) {
     return (
       <Contents {...rest}>
-        {spinnerPlacement === "start" && spinner}
+        {spinnerPlacement === "start" && (
+          <SpinnerSlot data-icon-start="" aria-hidden>
+            {spinner}
+          </SpinnerSlot>
+        )}
         {text}
-        {spinnerPlacement === "end" && spinner}
+        {spinnerPlacement === "end" && (
+          <SpinnerSlot data-icon-end="" aria-hidden>
+            {spinner}
+          </SpinnerSlot>
+        )}
       </Contents>
     )
   }

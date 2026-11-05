@@ -7,7 +7,7 @@ export function BoxAsChildDemo() {
       textDecoration="underline"
       _hover={{ color: "fg" }}
       asChild={(props) => (
-        <a href="#box" {...props()}>
+        <a {...props()} href="#box">
           Rendered as a link
         </a>
       )}
