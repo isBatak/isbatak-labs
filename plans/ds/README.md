@@ -116,13 +116,13 @@ text inputs, selects, pickers.
 - [ ] select — has: recipe react vue svelte solid docs
 - [ ] combobox — has: recipe
 - [ ] listbox — has: recipe
-- [ ] number-input — has: recipe
-- [ ] number-stepper-input
-- [ ] pin-input — has: recipe
-- [ ] password-input — has: recipe react docs
-- [ ] search-input — has: recipe react docs
-- [ ] tags-input — has: recipe
-- [ ] editable — has: recipe
+- [x] number-input
+- [x] number-stepper-input
+- [x] pin-input
+- [x] password-input
+- [x] search-input
+- [x] tags-input
+- [x] editable
 - [ ] slider — has: recipe react vue svelte solid docs
 - [ ] rating-group — has: recipe
 - [ ] color-picker — has: recipe

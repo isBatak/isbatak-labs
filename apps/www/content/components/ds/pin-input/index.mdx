@@ -1,0 +1,89 @@
+---
+title: Pin Input
+description: A row of single-character inputs for codes and PINs.
+category: Forms
+links:
+  source: packages/ui/react/src/components/pin-input
+  recipe: packages/panda/ds/src/theme/recipes/pin-input.ts
+  ark: https://ark-ui.com/docs/components/pin-input
+---
+
+Built on Ark UI's Pin Input. Typing moves focus to the next input, Backspace moves back, and pasting a full code fills
+every input. The inputs share their sizes and variants with the `input` recipe.
+
+## Usage
+
+<Usage />
+
+```tsx
+<PinInput.Root count={4}>
+  <PinInput.HiddenInput />
+  <PinInput.Label />
+  <PinInput.Control>
+    <PinInput.Input index={0} />
+  </PinInput.Control>
+</PinInput.Root>
+```
+
+Set `count` to the number of inputs and render one `PinInput.Input` for each, with its `index`. `PinInput.HiddenInput`
+holds the whole code for forms.
+
+## Examples
+
+### Sizes
+
+Set `size` on the root. The default is `md`.
+
+<Example id="pin-input/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle`, `plain` or `flushed`.
+
+<Example id="pin-input/variants" />
+
+### Attached
+
+Set `attached` to join the inputs into one control.
+
+<Example id="pin-input/attached" />
+
+### One-time code
+
+Set `otp` so browsers and phones offer to fill the code from a text message.
+
+<Example id="pin-input/otp" />
+
+### Mask
+
+Set `mask` to hide the characters, like a password.
+
+<Example id="pin-input/mask" />
+
+### Placeholder
+
+`placeholder` sets the character shown in each empty input.
+
+<Example id="pin-input/placeholder" />
+
+### Alphanumeric
+
+`type` is `numeric` by default. Set it to `alphanumeric` or `alphabetic` to accept letters.
+
+<Example id="pin-input/alphanumeric" />
+
+### Disabled
+
+<Example id="pin-input/disabled" />
+
+### Invalid
+
+<Example id="pin-input/invalid" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

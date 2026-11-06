@@ -6,9 +6,6 @@ export function SearchInputWithoutIconDemo() {
     <SearchInput.Root maxW="xs">
       <SearchInput.Label>Search</SearchInput.Label>
       <SearchInput.Control>
-        <SearchInput.Icon>
-          <Icon name="search" />
-        </SearchInput.Icon>
         <SearchInput.Input placeholder="Search components" />
         <SearchInput.ClearTrigger>
           <Icon name="close" />

@@ -1,0 +1,67 @@
+---
+title: Editable
+description: Text that turns into an input when you click it.
+category: Forms
+links:
+  source: packages/ui/react/src/components/editable
+  recipe: packages/panda/ds/src/theme/recipes/editable.ts
+  ark: https://ark-ui.com/docs/components/editable
+---
+
+Built on Ark UI's Editable. Enter saves the value and Escape cancels the edit. By default the input also saves when it
+loses focus.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Editable.Root>
+  <Editable.Area>
+    <Editable.Preview />
+    <Editable.Input />
+  </Editable.Area>
+  <Editable.Control>
+    <Editable.EditTrigger />
+    <Editable.CancelTrigger />
+    <Editable.SubmitTrigger />
+  </Editable.Control>
+</Editable.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="editable/sizes" />
+
+### With controls
+
+The triggers have no styles of their own, so render them `asChild` with an `IconButton`. The edit trigger hides while
+editing, and the cancel and submit triggers hide otherwise.
+
+<Example id="editable/with-controls" />
+
+### Double click
+
+Set `activationMode` to `dblclick` to start editing on a double click, or to `none` to edit only from the trigger.
+
+<Example id="editable/double-click" />
+
+### Placeholder
+
+<Example id="editable/placeholder" />
+
+### Disabled
+
+<Example id="editable/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

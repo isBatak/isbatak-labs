@@ -1,0 +1,81 @@
+---
+title: Number Input
+description: A field for numbers, with buttons that step the value up and down.
+category: Forms
+links:
+  source: packages/ui/react/src/components/number-input
+  recipe: packages/panda/ds/src/theme/recipes/number-input.ts
+  ark: https://ark-ui.com/docs/components/number-input
+---
+
+Built on Ark UI's Number Input. Arrow keys step the value, Page Up and Page Down step it by ten, and the value is
+clamped to `min` and `max` when the input loses focus. The input shares its sizes and variants with the `input` recipe.
+
+## Usage
+
+<Usage />
+
+```tsx
+<NumberInput.Root>
+  <NumberInput.Control>
+    <NumberInput.IncrementTrigger />
+    <NumberInput.DecrementTrigger />
+  </NumberInput.Control>
+  <NumberInput.Input />
+</NumberInput.Root>
+```
+
+The triggers render whatever icons you pass them, here `chevron-up` and `chevron-down`. For a stepper with the buttons
+on either side of the value, use [Number Stepper Input](/ds/components/number-stepper-input).
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="number-input/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle`, `plain` or `flushed`.
+
+<Example id="number-input/variants" />
+
+### Min and max
+
+<Example id="number-input/min-max" />
+
+### Step
+
+`step` sets how much the buttons and arrow keys change the value.
+
+<Example id="number-input/step" />
+
+### Format
+
+`formatOptions` takes `Intl.NumberFormat` options, here to show euros.
+
+<Example id="number-input/format" />
+
+### Mouse wheel
+
+Set `allowMouseWheel` to step the value by scrolling while the input has focus.
+
+<Example id="number-input/mouse-wheel" />
+
+### Disabled
+
+<Example id="number-input/disabled" />
+
+### Invalid
+
+<Example id="number-input/invalid" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

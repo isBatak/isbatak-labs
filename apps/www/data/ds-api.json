@@ -936,6 +936,150 @@
       }
     }
   },
+  "editable": {
+    "parts": [
+      {
+        "name": "Editable.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input."
+          },
+          "defaultValue": {
+            "type": "string | undefined",
+            "description": "The initial value of the editable when rendered.\nUse when you don't need to control the value of the editable."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the editable. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The controlled value of the editable."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the value changes."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute of the editable component. Used for form submission."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the input's value is invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is read-only."
+          },
+          "maxLength": {
+            "type": "number | undefined",
+            "description": "The maximum number of characters allowed in the editable"
+          },
+          "placeholder": {
+            "type": "string | { edit: string; preview: string; } | undefined",
+            "description": "The placeholder text for the editable."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The translations for the editable."
+          },
+          "finalFocusEl": {
+            "type": "(() => HTMLElement | null) | undefined",
+            "description": "The element to receive focus when the editable is closed."
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "autoResize": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable should auto-resize to fit the content."
+          },
+          "activationMode": {
+            "type": "ActivationMode | undefined",
+            "description": "The activation mode for the preview element.\n\n- \"focus\" - Enter edit mode when the preview is focused\n- \"dblclick\" - Enter edit mode when the preview is double-clicked\n- \"click\" - Enter edit mode when the preview is clicked\n- \"none\" - Edit can be triggered programmatically only",
+            "defaultValue": "\"focus\""
+          },
+          "submitMode": {
+            "type": "SubmitMode | undefined",
+            "description": "The action that triggers submit in the edit mode:\n\n- \"enter\" - Trigger submit when the enter key is pressed\n- \"blur\" - Trigger submit when the editable is blurred\n- \"none\" - No action will trigger submit. You need to use the submit button\n- \"both\" - Pressing `Enter` and blurring the input will trigger submit",
+            "defaultValue": "\"both\""
+          },
+          "selectOnFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to select the text in the input when it is focused.",
+            "defaultValue": "true"
+          },
+          "edit": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is in edit mode."
+          },
+          "defaultEdit": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is in edit mode by default."
+          },
+          "onEditChange": {
+            "type": "((details: EditChangeDetails) => void) | undefined",
+            "description": "Function to call when the edit mode changes."
+          },
+          "onValueRevert": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the value is reverted."
+          },
+          "onValueCommit": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the value is committed."
+          }
+        }
+      },
+      {
+        "name": "Editable.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseEditableReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Editable.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseEditableContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "em": {
     "parts": [],
     "variants": {}
@@ -2043,6 +2187,374 @@
     ],
     "variants": {}
   },
+  "number-input": {
+    "parts": [
+      {
+        "name": "NumberInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the input element."
+          },
+          "pattern": {
+            "type": "string | undefined",
+            "description": "The pattern used to check the <input> element's value against",
+            "defaultValue": "\"-?[0-9]*(.[0-9]+)?\""
+          },
+          "defaultValue": {
+            "type": "string | undefined",
+            "description": "The initial value of the input when rendered.\nUse when you don't need to control the value of the input."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "inputMode": {
+            "type": "InputMode | undefined",
+            "description": "Hints at the type of data that might be entered by the user. It also determines\nthe type of keyboard shown to the user on mobile devices",
+            "defaultValue": "\"decimal\""
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the number input. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The controlled value of the input"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function invoked when the value changes"
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails) => void) | undefined",
+            "description": "Function invoked when the number input is focused"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute of the number input. Useful for form submission."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input value is invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is readonly"
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The amount to increment or decrement the value by",
+            "defaultValue": "1"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onValueCommit": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function invoked when the value settles: the input is blurred or `Enter` is pressed, a stepper\nor scrub gesture ends, or a key or wheel step completes."
+          },
+          "allowMouseWheel": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow mouse wheel to change the value"
+          },
+          "allowOverflow": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the value overflow the min/max range",
+            "defaultValue": "true"
+          },
+          "clampValueOnBlur": {
+            "type": "boolean | undefined",
+            "description": "Whether to clamp the value when the input loses focus (blur)",
+            "defaultValue": "true"
+          },
+          "focusInputOnChange": {
+            "type": "boolean | undefined",
+            "description": "Whether to focus input when the value changes",
+            "defaultValue": "true"
+          },
+          "formatOptions": {
+            "type": "Intl.NumberFormatOptions | undefined",
+            "description": "The options to pass to the `Intl.NumberFormat` constructor"
+          },
+          "onValueInvalid": {
+            "type": "((details: ValueInvalidDetails) => void) | undefined",
+            "description": "Function invoked when the value overflows or underflows the min/max range"
+          },
+          "spinOnPress": {
+            "type": "boolean | undefined",
+            "description": "Whether to spin the value when the increment/decrement button is pressed",
+            "defaultValue": "true"
+          },
+          "largeStep": {
+            "type": "number | undefined",
+            "description": "Step value when Shift key is held (large increments).",
+            "defaultValue": "step * 10"
+          },
+          "smallStep": {
+            "type": "number | undefined",
+            "description": "Step value when Alt/Option key is held (fine control).",
+            "defaultValue": "step * 0.1"
+          },
+          "scrubberPixelSensitivity": {
+            "type": "number | undefined",
+            "description": "How many pixels the pointer must move to change the value by one step.\nHigher values mean more precise control. Lower values mean more sensitivity.",
+            "defaultValue": "2"
+          },
+          "scrubberTeleportDistance": {
+            "type": "number | undefined",
+            "description": "Distance in pixels before the virtual cursor wraps around.\nWhen not set, the viewport bounds are used (default behavior)."
+          },
+          "scrubberDirection": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The direction of scrubbing.",
+            "defaultValue": "\"horizontal\""
+          },
+          "snapOnStep": {
+            "type": "boolean | undefined",
+            "description": "Whether values snap to step multiples when scrubbing.",
+            "defaultValue": "false"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The current locale. Based on the BCP 47 definition.",
+            "defaultValue": "\"en-US\""
+          }
+        }
+      },
+      {
+        "name": "NumberInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseNumberInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "NumberInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseNumberInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      }
+    }
+  },
+  "number-stepper-input": {
+    "parts": [
+      {
+        "name": "NumberStepperInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the input element."
+          },
+          "pattern": {
+            "type": "string | undefined",
+            "description": "The pattern used to check the <input> element's value against",
+            "defaultValue": "\"-?[0-9]*(.[0-9]+)?\""
+          },
+          "defaultValue": {
+            "type": "string | undefined",
+            "description": "The initial value of the input when rendered.\nUse when you don't need to control the value of the input."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "inputMode": {
+            "type": "InputMode | undefined",
+            "description": "Hints at the type of data that might be entered by the user. It also determines\nthe type of keyboard shown to the user on mobile devices",
+            "defaultValue": "\"decimal\""
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the number input. Useful for composition."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The controlled value of the input"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function invoked when the value changes"
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails) => void) | undefined",
+            "description": "Function invoked when the number input is focused"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute of the number input. Useful for form submission."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input value is invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the number input is readonly"
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The amount to increment or decrement the value by",
+            "defaultValue": "1"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onValueCommit": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function invoked when the value settles: the input is blurred or `Enter` is pressed, a stepper\nor scrub gesture ends, or a key or wheel step completes."
+          },
+          "allowMouseWheel": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow mouse wheel to change the value"
+          },
+          "allowOverflow": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the value overflow the min/max range",
+            "defaultValue": "true"
+          },
+          "clampValueOnBlur": {
+            "type": "boolean | undefined",
+            "description": "Whether to clamp the value when the input loses focus (blur)",
+            "defaultValue": "true"
+          },
+          "focusInputOnChange": {
+            "type": "boolean | undefined",
+            "description": "Whether to focus input when the value changes",
+            "defaultValue": "true"
+          },
+          "formatOptions": {
+            "type": "Intl.NumberFormatOptions | undefined",
+            "description": "The options to pass to the `Intl.NumberFormat` constructor"
+          },
+          "onValueInvalid": {
+            "type": "((details: ValueInvalidDetails) => void) | undefined",
+            "description": "Function invoked when the value overflows or underflows the min/max range"
+          },
+          "spinOnPress": {
+            "type": "boolean | undefined",
+            "description": "Whether to spin the value when the increment/decrement button is pressed",
+            "defaultValue": "true"
+          },
+          "largeStep": {
+            "type": "number | undefined",
+            "description": "Step value when Shift key is held (large increments).",
+            "defaultValue": "step * 10"
+          },
+          "smallStep": {
+            "type": "number | undefined",
+            "description": "Step value when Alt/Option key is held (fine control).",
+            "defaultValue": "step * 0.1"
+          },
+          "scrubberPixelSensitivity": {
+            "type": "number | undefined",
+            "description": "How many pixels the pointer must move to change the value by one step.\nHigher values mean more precise control. Lower values mean more sensitivity.",
+            "defaultValue": "2"
+          },
+          "scrubberTeleportDistance": {
+            "type": "number | undefined",
+            "description": "Distance in pixels before the virtual cursor wraps around.\nWhen not set, the viewport bounds are used (default behavior)."
+          },
+          "scrubberDirection": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The direction of scrubbing.",
+            "defaultValue": "\"horizontal\""
+          },
+          "snapOnStep": {
+            "type": "boolean | undefined",
+            "description": "Whether values snap to step multiples when scrubbing.",
+            "defaultValue": "false"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The current locale. Based on the BCP 47 definition.",
+            "defaultValue": "\"en-US\""
+          }
+        }
+      },
+      {
+        "name": "NumberStepperInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseNumberInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "NumberStepperInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseNumberInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain"],
+        "defaultValue": "outline"
+      }
+    }
+  },
   "password-input": {
     "parts": [
       {
@@ -2139,6 +2651,157 @@
       "variant": {
         "values": ["outline", "subtle", "flushed"],
         "defaultValue": "outline"
+      }
+    }
+  },
+  "pin-input": {
+    "parts": [
+      {
+        "name": "PinInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input element."
+          },
+          "mask": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the input's value will be masked just like `type=password`"
+          },
+          "pattern": {
+            "type": "string | undefined",
+            "description": "The regular expression that the user-entered input value is checked against."
+          },
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial value of the the pin input when rendered.\nUse when you don't need to control the value of the pin input."
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to auto-focus the first input."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the pin input. Useful for composition."
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled value of the the pin input."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the inputs are disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called on input change"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the input element. Useful for form submission."
+          },
+          "type": {
+            "type": "\"alphanumeric\" | \"numeric\" | \"alphabetic\" | undefined",
+            "description": "The type of value the pin-input should allow",
+            "defaultValue": "\"numeric\""
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the pin input is in the invalid state"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the pin input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the pin input is in the valid state"
+          },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "The placeholder text for the input",
+            "defaultValue": "\"○\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "selectOnFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to select input value when input is focused"
+          },
+          "onValueInvalid": {
+            "type": "((details: ValueInvalidDetails) => void) | undefined",
+            "description": "Function called when an invalid value is entered"
+          },
+          "otp": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the pin input component signals to its fields that they should\nuse `autocomplete=\"one-time-code\"`."
+          },
+          "onValueComplete": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called when all inputs have valid values"
+          },
+          "autoSubmit": {
+            "type": "boolean | undefined",
+            "description": "Whether to auto-submit the owning form when all inputs are filled."
+          },
+          "blurOnComplete": {
+            "type": "boolean | undefined",
+            "description": "Whether to blur the input when the value is complete"
+          },
+          "sanitizeValue": {
+            "type": "((value: string) => string) | undefined",
+            "description": "Function to sanitize pasted values before validation.\nUseful for stripping dashes, spaces, or other formatting."
+          },
+          "count": {
+            "type": "number",
+            "description": "The number of pin input fields."
+          }
+        }
+      },
+      {
+        "name": "PinInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UsePinInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "PinInput.Input",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "PinInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UsePinInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      },
+      "attached": {
+        "values": ["true"]
       }
     }
   },
@@ -2580,7 +3243,79 @@
     }
   },
   "search-input": {
-    "parts": [],
+    "parts": [
+      {
+        "name": "SearchInput.Root",
+        "props": {
+          "form": {
+            "type": "string",
+            "description": ""
+          },
+          "defaultValue": {
+            "type": "string",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "description": ""
+          },
+          "ids": {
+            "type": "ElementIds",
+            "description": ""
+          },
+          "value": {
+            "type": "string",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": ""
+          },
+          "onValueChange": {
+            "type": "(details: ValueChangeDetails) => void",
+            "description": ""
+          },
+          "name": {
+            "type": "string",
+            "description": ""
+          },
+          "invalid": {
+            "type": "boolean",
+            "description": ""
+          },
+          "required": {
+            "type": "boolean",
+            "description": ""
+          },
+          "readOnly": {
+            "type": "boolean",
+            "description": ""
+          },
+          "translations": {
+            "type": "Partial<IntlTranslations>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SearchInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSearchInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SearchInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseSearchInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
     "variants": {
       "size": {
         "values": ["xs", "sm", "md", "lg"],
@@ -3150,6 +3885,11 @@
             "description": "The step value of the slider",
             "defaultValue": "1"
           },
+          "largeStep": {
+            "type": "number | undefined",
+            "description": "The step value of the slider when the `Shift` key is held, or the\n`PageUp`/`PageDown` keys are used.",
+            "defaultValue": "10 * step"
+          },
           "onValueChangeEnd": {
             "type": "((details: ValueChangeDetails) => void) | undefined",
             "description": "Function invoked when the slider value change is done"
@@ -3157,11 +3897,6 @@
           "getAriaValueText": {
             "type": "((details: ValueTextDetails) => string) | undefined",
             "description": "Function that returns a human readable value for the slider thumb"
-          },
-          "largeStep": {
-            "type": "number | undefined",
-            "description": "The step value of the slider when the `Shift` key is held, or the\n`PageUp`/`PageDown` keys are used.",
-            "defaultValue": "10 * step"
           },
           "minStepsBetweenThumbs": {
             "type": "number | undefined",
@@ -3541,6 +4276,11 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
+          "activationMode": {
+            "type": "\"manual\" | \"automatic\" | undefined",
+            "description": "The activation mode of the tabs. Can be `manual` or `automatic`\n- `manual`: Tabs are activated when clicked or press `enter` key.\n- `automatic`: Tabs are activated when receiving focus",
+            "defaultValue": "\"automatic\""
+          },
           "navigate": {
             "type": "((details: NavigateDetails) => void) | null | undefined",
             "description": "Function to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
@@ -3548,11 +4288,6 @@
           "deselectable": {
             "type": "boolean | undefined",
             "description": "Whether the active tab can be deselected when clicking on it."
-          },
-          "activationMode": {
-            "type": "\"manual\" | \"automatic\" | undefined",
-            "description": "The activation mode of the tabs. Can be `manual` or `automatic`\n- `manual`: Tabs are activated when clicked or press `enter` key.\n- `automatic`: Tabs are activated when receiving focus",
-            "defaultValue": "\"automatic\""
           },
           "virtualFocus": {
             "type": "boolean | undefined",
@@ -3607,6 +4342,203 @@
       "variant": {
         "values": ["enclosed", "line", "subtle", "outline", "plain", "folder"],
         "defaultValue": "line"
+      }
+    }
+  },
+  "tags-input": {
+    "parts": [
+      {
+        "name": "TagsInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input element."
+          },
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial tag value when rendered.\nUse when you don't need to control the tag value."
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether the input should be auto-focused"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the tags input. Useful for composition."
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled tag value"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input should be disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the tag values is updated"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute for the input. Useful for form submissions"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input should be read-only"
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The max number of tags",
+            "defaultValue": "Infinity"
+          },
+          "maxLength": {
+            "type": "number | undefined",
+            "description": "The max length of the input."
+          },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "The placeholder text for the input"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails) => void) | undefined",
+            "description": "Callback fired when a tag is highlighted by pointer or keyboard navigation"
+          },
+          "allowOverflow": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow tags to exceed max. In this case,\nwe'll attach `data-invalid` to the root"
+          },
+          "onValueInvalid": {
+            "type": "((details: ValidityChangeDetails) => void) | undefined",
+            "description": "Callback fired when the max tag count is reached or the `validateTag` function returns `false`"
+          },
+          "sanitizeValue": {
+            "type": "((value: string) => string) | undefined",
+            "description": "Function to sanitize the tag value before adding.\nUseful for trimming whitespace, normalizing case, or stripping special characters.",
+            "defaultValue": "(value) => value.trim()"
+          },
+          "delimiter": {
+            "type": "string | RegExp | undefined",
+            "description": "The character that serves has:\n- event key to trigger the addition of a new tag\n- character used to split tags when pasting into the input",
+            "defaultValue": "\",\""
+          },
+          "editable": {
+            "type": "boolean | undefined",
+            "description": "Whether a tag can be edited after creation, by pressing `Enter` or double clicking.",
+            "defaultValue": "false"
+          },
+          "inputValue": {
+            "type": "string | undefined",
+            "description": "The controlled tag input's value"
+          },
+          "defaultInputValue": {
+            "type": "string | undefined",
+            "description": "The initial tag input value when rendered.\nUse when you don't need to control the tag input value."
+          },
+          "onInputValueChange": {
+            "type": "((details: InputValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the input value is updated"
+          },
+          "validate": {
+            "type": "((details: ValidateArgs) => boolean) | undefined",
+            "description": "Returns a boolean that determines whether a tag can be added.\nUseful for preventing duplicates or invalid tag values."
+          },
+          "allowDuplicates": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow duplicate tags.",
+            "defaultValue": "false"
+          },
+          "blurBehavior": {
+            "type": "\"clear\" | \"add\" | undefined",
+            "description": "The behavior of the tags input when the input is blurred\n- `\"add\"`: add the input value as a new tag\n- `\"clear\"`: clear the input value"
+          },
+          "addOnPaste": {
+            "type": "boolean | undefined",
+            "description": "Whether to add a tag when you paste values into the tag input",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "TagsInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTagsInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "TagsInput.Item",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "index": {
+            "type": "string | number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "TagsInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseTagsInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "TagsInput.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseTagsInputItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "flushed"],
+        "defaultValue": "outline"
       }
     }
   },

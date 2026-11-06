@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ark-ui/svelte": "catalog:",
+    "@isbatak/ark-search-input": "workspace:*",
     "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },

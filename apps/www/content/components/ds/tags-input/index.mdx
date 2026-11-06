@@ -1,0 +1,67 @@
+---
+title: Tags Input
+description: An input that turns what you type into a list of tags.
+category: Forms
+links:
+  source: packages/ui/react/src/components/tags-input
+  recipe: packages/panda/ds/src/theme/recipes/tags-input.ts
+  ark: https://ark-ui.com/docs/components/tags-input
+---
+
+Built on Ark UI's Tags Input. Enter or a comma adds a tag, Backspace in an empty input selects the last tag, and
+double-clicking a tag edits it. The control grows to fit the tags.
+
+## Usage
+
+<Usage />
+
+```tsx
+<TagsInput.Root>
+  <TagsInput.Label />
+  <TagsInput.Control>
+    <TagsInput.Item>
+      <TagsInput.ItemPreview>
+        <TagsInput.ItemText />
+        <TagsInput.ItemDeleteTrigger />
+      </TagsInput.ItemPreview>
+      <TagsInput.ItemInput />
+    </TagsInput.Item>
+    <TagsInput.Input />
+  </TagsInput.Control>
+  <TagsInput.HiddenInput />
+</TagsInput.Root>
+```
+
+Render one `TagsInput.Item` per tag from `TagsInput.Context`, with its `index` and `value`.
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="tags-input/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle` or `flushed`.
+
+<Example id="tags-input/variants" />
+
+### Max
+
+`max` limits how many tags can be added.
+
+<Example id="tags-input/max" />
+
+### Disabled
+
+<Example id="tags-input/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
