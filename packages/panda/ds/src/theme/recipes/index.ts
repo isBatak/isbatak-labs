@@ -48,6 +48,7 @@ import { menuSlotRecipe } from "./menu"
 import { nativeSelectSlotRecipe } from "./native-select"
 import { navigationMenuSlotRecipe } from "./navigation-menu"
 import { numberInputSlotRecipe } from "./number-input"
+import { numberStepperInputSlotRecipe } from "./number-stepper-input"
 import { passwordInputSlotRecipe } from "./password-input"
 import { pinInputSlotRecipe } from "./pin-input"
 import { popoverSlotRecipe } from "./popover"
@@ -141,6 +142,7 @@ export const slotRecipes = {
   nativeSelect: nativeSelectSlotRecipe,
   navigationMenu: navigationMenuSlotRecipe,
   numberInput: numberInputSlotRecipe,
+  numberStepperInput: numberStepperInputSlotRecipe,
   passwordInput: passwordInputSlotRecipe,
   pinInput: pinInputSlotRecipe,
   popover: popoverSlotRecipe,

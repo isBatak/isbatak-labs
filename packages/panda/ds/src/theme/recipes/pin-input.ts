@@ -1,5 +1,6 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+import { fieldLabel, fieldOrientation, fieldRoot } from "./field"
 import { inputVariants } from "./shared/input"
 
 export const pinInputSlotRecipe = defineSlotRecipe({
@@ -7,6 +8,12 @@ export const pinInputSlotRecipe = defineSlotRecipe({
   description: "Row of single-character inputs for codes",
   slots: ["root", "label", "input", "control"],
   base: {
+    root: {
+      ...fieldRoot,
+      ...fieldOrientation.vertical.root,
+      width: "auto",
+    },
+    label: fieldLabel,
     input: {
       width: "var(--input-height)",
       minWidth: "0",

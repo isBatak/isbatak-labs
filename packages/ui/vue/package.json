@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "catalog:",
+    "@isbatak/ark-search-input": "workspace:*",
     "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },

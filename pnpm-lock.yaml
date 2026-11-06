@@ -1517,6 +1517,9 @@ importers:
       '@ark-ui/solid':
         specifier: 'catalog:'
         version: 6.0.0-next.0(solid-js@1.9.15)
+      '@isbatak/ark-search-input':
+        specifier: workspace:*
+        version: link:../../ark/search-input
       '@isbatak/icons':
         specifier: workspace:*
         version: link:../icons
@@ -1539,6 +1542,9 @@ importers:
       '@ark-ui/svelte':
         specifier: 'catalog:'
         version: 6.0.0-next.0(svelte@5.57.1)
+      '@isbatak/ark-search-input':
+        specifier: workspace:*
+        version: link:../../ark/search-input
       '@isbatak/icons':
         specifier: workspace:*
         version: link:../icons
@@ -1558,6 +1564,9 @@ importers:
       '@ark-ui/vue':
         specifier: 'catalog:'
         version: 6.0.0-next.0(vue@3.5.43(typescript@6.0.3))
+      '@isbatak/ark-search-input':
+        specifier: workspace:*
+        version: link:../../ark/search-input
       '@isbatak/icons':
         specifier: workspace:*
         version: link:../icons

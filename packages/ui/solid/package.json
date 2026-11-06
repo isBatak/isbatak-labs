@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ark-ui/solid": "catalog:",
+    "@isbatak/ark-search-input": "workspace:*",
     "@isbatak/icons": "workspace:*",
     "@isbatak/panda-ds": "workspace:*"
   },
