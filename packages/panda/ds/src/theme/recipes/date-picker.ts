@@ -1,5 +1,7 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+import { inputVariants } from "./shared/input"
+
 export const datePickerSlotRecipe = defineSlotRecipe({
   className: "date-picker",
   description: "Date input with a calendar popover",
@@ -426,6 +428,7 @@ export const datePickerSlotRecipe = defineSlotRecipe({
           focusRingColor: "var(--focus-color)",
         },
       },
+      plain: { input: inputVariants.plain },
       flushed: {
         input: {
           bg: "transparent",

@@ -1,5 +1,7 @@
 import { defineRecipe } from "@pandacss/dev"
 
+import { inputVariants } from "./shared/input"
+
 export const textareaRecipe = defineRecipe({
   className: "textarea",
   description: "Multi-line text input",
@@ -67,6 +69,7 @@ export const textareaRecipe = defineRecipe({
         bg: "bg.muted",
         focusVisibleRing: "inside",
       },
+      plain: inputVariants.plain,
       flushed: {
         bg: "transparent",
         borderBottomWidth: "1px",

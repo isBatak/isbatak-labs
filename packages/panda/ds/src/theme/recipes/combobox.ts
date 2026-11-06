@@ -1,5 +1,7 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+import { inputVariants } from "./shared/input"
+
 export const comboboxSlotRecipe = defineSlotRecipe({
   className: "combobox",
   description: "Text input with a filterable list of options",
@@ -189,6 +191,7 @@ export const comboboxSlotRecipe = defineSlotRecipe({
           focusVisibleRing: "inside",
         },
       },
+      plain: { input: inputVariants.plain },
       flushed: {
         input: {
           bg: "transparent",

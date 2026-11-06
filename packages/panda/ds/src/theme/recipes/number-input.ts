@@ -120,6 +120,7 @@ export const numberInputSlotRecipe = defineSlotRecipe({
     variant: {
       outline: { input: inputVariants.outline },
       subtle: { input: inputVariants.subtle },
+      plain: { input: inputVariants.plain },
       flushed: { input: inputVariants.flushed },
     },
   },
