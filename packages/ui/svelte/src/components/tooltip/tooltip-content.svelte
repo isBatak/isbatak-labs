@@ -1,14 +1,14 @@
 <script module lang="ts">
   import { Tooltip } from "@ark-ui/svelte/tooltip"
 
-  export type TooltipContentProps = Tooltip.ContentProps
+  export type TooltipContentProps = Tooltip.ContentProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts">
   import { useTooltipStyles } from "./tooltip-styles"
 
-  let { ref = $bindable(null), class: className, ...props }: TooltipContentProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, ...props }: TooltipContentProps = $props()
   const styles = useTooltipStyles()
 </script>
 
-<Tooltip.Content bind:ref {...props} data-slot="content" class={[styles().content, className]} />
+<Tooltip.Content bind:ref {...props} data-slot="content" class={[!unstyled && styles().content, className]} />

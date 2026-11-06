@@ -3,16 +3,16 @@
 
   import type { BoxProps } from "../box"
 
-  export type BlockquoteContentProps<T extends keyof SvelteHTMLElements = "blockquote"> = BoxProps<T>
+  export type BlockquoteContentProps<T extends keyof SvelteHTMLElements = "blockquote"> = BoxProps<T> & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'blockquote'">
   import { Box } from "../box"
   import { useBlockquoteStyles } from "./blockquote-styles"
 
-  let { ref = $bindable(), class: className, ...props }: BlockquoteContentProps<T> = $props()
+  let { ref = $bindable(), unstyled, class: className, ...props }: BlockquoteContentProps<T> = $props()
   const styles = useBlockquoteStyles()
-  const boxProps = $derived({ ...props, class: [styles().content, className] } as Record<string, unknown>)
+  const boxProps = $derived({ ...props, class: [!unstyled && styles().content, className] } as Record<string, unknown>)
 </script>
 
 <Box as="blockquote" bind:ref {...boxProps} />

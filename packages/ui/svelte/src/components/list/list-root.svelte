@@ -5,7 +5,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type ListRootProps<T extends keyof SvelteHTMLElements = "ul"> = BoxProps<T> & ListVariantProps
+  export type ListRootProps<T extends keyof SvelteHTMLElements = "ul"> = BoxProps<T> & ListVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'ul'">
@@ -14,11 +14,11 @@
   import { Box } from "../box"
   import { provideListStyles } from "./list-styles"
 
-  let { ref = $bindable(), class: className, ...props }: ListRootProps<T> = $props()
+  let { ref = $bindable(), unstyled, class: className, ...props }: ListRootProps<T> = $props()
   const [variantProps, rest] = $derived(list.splitVariantProps(props))
   const styles = $derived(list(variantProps))
   provideListStyles(() => styles)
-  const boxProps = $derived({ ...rest, class: [styles.root, className] } as Record<string, unknown>)
+  const boxProps = $derived({ ...rest, class: [!unstyled && styles.root, className] } as Record<string, unknown>)
 </script>
 
 <Box as="ul" bind:ref role="list" {...boxProps} />

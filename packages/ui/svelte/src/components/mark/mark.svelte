@@ -5,7 +5,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type MarkProps<T extends keyof SvelteHTMLElements = "mark"> = BoxProps<T> & MarkVariantProps
+  export type MarkProps<T extends keyof SvelteHTMLElements = "mark"> = BoxProps<T> & MarkVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'mark'">
@@ -13,9 +13,9 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, ...props }: MarkProps<T> = $props()
+  let { ref = $bindable(), unstyled, class: className, ...props }: MarkProps<T> = $props()
   const [variantProps, rest] = $derived(mark.splitVariantProps(props))
-  const boxProps = $derived({ ...rest, class: [mark(variantProps), className] } as Record<string, unknown>)
+  const boxProps = $derived({ ...rest, class: [!unstyled && mark(variantProps), className] } as Record<string, unknown>)
 </script>
 
 <Box as="mark" bind:ref {...boxProps} />

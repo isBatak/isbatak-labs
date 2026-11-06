@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface GroupProps extends HTMLAttributes<HTMLDivElement>, GroupVariantProps {
+    unstyled?: boolean | undefined
     ref?: HTMLDivElement | null
     skip?: ((child: HTMLElement) => boolean | undefined) | undefined
   }
@@ -32,7 +33,7 @@
 </script>
 
 <script lang="ts">
-  let { ref = $bindable(null), skip, class: className, children, ...props }: GroupProps = $props()
+  let { ref = $bindable(null), skip, unstyled, class: className, children, ...props }: GroupProps = $props()
   const [variantProps, localProps] = $derived(group.splitVariantProps(props))
 
   $effect(() => {
@@ -45,4 +46,4 @@
   })
 </script>
 
-<div bind:this={ref} {...localProps} class={[group(variantProps), className]}>{@render children?.()}</div>
+<div bind:this={ref} {...localProps} class={[!unstyled && group(variantProps), className]}>{@render children?.()}</div>

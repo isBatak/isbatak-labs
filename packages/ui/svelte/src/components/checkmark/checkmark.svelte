@@ -3,6 +3,7 @@
   import type { SVGAttributes } from "svelte/elements"
 
   export interface CheckmarkProps extends SVGAttributes<SVGSVGElement>, CheckmarkVariantProps {
+    unstyled?: boolean | undefined
     checked?: boolean | undefined
     indeterminate?: boolean | undefined
     disabled?: boolean | undefined
@@ -12,7 +13,7 @@
 <script lang="ts">
   import { checkmark } from "@isbatak/panda-ds/recipes"
 
-  let { checked, indeterminate, disabled, class: className, ...props }: CheckmarkProps = $props()
+  let { checked, indeterminate, disabled, unstyled, class: className, ...props }: CheckmarkProps = $props()
   const [variantProps, localProps] = $derived(checkmark.splitVariantProps(props))
 </script>
 
@@ -21,7 +22,7 @@
   data-state={indeterminate ? "indeterminate" : checked ? "checked" : "unchecked"}
   data-disabled={disabled ? "" : undefined}
   {...localProps}
-  class={[checkmark(variantProps), className]}
+  class={[!unstyled && checkmark(variantProps), className]}
 >
   {#if indeterminate}
     <path d="M5 12h14" />

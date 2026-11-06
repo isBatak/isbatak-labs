@@ -11,6 +11,7 @@
   }
 
   export interface ButtonProps extends HTMLButtonAttributes, ButtonVariantProps, ButtonLoadingProps {
+    unstyled?: boolean | undefined
     ref?: Element | null
     /**
      * Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced
@@ -38,7 +39,7 @@
     disabled,
     accessibleWhenDisabled,
     onclick,
-    class: className,
+    unstyled, class: className,
     children,
     ...props
   }: ButtonProps = $props()
@@ -63,7 +64,7 @@
   disabled={accessibleWhenDisabled ? undefined : isDisabled}
   aria-disabled={accessiblyDisabled || undefined}
   onclick={accessiblyDisabled ? blockClick : onclick}
-  class={[button(variantProps), className]}
+  class={[!unstyled && button(variantProps), className]}
 >
   {#if !localProps.asChild && loading}
     <Loader {spinner} text={loadingText} {spinnerPlacement}>{@render children?.()}</Loader>
