@@ -3,7 +3,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type LinkOverlayProps<T extends keyof SvelteHTMLElements = "a"> = BoxProps<T>
+  export type LinkOverlayProps<T extends keyof SvelteHTMLElements = "a"> = BoxProps<T> & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'a'">
@@ -11,8 +11,8 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, ...props }: LinkOverlayProps<T> = $props()
-  const boxProps = $derived({ ...props, class: [linkOverlay(), className] } as Record<string, unknown>)
+  let { ref = $bindable(), unstyled, class: className, ...props }: LinkOverlayProps<T> = $props()
+  const boxProps = $derived({ ...props, class: [!unstyled && linkOverlay(), className] } as Record<string, unknown>)
 </script>
 
 <Box as="a" bind:ref data-link-overlay="" {...boxProps} />

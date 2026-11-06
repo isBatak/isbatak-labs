@@ -3,7 +3,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type VisuallyHiddenProps<T extends keyof SvelteHTMLElements = "span"> = BoxProps<T>
+  export type VisuallyHiddenProps<T extends keyof SvelteHTMLElements = "span"> = BoxProps<T> & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'span'">
@@ -11,8 +11,8 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, ...props }: VisuallyHiddenProps<T> = $props()
-  const boxProps = $derived({ ...props, class: [visuallyHidden(), className] } as Record<string, unknown>)
+  let { ref = $bindable(), unstyled, class: className, ...props }: VisuallyHiddenProps<T> = $props()
+  const boxProps = $derived({ ...props, class: [!unstyled && visuallyHidden(), className] } as Record<string, unknown>)
 </script>
 
 <Box as="span" bind:ref {...boxProps} />

@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface KbdProps extends HTMLAttributes<HTMLElement>, KbdVariantProps {
+    unstyled?: boolean | undefined
     ref?: HTMLElement | null
   }
 </script>
@@ -11,9 +12,9 @@
   import { kbd } from "@isbatak/panda-ds/recipes"
   import { hasKbdProps, useKbdProps } from "./kbd-props"
 
-  let { ref = $bindable(null), class: className, children, ...props }: KbdProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, children, ...props }: KbdProps = $props()
   const contextProps = hasKbdProps() ? useKbdProps() : undefined
   const [variantProps, localProps] = $derived(kbd.splitVariantProps({ ...contextProps?.(), ...props }))
 </script>
 
-<kbd bind:this={ref} {...localProps} class={[kbd(variantProps), className]}>{@render children?.()}</kbd>
+<kbd bind:this={ref} {...localProps} class={[!unstyled && kbd(variantProps), className]}>{@render children?.()}</kbd>

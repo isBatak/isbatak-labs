@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface RadiomarkProps extends HTMLAttributes<HTMLSpanElement>, RadiomarkVariantProps {
+    unstyled?: boolean | undefined
     checked?: boolean | undefined
     disabled?: boolean | undefined
   }
@@ -11,7 +12,7 @@
 <script lang="ts">
   import { radiomark } from "@isbatak/panda-ds/recipes"
 
-  let { checked, disabled, class: className, ...props }: RadiomarkProps = $props()
+  let { checked, disabled, unstyled, class: className, ...props }: RadiomarkProps = $props()
   const [variantProps, localProps] = $derived(radiomark.splitVariantProps(props))
 </script>
 
@@ -19,7 +20,7 @@
   data-state={checked ? "checked" : "unchecked"}
   data-disabled={disabled ? "" : undefined}
   {...localProps}
-  class={[radiomark(variantProps), className]}
+  class={[!unstyled && radiomark(variantProps), className]}
 >
   {#if checked}<span class="dot"></span>{/if}
 </span>

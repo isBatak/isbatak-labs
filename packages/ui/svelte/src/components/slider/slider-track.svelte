@@ -1,14 +1,14 @@
 <script module lang="ts">
   import { Slider } from "@ark-ui/svelte/slider"
 
-  export type SliderTrackProps = Slider.TrackProps
+  export type SliderTrackProps = Slider.TrackProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts">
   import { useSliderStyles } from "./slider-styles"
 
-  let { ref = $bindable(null), class: className, ...props }: SliderTrackProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, ...props }: SliderTrackProps = $props()
   const styles = useSliderStyles()
 </script>
 
-<Slider.Track bind:ref {...props} data-slot="track" class={[styles().track, className]} />
+<Slider.Track bind:ref {...props} data-slot="track" class={[!unstyled && styles().track, className]} />

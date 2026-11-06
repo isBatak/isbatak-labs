@@ -4,6 +4,7 @@
   import type { SVGAttributes } from "svelte/elements"
 
   export interface IconProps extends Omit<SVGAttributes<SVGSVGElement>, "name">, IconVariantProps {
+    unstyled?: boolean | undefined
     name: IconName
     ref?: SVGSVGElement | null
   }
@@ -12,7 +13,7 @@
 <script lang="ts">
   import { getIconSprite } from "@isbatak/icons"
 
-  let { ref = $bindable(null), name, class: className, ...props }: IconProps = $props()
+  let { ref = $bindable(null), name, unstyled, class: className, ...props }: IconProps = $props()
   const [variantProps, localProps] = $derived(icon.splitVariantProps(props))
 </script>
 
@@ -21,7 +22,7 @@
   aria-hidden="true"
   data-name={name}
   {...localProps}
-  class={[icon(variantProps), className]}
+  class={[!unstyled && icon(variantProps), className]}
 >
   <use href="{getIconSprite()}#{name}" />
 </svg>

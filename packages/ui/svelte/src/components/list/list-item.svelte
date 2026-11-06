@@ -3,16 +3,16 @@
 
   import type { BoxProps } from "../box"
 
-  export type ListItemProps<T extends keyof SvelteHTMLElements = "li"> = BoxProps<T>
+  export type ListItemProps<T extends keyof SvelteHTMLElements = "li"> = BoxProps<T> & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'li'">
   import { Box } from "../box"
   import { useListStyles } from "./list-styles"
 
-  let { ref = $bindable(), class: className, ...props }: ListItemProps<T> = $props()
+  let { ref = $bindable(), unstyled, class: className, ...props }: ListItemProps<T> = $props()
   const styles = useListStyles()
-  const boxProps = $derived({ ...props, class: [styles().item, className] } as Record<string, unknown>)
+  const boxProps = $derived({ ...props, class: [!unstyled && styles().item, className] } as Record<string, unknown>)
 </script>
 
 <Box as="li" bind:ref {...boxProps} />

@@ -5,7 +5,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type StrongProps<T extends keyof SvelteHTMLElements = "strong"> = BoxProps<T> & StrongVariantProps
+  export type StrongProps<T extends keyof SvelteHTMLElements = "strong"> = BoxProps<T> & StrongVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts" generics="T extends keyof SvelteHTMLElements = 'strong'">
@@ -13,9 +13,9 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, ...props }: StrongProps<T> = $props()
+  let { ref = $bindable(), unstyled, class: className, ...props }: StrongProps<T> = $props()
   const [variantProps, rest] = $derived(strong.splitVariantProps(props))
-  const boxProps = $derived({ ...rest, class: [strong(variantProps), className] } as Record<string, unknown>)
+  const boxProps = $derived({ ...rest, class: [!unstyled && strong(variantProps), className] } as Record<string, unknown>)
 </script>
 
 <Box as="strong" bind:ref {...boxProps} />

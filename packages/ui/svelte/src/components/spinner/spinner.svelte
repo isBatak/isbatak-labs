@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface SpinnerProps extends HTMLAttributes<HTMLSpanElement>, SpinnerVariantProps {
+    unstyled?: boolean | undefined
     ref?: HTMLSpanElement | null
   }
 </script>
@@ -10,9 +11,9 @@
 <script lang="ts">
   import { hasSpinnerProps, useSpinnerProps } from "./spinner-props"
 
-  let { ref = $bindable(null), class: className, ...props }: SpinnerProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, ...props }: SpinnerProps = $props()
   const contextProps = hasSpinnerProps() ? useSpinnerProps() : undefined
   const [variantProps, localProps] = $derived(spinner.splitVariantProps({ ...contextProps?.(), ...props }))
 </script>
 
-<span bind:this={ref} {...localProps} class={[spinner(variantProps), className]}></span>
+<span bind:this={ref} {...localProps} class={[!unstyled && spinner(variantProps), className]}></span>

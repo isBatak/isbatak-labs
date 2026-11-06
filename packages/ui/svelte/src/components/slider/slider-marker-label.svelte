@@ -2,6 +2,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface SliderMarkerLabelProps extends HTMLAttributes<HTMLSpanElement> {
+    unstyled?: boolean | undefined
     ref?: HTMLSpanElement | null
   }
 </script>
@@ -9,8 +10,8 @@
 <script lang="ts">
   import { useSliderStyles } from "./slider-styles"
 
-  let { ref = $bindable(null), class: className, children, ...props }: SliderMarkerLabelProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, children, ...props }: SliderMarkerLabelProps = $props()
   const styles = useSliderStyles()
 </script>
 
-<span bind:this={ref} {...props} data-slot="markerLabel" class={[styles().markerLabel, className]}>{@render children?.()}</span>
+<span bind:this={ref} {...props} data-slot="markerLabel" class={[!unstyled && styles().markerLabel, className]}>{@render children?.()}</span>

@@ -3,6 +3,7 @@
   import type { HTMLAttributes } from "svelte/elements"
 
   export interface LoaderProps extends HTMLAttributes<HTMLSpanElement> {
+    unstyled?: boolean | undefined
     visible?: boolean | undefined
     spinner?: Snippet | undefined
     spinnerPlacement?: "start" | "end" | undefined
@@ -21,7 +22,7 @@
     spinnerPlacement = "start",
     text,
     children,
-    class: className,
+    unstyled, class: className,
     ...props
   }: LoaderProps = $props()
 </script>
@@ -37,7 +38,7 @@
 {#if !visible}
   {@render children?.()}
 {:else if text}
-  <span {...props} class={[css({ display: "contents" }), className]}>
+  <span {...props} class={[!unstyled && css({ display: "contents" }), className]}>
     {#if spinnerPlacement === "start"}
       <span data-icon-start="" aria-hidden="true" class={css({ display: "inline-flex" })}>{@render spinnerNode()}</span>
     {/if}
@@ -47,7 +48,7 @@
     {/if}
   </span>
 {:else}
-  <span {...props} class={[css({ display: "contents" }), className]}>
+  <span {...props} class={[!unstyled && css({ display: "contents" }), className]}>
     <span class={absoluteCenter({ display: "inline-flex" })}>{@render spinnerNode()}</span>
     <span class={css({ display: "contents", visibility: "hidden" })}>{@render children?.()}</span>
   </span>

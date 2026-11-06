@@ -3,7 +3,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type ContainerProps = BoxProps & ContainerVariantProps
+  export type ContainerProps = BoxProps & ContainerVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts">
@@ -11,8 +11,8 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, centerContent, fluid, ...rest }: ContainerProps = $props()
-  const boxProps = $derived({ ...rest, class: [container({ centerContent, fluid }), className] } as Record<string, unknown>)
+  let { ref = $bindable(), unstyled, class: className, centerContent, fluid, ...rest }: ContainerProps = $props()
+  const boxProps = $derived({ ...rest, class: [!unstyled && container({ centerContent, fluid }), className] } as Record<string, unknown>)
 </script>
 
 <Box bind:ref {...boxProps} />

@@ -3,7 +3,7 @@
 
   import type { BoxProps } from "../box"
 
-  export type SeparatorProps = BoxProps<"span"> & SeparatorVariantProps
+  export type SeparatorProps = BoxProps<"span"> & SeparatorVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts">
@@ -11,7 +11,7 @@
 
   import { Box } from "../box"
 
-  let { ref = $bindable(), class: className, orientation = "horizontal", ...props }: SeparatorProps = $props()
+  let { ref = $bindable(), unstyled, class: className, orientation = "horizontal", ...props }: SeparatorProps = $props()
   const [variantProps, rest] = $derived(separator.splitVariantProps(props))
   const fixed = $derived(typeof orientation === "string")
 </script>
@@ -21,6 +21,6 @@
   bind:ref
   role={fixed ? "separator" : "presentation"}
   aria-orientation={fixed ? (orientation as "horizontal" | "vertical") : undefined}
-  class={[separator({ ...variantProps, orientation }), className]}
+  class={[!unstyled && separator({ ...variantProps, orientation }), className]}
   {...rest}
 />
