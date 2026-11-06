@@ -51,12 +51,16 @@ export const fieldSlotRecipe = defineSlotRecipe({
     "select",
     "textarea",
     "requiredIndicator",
-    "requiredIndicator",
+    "optionalText",
   ],
   base: {
     requiredIndicator: {
       color: "fg.error",
       lineHeight: "1",
+    },
+    optionalText: {
+      color: "fg.muted",
+      fontWeight: "normal",
     },
     root: fieldRoot,
     label: fieldLabel,

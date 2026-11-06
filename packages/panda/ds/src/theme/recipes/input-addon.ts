@@ -61,6 +61,11 @@ export const inputAddonRecipe = defineRecipe({
         borderColor: "transparent",
         bg: "bg.emphasized",
       },
+      plain: {
+        borderWidth: "1px",
+        borderColor: "transparent",
+        bg: "transparent",
+      },
       flushed: {
         borderBottom: "1px solid",
         borderColor: "inherit",

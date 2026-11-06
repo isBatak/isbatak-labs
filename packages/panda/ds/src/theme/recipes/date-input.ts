@@ -138,6 +138,21 @@ export const dateInputSlotRecipe = defineSlotRecipe({
           },
         },
       },
+      plain: {
+        segmentGroup: {
+          bg: "transparent",
+          borderWidth: "1px",
+          borderColor: "transparent",
+          focusRing: "inside",
+          focusRingColor: "var(--focus-color)",
+        },
+        segment: {
+          _focus: {
+            bg: "colorPalette.emphasized",
+            color: "fg",
+          },
+        },
+      },
       flushed: {
         segmentGroup: {
           bg: "transparent",

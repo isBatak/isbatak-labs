@@ -1,5 +1,14 @@
 import { defineStyles } from "@pandacss/dev"
 
+const groupPadding = defineStyles({
+  "[data-start-element] > &": {
+    paddingInlineStart: "calc(var(--input-height) - var(--input-start-offset, 0px))",
+  },
+  "[data-end-element] > &": {
+    paddingInlineEnd: "calc(var(--input-height) - var(--input-end-offset, 0px))",
+  },
+})
+
 export const inputBase = defineStyles({
   width: "100%",
   minWidth: "0",
@@ -26,36 +35,43 @@ export const inputSizes = {
     textStyle: "xs",
     px: "2",
     "--input-height": "sizes.7",
+    ...groupPadding,
   }),
   xs: defineStyles({
     textStyle: "xs",
     px: "2",
     "--input-height": "sizes.8",
+    ...groupPadding,
   }),
   sm: defineStyles({
     textStyle: "sm",
     px: "2.5",
     "--input-height": "sizes.9",
+    ...groupPadding,
   }),
   md: defineStyles({
     textStyle: "sm",
     px: "3",
     "--input-height": "sizes.10",
+    ...groupPadding,
   }),
   lg: defineStyles({
     textStyle: "md",
     px: "4",
     "--input-height": "sizes.11",
+    ...groupPadding,
   }),
   xl: defineStyles({
     textStyle: "md",
     px: "4.5",
     "--input-height": "sizes.12",
+    ...groupPadding,
   }),
   "2xl": defineStyles({
     textStyle: "lg",
     px: "5",
     "--input-height": "sizes.16",
+    ...groupPadding,
   }),
 }
 
@@ -71,6 +87,13 @@ export const inputVariants = {
     borderWidth: "1px",
     borderColor: "transparent",
     bg: "bg.muted",
+    focusVisibleRing: "inside",
+    focusRingColor: "var(--focus-color)",
+  }),
+  plain: defineStyles({
+    bg: "transparent",
+    borderWidth: "1px",
+    borderColor: "transparent",
     focusVisibleRing: "inside",
     focusRingColor: "var(--focus-color)",
   }),

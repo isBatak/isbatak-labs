@@ -1,0 +1,54 @@
+---
+title: Field
+description: Wrap a form control with its label, helper text and error text.
+category: Forms
+links:
+  source: packages/ui/react/src/components/field
+  recipe: packages/panda/ds/src/theme/recipes/field.ts
+  ark: https://ark-ui.com/docs/components/field
+---
+
+Built on Ark UI's Field. `Field.Root` passes `invalid`, `disabled`, `readOnly` and `required` to the control inside it
+and wires the label and texts up for screen readers.
+
+## Usage
+
+<Usage />
+
+## Examples
+
+### Required
+
+`RequiredIndicator` shows `*` when the field is required.
+
+<Example id="field/required" />
+
+### Optional
+
+`OptionalText` shows `(optional)` when the field isn't required. Pass children to change the text.
+
+<Example id="field/optional" />
+
+### Invalid
+
+`ErrorText` shows only when the field is `invalid`.
+
+<Example id="field/invalid" />
+
+### Disabled
+
+<Example id="field/disabled" />
+
+### Horizontal
+
+`orientation="horizontal"` puts the label beside the control.
+
+<Example id="field/horizontal" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

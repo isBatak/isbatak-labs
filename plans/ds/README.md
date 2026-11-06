@@ -105,13 +105,13 @@ text inputs, selects, pickers.
 - [x] radio-card
 - [x] switch
 - [x] segment-group
-- [ ] input — has: recipe
-- [ ] input-addon — has: recipe
-- [ ] input-element — has: recipe
-- [ ] input-group — has: react
-- [ ] textarea — has: recipe
-- [ ] field — has: recipe
-- [ ] fieldset — has: recipe
+- [x] input
+- [x] input-addon — shipped as part of input-group
+- [x] input-element — shipped as part of input-group
+- [x] input-group
+- [x] textarea
+- [x] field
+- [x] fieldset
 - [ ] native-select — has: recipe
 - [ ] select — has: recipe react vue svelte solid docs
 - [ ] combobox — has: recipe

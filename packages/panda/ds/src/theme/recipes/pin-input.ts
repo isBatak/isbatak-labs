@@ -1,5 +1,7 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+import { inputVariants } from "./shared/input"
+
 export const pinInputSlotRecipe = defineSlotRecipe({
   className: "pin-input",
   description: "Row of single-character inputs for codes",
@@ -102,6 +104,7 @@ export const pinInputSlotRecipe = defineSlotRecipe({
           focusRingColor: "var(--focus-color)",
         },
       },
+      plain: { input: inputVariants.plain },
       flushed: {
         input: {
           bg: "transparent",

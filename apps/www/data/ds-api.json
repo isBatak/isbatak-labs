@@ -940,6 +940,100 @@
     "parts": [],
     "variants": {}
   },
+  "field": {
+    "parts": [
+      {
+        "name": "Field.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the field parts."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Indicates whether the field is disabled."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Indicates whether the field is invalid."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Indicates whether the field is required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Indicates whether the field is read-only."
+          },
+          "target": {
+            "type": "string | undefined",
+            "description": "The target field item value the label should point to."
+          }
+        }
+      },
+      {
+        "name": "Field.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseFieldReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Field.RequiredIndicator",
+        "props": {
+          "fallback": {
+            "type": "React.ReactNode | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Field.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseFieldContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "vertical"
+      }
+    }
+  },
+  "fieldset": {
+    "parts": [
+      {
+        "name": "Fieldset.Root",
+        "props": {
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Indicates whether the fieldset is invalid."
+          }
+        }
+      },
+      {
+        "name": "Fieldset.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseFieldsetContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "flex": {
     "parts": [
       {
@@ -1443,6 +1537,77 @@
         "defaultValue": "inherit"
       }
     }
+  },
+  "input": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      }
+    }
+  },
+  "input-group": {
+    "parts": [
+      {
+        "name": "InputGroup",
+        "props": {
+          "startElement": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "startElementProps": {
+            "type": "InputElementProps | undefined",
+            "description": ""
+          },
+          "endElement": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "endElementProps": {
+            "type": "InputElementProps | undefined",
+            "description": ""
+          },
+          "startAddon": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "startAddonProps": {
+            "type": "InputAddonProps | undefined",
+            "description": ""
+          },
+          "endAddon": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "endAddonProps": {
+            "type": "InputAddonProps | undefined",
+            "description": ""
+          },
+          "startOffset": {
+            "type": "string | undefined",
+            "description": ""
+          },
+          "endOffset": {
+            "type": "string | undefined",
+            "description": ""
+          },
+          "children": {
+            "type": "ReactElement<Record<string, unknown>>",
+            "description": ""
+          },
+          "skip": {
+            "type": "((child: ReactElement) => boolean | undefined) | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "kbd": {
     "parts": [],
@@ -3448,6 +3613,30 @@
   "text": {
     "parts": [],
     "variants": {}
+  },
+  "textarea": {
+    "parts": [
+      {
+        "name": "Textarea",
+        "props": {
+          "autoresize": {
+            "type": "boolean | undefined",
+            "description": "Whether the textarea should autoresize",
+            "defaultValue": "false"
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      }
+    }
   },
   "toc": {
     "parts": [
