@@ -1,9 +1,5 @@
 ---
 "@isbatak/panda-ds": minor
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 Buttons: Button gets an `orientation` variant, where `vertical` puts the icon above a short label. New Toggle, Clipboard

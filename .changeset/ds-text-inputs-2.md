@@ -1,9 +1,5 @@
 ---
 "@isbatak/panda-ds": minor
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 PinInput, NumberInput, Editable and TagsInput in every framework, and PasswordInput and SearchInput come to Vue, Svelte
