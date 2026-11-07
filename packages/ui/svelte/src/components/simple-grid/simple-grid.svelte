@@ -66,5 +66,5 @@
       }
     : undefined}
   style={[vars, style].filter(Boolean).join("; ") || undefined}
-  {...props}
+  {...props as Record<string, unknown>}
 />

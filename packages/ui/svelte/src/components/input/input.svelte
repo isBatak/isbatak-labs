@@ -2,7 +2,7 @@
   import { Field } from "@ark-ui/svelte/field"
   import type { InputVariantProps } from "@isbatak/panda-ds/recipes"
 
-  export type InputProps = Field.InputProps & InputVariantProps & { unstyled?: boolean | undefined }
+  export type InputProps = Omit<Field.InputProps, "size"> & InputVariantProps & { unstyled?: boolean | undefined }
 </script>
 
 <script lang="ts">
