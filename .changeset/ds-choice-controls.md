@@ -1,9 +1,5 @@
 ---
 "@isbatak/panda-ds": minor
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 Choice controls in every framework: Checkmark, Radiomark, Checkbox (with `Group`), CheckboxCard and RadioGroup are new,

@@ -1,9 +1,5 @@
 ---
 "@isbatak/panda-ds": minor
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 NativeSelect and Listbox in every framework, and Select in Vue, Svelte and Solid now has every part React has: `Label`,
