@@ -54,6 +54,7 @@
 </script>
 
 <Grid
+  as="div"
   bind:ref
   templateColumns={vars
     ? {

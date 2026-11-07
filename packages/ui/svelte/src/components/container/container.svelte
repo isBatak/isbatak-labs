@@ -15,4 +15,4 @@
   const boxProps = $derived({ ...rest, class: [!unstyled && container({ centerContent, fluid }), className] } as Record<string, unknown>)
 </script>
 
-<Box bind:ref {...boxProps} />
+<Box as="div" bind:ref {...boxProps} />
