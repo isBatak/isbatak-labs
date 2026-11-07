@@ -1,9 +1,10 @@
 <script lang="ts">
   import { Grid } from "@isbatak/svelte-ui/grid"
   import { RadioCard } from "@isbatak/svelte-ui/radio-card"
+  import { css } from "styled-system/css"
 </script>
 
-<RadioCard.Root defaultValue="monthly" variant="surface" width="full" maxW="sm">
+<RadioCard.Root defaultValue="monthly" variant="surface" class={css({ width: "full", maxW: "sm" })}>
   <RadioCard.Label>Billing</RadioCard.Label>
   <Grid columns={2} gap="2">
     <RadioCard.Item value="monthly">
