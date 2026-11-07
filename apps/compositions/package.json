@@ -36,6 +36,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
+    "codegen": "panda codegen",
     "dev": "node scripts/build.mjs --watch",
     "typecheck": "panda codegen && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.preact.json && tsc --noEmit -p tsconfig.solid.json && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings"
   },
