@@ -11,5 +11,5 @@ export interface StickyProps
 export function Sticky(props: StickyProps) {
   const [patternProps, rest] = splitProps(props, sticky.propKeys)
   const styles = createMemo(() => sticky.raw(patternProps))
-  return <StyledSticky {...styles()} {...rest} />
+  return <StyledSticky {...(styles() as ComponentProps<typeof StyledSticky>)} {...rest} />
 }

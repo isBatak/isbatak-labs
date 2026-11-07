@@ -11,5 +11,5 @@ export interface CircleProps
 export function Circle(props: CircleProps) {
   const [patternProps, rest] = splitProps(props, circle.propKeys)
   const styles = createMemo(() => circle.raw(patternProps))
-  return <StyledCircle {...styles()} {...rest} />
+  return <StyledCircle {...(styles() as ComponentProps<typeof StyledCircle>)} {...rest} />
 }

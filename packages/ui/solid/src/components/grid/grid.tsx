@@ -10,7 +10,7 @@ export interface GridProps extends Omit<ComponentProps<typeof StyledGrid>, keyof
 export function Grid(props: GridProps) {
   const [patternProps, rest] = splitProps(props, grid.propKeys)
   const styles = createMemo(() => grid.raw(patternProps))
-  return <StyledGrid {...styles()} {...rest} />
+  return <StyledGrid {...(styles() as ComponentProps<typeof StyledGrid>)} {...rest} />
 }
 
 const StyledGridItem = styled(ark.div)
@@ -21,5 +21,5 @@ export interface GridItemProps
 export function GridItem(props: GridItemProps) {
   const [patternProps, rest] = splitProps(props, gridItem.propKeys)
   const styles = createMemo(() => gridItem.raw(patternProps))
-  return <StyledGridItem {...styles()} {...rest} />
+  return <StyledGridItem {...(styles() as ComponentProps<typeof StyledGridItem>)} {...rest} />
 }

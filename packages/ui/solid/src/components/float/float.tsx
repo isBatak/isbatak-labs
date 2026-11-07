@@ -10,5 +10,5 @@ export interface FloatProps extends Omit<ComponentProps<typeof StyledFloat>, key
 export function Float(props: FloatProps) {
   const [patternProps, rest] = splitProps(props, float.propKeys)
   const styles = createMemo(() => float.raw(patternProps))
-  return <StyledFloat {...styles()} {...rest} />
+  return <StyledFloat {...(styles() as ComponentProps<typeof StyledFloat>)} {...rest} />
 }
