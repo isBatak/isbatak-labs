@@ -26,7 +26,7 @@ const CodeFrame = styled("div", {
   },
 })
 
-const managers = segmentGroup({ size: "xs", variant: "enclosed" })
+const managers = segmentGroup({ size: "xs" })
 
 export function ToolHero() {
   return (
