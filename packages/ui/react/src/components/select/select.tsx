@@ -120,6 +120,12 @@ export type SelectItemProps = ComponentProps<typeof SelectItem>
 export const SelectItemText = withContext(Select.ItemText, "itemText")
 export type SelectItemTextProps = ComponentProps<typeof SelectItemText>
 
+export const SelectItemContent = withContext(ark.div, "itemContent")
+export type SelectItemContentProps = ComponentProps<typeof SelectItemContent>
+
+export const SelectItemDescription = withContext(ark.div, "itemDescription")
+export type SelectItemDescriptionProps = ComponentProps<typeof SelectItemDescription>
+
 const StyledSelectItemIndicator = withContext(Select.ItemIndicator, "itemIndicator")
 export type SelectItemIndicatorProps = ComponentProps<typeof StyledSelectItemIndicator>
 

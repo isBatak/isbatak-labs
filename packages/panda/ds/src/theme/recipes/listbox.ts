@@ -39,8 +39,6 @@ export const listboxSlotRecipe = defineSlotRecipe({
         flexDirection: "column",
         overflowY: "auto",
       },
-      "--listbox-item-padding-x": "spacing.2",
-      "--listbox-item-padding-y": "spacing.1.5",
     },
     item: {
       position: "relative",
@@ -135,8 +133,39 @@ export const listboxSlotRecipe = defineSlotRecipe({
       },
       plain: {},
     },
+    size: {
+      sm: {
+        content: {
+          "--listbox-item-padding-x": "spacing.2",
+          "--listbox-item-padding-y": "spacing.1",
+        },
+        item: {
+          textStyle: "sm",
+          minH: "8",
+        },
+        empty: {
+          textStyle: "sm",
+          minH: "8",
+        },
+      },
+      md: {
+        content: {
+          "--listbox-item-padding-x": "spacing.3",
+          "--listbox-item-padding-y": "spacing.1.5",
+        },
+        item: {
+          textStyle: "sm",
+          minH: "10",
+        },
+        empty: {
+          textStyle: "sm",
+          minH: "10",
+        },
+      },
+    },
   },
   defaultVariants: {
     variant: "subtle",
+    size: "md",
   },
 })
