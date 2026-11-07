@@ -11,5 +11,5 @@ export interface CenterProps
 export function Center(props: CenterProps) {
   const [patternProps, rest] = splitProps(props, center.propKeys)
   const styles = createMemo(() => center.raw(patternProps))
-  return <StyledCenter {...styles()} {...rest} />
+  return <StyledCenter {...(styles() as ComponentProps<typeof StyledCenter>)} {...rest} />
 }

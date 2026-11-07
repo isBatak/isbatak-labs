@@ -11,5 +11,5 @@ export interface FloatGapProps
 export function FloatGap(props: FloatGapProps) {
   const [patternProps, rest] = splitProps(props, floatGap.propKeys)
   const styles = createMemo(() => floatGap.raw(patternProps))
-  return <StyledFloatGap {...styles()} {...rest} />
+  return <StyledFloatGap {...(styles() as ComponentProps<typeof StyledFloatGap>)} {...rest} />
 }

@@ -11,5 +11,5 @@ export interface AspectRatioProps
 export function AspectRatio(props: AspectRatioProps) {
   const [patternProps, rest] = splitProps(props, aspectRatio.propKeys)
   const styles = createMemo(() => aspectRatio.raw(patternProps))
-  return <StyledAspectRatio {...styles()} {...rest} />
+  return <StyledAspectRatio {...(styles() as ComponentProps<typeof StyledAspectRatio>)} {...rest} />
 }

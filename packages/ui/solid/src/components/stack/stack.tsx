@@ -17,7 +17,7 @@ export interface StackProps extends Omit<ComponentProps<typeof StyledStack>, key
 export function Stack(props: StackProps) {
   const [patternProps, rest] = splitProps(props, stack.propKeys)
   const styles = createMemo(() => stack.raw(patternProps))
-  return <StyledStack {...styles()} {...rest} />
+  return <StyledStack {...(styles() as ComponentProps<typeof StyledStack>)} {...rest} />
 }
 
 const StyledHStack = styled(ark.div)
@@ -28,7 +28,7 @@ export interface HStackProps
 export function HStack(props: HStackProps) {
   const [patternProps, rest] = splitProps(props, hstack.propKeys)
   const styles = createMemo(() => hstack.raw(patternProps))
-  return <StyledHStack {...styles()} {...rest} />
+  return <StyledHStack {...(styles() as ComponentProps<typeof StyledHStack>)} {...rest} />
 }
 
 const StyledVStack = styled(ark.div)
@@ -39,5 +39,5 @@ export interface VStackProps
 export function VStack(props: VStackProps) {
   const [patternProps, rest] = splitProps(props, vstack.propKeys)
   const styles = createMemo(() => vstack.raw(patternProps))
-  return <StyledVStack {...styles()} {...rest} />
+  return <StyledVStack {...(styles() as ComponentProps<typeof StyledVStack>)} {...rest} />
 }
