@@ -36,6 +36,23 @@ const LinkDescription = styled("span", {
   },
 })
 
+const ContentLink = styled(ArkNavigationMenu.Link, {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5",
+    px: "3",
+    py: "2.5",
+    borderRadius: "l2",
+    outline: "none",
+    transitionProperty: "background",
+    transitionDuration: "fast",
+    _hover: { bg: "bg.muted" },
+    _focusVisible: { bg: "bg.muted" },
+    _currentPage: { bg: "bg.muted" },
+  },
+})
+
 const Footer = styled("div", {
   base: {
     mt: "1",
@@ -76,16 +93,16 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
 
   if (entry.external) {
     return (
-      <NavigationMenu.Link href={entry.href} target="_blank" rel="noopener">
+      <ContentLink href={entry.href} target="_blank" rel="noopener">
         {body}
-      </NavigationMenu.Link>
+      </ContentLink>
     )
   }
 
   return (
-    <NavigationMenu.Link asChild current={pathname === entry.href}>
+    <ContentLink asChild current={pathname === entry.href}>
       <Link href={entry.href}>{body}</Link>
-    </NavigationMenu.Link>
+    </ContentLink>
   )
 }
 
