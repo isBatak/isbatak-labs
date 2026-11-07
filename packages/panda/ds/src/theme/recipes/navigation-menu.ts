@@ -1,4 +1,34 @@
-import { defineSlotRecipe } from "@pandacss/dev"
+import { defineSlotRecipe, defineStyles } from "@pandacss/dev"
+
+const topLevelItem = defineStyles({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "1",
+  h: "8",
+  px: "3",
+  borderRadius: "l2",
+  textStyle: "sm",
+  fontWeight: "medium",
+  letterSpacing: "wide",
+  color: "fg.muted",
+  cursor: "pointer",
+  outline: "none",
+  transitionProperty: "color",
+  transitionDuration: "fast",
+  _hover: { color: "fg" },
+  _open: { color: "fg", _icon: { rotate: "180deg" } },
+  _current: { color: "fg" },
+  _focusVisible: {
+    outline: "2px solid",
+    outlineColor: "colorPalette.focusRing",
+  },
+  _icon: {
+    color: "fg.subtle",
+    transitionProperty: "rotate",
+    transitionDuration: "moderate",
+    transitionTimingFunction: "ease-in-smooth",
+  },
+})
 
 export const navigationMenuSlotRecipe = defineSlotRecipe({
   className: "navigation-menu",
@@ -42,35 +72,7 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       _open: { animationName: "fade-in", animationDuration: "fast" },
       _closed: { animationName: "fade-out", animationDuration: "faster" },
     },
-    trigger: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "1",
-      h: "8",
-      px: "3",
-      borderRadius: "l2",
-      textStyle: "sm",
-      fontWeight: "medium",
-      letterSpacing: "wide",
-      color: "fg.muted",
-      cursor: "pointer",
-      outline: "none",
-      transitionProperty: "color",
-      transitionDuration: "fast",
-      _hover: { color: "fg" },
-      _open: { color: "fg", _icon: { rotate: "180deg" } },
-      _current: { color: "fg" },
-      _focusVisible: {
-        outline: "2px solid",
-        outlineColor: "colorPalette.focusRing",
-      },
-      _icon: {
-        color: "fg.subtle",
-        transitionProperty: "rotate",
-        transitionDuration: "moderate",
-        transitionTimingFunction: "ease-in-smooth",
-      },
-    },
+    trigger: topLevelItem,
     itemIndicator: {
       color: "fg.subtle",
     },
@@ -102,6 +104,18 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       _hover: { bg: "bg.muted" },
       _focusVisible: { bg: "bg.muted" },
       _currentPage: { bg: "bg.muted" },
+      "[data-navigation-menu-item] > &": {
+        ...topLevelItem,
+        flexDirection: "row",
+        py: "0",
+        _hover: { color: "fg", bg: "transparent" },
+        _focusVisible: {
+          outline: "2px solid",
+          outlineColor: "colorPalette.focusRing",
+          bg: "transparent",
+        },
+        _currentPage: { color: "fg", bg: "transparent" },
+      },
     },
     viewportPositioner: {
       position: "absolute",
