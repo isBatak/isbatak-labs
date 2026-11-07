@@ -1,6 +1,6 @@
 ---
-"@isbatak/panda-ds": patch
+"@isbatak/panda-ds": minor
 ---
 
-A `navigation-menu` link placed directly in an item, instead of inside the content, is styled like a trigger, so a menu
-can mix plain top-level links with dropdowns.
+The `navigation-menu` recipe's `link` slot is now a top-level link that sits beside the triggers and looks like one, as
+in Ark UI. Links inside the content are no longer styled by the recipe; style them where you render them.
