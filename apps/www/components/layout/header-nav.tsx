@@ -1,6 +1,7 @@
 "use client"
 
 import { NavigationMenu as ArkNavigationMenu } from "@ark-ui/react/navigation-menu"
+import { navigationMenu } from "@isbatak/panda-ds/recipes"
 import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -149,9 +150,14 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
           </NavigationMenu.Content>
         </Section>
         <NavigationMenu.Item value="blocks">
-          <NavigationMenu.Trigger asChild data-current={pathname.startsWith("/blocks") ? "" : undefined}>
+          <ArkNavigationMenu.Link
+            asChild
+            value="blocks"
+            current={pathname.startsWith("/blocks")}
+            className={navigationMenu().trigger}
+          >
             <Link href="/blocks">Blocks</Link>
-          </NavigationMenu.Trigger>
+          </ArkNavigationMenu.Link>
         </NavigationMenu.Item>
         <Section value="ds" label="DS" href="/ds/components" current={pathname.startsWith("/ds")}>
           <NavigationMenu.Content w="xs">
