@@ -1,0 +1,78 @@
+---
+title: Listbox
+description: A list of options people pick from, without a trigger or popup.
+category: Forms
+links:
+  source: packages/ui/react/src/components/listbox
+  recipe: packages/panda/ds/src/theme/recipes/listbox.ts
+  ark: https://ark-ui.com/docs/components/listbox
+---
+
+Built on Ark UI's Listbox. The options stay on the page, so it suits settings panels and side lists, where a
+[Select](/ds/components/select) would hide them. Arrow keys move the highlight, typing jumps to a match, and Enter or
+Space picks the highlighted option.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Listbox.Root collection={collection}>
+  <Listbox.Label />
+  <Listbox.Content>
+    <Listbox.ItemGroup>
+      <Listbox.ItemGroupLabel />
+      <Listbox.Item item={item}>
+        <Listbox.ItemText />
+        <Listbox.ItemIndicator />
+      </Listbox.Item>
+    </Listbox.ItemGroup>
+  </Listbox.Content>
+</Listbox.Root>
+```
+
+The items come from a collection made with `createListCollection`.
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `sm` or `md`. The default is `md`.
+
+<Example id="listbox/sizes" />
+
+### Variants
+
+Set `variant` on the root to `subtle`, `solid` or `plain`. The default is `subtle`.
+
+<Example id="listbox/variants" />
+
+### Multiple
+
+Set `selectionMode` to `multiple` to pick more than one option.
+
+<Example id="listbox/multiple" />
+
+### Horizontal
+
+Set `orientation` to `horizontal` to lay the options out in a row. The left and right arrow keys move the highlight.
+
+<Example id="listbox/horizontal" />
+
+### Disabled item
+
+`isItemDisabled` on the collection turns options off.
+
+<Example id="listbox/disabled-item" />
+
+### Groups
+
+<Example id="listbox/group" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
