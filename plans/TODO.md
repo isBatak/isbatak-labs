@@ -35,3 +35,17 @@
        framework: re-export Panda's generated `jsx` components with `asChild` for React, Preact, Solid and Vue, and
        write them as Svelte components like `Box`. Then use them in place of hand-written layout classes, such as the
        storybook class maps.
+1. [ ] Raise the https://is-agentic.com/scan/isbatak.dev score (50/100 on 2026-11-07)
+   1. [ ] Markdown content negotiation: answer `Accept: text/markdown` with a Markdown body,
+          `Content-Type:     text/markdown` and `Vary: Accept`, including a Markdown 404 body that links to the docs,
+          sitemap and llms.txt
+   1. [ ] Put more of the homepage and inner page text in the raw HTML (homepage content ratio is 4.5%, target 5%), with
+          one H1 and sequential headings
+   1. [ ] `/sitemap.xml` with every indexable URL and lastmod dates
+   1. [ ] Homepage metadata: canonical link, `<html lang>`, `og:image`, `og:type`
+   1. [ ] Homepage JSON-LD (Organization or SoftwareApplication) with name, description, url, contactPoint
+   1. [ ] Link `/docs` and the GitHub org from the homepage; name the product clearly in the homepage title and headings
+   1. [ ] llms.txt with a "when to use this" section naming concrete use cases
+   1. [ ] `/about`, `/contact` and `/privacy` pages, 500+ characters each
+   1. [ ] The OpenAPI, public API, JSON error and function-calling checks assume an HTTP API. Skip them unless the site
+          gets one.
