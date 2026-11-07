@@ -1791,6 +1791,169 @@
       }
     }
   },
+  "listbox": {
+    "parts": [
+      {
+        "name": "Listbox.Root",
+        "props": {
+          "collection": {
+            "type": "ListCollection<T>",
+            "description": "The collection of items"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial default value of the listbox when rendered.\nUse when you don't need to control the value of the listbox.",
+            "defaultValue": "[]"
+          },
+          "onSelect": {
+            "type": "((details: SelectionDetails) => void) | undefined",
+            "description": "Function called when an item is selected"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the listbox. Useful for composition."
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled keys of the selected items"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the listbox is disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails<T>) => void) | undefined",
+            "description": "The callback fired when the selected item changes."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the listbox.",
+            "defaultValue": "\"vertical\""
+          },
+          "loopFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to loop the keyboard navigation through the options",
+            "defaultValue": "false"
+          },
+          "disallowSelectAll": {
+            "type": "boolean | undefined",
+            "description": "Whether to disallow selecting all items when `meta+a` is pressed"
+          },
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails<T>) => void) | undefined",
+            "description": "The callback fired when the highlighted item changes."
+          },
+          "highlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled key of the highlighted item"
+          },
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial value of the highlighted item when opened.\nUse when you don't need to control the highlighted value of the listbox."
+          },
+          "selectionMode": {
+            "type": "SelectionMode | undefined",
+            "description": "How multiple selection should behave in the listbox.\n\n- `single`: The user can select a single item.\n- `multiple`: The user can select multiple items without using modifier keys.\n- `extended`: The user can select multiple items by using modifier keys.",
+            "defaultValue": "\"single\""
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails) => void) | undefined",
+            "description": "Function to scroll to a specific index"
+          },
+          "selectOnHighlight": {
+            "type": "boolean | undefined",
+            "description": "Whether to select the item when it is highlighted"
+          },
+          "deselectable": {
+            "type": "boolean | undefined",
+            "description": "Whether to disallow empty selection"
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable typeahead on the listbox"
+          }
+        }
+      },
+      {
+        "name": "Listbox.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseListboxReturn<T>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Listbox.Input",
+        "props": {
+          "autoHighlight": {
+            "type": "boolean | undefined",
+            "description": "Whether to automatically highlight the item when typing",
+            "defaultValue": "false"
+          },
+          "keyboardPriority": {
+            "type": "\"caret\" | \"navigate\" | undefined",
+            "description": "Determines how keyboard conflicts in the input are resolved.\n- \"caret\": keep native text-editing behavior\n- \"navigate\": forward supported keys to listbox navigation",
+            "defaultValue": "\"caret\""
+          }
+        }
+      },
+      {
+        "name": "Listbox.Item",
+        "props": {
+          "item": {
+            "type": "T",
+            "description": "The item to render"
+          },
+          "highlightOnHover": {
+            "type": "boolean | undefined",
+            "description": "Whether to highlight the item on hover"
+          }
+        }
+      },
+      {
+        "name": "Listbox.ValueText",
+        "props": {
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "Text to display when no value is listboxed."
+          }
+        }
+      },
+      {
+        "name": "Listbox.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseListboxContext<T>) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Listbox.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseListboxItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "solid", "plain"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["sm", "md"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "loader": {
     "parts": [
       {
@@ -1903,17 +2066,22 @@
             "type": "PositioningOptions | undefined",
             "description": "The options used to dynamically position the menu"
           },
-          "defaultHighlightedValue": {
-            "type": "string | null | undefined",
-            "description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item."
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails) => void) | undefined",
+            "description": "Function called when the highlighted menu item changes."
           },
           "highlightedValue": {
             "type": "string | null | undefined",
             "description": "The controlled highlighted value of the menu item."
           },
-          "onHighlightChange": {
-            "type": "((details: HighlightChangeDetails) => void) | undefined",
-            "description": "Function called when the highlighted menu item changes."
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item."
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the pressing printable characters should trigger typeahead navigation",
+            "defaultValue": "true"
           },
           "anchorPoint": {
             "type": "Point | null | undefined",
@@ -1922,11 +2090,6 @@
           "closeOnSelect": {
             "type": "boolean | undefined",
             "description": "Whether to close the menu when an option is selected",
-            "defaultValue": "true"
-          },
-          "typeahead": {
-            "type": "boolean | undefined",
-            "description": "Whether the pressing printable characters should trigger typeahead navigation",
             "defaultValue": "true"
           },
           "composite": {
@@ -2036,6 +2199,19 @@
       },
       "size": {
         "values": ["sm", "md"],
+        "defaultValue": "md"
+      }
+    }
+  },
+  "native-select": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle", "plain", "ghost"],
+        "defaultValue": "outline"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl"],
         "defaultValue": "md"
       }
     }
@@ -3543,22 +3719,17 @@
             "type": "PositioningOptions | undefined",
             "description": "The positioning options of the menu."
           },
-          "defaultHighlightedValue": {
-            "type": "string | null | undefined",
-            "description": "The initial value of the highlighted item when opened.\nUse when you don't need to control the highlighted value of the select."
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails<T>) => void) | undefined",
+            "description": "The callback fired when the highlighted item changes."
           },
           "highlightedValue": {
             "type": "string | null | undefined",
             "description": "The controlled key of the highlighted item"
           },
-          "onHighlightChange": {
-            "type": "((details: HighlightChangeDetails<T>) => void) | undefined",
-            "description": "The callback fired when the highlighted item changes."
-          },
-          "closeOnSelect": {
-            "type": "boolean | undefined",
-            "description": "Whether the select should close after an item is selected",
-            "defaultValue": "true"
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial value of the highlighted item when opened.\nUse when you don't need to control the highlighted value of the select."
           },
           "scrollToIndexFn": {
             "type": "((details: ScrollToIndexDetails) => void) | undefined",
@@ -3567,6 +3738,11 @@
           "deselectable": {
             "type": "boolean | undefined",
             "description": "Whether the value can be cleared by clicking the selected item.\n\n**Note:** this is only applicable for single selection"
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether the select should close after an item is selected",
+            "defaultValue": "true"
           },
           "alignItemWithTrigger": {
             "type": "boolean | undefined",
@@ -4281,13 +4457,13 @@
             "description": "The activation mode of the tabs. Can be `manual` or `automatic`\n- `manual`: Tabs are activated when clicked or press `enter` key.\n- `automatic`: Tabs are activated when receiving focus",
             "defaultValue": "\"automatic\""
           },
-          "navigate": {
-            "type": "((details: NavigateDetails) => void) | null | undefined",
-            "description": "Function to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
-          },
           "deselectable": {
             "type": "boolean | undefined",
             "description": "Whether the active tab can be deselected when clicking on it."
+          },
+          "navigate": {
+            "type": "((details: NavigateDetails) => void) | null | undefined",
+            "description": "Function to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
           },
           "virtualFocus": {
             "type": "boolean | undefined",

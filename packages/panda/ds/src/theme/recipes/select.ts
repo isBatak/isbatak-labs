@@ -49,6 +49,8 @@ export const selectSlotRecipe = defineSlotRecipe({
     "clearTrigger",
     "item",
     "itemText",
+    "itemContent",
+    "itemDescription",
     "itemIndicator",
     "itemGroup",
     "itemGroupLabel",
@@ -99,6 +101,11 @@ export const selectSlotRecipe = defineSlotRecipe({
       zIndex: "1",
       _placeholderShown: {
         color: "fg.muted",
+      },
+      "&:not(:has([data-select-value-text]))": {
+        justifyContent: "center",
+        width: "auto",
+        px: "0",
       },
       ...triggerInteraction,
     },
@@ -227,6 +234,15 @@ export const selectSlotRecipe = defineSlotRecipe({
     },
     itemText: {
       flex: "1",
+    },
+    itemContent: {
+      display: "flex",
+      flexDirection: "column",
+      flex: "1",
+    },
+    itemDescription: {
+      textStyle: "xs",
+      color: "fg.muted",
     },
     itemIndicator: {
       display: "flex",

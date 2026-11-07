@@ -112,10 +112,10 @@ text inputs, selects, pickers.
 - [x] textarea
 - [x] field
 - [x] fieldset
-- [ ] native-select — has: recipe
-- [ ] select — has: recipe react vue svelte solid docs
+- [x] native-select
+- [x] select
 - [ ] combobox — has: recipe
-- [ ] listbox — has: recipe
+- [x] listbox
 - [x] number-input
 - [x] number-stepper-input
 - [x] pin-input

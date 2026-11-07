@@ -1,0 +1,63 @@
+---
+title: Native Select
+description: The browser's own select, styled to match the other inputs.
+category: Forms
+links:
+  source: packages/ui/react/src/components/native-select
+  recipe: packages/panda/ds/src/theme/recipes/native-select.ts
+---
+
+A styled `<select>` with a chevron. Use it when you want the operating system's own picker, like the wheel on phones;
+otherwise use [Select](/ds/components/select). `NativeSelect.Field` is Ark UI's `Field.Select`, so inside a `Field` it
+picks up the label, helper text and the invalid, disabled and required states.
+
+## Usage
+
+<Usage />
+
+```tsx
+<NativeSelect.Root>
+  <NativeSelect.Field>
+    <option value="" />
+  </NativeSelect.Field>
+  <NativeSelect.Indicator />
+</NativeSelect.Root>
+```
+
+`NativeSelect.Indicator` shows `chevron-down` unless you pass it other children.
+
+## Examples
+
+### Sizes
+
+Set `size` on the root to `xs`, `sm`, `md`, `lg` or `xl`. The default is `md`.
+
+<Example id="native-select/sizes" />
+
+### Variants
+
+Set `variant` on the root to `outline`, `subtle`, `plain` or `ghost`. The default is `outline`.
+
+<Example id="native-select/variants" />
+
+### With a field
+
+<Example id="native-select/with-field" />
+
+### Disabled
+
+<Example id="native-select/disabled" />
+
+### Invalid
+
+The indicator turns red with the border when the select is invalid.
+
+<Example id="native-select/invalid" />
+
+### Option groups
+
+<Example id="native-select/option-groups" />
+
+## Recipe
+
+<RecipeVariants />
