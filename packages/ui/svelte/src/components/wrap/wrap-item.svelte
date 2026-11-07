@@ -10,4 +10,4 @@
   let { ref = $bindable(), ...props }: WrapItemProps = $props()
 </script>
 
-<Box as="div" bind:ref display="flex" alignItems="flex-start" {...props} />
+<Box bind:ref display="flex" alignItems="flex-start" {...props} />
