@@ -29,7 +29,7 @@ export default function ComponentsPage() {
         <styled.p mt="5" maxW="lg" color="fg.muted" lineHeight="1.7" textWrap="pretty">
           Prototypes are headless components that Zag.js and Ark UI don't ship yet. Each one is a framework-agnostic
           state machine proposed upstream, and you can use it today with copy-paste code for React, Vue, Svelte, Solid,
-          Preact and vanilla JS.
+          Preact, Lit and vanilla JS.
         </styled.p>
       </styled.div>
 

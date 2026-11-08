@@ -19,7 +19,7 @@ export function FrameworkHint({ children }: { children: ReactNode }) {
         target: () => document.querySelector<HTMLElement>("[data-framework-picker]"),
         title: "Pick your framework",
         description:
-          "Switch between React, Vue, Svelte, Solid, Preact and vanilla JS. The preview, code and install steps follow your pick.",
+          "Switch between React, Vue, Svelte, Solid, Preact, Lit and vanilla JS. The preview, code and install steps follow your pick.",
         placement: "bottom-start",
         arrow: true,
         actions: [dismiss],

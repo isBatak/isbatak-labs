@@ -1,4 +1,4 @@
-export const frameworkIds = ["react", "vue", "svelte", "solid", "preact", "vanilla"] as const
+export const frameworkIds = ["react", "vue", "svelte", "solid", "preact", "lit", "vanilla"] as const
 export const stylingIds = ["panda", "css"] as const
 export const apiIds = ["zag", "ark"] as const
 
