@@ -114,7 +114,7 @@ text inputs, selects, pickers.
 - [x] fieldset
 - [x] native-select
 - [x] select
-- [ ] combobox — has: recipe
+- [x] combobox
 - [x] listbox
 - [x] number-input
 - [x] number-stepper-input
