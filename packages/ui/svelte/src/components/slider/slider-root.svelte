@@ -14,4 +14,4 @@
   provideSliderStyles(() => styles)
 </script>
 
-<Slider.Root bind:ref bind:value {...localProps} data-slot="root" class={[!unstyled && styles.root, className]} />
+<Slider.Root bind:ref bind:value orientation={typeof variantProps.orientation === "string" ? variantProps.orientation : undefined} {...localProps} data-slot="root" class={[!unstyled && styles.root, className]} />
