@@ -1,10 +1,9 @@
-import { NavigationMenu as ArkNavigationMenu } from "@ark-ui/react/navigation-menu"
 import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
 import { styled } from "styled-system/jsx"
 
 import { Icon } from "@isbatak/react-ui/icon"
 
-const ContentLink = styled(ArkNavigationMenu.Link, {
+const ContentLink = styled("a", {
   base: {
     display: "flex",
     flexDirection: "column",
