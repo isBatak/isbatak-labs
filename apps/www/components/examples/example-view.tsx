@@ -16,6 +16,7 @@ const loaders: Record<Exclude<FrameworkId, "react">, () => Promise<MountModule>>
   svelte: () => import("@isbatak/compositions/svelte"),
   solid: () => import("@isbatak/compositions/solid"),
   preact: () => import("@isbatak/compositions/preact"),
+  lit: () => import("@isbatak/compositions/lit"),
   vanilla: () => import("@isbatak/compositions/vanilla"),
 }
 

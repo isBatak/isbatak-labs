@@ -1,10 +1,6 @@
 ---
 "@isbatak/panda-ds": minor
 "@isbatak/panda-theme-analog": patch
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 Layout components: Box, Flex, Stack, HStack, VStack, Grid, GridItem, SimpleGrid, Center, AbsoluteCenter, Circle, Square,

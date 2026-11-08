@@ -245,6 +245,9 @@ importers:
       '@isbatak/vue-ui':
         specifier: workspace:*
         version: link:../../packages/ui/vue
+      '@isbatak/zag-lit':
+        specifier: workspace:*
+        version: link:../../packages/zag/lit
       '@isbatak/zag-masonry':
         specifier: workspace:*
         version: link:../../packages/zag/masonry
@@ -272,6 +275,9 @@ importers:
       '@zag-js/vue':
         specifier: 'catalog:'
         version: 2.0.0-next.3(vue@3.5.43(typescript@6.0.3))
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.3
       preact:
         specifier: ^10.29.8
         version: 10.29.8
@@ -427,12 +433,18 @@ importers:
       '@isbatak/zag-lit':
         specifier: workspace:*
         version: link:../../packages/zag/lit
+      '@isbatak/zag-masonry':
+        specifier: workspace:*
+        version: link:../../packages/zag/masonry
       '@isbatak/zag-swipeable-list':
         specifier: workspace:*
         version: link:../../packages/zag/swipeable-list
       '@isbatak/zag-text-flip':
         specifier: workspace:*
         version: link:../../packages/zag/text-flip
+      '@isbatak/zag-wheel-picker':
+        specifier: workspace:*
+        version: link:../../packages/zag/wheel-picker
       lit:
         specifier: 'catalog:'
         version: 3.3.3

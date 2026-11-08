@@ -1,0 +1,21 @@
+import { Field } from "@isbatak/react-ui/field"
+import { NativeSelect } from "@isbatak/react-ui/native-select"
+
+export function NativeSelectInvalidDemo() {
+  return (
+    <Field.Root invalid maxW="xs">
+      <Field.Label>Framework</Field.Label>
+      <NativeSelect.Root>
+        <NativeSelect.Field>
+          <option value="">Select framework</option>
+          <option value="react">React</option>
+          <option value="vue">Vue</option>
+          <option value="solid">Solid</option>
+          <option value="svelte">Svelte</option>
+        </NativeSelect.Field>
+        <NativeSelect.Indicator />
+      </NativeSelect.Root>
+      <Field.ErrorText>Pick a framework.</Field.ErrorText>
+    </Field.Root>
+  )
+}

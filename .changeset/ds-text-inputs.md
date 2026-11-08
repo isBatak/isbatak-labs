@@ -1,9 +1,5 @@
 ---
 "@isbatak/panda-ds": minor
-"@isbatak/react-ui": minor
-"@isbatak/vue-ui": minor
-"@isbatak/svelte-ui": minor
-"@isbatak/solid-ui": minor
 ---
 
 Text inputs in every framework: Input, Textarea, Field, Fieldset (with `Content`) and InputGroup with `InputElement` and

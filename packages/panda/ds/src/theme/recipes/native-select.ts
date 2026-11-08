@@ -43,10 +43,10 @@ export const nativeSelectSlotRecipe = defineSlotRecipe({
       transform: "translateY(-50%)",
       height: "100%",
       color: "fg.muted",
-      _disabled: {
+      "select:disabled ~ &": {
         opacity: "0.5",
       },
-      _invalid: {
+      "select:is([aria-invalid=true], [data-invalid]) ~ &": {
         color: "fg.error",
       },
       _icon: {

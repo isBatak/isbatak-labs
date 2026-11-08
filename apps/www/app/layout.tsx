@@ -16,7 +16,7 @@ export const ensureStatic = "navigation"
 export const metadata: Metadata = {
   title: "isbatak zag",
   description:
-    "Headless UI components for React, Vue, Svelte, Solid, Preact and vanilla JS, driven by one framework-agnostic state machine each",
+    "Headless UI components for React, Vue, Svelte, Solid, Preact, Lit and vanilla JS, driven by one framework-agnostic state machine each",
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

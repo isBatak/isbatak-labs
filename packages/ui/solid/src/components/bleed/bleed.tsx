@@ -10,5 +10,5 @@ export interface BleedProps extends Omit<ComponentProps<typeof StyledBleed>, key
 export function Bleed(props: BleedProps) {
   const [patternProps, rest] = splitProps(props, bleed.propKeys)
   const styles = createMemo(() => bleed.raw(patternProps))
-  return <StyledBleed {...styles()} {...rest} />
+  return <StyledBleed {...(styles() as ComponentProps<typeof StyledBleed>)} {...rest} />
 }
