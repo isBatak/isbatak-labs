@@ -84,14 +84,15 @@ export function Hero() {
           <Stat>
             <StatLabel leading>Works with</StatLabel>
             <StatValue>
-              <styled.span srOnly>React, Vue, Svelte, Solid, Preact and Vanilla JS</styled.span>
+              <styled.span srOnly>React, Vue, Svelte, Solid, Preact, Lit and Vanilla JS</styled.span>
               <TextFlip.Root aria-hidden>
                 <TextFlip.Item index={0}>React</TextFlip.Item>
                 <TextFlip.Item index={1}>Vue</TextFlip.Item>
                 <TextFlip.Item index={2}>Svelte</TextFlip.Item>
                 <TextFlip.Item index={3}>Solid</TextFlip.Item>
                 <TextFlip.Item index={4}>Preact</TextFlip.Item>
-                <TextFlip.Item index={5}>Vanilla JS</TextFlip.Item>
+                <TextFlip.Item index={5}>Lit</TextFlip.Item>
+                <TextFlip.Item index={6}>Vanilla JS</TextFlip.Item>
               </TextFlip.Root>
             </StatValue>
           </Stat>

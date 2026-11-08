@@ -11,5 +11,5 @@ export interface SquareProps
 export function Square(props: SquareProps) {
   const [patternProps, rest] = splitProps(props, square.propKeys)
   const styles = createMemo(() => square.raw(patternProps))
-  return <StyledSquare {...styles()} {...rest} />
+  return <StyledSquare {...(styles() as ComponentProps<typeof StyledSquare>)} {...rest} />
 }

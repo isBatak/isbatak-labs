@@ -11,5 +11,5 @@ export interface SpacerProps
 export function Spacer(props: SpacerProps) {
   const [patternProps, rest] = splitProps(props, spacer.propKeys)
   const styles = createMemo(() => spacer.raw(patternProps))
-  return <StyledSpacer {...styles()} {...rest} />
+  return <StyledSpacer {...(styles() as ComponentProps<typeof StyledSpacer>)} {...rest} />
 }

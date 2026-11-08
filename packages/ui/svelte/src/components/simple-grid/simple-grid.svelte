@@ -21,7 +21,11 @@
   import { token } from "@isbatak/panda-ds/tokens"
   import type { Token } from "@isbatak/panda-ds/types"
 
+  import type { Component } from "svelte"
+
   import { Grid } from "../grid"
+
+  const DivGrid = Grid as Component<GridProps<"div">, {}, "ref">
 
   let { ref = $bindable(), columns, minChildWidth, style, ...props }: SimpleGridProps = $props()
 
@@ -53,7 +57,7 @@
   )
 </script>
 
-<Grid
+<DivGrid
   bind:ref
   templateColumns={vars
     ? {

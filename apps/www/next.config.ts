@@ -54,7 +54,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/components/prototypes/:slug/:framework(react|vue|svelte|solid|preact|vanilla)/:styling(panda|css)",
+        source:
+          "/components/prototypes/:slug/:framework(react|vue|svelte|solid|preact|lit|vanilla)/:styling(panda|css)",
         destination: "/components/prototypes/:slug/:framework/:styling/zag",
         permanent: false,
         missing: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],

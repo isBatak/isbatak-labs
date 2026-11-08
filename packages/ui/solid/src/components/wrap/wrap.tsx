@@ -10,7 +10,7 @@ export interface WrapProps extends Omit<ComponentProps<typeof StyledWrap>, keyof
 export function Wrap(props: WrapProps) {
   const [patternProps, rest] = splitProps(props, wrap.propKeys)
   const styles = createMemo(() => wrap.raw(patternProps))
-  return <StyledWrap {...styles()} {...rest} />
+  return <StyledWrap {...(styles() as ComponentProps<typeof StyledWrap>)} {...rest} />
 }
 
 export const WrapItem = styled(ark.div, {

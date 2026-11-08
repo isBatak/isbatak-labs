@@ -1,6 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
 import { createListCollection, Select } from "@isbatak/react-ui/select"
-import { Stack, styled } from "styled-system/jsx"
 
 const plans = createListCollection({
   items: [
@@ -27,32 +26,26 @@ export function SelectItemDescriptionDemo() {
         <Select.Positioner>
           <Select.Content>
             <Select.Item item={{ label: "Free", value: "free", description: "For personal projects. 1 seat." }}>
-              <Stack gap="0" flex="1">
+              <Select.ItemContent>
                 <Select.ItemText>Free</Select.ItemText>
-                <styled.span textStyle="xs" color="fg.muted">
-                  For personal projects. 1 seat.
-                </styled.span>
-              </Stack>
+                <Select.ItemDescription>For personal projects. 1 seat.</Select.ItemDescription>
+              </Select.ItemContent>
               <Select.ItemIndicator />
             </Select.Item>
             <Select.Item item={{ label: "Pro", value: "pro", description: "For small teams. Up to 10 seats." }}>
-              <Stack gap="0" flex="1">
+              <Select.ItemContent>
                 <Select.ItemText>Pro</Select.ItemText>
-                <styled.span textStyle="xs" color="fg.muted">
-                  For small teams. Up to 10 seats.
-                </styled.span>
-              </Stack>
+                <Select.ItemDescription>For small teams. Up to 10 seats.</Select.ItemDescription>
+              </Select.ItemContent>
               <Select.ItemIndicator />
             </Select.Item>
             <Select.Item
               item={{ label: "Enterprise", value: "enterprise", description: "Unlimited seats, SSO and audit logs." }}
             >
-              <Stack gap="0" flex="1">
+              <Select.ItemContent>
                 <Select.ItemText>Enterprise</Select.ItemText>
-                <styled.span textStyle="xs" color="fg.muted">
-                  Unlimited seats, SSO and audit logs.
-                </styled.span>
-              </Stack>
+                <Select.ItemDescription>Unlimited seats, SSO and audit logs.</Select.ItemDescription>
+              </Select.ItemContent>
               <Select.ItemIndicator />
             </Select.Item>
           </Select.Content>

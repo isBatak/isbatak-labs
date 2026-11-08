@@ -11,8 +11,10 @@
     "@isbatak/lit-ui": "workspace:*",
     "@isbatak/storybook-shared": "workspace:*",
     "@isbatak/zag-lit": "workspace:*",
+    "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-swipeable-list": "workspace:*",
     "@isbatak/zag-text-flip": "workspace:*",
+    "@isbatak/zag-wheel-picker": "workspace:*",
     "lit": "catalog:"
   },
   "devDependencies": {

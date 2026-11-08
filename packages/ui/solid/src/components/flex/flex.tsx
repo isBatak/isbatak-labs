@@ -10,5 +10,5 @@ export interface FlexProps extends Omit<ComponentProps<typeof StyledFlex>, keyof
 export function Flex(props: FlexProps) {
   const [patternProps, rest] = splitProps(props, flex.propKeys)
   const styles = createMemo(() => flex.raw(patternProps))
-  return <StyledFlex {...styles()} {...rest} />
+  return <StyledFlex {...(styles() as ComponentProps<typeof StyledFlex>)} {...rest} />
 }

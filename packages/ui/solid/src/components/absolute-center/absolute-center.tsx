@@ -11,5 +11,5 @@ export interface AbsoluteCenterProps
 export function AbsoluteCenter(props: AbsoluteCenterProps) {
   const [patternProps, rest] = splitProps(props, absoluteCenter.propKeys)
   const styles = createMemo(() => absoluteCenter.raw(patternProps))
-  return <StyledAbsoluteCenter {...styles()} {...rest} />
+  return <StyledAbsoluteCenter {...(styles() as ComponentProps<typeof StyledAbsoluteCenter>)} {...rest} />
 }

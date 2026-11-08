@@ -128,6 +128,15 @@ const frameworks = [
     ],
   },
   {
+    id: "lit",
+    label: "Lit",
+    ext: "ts",
+    lang: "ts",
+    runtime: ["lit"],
+    target: "src/components",
+    exportName: (name) => name,
+  },
+  {
     id: "vanilla",
     label: "Vanilla",
     ext: "ts",
@@ -165,7 +174,9 @@ async function listDsExamples() {
   for (const framework of dsFrameworks) {
     const dir = `${root}/src/examples/ds/${framework}`
     if (!existsSync(dir)) continue
-    for (const name of await readdir(dir)) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue
+      const name = entry.name
       for (const file of await readdir(`${dir}/${name}`)) {
         if (file.startsWith("_")) continue
         const demo = basename(file, extname(file))
