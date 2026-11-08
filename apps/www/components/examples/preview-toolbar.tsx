@@ -17,11 +17,12 @@ const vue = { label: "Vue", value: "vue" }
 const svelte = { label: "Svelte", value: "svelte" }
 const solid = { label: "Solid", value: "solid" }
 const preact = { label: "Preact", value: "preact" }
+const lit = { label: "Lit", value: "lit" }
 const vanilla = { label: "Vanilla JS", value: "vanilla" }
 
 const createFrameworks = (api: ApiId) =>
   createListCollection({
-    items: [react, vue, svelte, solid, preact, vanilla],
+    items: [react, vue, svelte, solid, preact, lit, vanilla],
     isItemDisabled: (item) => !supportsApi(item.value as FrameworkId, api),
   })
 
@@ -31,6 +32,7 @@ const frameworkIcons: Record<FrameworkId, IconName> = {
   svelte: "brand-svelte",
   solid: "brand-solidjs",
   preact: "brand-preact",
+  lit: "brand-lit",
   vanilla: "brand-javascript",
 }
 
@@ -91,6 +93,13 @@ function FrameworkSelect() {
             <Select.Item item={preact}>
               <Icon size="sm" name="brand-preact" />
               <Select.ItemText flex="1">Preact</Select.ItemText>
+              <Select.ItemIndicator>
+                <Icon name="check" />
+              </Select.ItemIndicator>
+            </Select.Item>
+            <Select.Item item={lit}>
+              <Icon size="sm" name="brand-lit" />
+              <Select.ItemText flex="1">Lit</Select.ItemText>
               <Select.ItemIndicator>
                 <Icon name="check" />
               </Select.ItemIndicator>

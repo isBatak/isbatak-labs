@@ -1,0 +1,116 @@
+import { css } from "styled-system/css"
+import { masonry as masonryRecipe } from "styled-system/recipes"
+import * as masonry from "@isbatak/zag-masonry"
+import { html, LitElement } from "lit"
+import { normalizeProps, spread } from "@isbatak/zag-lit"
+
+const styles = masonryRecipe()
+
+const classes = {
+  details: css({ color: "fg.muted", textStyle: "sm" }),
+  summary: css({ px: "3", py: "2", color: "fg", fontWeight: "medium", cursor: "button" }),
+  content: css({ px: "3", pb: "3" }),
+}
+
+export class MasonryVariableHeight extends LitElement {
+  readonly #controller = masonry.createMasonry()
+  readonly #props: masonry.Props = { id: crypto.randomUUID(), columns: 3 }
+  #layout: masonry.Layout | null = null
+  #stop: (() => void) | undefined
+
+  protected createRenderRoot() {
+    return this
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.requestUpdate()
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.#stop?.()
+    this.#stop = undefined
+  }
+
+  protected updated() {
+    this.#stop ??= this.#controller.mount(
+      () => this.#props,
+      (layout) => {
+        this.#layout = layout
+        this.requestUpdate()
+      },
+    )
+  }
+
+  render() {
+    const api = this.#controller.connect(this.#props, this.#layout, normalizeProps)
+
+    return html`
+      <div ${spread(api.getRootProps())} class=${styles.root}>
+        <div ${spread(api.getItemProps({ value: "1" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 150px">
+            <summary class=${classes.summary}>Accordion 1</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "2" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 30px">
+            <summary class=${classes.summary}>Accordion 2</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "3" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 90px">
+            <summary class=${classes.summary}>Accordion 3</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "4" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 70px">
+            <summary class=${classes.summary}>Accordion 4</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "5" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 90px">
+            <summary class=${classes.summary}>Accordion 5</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "6" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 100px">
+            <summary class=${classes.summary}>Accordion 6</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "7" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 150px">
+            <summary class=${classes.summary}>Accordion 7</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "8" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 30px">
+            <summary class=${classes.summary}>Accordion 8</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "9" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 50px">
+            <summary class=${classes.summary}>Accordion 9</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+        <div ${spread(api.getItemProps({ value: "10" }))} class=${styles.item}>
+          <details class=${classes.details} style="min-height: 80px">
+            <summary class=${classes.summary}>Accordion 10</summary>
+            <p class=${classes.content}>Contents</p>
+          </details>
+        </div>
+      </div>
+    `
+  }
+}
+
+customElements.define("masonry-variable-height", MasonryVariableHeight)
