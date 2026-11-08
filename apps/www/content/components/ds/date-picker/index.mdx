@@ -1,0 +1,126 @@
+---
+title: Date picker
+description: Type a date or pick one from a calendar, with month and year views and ranges.
+category: Forms
+links:
+  source: packages/ui/react/src/components/date-picker
+  recipe: packages/panda/ds/src/theme/recipes/date-picker.ts
+  ark: https://ark-ui.com/docs/components/date-picker
+---
+
+Built on Ark UI's Date Picker. People can type into the input or open the calendar, and switch from days to months to
+years with the header. Values are `DateValue` objects from `@internationalized/date`: create one with
+`parseDate("2026-11-08")`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<DatePicker.Root>
+  <DatePicker.Label />
+  <DatePicker.Control>
+    <DatePicker.Input />
+    <DatePicker.IndicatorGroup>
+      <DatePicker.ClearTrigger />
+      <DatePicker.Trigger />
+    </DatePicker.IndicatorGroup>
+  </DatePicker.Control>
+  <Portal>
+    <DatePicker.Positioner>
+      <DatePicker.Content>
+        <DatePicker.View view="day">
+          <DatePicker.Header />
+          <DatePicker.DayTable />
+        </DatePicker.View>
+        <DatePicker.View view="month">
+          <DatePicker.Header />
+          <DatePicker.MonthTable />
+        </DatePicker.View>
+        <DatePicker.View view="year">
+          <DatePicker.Header />
+          <DatePicker.YearTable />
+        </DatePicker.View>
+      </DatePicker.Content>
+    </DatePicker.Positioner>
+  </Portal>
+</DatePicker.Root>
+```
+
+`DatePicker.Header` renders the previous and next buttons around the button that switches views. `DatePicker.DayTable`,
+`DatePicker.MonthTable` and `DatePicker.YearTable` render the calendar for each view. Use the table parts on their own
+to customize the cells. `DatePicker.Trigger`, `DatePicker.ClearTrigger` and the previous and next buttons draw their
+icons when they have no children, and the input leaves room for them.
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md`, `lg` or `xl`. The default is `md`.
+
+<Example id="date-picker/sizes" />
+
+### Variants
+
+Set `variant` to `outline`, `subtle`, `plain` or `flushed`. The default is `outline`. These match the `input` recipe.
+
+<Example id="date-picker/variants" />
+
+### Range
+
+Set `selectionMode="range"` and render two inputs, with `index={0}` for the start and `index={1}` for the end. The
+calendar highlights the days between them.
+
+<Example id="date-picker/range" />
+
+### Presets
+
+Add a `DatePicker.PresetTrigger` with a preset like `last7Days`, `last30Days` or `thisMonth` to pick a range in one
+click.
+
+<Example id="date-picker/presets" />
+
+### Clear trigger
+
+Add `DatePicker.ClearTrigger` to the indicator group to let people clear the date. It only shows when there is one.
+
+<Example id="date-picker/clear-trigger" />
+
+### Min and max
+
+Set `min` and `max` to limit the dates people can pick. Days outside the range are disabled.
+
+<Example id="date-picker/min-max" />
+
+### Inline
+
+Set `inline` and render `DatePicker.Content` without a control or positioner to show the calendar in the page.
+
+<Example id="date-picker/inline" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the date. The value is always an array.
+
+<Example id="date-picker/controlled" />
+
+### Invalid
+
+Set `invalid` to give the input the error border. Add the error text below it, here with the `field` recipe's
+`errorText`.
+
+<Example id="date-picker/invalid" />
+
+### Disabled
+
+Set `disabled` to disable the input and the trigger.
+
+<Example id="date-picker/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
