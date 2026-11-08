@@ -1,5 +1,6 @@
 "use client"
 
+import { ark } from "@ark-ui/react/factory"
 import { NavigationMenu as ArkNavigationMenu } from "@ark-ui/react/navigation-menu"
 import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
 import Link from "next/link"
@@ -33,6 +34,23 @@ const LinkDescription = styled("span", {
     lineHeight: "1.5",
     color: "fg.muted",
     lineClamp: "2",
+  },
+})
+
+const ContentLink = styled(ark.a, {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5",
+    px: "3",
+    py: "2.5",
+    borderRadius: "l2",
+    outline: "none",
+    transitionProperty: "background",
+    transitionDuration: "fast",
+    _hover: { bg: "bg.muted" },
+    _focusVisible: { bg: "bg.muted" },
+    _currentPage: { bg: "bg.muted" },
   },
 })
 
@@ -76,16 +94,16 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
 
   if (entry.external) {
     return (
-      <NavigationMenu.Link href={entry.href} target="_blank" rel="noopener">
+      <ContentLink href={entry.href} target="_blank" rel="noopener">
         {body}
-      </NavigationMenu.Link>
+      </ContentLink>
     )
   }
 
   return (
-    <NavigationMenu.Link asChild current={pathname === entry.href}>
+    <ContentLink asChild aria-current={pathname === entry.href ? "page" : undefined}>
       <Link href={entry.href}>{body}</Link>
-    </NavigationMenu.Link>
+    </ContentLink>
   )
 }
 
@@ -149,9 +167,9 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
           </NavigationMenu.Content>
         </Section>
         <NavigationMenu.Item value="blocks">
-          <NavigationMenu.Trigger asChild data-current={pathname.startsWith("/blocks") ? "" : undefined}>
+          <NavigationMenu.Link asChild value="blocks" current={pathname.startsWith("/blocks")}>
             <Link href="/blocks">Blocks</Link>
-          </NavigationMenu.Trigger>
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
         <Section value="ds" label="DS" href="/ds/components" current={pathname.startsWith("/ds")}>
           <NavigationMenu.Content w="xs">
