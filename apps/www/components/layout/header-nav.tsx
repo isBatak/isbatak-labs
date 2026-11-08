@@ -36,7 +36,7 @@ const LinkDescription = styled("span", {
   },
 })
 
-const ContentLink = styled(ArkNavigationMenu.Link, {
+const ContentLink = styled(Link, {
   base: {
     display: "flex",
     flexDirection: "column",
@@ -100,8 +100,8 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
   }
 
   return (
-    <ContentLink asChild current={pathname === entry.href}>
-      <Link href={entry.href}>{body}</Link>
+    <ContentLink href={entry.href} aria-current={pathname === entry.href ? "page" : undefined}>
+      {body}
     </ContentLink>
   )
 }
