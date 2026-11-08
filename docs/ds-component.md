@@ -71,4 +71,5 @@ docs don't need. The docs page links to the `Usage` story of the picked framewor
 
 Add `.changeset/<slug>.md` naming every package you touched: `@isbatak/panda-ds`, `@isbatak/panda-theme-analog`,
 `@isbatak/<framework>-ui`, `@isbatak/ark-<name>`, `@isbatak/zag-<name>`. The `-ui` packages are private but still get
-changesets; apps don't.
+changesets, in their own file: a changeset that names private and published packages together fails the Release
+workflow. Apps don't get changesets.
