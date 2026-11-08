@@ -1,5 +1,6 @@
 "use client"
 
+import { ark } from "@ark-ui/react/factory"
 import { NavigationMenu as ArkNavigationMenu } from "@ark-ui/react/navigation-menu"
 import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
 import Link from "next/link"
@@ -36,7 +37,7 @@ const LinkDescription = styled("span", {
   },
 })
 
-const ContentLink = styled(Link, {
+const ContentLink = styled(ark.a, {
   base: {
     display: "flex",
     flexDirection: "column",
@@ -100,8 +101,8 @@ function EntryLink({ entry, pathname }: { entry: NavEntry; pathname: string }) {
   }
 
   return (
-    <ContentLink href={entry.href} aria-current={pathname === entry.href ? "page" : undefined}>
-      {body}
+    <ContentLink asChild aria-current={pathname === entry.href ? "page" : undefined}>
+      <Link href={entry.href}>{body}</Link>
     </ContentLink>
   )
 }
