@@ -4,6 +4,7 @@ dist
 *.tsbuildinfo
 .DS_Store
 storybook-static
+panda-studio-static
 .vercel
 .env*
 .svelte-kit
