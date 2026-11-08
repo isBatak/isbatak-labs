@@ -28,9 +28,9 @@ jobs:
       - run: pnpm format:check
       - run: pnpm --filter @isbatak/panda-ds build
       - run: pnpm lint
-      - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - run: pnpm typecheck
       - run: pnpm build:storybook
 
   deploy:

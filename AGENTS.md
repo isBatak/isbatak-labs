@@ -15,4 +15,5 @@
 - If a token you need doesn't exist, stop and say so. Don't invent one.
 - `apps/compositions` uses `strictTokens`. Before you say you're done, run `pnpm typecheck` in every package you touched
   and `pnpm exec oxlint <files you changed>` at the root, and fix every error and Panda warning it reports. The
-  pre-commit hook blocks lint errors only.
+  pre-commit hook blocks lint errors only. `apps/www` typecheck reads generated output; run `pnpm generate` there first
+  when it's missing or a package it builds changed.
