@@ -55,6 +55,12 @@ export const fileUploadSlotRecipe = defineSlotRecipe({
         borderStyle: "solid",
         borderColor: "colorPalette.solid",
       },
+      _disabled: {
+        layerStyle: "disabled",
+        _hover: {
+          bg: "bg",
+        },
+      },
     },
     dropzoneContent: {
       display: "flex",
@@ -108,9 +114,16 @@ export const fileUploadSlotRecipe = defineSlotRecipe({
       justifyContent: "center",
       alignSelf: "flex-start",
       boxSize: "5",
-      p: "2px",
+      p: "0.5",
       color: "fg.muted",
       cursor: "button",
+      borderRadius: "l1",
+      outline: "0",
+      focusVisibleRing: "outside",
+      _hover: {
+        color: "fg",
+        bg: "bg.muted",
+      },
     },
     itemPreview: {
       color: "fg.muted",

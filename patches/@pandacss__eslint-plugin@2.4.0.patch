@@ -1,0 +1,14 @@
+diff --git a/dist/chunk-PSDFXFYF.js b/dist/chunk-PSDFXFYF.js
+index 3e2af351826d5aeded786a8e23e55da0b16cf3c0..6f9edea91afbec57c80cd38e0b5bd5b8df2f70bc 100644
+--- a/dist/chunk-PSDFXFYF.js
++++ b/dist/chunk-PSDFXFYF.js
+@@ -1228,7 +1228,8 @@ function hardcodedValueClassifier(compiler) {
+     const cached = cache.get(key);
+     if (cached !== void 0) return cached;
+     let result = false;
+-    if (!RAW_VALUE_KEYWORDS.has(value.trim().toLowerCase())) {
++    const trimmed = value.trim();
++    if (!RAW_VALUE_KEYWORDS.has(trimmed.toLowerCase()) && !(trimmed.startsWith("[") && trimmed.endsWith("]"))) {
+       const resolved = compiler.resolveUtilityValue({ prop, value });
+       result = resolved !== null && resolved.tokens.length === 0 && !String(resolved.cssValue).trimStart().startsWith("var(");
+     }

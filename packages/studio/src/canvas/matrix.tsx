@@ -85,16 +85,16 @@ const cell = css({
   transition: "opacity 0.15s",
   _hover: { borderColor: "border" },
   "&[data-dimmed]": { opacity: "0.3" },
-  "&[data-selected]": { outline: "2px solid", outlineColor: "blue.500", outlineOffset: "1px" },
+  "&[data-selected]": { outline: "2px solid", outlineColor: "blue.500", outlineOffset: "px" },
   // Overlays (menus, popovers, drawers) render open in the cell's flow instead of floating
   "& [data-slot=positioner]": {
     position: "relative !important",
-    inset: "auto !important",
+    inset: "[auto !important]",
     transform: "none !important",
     minW: "0 !important",
-    w: "auto !important",
-    h: "auto !important",
-    zIndex: "auto !important",
+    w: "[auto !important]",
+    h: "[auto !important]",
+    zIndex: "[auto !important]",
   },
   "& [data-slot=content]": { animation: "none !important" },
 })

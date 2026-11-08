@@ -22,7 +22,7 @@ const overlay = css({
   zIndex: "2147483646",
   outline: "2px solid",
   outlineColor: "blue.500",
-  outlineOffset: "1px",
+  outlineOffset: "px",
   borderRadius: "xs",
 })
 
@@ -32,7 +32,7 @@ const hoverOverlay = css({
   zIndex: "2147483646",
   outline: "1px dashed",
   outlineColor: "blue.500",
-  outlineOffset: "1px",
+  outlineOffset: "px",
   bg: "blue.500/6",
 })
 
@@ -42,7 +42,7 @@ const tag = css({
   left: "-0.5",
   bg: "blue.500",
   color: "white",
-  fontSize: "11px",
+  fontSize: "xs",
   lineHeight: "16px",
   px: "1.5",
   borderRadius: "xs",

@@ -15,11 +15,18 @@
     "pandacss-www/prefer-token": [
       "warn",
       {
-        "categories": ["colors", "spacing", "radii", "fontSizes"],
-        "allow": ["concentric"]
+        "categories": ["colors", "spacing", "radii", "fontSizes"]
       }
     ],
     "pandacss-www/no-invalid-token-paths": "error",
     "pandacss-www/no-invalid-nesting": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["components/ds-demos/concentric/**"],
+      "rules": {
+        "pandacss-www/prefer-token": "off"
+      }
+    }
+  ]
 }

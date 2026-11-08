@@ -1,0 +1,140 @@
+---
+title: Combobox
+description: Type to filter a list of options and pick one or more of them.
+category: Forms
+links:
+  source: packages/ui/react/src/components/combobox
+  recipe: packages/panda/ds/src/theme/recipes/combobox.ts
+  ark: https://ark-ui.com/docs/components/combobox
+---
+
+Built on Ark UI's Combobox. Use it when the list is long enough that people would rather type than scroll; for a short
+list, use Select. The items come from `useListCollection`, which filters them as people type: pass a filter from
+`useFilter` and call `filter` with the input value in `onInputValueChange`. The demos render the list in a portal: Ark's
+`Portal` in React and Svelte, `Portal` from `solid-js/web` in Solid, and `<Teleport to="body">` in Vue.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Combobox.Root collection={collection} onInputValueChange={(details) => filter(details.inputValue)}>
+  <Combobox.Label />
+  <Combobox.Control>
+    <Combobox.Input />
+    <Combobox.IndicatorGroup>
+      <Combobox.ClearTrigger />
+      <Combobox.Trigger />
+    </Combobox.IndicatorGroup>
+  </Combobox.Control>
+  <Portal>
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty />
+        <Combobox.ItemGroup>
+          <Combobox.ItemGroupLabel />
+          <Combobox.Item item={item}>
+            <Combobox.ItemText />
+            <Combobox.ItemIndicator />
+          </Combobox.Item>
+        </Combobox.ItemGroup>
+      </Combobox.Content>
+    </Combobox.Positioner>
+  </Portal>
+</Combobox.Root>
+```
+
+`Combobox.Trigger`, `Combobox.ItemIndicator` and `Combobox.ClearTrigger` render a chevron, a check and a cross when they
+have no children. The input leaves room for whichever of the two triggers are there. `Combobox.Empty` shows its text
+only when no item matches, and the list hides itself when it's empty and has no `Combobox.Empty`.
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="combobox/sizes" />
+
+### Variants
+
+Set `variant` to `outline`, `subtle`, `plain` or `flushed`. The default is `outline`. These match the `input` recipe's
+variants.
+
+<Example id="combobox/variants" />
+
+### Option group
+
+Pass `groupBy` to `useListCollection` and render `collection.group()`, each group in `Combobox.ItemGroup` with a
+`Combobox.ItemGroupLabel`. Groups with no matching items drop out as people type.
+
+<Example id="combobox/option-group" />
+
+### Item description
+
+Wrap `Combobox.ItemText` and `Combobox.ItemDescription` in `Combobox.ItemContent` for a two-line item. The filter only
+matches the label.
+
+<Example id="combobox/item-description" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the selected values. The value is always an array, even for a single pick.
+
+<Example id="combobox/controlled" />
+
+### Multiple
+
+Set `multiple` to let people pick several values, and `closeOnSelect={false}` to keep the list open between picks. The
+input clears after each pick, so show the picked values somewhere else, here as badges.
+
+<Example id="combobox/multiple" />
+
+### Open on click
+
+The list opens when people type or press the arrow keys. Set `openOnClick` to also open it when they click the input.
+
+<Example id="combobox/open-on-click" />
+
+### Disabled
+
+Set `disabled` on the root to disable the whole combobox. To disable single items, pass `isItemDisabled` to the
+collection.
+
+<Example id="combobox/disabled" />
+
+### Invalid
+
+Set `invalid` to give the input the error border. Add the error text below it, here with the `field` recipe's
+`errorText`.
+
+<Example id="combobox/invalid" />
+
+### Open from a popover
+
+A combobox inside a popover can keep its `Portal`. Here it renders in place, which also works.
+
+<Example id="combobox/popover" />
+
+### Open from a drawer
+
+Leave out the `Portal` when the combobox is inside a drawer or dialog, so the list stays in the drawer's layer and focus
+trap.
+
+<Example id="combobox/drawer" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable                       | Description                                                       |
+| ------------------------------ | ----------------------------------------------------------------- |
+| `--combobox-input-height`      | The input's height, set by `size`                                 |
+| `--combobox-input-padding-x`   | The input's horizontal padding, set by `size`                     |
+| `--combobox-indicator-size`    | The size of the trigger and clear trigger, set by `size`          |
+| `--combobox-input-padding-end` | The input's end padding, wide enough for the triggers it contains |
+| `--combobox-content-padding`   | The list's padding, set by `size`                                 |
+
+## API
+
+<Api />
