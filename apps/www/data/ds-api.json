@@ -3741,6 +3741,136 @@
       }
     }
   },
+  "rating-group": {
+    "parts": [
+      {
+        "name": "RatingGroup.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input element."
+          },
+          "defaultValue": {
+            "type": "number | undefined",
+            "description": "The initial value of the rating when rendered.\nUse when you don't need to control the value of the rating."
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to autofocus the rating."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the rating. Useful for composition."
+          },
+          "value": {
+            "type": "number | undefined",
+            "description": "The controlled value of the rating"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to be called when the rating value changes."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute of the rating element (used in forms)."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is readonly."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of ratings.",
+            "defaultValue": "5"
+          },
+          "allowHalf": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow half stars."
+          },
+          "onHoverChange": {
+            "type": "((details: HoverChangeDetails) => void) | undefined",
+            "description": "Function to be called when the rating value is hovered."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseRatingGroupReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Item",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.ItemIndicator",
+        "props": {
+          "icon": {
+            "type": "ReactElement | undefined",
+            "description": "The icon to draw for the item, filled up to the rating. A filled star by default."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Items",
+        "props": {
+          "icon": {
+            "type": "ReactElement | undefined",
+            "description": "The icon to draw for each item. A filled star by default."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseRatingGroupContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseRatingGroupItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "search-input": {
     "parts": [
       {
