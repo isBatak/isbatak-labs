@@ -8,31 +8,97 @@ on:
 permissions:
   contents: read
 
+env:
+  AFFECTED: ${{ github.event_name == 'pull_request' && '--affected' || '' }}
+  TURBO_TELEMETRY_DISABLED: 1
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  ci:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-lint-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-lint-
+            turbo-${{ runner.os }}-build-
       - run: pnpm format:check
-      - run: pnpm --filter @isbatak/panda-ds build
-      - run: pnpm --filter @isbatak/solid-ui --filter @isbatak/vue-ui --filter @isbatak/compositions codegen
+      - run: pnpm turbo run codegen --filter=@isbatak/solid-ui --filter=@isbatak/vue-ui --filter=@isbatak/compositions
       - run: pnpm lint --deny-warnings
-      - run: pnpm build
-      - run: pnpm test
-      - run: pnpm typecheck
-      - run: pnpm build:storybook
+      - if: always()
+        run: find .turbo/cache -type f -mtime +7 -delete 2>/dev/null || true
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-build-
+      - run: pnpm turbo run build test typecheck $AFFECTED
+      - if: always()
+        run: find .turbo/cache -type f -mtime +7 -delete 2>/dev/null || true
+
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-storybook-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-storybook-
+            turbo-${{ runner.os }}-build-
+      - run: pnpm turbo run build-storybook $AFFECTED
+      - if: always()
+        run: find .turbo/cache -type f -mtime +7 -delete 2>/dev/null || true
+
+  ci:
+    needs: [lint, build, storybook]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - if:
+          contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result,
+          'skipped')
+        run: exit 1
 
   deploy:
     needs: ci
