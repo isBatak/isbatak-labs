@@ -1,0 +1,84 @@
+---
+title: Rating group
+description: Rate something by picking a number of stars.
+category: Forms
+links:
+  source: packages/ui/react/src/components/rating-group
+  recipe: packages/panda/ds/src/theme/recipes/rating-group.ts
+  ark: https://ark-ui.com/docs/components/rating-group
+---
+
+Built on Ark UI's Rating Group. Set `count` to the number of stars and `defaultValue` or `value` to the rating. Arrow
+keys move the rating, and `RatingGroup.HiddenInput` sends it with a form.
+
+## Usage
+
+<Usage />
+
+```tsx
+<RatingGroup.Root count={5} defaultValue={3}>
+  <RatingGroup.Label />
+  <RatingGroup.HiddenInput />
+  <RatingGroup.Control>
+    <RatingGroup.Items />
+  </RatingGroup.Control>
+</RatingGroup.Root>
+```
+
+`RatingGroup.Items` renders a `RatingGroup.Item` with a `RatingGroup.ItemIndicator` for each star. The indicator draws
+the icon twice, a muted one behind and a colored one in front, and clips the front one for a half rating. Use the parts
+on their own to render something other than the indicator in an item.
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="rating-group/sizes" />
+
+### Colors
+
+Set `colorPalette` to change the color of the filled stars.
+
+<Example id="rating-group/colors" />
+
+### Half stars
+
+Set `allowHalf` to let people pick half a star. The rating then moves in steps of 0.5.
+
+<Example id="rating-group/half" />
+
+### Custom icon
+
+Pass your own icon to draw instead of the star: the `icon` prop in React, the `icon` slot in Vue, the `icon` snippet in
+Svelte and the `icon` function in Solid. Vue, Svelte and Solid hand you a `data-bg` or `data-fg` attribute to spread on
+the icon, so the recipe can tell the two copies apart.
+
+<Example id="rating-group/custom-icon" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the rating.
+
+<Example id="rating-group/controlled" />
+
+### Read-only
+
+Set `readOnly` to show a rating people can't change.
+
+<Example id="rating-group/read-only" />
+
+### Disabled
+
+Set `disabled` to disable the rating group.
+
+<Example id="rating-group/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

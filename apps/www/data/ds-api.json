@@ -615,6 +615,352 @@
       }
     }
   },
+  "color-swatch": {
+    "parts": [
+      {
+        "name": "ColorSwatch",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The color to show, as any CSS color. Transparent parts show a checkerboard."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inherit", "full"],
+        "defaultValue": "md"
+      },
+      "shape": {
+        "values": ["square", "circle", "rounded"],
+        "defaultValue": "rounded"
+      }
+    }
+  },
+  "combobox": {
+    "parts": [
+      {
+        "name": "Combobox.Root",
+        "props": {
+          "collection": {
+            "type": "ListCollection<T>",
+            "description": "The collection of items"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the combobox."
+          },
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial value of the combobox's selected items when rendered.\nUse when you don't need to control the value of the combobox's selected items.",
+            "defaultValue": "[]"
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to autofocus the input on mount"
+          },
+          "onSelect": {
+            "type": "((details: SelectionDetails) => void) | undefined",
+            "description": "Function called when an item is selected"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the combobox. Useful for composition."
+          },
+          "multiple": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow multiple selection.\n\n**Good to know:** When `multiple` is `true`, the `selectionBehavior` is automatically set to `clear`.\nIt is recommended to render the selected items in a separate container."
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled value of the combobox's selected items"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails<T>) => void) | undefined",
+            "description": "Function called when a new item is selected"
+          },
+          "loopFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to loop the keyboard navigation through the items",
+            "defaultValue": "true"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The `name` attribute of the combobox's input. Useful for form submission"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is readonly. This puts the combobox in a \"non-editable\" mode\nbut the user can still interact with it"
+          },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "The placeholder text of the combobox's input"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the combobox"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the combobox when rendered.\nUse when you don't need to control the open state of the combobox."
+          },
+          "inputValue": {
+            "type": "string | undefined",
+            "description": "The controlled value of the combobox's input"
+          },
+          "defaultInputValue": {
+            "type": "string | undefined",
+            "description": "The initial value of the combobox's input when rendered.\nUse when you don't need to control the value of the combobox's input.",
+            "defaultValue": "\"\""
+          },
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial highlighted value of the combobox when rendered.\nUse when you don't need to control the highlighted value of the combobox."
+          },
+          "highlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled highlighted value of the combobox"
+          },
+          "inputBehavior": {
+            "type": "\"autohighlight\" | \"autocomplete\" | \"none\" | undefined",
+            "description": "Defines the auto-completion behavior of the combobox.\n\n- `autohighlight`: The first focused item is highlighted as the user types\n- `autocomplete`: Navigating the listbox with the arrow keys selects the item and the input is updated",
+            "defaultValue": "\"none\""
+          },
+          "selectionBehavior": {
+            "type": "\"clear\" | \"replace\" | \"preserve\" | undefined",
+            "description": "The behavior of the combobox input when an item is selected\n\n- `replace`: The selected item string is set as the input value\n- `clear`: The input value is cleared\n- `preserve`: The input value is preserved",
+            "defaultValue": "\"replace\""
+          },
+          "openOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether to open the combobox popup on initial click on the input",
+            "defaultValue": "false"
+          },
+          "openOnChange": {
+            "type": "boolean | ((details: InputValueChangeDetails) => boolean) | undefined",
+            "description": "Whether to show the combobox when the input value changes",
+            "defaultValue": "true"
+          },
+          "allowCustomValue": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow typing custom values in the input"
+          },
+          "alwaysSubmitOnEnter": {
+            "type": "boolean | undefined",
+            "description": "Whether to always submit on Enter key press, even if popup is open.\nUseful for single-field autocomplete forms where Enter should submit the form.",
+            "defaultValue": "false"
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The positioning options to dynamically position the menu",
+            "defaultValue": "{ placement: \"bottom-start\" }"
+          },
+          "onInputValueChange": {
+            "type": "((details: InputValueChangeDetails) => void) | undefined",
+            "description": "Function called when the input's value changes"
+          },
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails<T>) => void) | undefined",
+            "description": "Function called when an item is highlighted using the pointer\nor keyboard navigation."
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the popup is opened"
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the combobox when an item is selected."
+          },
+          "openOnKeyPress": {
+            "type": "boolean | undefined",
+            "description": "Whether to open the combobox on arrow key press",
+            "defaultValue": "true"
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails) => void) | undefined",
+            "description": "Function to scroll to a specific index"
+          },
+          "disableLayer": {
+            "type": "boolean | undefined",
+            "description": "Whether to disable registering this a dismissable layer"
+          },
+          "navigate": {
+            "type": "((details: NavigateDetails) => void) | null | undefined",
+            "description": "Function to navigate to the selected item"
+          },
+          "popupType": {
+            "type": "\"listbox\" | \"dialog\" | undefined",
+            "description": "The ARIA pattern of the popup. Drives `aria-haspopup` on the trigger, the\n`role` of the content element, the trigger's keyboard handling, and the\nlabel's click target.\n- `\"listbox\"` (default) — input-driven combobox; popup is a passive listbox.\n- `\"dialog\"` — popover-style combobox; popup is announced as a dialog,\n  trigger is keyboard-active, label-click focuses the trigger.",
+            "defaultValue": "\"listbox\""
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Combobox.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseComboboxReturn<T>",
+            "description": ""
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Combobox.Trigger",
+        "props": {
+          "focusable": {
+            "type": "boolean | undefined",
+            "description": "Whether the trigger is focusable"
+          }
+        }
+      },
+      {
+        "name": "Combobox.Item",
+        "props": {
+          "item": {
+            "type": "CollectionItem",
+            "description": "The item to render"
+          },
+          "persistFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether hovering outside should clear the highlighted state"
+          }
+        }
+      },
+      {
+        "name": "Combobox.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseComboboxContext<T>) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Combobox.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseComboboxItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "container": {
     "parts": [],
     "variants": {
@@ -1177,6 +1523,209 @@
         "defaultValue": "md"
       }
     }
+  },
+  "file-upload": {
+    "parts": [
+      {
+        "name": "FileUpload.Root",
+        "props": {
+          "directory": {
+            "type": "boolean | undefined",
+            "description": "Whether to accept directories, only works in webkit browsers"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is disabled"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the underlying file input"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is read-only"
+          },
+          "accept": {
+            "type": "Record<string, string[]> | FileMimeType | FileMimeType[] | undefined",
+            "description": "The accept file types"
+          },
+          "capture": {
+            "type": "\"user\" | \"environment\" | undefined",
+            "description": "The default camera to use when capturing media"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "allowDrop": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow drag and drop in the dropzone element",
+            "defaultValue": "true"
+          },
+          "maxFileSize": {
+            "type": "number | undefined",
+            "description": "The maximum file size in bytes",
+            "defaultValue": "Infinity"
+          },
+          "minFileSize": {
+            "type": "number | undefined",
+            "description": "The minimum file size in bytes",
+            "defaultValue": "0"
+          },
+          "maxFiles": {
+            "type": "number | undefined",
+            "description": "The maximum number of files",
+            "defaultValue": "1"
+          },
+          "preventDocumentDrop": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent the drop event on the document",
+            "defaultValue": "true"
+          },
+          "validate": {
+            "type": "((file: File, details: FileValidateDetails) => FileError[] | null) | undefined",
+            "description": "Function to validate a file"
+          },
+          "defaultAcceptedFiles": {
+            "type": "File[] | undefined",
+            "description": "The default accepted files when rendered.\nUse when you don't need to control the accepted files of the input."
+          },
+          "acceptedFiles": {
+            "type": "File[] | undefined",
+            "description": "The controlled accepted files"
+          },
+          "onFileChange": {
+            "type": "((details: FileChangeDetails) => void) | undefined",
+            "description": "Function called when the value changes, whether accepted or rejected"
+          },
+          "onFileAccept": {
+            "type": "((details: FileAcceptDetails) => void) | undefined",
+            "description": "Function called when the file is accepted"
+          },
+          "onFileReject": {
+            "type": "((details: FileRejectDetails) => void) | undefined",
+            "description": "Function called when the file is rejected"
+          },
+          "transformFiles": {
+            "type": "((files: File[]) => Promise<File[]>) | undefined",
+            "description": "Function to transform the accepted files to apply transformations"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The current locale. Based on the BCP 47 definition.",
+            "defaultValue": "\"en-US\""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseFileUploadReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Dropzone",
+        "props": {
+          "disableClick": {
+            "type": "boolean | undefined",
+            "description": "Whether to disable the click event on the dropzone"
+          }
+        }
+      },
+      {
+        "name": "FileUpload.ItemGroup",
+        "props": {
+          "type": {
+            "type": "ItemType | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Item",
+        "props": {
+          "file": {
+            "type": "File",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.ItemPreview",
+        "props": {
+          "type": {
+            "type": "string | undefined",
+            "description": "The file type to match against. Matches all file types by default.",
+            "defaultValue": "'.*'"
+          }
+        }
+      },
+      {
+        "name": "FileUpload.FileText",
+        "props": {
+          "fallback": {
+            "type": "ReactNode | undefined",
+            "description": "The text to show when no file is picked.",
+            "defaultValue": "\"Select file\""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Items",
+        "props": {
+          "showSize": {
+            "type": "boolean | undefined",
+            "description": "Show each file's size under its name."
+          },
+          "clearable": {
+            "type": "boolean | undefined",
+            "description": "Show a button on each file that removes it."
+          }
+        }
+      },
+      {
+        "name": "FileUpload.List",
+        "props": {
+          "type": {
+            "type": "ItemType | undefined",
+            "description": ""
+          },
+          "showSize": {
+            "type": "boolean | undefined",
+            "description": "Show each file's size under its name."
+          },
+          "clearable": {
+            "type": "boolean | undefined",
+            "description": "Show a button on each file that removes it."
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseFileUploadContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "flex": {
     "parts": [
@@ -3418,6 +3967,136 @@
       }
     }
   },
+  "rating-group": {
+    "parts": [
+      {
+        "name": "RatingGroup.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The associate form of the underlying input element."
+          },
+          "defaultValue": {
+            "type": "number | undefined",
+            "description": "The initial value of the rating when rendered.\nUse when you don't need to control the value of the rating."
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to autofocus the rating."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the rating. Useful for composition."
+          },
+          "value": {
+            "type": "number | undefined",
+            "description": "The controlled value of the rating"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to be called when the rating value changes."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name attribute of the rating element (used in forms)."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is required."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the rating is readonly."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of ratings.",
+            "defaultValue": "5"
+          },
+          "allowHalf": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow half stars."
+          },
+          "onHoverChange": {
+            "type": "((details: HoverChangeDetails) => void) | undefined",
+            "description": "Function to be called when the rating value is hovered."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseRatingGroupReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Item",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.ItemIndicator",
+        "props": {
+          "icon": {
+            "type": "ReactElement | undefined",
+            "description": "The icon to draw for the item, filled up to the rating. A filled star by default."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Items",
+        "props": {
+          "icon": {
+            "type": "ReactElement | undefined",
+            "description": "The icon to draw for each item. A filled star by default."
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseRatingGroupContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "RatingGroup.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseRatingGroupItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "search-input": {
     "parts": [
       {
@@ -4096,6 +4775,15 @@
         }
       },
       {
+        "name": "Slider.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSliderReturn",
+            "description": ""
+          }
+        }
+      },
+      {
         "name": "Slider.Thumb",
         "props": {
           "name": {
@@ -4114,6 +4802,24 @@
           "value": {
             "type": "number",
             "description": ""
+          }
+        }
+      },
+      {
+        "name": "Slider.Thumbs",
+        "props": {
+          "name": {
+            "type": "string | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Slider.Marks",
+        "props": {
+          "marks": {
+            "type": "Array<number | { value: number; label: ReactNode }> | undefined",
+            "description": "The values to mark on the track, as numbers or as objects with a `value` and a `label` to show next to the mark."
           }
         }
       },

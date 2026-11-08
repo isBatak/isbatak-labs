@@ -30,8 +30,8 @@ jobs:
       - run: pnpm --filter @isbatak/solid-ui --filter @isbatak/vue-ui --filter @isbatak/compositions codegen
       - run: pnpm lint --deny-warnings
       - run: pnpm build
-      - run: pnpm typecheck
       - run: pnpm test
+      - run: pnpm typecheck
       - run: pnpm build:storybook
 
   deploy:

@@ -4,119 +4,153 @@ import { inputVariants } from "./shared/input"
 
 export const comboboxSlotRecipe = defineSlotRecipe({
   className: "combobox",
-  description: "Text input with a filterable list of options",
+  description: "Text input that filters a list of options as people type; pick select when typing isn't needed",
   slots: [
     "root",
-    "clearTrigger",
-    "content",
+    "label",
     "control",
     "input",
+    "indicatorGroup",
+    "trigger",
+    "clearTrigger",
+    "positioner",
+    "content",
+    "list",
     "item",
+    "itemText",
+    "itemContent",
+    "itemDescription",
+    "itemIndicator",
     "itemGroup",
     "itemGroupLabel",
-    "itemIndicator",
-    "itemText",
-    "label",
-    "list",
-    "positioner",
-    "trigger",
-    "empty",
-    "indicatorGroup",
     "empty",
   ],
   base: {
     root: {
+      colorPalette: "gray",
       display: "flex",
       flexDirection: "column",
       gap: "1.5",
       width: "full",
     },
     label: {
+      display: "flex",
+      alignItems: "center",
+      gap: "1",
+      textAlign: "start",
+      textStyle: "sm",
       fontWeight: "medium",
       userSelect: "none",
-      textStyle: "sm",
       _disabled: {
         layerStyle: "disabled",
       },
     },
     control: {
       pos: "relative",
-      "--padding-factor": "1",
+      w: "full",
       "--combobox-input-padding-end": "var(--combobox-input-padding-x)",
-      "&:has([data-combobox-trigger]), &:has([data-combobox-clear-trigger])": {
-        "--combobox-input-padding-end": "calc(var(--combobox-input-height) * var(--padding-factor))",
+      "&:has([data-combobox-trigger]), &:has([data-combobox-clear-trigger]:not([hidden]))": {
+        "--combobox-input-padding-end": "calc(var(--combobox-indicator-size) + var(--combobox-input-padding-x) * 2)",
       },
       "&:has([data-combobox-trigger]):has([data-combobox-clear-trigger]:not([hidden]))": {
-        "--padding-factor": "1.5",
+        "--combobox-input-padding-end":
+          "calc(var(--combobox-indicator-size) * 2 + var(--combobox-input-padding-x) * 2 + token(spacing.1))",
       },
     },
     input: {
+      "--input-height": "var(--combobox-input-height)",
+      "--focus-color": "colors.colorPalette.focusRing",
+      "--error-color": "colors.border.error",
       display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      background: "bg.panel",
       width: "full",
-      minH: "var(--combobox-input-height)",
+      minW: "0",
+      h: "var(--combobox-input-height)",
       ps: "var(--combobox-input-padding-x)",
       pe: "var(--combobox-input-padding-end)",
-      "--input-height": "var(--combobox-input-height)",
+      color: "fg",
       borderRadius: "l2",
-      outline: 0,
-      userSelect: "none",
+      outline: "0",
+      appearance: "none",
       textAlign: "start",
-      _placeholderShown: {
+      _placeholder: {
         color: "fg.muted",
       },
       _disabled: {
         layerStyle: "disabled",
       },
-      "--focus-color": "colors.colorPalette.focusRing",
-      "--error-color": "colors.border.error",
-      _invalid: {
-        focusRingColor: "var(--error-color)",
-        borderColor: "var(--error-color)",
-      },
+    },
+    indicatorGroup: {
+      display: "flex",
+      alignItems: "center",
+      gap: "1",
+      pos: "absolute",
+      zIndex: "1",
+      insetEnd: "0",
+      top: "0",
+      bottom: "0",
+      pe: "var(--combobox-input-padding-x)",
+      pointerEvents: "none",
     },
     trigger: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      "--input-height": "var(--combobox-input-height)",
+      boxSize: "var(--combobox-indicator-size)",
+      color: "fg",
+      cursor: "button",
+      pointerEvents: "auto",
+      outline: "0",
+      borderRadius: "l1",
+      focusVisibleRing: "inside",
+      transitionProperty: "rotate",
+      transitionDuration: "normal",
+      _open: {
+        rotate: "180deg",
+      },
+      _icon: {
+        boxSize: "4",
+      },
+      _disabled: {
+        layerStyle: "disabled",
+      },
     },
     clearTrigger: {
-      color: "fg.muted",
-      pointerEvents: "auto",
-      focusVisibleRing: "inside",
-      focusRingWidth: "2px",
-      rounded: "l1",
-    },
-    indicatorGroup: {
-      display: "flex",
+      display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: "1",
-      pos: "absolute",
-      insetEnd: "0",
-      top: "0",
-      bottom: "0",
-      px: "var(--combobox-input-padding-x)",
-      _icon: {
-        boxSize: "var(--combobox-indicator-size)",
+      boxSize: "var(--combobox-indicator-size)",
+      borderRadius: "l1",
+      color: "fg",
+      cursor: "button",
+      pointerEvents: "auto",
+      focusVisibleRing: "inside",
+      _hover: {
+        bg: "bg.muted",
       },
-      "[data-disabled] &": {
-        opacity: 0.5,
+      _icon: {
+        boxSize: "3.5",
+      },
+      "&[hidden]": {
+        display: "none",
       },
     },
+    positioner: {
+      "--combobox-z-index": "zIndex.popover",
+      zIndex: "calc(var(--combobox-z-index) + var(--layer-index, 0)) !important",
+    },
     content: {
-      background: "bg.panel",
       display: "flex",
       flexDirection: "column",
+      bg: "bg.panel",
       "--combobox-z-index": "zIndex.popover",
       zIndex: "calc(var(--combobox-z-index) + var(--layer-index, 0))",
       borderRadius: "l2",
-      outline: 0,
+      borderWidth: "1px",
+      borderColor: "border.muted",
+      outline: "0",
       maxH: "96",
       overflowY: "auto",
+      p: "var(--combobox-content-padding)",
       boxShadow: "md",
       _open: {
         animationStyle: "slide-fade-in",
@@ -124,88 +158,89 @@ export const comboboxSlotRecipe = defineSlotRecipe({
       },
       _closed: {
         animationStyle: "slide-fade-out",
-        animationDuration: "0s",
+        animationDuration: "fastest",
       },
       "&[data-empty]:not(:has([data-combobox-empty]))": {
-        opacity: 0,
+        opacity: "0",
       },
+    },
+    list: {
+      display: "flex",
+      flexDirection: "column",
     },
     item: {
       position: "relative",
-      userSelect: "none",
       display: "flex",
       alignItems: "center",
-      gap: "2",
-      py: "var(--combobox-item-padding-y)",
-      px: "var(--combobox-item-padding-x)",
-      cursor: "option",
       justifyContent: "space-between",
+      gap: "2",
       flex: "1",
+      color: "fg",
       textAlign: "start",
       borderRadius: "l1",
+      userSelect: "none",
+      cursor: "option",
       _highlighted: {
-        bg: "bg.emphasized/60",
+        bg: "bg.muted",
       },
       _disabled: {
         pointerEvents: "none",
-        opacity: "0.5",
+        layerStyle: "disabled",
       },
       _icon: {
-        boxSize: "var(--combobox-indicator-size)",
+        boxSize: "4",
       },
-    },
-    empty: {
-      py: "var(--combobox-item-padding-y)",
-      px: "var(--combobox-item-padding-x)",
     },
     itemText: {
       flex: "1",
     },
+    itemContent: {
+      display: "flex",
+      flexDirection: "column",
+      flex: "1",
+    },
+    itemDescription: {
+      textStyle: "xs",
+      color: "fg.muted",
+    },
+    itemIndicator: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
     itemGroup: {
-      pb: "var(--combobox-item-padding-y)",
-      _last: {
-        pb: "0",
+      _first: {
+        mt: "0",
       },
     },
     itemGroupLabel: {
       fontWeight: "medium",
-      py: "var(--combobox-item-padding-y)",
-      px: "var(--combobox-item-padding-x)",
+      color: "fg.muted",
+    },
+    empty: {
+      py: "2",
+      textAlign: "center",
+      color: "fg.muted",
+      "&:empty": {
+        py: "0",
+      },
     },
   },
   variants: {
     variant: {
       outline: {
-        input: {
-          bg: "transparent",
-          borderWidth: "1px",
-          borderColor: "border",
-          focusVisibleRing: "inside",
-        },
+        input: inputVariants.outline,
       },
       subtle: {
-        input: {
-          borderWidth: "1px",
-          borderColor: "transparent",
-          bg: "bg.muted",
-          focusVisibleRing: "inside",
-        },
+        input: inputVariants.subtle,
       },
-      plain: { input: inputVariants.plain },
+      plain: {
+        input: inputVariants.plain,
+      },
       flushed: {
-        input: {
-          bg: "transparent",
-          borderBottomWidth: "1px",
-          borderBottomColor: "border",
-          borderRadius: "0",
-          px: "0",
-          _focusVisible: {
-            borderColor: "var(--focus-color)",
-            boxShadow: "0px 1px 0px 0px var(--focus-color)",
-          },
-        },
+        input: inputVariants.flushed,
         indicatorGroup: {
-          px: "0",
+          pe: "0",
         },
       },
     },
@@ -214,94 +249,127 @@ export const comboboxSlotRecipe = defineSlotRecipe({
         root: {
           "--combobox-input-height": "sizes.8",
           "--combobox-input-padding-x": "spacing.2",
-          "--combobox-indicator-size": "sizes.3.5",
+          "--combobox-indicator-size": "sizes.4",
         },
         input: {
           textStyle: "xs",
         },
         content: {
-          "--combobox-item-padding-x": "spacing.1.5",
-          "--combobox-item-padding-y": "spacing.1",
-          "--combobox-indicator-size": "sizes.3.5",
-          p: "1",
+          "--combobox-content-padding": "spacing.1",
           textStyle: "xs",
         },
-        trigger: {
-          textStyle: "xs",
-          gap: "1",
+        item: {
+          px: "1.5",
+          py: "1",
+        },
+        itemGroup: {
+          mt: "1",
+        },
+        itemGroupLabel: {
+          px: "1.5",
+          py: "1",
         },
       },
       sm: {
         root: {
           "--combobox-input-height": "sizes.9",
           "--combobox-input-padding-x": "spacing.2.5",
-          "--combobox-indicator-size": "sizes.4",
+          "--combobox-indicator-size": "sizes.5",
         },
         input: {
           textStyle: "sm",
         },
         content: {
-          "--combobox-item-padding-x": "spacing.2",
-          "--combobox-item-padding-y": "spacing.1.5",
-          "--combobox-indicator-size": "sizes.4",
-          p: "1",
+          "--combobox-content-padding": "spacing.1",
           textStyle: "sm",
         },
-        trigger: {
-          textStyle: "sm",
-          gap: "1",
+        item: {
+          px: "1.5",
+          py: "1",
+        },
+        itemGroup: {
+          mt: "1",
+        },
+        itemGroupLabel: {
+          px: "1.5",
+          py: "1",
         },
       },
       md: {
         root: {
           "--combobox-input-height": "sizes.10",
           "--combobox-input-padding-x": "spacing.3",
-          "--combobox-indicator-size": "sizes.4",
+          "--combobox-indicator-size": "sizes.6",
         },
         input: {
           textStyle: "sm",
         },
         content: {
-          "--combobox-item-padding-x": "spacing.2",
-          "--combobox-item-padding-y": "spacing.1.5",
-          "--combobox-indicator-size": "sizes.4",
-          p: "1",
+          "--combobox-content-padding": "spacing.1",
           textStyle: "sm",
         },
-        itemIndicator: {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+        item: {
+          px: "2",
+          py: "1.5",
         },
-        trigger: {
-          textStyle: "sm",
-          gap: "2",
+        itemGroup: {
+          mt: "1.5",
+        },
+        itemGroupLabel: {
+          px: "2",
+          py: "1.5",
         },
       },
       lg: {
         root: {
           "--combobox-input-height": "sizes.12",
           "--combobox-input-padding-x": "spacing.4",
-          "--combobox-indicator-size": "sizes.5",
+          "--combobox-indicator-size": "sizes.6",
         },
         input: {
           textStyle: "md",
         },
         content: {
-          "--combobox-item-padding-y": "spacing.2",
-          "--combobox-item-padding-x": "spacing.3",
-          "--combobox-indicator-size": "sizes.5",
-          p: "1.5",
+          "--combobox-content-padding": "spacing.1.5",
           textStyle: "md",
         },
-        trigger: {
-          textStyle: "md",
-          py: "3",
-          gap: "2",
+        item: {
+          px: "3",
+          py: "2",
+        },
+        itemGroup: {
+          mt: "2",
+        },
+        itemGroupLabel: {
+          px: "3",
+          py: "2",
         },
       },
     },
   },
+  compoundVariants: [
+    {
+      variant: ["outline", "subtle", "plain"],
+      css: {
+        input: {
+          _invalid: {
+            focusRingColor: "var(--error-color)",
+            borderColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+    {
+      variant: "flushed",
+      css: {
+        input: {
+          _invalid: {
+            borderBottomColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+  ],
   defaultVariants: {
     size: "md",
     variant: "outline",
