@@ -615,6 +615,384 @@
       }
     }
   },
+  "color-picker": {
+    "parts": [
+      {
+        "name": "ColorPicker.Root",
+        "props": {
+          "defaultValue": {
+            "type": "Color | undefined",
+            "description": "The initial color value when rendered.\nUse when you don't need to control the color value of the color picker.",
+            "defaultValue": "#000000"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the color picker. Useful for composition."
+          },
+          "value": {
+            "type": "Color | undefined",
+            "description": "The controlled color value of the color picker"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the value changes, as the user drags."
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name for the form input"
+          },
+          "inline": {
+            "type": "boolean | undefined",
+            "description": "Whether to render the color picker inline"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is read-only"
+          },
+          "format": {
+            "type": "ColorFormat | undefined",
+            "description": "The controlled color format to use"
+          },
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user stops dragging."
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user opens or closes the color picker."
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The positioning options for the color picker"
+          },
+          "initialFocusEl": {
+            "type": "(() => HTMLElement | null) | null | undefined",
+            "description": "The initial focus element when the color picker is opened."
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the color picker"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the color picker when rendered.\nUse when you don't need to control the open state of the color picker."
+          },
+          "defaultFormat": {
+            "type": "ColorFormat | undefined",
+            "description": "The initial color format when rendered.\nUse when you don't need to control the color format of the color picker.",
+            "defaultValue": "\"rgba\""
+          },
+          "onFormatChange": {
+            "type": "((details: FormatChangeDetails) => void) | undefined",
+            "description": "Function called when the color format changes"
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the color picker when a swatch is selected",
+            "defaultValue": "false"
+          },
+          "openAutoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to auto focus the color picker when it is opened",
+            "defaultValue": "true"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseColorPickerReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Area",
+        "props": {
+          "xChannel": {
+            "type": "ColorChannel | undefined",
+            "description": ""
+          },
+          "yChannel": {
+            "type": "ColorChannel | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ChannelSlider",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          },
+          "channel": {
+            "type": "ColorChannel",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Sliders",
+        "props": {
+          "direction": {
+            "type": "SystemProperties[\"flexDirection\"]",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
+            "description": ""
+          },
+          "wrap": {
+            "type": "SystemProperties[\"flexWrap\"]",
+            "description": ""
+          },
+          "separator": {
+            "type": "boolean | ReactElement | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ChannelInput",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          },
+          "channel": {
+            "type": "ExtendedColorChannel",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Input",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.TransparencyGrid",
+        "props": {
+          "size": {
+            "type": "string | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.SwatchTrigger",
+        "props": {
+          "value": {
+            "type": "string | Color",
+            "description": "The color value"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the swatch trigger is disabled"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Swatch",
+        "props": {
+          "value": {
+            "type": "string | Color",
+            "description": "The color value"
+          },
+          "respectAlpha": {
+            "type": "boolean | undefined",
+            "description": "Whether to include the alpha channel in the color"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ValueSwatch",
+        "props": {
+          "respectAlpha": {
+            "type": "boolean | undefined",
+            "description": "Whether to include the alpha channel in the color"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ValueText",
+        "props": {
+          "format": {
+            "type": "ColorStringFormat | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.EyeDropper",
+        "props": {
+          "accessibleWhenDisabled": {
+            "type": "boolean | undefined",
+            "description": "Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while\ndisabled. Clicks are blocked while it's disabled.",
+            "defaultValue": "false"
+          },
+          "loading": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "loadingText": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinner": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinnerPlacement": {
+            "type": "\"start\" | \"end\" | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.View",
+        "props": {
+          "format": {
+            "type": "ColorFormat",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseColorPickerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      }
+    }
+  },
   "color-swatch": {
     "parts": [
       {

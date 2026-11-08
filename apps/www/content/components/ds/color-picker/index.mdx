@@ -1,0 +1,103 @@
+---
+title: Color picker
+description: Pick a color by dragging in an area, typing a value or choosing a swatch.
+category: Forms
+links:
+  source: packages/ui/react/src/components/color-picker
+  recipe: packages/panda/ds/src/theme/recipes/color-picker.ts
+  ark: https://ark-ui.com/docs/components/color-picker
+---
+
+Built on Ark UI's Color Picker. The value is a `Color` object: create one with `parseColor("#eb5e41")` and turn it back
+into a string with `color.toString("hex")`. `ColorPicker.HiddenInput` sends the value with a form.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
+  <ColorPicker.HiddenInput />
+  <ColorPicker.Label />
+  <ColorPicker.Control>
+    <ColorPicker.Input />
+    <ColorPicker.Trigger />
+  </ColorPicker.Control>
+  <Portal>
+    <ColorPicker.Positioner>
+      <ColorPicker.Content>
+        <ColorPicker.Area />
+        <ColorPicker.EyeDropper />
+        <ColorPicker.Sliders />
+      </ColorPicker.Content>
+    </ColorPicker.Positioner>
+  </Portal>
+</ColorPicker.Root>
+```
+
+A few parts fill themselves in when they have no children:
+
+- `ColorPicker.Trigger` shows the current color.
+- `ColorPicker.Area` renders its background and thumb.
+- `ColorPicker.ChannelSlider` renders its track and thumb over a checkerboard.
+- `ColorPicker.SwatchIndicator` renders a check.
+
+A few composites cover the common layouts:
+
+- `ColorPicker.Input` is a hex input.
+- `ColorPicker.Sliders` stacks a hue and an alpha slider.
+- `ColorPicker.EyeDropper` is an icon button that picks a color from the screen, in browsers that support it.
+
+## Examples
+
+### Sizes
+
+Set `size` to change the input, the trigger and the swatches. The default is `md`.
+
+<Example id="color-picker/sizes" />
+
+### Variants
+
+Set `variant` to `outline` or `subtle`. The default is `outline`.
+
+<Example id="color-picker/variants" />
+
+### Swatches
+
+Add a `ColorPicker.SwatchGroup` with a `ColorPicker.SwatchTrigger` for each preset color. The selected swatch shows a
+check.
+
+<Example id="color-picker/swatches" />
+
+### Channel inputs
+
+Add `ColorPicker.FormatSelect` and a `ColorPicker.View` per format, each with a `ColorPicker.ChannelInput` per channel,
+to let people type exact values.
+
+<Example id="color-picker/channel-input" />
+
+### Inline
+
+Set `open` and render `ColorPicker.Content` without a trigger or positioner to show the picker in the page.
+
+<Example id="color-picker/inline" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the color.
+
+<Example id="color-picker/controlled" />
+
+### Disabled
+
+Set `disabled` to disable the input and the trigger.
+
+<Example id="color-picker/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
