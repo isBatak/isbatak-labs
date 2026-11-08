@@ -5,7 +5,7 @@ import { styled } from "styled-system/jsx"
 
 export function DrawerScrollableDemo() {
   return (
-    <Drawer.Root size="sm">
+    <Drawer.Root contentSize="md">
       <Drawer.Trigger asChild>
         <Button>Read terms</Button>
       </Drawer.Trigger>

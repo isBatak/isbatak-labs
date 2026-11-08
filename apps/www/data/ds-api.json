@@ -1958,6 +1958,247 @@
       }
     }
   },
+  "dialog": {
+    "parts": [
+      {
+        "name": "Dialog.Root",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "role": {
+            "type": "\"dialog\" | \"alertdialog\" | undefined",
+            "description": "The dialog's role",
+            "defaultValue": "\"dialog\""
+          },
+          "aria-label": {
+            "type": "string | undefined",
+            "description": "Human readable label for the dialog, in event the dialog title is not rendered"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the dialog. Useful for composition."
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function to call when the dialog's open state changes"
+          },
+          "initialFocusEl": {
+            "type": "(() => MaybeElement) | null | undefined",
+            "description": "Element to receive focus when the dialog is opened"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the dialog"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the dialog when rendered.\nUse when you don't need to control the open state of the dialog.",
+            "defaultValue": "false"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "trapFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to trap focus inside the dialog when it's opened",
+            "defaultValue": "true"
+          },
+          "preventScroll": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent scrolling behind the dialog when it's opened",
+            "defaultValue": "true"
+          },
+          "modal": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent pointer interaction outside the element and hide all content below it",
+            "defaultValue": "true"
+          },
+          "finalFocusEl": {
+            "type": "(() => MaybeElement) | undefined",
+            "description": "Element to receive focus when the dialog is closed"
+          },
+          "restoreFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to restore focus to the element that had focus before the dialog was opened"
+          },
+          "closeOnInteractOutside": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the dialog when the outside is clicked",
+            "defaultValue": "true"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the dialog when the escape key is pressed",
+            "defaultValue": "true"
+          },
+          "triggerValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled active trigger value"
+          },
+          "defaultTriggerValue": {
+            "type": "string | null | undefined",
+            "description": "The initial active trigger value when rendered.\nUse when you don't need to control the active trigger value."
+          },
+          "onTriggerValueChange": {
+            "type": "((details: TriggerValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the active trigger changes"
+          },
+          "onEscapeKeyDown": {
+            "type": "((event: KeyboardEvent) => void) | undefined",
+            "description": "Function called when the escape key is pressed"
+          },
+          "onRequestDismiss": {
+            "type": "((event: LayerDismissEvent) => void) | undefined",
+            "description": "Function called when this layer is closed due to a parent layer being closed"
+          },
+          "persistentElements": {
+            "type": "Array<() => Element | null> | undefined",
+            "description": "Returns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Dialog.RootProvider",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "value": {
+            "type": "UseDialogReturn",
+            "description": ""
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Dialog.Trigger",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The value that identifies this specific trigger"
+          }
+        }
+      },
+      {
+        "name": "Dialog.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseDialogContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "placement": {
+        "values": ["center", "top", "bottom"],
+        "defaultValue": "top"
+      },
+      "scrollBehavior": {
+        "values": ["inside", "outside"],
+        "defaultValue": "outside"
+      },
+      "size": {
+        "values": ["sm", "md"],
+        "defaultValue": "md"
+      },
+      "contentSize": {
+        "values": ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "cover", "full"],
+        "defaultValue": "md"
+      },
+      "motionPreset": {
+        "values": ["scale", "slide-in-bottom", "slide-in-top", "slide-in-left", "slide-in-right", "none"],
+        "defaultValue": "scale"
+      }
+    }
+  },
   "download-trigger": {
     "parts": [
       {
@@ -2006,6 +2247,34 @@
             "type": "ElementIds",
             "description": "The ids of the elements in the drawer. Useful for composition."
           },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the open state changes."
+          },
+          "initialFocusEl": {
+            "type": "(() => MaybeElement) | null | undefined",
+            "description": "Element to receive focus when the sheet is opened."
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "Whether the drawer is open."
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the drawer."
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
           "trapFocus": {
             "type": "boolean | undefined",
             "description": "Whether to trap focus inside the sheet when it's opened.",
@@ -2021,10 +2290,6 @@
             "description": "Whether to prevent pointer interaction outside the element and hide all content below it.",
             "defaultValue": "true"
           },
-          "initialFocusEl": {
-            "type": "(() => MaybeElement) | null | undefined",
-            "description": "Element to receive focus when the sheet is opened."
-          },
           "finalFocusEl": {
             "type": "(() => MaybeElement) | undefined",
             "description": "Element to receive focus when the sheet is closed."
@@ -2032,6 +2297,16 @@
           "restoreFocus": {
             "type": "boolean | undefined",
             "description": "Whether to restore focus to the element that had focus before the sheet was opened.",
+            "defaultValue": "true"
+          },
+          "closeOnInteractOutside": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the drawer when the outside is clicked.",
+            "defaultValue": "true"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the drawer when the escape key is pressed.",
             "defaultValue": "true"
           },
           "triggerValue": {
@@ -2046,27 +2321,13 @@
             "type": "((details: TriggerValueChangeDetails) => void) | undefined",
             "description": "Callback when the active trigger value changes."
           },
-          "open": {
-            "type": "boolean | undefined",
-            "description": "Whether the drawer is open."
+          "onEscapeKeyDown": {
+            "type": "((event: KeyboardEvent) => void) | undefined",
+            "description": "Function called when the escape key is pressed"
           },
-          "defaultOpen": {
-            "type": "boolean | undefined",
-            "description": "The initial open state of the drawer."
-          },
-          "onOpenChange": {
-            "type": "((details: OpenChangeDetails) => void) | undefined",
-            "description": "Function called when the open state changes."
-          },
-          "closeOnInteractOutside": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the drawer when the outside is clicked.",
-            "defaultValue": "true"
-          },
-          "closeOnEscape": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the drawer when the escape key is pressed.",
-            "defaultValue": "true"
+          "onRequestDismiss": {
+            "type": "((event: LayerDismissEvent) => void) | undefined",
+            "description": "Function called when this layer is closed due to a parent layer being closed"
           },
           "snapPoints": {
             "type": "SnapPoint[] | undefined",
@@ -2109,26 +2370,6 @@
           "stack": {
             "type": "DrawerStack | undefined",
             "description": "Optional external store for coordinating app-level drawer stack visuals\n(e.g. indent and background layers)."
-          },
-          "onEscapeKeyDown": {
-            "type": "((event: KeyboardEvent) => void) | undefined",
-            "description": "Function called when the escape key is pressed"
-          },
-          "onRequestDismiss": {
-            "type": "((event: LayerDismissEvent) => void) | undefined",
-            "description": "Function called when this layer is closed due to a parent layer being closed"
-          },
-          "onPointerDownOutside": {
-            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
-            "description": "Function called when the pointer is pressed down outside the component"
-          },
-          "onFocusOutside": {
-            "type": "((event: FocusOutsideEvent) => void) | undefined",
-            "description": "Function called when the focus is moved outside the component"
-          },
-          "onInteractOutside": {
-            "type": "((event: InteractOutsideEvent) => void) | undefined",
-            "description": "Function called when an interaction happens outside the component"
           },
           "skipAnimationOnMount": {
             "type": "boolean | undefined",
@@ -2257,7 +2498,11 @@
     ],
     "variants": {
       "size": {
-        "values": ["xs", "sm", "md", "lg", "xl", "full"],
+        "values": ["sm", "md"],
+        "defaultValue": "md"
+      },
+      "contentSize": {
+        "values": ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "full"],
         "defaultValue": "xs"
       },
       "placement": {
