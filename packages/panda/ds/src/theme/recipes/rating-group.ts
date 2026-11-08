@@ -6,17 +6,41 @@ export const ratingGroupSlotRecipe = defineSlotRecipe({
   slots: ["root", "label", "item", "control", "itemIndicator"],
   base: {
     root: {
+      colorPalette: "gray",
       display: "inline-flex",
+      flexDirection: "column",
+      gap: "1.5",
+    },
+    label: {
+      textStyle: "sm",
+      fontWeight: "medium",
+      userSelect: "none",
+      _disabled: {
+        layerStyle: "disabled",
+      },
     },
     control: {
       display: "inline-flex",
       alignItems: "center",
+      _disabled: {
+        layerStyle: "disabled",
+      },
     },
     item: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
       userSelect: "none",
+      cursor: "button",
+      outline: "0",
+      borderRadius: "l1",
+      focusVisibleRing: "outside",
+      _readOnly: {
+        cursor: "radio",
+      },
+      _disabled: {
+        cursor: "disabled",
+      },
     },
     itemIndicator: {
       display: "inline-flex",
