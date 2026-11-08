@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { DrawerDemo } from "@isbatak/compositions/ds/react/drawer/usage"
+import { DrawerContentSizesDemo } from "@isbatak/compositions/ds/react/drawer/content-sizes"
 import { DrawerControlledDemo } from "@isbatak/compositions/ds/react/drawer/controlled"
 import { DrawerFloatDemo } from "@isbatak/compositions/ds/react/drawer/float"
 import { DrawerIndentBackgroundDemo } from "@isbatak/compositions/ds/react/drawer/indent-background"
@@ -9,6 +10,7 @@ import { DrawerNonDraggableDemo } from "@isbatak/compositions/ds/react/drawer/no
 import { DrawerNonModalDemo } from "@isbatak/compositions/ds/react/drawer/non-modal"
 import { DrawerRootProviderDemo } from "@isbatak/compositions/ds/react/drawer/root-provider"
 import { DrawerScrollableDemo } from "@isbatak/compositions/ds/react/drawer/scrollable"
+import { DrawerSizesDemo } from "@isbatak/compositions/ds/react/drawer/sizes"
 import { DrawerSnapPointsDemo } from "@isbatak/compositions/ds/react/drawer/snap-points"
 import { DrawerStackingDemo } from "@isbatak/compositions/ds/react/drawer/stacking"
 import { DrawerSwipeDirectionDemo } from "@isbatak/compositions/ds/react/drawer/swipe-direction"
@@ -23,6 +25,10 @@ type Story = StoryObj<typeof meta>
 
 export const Usage: Story = {
   render: () => <DrawerDemo />,
+}
+
+export const ContentSizes: Story = {
+  render: () => <DrawerContentSizesDemo />,
 }
 
 export const Controlled: Story = {
@@ -59,6 +65,10 @@ export const RootProvider: Story = {
 
 export const Scrollable: Story = {
   render: () => <DrawerScrollableDemo />,
+}
+
+export const Sizes: Story = {
+  render: () => <DrawerSizesDemo />,
 }
 
 export const SnapPoints: Story = {

@@ -1,7 +1,7 @@
 import { Button, CloseButton } from "@isbatak/solid-ui/button"
 import { Dialog } from "@isbatak/solid-ui/dialog"
 import { Stack } from "@isbatak/solid-ui/stack"
-import { Portal } from "solid-js/web"
+import { Portal } from "@isbatak/solid-ui/portal"
 
 export function DialogNestedDemo() {
   return (

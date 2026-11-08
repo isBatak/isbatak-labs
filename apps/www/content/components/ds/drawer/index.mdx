@@ -17,6 +17,19 @@ A bottom drawer with a grabber. Drag it down or press Escape to close it.
 
 <Example id="drawer" />
 
+### Sizes
+
+Set `size` to `sm` or `md` to change the padding of the header, body and footer and the title's text size. The default
+is `md`.
+
+<Example id="drawer/sizes" />
+
+### Content sizes
+
+Set `contentSize` to change how wide a `start` or `end` drawer is: `xs` to `4xl`, or `full`. The default is `xs`.
+
+<Example id="drawer/content-sizes" />
+
 ### Swipe direction
 
 Set `placement` to `start`, `end`, `top` or `bottom` to choose the edge the drawer slides in from. `Drawer.Root` turns
@@ -104,6 +117,10 @@ Create the drawer with `useDrawer` and pass it to `Drawer.RootProvider` to drive
 directly, and the recipe styles the drawer from it.
 
 <Example id="drawer/root-provider" />
+
+## Recipe
+
+<RecipeVariants />
 
 ## API
 
