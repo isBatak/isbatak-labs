@@ -1,0 +1,79 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["tsconfig.json", "tsup.config.ts", ".oxfmtrc.json", "patches/**"],
+  "envMode": "loose",
+  "tasks": {
+    "codegen": {
+      "dependsOn": ["^build"],
+      "outputs": ["styled-system/**"]
+    },
+    "build": {
+      "dependsOn": ["^build", "^codegen"],
+      "outputs": ["dist/**", "styled-system/**"]
+    },
+    "test": {
+      "dependsOn": ["build", "^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["build", "^build", "codegen", "^codegen"],
+      "outputs": []
+    },
+    "build-storybook": {
+      "dependsOn": ["^build", "^codegen"],
+      "outputs": ["storybook-static/**"]
+    },
+    "@isbatak/storybook-shared#build": {
+      "dependsOn": ["^build", "^codegen"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/apps/storybook-*/src/**",
+        "$TURBO_ROOT$/apps/compositions/src/examples/ds/**",
+        "$TURBO_ROOT$/packages/ui/*/src/**"
+      ],
+      "outputs": ["dist/**", "styled-system/**"]
+    },
+    "@isbatak/website#build": {
+      "dependsOn": ["^build", "^codegen", "@isbatak/panda-theme-analog#build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/ui/*/src/**",
+        "$TURBO_ROOT$/packages/zag/*/src/**",
+        "$TURBO_ROOT$/packages/panda/themes/analog/**",
+        "!.next/**",
+        "!.velite/**",
+        "!.studio/**",
+        "!public/static/**",
+        "!data/api.json",
+        "!data/ds-api.json"
+      ],
+      "env": ["NEXT_PUBLIC_*"],
+      "outputs": [".next/**", "!.next/cache/**", ".velite/**", ".studio/**", "public/static/**", "styled-system/**"]
+    },
+    "@isbatak/website#typecheck": {
+      "dependsOn": ["build", "^build", "^codegen"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.next/**",
+        "!.velite/**",
+        "!.studio/**",
+        "!public/static/**",
+        "!data/api.json",
+        "!data/ds-api.json"
+      ],
+      "outputs": []
+    },
+    "@isbatak/storybook#build-storybook": {
+      "dependsOn": [
+        "@isbatak/storybook-lit#build-storybook",
+        "@isbatak/storybook-preact#build-storybook",
+        "@isbatak/storybook-react#build-storybook",
+        "@isbatak/storybook-solid#build-storybook",
+        "@isbatak/storybook-svelte#build-storybook",
+        "@isbatak/storybook-vanilla#build-storybook",
+        "@isbatak/storybook-vue#build-storybook"
+      ],
+      "outputs": ["storybook-static/**"]
+    }
+  }
+}
