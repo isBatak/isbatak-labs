@@ -615,6 +615,384 @@
       }
     }
   },
+  "color-picker": {
+    "parts": [
+      {
+        "name": "ColorPicker.Root",
+        "props": {
+          "defaultValue": {
+            "type": "Color | undefined",
+            "description": "The initial color value when rendered.\nUse when you don't need to control the color value of the color picker.",
+            "defaultValue": "#000000"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the color picker. Useful for composition."
+          },
+          "value": {
+            "type": "Color | undefined",
+            "description": "The controlled color value of the color picker"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is disabled"
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the value changes, as the user drags."
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name for the form input"
+          },
+          "inline": {
+            "type": "boolean | undefined",
+            "description": "Whether to render the color picker inline"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the color picker is read-only"
+          },
+          "format": {
+            "type": "ColorFormat | undefined",
+            "description": "The controlled color format to use"
+          },
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user stops dragging."
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user opens or closes the color picker."
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The positioning options for the color picker"
+          },
+          "initialFocusEl": {
+            "type": "(() => HTMLElement | null) | null | undefined",
+            "description": "The initial focus element when the color picker is opened."
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the color picker"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the color picker when rendered.\nUse when you don't need to control the open state of the color picker."
+          },
+          "defaultFormat": {
+            "type": "ColorFormat | undefined",
+            "description": "The initial color format when rendered.\nUse when you don't need to control the color format of the color picker.",
+            "defaultValue": "\"rgba\""
+          },
+          "onFormatChange": {
+            "type": "((details: FormatChangeDetails) => void) | undefined",
+            "description": "Function called when the color format changes"
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the color picker when a swatch is selected",
+            "defaultValue": "false"
+          },
+          "openAutoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to auto focus the color picker when it is opened",
+            "defaultValue": "true"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseColorPickerReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Area",
+        "props": {
+          "xChannel": {
+            "type": "ColorChannel | undefined",
+            "description": ""
+          },
+          "yChannel": {
+            "type": "ColorChannel | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ChannelSlider",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          },
+          "channel": {
+            "type": "ColorChannel",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Sliders",
+        "props": {
+          "direction": {
+            "type": "SystemProperties[\"flexDirection\"]",
+            "description": ""
+          },
+          "gap": {
+            "type": "SystemProperties[\"gap\"]",
+            "description": ""
+          },
+          "justify": {
+            "type": "SystemProperties[\"justifyContent\"]",
+            "description": ""
+          },
+          "align": {
+            "type": "SystemProperties[\"alignItems\"]",
+            "description": ""
+          },
+          "wrap": {
+            "type": "SystemProperties[\"flexWrap\"]",
+            "description": ""
+          },
+          "separator": {
+            "type": "boolean | ReactElement | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ChannelInput",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          },
+          "channel": {
+            "type": "ExtendedColorChannel",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Input",
+        "props": {
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.TransparencyGrid",
+        "props": {
+          "size": {
+            "type": "string | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.SwatchTrigger",
+        "props": {
+          "value": {
+            "type": "string | Color",
+            "description": "The color value"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the swatch trigger is disabled"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Swatch",
+        "props": {
+          "value": {
+            "type": "string | Color",
+            "description": "The color value"
+          },
+          "respectAlpha": {
+            "type": "boolean | undefined",
+            "description": "Whether to include the alpha channel in the color"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ValueSwatch",
+        "props": {
+          "respectAlpha": {
+            "type": "boolean | undefined",
+            "description": "Whether to include the alpha channel in the color"
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.ValueText",
+        "props": {
+          "format": {
+            "type": "ColorStringFormat | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.EyeDropper",
+        "props": {
+          "accessibleWhenDisabled": {
+            "type": "boolean | undefined",
+            "description": "Use `aria-disabled` instead of the native `disabled` attribute, so the button stays focusable and announced while\ndisabled. Clicks are blocked while it's disabled.",
+            "defaultValue": "false"
+          },
+          "loading": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "loadingText": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinner": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "spinnerPlacement": {
+            "type": "\"start\" | \"end\" | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.View",
+        "props": {
+          "format": {
+            "type": "ColorFormat",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ColorPicker.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseColorPickerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      }
+    }
+  },
   "color-swatch": {
     "parts": [
       {
@@ -969,6 +1347,614 @@
       },
       "fluid": {
         "values": ["true"]
+      }
+    }
+  },
+  "date-input": {
+    "parts": [
+      {
+        "name": "DateInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The `form` attribute of the hidden input element."
+          },
+          "defaultValue": {
+            "type": "DateValue[] | undefined",
+            "description": "The initial selected date(s) when rendered.\nUse when you don't need to control the selected date(s)."
+          },
+          "dir": {
+            "type": "\"ltr\" | \"rtl\" | undefined",
+            "description": "The document's text/writing direction.",
+            "defaultValue": "\"ltr\""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "getRootNode": {
+            "type": "(() => ShadowRoot | Document | Node) | undefined",
+            "description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the date input. Useful for composition."
+          },
+          "value": {
+            "type": "DateValue[] | undefined",
+            "description": "The controlled selected date(s)."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called when the value changes."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails) => void) | undefined",
+            "description": "A function called when the date input gains or loses focus."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The `name` attribute of the input element."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is read-only."
+          },
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
+          },
+          "format": {
+            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
+            "description": "The format function for converting a DateValue to a string."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale (BCP 47 language tag) to use when formatting the date.",
+            "defaultValue": "\"en-US\""
+          },
+          "createCalendar": {
+            "type": "((identifier: CalendarIdentifier) => Calendar) | undefined",
+            "description": "A function that creates a calendar object for a given calendar identifier.\nUse this to support non-Gregorian calendars (e.g., Persian, Islamic, Buddhist)."
+          },
+          "timeZone": {
+            "type": "string | undefined",
+            "description": "The time zone to use",
+            "defaultValue": "\"UTC\""
+          },
+          "isDateUnavailable": {
+            "type": "((date: DateValue, locale: string) => boolean) | undefined",
+            "description": "Returns whether a date is unavailable.\nWhen a committed date matches, the input is marked as invalid."
+          },
+          "placeholderValue": {
+            "type": "DateValue | undefined",
+            "description": "The controlled placeholder date."
+          },
+          "defaultPlaceholderValue": {
+            "type": "DateValue | undefined",
+            "description": "The initial placeholder date when rendered."
+          },
+          "onPlaceholderChange": {
+            "type": "((details: PlaceholderChangeDetails) => void) | undefined",
+            "description": "A function called when the placeholder value changes."
+          },
+          "selectionMode": {
+            "type": "SelectionMode | undefined",
+            "description": "The selection mode of the date input.\n- `single` - only one date can be entered\n- `range` - a range of dates can be entered (start and end)",
+            "defaultValue": "\"single\""
+          },
+          "hourCycle": {
+            "type": "HourCycle | undefined",
+            "description": "Whether to use 12-hour or 24-hour time format.\nBy default, this is determined by the locale."
+          },
+          "hideTimeZone": {
+            "type": "boolean | undefined",
+            "description": "Whether to hide the time zone segment when the value is a `ZonedDateTime`.\nHas no effect for values without a time zone.",
+            "defaultValue": "false"
+          },
+          "granularity": {
+            "type": "DateGranularity | undefined",
+            "description": "Determines the smallest unit that is displayed in the date input.",
+            "defaultValue": "\"day\""
+          },
+          "shouldForceLeadingZeros": {
+            "type": "boolean | undefined",
+            "description": "Whether to always show leading zeros in month, day, and hour fields.\nWhen false, formatting follows the locale default (e.g. \"1\" instead of \"01\").",
+            "defaultValue": "false"
+          },
+          "formatter": {
+            "type": "DateFormatter | undefined",
+            "description": "The date formatter to use."
+          },
+          "allSegments": {
+            "type": "Segments | undefined",
+            "description": "The computed segments map for the formatter."
+          }
+        }
+      },
+      {
+        "name": "DateInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseDateInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.SegmentGroup",
+        "props": {
+          "index": {
+            "type": "number | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.Segment",
+        "props": {
+          "segment": {
+            "type": "DateSegment",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.HiddenInput",
+        "props": {
+          "index": {
+            "type": "number | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseDateInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.SegmentContext",
+        "props": {
+          "children": {
+            "type": "(segment: DateSegment) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      }
+    }
+  },
+  "date-picker": {
+    "parts": [
+      {
+        "name": "DatePicker.Root",
+        "props": {
+          "view": {
+            "type": "DateView | undefined",
+            "description": "The view of the calendar"
+          },
+          "defaultValue": {
+            "type": "DateValue[] | undefined",
+            "description": "The initial selected date(s) when rendered.\nUse when you don't need to control the selected date(s) of the date picker."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the date picker. Useful for composition."
+          },
+          "value": {
+            "type": "DateValue[] | undefined",
+            "description": "The controlled selected date(s)."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the calendar is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called when the value changes."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails) => void) | undefined",
+            "description": "Function called when the focused date changes."
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The `name` attribute of the input element."
+          },
+          "inline": {
+            "type": "boolean | undefined",
+            "description": "Whether to render the date picker inline"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the date picker is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the date picker is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the calendar is read-only."
+          },
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
+          },
+          "format": {
+            "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
+            "description": "The format of the date to display in the input."
+          },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "The placeholder text to display in the input."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the calendar opens or closes."
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The user provided options used to position the date picker content"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the date picker"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the date picker when rendered.\nUse when you don't need to control the open state of the date picker."
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether the calendar should close after the date selection is complete.\nThis is ignored when the selection mode is `multiple`.",
+            "defaultValue": "true"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "openOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether to open the calendar when the input is clicked.",
+            "defaultValue": "false"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale (BCP 47 language tag) to use when formatting the date.",
+            "defaultValue": "\"en-US\""
+          },
+          "createCalendar": {
+            "type": "((identifier: CalendarIdentifier) => Calendar) | undefined",
+            "description": "A function that creates a Calendar object for a given calendar identifier.\nEnables non-Gregorian calendar support (Persian, Buddhist, Islamic, etc.)\nwithout bundling all calendars by default."
+          },
+          "timeZone": {
+            "type": "string | undefined",
+            "description": "The time zone to use",
+            "defaultValue": "\"UTC\""
+          },
+          "isDateUnavailable": {
+            "type": "((date: DateValue, locale: string) => boolean) | undefined",
+            "description": "Returns whether a date of the calendar is available."
+          },
+          "selectionMode": {
+            "type": "SelectionMode | undefined",
+            "description": "The selection mode of the calendar.\n- `single` - only one date can be selected\n- `multiple` - multiple dates can be selected\n- `range` - a range of dates can be selected",
+            "defaultValue": "\"single\""
+          },
+          "outsideDaySelectable": {
+            "type": "boolean | undefined",
+            "description": "Whether day outside the visible range can be selected.",
+            "defaultValue": "false"
+          },
+          "focusedValue": {
+            "type": "DateValue | undefined",
+            "description": "The controlled focused date."
+          },
+          "defaultFocusedValue": {
+            "type": "DateValue | undefined",
+            "description": "The initial focused date when rendered.\nUse when you don't need to control the focused date of the date picker."
+          },
+          "numOfMonths": {
+            "type": "number | undefined",
+            "description": "The number of months to display."
+          },
+          "startOfWeek": {
+            "type": "number | undefined",
+            "description": "The first day of the week.\n `0` - Sunday\n `1` - Monday\n `2` - Tuesday\n `3` - Wednesday\n `4` - Thursday\n `5` - Friday\n `6` - Saturday"
+          },
+          "fixedWeeks": {
+            "type": "boolean | undefined",
+            "description": "Whether the calendar should have a fixed number of weeks.\nThis renders the calendar with 6 weeks instead of 5 or 6."
+          },
+          "showWeekNumbers": {
+            "type": "boolean | undefined",
+            "description": "Whether to show the week number column in the day view."
+          },
+          "onViewChange": {
+            "type": "((details: ViewChangeDetails) => void) | undefined",
+            "description": "Function called when the view changes."
+          },
+          "onVisibleRangeChange": {
+            "type": "((details: VisibleRangeChangeDetails) => void) | undefined",
+            "description": "Function called when the visible range changes."
+          },
+          "maxSelectedDates": {
+            "type": "number | undefined",
+            "description": "The maximum number of dates that can be selected.\nThis is only applicable when `selectionMode` is `multiple`."
+          },
+          "parse": {
+            "type": "((value: string, details: LocaleDetails) => DateValue | undefined) | undefined",
+            "description": "Function to parse the date from the input back to a DateValue."
+          },
+          "defaultView": {
+            "type": "DateView | undefined",
+            "description": "The default view of the calendar",
+            "defaultValue": "\"day\""
+          },
+          "minView": {
+            "type": "DateView | undefined",
+            "description": "The minimum view of the calendar",
+            "defaultValue": "\"day\""
+          },
+          "maxView": {
+            "type": "DateView | undefined",
+            "description": "The maximum view of the calendar",
+            "defaultValue": "\"year\""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseDatePickerReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "DatePicker.Input",
+        "props": {
+          "index": {
+            "type": "number | undefined",
+            "description": "The index of the input to focus."
+          },
+          "fixOnBlur": {
+            "type": "boolean | undefined",
+            "description": "Whether to fix the input value on blur.",
+            "defaultValue": "true"
+          }
+        }
+      },
+      {
+        "name": "DatePicker.View",
+        "props": {
+          "view": {
+            "type": "DateView | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.ValueText",
+        "props": {
+          "separator": {
+            "type": "string | undefined",
+            "description": "The separator to use between multiple date values when using default rendering.",
+            "defaultValue": "\", \""
+          },
+          "children": {
+            "type": "((props: DatePickerValueTextRenderProps) => React.ReactNode) | undefined",
+            "description": "A function to render each selected date value.\nWhen provided, each date in the selection will be rendered using this function."
+          },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "Text to display when no date is selected."
+          }
+        }
+      },
+      {
+        "name": "DatePicker.Table",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<CssAny>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.TableCell",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<CssAny>",
+            "description": ""
+          },
+          "value": {
+            "type": "DateValue",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "visibleRange": {
+            "type": "VisibleRange | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.PresetTrigger",
+        "props": {
+          "value": {
+            "type": "PresetTriggerValue",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.DayTable",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<CssAny>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.MonthTable",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<CssAny>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.YearTable",
+        "props": {
+          "columns": {
+            "type": "ConditionalValue<CssAny>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DatePicker.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseDatePickerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      },
+      "hideOutsideDays": {
+        "values": ["true"]
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
       }
     }
   },

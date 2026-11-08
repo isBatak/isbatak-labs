@@ -30,7 +30,6 @@ export const datePickerSlotRecipe = defineSlotRecipe({
     "viewControl",
     "viewTrigger",
     "yearSelect",
-    "view",
     "valueText",
     "indicatorGroup",
   ],
@@ -42,7 +41,7 @@ export const datePickerSlotRecipe = defineSlotRecipe({
       width: "full",
       "--datepicker-indicators-offset": "sizes.3",
       _disabled: {
-        opacity: 0.5,
+        layerStyle: "disabled",
       },
     },
     label: {
@@ -65,13 +64,21 @@ export const datePickerSlotRecipe = defineSlotRecipe({
       gap: "2",
       width: "full",
       position: "relative",
+      "--datepicker-input-pe": "var(--datepicker-input-px)",
+      "&:has([data-date-picker-trigger])": {
+        "--datepicker-input-pe": "calc(var(--datepicker-indicators-offset) + token(sizes.6) + token(spacing.1))",
+      },
+      "&:has([data-date-picker-trigger]):has([data-date-picker-clear-trigger]:not([hidden]))": {
+        "--datepicker-input-pe": "calc(var(--datepicker-indicators-offset) + token(sizes.12) + token(spacing.2))",
+      },
     },
     input: {
       flex: "1",
       minWidth: "0",
       height: "var(--datepicker-input-height)",
       "--input-height": "var(--datepicker-input-height)",
-      px: "var(--datepicker-input-px)",
+      ps: "var(--datepicker-input-px)",
+      pe: "var(--datepicker-input-pe)",
       textStyle: "sm",
       bg: "transparent",
       borderRadius: "l2",
@@ -80,10 +87,6 @@ export const datePickerSlotRecipe = defineSlotRecipe({
       color: "fg",
       "--focus-color": "colors.colorPalette.focusRing",
       "--error-color": "colors.border.error",
-      _invalid: {
-        focusRingColor: "var(--error-color)",
-        borderColor: "var(--error-color)",
-      },
     },
     trigger: {
       display: "inline-flex",
@@ -123,6 +126,25 @@ export const datePickerSlotRecipe = defineSlotRecipe({
       _closed: {
         animationStyle: "scale-fade-out",
         animationDuration: "faster",
+      },
+    },
+    presetTrigger: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      h: "7",
+      px: "2.5",
+      textStyle: "xs",
+      fontWeight: "medium",
+      color: "fg",
+      borderWidth: "1px",
+      borderColor: "border",
+      borderRadius: "l2",
+      cursor: "button",
+      outline: "0",
+      focusVisibleRing: "outside",
+      _hover: {
+        bg: "bg.muted",
       },
     },
     view: {
@@ -435,7 +457,7 @@ export const datePickerSlotRecipe = defineSlotRecipe({
           borderBottomWidth: "1px",
           borderBottomColor: "border",
           borderRadius: "0",
-          px: "0",
+          ps: "0",
           _focusVisible: {
             borderColor: "var(--focus-color)",
             boxShadow: "0px 1px 0px 0px var(--focus-color)",
@@ -451,6 +473,29 @@ export const datePickerSlotRecipe = defineSlotRecipe({
       },
     },
   },
+  compoundVariants: [
+    {
+      variant: ["outline", "subtle", "plain"],
+      css: {
+        input: {
+          _invalid: {
+            focusRingColor: "var(--error-color)",
+            borderColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+    {
+      variant: "flushed",
+      css: {
+        input: {
+          _invalid: {
+            borderBottomColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+  ],
   defaultVariants: {
     size: "md",
     variant: "outline",
