@@ -9,3 +9,4 @@ panda-studio-static
 .env*
 .svelte-kit
 .claude/worktrees
+.turbo
