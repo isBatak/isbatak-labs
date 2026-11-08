@@ -1,12 +1,15 @@
-import { Slider } from "@ark-ui/solid/slider"
-import type { ComponentProps } from "solid-js"
+import { Slider, useSliderContext } from "@ark-ui/solid/slider"
+import { type ComponentProps, For, type JSX, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(slider)
 
-export const SliderRoot = withProvider(Slider.Root, "root")
+export const SliderRoot = withProvider(Slider.Root, "root", { forwardProps: ["orientation"] })
 export type SliderRootProps = ComponentProps<typeof SliderRoot>
+
+export const SliderRootProvider = withProvider(Slider.RootProvider, "root", { forwardProps: ["orientation"] })
+export type SliderRootProviderProps = ComponentProps<typeof SliderRootProvider>
 
 export const SliderLabel = withContext(Slider.Label, "label")
 export type SliderLabelProps = ComponentProps<typeof SliderLabel>
@@ -46,3 +49,42 @@ export type SliderDraggingIndicatorProps = ComponentProps<typeof SliderDraggingI
 
 export const SliderContext = Slider.Context
 export type SliderContextProps = Slider.ContextProps
+
+export type SliderThumbsProps = Omit<SliderThumbProps, "index">
+
+export function SliderThumbs(props: SliderThumbsProps) {
+  const slider = useSliderContext()
+  return (
+    <For each={slider().value}>
+      {(_, index) => (
+        <SliderThumb index={index()} {...props}>
+          <SliderHiddenInput />
+        </SliderThumb>
+      )}
+    </For>
+  )
+}
+
+export type SliderMarksProps = SliderMarkerGroupProps & {
+  marks?: Array<number | { value: number; label: JSX.Element }> | undefined
+}
+
+export function SliderMarks(props: SliderMarksProps) {
+  const [local, rest] = splitProps(props, ["marks"])
+  return (
+    <Show when={local.marks?.length}>
+      <SliderMarkerGroup {...rest}>
+        <For each={local.marks}>
+          {(mark) => (
+            <SliderMarker value={typeof mark === "number" ? mark : mark.value}>
+              <SliderMarkerIndicator />
+              <Show when={typeof mark !== "number" && mark.label != null}>
+                <SliderMarkerLabel>{typeof mark === "number" ? undefined : mark.label}</SliderMarkerLabel>
+              </Show>
+            </SliderMarker>
+          )}
+        </For>
+      </SliderMarkerGroup>
+    </Show>
+  )
+}

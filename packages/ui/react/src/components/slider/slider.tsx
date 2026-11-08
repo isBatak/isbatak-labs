@@ -1,14 +1,17 @@
 "use client"
 
-import { Slider } from "@ark-ui/react/slider"
-import type { ComponentProps } from "react"
+import { Slider, useSliderContext } from "@ark-ui/react/slider"
+import type { ComponentProps, ReactNode } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(slider)
 
-export const SliderRoot = withProvider(Slider.Root, "root")
+export const SliderRoot = withProvider(Slider.Root, "root", { forwardProps: ["orientation"] })
 export type SliderRootProps = ComponentProps<typeof SliderRoot>
+
+export const SliderRootProvider = withProvider(Slider.RootProvider, "root", { forwardProps: ["orientation"] })
+export type SliderRootProviderProps = ComponentProps<typeof SliderRootProvider>
 
 export const SliderLabel = withContext(Slider.Label, "label")
 export type SliderLabelProps = ComponentProps<typeof SliderLabel>
@@ -48,3 +51,39 @@ export type SliderDraggingIndicatorProps = ComponentProps<typeof SliderDraggingI
 
 export const SliderContext = Slider.Context
 export type SliderContextProps = Slider.ContextProps
+
+export type SliderThumbsProps = Omit<SliderThumbProps, "index">
+
+export function SliderThumbs(props: SliderThumbsProps) {
+  const slider = useSliderContext()
+  return slider.value.map((_, index) => (
+    <SliderThumb key={index} index={index} {...props}>
+      <SliderHiddenInput />
+    </SliderThumb>
+  ))
+}
+
+export type SliderMarksProps = SliderMarkerGroupProps & {
+  /**
+   * The values to mark on the track, as numbers or as objects with a `value` and a `label` to show next to the mark.
+   */
+  marks?: Array<number | { value: number; label: ReactNode }> | undefined
+}
+
+export function SliderMarks({ marks, ...props }: SliderMarksProps) {
+  if (!marks?.length) return null
+  return (
+    <SliderMarkerGroup {...props}>
+      {marks.map((mark) => {
+        const value = typeof mark === "number" ? mark : mark.value
+        const label = typeof mark === "number" ? undefined : mark.label
+        return (
+          <SliderMarker key={value} value={value}>
+            <SliderMarkerIndicator />
+            {label != null && <SliderMarkerLabel>{label}</SliderMarkerLabel>}
+          </SliderMarker>
+        )
+      })}
+    </SliderMarkerGroup>
+  )
+}

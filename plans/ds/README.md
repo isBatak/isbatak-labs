@@ -123,7 +123,7 @@ text inputs, selects, pickers.
 - [x] search-input
 - [x] tags-input
 - [x] editable
-- [ ] slider — has: recipe react vue svelte solid docs
+- [x] slider
 - [ ] rating-group — has: recipe
 - [ ] color-picker — has: recipe
 - [ ] color-swatch — has: recipe

@@ -1,6 +1,7 @@
 import { Slider } from "@ark-ui/svelte/slider"
 
 export { default as SliderRoot, type SliderRootProps } from "./slider-root.svelte"
+export { default as SliderRootProvider, type SliderRootProviderProps } from "./slider-root-provider.svelte"
 export { default as SliderLabel, type SliderLabelProps } from "./slider-label.svelte"
 export { default as SliderValueText, type SliderValueTextProps } from "./slider-value-text.svelte"
 export { default as SliderControl, type SliderControlProps } from "./slider-control.svelte"
@@ -19,3 +20,5 @@ export {
 } from "./slider-dragging-indicator.svelte"
 export const SliderContext = Slider.Context
 export type SliderContextProps = Slider.ContextProps
+export { default as SliderThumbs, type SliderThumbsProps } from "./slider-thumbs.svelte"
+export { default as SliderMarks, type SliderMarksProps } from "./slider-marks.svelte"

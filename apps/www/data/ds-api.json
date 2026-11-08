@@ -4419,6 +4419,15 @@
         }
       },
       {
+        "name": "Slider.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSliderReturn",
+            "description": ""
+          }
+        }
+      },
+      {
         "name": "Slider.Thumb",
         "props": {
           "name": {
@@ -4437,6 +4446,24 @@
           "value": {
             "type": "number",
             "description": ""
+          }
+        }
+      },
+      {
+        "name": "Slider.Thumbs",
+        "props": {
+          "name": {
+            "type": "string | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Slider.Marks",
+        "props": {
+          "marks": {
+            "type": "Array<number | { value: number; label: ReactNode }> | undefined",
+            "description": "The values to mark on the track, as numbers or as objects with a `value` and a `label` to show next to the mark."
           }
         }
       },
