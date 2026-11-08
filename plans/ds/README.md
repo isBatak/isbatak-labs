@@ -125,10 +125,10 @@ text inputs, selects, pickers.
 - [x] editable
 - [x] slider
 - [x] rating-group
-- [ ] color-picker — has: recipe
+- [x] color-picker
 - [x] color-swatch
-- [ ] date-input — has: recipe
-- [ ] date-picker — has: recipe
+- [x] date-input
+- [x] date-picker
 - [x] file-upload
 - [x] clipboard
 - [x] download-trigger

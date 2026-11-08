@@ -1,0 +1,40 @@
+<script lang="ts">
+  import { Portal } from "@ark-ui/svelte/portal"
+  import { DatePicker } from "@isbatak/svelte-ui/date-picker"
+  import { HStack } from "@isbatak/svelte-ui/stack"
+  import { css } from "styled-system/css"
+</script>
+
+<DatePicker.Root selectionMode="range" class={css({ maxW: "sm" })}>
+  <DatePicker.Label>Report period</DatePicker.Label>
+  <DatePicker.Control>
+    <DatePicker.Input index={0} />
+    <DatePicker.Input index={1} />
+    <DatePicker.IndicatorGroup>
+      <DatePicker.Trigger />
+    </DatePicker.IndicatorGroup>
+  </DatePicker.Control>
+  <Portal>
+    <DatePicker.Positioner>
+      <DatePicker.Content>
+        <HStack gap="2" class={css({ flexWrap: "wrap" })}>
+          <DatePicker.PresetTrigger value="last7Days">Last 7 days</DatePicker.PresetTrigger>
+          <DatePicker.PresetTrigger value="last30Days">Last 30 days</DatePicker.PresetTrigger>
+          <DatePicker.PresetTrigger value="thisMonth">This month</DatePicker.PresetTrigger>
+        </HStack>
+        <DatePicker.View view="day">
+          <DatePicker.Header />
+          <DatePicker.DayTable />
+        </DatePicker.View>
+        <DatePicker.View view="month">
+          <DatePicker.Header />
+          <DatePicker.MonthTable />
+        </DatePicker.View>
+        <DatePicker.View view="year">
+          <DatePicker.Header />
+          <DatePicker.YearTable />
+        </DatePicker.View>
+      </DatePicker.Content>
+    </DatePicker.Positioner>
+  </Portal>
+</DatePicker.Root>

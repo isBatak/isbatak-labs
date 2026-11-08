@@ -1,7 +1,7 @@
 "use client"
 
 import { examples } from "@isbatak/compositions/react"
-import { useEffect, useRef } from "react"
+import { Suspense, useEffect, useRef } from "react"
 import { styled } from "styled-system/jsx"
 
 import type { DsFrameworkId } from "./ds-framework"
@@ -35,5 +35,9 @@ function MountedDemo({ id, load }: { id: string; load: () => Promise<MountModule
 export function DsDemoView({ id, framework }: { id: string; framework: DsFrameworkId }) {
   if (framework !== "react") return <MountedDemo id={id} load={loaders[framework]} />
   const Demo = examples.ds[id]
-  return Demo ? <Demo /> : null
+  return Demo ? (
+    <Suspense>
+      <Demo />
+    </Suspense>
+  ) : null
 }

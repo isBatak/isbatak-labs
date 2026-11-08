@@ -59,6 +59,10 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      cursor: "button",
+      borderRadius: "l1",
+      outline: "0",
+      focusVisibleRing: "outside",
     },
     trigger: {
       display: "flex",
@@ -72,6 +76,7 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
       minW: "var(--input-height)",
       px: "1",
       rounded: "l2",
+      cursor: "button",
       _disabled: {
         opacity: "0.5",
       },
@@ -107,7 +112,7 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
       },
     },
     area: {
-      height: "180px",
+      height: "44",
       borderRadius: "l2",
       overflow: "hidden",
     },
@@ -131,7 +136,7 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
     channelSliderTrack: {
       height: "var(--slider-height)",
       borderRadius: "inherit",
-      boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.1)",
+      boxShadow: "inset 0 0 0 1px {colors.border.muted}",
     },
     channelText: {
       textStyle: "xs",
@@ -147,8 +152,8 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
     },
     swatch: {
       boxSize: "var(--swatch-size)",
-      shadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)",
-      "--checker-size": "8px",
+      shadow: "inset 0 0 0 1px {colors.border.muted}",
+      "--checker-size": "sizes.2",
       "--checker-bg": "colors.bg",
       "--checker-fg": "colors.bg.emphasized",
       background:
@@ -162,6 +167,9 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
     swatchIndicator: {
       color: "white",
       rounded: "full",
+      _icon: {
+        boxSize: "3.5",
+      },
     },
     channelSliderThumb: {
       borderRadius: "full",
@@ -196,6 +204,10 @@ export const colorPickerSlotRecipe = defineSlotRecipe({
       "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
         WebkitAppearance: "none",
         margin: 0,
+      },
+      "[data-color-picker-content] &": {
+        px: "1.5",
+        textAlign: "center",
       },
     },
     formatSelect: {
