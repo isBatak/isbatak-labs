@@ -24,7 +24,7 @@ export const BottomBlur = styled(
     },
     variants: {
       split: {
-        true: { right: { lg: "50%" } },
+        true: { right: { lg: "[50%]" } },
       },
     },
   },

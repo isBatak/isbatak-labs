@@ -54,7 +54,7 @@ const badge = css({
 
 const styleList = css({
   fontFamily: "mono",
-  fontSize: "11px",
+  fontSize: "xs",
   lineHeight: "1.6",
   bg: "bg.subtle",
   borderRadius: "md",
@@ -123,7 +123,7 @@ function LayerStyleEditor(props: { studio: Studio; entry: LayerStyleEntry; onClo
               <ToggleItem value="_dark">_dark</ToggleItem>
             </Toggle>
             <Muted>Preset</Muted>
-            <styled.span fontFamily="mono" fontSize="11px" truncate title={controls.package}>
+            <styled.span fontFamily="mono" fontSize="xs" truncate title={controls.package}>
               {controls.package}
             </styled.span>
           </>
@@ -164,7 +164,7 @@ function Preview(props: { studio: Studio; entry: LayerStyleEntry; controls: Pres
       h="40"
       borderBottomWidth="1px"
       borderColor="border.muted"
-      bg={props.condition === "_dark" ? "#2a2a2a" : "white"}
+      bg={props.condition === "_dark" ? "gray.800" : "white"}
       style={style}
     />
   )
@@ -212,7 +212,7 @@ function OptionRow(props: { studio: Studio; controls: PresetControls; option: Pr
 
   return (
     <styled.div display="grid" gridTemplateColumns="6rem 1fr auto" alignItems="center" gap="2">
-      <styled.span fontFamily="mono" fontSize="11px" color="fg.muted" truncate title={option.path}>
+      <styled.span fontFamily="mono" fontSize="xs" color="fg.muted" truncate title={option.path}>
         {option.path}
       </styled.span>
       <NumberField

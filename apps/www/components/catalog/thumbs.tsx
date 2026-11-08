@@ -468,20 +468,20 @@ function PopoverThumb() {
       <styled.span
         position="absolute"
         bottom="4"
-        insetStart="50%"
+        insetStart="[50%]"
         translate="-50% 0"
         className={pill({ variant: "outline" })}
       >
         <span className={bar({ w: "10", tone: "strong" })} />
       </styled.span>
-      <styled.span className={panel()} position="absolute" top="3" insetStart="50%" translate="-50% 0" w="2/3">
+      <styled.span className={panel()} position="absolute" top="3" insetStart="[50%]" translate="-50% 0" w="2/3">
         <span className={bar({ w: "1/2", tone: "strong", size: "md" })} />
         <span className={bar({ w: "full" })} />
         <span className={bar({ w: "2/3" })} />
         <styled.span
           position="absolute"
           bottom="-1.5"
-          insetStart="50%"
+          insetStart="[50%]"
           boxSize="3"
           translate="-50% 0"
           rotate="45deg"
@@ -629,8 +629,8 @@ function SliderThumb() {
           />
           <styled.span
             position="absolute"
-            top="50%"
-            insetStart="60%"
+            top="[50%]"
+            insetStart="[60%]"
             boxSize="4"
             translate="-50% -50%"
             borderRadius="full"
@@ -735,7 +735,7 @@ function TocThumb() {
           <span className={bar({ w: "2/3" })} />
         </styled.span>
         <styled.span position="relative" display="flex" flexDirection="column" gap="2.5" ps="3" borderStartWidth="1px">
-          <styled.span position="absolute" insetStart="-1px" top="5" h="5" w="2px" borderRadius="full" bg="fg" />
+          <styled.span position="absolute" insetStart="-px" top="5" h="5" w="2px" borderRadius="full" bg="fg" />
           <span className={bar({ w: "3/4" })} />
           <span className={bar({ w: "2/3", tone: "strong" })} />
           <styled.span ms="2" className={bar({ w: "1/2", tone: "strong" })} />
@@ -755,7 +755,7 @@ function TooltipThumb() {
           <styled.span
             position="absolute"
             bottom="-1"
-            insetStart="50%"
+            insetStart="[50%]"
             boxSize="2"
             translate="-50% 0"
             rotate="45deg"

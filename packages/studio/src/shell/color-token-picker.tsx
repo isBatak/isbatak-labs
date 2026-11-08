@@ -110,7 +110,7 @@ const swatchButton = css({
   boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.12)",
   transition: "transform 0.1s",
   _hover: { transform: "scale(1.15)" },
-  _selected: { outline: "2px solid", outlineColor: "blue.500", outlineOffset: "1px" },
+  _selected: { outline: "2px solid", outlineColor: "blue.500", outlineOffset: "px" },
 })
 
 function Swatch(props: { color: string; title: string; selected?: boolean; onClick: () => void }) {
