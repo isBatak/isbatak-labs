@@ -225,12 +225,8 @@ export const drawerSlotRecipe = defineSlotRecipe({
       alignItems: "center",
       gap: "2",
       flex: 0,
-      px: "6",
-      pt: "6",
-      pb: "4",
     },
     body: {
-      px: "6",
       py: "2",
       flex: "1",
       overflow: "auto",
@@ -240,9 +236,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
       alignItems: "center",
       justifyContent: "flex-end",
       gap: "3",
-      px: "6",
       pt: "2",
-      pb: "4",
     },
     grabber: {
       display: "flex",
@@ -262,7 +256,6 @@ export const drawerSlotRecipe = defineSlotRecipe({
     },
     title: {
       flex: "1",
-      textStyle: "lg",
       fontWeight: "semibold",
     },
     description: {
@@ -270,7 +263,6 @@ export const drawerSlotRecipe = defineSlotRecipe({
     },
     closeTrigger: {
       pos: "absolute",
-      top: "3",
       insetEnd: "2",
     },
     swipeArea: {
@@ -327,6 +319,48 @@ export const drawerSlotRecipe = defineSlotRecipe({
   },
   variants: {
     size: {
+      sm: {
+        header: {
+          px: "4",
+          pt: "4",
+          pb: "3",
+        },
+        body: {
+          px: "4",
+        },
+        footer: {
+          px: "4",
+          pb: "3",
+        },
+        title: {
+          textStyle: "md",
+        },
+        closeTrigger: {
+          top: "2",
+        },
+      },
+      md: {
+        header: {
+          px: "6",
+          pt: "6",
+          pb: "4",
+        },
+        body: {
+          px: "6",
+        },
+        footer: {
+          px: "6",
+          pb: "4",
+        },
+        title: {
+          textStyle: "lg",
+        },
+        closeTrigger: {
+          top: "3",
+        },
+      },
+    },
+    contentSize: {
       xs: {
         content: {
           "--drawer-max-width": "sizes.xs",
@@ -334,20 +368,35 @@ export const drawerSlotRecipe = defineSlotRecipe({
       },
       sm: {
         content: {
-          "--drawer-max-width": "sizes.md",
+          "--drawer-max-width": "sizes.sm",
         },
       },
       md: {
         content: {
-          "--drawer-max-width": "sizes.lg",
+          "--drawer-max-width": "sizes.md",
         },
       },
       lg: {
         content: {
-          "--drawer-max-width": "sizes.2xl",
+          "--drawer-max-width": "sizes.lg",
         },
       },
       xl: {
+        content: {
+          "--drawer-max-width": "sizes.xl",
+        },
+      },
+      "2xl": {
+        content: {
+          "--drawer-max-width": "sizes.2xl",
+        },
+      },
+      "3xl": {
+        content: {
+          "--drawer-max-width": "sizes.3xl",
+        },
+      },
+      "4xl": {
         content: {
           "--drawer-max-width": "sizes.4xl",
         },
@@ -386,6 +435,7 @@ export const drawerSlotRecipe = defineSlotRecipe({
     },
   },
   defaultVariants: {
-    size: "xs",
+    size: "md",
+    contentSize: "xs",
   },
 })

@@ -49,7 +49,7 @@ export function GetCodeDialog(props: { studio: Studio }) {
     format === "preset" ? `${themeName}.preset.ts` : format === "css" ? `${themeName}.css` : `${themeName}.json`
 
   return (
-    <DialogRoot size="lg" lazyMount unmountOnExit>
+    <DialogRoot contentSize="lg" lazyMount unmountOnExit>
       <Dialog.Trigger asChild>
         <Button size="xs">Get code</Button>
       </Dialog.Trigger>
