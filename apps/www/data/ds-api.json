@@ -1350,6 +1350,214 @@
       }
     }
   },
+  "date-input": {
+    "parts": [
+      {
+        "name": "DateInput.Root",
+        "props": {
+          "form": {
+            "type": "string | undefined",
+            "description": "The `form` attribute of the hidden input element."
+          },
+          "defaultValue": {
+            "type": "DateValue[] | undefined",
+            "description": "The initial selected date(s) when rendered.\nUse when you don't need to control the selected date(s)."
+          },
+          "dir": {
+            "type": "\"ltr\" | \"rtl\" | undefined",
+            "description": "The document's text/writing direction.",
+            "defaultValue": "\"ltr\""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "getRootNode": {
+            "type": "(() => ShadowRoot | Document | Node) | undefined",
+            "description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the date input. Useful for composition."
+          },
+          "value": {
+            "type": "DateValue[] | undefined",
+            "description": "The controlled selected date(s)."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function called when the value changes."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails) => void) | undefined",
+            "description": "A function called when the date input gains or loses focus."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The `name` attribute of the input element."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the date input is read-only."
+          },
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
+          },
+          "format": {
+            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
+            "description": "The format function for converting a DateValue to a string."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale (BCP 47 language tag) to use when formatting the date.",
+            "defaultValue": "\"en-US\""
+          },
+          "createCalendar": {
+            "type": "((identifier: CalendarIdentifier) => Calendar) | undefined",
+            "description": "A function that creates a calendar object for a given calendar identifier.\nUse this to support non-Gregorian calendars (e.g., Persian, Islamic, Buddhist)."
+          },
+          "timeZone": {
+            "type": "string | undefined",
+            "description": "The time zone to use",
+            "defaultValue": "\"UTC\""
+          },
+          "isDateUnavailable": {
+            "type": "((date: DateValue, locale: string) => boolean) | undefined",
+            "description": "Returns whether a date is unavailable.\nWhen a committed date matches, the input is marked as invalid."
+          },
+          "placeholderValue": {
+            "type": "DateValue | undefined",
+            "description": "The controlled placeholder date."
+          },
+          "defaultPlaceholderValue": {
+            "type": "DateValue | undefined",
+            "description": "The initial placeholder date when rendered."
+          },
+          "onPlaceholderChange": {
+            "type": "((details: PlaceholderChangeDetails) => void) | undefined",
+            "description": "A function called when the placeholder value changes."
+          },
+          "selectionMode": {
+            "type": "SelectionMode | undefined",
+            "description": "The selection mode of the date input.\n- `single` - only one date can be entered\n- `range` - a range of dates can be entered (start and end)",
+            "defaultValue": "\"single\""
+          },
+          "hourCycle": {
+            "type": "HourCycle | undefined",
+            "description": "Whether to use 12-hour or 24-hour time format.\nBy default, this is determined by the locale."
+          },
+          "hideTimeZone": {
+            "type": "boolean | undefined",
+            "description": "Whether to hide the time zone segment when the value is a `ZonedDateTime`.\nHas no effect for values without a time zone.",
+            "defaultValue": "false"
+          },
+          "granularity": {
+            "type": "DateGranularity | undefined",
+            "description": "Determines the smallest unit that is displayed in the date input.",
+            "defaultValue": "\"day\""
+          },
+          "shouldForceLeadingZeros": {
+            "type": "boolean | undefined",
+            "description": "Whether to always show leading zeros in month, day, and hour fields.\nWhen false, formatting follows the locale default (e.g. \"1\" instead of \"01\").",
+            "defaultValue": "false"
+          },
+          "formatter": {
+            "type": "DateFormatter | undefined",
+            "description": "The date formatter to use."
+          },
+          "allSegments": {
+            "type": "Segments | undefined",
+            "description": "The computed segments map for the formatter."
+          }
+        }
+      },
+      {
+        "name": "DateInput.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseDateInputReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.SegmentGroup",
+        "props": {
+          "index": {
+            "type": "number | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.Segment",
+        "props": {
+          "segment": {
+            "type": "DateSegment",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.HiddenInput",
+        "props": {
+          "index": {
+            "type": "number | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseDateInputContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "DateInput.SegmentContext",
+        "props": {
+          "children": {
+            "type": "(segment: DateSegment) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "subtle", "plain", "flushed"],
+        "defaultValue": "outline"
+      }
+    }
+  },
   "download-trigger": {
     "parts": [
       {
