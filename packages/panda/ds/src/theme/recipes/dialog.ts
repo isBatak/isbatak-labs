@@ -12,7 +12,6 @@ export const dialogSlotRecipe = defineSlotRecipe({
     "header",
     "body",
     "footer",
-    "backdrop",
   ],
   className: "dialog",
   description: "Modal window that blocks the page",
@@ -24,7 +23,7 @@ export const dialogSlotRecipe = defineSlotRecipe({
       top: 0,
       w: "100dvw",
       h: "100dvh",
-      "--dialog-z-index": "zIndex.popover",
+      "--dialog-z-index": "zIndex.modal",
       zIndex: "calc(var(--dialog-z-index) + var(--layer-index, 0) - 1)",
       _open: {
         animationName: "fade-in",
@@ -42,7 +41,8 @@ export const dialogSlotRecipe = defineSlotRecipe({
       position: "fixed",
       left: 0,
       top: 0,
-      "--dialog-z-index": "zIndex.popover",
+      px: "4",
+      "--dialog-z-index": "zIndex.modal",
       zIndex: "calc(var(--dialog-z-index) + var(--layer-index, 0))",
       justifyContent: "center",
       overscrollBehaviorY: "none",
@@ -55,11 +55,14 @@ export const dialogSlotRecipe = defineSlotRecipe({
       outline: 0,
       borderRadius: "l3",
       textStyle: "sm",
+      color: "fg",
       my: "var(--dialog-margin, var(--dialog-base-margin))",
-      "--dialog-z-index": "zIndex.popover",
+      "--dialog-z-index": "zIndex.modal",
       zIndex: "calc(var(--dialog-z-index) + var(--layer-index, 0))",
       bg: "bg.panel",
-      boxShadow: "lg",
+      borderWidth: "1px",
+      borderColor: "border.muted",
+      boxShadow: "xl",
       _open: {
         animationDuration: "moderate",
       },
@@ -69,29 +72,30 @@ export const dialogSlotRecipe = defineSlotRecipe({
     },
     header: {
       display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
       gap: "2",
       flex: 0,
-      px: "6",
-      pt: "6",
-      pb: "4",
+      borderBottomWidth: "1px",
+      borderBottomColor: "border.muted",
+      ps: "4",
+      pe: "12",
     },
     body: {
       flex: "1",
-      px: "6",
-      pt: "2",
-      pb: "6",
+      px: "4",
+      py: "3",
     },
     footer: {
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
       gap: "3",
-      px: "6",
-      pt: "2",
-      pb: "4",
+      p: "4",
+      borderTopWidth: "1px",
+      borderTopColor: "border.muted",
     },
     title: {
-      textStyle: "lg",
       fontWeight: "semibold",
     },
     description: {
@@ -99,8 +103,7 @@ export const dialogSlotRecipe = defineSlotRecipe({
     },
     closeTrigger: {
       pos: "absolute",
-      top: "2",
-      insetEnd: "2",
+      insetEnd: "3",
     },
   },
   variants: {
@@ -153,47 +156,95 @@ export const dialogSlotRecipe = defineSlotRecipe({
       },
     },
     size: {
+      sm: {
+        header: {
+          py: "1.5",
+          minH: "11",
+        },
+        title: {
+          textStyle: "md",
+        },
+        closeTrigger: {
+          top: "1.5",
+        },
+      },
+      md: {
+        header: {
+          py: "2",
+          minH: "12",
+        },
+        title: {
+          textStyle: "lg",
+        },
+        closeTrigger: {
+          top: "2",
+        },
+      },
+    },
+    contentSize: {
       xs: {
         content: {
-          maxW: "sm",
+          maxW: "xs",
         },
       },
       sm: {
         content: {
-          maxW: "md",
+          maxW: "sm",
         },
       },
       md: {
         content: {
-          maxW: "lg",
+          maxW: "md",
         },
       },
       lg: {
         content: {
-          maxW: "2xl",
+          maxW: "lg",
         },
       },
       xl: {
+        content: {
+          maxW: "xl",
+        },
+      },
+      "2xl": {
+        content: {
+          maxW: "2xl",
+        },
+      },
+      "3xl": {
+        content: {
+          maxW: "3xl",
+        },
+      },
+      "4xl": {
         content: {
           maxW: "4xl",
         },
       },
       cover: {
         positioner: {
-          padding: "10",
+          padding: { base: "4", sm: "6", xl: "10" },
         },
         content: {
-          width: "100%",
-          height: "100%",
+          w: "full",
+          h: "full",
           "--dialog-margin": "0",
         },
       },
       full: {
+        positioner: {
+          padding: "0",
+        },
         content: {
+          w: "full",
+          h: "full",
           maxW: "100dvw",
-          minH: "100dvh",
+          maxH: "full",
           "--dialog-margin": "0",
           borderRadius: "0",
+          borderWidth: "0",
+          boxShadow: "none",
         },
       },
     },
@@ -253,6 +304,7 @@ export const dialogSlotRecipe = defineSlotRecipe({
   },
   defaultVariants: {
     size: "md",
+    contentSize: "md",
     scrollBehavior: "outside",
     placement: "top",
     motionPreset: "scale",
