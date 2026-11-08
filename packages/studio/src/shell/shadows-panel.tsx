@@ -124,7 +124,7 @@ function Swatch(props: { shadow: string; mode: ColorMode; size: string }) {
       w={props.size}
       h={props.size}
       borderRadius="sm"
-      bg={props.mode === "_dark" ? "#2a2a2a" : "white"}
+      bg={props.mode === "_dark" ? "gray.800" : "white"}
       style={{ boxShadow: props.shadow }}
     />
   )

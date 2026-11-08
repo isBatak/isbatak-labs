@@ -31,10 +31,10 @@ const Td = styled("td", {
 const PropName = styled("code", {
   base: {
     fontFamily: "mono",
-    fontSize: "0.875em",
+    fontSize: "[0.875em]",
     fontWeight: "medium",
-    px: "0.3em",
-    py: "0.15em",
+    px: "[0.3em]",
+    py: "[0.15em]",
     borderRadius: "sm",
     bg: "bg.muted",
   },
@@ -43,7 +43,7 @@ const PropName = styled("code", {
 const Mono = styled("span", {
   base: {
     fontFamily: "mono",
-    fontSize: "0.925em",
+    fontSize: "[0.925em]",
     color: "fg.muted",
     overflowWrap: "anywhere",
   },

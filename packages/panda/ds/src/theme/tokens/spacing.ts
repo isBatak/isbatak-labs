@@ -4,6 +4,9 @@ export const spacing = defineTokens.spacing({
   "0": {
     value: "0",
   },
+  px: {
+    value: "1px",
+  },
   "1": {
     value: "0.25rem",
   },

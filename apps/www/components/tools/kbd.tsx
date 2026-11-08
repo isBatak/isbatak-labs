@@ -13,7 +13,7 @@ export const Kbd = styled("kbd", {
     borderBottomWidth: "2px",
     bg: "bg.subtle",
     fontFamily: "mono",
-    fontSize: "0.8em",
+    fontSize: "[0.8em]",
     fontWeight: "medium",
     lineHeight: "1",
     color: "fg",
