@@ -5,8 +5,8 @@ export const colorSwatchRecipe = defineRecipe({
   description: "Square preview of a single color",
   base: {
     boxSize: "var(--swatch-size)",
-    shadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)",
-    "--checker-size": "8px",
+    shadow: "inset 0 0 0 1px {colors.border.muted}",
+    "--checker-size": "sizes.2",
     "--checker-bg": "colors.bg",
     "--checker-fg": "colors.bg.emphasized",
     background:

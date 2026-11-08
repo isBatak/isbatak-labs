@@ -8,9 +8,10 @@ links:
   ark: https://ark-ui.com/docs/components/navigation-menu
 ---
 
-Built on Ark UI's NavigationMenu. Each `NavigationMenu.Item` pairs a trigger with its content. The open content renders
-inside `NavigationMenu.Viewport`, which moves under the active trigger and animates its size between menus.
-`NavigationMenu.Indicator` is the highlight that slides between triggers. The header of this site is one.
+Built on Ark UI's NavigationMenu. Each `NavigationMenu.Item` pairs a trigger with its content, or holds a single
+`NavigationMenu.Link` that goes straight to a page. The open content renders inside `NavigationMenu.Viewport`, which
+moves under the active trigger and animates its size between menus. `NavigationMenu.Indicator` is the highlight that
+slides between triggers. The header of this site is one.
 
 ## Usage
 
@@ -22,9 +23,10 @@ inside `NavigationMenu.Viewport`, which moves under the active trigger and anima
     <NavigationMenu.Indicator />
     <NavigationMenu.Item value="product">
       <NavigationMenu.Trigger />
-      <NavigationMenu.Content>
-        <NavigationMenu.Link href="/analytics" />
-      </NavigationMenu.Content>
+      <NavigationMenu.Content />
+    </NavigationMenu.Item>
+    <NavigationMenu.Item value="pricing">
+      <NavigationMenu.Link href="/pricing" />
     </NavigationMenu.Item>
   </NavigationMenu.List>
   <NavigationMenu.ViewportPositioner>
@@ -32,6 +34,9 @@ inside `NavigationMenu.Viewport`, which moves under the active trigger and anima
   </NavigationMenu.ViewportPositioner>
 </NavigationMenu.Root>
 ```
+
+`NavigationMenu.Link` is styled as a top-level link that sits beside the triggers. Links inside the content are yours to
+lay out and style: use your router's link or a plain anchor.
 
 Give `NavigationMenu.Content` a width. The viewport measures it and resizes to match when you move between menus.
 

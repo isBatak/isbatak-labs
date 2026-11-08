@@ -1,5 +1,6 @@
 export {
   SliderRoot as Root,
+  SliderRootProvider as RootProvider,
   SliderLabel as Label,
   SliderValueText as ValueText,
   SliderControl as Control,
@@ -12,11 +13,14 @@ export {
   SliderMarkerIndicator as MarkerIndicator,
   SliderMarkerLabel as MarkerLabel,
   SliderDraggingIndicator as DraggingIndicator,
+  SliderThumbs as Thumbs,
+  SliderMarks as Marks,
   SliderContext as Context,
 } from "./slider"
 
 export type {
   SliderRootProps as RootProps,
+  SliderRootProviderProps as RootProviderProps,
   SliderLabelProps as LabelProps,
   SliderValueTextProps as ValueTextProps,
   SliderControlProps as ControlProps,
@@ -29,6 +33,8 @@ export type {
   SliderMarkerIndicatorProps as MarkerIndicatorProps,
   SliderMarkerLabelProps as MarkerLabelProps,
   SliderDraggingIndicatorProps as DraggingIndicatorProps,
+  SliderThumbsProps as ThumbsProps,
+  SliderMarksProps as MarksProps,
   SliderContextProps as ContextProps,
 } from "./slider"
 
