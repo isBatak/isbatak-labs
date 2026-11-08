@@ -128,6 +128,15 @@ const frameworks = [
     ],
   },
   {
+    id: "lit",
+    label: "Lit",
+    ext: "ts",
+    lang: "ts",
+    runtime: ["lit"],
+    target: "src/components",
+    exportName: (name) => name,
+  },
+  {
     id: "vanilla",
     label: "Vanilla",
     ext: "ts",

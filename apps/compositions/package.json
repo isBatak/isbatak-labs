@@ -23,6 +23,10 @@
       "types": "./types/mount.d.ts",
       "default": "./dist/preact.js"
     },
+    "./lit": {
+      "types": "./types/mount.d.ts",
+      "default": "./dist/lit.js"
+    },
     "./vanilla": {
       "types": "./types/mount.d.ts",
       "default": "./dist/vanilla.js"
@@ -55,6 +59,7 @@
     "@isbatak/solid-ui": "workspace:*",
     "@isbatak/svelte-ui": "workspace:*",
     "@isbatak/vue-ui": "workspace:*",
+    "@isbatak/zag-lit": "workspace:*",
     "@isbatak/zag-masonry": "workspace:*",
     "@isbatak/zag-text-flip": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
@@ -64,6 +69,7 @@
     "@zag-js/svelte": "catalog:",
     "@zag-js/vanilla": "catalog:",
     "@zag-js/vue": "catalog:",
+    "lit": "catalog:",
     "preact": "^10.29.8",
     "react": "catalog:",
     "solid-js": "^1.9.15",

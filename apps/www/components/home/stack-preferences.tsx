@@ -193,6 +193,7 @@ export function StackPreferences() {
                 <FrameworkOption value="svelte" label="Svelte" icon="brand-svelte" />
                 <FrameworkOption value="solid" label="Solid" icon="brand-solidjs" />
                 <FrameworkOption value="preact" label="Preact" icon="brand-preact" />
+                <FrameworkOption value="lit" label="Lit" icon="brand-lit" />
                 <FrameworkOption value="vanilla" label="Vanilla JS" icon="brand-javascript" />
               </styled.div>
             </RadioCard.Root>

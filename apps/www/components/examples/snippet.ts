@@ -23,6 +23,7 @@ const kebab = (name: string) => name.replace(/[A-Z]/g, (char) => `-${char.toLowe
 const controlledValue: Record<FrameworkId, string[]> = {
   react: ["value", "onValueChange: (details) => setValue(details.value)"],
   preact: ["value", "onValueChange: (details) => setValue(details.value)"],
+  lit: ["value: this.value", "onValueChange: (details) => (this.value = details.value)"],
   solid: ["value: value()", "onValueChange: (details) => setValue(details.value)"],
   vue: ["value: value.value", "onValueChange: (details) => (value.value = details.value)"],
   svelte: ["value", "onValueChange: (details) => (value = details.value)"],
@@ -54,6 +55,7 @@ const jsxAttribute = (framework: FrameworkId, name: string, value: Value) => {
 const controlledAttributes: Record<FrameworkId, string[]> = {
   react: ["value={value}", "onValueChange={(details) => setValue(details.value)}"],
   preact: ["value={value}", "onValueChange={(details) => setValue(details.value)}"],
+  lit: [],
   solid: ["value={value()}", "onValueChange={(details) => setValue(details.value)}"],
   vue: ['v-model="value"'],
   svelte: ["bind:value"],
@@ -80,6 +82,7 @@ function arkSnippet(framework: FrameworkId, settings: ExampleSettings, props: [s
 const arkLang: Record<FrameworkId, string> = {
   react: "tsx",
   preact: "tsx",
+  lit: "ts",
   solid: "tsx",
   vue: "vue",
   svelte: "svelte",
@@ -119,9 +122,10 @@ function masonryArkSnippet(framework: FrameworkId, props: [string, Value][]) {
 function textFlipMachineSnippet(framework: FrameworkId, props: [string, Value][]) {
   const body = props.map(([name, value]) => `  ${name}: ${literal(value)},`).join("\n")
   const options = props.length > 0 ? `{\n${body}\n}` : "{}"
-  return framework === "vanilla"
-    ? `const machine = new VanillaMachine(textFlip.machine, ${options})`
-    : `const service = useMachine(textFlip.machine, ${options})`
+  if (framework === "vanilla") return `const machine = new VanillaMachine(textFlip.machine, ${options})`
+  if (framework === "lit")
+    return `readonly #machine = new MachineController(this, textFlip.machine, () => (${options}))`
+  return `const service = useMachine(textFlip.machine, ${options})`
 }
 
 function textFlipArkSnippet(framework: FrameworkId, props: [string, Value][]) {
