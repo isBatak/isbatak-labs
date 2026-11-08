@@ -1524,6 +1524,209 @@
       }
     }
   },
+  "file-upload": {
+    "parts": [
+      {
+        "name": "FileUpload.Root",
+        "props": {
+          "directory": {
+            "type": "boolean | undefined",
+            "description": "Whether to accept directories, only works in webkit browsers"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is disabled"
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the underlying file input"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is invalid"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is required"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is read-only"
+          },
+          "accept": {
+            "type": "Record<string, string[]> | FileMimeType | FileMimeType[] | undefined",
+            "description": "The accept file types"
+          },
+          "capture": {
+            "type": "\"user\" | \"environment\" | undefined",
+            "description": "The default camera to use when capturing media"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "allowDrop": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow drag and drop in the dropzone element",
+            "defaultValue": "true"
+          },
+          "maxFileSize": {
+            "type": "number | undefined",
+            "description": "The maximum file size in bytes",
+            "defaultValue": "Infinity"
+          },
+          "minFileSize": {
+            "type": "number | undefined",
+            "description": "The minimum file size in bytes",
+            "defaultValue": "0"
+          },
+          "maxFiles": {
+            "type": "number | undefined",
+            "description": "The maximum number of files",
+            "defaultValue": "1"
+          },
+          "preventDocumentDrop": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent the drop event on the document",
+            "defaultValue": "true"
+          },
+          "validate": {
+            "type": "((file: File, details: FileValidateDetails) => FileError[] | null) | undefined",
+            "description": "Function to validate a file"
+          },
+          "defaultAcceptedFiles": {
+            "type": "File[] | undefined",
+            "description": "The default accepted files when rendered.\nUse when you don't need to control the accepted files of the input."
+          },
+          "acceptedFiles": {
+            "type": "File[] | undefined",
+            "description": "The controlled accepted files"
+          },
+          "onFileChange": {
+            "type": "((details: FileChangeDetails) => void) | undefined",
+            "description": "Function called when the value changes, whether accepted or rejected"
+          },
+          "onFileAccept": {
+            "type": "((details: FileAcceptDetails) => void) | undefined",
+            "description": "Function called when the file is accepted"
+          },
+          "onFileReject": {
+            "type": "((details: FileRejectDetails) => void) | undefined",
+            "description": "Function called when the file is rejected"
+          },
+          "transformFiles": {
+            "type": "((files: File[]) => Promise<File[]>) | undefined",
+            "description": "Function to transform the accepted files to apply transformations"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The current locale. Based on the BCP 47 definition.",
+            "defaultValue": "\"en-US\""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseFileUploadReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Dropzone",
+        "props": {
+          "disableClick": {
+            "type": "boolean | undefined",
+            "description": "Whether to disable the click event on the dropzone"
+          }
+        }
+      },
+      {
+        "name": "FileUpload.ItemGroup",
+        "props": {
+          "type": {
+            "type": "ItemType | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Item",
+        "props": {
+          "file": {
+            "type": "File",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.ItemPreview",
+        "props": {
+          "type": {
+            "type": "string | undefined",
+            "description": "The file type to match against. Matches all file types by default.",
+            "defaultValue": "'.*'"
+          }
+        }
+      },
+      {
+        "name": "FileUpload.FileText",
+        "props": {
+          "fallback": {
+            "type": "ReactNode | undefined",
+            "description": "The text to show when no file is picked.",
+            "defaultValue": "\"Select file\""
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Items",
+        "props": {
+          "showSize": {
+            "type": "boolean | undefined",
+            "description": "Show each file's size under its name."
+          },
+          "clearable": {
+            "type": "boolean | undefined",
+            "description": "Show a button on each file that removes it."
+          }
+        }
+      },
+      {
+        "name": "FileUpload.List",
+        "props": {
+          "type": {
+            "type": "ItemType | undefined",
+            "description": ""
+          },
+          "showSize": {
+            "type": "boolean | undefined",
+            "description": "Show each file's size under its name."
+          },
+          "clearable": {
+            "type": "boolean | undefined",
+            "description": "Show a button on each file that removes it."
+          }
+        }
+      },
+      {
+        "name": "FileUpload.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseFileUploadContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "flex": {
     "parts": [
       {
