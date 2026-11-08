@@ -10,7 +10,7 @@
     "dev:next": "next dev --port 3000",
     "build": "pnpm generate && next build",
     "start": "next start",
-    "typecheck": "pnpm generate && next typegen && tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "dev:compositions": "pnpm --filter @isbatak/compositions dev",
     "studio": "panda-studio",
     "studio:analog": "panda-studio --config ../../packages/panda/themes/analog/panda.config.ts"
