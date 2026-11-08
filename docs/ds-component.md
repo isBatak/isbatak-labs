@@ -6,6 +6,8 @@ One `@isbatak/panda-ds` component spans these files. `<name>` is kebab-case, `<c
 
 - `packages/panda/ds/src/theme/recipes/<name>.ts`: the recipe or slot recipe. Its `description` says when to pick it.
 - `packages/panda/ds/src/theme/recipes/index.ts`: register it in `recipes` or `slotRecipes` under `<camel>`.
+- Consumers read the recipe from panda-ds's generated `styled-system/` and `dist/`. After editing a recipe, run
+  `pnpm --filter @isbatak/panda-ds build` before typechecking `packages/ui`, `apps/compositions` or `apps/www`.
 - `packages/panda/ds/src/theme/recipes/shared/`: size and variant maps shared between recipes (`input.ts`,
   `segment.ts`). Reuse these so related controls line up.
 - `packages/panda/ds/src/theme/conditions.ts`: custom conditions such as `_icon`, `_iconStart`, `_iconEnd`.
@@ -32,8 +34,8 @@ When Ark UI has no component for it, build one:
 - `packages/zag/<name>`: the Zag state machine (`@isbatak/zag-<name>`).
 - `packages/ark/<name>`: the framework bindings in `src/{react,vue,svelte,solid}` (`@isbatak/ark-<name>`).
 
-Ark and Zag sources for upstream components are in `node_modules/.pnpm/@zag-js+<name>@<version>/` and
-`node_modules/.pnpm/@ark-ui+<framework>@<version>/`.
+Ark sources for upstream components are in `packages/ui/<framework>/node_modules/@ark-ui/<framework>/`. Zag sources are
+in `node_modules/.pnpm/@zag-js+<name>@<version>/`; `ls -d node_modules/.pnpm/@zag-js+<name>@*` finds the version.
 
 ## Demos
 
