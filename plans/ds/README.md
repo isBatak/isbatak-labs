@@ -139,7 +139,7 @@ Decided in [overlays.md](overlays.md). Ships in six sub-slices: dialog and drawe
 toast and action-bar, floating-panel and tour, then portal, presence and focus-trap.
 
 - [x] dialog
-- [ ] drawer — has: recipe react docs
+- [x] drawer
 - [ ] popover — has: recipe react vue svelte solid docs
 - [ ] hover-card — has: recipe react vue svelte solid docs
 - [ ] tooltip — has: recipe react vue svelte solid docs
@@ -148,7 +148,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [ ] toast — has: recipe
 - [ ] action-bar — has: recipe
 - [ ] tour — has: recipe react vue svelte solid docs
-- [ ] portal
+- [ ] portal — has: solid (lazy, so nested overlays stay visible to screen readers)
 - [ ] presence
 - [ ] focus-trap
 
