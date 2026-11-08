@@ -135,6 +135,9 @@ text inputs, selects, pickers.
 
 ## Overlays
 
+Decided in [overlays.md](overlays.md). Ships in six sub-slices: dialog and drawer, popover/hover-card/tooltip, menu,
+toast and action-bar, floating-panel and tour, then portal, presence and focus-trap.
+
 - [ ] dialog — has: recipe
 - [ ] drawer — has: recipe react docs
 - [ ] popover — has: recipe react vue svelte solid docs
