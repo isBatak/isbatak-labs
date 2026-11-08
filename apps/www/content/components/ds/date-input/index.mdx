@@ -1,0 +1,92 @@
+---
+title: Date input
+description: Type a date one part at a time, with each part checked as you go.
+category: Forms
+links:
+  source: packages/ui/react/src/components/date-input
+  recipe: packages/panda/ds/src/theme/recipes/date-input.ts
+  ark: https://ark-ui.com/docs/components/date-input
+---
+
+Built on Ark UI's Date Input. Each part of the date, like the month, day and year, is its own segment: type digits or
+use the arrow keys, and focus moves on when a part is complete. The order and separators follow the `locale`. Values are
+`DateValue` objects from `@internationalized/date`: create one with `parseDate("2026-11-08")`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<DateInput.Root>
+  <DateInput.Label />
+  <DateInput.Control>
+    <DateInput.SegmentGroup>
+      <DateInput.Segments />
+    </DateInput.SegmentGroup>
+  </DateInput.Control>
+  <DateInput.HiddenInput />
+</DateInput.Root>
+```
+
+`DateInput.Segments` renders a `DateInput.Segment` for each part of the date. Use `DateInput.SegmentContext` to render
+the segments yourself.
+
+## Examples
+
+### Sizes
+
+Set `size` to `2xs`, `xs`, `sm`, `md`, `lg`, `xl` or `2xl`. The default is `md`.
+
+<Example id="date-input/sizes" />
+
+### Variants
+
+Set `variant` to `outline`, `subtle`, `plain` or `flushed`. The default is `outline`. These match the `input` recipe.
+
+<Example id="date-input/variants" />
+
+### Range
+
+Set `selectionMode="range"` and render two `DateInput.SegmentGroup`s, with `index={0}` for the start and `index={1}` for
+the end.
+
+<Example id="date-input/range" />
+
+### Date and time
+
+Set `granularity` to `hour`, `minute` or `second` to add time segments.
+
+<Example id="date-input/date-time" />
+
+### Locale
+
+Set `locale` to change the order and separators of the segments.
+
+<Example id="date-input/locale" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the date. The value is always an array.
+
+<Example id="date-input/controlled" />
+
+### Invalid
+
+Set `invalid` to give the input the error border. Add the error text below it, here with the `field` recipe's
+`errorText`.
+
+<Example id="date-input/invalid" />
+
+### Disabled
+
+Set `disabled` to disable the input.
+
+<Example id="date-input/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

@@ -11,7 +11,7 @@ export const dateInputSlotRecipe = defineSlotRecipe({
       gap: "1.5",
       width: "full",
       _disabled: {
-        opacity: "0.5",
+        layerStyle: "disabled",
       },
     },
     label: {
@@ -33,10 +33,6 @@ export const dateInputSlotRecipe = defineSlotRecipe({
       minW: "var(--input-height)",
       "--focus-color": "colors.colorPalette.focusRing",
       "--error-color": "colors.border.error",
-      _invalid: {
-        focusRingColor: "var(--error-color)",
-        borderColor: "var(--error-color)",
-      },
       display: "flex",
       alignItems: "center",
       gap: "1",
@@ -156,6 +152,7 @@ export const dateInputSlotRecipe = defineSlotRecipe({
       flushed: {
         segmentGroup: {
           bg: "transparent",
+          borderWidth: "0",
           borderBottomWidth: "1px",
           borderBottomColor: "border",
           borderRadius: "0",
@@ -178,6 +175,29 @@ export const dateInputSlotRecipe = defineSlotRecipe({
       },
     },
   },
+  compoundVariants: [
+    {
+      variant: ["outline", "subtle", "plain"],
+      css: {
+        segmentGroup: {
+          _invalid: {
+            focusRingColor: "var(--error-color)",
+            borderColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+    {
+      variant: "flushed",
+      css: {
+        segmentGroup: {
+          _invalid: {
+            borderBottomColor: "var(--error-color)",
+          },
+        },
+      },
+    },
+  ],
   defaultVariants: {
     size: "md",
     variant: "outline",
