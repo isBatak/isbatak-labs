@@ -78,7 +78,7 @@ function StyleTab(props: { studio: Studio }) {
 
 export const codeBlock = css({
   fontFamily: "mono",
-  fontSize: "11px",
+  fontSize: "xs",
   lineHeight: "1.6",
   whiteSpace: "pre",
   overflow: "auto",

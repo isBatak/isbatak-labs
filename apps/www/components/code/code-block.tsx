@@ -48,7 +48,7 @@ const Pre = styled("pre", {
     bg: "transparent",
     borderRadius: "none",
     fontFamily: "mono",
-    fontSize: "0.8125rem",
+    fontSize: "sm",
     lineHeight: "1.7",
     "--sh-keyword": "{colors.code.keyword}",
     "--sh-string": "{colors.code.string}",
