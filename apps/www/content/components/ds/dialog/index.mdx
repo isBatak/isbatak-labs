@@ -1,0 +1,125 @@
+---
+title: Dialog
+description: Show content in a window over the page that people deal with before going back.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/dialog
+  recipe: packages/panda/ds/src/theme/recipes/dialog.ts
+  ark: https://ark-ui.com/docs/components/dialog
+---
+
+Built on Ark UI's Dialog. While it's open, focus stays inside it, the page behind can't be scrolled or clicked, and
+Escape or a click on the backdrop closes it. Focus goes back to the trigger when it closes.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Dialog.Root>
+  <Dialog.Trigger />
+  <Portal>
+    <Dialog.Backdrop />
+    <Dialog.Positioner>
+      <Dialog.Content>
+        <Dialog.Header>
+          <Dialog.Title />
+        </Dialog.Header>
+        <Dialog.Body>
+          <Dialog.Description />
+        </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.ActionTrigger />
+        </Dialog.Footer>
+        <Dialog.CloseTrigger />
+      </Dialog.Content>
+    </Dialog.Positioner>
+  </Portal>
+</Dialog.Root>
+```
+
+`Dialog.ActionTrigger` closes the dialog like `Dialog.CloseTrigger`, but takes no styles, so use it for buttons in the
+footer. The dialog mounts when it first opens and unmounts when it closes.
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm` or `md` to change the header's height and the title's text size. The default is `md`.
+
+<Example id="dialog/sizes" />
+
+### Content sizes
+
+Set `contentSize` to change the dialog's width: `xs` to `4xl`, `cover` or `full`. The default is `md`.
+
+<Example id="dialog/content-sizes" />
+
+### Placement
+
+Set `placement` to `top`, `center` or `bottom`. The default is `top`.
+
+<Example id="dialog/placement" />
+
+### Scroll inside
+
+Set `scrollBehavior="inside"` to keep the header and footer in view and scroll only the body.
+
+<Example id="dialog/scroll-inside" />
+
+### Scroll outside
+
+With `scrollBehavior="outside"`, the default, the whole dialog scrolls with the page behind it.
+
+<Example id="dialog/scroll-outside" />
+
+### Cover
+
+Set `contentSize="cover"` to fill the screen with some space around the dialog.
+
+<Example id="dialog/cover" />
+
+### Full screen
+
+Set `contentSize="full"` to fill the whole screen.
+
+<Example id="dialog/full" />
+
+### Alert dialog
+
+Set `role="alertdialog"` for a dialog that asks people to confirm something before going on, like a destructive action.
+
+<Example id="dialog/alert" />
+
+### Initial focus
+
+Focus goes to the first focusable element when the dialog opens. Pass `initialFocusEl` to focus something else.
+
+<Example id="dialog/initial-focus" />
+
+### Controlled
+
+Pass `open` and `onOpenChange` to open and close the dialog yourself.
+
+<Example id="dialog/controlled" />
+
+### Nested
+
+Open a dialog from inside another. Each one keeps its own focus, and closing it goes back to the one below.
+
+<Example id="dialog/nested" />
+
+### Motion
+
+Set `motionPreset` to `scale`, `slide-in-bottom`, `slide-in-top`, `slide-in-left`, `slide-in-right` or `none`. The
+default is `scale`.
+
+<Example id="dialog/motion" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
