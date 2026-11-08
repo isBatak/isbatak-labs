@@ -126,7 +126,7 @@ text inputs, selects, pickers.
 - [x] slider
 - [x] rating-group
 - [ ] color-picker — has: recipe
-- [ ] color-swatch — has: recipe
+- [x] color-swatch
 - [ ] date-input — has: recipe
 - [ ] date-picker — has: recipe
 - [ ] file-upload — has: recipe

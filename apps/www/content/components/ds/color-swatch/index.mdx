@@ -1,0 +1,56 @@
+---
+title: Color swatch
+description: Show a color as a small square or circle.
+category: Forms
+links:
+  source: packages/ui/react/src/components/color-swatch
+  recipe: packages/panda/ds/src/theme/recipes/color-swatch.ts
+---
+
+Pass any CSS color as `value`. Transparent parts of the color show a checkerboard, so you can tell how see-through it
+is. It's what the color picker uses to preview colors.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ColorSwatch value="oklch(0.62 0.19 260)" />
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `2xs`, `xs`, `sm`, `md`, `lg`, `xl` or `2xl`. The default is `md`. Use `inherit` to take the size from the
+surrounding text, or `full` to fill the parent.
+
+<Example id="color-swatch/sizes" />
+
+### Shapes
+
+Set `shape` to `square`, `rounded` or `circle`. The default is `rounded`.
+
+<Example id="color-swatch/shapes" />
+
+### Transparency
+
+A color with an alpha channel, or `transparent`, shows the checkerboard through it.
+
+<Example id="color-swatch/alpha" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable         | Description                              |
+| ---------------- | ---------------------------------------- |
+| `--color`        | The color to show, set from `value`      |
+| `--swatch-size`  | The swatch's width and height, by `size` |
+| `--checker-size` | The size of one checkerboard square      |
+| `--checker-bg`   | The checkerboard's light squares         |
+| `--checker-fg`   | The checkerboard's dark squares          |
+
+## API
+
+<Api />

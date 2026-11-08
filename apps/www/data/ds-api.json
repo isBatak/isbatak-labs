@@ -615,6 +615,29 @@
       }
     }
   },
+  "color-swatch": {
+    "parts": [
+      {
+        "name": "ColorSwatch",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The color to show, as any CSS color. Transparent parts show a checkerboard."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inherit", "full"],
+        "defaultValue": "md"
+      },
+      "shape": {
+        "values": ["square", "circle", "rounded"],
+        "defaultValue": "rounded"
+      }
+    }
+  },
   "combobox": {
     "parts": [
       {
