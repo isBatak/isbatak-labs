@@ -1,0 +1,74 @@
+---
+title: File upload
+description: Pick files with a button or by dropping them on a dropzone, and list them.
+category: Forms
+links:
+  source: packages/ui/react/src/components/file-upload
+  recipe: packages/panda/ds/src/theme/recipes/file-upload.ts
+  ark: https://ark-ui.com/docs/components/file-upload
+---
+
+Built on Ark UI's File Upload. It keeps the picked files for you: `FileUpload.HiddenInput` sends them with a form, and
+`maxFiles`, `accept`, `minFileSize` and `maxFileSize` decide which files it takes. Files it rejects go to
+`onFileReject`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<FileUpload.Root>
+  <FileUpload.HiddenInput />
+  <FileUpload.Label />
+  <FileUpload.Dropzone>
+    <FileUpload.DropzoneContent />
+  </FileUpload.Dropzone>
+  <FileUpload.Trigger />
+  <FileUpload.ItemGroup>
+    <FileUpload.Item file={file}>
+      <FileUpload.ItemPreview />
+      <FileUpload.ItemContent>
+        <FileUpload.ItemName />
+        <FileUpload.ItemSizeText />
+      </FileUpload.ItemContent>
+      <FileUpload.ItemDeleteTrigger />
+    </FileUpload.Item>
+  </FileUpload.ItemGroup>
+</FileUpload.Root>
+```
+
+`FileUpload.List` renders the item group with an item for each picked file. Set `showSize` to show each file's size and
+`clearable` to add a button that removes it. `FileUpload.ItemPreview` and `FileUpload.ItemDeleteTrigger` draw a file
+icon and a cross when they have no children.
+
+## Examples
+
+### Dropzone
+
+Add `FileUpload.Dropzone` so people can drop files on it, or click it to open the file picker.
+
+<Example id="file-upload/dropzone" />
+
+### Image preview
+
+Set `accept="image/*"` to take only images, and render the items yourself with `FileUpload.ItemPreviewImage` to show
+each one. `FileUpload.Context` gives you the picked files.
+
+<Example id="file-upload/image-preview" />
+
+### File text
+
+`FileUpload.FileText` shows the picked file's name, the number of files when there are several, or `fallback` when there
+are none. Put it in a button for an input-like trigger, with `FileUpload.ClearTrigger` to remove the files.
+
+<Example id="file-upload/file-text" />
+
+### Disabled
+
+Set `disabled` to disable the trigger and the dropzone.
+
+<Example id="file-upload/disabled" />
+
+## API
+
+<Api />

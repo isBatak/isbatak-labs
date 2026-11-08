@@ -26,6 +26,9 @@ export const sliderSlotRecipe = defineSlotRecipe({
       position: "relative",
       isolation: "isolate",
       touchAction: "none",
+      _disabled: {
+        layerStyle: "disabled",
+      },
     },
     label: {
       fontWeight: "medium",
@@ -91,7 +94,7 @@ export const sliderSlotRecipe = defineSlotRecipe({
         root: {
           "--slider-thumb-size": "sizes.4",
           "--slider-track-size": "sizes.1.5",
-          "--slider-marker-center": "6px",
+          "--slider-marker-center": "spacing.1.5",
           "--slider-marker-size": "sizes.1",
           "--slider-marker-inset": "3px",
         },
@@ -100,9 +103,9 @@ export const sliderSlotRecipe = defineSlotRecipe({
         root: {
           "--slider-thumb-size": "sizes.5",
           "--slider-track-size": "sizes.2",
-          "--slider-marker-center": "8px",
+          "--slider-marker-center": "spacing.2",
           "--slider-marker-size": "sizes.1",
-          "--slider-marker-inset": "4px",
+          "--slider-marker-inset": "spacing.1",
         },
       },
       lg: {

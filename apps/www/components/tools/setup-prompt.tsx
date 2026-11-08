@@ -33,7 +33,7 @@ const PromptText = styled("pre", {
     overflowY: "auto",
     whiteSpace: "pre-wrap",
     fontFamily: "mono",
-    fontSize: "0.8125rem",
+    fontSize: "sm",
     lineHeight: "1.7",
     color: "fg.muted",
   },

@@ -26,7 +26,7 @@ files.
 ### Apps
 
 - `apps/www`: the website: docs for every package, the design system and the tools. Serves the studio at `/studio`.
-- `apps/compositions`: per-framework examples for the Ark and Zag packages, rendered in the www docs.
+- `apps/compositions`: per-framework demos for the design system and the Ark and Zag packages, rendered in the www docs.
 - `apps/promos`: Remotion promo videos.
 - `apps/storybook-<framework>`: one Storybook per framework; `apps/storybook` combines them.
 
@@ -39,7 +39,7 @@ files.
   /plugin install isbatak-icons --marketplace isBatak/isbatak-labs
   ```
 
-- `.claude/skills`: project skills (`panda-css`, `panda-css-theming`, `promo-video`).
+- `.claude/skills`: project skills (`panda-css`, `panda-css-theming`, `preview`, `promo-video`).
 - `plans/`: plans and todo lists.
 
 ## Development

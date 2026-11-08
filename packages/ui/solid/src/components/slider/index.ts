@@ -1,5 +1,6 @@
 export {
   SliderRoot,
+  SliderRootProvider,
   SliderLabel,
   SliderValueText,
   SliderControl,
@@ -12,11 +13,14 @@ export {
   SliderMarkerIndicator,
   SliderMarkerLabel,
   SliderDraggingIndicator,
+  SliderThumbs,
+  SliderMarks,
   SliderContext,
 } from "./slider"
 
 export type {
   SliderRootProps,
+  SliderRootProviderProps,
   SliderLabelProps,
   SliderValueTextProps,
   SliderControlProps,
@@ -29,6 +33,8 @@ export type {
   SliderMarkerIndicatorProps,
   SliderMarkerLabelProps,
   SliderDraggingIndicatorProps,
+  SliderThumbsProps,
+  SliderMarksProps,
   SliderContextProps,
 } from "./slider"
 

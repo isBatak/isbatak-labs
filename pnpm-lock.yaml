@@ -146,6 +146,7 @@ catalogs:
       version: 4.1.12
 
 patchedDependencies:
+  '@pandacss/eslint-plugin@2.4.0': 389b4b4f106f744ed0e94de412d222d12bafd81f475cb0cdeff3d016aac98a30
   '@zag-js/dismissable@2.0.0-next.3': a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d
 
 importers:
@@ -163,7 +164,7 @@ importers:
         version: 1.85.0
       '@pandacss/eslint-plugin':
         specifier: 'catalog:'
-        version: 2.4.0(eslint@10.13.0(supports-color@10.2.2))
+        version: 2.4.0(patch_hash=389b4b4f106f744ed0e94de412d222d12bafd81f475cb0cdeff3d016aac98a30)(eslint@10.13.0(supports-color@10.2.2))
       '@pandacss/mcp':
         specifier: 'catalog:'
         version: 2.4.0(supports-color@10.2.2)
@@ -10245,7 +10246,7 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  '@pandacss/eslint-plugin@2.4.0(eslint@10.13.0(supports-color@10.2.2))':
+  '@pandacss/eslint-plugin@2.4.0(patch_hash=389b4b4f106f744ed0e94de412d222d12bafd81f475cb0cdeff3d016aac98a30)(eslint@10.13.0(supports-color@10.2.2))':
     dependencies:
       '@pandacss/compiler': 2.4.0
       '@pandacss/compiler-shared': 2.4.0

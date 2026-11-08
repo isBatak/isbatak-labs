@@ -8,12 +8,98 @@ links:
   ark: https://ark-ui.com/docs/components/slider
 ---
 
-Built on Ark UI's Slider. Pass two values for a range with two thumbs, and use `Slider.MarkerGroup` to label points on
-the track.
+Built on Ark UI's Slider. The value is always an array, with one number per thumb: pass one value for a single thumb and
+two for a range.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Slider.Root defaultValue={[40]}>
+  <Slider.Label />
+  <Slider.ValueText />
+  <Slider.Control>
+    <Slider.Track>
+      <Slider.Range />
+    </Slider.Track>
+    <Slider.Thumbs />
+    <Slider.Marks marks={marks} />
+  </Slider.Control>
+</Slider.Root>
+```
+
+`Slider.Thumbs` renders a `Slider.Thumb` with a hidden input for each value, so the value is sent with a form.
+`Slider.Marks` renders a `Slider.MarkerGroup` with a `Slider.Marker` for each mark. Use the parts on their own when you
+need to customize a thumb or a marker.
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="slider/sizes" />
+
+### Variants
+
+Set `variant` to `outline` or `solid`. The default is `outline`.
+
+<Example id="slider/variants" />
+
+### Colors
+
+Set `colorPalette` to change the color of the range and thumb.
+
+<Example id="slider/colors" />
+
+### Range
+
+Pass two values for a range with two thumbs. `Slider.Thumbs` renders both.
+
+<Example id="slider/range" />
+
+### Marks
+
+Pass `marks` to `Slider.Marks`, as numbers or as objects with a `value` and a `label`.
+
+<Example id="slider/marks" />
+
+### Step
+
+Set `step` to move the thumb in larger increments. Marks at each step show where the thumb can land.
+
+<Example id="slider/step" />
+
+### Vertical
+
+Set `orientation` to `vertical` and give the root a height. The marks move to the side of the track.
+
+<Example id="slider/vertical" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to own the value.
+
+<Example id="slider/controlled" />
+
+### Disabled
+
+Set `disabled` to disable the slider.
+
+<Example id="slider/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable                 | Description                                     |
+| ------------------------ | ----------------------------------------------- |
+| `--slider-thumb-size`    | The thumb's width and height, set by `size`     |
+| `--slider-track-size`    | The track's thickness, set by `size`            |
+| `--slider-marker-size`   | The size of a marker's dot, set by `size`       |
+| `--slider-marker-center` | How far the markers sit from the track's edge   |
+| `--slider-marker-inset`  | How far the first and last marker sit from ends |
 
 ## API
 

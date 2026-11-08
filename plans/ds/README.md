@@ -114,7 +114,7 @@ text inputs, selects, pickers.
 - [x] fieldset
 - [x] native-select
 - [x] select
-- [ ] combobox — has: recipe
+- [x] combobox
 - [x] listbox
 - [x] number-input
 - [x] number-stepper-input
@@ -123,13 +123,13 @@ text inputs, selects, pickers.
 - [x] search-input
 - [x] tags-input
 - [x] editable
-- [ ] slider — has: recipe react vue svelte solid docs
-- [ ] rating-group — has: recipe
+- [x] slider
+- [x] rating-group
 - [ ] color-picker — has: recipe
-- [ ] color-swatch — has: recipe
+- [x] color-swatch
 - [ ] date-input — has: recipe
 - [ ] date-picker — has: recipe
-- [ ] file-upload — has: recipe
+- [x] file-upload
 - [x] clipboard
 - [x] download-trigger
 
