@@ -5,6 +5,8 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { tour } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
+
 const { withRootProvider, withContext } = createSlotRecipeContext(tour)
 
 export const TourRoot = withRootProvider(Tour.Root)
@@ -37,14 +39,26 @@ export type TourDescriptionProps = ComponentProps<typeof TourDescription>
 export const TourProgressText = withContext(Tour.ProgressText, "progressText")
 export type TourProgressTextProps = ComponentProps<typeof TourProgressText>
 
-export const TourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
-export type TourCloseTriggerProps = ComponentProps<typeof TourCloseTrigger>
+const StyledTourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
+export type TourCloseTriggerProps = ComponentProps<typeof StyledTourCloseTrigger>
+
+export function TourCloseTrigger({ children, ...props }: TourCloseTriggerProps) {
+  if (children) return <StyledTourCloseTrigger {...props}>{children}</StyledTourCloseTrigger>
+  return (
+    <StyledTourCloseTrigger asChild {...props}>
+      <CloseButton size="sm" />
+    </StyledTourCloseTrigger>
+  )
+}
 
 export const TourControl = withContext(Tour.Control, "control")
 export type TourControlProps = ComponentProps<typeof TourControl>
 
 export const TourActionTrigger = withContext(Tour.ActionTrigger, "actionTrigger")
 export type TourActionTriggerProps = ComponentProps<typeof TourActionTrigger>
+
+export const TourActions = Tour.Actions
+export type TourActionsProps = Tour.ActionsProps
 
 export const TourContext = Tour.Context
 export type TourContextProps = Tour.ContextProps

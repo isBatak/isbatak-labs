@@ -1,7 +1,9 @@
 import { Tour } from "@ark-ui/vue/tour"
+import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { tour } from "@isbatak/panda-ds/recipes"
+import { CloseButton } from "../button"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tour)
 
@@ -35,14 +37,28 @@ export type TourDescriptionProps = ComponentProps<typeof TourDescription>
 export const TourProgressText = withContext(Tour.ProgressText, "progressText")
 export type TourProgressTextProps = ComponentProps<typeof TourProgressText>
 
-export const TourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
-export type TourCloseTriggerProps = ComponentProps<typeof TourCloseTrigger>
+const StyledTourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
+export type TourCloseTriggerProps = ComponentProps<typeof StyledTourCloseTrigger>
+
+export const TourCloseTrigger = defineComponent({
+  name: "TourCloseTrigger",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () =>
+      slots.default
+        ? h(StyledTourCloseTrigger as Component, attrs, slots)
+        : h(StyledTourCloseTrigger as Component, { asChild: true, ...attrs }, () => h(CloseButton, { size: "sm" }))
+  },
+}) as unknown as typeof StyledTourCloseTrigger
 
 export const TourControl = withContext(Tour.Control, "control")
 export type TourControlProps = ComponentProps<typeof TourControl>
 
 export const TourActionTrigger = withContext(Tour.ActionTrigger, "actionTrigger")
 export type TourActionTriggerProps = ComponentProps<typeof TourActionTrigger>
+
+export const TourActions = Tour.Actions
+export type TourActionsProps = Tour.ActionsProps
 
 export const TourContext = Tour.Context
 export type TourContextProps = Tour.ContextProps
