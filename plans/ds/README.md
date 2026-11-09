@@ -164,7 +164,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [ ] navigation-menu — has: recipe react docs
 - [ ] toc — has: recipe react docs
 - [ ] skip-nav — has: recipe (skip-nav-link)
-- [ ] splitter — has: recipe
+- [x] splitter
 - [ ] scroll-area — has: recipe
 - [ ] carousel — has: recipe
 - [ ] tree-view — has: recipe

@@ -1,81 +1,82 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
 export const splitterSlotRecipe = defineSlotRecipe({
-  slots: [
-    "root",
-    "panel",
-    "resizeTrigger",
-    "resizeTriggerIndicator",
-    "resizeTriggerSeparator",
-    "resizeTriggerIndicator",
-  ],
+  slots: ["root", "panel", "resizeTrigger", "resizeTriggerSeparator", "resizeTriggerIndicator"],
   className: "splitter",
   description: "Resizable panels separated by drag handles",
   base: {
+    root: {
+      colorPalette: "gray",
+      "--splitter-trigger-size": "sizes.3",
+      "--splitter-trigger-padding": "spacing.2",
+      "--splitter-indicator-size": "sizes.10",
+      "--splitter-indicator-thickness": "sizes.0.5",
+      display: "flex",
+    },
+    panel: {
+      overflow: "hidden",
+    },
     resizeTrigger: {
-      "--splitter-border-color": "colors.border",
-      "--splitter-thumb-color": "colors.bg",
-      "--splitter-thumb-size": "sizes.2",
-      "--splitter-thumb-inset": "calc(var(--splitter-thumb-size) * -0.5)",
-      "--splitter-border-size": "1px",
-      "--splitter-handle-size": "sizes.6",
       outline: "0",
-      display: "grid",
-      placeItems: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       position: "relative",
-      _focus: {
-        "--splitter-border-color": "colors.border.emphasized",
-        "--splitter-thumb-color": "colors.colorPalette.subtle",
-      },
-      _dragging: {
-        "--splitter-thumb-color": "colors.colorPalette.focusRing",
-      },
       _horizontal: {
-        minWidth: "var(--splitter-thumb-size)",
-        marginInline: "var(--splitter-thumb-inset)",
+        w: "var(--splitter-trigger-size)",
+        py: "var(--splitter-trigger-padding)",
       },
       _vertical: {
-        minHeight: "var(--splitter-thumb-size)",
-        marginBlock: "var(--splitter-thumb-inset)",
+        h: "var(--splitter-trigger-size)",
+        px: "var(--splitter-trigger-padding)",
+      },
+      _disabled: {
+        cursor: "disabled",
       },
     },
     resizeTriggerSeparator: {
       position: "absolute",
-      bg: "var(--splitter-border-color)",
-      "[data-splitter-resize-trigger][data-orientation=horizontal] &": {
-        insetInlineEnd: "calc(var(--splitter-thumb-size) * 0.5)",
+      bg: "border",
+      "[data-orientation=horizontal] > &": {
         insetBlock: "0",
-        insetInlineStart: "auto",
-        w: "var(--splitter-border-size)",
+        insetInlineStart: "[50%]",
+        w: "1px",
+        translate: "[-50% 0]",
       },
-      "[data-splitter-resize-trigger][data-orientation=vertical] &": {
-        insetBlockEnd: "calc(var(--splitter-thumb-size) * 0.5)",
+      "[data-orientation=vertical] > &": {
         insetInline: "0",
-        insetBlockStart: "auto",
-        h: "var(--splitter-border-size)",
+        insetBlockStart: "[50%]",
+        h: "1px",
+        translate: "[0 -50%]",
       },
     },
     resizeTriggerIndicator: {
       position: "relative",
-      rounded: "full",
-      bg: "var(--splitter-thumb-color)",
-      shadow: "xs",
-      borderWidth: "1px",
       zIndex: "1",
-      "[data-splitter-resize-trigger][data-orientation=horizontal] &": {
-        w: "full",
-        h: "var(--splitter-handle-size)",
+      borderRadius: "full",
+      bg: "border.emphasized",
+      transitionProperty: "width, height, background-color",
+      transitionDuration: "fast",
+      transitionTimingFunction: "ease-in-smooth",
+      _horizontal: {
+        w: "var(--splitter-indicator-thickness)",
+        h: "min(var(--splitter-indicator-size), 100%)",
       },
-      "[data-splitter-resize-trigger][data-orientation=vertical] &": {
-        w: "var(--splitter-handle-size)",
-        h: "full",
+      _vertical: {
+        h: "var(--splitter-indicator-thickness)",
+        w: "min(var(--splitter-indicator-size), 100%)",
       },
-      "[data-splitter-resize-trigger][data-focus]:focus-visible &": {
-        outlineWidth: "2px",
-        outlineColor: "colorPalette.focusRing",
-        outlineStyle: "solid",
+      _focus: {
+        bg: "colorPalette.focusRing",
+        _horizontal: { h: "full" },
+        _vertical: { w: "full" },
       },
-      "[data-splitter-resize-trigger][data-disabled] &": {
+      _dragging: {
+        bg: "colorPalette.solid",
+        _horizontal: { h: "full" },
+        _vertical: { w: "full" },
+      },
+      _disabled: {
         visibility: "hidden",
       },
     },

@@ -6643,6 +6643,113 @@
       }
     }
   },
+  "splitter": {
+    "parts": [
+      {
+        "name": "Splitter.Root",
+        "props": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "nonce": {
+            "type": "string | undefined",
+            "description": "The nonce for the injected splitter cursor stylesheet."
+          },
+          "size": {
+            "type": "PanelSize[] | undefined",
+            "description": "The controlled size data of the panels"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the splitter. Useful for composition."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the splitter. Can be `horizontal` or `vertical`",
+            "defaultValue": "\"horizontal\""
+          },
+          "defaultSize": {
+            "type": "PanelSize[] | undefined",
+            "description": "The initial size of the panels when rendered.\nUse when you don't need to control the size of the panels."
+          },
+          "panels": {
+            "type": "PanelData[]",
+            "description": "The size constraints of the panels."
+          },
+          "onResize": {
+            "type": "((details: ResizeDetails) => void) | undefined",
+            "description": "Function called when the splitter is resized."
+          },
+          "onResizeStart": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the splitter resize starts."
+          },
+          "onResizeEnd": {
+            "type": "((details: ResizeEndDetails) => void) | undefined",
+            "description": "Function called when the splitter resize ends."
+          },
+          "keyboardResizeBy": {
+            "type": "number | null | undefined",
+            "description": "The number of pixels to resize the panel by when the keyboard is used."
+          },
+          "onCollapse": {
+            "type": "((details: ExpandCollapseDetails) => void) | undefined",
+            "description": "Function called when a panel is collapsed."
+          },
+          "onExpand": {
+            "type": "((details: ExpandCollapseDetails) => void) | undefined",
+            "description": "Function called when a panel is expanded."
+          },
+          "registry": {
+            "type": "SplitterRegistry | undefined",
+            "description": "The splitter registry to use for multi-drag support.\nWhen provided, enables dragging at the intersection of multiple splitters."
+          }
+        }
+      },
+      {
+        "name": "Splitter.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSplitterReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.Panel",
+        "props": {
+          "id": {
+            "type": "PanelId",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.ResizeTrigger",
+        "props": {
+          "id": {
+            "type": "ResizeTriggerId",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseSplitterContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "stack": {
     "parts": [
       {
