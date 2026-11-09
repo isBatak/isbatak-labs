@@ -8,9 +8,11 @@ export const accordionSlotRecipe = defineSlotRecipe({
     root: {
       width: "full",
       "--accordion-radius": "radii.l2",
+      "--accordion-border-color": "colors.border.muted",
     },
     item: {
       overflowAnchor: "none",
+      borderColor: "var(--accordion-border-color)",
     },
     itemTrigger: {
       display: "flex",
@@ -18,7 +20,7 @@ export const accordionSlotRecipe = defineSlotRecipe({
       textAlign: "start",
       width: "full",
       outline: "0",
-      gap: "3",
+      gap: "2",
       fontWeight: "medium",
       borderRadius: "var(--accordion-radius)",
       _focusVisible: {
@@ -48,7 +50,9 @@ export const accordionSlotRecipe = defineSlotRecipe({
     itemIndicator: {
       transition: "rotate 0.2s",
       transformOrigin: "center",
-      color: "fg.subtle",
+      color: "fg.muted",
+      flexShrink: "0",
+      ms: "auto",
       _open: {
         rotate: "180deg",
       },
@@ -75,15 +79,17 @@ export const accordionSlotRecipe = defineSlotRecipe({
         item: {
           borderRadius: "var(--accordion-radius)",
           _open: {
-            bg: "colorPalette.subtle",
+            bg: "bg.muted",
           },
         },
       },
       enclosed: {
         root: {
           borderWidth: "1px",
+          borderColor: "var(--accordion-border-color)",
           borderRadius: "var(--accordion-radius)",
           divideY: "1px",
+          divideColor: "var(--accordion-border-color)",
           overflow: "hidden",
         },
         itemTrigger: {
@@ -94,7 +100,7 @@ export const accordionSlotRecipe = defineSlotRecipe({
         },
         item: {
           _open: {
-            bg: "bg.subtle",
+            bg: "bg.muted",
           },
         },
       },
@@ -110,6 +116,9 @@ export const accordionSlotRecipe = defineSlotRecipe({
           textStyle: "sm",
           py: "var(--accordion-padding-y)",
         },
+        itemContent: {
+          textStyle: "sm",
+        },
       },
       md: {
         root: {
@@ -120,6 +129,9 @@ export const accordionSlotRecipe = defineSlotRecipe({
           textStyle: "md",
           py: "var(--accordion-padding-y)",
         },
+        itemContent: {
+          textStyle: "md",
+        },
       },
       lg: {
         root: {
@@ -129,6 +141,9 @@ export const accordionSlotRecipe = defineSlotRecipe({
         itemTrigger: {
           textStyle: "lg",
           py: "var(--accordion-padding-y)",
+        },
+        itemContent: {
+          textStyle: "lg",
         },
       },
     },
