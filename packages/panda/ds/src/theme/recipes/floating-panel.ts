@@ -31,32 +31,41 @@ export const floatingPanelSlotRecipe = defineSlotRecipe({
       display: "flex",
       flexDirection: "column",
       bg: "bg.panel",
-      borderRadius: "l2",
+      borderWidth: "1px",
+      borderColor: "border.muted",
+      borderRadius: "l3",
       boxShadow: "lg",
       overflow: "hidden",
-      outline: 0,
+      outline: "0",
       position: "relative",
+      textStyle: "sm",
       _open: {
         animationName: "scale-in, fade-in",
         animationDuration: "moderate",
       },
+      "&[data-minimized]": {
+        height: "auto!",
+      },
     },
     dragTrigger: {
-      flex: "1",
-      display: "flex",
-      alignItems: "center",
-      gap: "2",
-      minW: "0",
+      flex: "none",
+      _disabled: {
+        cursor: "default",
+      },
     },
     header: {
       display: "flex",
       alignItems: "center",
+      justifyContent: "space-between",
       gap: "2",
-      px: "3",
-      py: "2",
+      ps: "3",
+      pe: "1.5",
+      py: "1.5",
       borderBottomWidth: "1px",
-      bg: "bg.subtle",
-      flex: "none",
+      borderColor: "border.muted",
+      "&[data-minimized]": {
+        borderBottomWidth: "0",
+      },
     },
     title: {
       fontWeight: "semibold",
@@ -64,24 +73,36 @@ export const floatingPanelSlotRecipe = defineSlotRecipe({
       flex: "1",
       truncate: true,
     },
+    control: {
+      display: "flex",
+      alignItems: "center",
+      gap: "0.5",
+      flex: "none",
+    },
     body: {
       flex: "1",
       overflow: "auto",
       p: "3",
-      textStyle: "sm",
+      color: "fg.muted",
     },
     resizeTrigger: {
       zIndex: "1",
-      "--size": "sizes.2.5",
-      '&[data-axis="n"], &[data-axis="s"]': {
+      touchAction: "none",
+      "--size": "sizes.2",
+      "&[data-placement=n], &[data-placement=s]": {
+        h: "var(--size)",
+        maxW: "[90%]",
+      },
+      "&[data-placement=e], &[data-placement=w]": {
+        w: "var(--size)",
+        maxH: "[90%]",
+      },
+      "&:is([data-placement=ne], [data-placement=nw], [data-placement=se], [data-placement=sw])": {
+        w: "var(--size)",
         h: "var(--size)",
       },
-      '&[data-axis="e"], &[data-axis="w"]': {
-        w: "var(--size)",
-      },
-      '&[data-axis]:is([data-axis="ne"], [data-axis="nw"], [data-axis="se"], [data-axis="sw"])': {
-        w: "var(--size)",
-        h: "var(--size)",
+      _disabled: {
+        display: "none",
       },
     },
   },

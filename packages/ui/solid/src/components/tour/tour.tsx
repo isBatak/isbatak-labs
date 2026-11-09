@@ -1,7 +1,9 @@
 import { Tour } from "@ark-ui/solid/tour"
-import type { ComponentProps } from "solid-js"
+import { type ComponentProps, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { tour } from "@isbatak/panda-ds/recipes"
+
+import { CloseButton } from "../button/close-button"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(tour)
 
@@ -35,14 +37,31 @@ export type TourDescriptionProps = ComponentProps<typeof TourDescription>
 export const TourProgressText = withContext(Tour.ProgressText, "progressText")
 export type TourProgressTextProps = ComponentProps<typeof TourProgressText>
 
-export const TourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
-export type TourCloseTriggerProps = ComponentProps<typeof TourCloseTrigger>
+const StyledTourCloseTrigger = withContext(Tour.CloseTrigger, "closeTrigger")
+export type TourCloseTriggerProps = ComponentProps<typeof StyledTourCloseTrigger>
+
+export function TourCloseTrigger(props: TourCloseTriggerProps) {
+  const [local, rest] = splitProps(props, ["children"])
+  return (
+    <Show
+      when={local.children}
+      fallback={
+        <StyledTourCloseTrigger asChild={(triggerProps) => <CloseButton {...triggerProps()} size="sm" />} {...rest} />
+      }
+    >
+      <StyledTourCloseTrigger {...rest}>{local.children}</StyledTourCloseTrigger>
+    </Show>
+  )
+}
 
 export const TourControl = withContext(Tour.Control, "control")
 export type TourControlProps = ComponentProps<typeof TourControl>
 
 export const TourActionTrigger = withContext(Tour.ActionTrigger, "actionTrigger")
 export type TourActionTriggerProps = ComponentProps<typeof TourActionTrigger>
+
+export const TourActions = Tour.Actions
+export type TourActionsProps = Tour.ActionsProps
 
 export const TourContext = Tour.Context
 export type TourContextProps = Tour.ContextProps

@@ -9,11 +9,51 @@ links:
 ---
 
 Built on Ark UI's Tour. Steps are defined in `useTour`, and a `tooltip` step points at the element its `target` returns.
-Each step's `actions` become buttons through `Tour.ActionTrigger`.
+`Tour.Actions` passes the current step's `actions` to you, and `Tour.ActionTrigger` turns each one into a button. With
+no children, `Tour.CloseTrigger` shows a close button.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Tour.Root tour={tour}>
+  <Portal>
+    <Tour.Backdrop />
+    <Tour.Spotlight />
+    <Tour.Positioner>
+      <Tour.Content>
+        <Tour.Arrow>
+          <Tour.ArrowTip />
+        </Tour.Arrow>
+        <Tour.CloseTrigger />
+        <Tour.Title />
+        <Tour.Description />
+        <Tour.Control>
+          <Tour.ProgressText />
+          <Tour.Actions>{(actions) => <Tour.ActionTrigger />}</Tour.Actions>
+        </Tour.Control>
+      </Tour.Content>
+    </Tour.Positioner>
+  </Portal>
+</Tour.Root>
+```
+
+## Examples
+
+### Step types
+
+Set a step's `type`. A `dialog` step has no target and opens in the middle of the screen. A `tooltip` step points at its
+target. A `floating` step sits at its `placement`, such as `bottom-end`, and doesn't block the page.
+
+<Example id="tour/step-types" />
+
+### Wait for a click
+
+Give a step an `effect` to wait for something before moving on. Here `waitForEvent` waits for a click on the target,
+then calls `next`. Call `show` to show the step while it waits.
+
+<Example id="tour/wait-for-click" />
 
 ## API
 

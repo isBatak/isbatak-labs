@@ -13,5 +13,7 @@ export { default as TourProgressText, type TourProgressTextProps } from "./tour-
 export { default as TourCloseTrigger, type TourCloseTriggerProps } from "./tour-close-trigger.svelte"
 export { default as TourControl, type TourControlProps } from "./tour-control.svelte"
 export { default as TourActionTrigger, type TourActionTriggerProps } from "./tour-action-trigger.svelte"
+export const TourActions = Tour.Actions
+export type { TourActionsProps } from "@ark-ui/svelte/tour"
 export const TourContext = Tour.Context
 export type TourContextProps = Tour.ContextProps
