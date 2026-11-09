@@ -1,0 +1,40 @@
+export {
+  FloatingPanelRoot as Root,
+  FloatingPanelRootProvider as RootProvider,
+  FloatingPanelTrigger as Trigger,
+  FloatingPanelPositioner as Positioner,
+  FloatingPanelContent as Content,
+  FloatingPanelDragTrigger as DragTrigger,
+  FloatingPanelHeader as Header,
+  FloatingPanelTitle as Title,
+  FloatingPanelControl as Control,
+  FloatingPanelStageTrigger as StageTrigger,
+  FloatingPanelCloseTrigger as CloseTrigger,
+  FloatingPanelBody as Body,
+  FloatingPanelResizeTrigger as ResizeTrigger,
+  FloatingPanelContext as Context,
+} from "./floating-panel"
+
+export type {
+  FloatingPanelRootProps as RootProps,
+  FloatingPanelRootProviderProps as RootProviderProps,
+  FloatingPanelTriggerProps as TriggerProps,
+  FloatingPanelPositionerProps as PositionerProps,
+  FloatingPanelContentProps as ContentProps,
+  FloatingPanelDragTriggerProps as DragTriggerProps,
+  FloatingPanelHeaderProps as HeaderProps,
+  FloatingPanelTitleProps as TitleProps,
+  FloatingPanelControlProps as ControlProps,
+  FloatingPanelStageTriggerProps as StageTriggerProps,
+  FloatingPanelCloseTriggerProps as CloseTriggerProps,
+  FloatingPanelBodyProps as BodyProps,
+  FloatingPanelResizeTriggerProps as ResizeTriggerProps,
+  FloatingPanelContextProps as ContextProps,
+} from "./floating-panel"
+
+export type {
+  FloatingPanelOpenChangeDetails as OpenChangeDetails,
+  FloatingPanelPositionChangeDetails as PositionChangeDetails,
+  FloatingPanelSizeChangeDetails as SizeChangeDetails,
+  FloatingPanelStageChangeDetails as StageChangeDetails,
+} from "@ark-ui/solid/floating-panel"

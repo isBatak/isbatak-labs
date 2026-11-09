@@ -12,6 +12,7 @@ export {
   TourCloseTrigger as CloseTrigger,
   TourControl as Control,
   TourActionTrigger as ActionTrigger,
+  TourActions as Actions,
   TourContext as Context,
 } from "./tour"
 
@@ -29,6 +30,7 @@ export type {
   TourCloseTriggerProps as CloseTriggerProps,
   TourControlProps as ControlProps,
   TourActionTriggerProps as ActionTriggerProps,
+  TourActionsProps as ActionsProps,
   TourContextProps as ContextProps,
 } from "./tour"
 

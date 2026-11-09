@@ -1,0 +1,92 @@
+---
+title: Floating panel
+description: A window people can drag, resize, minimize and maximize, without blocking the page.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/floating-panel
+  recipe: packages/panda/ds/src/theme/recipes/floating-panel.ts
+  ark: https://ark-ui.com/docs/components/floating-panel
+---
+
+Built on Ark UI's Floating Panel. It isn't modal: people can keep using the page while it's open. Drag
+`FloatingPanel.DragTrigger` to move the panel, and a `FloatingPanel.ResizeTrigger` to resize it from that edge or
+corner. With no children, `FloatingPanel.StageTrigger` shows an icon for its `stage` and `FloatingPanel.CloseTrigger`
+shows a close button.
+
+## Usage
+
+<Usage />
+
+```tsx
+<FloatingPanel.Root>
+  <FloatingPanel.Trigger />
+  <Portal>
+    <FloatingPanel.Positioner>
+      <FloatingPanel.Content>
+        <FloatingPanel.DragTrigger>
+          <FloatingPanel.Header>
+            <FloatingPanel.Title />
+            <FloatingPanel.Control>
+              <FloatingPanel.StageTrigger stage="minimized" />
+              <FloatingPanel.StageTrigger stage="maximized" />
+              <FloatingPanel.StageTrigger stage="default" />
+              <FloatingPanel.CloseTrigger />
+            </FloatingPanel.Control>
+          </FloatingPanel.Header>
+        </FloatingPanel.DragTrigger>
+        <FloatingPanel.Body />
+        <FloatingPanel.ResizeTrigger placement="se" />
+      </FloatingPanel.Content>
+    </FloatingPanel.Positioner>
+  </Portal>
+</FloatingPanel.Root>
+```
+
+## Examples
+
+### Controlled
+
+Pass `open` and `onOpenChange` to open and close the panel from your own state.
+
+<Example id="floating-panel/controlled" />
+
+### Controlled size
+
+Pass `size` and `onSizeChange` to read or set the panel's width and height.
+
+<Example id="floating-panel/controlled-size" />
+
+### Controlled position
+
+Pass `position` and `onPositionChange` to read or set where the panel sits.
+
+<Example id="floating-panel/controlled-position" />
+
+### Anchor position
+
+The panel opens in the middle of the screen. Pass `getAnchorPosition` to open it somewhere else, such as below its
+trigger.
+
+<Example id="floating-panel/anchor-position" />
+
+### Min and max size
+
+Set `minSize` and `maxSize` to limit how far the panel resizes.
+
+<Example id="floating-panel/min-max-size" />
+
+### Lock aspect ratio
+
+Set `lockAspectRatio` to keep the panel's proportions while it resizes.
+
+<Example id="floating-panel/lock-aspect-ratio" />
+
+### Static
+
+Set `draggable` and `resizable` to `false` to keep the panel where it opens, at the size it opens with.
+
+<Example id="floating-panel/static" />
+
+## API
+
+<Api />
