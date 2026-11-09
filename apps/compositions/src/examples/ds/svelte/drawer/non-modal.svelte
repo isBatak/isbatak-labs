@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Drawer } from "@isbatak/svelte-ui/drawer"
 </script>
 
@@ -19,11 +19,7 @@
         <Drawer.Body>
           <Drawer.Description>The page behind stays interactive. Scroll it or select text while this drawer is open.</Drawer.Description>
         </Drawer.Body>
-        <Drawer.CloseTrigger>
-          {#snippet asChild(props)}
-            <CloseButton {...props()} size="sm" />
-          {/snippet}
-        </Drawer.CloseTrigger>
+        <Drawer.CloseTrigger />
       </Drawer.Content>
     </Drawer.Positioner>
   </Portal>

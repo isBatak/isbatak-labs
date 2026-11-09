@@ -1,7 +1,9 @@
 import { Dialog } from "@ark-ui/solid/dialog"
-import type { ComponentProps } from "solid-js"
+import { type ComponentProps, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { dialog } from "@isbatak/panda-ds/recipes"
+
+import { CloseButton } from "../button/close-button"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(dialog)
 
@@ -33,8 +35,22 @@ export type DialogTitleProps = ComponentProps<typeof DialogTitle>
 export const DialogDescription = withContext(Dialog.Description, "description")
 export type DialogDescriptionProps = ComponentProps<typeof DialogDescription>
 
-export const DialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
-export type DialogCloseTriggerProps = ComponentProps<typeof DialogCloseTrigger>
+const StyledDialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
+export type DialogCloseTriggerProps = ComponentProps<typeof StyledDialogCloseTrigger>
+
+export function DialogCloseTrigger(props: DialogCloseTriggerProps) {
+  const [local, rest] = splitProps(props, ["children"])
+  return (
+    <Show
+      when={local.children}
+      fallback={
+        <StyledDialogCloseTrigger asChild={(triggerProps) => <CloseButton {...triggerProps()} size="sm" />} {...rest} />
+      }
+    >
+      <StyledDialogCloseTrigger {...rest}>{local.children}</StyledDialogCloseTrigger>
+    </Show>
+  )
+}
 
 export const DialogActionTrigger = Dialog.CloseTrigger
 export type DialogActionTriggerProps = ComponentProps<typeof DialogActionTrigger>

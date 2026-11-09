@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Drawer } from "@isbatak/vue-ui/drawer"
 </script>
 
@@ -19,9 +19,7 @@ import { Drawer } from "@isbatak/vue-ui/drawer"
               The page behind stays interactive. Scroll it or select text while this drawer is open.
             </Drawer.Description>
           </Drawer.Body>
-          <Drawer.CloseTrigger :asChild="true">
-            <CloseButton size="sm" />
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Teleport>

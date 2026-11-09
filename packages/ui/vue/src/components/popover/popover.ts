@@ -5,6 +5,7 @@ import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { popover } from "@isbatak/panda-ds/recipes"
+import { CloseButton } from "../button"
 import { Icon } from "../icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)
@@ -64,8 +65,19 @@ export type PopoverTitleProps = ComponentProps<typeof PopoverTitle>
 export const PopoverDescription = withContext(Popover.Description, "description")
 export type PopoverDescriptionProps = ComponentProps<typeof PopoverDescription>
 
-export const PopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
-export type PopoverCloseTriggerProps = ComponentProps<typeof PopoverCloseTrigger>
+const StyledPopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
+export type PopoverCloseTriggerProps = ComponentProps<typeof StyledPopoverCloseTrigger>
+
+export const PopoverCloseTrigger = defineComponent({
+  name: "PopoverCloseTrigger",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () =>
+      slots.default
+        ? h(StyledPopoverCloseTrigger as Component, attrs, slots)
+        : h(StyledPopoverCloseTrigger as Component, { asChild: true, ...attrs }, () => h(CloseButton, { size: "sm" }))
+  },
+}) as unknown as typeof StyledPopoverCloseTrigger
 
 export const PopoverHeader = withContext("div", "header")
 export type PopoverHeaderProps = ComponentProps<typeof PopoverHeader>

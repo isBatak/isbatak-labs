@@ -32,6 +32,7 @@ export const buttonRecipe = defineRecipe({
     minW: "var(--button-min-width)",
     _icon: {
       flexShrink: "0",
+      pointerEvents: "none",
     },
   },
   variants: {

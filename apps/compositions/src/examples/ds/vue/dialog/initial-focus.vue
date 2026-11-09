@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Dialog } from "@isbatak/vue-ui/dialog"
 import { input } from "@isbatak/panda-ds/recipes"
 import { ref } from "vue"
@@ -28,9 +28,7 @@ const inputRef = ref<HTMLInputElement | null>(null)
             </Dialog.ActionTrigger>
             <Button>Rename</Button>
           </Dialog.Footer>
-          <Dialog.CloseTrigger :asChild="true">
-            <CloseButton size="sm" />
-          </Dialog.CloseTrigger>
+          <Dialog.CloseTrigger />
         </Dialog.Content>
       </Dialog.Positioner>
     </Teleport>

@@ -73,6 +73,7 @@ export function DrawerScrollableDemo() {
               </Drawer.ActionTrigger>
               <Button>Accept</Button>
             </Drawer.Footer>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Portal>

@@ -44,6 +44,7 @@ export function DrawerSwipeDirectionDemo() {
                   )}
                 />
               </Drawer.Footer>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>

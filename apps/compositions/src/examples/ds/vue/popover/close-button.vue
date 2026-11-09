@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Popover } from "@isbatak/vue-ui/popover"
 </script>
 
@@ -18,9 +18,7 @@ import { Popover } from "@isbatak/vue-ui/popover"
             <Popover.Title>Keyboard shortcuts</Popover.Title>
             <Popover.Description>Press ? anywhere to see every shortcut.</Popover.Description>
           </Popover.Header>
-          <Popover.CloseTrigger :asChild="true">
-            <CloseButton size="sm" />
-          </Popover.CloseTrigger>
+          <Popover.CloseTrigger />
         </Popover.Content>
       </Popover.Positioner>
     </Teleport>

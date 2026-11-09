@@ -13,6 +13,7 @@ export function MenuDemo() {
           <Menu.Content>
             <Menu.Item value="rename">Rename</Menu.Item>
             <Menu.Item value="duplicate">Duplicate</Menu.Item>
+            <Menu.Item value="share">Share</Menu.Item>
             <Menu.Separator />
             <Menu.Item value="delete" color="fg.error">
               Delete

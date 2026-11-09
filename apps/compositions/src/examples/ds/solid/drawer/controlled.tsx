@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Drawer } from "@isbatak/solid-ui/drawer"
 import { Field } from "@isbatak/solid-ui/field"
 import { Textarea } from "@isbatak/solid-ui/textarea"
@@ -32,7 +32,7 @@ export function DrawerControlledDemo() {
                 </Button>
                 <Button onClick={() => setOpen(false)}>Send</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>

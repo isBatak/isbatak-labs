@@ -1,6 +1,6 @@
 import { Portal } from "@ark-ui/react/portal"
 import { field, textarea } from "@isbatak/panda-ds/recipes"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
 import { useState } from "react"
 
@@ -39,9 +39,7 @@ export function DrawerControlledDemo() {
                 </Button>
                 <Button onClick={() => setOpen(false)}>Send</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>

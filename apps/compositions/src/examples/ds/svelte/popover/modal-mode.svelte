@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Popover } from "@isbatak/svelte-ui/popover"
 </script>
 
@@ -26,11 +26,7 @@
           </Popover.ActionTrigger>
           <Button size="sm">Copy link</Button>
         </Popover.Footer>
-        <Popover.CloseTrigger>
-          {#snippet asChild(props)}
-            <CloseButton {...props()} size="sm" />
-          {/snippet}
-        </Popover.CloseTrigger>
+        <Popover.CloseTrigger />
       </Popover.Content>
     </Popover.Positioner>
   </Portal>

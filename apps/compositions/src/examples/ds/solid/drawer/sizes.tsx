@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Drawer } from "@isbatak/solid-ui/drawer"
 import { HStack } from "@isbatak/solid-ui/stack"
 import { Portal } from "solid-js/web"
@@ -36,7 +36,7 @@ export function DrawerSizesDemo() {
                 />
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -71,7 +71,7 @@ export function DrawerSizesDemo() {
                 />
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
