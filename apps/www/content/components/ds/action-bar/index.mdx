@@ -1,0 +1,54 @@
+---
+title: Action bar
+description: A floating bar of actions for the items people have selected.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/action-bar
+  recipe: packages/panda/ds/src/theme/recipes/action-bar.ts
+  ark: https://ark-ui.com/docs/components/popover
+---
+
+Built on Ark UI's Popover, kept open while there's a selection. It doesn't trap focus or close when you click outside
+it, so people can keep selecting items. Pass `open` to show it, and `onOpenChange` to hear when it's closed with Escape
+or `ActionBar.CloseTrigger`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ActionBar.Root open={selected.length > 0}>
+  <Portal>
+    <ActionBar.Positioner>
+      <ActionBar.Content>
+        <ActionBar.SelectionTrigger />
+        <ActionBar.Separator />
+        <Button />
+        <ActionBar.CloseTrigger />
+      </ActionBar.Content>
+    </ActionBar.Positioner>
+  </Portal>
+</ActionBar.Root>
+```
+
+## Examples
+
+### Close trigger
+
+Add `ActionBar.CloseTrigger` to close the bar, and `onOpenChange` to clear the selection when it does.
+
+<Example id="action-bar/close-trigger" />
+
+### Placement
+
+Set `placement` to `bottom-start`, `bottom` or `bottom-end`. The default is `bottom`.
+
+<Example id="action-bar/placement" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

@@ -126,6 +126,167 @@
       }
     }
   },
+  "action-bar": {
+    "parts": [
+      {
+        "name": "ActionBar.Root",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "autoFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to automatically set focus on the first focusable\ncontent within the popover when opened.",
+            "defaultValue": "true"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the popover. Useful for composition."
+          },
+          "modal": {
+            "type": "boolean | undefined",
+            "description": "Whether the popover should be modal. When set to `true`:\n- interaction with outside elements will be disabled\n- only popover content will be visible to screen readers\n- scrolling is blocked\n- focus is trapped within the popover",
+            "defaultValue": "false"
+          },
+          "closeOnInteractOutside": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the popover when the user clicks outside of the popover.",
+            "defaultValue": "true"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "initialFocusEl": {
+            "type": "(() => HTMLElement | null) | null | undefined",
+            "description": "The element to focus on when the popover is opened."
+          },
+          "finalFocusEl": {
+            "type": "(() => MaybeElement) | undefined",
+            "description": "Element to receive focus when the popover is closed."
+          },
+          "restoreFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to restore focus to the element that had focus before the popover was opened.",
+            "defaultValue": "true"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the popover when the escape key is pressed.",
+            "defaultValue": "true"
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function invoked when the popover opens or closes"
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The user provided options used to position the popover content"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the popover"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the popover when rendered.\nUse when you don't need to control the open state of the popover."
+          },
+          "triggerValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled trigger value"
+          },
+          "defaultTriggerValue": {
+            "type": "string | null | undefined",
+            "description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value."
+          },
+          "onTriggerValueChange": {
+            "type": "((details: TriggerValueChangeDetails) => void) | undefined",
+            "description": "Function called when the trigger value changes."
+          },
+          "onEscapeKeyDown": {
+            "type": "((event: KeyboardEvent) => void) | undefined",
+            "description": "Function called when the escape key is pressed"
+          },
+          "onRequestDismiss": {
+            "type": "((event: LayerDismissEvent) => void) | undefined",
+            "description": "Function called when this layer is closed due to a parent layer being closed"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "persistentElements": {
+            "type": "Array<() => Element | null> | undefined",
+            "description": "Returns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "ActionBar.Context",
+        "props": {
+          "children": {
+            "type": "(context: UsePopoverContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "placement": {
+        "values": ["bottom", "bottom-start", "bottom-end"],
+        "defaultValue": "bottom"
+      }
+    }
+  },
   "aspect-ratio": {
     "parts": [
       {
@@ -6800,6 +6961,10 @@
         "defaultValue": "outline"
       }
     }
+  },
+  "toast": {
+    "parts": [],
+    "variants": {}
   },
   "toc": {
     "parts": [
