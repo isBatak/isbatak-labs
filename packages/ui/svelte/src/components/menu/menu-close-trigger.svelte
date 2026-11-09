@@ -11,6 +11,7 @@
 
 <script lang="ts">
   import { useMenuContext } from "@ark-ui/svelte/menu"
+  import { CloseButton } from "../button"
   import { useMenuStyles } from "./menu-styles"
 
   let {
@@ -41,6 +42,8 @@
 
 {#if asChild}
   {@render asChild(() => mergedProps)}
+{:else if !children}
+  <CloseButton {...mergedProps} size="sm" />
 {:else}
   <button bind:this={ref} {...mergedProps}>{@render children?.()}</button>
 {/if}

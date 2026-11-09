@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Drawer } from "@isbatak/svelte-ui/drawer"
   import { Wrap } from "@isbatak/svelte-ui/wrap"
 </script>
@@ -30,11 +30,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>
@@ -63,11 +59,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>
@@ -96,11 +88,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>
@@ -129,11 +117,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>
@@ -162,11 +146,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>
@@ -195,11 +175,7 @@
             </Drawer.ActionTrigger>
             <Button>Save</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Portal>

@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Popover } from "@isbatak/solid-ui/popover"
 import { Portal } from "solid-js/web"
 
@@ -22,7 +22,7 @@ export function PopoverCloseButtonDemo() {
               <Popover.Title>Keyboard shortcuts</Popover.Title>
               <Popover.Description>Press ? anywhere to see every shortcut.</Popover.Description>
             </Popover.Header>
-            <Popover.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Popover.CloseTrigger />
           </Popover.Content>
         </Popover.Positioner>
       </Portal>

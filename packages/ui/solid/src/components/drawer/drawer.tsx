@@ -1,7 +1,9 @@
 import { Drawer } from "@ark-ui/solid/drawer"
-import { type ComponentProps, type JSX, mergeProps, splitProps } from "solid-js"
+import { type ComponentProps, type JSX, mergeProps, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { drawer } from "@isbatak/panda-ds/recipes"
+
+import { CloseButton } from "../button/close-button"
 
 const { withProvider, withRootProvider, withContext } = createSlotRecipeContext(drawer)
 
@@ -77,8 +79,22 @@ export type DrawerTitleProps = ComponentProps<typeof DrawerTitle>
 export const DrawerDescription = withContext(Drawer.Description, "description")
 export type DrawerDescriptionProps = ComponentProps<typeof DrawerDescription>
 
-export const DrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
-export type DrawerCloseTriggerProps = ComponentProps<typeof DrawerCloseTrigger>
+const StyledDrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
+export type DrawerCloseTriggerProps = ComponentProps<typeof StyledDrawerCloseTrigger>
+
+export function DrawerCloseTrigger(props: DrawerCloseTriggerProps) {
+  const [local, rest] = splitProps(props, ["children"])
+  return (
+    <Show
+      when={local.children}
+      fallback={
+        <StyledDrawerCloseTrigger asChild={(triggerProps) => <CloseButton {...triggerProps()} size="sm" />} {...rest} />
+      }
+    >
+      <StyledDrawerCloseTrigger {...rest}>{local.children}</StyledDrawerCloseTrigger>
+    </Show>
+  )
+}
 
 export const DrawerActionTrigger = Drawer.CloseTrigger
 export type DrawerActionTriggerProps = ComponentProps<typeof DrawerActionTrigger>

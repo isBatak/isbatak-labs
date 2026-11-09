@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Popover } from "@isbatak/react-ui/popover"
 
 export function PopoverModalModeDemo() {
@@ -26,9 +26,7 @@ export function PopoverModalModeDemo() {
               </Popover.ActionTrigger>
               <Button size="sm">Copy link</Button>
             </Popover.Footer>
-            <Popover.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Popover.CloseTrigger>
+            <Popover.CloseTrigger />
           </Popover.Content>
         </Popover.Positioner>
       </Portal>

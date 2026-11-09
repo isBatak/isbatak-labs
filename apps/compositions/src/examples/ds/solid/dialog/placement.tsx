@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Dialog } from "@isbatak/solid-ui/dialog"
 import { HStack } from "@isbatak/solid-ui/stack"
 import { Portal } from "solid-js/web"
@@ -37,7 +37,7 @@ export function DialogPlacementDemo() {
                 />
                 <Button>Publish</Button>
               </Dialog.Footer>
-              <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Dialog.CloseTrigger />
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>
@@ -73,7 +73,7 @@ export function DialogPlacementDemo() {
                 />
                 <Button>Publish</Button>
               </Dialog.Footer>
-              <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Dialog.CloseTrigger />
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>
@@ -109,7 +109,7 @@ export function DialogPlacementDemo() {
                 />
                 <Button>Publish</Button>
               </Dialog.Footer>
-              <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+              <Dialog.CloseTrigger />
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>

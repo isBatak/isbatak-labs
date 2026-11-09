@@ -50,6 +50,7 @@ export function DrawerMultipleTriggersDemo() {
                 )}
               />
             </Drawer.Footer>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Portal>

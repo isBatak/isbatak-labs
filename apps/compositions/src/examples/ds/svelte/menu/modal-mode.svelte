@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Menu } from "@isbatak/svelte-ui/menu"
   import { css } from "styled-system/css"
 </script>
@@ -15,11 +15,7 @@
     <Menu.Backdrop />
     <Menu.Positioner>
       <Menu.Content>
-        <Menu.CloseTrigger>
-          {#snippet asChild(props)}
-            <CloseButton {...props()} size="sm" />
-          {/snippet}
-        </Menu.CloseTrigger>
+        <Menu.CloseTrigger />
         <Menu.Item value="rename">Rename</Menu.Item>
         <Menu.Item value="duplicate">Duplicate</Menu.Item>
         <Menu.Item value="share">Share</Menu.Item>

@@ -7,6 +7,7 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { menu } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
 import { Icon } from "../icon/icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(menu)
@@ -48,19 +49,24 @@ export type MenuContentProps = ComponentProps<typeof MenuContent>
 const StyledMenuCloseTrigger = withContext(ark.button, "closeTrigger")
 export type MenuCloseTriggerProps = ComponentProps<typeof StyledMenuCloseTrigger>
 
-export function MenuCloseTrigger({ onClick, ...props }: MenuCloseTriggerProps) {
+export function MenuCloseTrigger({ onClick, children, ...props }: MenuCloseTriggerProps) {
   const menu = useMenuContext()
+  const handleClick: MenuCloseTriggerProps["onClick"] = (event) => {
+    onClick?.(event)
+    if (event.defaultPrevented) return
+    menu.setOpen(false)
+  }
+  if (children) {
+    return (
+      <StyledMenuCloseTrigger type="button" aria-label="Close" onClick={handleClick} {...props}>
+        {children}
+      </StyledMenuCloseTrigger>
+    )
+  }
   return (
-    <StyledMenuCloseTrigger
-      type="button"
-      aria-label="Close"
-      onClick={(event) => {
-        onClick?.(event)
-        if (event.defaultPrevented) return
-        menu.setOpen(false)
-      }}
-      {...props}
-    />
+    <StyledMenuCloseTrigger asChild onClick={handleClick} {...props}>
+      <CloseButton size="sm" />
+    </StyledMenuCloseTrigger>
   )
 }
 

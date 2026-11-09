@@ -5,6 +5,7 @@ import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { menu } from "@isbatak/panda-ds/recipes"
+import { CloseButton } from "../button"
 import { Icon } from "../icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(menu)
@@ -63,22 +64,18 @@ export const MenuCloseTrigger = defineComponent({
   inheritAttrs: false,
   setup(_, { attrs, slots }) {
     const menu = useMenuContext()
+    const onClick = (event: MouseEvent) => {
+      const handler = attrs.onClick as ((event: MouseEvent) => void) | undefined
+      handler?.(event)
+      if (event.defaultPrevented) return
+      menu.value.setOpen(false)
+    }
     return () =>
-      h(
-        StyledMenuCloseTrigger as Component,
-        {
-          type: "button",
-          "aria-label": "Close",
-          ...attrs,
-          onClick: (event: MouseEvent) => {
-            const onClick = attrs.onClick as ((event: MouseEvent) => void) | undefined
-            onClick?.(event)
-            if (event.defaultPrevented) return
-            menu.value.setOpen(false)
-          },
-        },
-        slots,
-      )
+      slots.default
+        ? h(StyledMenuCloseTrigger as Component, { type: "button", "aria-label": "Close", ...attrs, onClick }, slots)
+        : h(StyledMenuCloseTrigger as Component, { asChild: true, ...attrs, onClick }, () =>
+            h(CloseButton, { size: "sm" }),
+          )
   },
 }) as unknown as typeof StyledMenuCloseTrigger
 

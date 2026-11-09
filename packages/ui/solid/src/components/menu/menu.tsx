@@ -5,6 +5,7 @@ import { type ComponentProps, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { menu } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
 import { Icon } from "../icon/icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(menu)
@@ -51,19 +52,28 @@ const StyledMenuCloseTrigger = withContext(ark.button, "closeTrigger")
 export type MenuCloseTriggerProps = ComponentProps<typeof StyledMenuCloseTrigger>
 
 export function MenuCloseTrigger(props: MenuCloseTriggerProps) {
-  const [local, rest] = splitProps(props, ["onClick"])
+  const [local, rest] = splitProps(props, ["onClick", "children"])
   const menu = useMenuContext()
+  const onClick = (event: MouseEvent & { currentTarget: HTMLButtonElement; target: Element }) => {
+    if (typeof local.onClick === "function") local.onClick(event)
+    if (event.defaultPrevented) return
+    menu().setOpen(false)
+  }
   return (
-    <StyledMenuCloseTrigger
-      type="button"
-      aria-label="Close"
-      onClick={(event: MouseEvent & { currentTarget: HTMLButtonElement; target: Element }) => {
-        if (typeof local.onClick === "function") local.onClick(event)
-        if (event.defaultPrevented) return
-        menu().setOpen(false)
-      }}
-      {...rest}
-    />
+    <Show
+      when={local.children}
+      fallback={
+        <StyledMenuCloseTrigger
+          asChild={(triggerProps) => <CloseButton {...triggerProps()} size="sm" />}
+          onClick={onClick}
+          {...rest}
+        />
+      }
+    >
+      <StyledMenuCloseTrigger type="button" aria-label="Close" onClick={onClick} {...rest}>
+        {local.children}
+      </StyledMenuCloseTrigger>
+    </Show>
   )
 }
 

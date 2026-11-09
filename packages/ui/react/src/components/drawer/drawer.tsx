@@ -5,6 +5,8 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { drawer } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
+
 const { withProvider, withRootProvider, withContext } = createSlotRecipeContext(drawer)
 
 const StyledDrawerRoot = withRootProvider(Drawer.Root, {
@@ -62,8 +64,17 @@ export type DrawerTitleProps = ComponentProps<typeof DrawerTitle>
 export const DrawerDescription = withContext(Drawer.Description, "description")
 export type DrawerDescriptionProps = ComponentProps<typeof DrawerDescription>
 
-export const DrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
-export type DrawerCloseTriggerProps = ComponentProps<typeof DrawerCloseTrigger>
+const StyledDrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
+export type DrawerCloseTriggerProps = ComponentProps<typeof StyledDrawerCloseTrigger>
+
+export function DrawerCloseTrigger({ children, ...props }: DrawerCloseTriggerProps) {
+  if (children) return <StyledDrawerCloseTrigger {...props}>{children}</StyledDrawerCloseTrigger>
+  return (
+    <StyledDrawerCloseTrigger asChild {...props}>
+      <CloseButton size="sm" />
+    </StyledDrawerCloseTrigger>
+  )
+}
 
 export const DrawerActionTrigger = Drawer.CloseTrigger
 export type DrawerActionTriggerProps = ComponentProps<typeof DrawerActionTrigger>
