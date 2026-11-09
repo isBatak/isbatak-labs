@@ -1,0 +1,33 @@
+---
+title: Portal
+description: Render content at the end of the page, outside its parent's overflow and stacking.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/portal
+  ark: https://ark-ui.com/docs/utilities/portal
+---
+
+Overlays like Dialog, Popover and Menu put their positioner in a `Portal`, so a parent with `overflow: hidden` or its
+own stacking context can't clip or cover them. It has no styles.
+
+Each framework uses its own portal:
+
+- **React and Svelte:** Ark UI's Portal. Pass `container` to render somewhere other than the end of the body, or
+  `disabled` to render in place.
+- **Vue:** a thin wrapper around Vue's `Teleport`. `to` defaults to `body`; `disabled` and `defer` pass through.
+- **Solid:** a wrapper around Solid's Portal that only mounts when it has something to render. A portal that's always
+  mounted would be hidden from screen readers by nested overlays.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Portal>
+  <div>Rendered at the end of the body</div>
+</Portal>
+```
+
+## API
+
+<Api />
