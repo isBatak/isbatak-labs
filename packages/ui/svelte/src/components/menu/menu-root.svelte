@@ -8,10 +8,10 @@
 <script lang="ts">
   import { provideMenuStyles } from "./menu-styles"
 
-  let { ...props }: MenuRootProps = $props()
+  let { open = $bindable(), ...props }: MenuRootProps = $props()
   const [variantProps, localProps] = $derived(menu.splitVariantProps(props))
   const styles = $derived(menu(variantProps))
   provideMenuStyles(() => styles)
 </script>
 
-<Menu.Root {...localProps} />
+<Menu.Root bind:open {...localProps} />
