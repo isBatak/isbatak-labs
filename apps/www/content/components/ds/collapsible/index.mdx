@@ -1,0 +1,66 @@
+---
+title: Collapsible
+description: Show and hide a single section of content.
+category: Disclosure
+links:
+  source: packages/ui/react/src/components/collapsible
+  recipe: packages/panda/ds/src/theme/recipes/collapsible.ts
+  ark: https://ark-ui.com/docs/components/collapsible
+---
+
+Built on Ark UI's Collapsible. `Collapsible.Trigger` opens and closes `Collapsible.Content`, which animates its height.
+With no children, `Collapsible.Indicator` shows a chevron that turns when the content opens. For several sections that
+open and close together, use Accordion.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Collapsible.Root>
+  <Collapsible.Trigger />
+  <Collapsible.Content />
+</Collapsible.Root>
+```
+
+## Examples
+
+### Initial open
+
+Set `defaultOpen` to start with the content open.
+
+<Example id="collapsible/initial-open" />
+
+### Indicator
+
+Add `Collapsible.Indicator` inside the trigger to show which way the content will go.
+
+<Example id="collapsible/indicator" />
+
+### Partial height
+
+Set `collapsedHeight` to keep part of the content visible while it's closed.
+
+<Example id="collapsible/partial-height" />
+
+### Disabled
+
+Set `disabled` to stop the trigger from opening the content.
+
+<Example id="collapsible/disabled" />
+
+### Lazy mount
+
+Set `lazyMount` to render the content the first time it opens, and `unmountOnExit` to remove it when it closes.
+
+<Example id="collapsible/lazy-mount" />
+
+### Controlled
+
+Pass `open` and `onOpenChange` to open and close the content from your own state.
+
+<Example id="collapsible/controlled" />
+
+## API
+
+<Api />
