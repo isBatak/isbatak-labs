@@ -117,7 +117,7 @@
     gap: 24px;
   }
 
-  [data-popover-content]:not([class*="popover__"]) {
+  [data-popover-content]:not([data-slot]) {
     --arrow-background: white;
     --arrow-size: 10px;
     background: white;
@@ -145,17 +145,17 @@
     }
   }
 
-  [data-popover-positioner]:not([class*="popover__"])[data-fullscreen] {
+  [data-popover-positioner]:not([data-slot])[data-fullscreen] {
     display: contents;
   }
 
-  [data-popover-title]:not([class*="popover__"]) {
+  [data-popover-title]:not([data-slot]) {
     font-size: 15px;
     line-height: 19px;
     font-weight: bold;
   }
 
-  [data-popover-body]:not([class*="popover__"]) {
+  [data-popover-body]:not([data-slot]) {
     padding-top: 12px;
     display: flex;
     align-items: flex-start;
@@ -171,7 +171,7 @@
     top: -20px;
   }
 
-  [data-popover-arrow]:not([class*="popover__"]) {
+  [data-popover-arrow]:not([data-slot]) {
     --arrow-background: white;
     --arrow-shadow-color: #ebebeb;
     box-shadow: var(--box-shadow);

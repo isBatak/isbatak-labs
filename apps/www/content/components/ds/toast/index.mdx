@@ -1,0 +1,60 @@
+---
+title: Toast
+description: Show a short message that appears for a few seconds and then goes away.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/toast
+  recipe: packages/panda/ds/src/theme/recipes/toast.ts
+  ark: https://ark-ui.com/docs/components/toast
+---
+
+Built on Ark UI's Toast. Create a toaster once with `createToaster`, render a `Toaster` for it, and call
+`toaster.create()` from anywhere to show a toast.
+
+## Usage
+
+<Usage />
+
+```tsx
+const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 })
+
+<Button onClick={() => toaster.create({ title: "File saved" })}>Show toast</Button>
+<Portal>
+  <Toaster toaster={toaster} />
+</Portal>
+```
+
+With no children, `Toaster` renders each toast with an icon for its type, the title, the description, an action button
+when the toast has an `action`, and a close button. Pass a function as children to render the toasts yourself with
+`Toast.Root`, `Toast.Indicator`, `Toast.Body`, `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` and
+`Toast.CloseTrigger`.
+
+## Examples
+
+### Types
+
+Set `type` to `success`, `error`, `warning`, `info` or `loading` to pick the icon and its color.
+
+<Example id="toast/types" />
+
+### Action
+
+Pass `action` with a `label` and an `onClick` to add a button to the toast.
+
+<Example id="toast/action" />
+
+### Promise
+
+`toaster.promise()` shows a loading toast and turns it into a success or error toast when the promise settles.
+
+<Example id="toast/promise" />
+
+### Persistent
+
+Set `duration` to `Infinity` to keep the toast open until it's closed.
+
+<Example id="toast/persistent" />
+
+## API
+
+<Api />

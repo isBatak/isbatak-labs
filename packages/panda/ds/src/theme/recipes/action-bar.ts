@@ -14,7 +14,9 @@ export const actionBarSlotRecipe = defineSlotRecipe({
     },
     content: {
       bg: "bg.panel",
-      shadow: "md",
+      shadow: "lg",
+      borderWidth: "1px",
+      borderColor: "border.muted",
       display: "flex",
       alignItems: "center",
       gap: "3",
@@ -36,6 +38,9 @@ export const actionBarSlotRecipe = defineSlotRecipe({
       width: "1px",
       height: "5",
       bg: "border",
+    },
+    closeTrigger: {
+      ms: "-1",
     },
     selectionTrigger: {
       display: "inline-flex",
@@ -77,4 +82,5 @@ export const actionBarSlotRecipe = defineSlotRecipe({
   defaultVariants: {
     placement: "bottom",
   },
+  staticCss: [{ placement: ["*"] }],
 })
