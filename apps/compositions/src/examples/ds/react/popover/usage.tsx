@@ -16,12 +16,12 @@ export function PopoverDemo() {
             </Popover.Arrow>
             <Popover.Header>
               <Popover.Title>Release notes</Popover.Title>
-              <Popover.Description>What changed in this version.</Popover.Description>
+              <Popover.Description>See what changed in this version.</Popover.Description>
             </Popover.Header>
             <Popover.Footer>
-              <Popover.CloseTrigger asChild>
+              <Popover.ActionTrigger asChild>
                 <Button size="sm">Got it</Button>
-              </Popover.CloseTrigger>
+              </Popover.ActionTrigger>
             </Popover.Footer>
           </Popover.Content>
         </Popover.Positioner>

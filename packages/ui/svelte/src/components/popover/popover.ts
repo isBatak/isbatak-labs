@@ -2,6 +2,8 @@ import { Popover } from "@ark-ui/svelte/popover"
 
 export { default as PopoverRoot, type PopoverRootProps } from "./popover-root.svelte"
 export { default as PopoverTrigger, type PopoverTriggerProps } from "./popover-trigger.svelte"
+export { default as PopoverIndicator, type PopoverIndicatorProps } from "./popover-indicator.svelte"
+export { default as PopoverBackdrop, type PopoverBackdropProps } from "./popover-backdrop.svelte"
 export { default as PopoverAnchor, type PopoverAnchorProps } from "./popover-anchor.svelte"
 export { default as PopoverPositioner, type PopoverPositionerProps } from "./popover-positioner.svelte"
 export { default as PopoverContent, type PopoverContentProps } from "./popover-content.svelte"
@@ -13,5 +15,7 @@ export { default as PopoverCloseTrigger, type PopoverCloseTriggerProps } from ".
 export { default as PopoverHeader, type PopoverHeaderProps } from "./popover-header.svelte"
 export { default as PopoverBody, type PopoverBodyProps } from "./popover-body.svelte"
 export { default as PopoverFooter, type PopoverFooterProps } from "./popover-footer.svelte"
+export const PopoverActionTrigger = Popover.CloseTrigger
+export type PopoverActionTriggerProps = Popover.CloseTriggerProps
 export const PopoverContext = Popover.Context
 export type PopoverContextProps = Popover.ContextProps

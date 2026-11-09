@@ -1,5 +1,7 @@
 export {
   PopoverRoot as Root,
+  PopoverBackdrop as Backdrop,
+  PopoverIndicator as Indicator,
   PopoverTrigger as Trigger,
   PopoverAnchor as Anchor,
   PopoverPositioner as Positioner,
@@ -9,6 +11,7 @@ export {
   PopoverTitle as Title,
   PopoverDescription as Description,
   PopoverCloseTrigger as CloseTrigger,
+  PopoverActionTrigger as ActionTrigger,
   PopoverHeader as Header,
   PopoverBody as Body,
   PopoverFooter as Footer,
@@ -17,6 +20,8 @@ export {
 
 export type {
   PopoverRootProps as RootProps,
+  PopoverBackdropProps as BackdropProps,
+  PopoverIndicatorProps as IndicatorProps,
   PopoverTriggerProps as TriggerProps,
   PopoverAnchorProps as AnchorProps,
   PopoverPositionerProps as PositionerProps,
@@ -26,6 +31,7 @@ export type {
   PopoverTitleProps as TitleProps,
   PopoverDescriptionProps as DescriptionProps,
   PopoverCloseTriggerProps as CloseTriggerProps,
+  PopoverActionTriggerProps as ActionTriggerProps,
   PopoverHeaderProps as HeaderProps,
   PopoverBodyProps as BodyProps,
   PopoverFooterProps as FooterProps,

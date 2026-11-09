@@ -1,7 +1,11 @@
+import { ark } from "@ark-ui/vue/factory"
 import { Popover } from "@ark-ui/vue/popover"
+import { usePresenceContext } from "@ark-ui/vue/presence"
+import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { popover } from "@isbatak/panda-ds/recipes"
+import { Icon } from "../icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)
 
@@ -10,6 +14,34 @@ export type PopoverRootProps = ComponentProps<typeof PopoverRoot>
 
 export const PopoverTrigger = withContext(Popover.Trigger, "trigger")
 export type PopoverTriggerProps = ComponentProps<typeof PopoverTrigger>
+
+const StyledPopoverIndicator = withContext(Popover.Indicator, "indicator")
+export type PopoverIndicatorProps = ComponentProps<typeof StyledPopoverIndicator>
+
+export const PopoverIndicator = defineComponent({
+  name: "PopoverIndicator",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () =>
+      h(StyledPopoverIndicator as Component, attrs, () => slots.default?.() ?? h(Icon, { name: "chevron-down" }))
+  },
+}) as unknown as typeof StyledPopoverIndicator
+
+const StyledPopoverBackdrop = withContext(ark.div, "backdrop")
+export type PopoverBackdropProps = ComponentProps<typeof StyledPopoverBackdrop>
+
+export const PopoverBackdrop = defineComponent({
+  name: "PopoverBackdrop",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    const presence = usePresenceContext()
+    return () => {
+      if (presence.value.unmounted) return null
+      const { hidden, "data-state": state } = presence.value.presenceProps
+      return h(StyledPopoverBackdrop as Component, { hidden, "data-state": state, ...attrs }, slots)
+    }
+  },
+}) as unknown as typeof StyledPopoverBackdrop
 
 export const PopoverAnchor = withContext(Popover.Anchor, "anchor")
 export type PopoverAnchorProps = ComponentProps<typeof PopoverAnchor>
@@ -43,6 +75,9 @@ export type PopoverBodyProps = ComponentProps<typeof PopoverBody>
 
 export const PopoverFooter = withContext("div", "footer")
 export type PopoverFooterProps = ComponentProps<typeof PopoverFooter>
+
+export const PopoverActionTrigger = Popover.CloseTrigger
+export type PopoverActionTriggerProps = ComponentProps<typeof PopoverActionTrigger>
 
 export const PopoverContext = Popover.Context
 export type PopoverContextProps = Popover.ContextProps

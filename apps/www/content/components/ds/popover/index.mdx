@@ -8,12 +8,73 @@ links:
   ark: https://ark-ui.com/docs/components/popover
 ---
 
-Built on Ark UI's Popover. `Popover.Header`, `Popover.Body` and `Popover.Footer` lay out the content, and
-`Popover.CloseTrigger` closes it.
+Built on Ark UI's Popover. `Popover.Header`, `Popover.Body` and `Popover.Footer` lay out the content.
+`Popover.CloseTrigger` is the close button in the top corner; `Popover.ActionTrigger` closes the popover too but takes
+no styles, so use it for buttons in the footer.
 
 ## Usage
 
 <Usage />
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg` to change the padding. The default is `md`.
+
+<Example id="popover/sizes" />
+
+### Placement
+
+Pass `positioning={{ placement }}` to choose which side of the trigger the popover opens on.
+
+<Example id="popover/placement" />
+
+### Controlled
+
+Pass `open` and `onOpenChange` to open and close the popover yourself.
+
+<Example id="popover/controlled" />
+
+### Form
+
+Put fields in `Popover.Body`. Focus moves into the popover when it opens.
+
+<Example id="popover/form" />
+
+### Close button
+
+Put a `CloseButton` in `Popover.CloseTrigger` to show it in the top corner.
+
+<Example id="popover/close-button" />
+
+### Nested
+
+Open a popover from inside another. Clicking in the nested one keeps the first one open.
+
+<Example id="popover/nested" />
+
+### Anchor
+
+Wrap another element in `Popover.Anchor` to position the popover against it instead of the trigger.
+
+<Example id="popover/anchor" />
+
+### Indicator
+
+Put `Popover.Indicator` in the trigger to show a chevron that turns while the popover is open.
+
+<Example id="popover/indicator" />
+
+### Modal mode
+
+Set `modalMode` to show the popover as a sheet at the bottom of the screen, above a `Popover.Backdrop`.
+
+<Example id="popover/modal-mode" />
+
+## Recipe
+
+<RecipeVariants />
 
 ## API
 

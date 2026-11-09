@@ -140,9 +140,9 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 
 - [x] dialog
 - [x] drawer
-- [ ] popover — has: recipe react vue svelte solid docs
-- [ ] hover-card — has: recipe react vue svelte solid docs
-- [ ] tooltip — has: recipe react vue svelte solid docs
+- [x] popover
+- [x] hover-card
+- [x] tooltip
 - [ ] menu — has: recipe react vue svelte solid docs
 - [ ] floating-panel — has: recipe
 - [ ] toast — has: recipe
