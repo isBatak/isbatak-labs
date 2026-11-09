@@ -19,7 +19,7 @@ export const floatingPanelSlotRecipe = defineSlotRecipe({
   base: {
     positioner: {
       "--floating-panel-z-index": "zIndex.popover",
-      zIndex: "calc(var(--floating-panel-z-index) + var(--layer-index, 0))",
+      zIndex: "calc(var(--floating-panel-z-index) + var(--layer-index, 0))!",
       "&:has([data-topmost])": {
         "--layer-index": "100",
       },
