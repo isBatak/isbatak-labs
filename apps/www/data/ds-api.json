@@ -4787,14 +4787,42 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "modal": {
-            "type": "boolean | undefined",
-            "description": "Whether the popover should be modal. When set to `true`:\n- interaction with outside elements will be disabled\n- only popover content will be visible to screen readers\n- scrolling is blocked\n- focus is trapped within the popover",
-            "defaultValue": "false"
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function invoked when the popover opens or closes"
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The user provided options used to position the popover content"
           },
           "initialFocusEl": {
             "type": "(() => HTMLElement | null) | null | undefined",
             "description": "The element to focus on when the popover is opened."
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the popover"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the popover when rendered.\nUse when you don't need to control the open state of the popover."
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "modal": {
+            "type": "boolean | undefined",
+            "description": "Whether the popover should be modal. When set to `true`:\n- interaction with outside elements will be disabled\n- only popover content will be visible to screen readers\n- scrolling is blocked\n- focus is trapped within the popover",
+            "defaultValue": "false"
           },
           "finalFocusEl": {
             "type": "(() => MaybeElement) | undefined",
@@ -4803,6 +4831,16 @@
           "restoreFocus": {
             "type": "boolean | undefined",
             "description": "Whether to restore focus to the element that had focus before the popover was opened.",
+            "defaultValue": "true"
+          },
+          "closeOnInteractOutside": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the popover when the user clicks outside of the popover.",
+            "defaultValue": "true"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the popover when the escape key is pressed.",
             "defaultValue": "true"
           },
           "triggerValue": {
@@ -4817,28 +4855,6 @@
             "type": "((details: TriggerValueChangeDetails) => void) | undefined",
             "description": "Function called when the trigger value changes."
           },
-          "open": {
-            "type": "boolean | undefined",
-            "description": "The controlled open state of the popover"
-          },
-          "defaultOpen": {
-            "type": "boolean | undefined",
-            "description": "The initial open state of the popover when rendered.\nUse when you don't need to control the open state of the popover."
-          },
-          "onOpenChange": {
-            "type": "((details: OpenChangeDetails) => void) | undefined",
-            "description": "Function invoked when the popover opens or closes"
-          },
-          "closeOnInteractOutside": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the popover when the user clicks outside of the popover.",
-            "defaultValue": "true"
-          },
-          "closeOnEscape": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the popover when the escape key is pressed.",
-            "defaultValue": "true"
-          },
           "onEscapeKeyDown": {
             "type": "((event: KeyboardEvent) => void) | undefined",
             "description": "Function called when the escape key is pressed"
@@ -4846,22 +4862,6 @@
           "onRequestDismiss": {
             "type": "((event: LayerDismissEvent) => void) | undefined",
             "description": "Function called when this layer is closed due to a parent layer being closed"
-          },
-          "onPointerDownOutside": {
-            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
-            "description": "Function called when the pointer is pressed down outside the component"
-          },
-          "onFocusOutside": {
-            "type": "((event: FocusOutsideEvent) => void) | undefined",
-            "description": "Function called when the focus is moved outside the component"
-          },
-          "onInteractOutside": {
-            "type": "((event: InteractOutsideEvent) => void) | undefined",
-            "description": "Function called when an interaction happens outside the component"
-          },
-          "positioning": {
-            "type": "PositioningOptions | undefined",
-            "description": "The user provided options used to position the popover content"
           },
           "persistentElements": {
             "type": "Array<() => Element | null> | undefined",
@@ -4928,6 +4928,9 @@
       "size": {
         "values": ["xs", "sm", "md", "lg"],
         "defaultValue": "md"
+      },
+      "modalMode": {
+        "values": ["true", "false"]
       }
     }
   },
@@ -6833,6 +6836,27 @@
             "type": "boolean | undefined",
             "description": "Whether the tooltip is disabled"
           },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the tooltip is opened."
+          },
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The user provided options used to position the popover content"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the tooltip"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the tooltip when rendered.\nUse when you don't need to control the open state of the tooltip."
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the tooltip when the Escape key is pressed.",
+            "defaultValue": "true"
+          },
           "triggerValue": {
             "type": "string | null | undefined",
             "description": "The controlled trigger value"
@@ -6844,23 +6868,6 @@
           "onTriggerValueChange": {
             "type": "((details: TriggerValueChangeDetails) => void) | undefined",
             "description": "Function called when the trigger value changes."
-          },
-          "open": {
-            "type": "boolean | undefined",
-            "description": "The controlled open state of the tooltip"
-          },
-          "defaultOpen": {
-            "type": "boolean | undefined",
-            "description": "The initial open state of the tooltip when rendered.\nUse when you don't need to control the open state of the tooltip."
-          },
-          "onOpenChange": {
-            "type": "((details: OpenChangeDetails) => void) | undefined",
-            "description": "Function called when the tooltip is opened."
-          },
-          "closeOnEscape": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the tooltip when the Escape key is pressed.",
-            "defaultValue": "true"
           },
           "interactive": {
             "type": "boolean | undefined",
@@ -6876,10 +6883,6 @@
             "type": "number | undefined",
             "description": "The close delay of the tooltip.",
             "defaultValue": "150"
-          },
-          "positioning": {
-            "type": "PositioningOptions | undefined",
-            "description": "The user provided options used to position the popover content"
           },
           "closeOnClick": {
             "type": "boolean | undefined",
@@ -6953,7 +6956,12 @@
         }
       }
     ],
-    "variants": {}
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
   },
   "tour": {
     "parts": [

@@ -8,10 +8,10 @@
 <script lang="ts">
   import { provideHoverCardStyles } from "./hover-card-styles"
 
-  let { ...props }: HoverCardRootProps = $props()
+  let { open = $bindable(), ...props }: HoverCardRootProps = $props()
   const [variantProps, localProps] = $derived(hoverCard.splitVariantProps(props))
   const styles = $derived(hoverCard(variantProps))
   provideHoverCardStyles(() => styles)
 </script>
 
-<HoverCard.Root {...localProps} />
+<HoverCard.Root bind:open {...localProps} />

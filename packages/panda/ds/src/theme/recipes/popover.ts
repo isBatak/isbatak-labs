@@ -4,6 +4,7 @@ export const popoverSlotRecipe = defineSlotRecipe({
   className: "popover",
   description: "Non-modal floating panel anchored to a trigger",
   slots: [
+    "backdrop",
     "arrow",
     "arrowTip",
     "anchor",
@@ -19,6 +20,38 @@ export const popoverSlotRecipe = defineSlotRecipe({
     "footer",
   ],
   base: {
+    backdrop: {
+      display: "none",
+      bg: "blackAlpha.500",
+      pos: "fixed",
+      left: 0,
+      top: 0,
+      w: "100dvw",
+      h: "100dvh",
+      "--popover-z-index": "zIndex.modal",
+      zIndex: "calc(var(--popover-z-index) + var(--layer-index, 0) - 1)",
+      _open: {
+        animationName: "fade-in",
+        animationDuration: "slow",
+      },
+      _closed: {
+        animationName: "fade-out",
+        animationDuration: "moderate",
+      },
+    },
+    indicator: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      transitionProperty: "rotate",
+      transitionDuration: "normal",
+      _open: {
+        rotate: "180deg",
+      },
+      _icon: {
+        boxSize: "4",
+      },
+    },
     content: {
       position: "relative",
       display: "flex",
@@ -39,6 +72,9 @@ export const popoverSlotRecipe = defineSlotRecipe({
       outline: "0",
       transformOrigin: "var(--transform-origin)",
       maxHeight: "var(--available-height)",
+      borderWidth: "1px",
+      "--popover-border-color": "colors.border.muted",
+      borderColor: "var(--popover-border-color)",
       _open: {
         animationStyle: "scale-fade-in",
         animationDuration: "fast",
@@ -49,8 +85,17 @@ export const popoverSlotRecipe = defineSlotRecipe({
       },
     },
     header: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "1",
       paddingInline: "var(--popover-padding)",
       paddingTop: "var(--popover-padding)",
+    },
+    title: {
+      fontWeight: "semibold",
+    },
+    description: {
+      color: "fg.muted",
     },
     body: {
       padding: "var(--popover-padding)",
@@ -59,8 +104,15 @@ export const popoverSlotRecipe = defineSlotRecipe({
     footer: {
       display: "flex",
       alignItems: "center",
+      justifyContent: "flex-end",
+      gap: "2",
       paddingInline: "var(--popover-padding)",
       paddingBottom: "var(--popover-padding)",
+    },
+    closeTrigger: {
+      pos: "absolute",
+      top: "2",
+      insetEnd: "2",
     },
     arrow: {
       "--arrow-size": "sizes.3",
@@ -68,7 +120,8 @@ export const popoverSlotRecipe = defineSlotRecipe({
     },
     arrowTip: {
       borderTopWidth: "1px",
-      borderLeftWidth: "1px",
+      borderInlineStartWidth: "1px",
+      borderColor: "var(--popover-border-color)",
     },
   },
   variants: {
@@ -94,8 +147,56 @@ export const popoverSlotRecipe = defineSlotRecipe({
         },
       },
     },
+    modalMode: {
+      true: {
+        backdrop: {
+          display: "block",
+        },
+        positioner: {
+          display: "flex",
+          position: "fixed!",
+          insetBlockStart: "unset!",
+          insetBlockEnd: "0!",
+          insetInlineStart: "0!",
+          insetInlineEnd: "unset!",
+          w: "100dvw",
+          h: "100dvh",
+          minW: "0!",
+          px: "4",
+          py: "8",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          transform: "translateZ(0)!",
+          "--popover-z-index": "zIndex.modal",
+          zIndex: "calc(var(--popover-z-index) + var(--layer-index, 0))",
+          "&:has([data-popover-content][data-state=closed])": {
+            visibility: "hidden",
+          },
+        },
+        content: {
+          "--popover-size": "sizes.sm",
+          "--popover-z-index": "zIndex.modal",
+          w: "full",
+          maxW: "var(--popover-size)",
+          maxH: "calc(100dvh - token(spacing.16))",
+          _open: {
+            animationName: "slide-from-bottom, fade-in",
+            animationDuration: "moderate",
+          },
+          _closed: {
+            animationName: "slide-to-bottom, fade-out",
+            animationDuration: "faster",
+          },
+        },
+        arrow: {
+          display: "none",
+        },
+      },
+      false: {},
+    },
   },
   defaultVariants: {
     size: "md",
+    modalMode: false,
   },
 })

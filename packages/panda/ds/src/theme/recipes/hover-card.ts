@@ -19,6 +19,9 @@ export const hoverCardSlotRecipe = defineSlotRecipe({
       zIndex: "calc(var(--hover-card-z-index) + var(--layer-index, 0))",
       transformOrigin: "var(--transform-origin)",
       outline: "0",
+      borderWidth: "1px",
+      "--hovercard-border-color": "colors.border.muted",
+      borderColor: "var(--hovercard-border-color)",
       _open: {
         animationStyle: "slide-fade-in",
         animationDuration: "fast",
@@ -33,8 +36,9 @@ export const hoverCardSlotRecipe = defineSlotRecipe({
       "--arrow-background": "var(--hovercard-bg)",
     },
     arrowTip: {
-      borderTopWidth: "0.5px",
-      borderLeftWidth: "0.5px",
+      borderTopWidth: "1px",
+      borderInlineStartWidth: "1px",
+      borderColor: "var(--hovercard-border-color)",
     },
   },
   variants: {
