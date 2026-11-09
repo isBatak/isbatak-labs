@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Menu } from "@isbatak/solid-ui/menu"
 import { Portal } from "solid-js/web"
 
@@ -16,7 +16,7 @@ export function MenuModalModeDemo() {
         <Menu.Backdrop />
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Menu.CloseTrigger />
             <Menu.Item value="rename">Rename</Menu.Item>
             <Menu.Item value="duplicate">Duplicate</Menu.Item>
             <Menu.Item value="share">Share</Menu.Item>

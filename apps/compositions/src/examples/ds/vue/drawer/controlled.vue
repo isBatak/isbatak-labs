@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Drawer } from "@isbatak/vue-ui/drawer"
 import { Field } from "@isbatak/vue-ui/field"
 import { Textarea } from "@isbatak/vue-ui/textarea"
@@ -29,9 +29,7 @@ const open = ref(false)
             <Button variant="outline" @click="open = false">Cancel</Button>
             <Button @click="open = false">Send</Button>
           </Drawer.Footer>
-          <Drawer.CloseTrigger :asChild="true">
-            <CloseButton size="sm" />
-          </Drawer.CloseTrigger>
+          <Drawer.CloseTrigger />
         </Drawer.Content>
       </Drawer.Positioner>
     </Teleport>

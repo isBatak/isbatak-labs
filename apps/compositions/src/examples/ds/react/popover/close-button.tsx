@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Popover } from "@isbatak/react-ui/popover"
 
 export function PopoverCloseButtonDemo() {
@@ -18,9 +18,7 @@ export function PopoverCloseButtonDemo() {
               <Popover.Title>Keyboard shortcuts</Popover.Title>
               <Popover.Description>Press ? anywhere to see every shortcut.</Popover.Description>
             </Popover.Header>
-            <Popover.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Popover.CloseTrigger>
+            <Popover.CloseTrigger />
           </Popover.Content>
         </Popover.Positioner>
       </Portal>

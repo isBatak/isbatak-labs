@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Drawer } from "@isbatak/solid-ui/drawer"
 import { Portal } from "solid-js/web"
 
@@ -17,7 +17,7 @@ export function DrawerNonModalDemo() {
                 The page behind stays interactive. Scroll it or select text while this drawer is open.
               </Drawer.Description>
             </Drawer.Body>
-            <Drawer.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Portal>

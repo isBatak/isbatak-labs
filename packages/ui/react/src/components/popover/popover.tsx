@@ -7,6 +7,7 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { popover } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
 import { Icon } from "../icon/icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)
@@ -54,8 +55,17 @@ export type PopoverTitleProps = ComponentProps<typeof PopoverTitle>
 export const PopoverDescription = withContext(Popover.Description, "description")
 export type PopoverDescriptionProps = ComponentProps<typeof PopoverDescription>
 
-export const PopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
-export type PopoverCloseTriggerProps = ComponentProps<typeof PopoverCloseTrigger>
+const StyledPopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
+export type PopoverCloseTriggerProps = ComponentProps<typeof StyledPopoverCloseTrigger>
+
+export function PopoverCloseTrigger({ children, ...props }: PopoverCloseTriggerProps) {
+  if (children) return <StyledPopoverCloseTrigger {...props}>{children}</StyledPopoverCloseTrigger>
+  return (
+    <StyledPopoverCloseTrigger asChild {...props}>
+      <CloseButton size="sm" />
+    </StyledPopoverCloseTrigger>
+  )
+}
 
 export const PopoverHeader = withContext("div", "header")
 export type PopoverHeaderProps = ComponentProps<typeof PopoverHeader>

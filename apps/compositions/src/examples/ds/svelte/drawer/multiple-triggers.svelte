@@ -45,6 +45,7 @@
             {/snippet}
           </Drawer.ActionTrigger>
         </Drawer.Footer>
+        <Drawer.CloseTrigger />
       </Drawer.Content>
     </Drawer.Positioner>
   </Portal>

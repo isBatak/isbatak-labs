@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Dialog } from "@isbatak/svelte-ui/dialog"
   import { css } from "styled-system/css"
 </script>
@@ -29,11 +29,7 @@
           </Dialog.ActionTrigger>
           <Button class={css({ colorPalette: "red" })}>Delete</Button>
         </Dialog.Footer>
-        <Dialog.CloseTrigger>
-          {#snippet asChild(props)}
-            <CloseButton {...props()} size="sm" />
-          {/snippet}
-        </Dialog.CloseTrigger>
+        <Dialog.CloseTrigger />
       </Dialog.Content>
     </Dialog.Positioner>
   </Portal>

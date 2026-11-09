@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
 
 export function DrawerNonModalDemo() {
@@ -19,9 +19,7 @@ export function DrawerNonModalDemo() {
                 The page behind stays interactive. Scroll it or select text while this drawer is open.
               </Drawer.Description>
             </Drawer.Body>
-            <Drawer.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Portal>

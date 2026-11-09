@@ -5,6 +5,7 @@ import { type ComponentProps, Show, splitProps } from "solid-js"
 import { createSlotRecipeContext } from "@isbatak/solid-ui/jsx"
 import { popover } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
 import { Icon } from "../icon/icon"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(popover)
@@ -56,8 +57,25 @@ export type PopoverTitleProps = ComponentProps<typeof PopoverTitle>
 export const PopoverDescription = withContext(Popover.Description, "description")
 export type PopoverDescriptionProps = ComponentProps<typeof PopoverDescription>
 
-export const PopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
-export type PopoverCloseTriggerProps = ComponentProps<typeof PopoverCloseTrigger>
+const StyledPopoverCloseTrigger = withContext(Popover.CloseTrigger, "closeTrigger")
+export type PopoverCloseTriggerProps = ComponentProps<typeof StyledPopoverCloseTrigger>
+
+export function PopoverCloseTrigger(props: PopoverCloseTriggerProps) {
+  const [local, rest] = splitProps(props, ["children"])
+  return (
+    <Show
+      when={local.children}
+      fallback={
+        <StyledPopoverCloseTrigger
+          asChild={(triggerProps) => <CloseButton {...triggerProps()} size="sm" />}
+          {...rest}
+        />
+      }
+    >
+      <StyledPopoverCloseTrigger {...rest}>{local.children}</StyledPopoverCloseTrigger>
+    </Show>
+  )
+}
 
 export const PopoverHeader = withContext("div", "header")
 export type PopoverHeaderProps = ComponentProps<typeof PopoverHeader>

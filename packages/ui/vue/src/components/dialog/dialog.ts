@@ -1,7 +1,9 @@
 import { Dialog } from "@ark-ui/vue/dialog"
+import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { dialog } from "@isbatak/panda-ds/recipes"
+import { CloseButton } from "../button"
 
 const { withRootProvider, withContext } = createSlotRecipeContext(dialog)
 
@@ -33,8 +35,19 @@ export type DialogTitleProps = ComponentProps<typeof DialogTitle>
 export const DialogDescription = withContext(Dialog.Description, "description")
 export type DialogDescriptionProps = ComponentProps<typeof DialogDescription>
 
-export const DialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
-export type DialogCloseTriggerProps = ComponentProps<typeof DialogCloseTrigger>
+const StyledDialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
+export type DialogCloseTriggerProps = ComponentProps<typeof StyledDialogCloseTrigger>
+
+export const DialogCloseTrigger = defineComponent({
+  name: "DialogCloseTrigger",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () =>
+      slots.default
+        ? h(StyledDialogCloseTrigger as Component, attrs, slots)
+        : h(StyledDialogCloseTrigger as Component, { asChild: true, ...attrs }, () => h(CloseButton, { size: "sm" }))
+  },
+}) as unknown as typeof StyledDialogCloseTrigger
 
 export const DialogActionTrigger = Dialog.CloseTrigger
 export type DialogActionTriggerProps = ComponentProps<typeof DialogActionTrigger>

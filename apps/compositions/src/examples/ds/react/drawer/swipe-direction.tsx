@@ -40,6 +40,7 @@ export function DrawerSwipeDirectionDemo() {
                   <Button variant="outline">Close</Button>
                 </Drawer.ActionTrigger>
               </Drawer.Footer>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>

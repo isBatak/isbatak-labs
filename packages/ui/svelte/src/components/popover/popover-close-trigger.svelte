@@ -5,10 +5,24 @@
 </script>
 
 <script lang="ts">
+  import { CloseButton } from "../button"
   import { usePopoverStyles } from "./popover-styles"
 
-  let { ref = $bindable(null), unstyled, class: className, ...props }: PopoverCloseTriggerProps = $props()
+  let { ref = $bindable(null), unstyled, class: className, children, asChild, ...props }: PopoverCloseTriggerProps =
+    $props()
   const styles = usePopoverStyles()
 </script>
 
-<Popover.CloseTrigger bind:ref {...props} data-slot="closeTrigger" class={[!unstyled && styles().closeTrigger, className]} />
+{#snippet closeButton(triggerProps: () => Record<string, unknown>)}
+  <CloseButton {...triggerProps()} size="sm" />
+{/snippet}
+
+<Popover.CloseTrigger
+  bind:ref
+  {...props}
+  {...asChild ? { asChild } : children ? {} : { asChild: closeButton }}
+  data-slot="closeTrigger"
+  class={[!unstyled && styles().closeTrigger, className]}
+>
+  {@render children?.()}
+</Popover.CloseTrigger>

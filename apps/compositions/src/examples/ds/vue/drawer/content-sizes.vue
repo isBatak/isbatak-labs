@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Drawer } from "@isbatak/vue-ui/drawer"
 import { Wrap } from "@isbatak/vue-ui/wrap"
 </script>
@@ -28,9 +28,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -57,9 +55,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -86,9 +82,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -115,9 +109,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -144,9 +136,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -173,9 +163,7 @@ import { Wrap } from "@isbatak/vue-ui/wrap"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>

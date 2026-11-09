@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Drawer } from "@isbatak/react-ui/drawer"
 import { Wrap } from "styled-system/jsx"
 
@@ -28,9 +28,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -57,9 +55,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -86,9 +82,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -115,9 +109,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -144,9 +136,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
@@ -173,9 +163,7 @@ export function DrawerContentSizesDemo() {
                 </Drawer.ActionTrigger>
                 <Button>Save</Button>
               </Drawer.Footer>
-              <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Drawer.CloseTrigger>
+              <Drawer.CloseTrigger />
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Dialog } from "@isbatak/vue-ui/dialog"
 </script>
 
@@ -24,9 +24,7 @@ import { Dialog } from "@isbatak/vue-ui/dialog"
             </Dialog.ActionTrigger>
             <Button colorPalette="red">Delete</Button>
           </Dialog.Footer>
-          <Dialog.CloseTrigger :asChild="true">
-            <CloseButton size="sm" />
-          </Dialog.CloseTrigger>
+          <Dialog.CloseTrigger />
         </Dialog.Content>
       </Dialog.Positioner>
     </Teleport>

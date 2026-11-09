@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, CloseButton } from "@isbatak/vue-ui/button"
+import { Button } from "@isbatak/vue-ui/button"
 import { Drawer } from "@isbatak/vue-ui/drawer"
 import { HStack } from "@isbatak/vue-ui/stack"
 </script>
@@ -28,9 +28,7 @@ import { HStack } from "@isbatak/vue-ui/stack"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>
@@ -57,9 +55,7 @@ import { HStack } from "@isbatak/vue-ui/stack"
               </Drawer.ActionTrigger>
               <Button>Save</Button>
             </Drawer.Footer>
-            <Drawer.CloseTrigger :asChild="true">
-              <CloseButton size="sm" />
-            </Drawer.CloseTrigger>
+            <Drawer.CloseTrigger />
           </Drawer.Content>
         </Drawer.Positioner>
       </Teleport>

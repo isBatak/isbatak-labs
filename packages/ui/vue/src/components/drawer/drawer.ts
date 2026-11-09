@@ -3,6 +3,7 @@ import { type Component, computed, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { drawer } from "@isbatak/panda-ds/recipes"
+import { CloseButton } from "../button"
 
 const { withProvider, withRootProvider, withContext } = createSlotRecipeContext(drawer)
 
@@ -81,8 +82,19 @@ export type DrawerTitleProps = ComponentProps<typeof DrawerTitle>
 export const DrawerDescription = withContext(Drawer.Description, "description")
 export type DrawerDescriptionProps = ComponentProps<typeof DrawerDescription>
 
-export const DrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
-export type DrawerCloseTriggerProps = ComponentProps<typeof DrawerCloseTrigger>
+const StyledDrawerCloseTrigger = withContext(Drawer.CloseTrigger, "closeTrigger")
+export type DrawerCloseTriggerProps = ComponentProps<typeof StyledDrawerCloseTrigger>
+
+export const DrawerCloseTrigger = defineComponent({
+  name: "DrawerCloseTrigger",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    return () =>
+      slots.default
+        ? h(StyledDrawerCloseTrigger as Component, attrs, slots)
+        : h(StyledDrawerCloseTrigger as Component, { asChild: true, ...attrs }, () => h(CloseButton, { size: "sm" }))
+  },
+}) as unknown as typeof StyledDrawerCloseTrigger
 
 export const DrawerActionTrigger = Drawer.CloseTrigger
 export type DrawerActionTriggerProps = ComponentProps<typeof DrawerActionTrigger>

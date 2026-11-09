@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Menu } from "@isbatak/react-ui/menu"
 
 export function MenuModalModeDemo() {
@@ -12,9 +12,7 @@ export function MenuModalModeDemo() {
         <Menu.Backdrop />
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Menu.CloseTrigger>
+            <Menu.CloseTrigger />
             <Menu.Item value="rename">Rename</Menu.Item>
             <Menu.Item value="duplicate">Duplicate</Menu.Item>
             <Menu.Item value="share">Share</Menu.Item>

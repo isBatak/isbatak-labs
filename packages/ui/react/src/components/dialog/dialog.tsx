@@ -5,6 +5,8 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { dialog } from "@isbatak/panda-ds/recipes"
 
+import { CloseButton } from "../button/close-button"
+
 const { withRootProvider, withContext } = createSlotRecipeContext(dialog)
 
 export const DialogRoot = withRootProvider(Dialog.Root, {
@@ -35,8 +37,17 @@ export type DialogTitleProps = ComponentProps<typeof DialogTitle>
 export const DialogDescription = withContext(Dialog.Description, "description")
 export type DialogDescriptionProps = ComponentProps<typeof DialogDescription>
 
-export const DialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
-export type DialogCloseTriggerProps = ComponentProps<typeof DialogCloseTrigger>
+const StyledDialogCloseTrigger = withContext(Dialog.CloseTrigger, "closeTrigger")
+export type DialogCloseTriggerProps = ComponentProps<typeof StyledDialogCloseTrigger>
+
+export function DialogCloseTrigger({ children, ...props }: DialogCloseTriggerProps) {
+  if (children) return <StyledDialogCloseTrigger {...props}>{children}</StyledDialogCloseTrigger>
+  return (
+    <StyledDialogCloseTrigger asChild {...props}>
+      <CloseButton size="sm" />
+    </StyledDialogCloseTrigger>
+  )
+}
 
 export const DialogActionTrigger = Dialog.CloseTrigger
 export type DialogActionTriggerProps = ComponentProps<typeof DialogActionTrigger>

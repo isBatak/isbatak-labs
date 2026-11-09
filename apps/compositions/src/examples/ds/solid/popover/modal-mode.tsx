@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Popover } from "@isbatak/solid-ui/popover"
 import { Portal } from "solid-js/web"
 
@@ -32,7 +32,7 @@ export function PopoverModalModeDemo() {
               />
               <Button size="sm">Copy link</Button>
             </Popover.Footer>
-            <Popover.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Popover.CloseTrigger />
           </Popover.Content>
         </Popover.Positioner>
       </Portal>
