@@ -153,4 +153,6 @@ jobs:
           echo "NEXT_PUBLIC_SITE_URL=https://$domain" >> "$GITHUB_ENV"
       - run: vercel build --prod
       - id: deploy
-        run: echo "url=$(vercel deploy --prebuilt --prod)" >> "$GITHUB_OUTPUT"
+        run: |
+          url=$(vercel deploy --prebuilt --prod --archive=tgz)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
