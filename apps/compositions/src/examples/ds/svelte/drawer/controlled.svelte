@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Drawer } from "@isbatak/svelte-ui/drawer"
   import { Field } from "@isbatak/svelte-ui/field"
   import { Textarea } from "@isbatak/svelte-ui/textarea"
@@ -29,11 +29,7 @@
           <Button variant="outline" onclick={() => (open = false)}>Cancel</Button>
           <Button onclick={() => (open = false)}>Send</Button>
         </Drawer.Footer>
-        <Drawer.CloseTrigger>
-          {#snippet asChild(props)}
-            <CloseButton {...props()} size="sm" />
-          {/snippet}
-        </Drawer.CloseTrigger>
+        <Drawer.CloseTrigger />
       </Drawer.Content>
     </Drawer.Positioner>
   </Portal>

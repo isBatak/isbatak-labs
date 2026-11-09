@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Dialog } from "@isbatak/solid-ui/dialog"
 import { input } from "@isbatak/panda-ds/recipes"
 import { createSignal } from "solid-js"
@@ -36,7 +36,7 @@ export function DialogInitialFocusDemo() {
               />
               <Button>Rename</Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Dialog.CloseTrigger />
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

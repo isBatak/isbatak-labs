@@ -1,4 +1,4 @@
-import { Button, CloseButton } from "@isbatak/solid-ui/button"
+import { Button } from "@isbatak/solid-ui/button"
 import { Dialog } from "@isbatak/solid-ui/dialog"
 import { Stack } from "@isbatak/solid-ui/stack"
 import { Portal } from "@isbatak/solid-ui/portal"
@@ -41,7 +41,7 @@ export function DialogNestedDemo() {
                         <Dialog.Body>
                           <p>Close this one to go back to the first dialog.</p>
                         </Dialog.Body>
-                        <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+                        <Dialog.CloseTrigger />
                       </Dialog.Content>
                     </Dialog.Positioner>
                   </Portal>
@@ -58,7 +58,7 @@ export function DialogNestedDemo() {
               />
               <Button>Publish</Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger asChild={(props) => <CloseButton {...props()} size="sm" />} />
+            <Dialog.CloseTrigger />
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

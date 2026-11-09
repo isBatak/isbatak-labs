@@ -19,8 +19,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "codegen": "panda codegen",
-    "typecheck": "panda codegen && tsc --noEmit"
+    "codegen": "panda codegen && node scripts/reactive-slot-styles.mjs",
+    "typecheck": "pnpm codegen && tsc --noEmit"
   },
   "dependencies": {
     "@ark-ui/solid": "catalog:",

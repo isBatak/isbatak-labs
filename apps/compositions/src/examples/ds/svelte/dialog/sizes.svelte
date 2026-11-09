@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Portal } from "@ark-ui/svelte/portal"
-  import { Button, CloseButton } from "@isbatak/svelte-ui/button"
+  import { Button } from "@isbatak/svelte-ui/button"
   import { Dialog } from "@isbatak/svelte-ui/dialog"
   import { HStack } from "@isbatak/svelte-ui/stack"
 </script>
@@ -30,11 +30,7 @@
             </Dialog.ActionTrigger>
             <Button>Publish</Button>
           </Dialog.Footer>
-          <Dialog.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Dialog.CloseTrigger>
+          <Dialog.CloseTrigger />
         </Dialog.Content>
       </Dialog.Positioner>
     </Portal>
@@ -63,11 +59,7 @@
             </Dialog.ActionTrigger>
             <Button>Publish</Button>
           </Dialog.Footer>
-          <Dialog.CloseTrigger>
-            {#snippet asChild(props)}
-              <CloseButton {...props()} size="sm" />
-            {/snippet}
-          </Dialog.CloseTrigger>
+          <Dialog.CloseTrigger />
         </Dialog.Content>
       </Dialog.Positioner>
     </Portal>

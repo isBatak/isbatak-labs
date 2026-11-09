@@ -1,5 +1,5 @@
 import { Portal } from "@ark-ui/react/portal"
-import { Button, CloseButton } from "@isbatak/react-ui/button"
+import { Button } from "@isbatak/react-ui/button"
 import { Dialog } from "@isbatak/react-ui/dialog"
 
 export function DialogFullDemo() {
@@ -27,9 +27,7 @@ export function DialogFullDemo() {
               </Dialog.ActionTrigger>
               <Button>Publish</Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Dialog.CloseTrigger>
+            <Dialog.CloseTrigger />
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

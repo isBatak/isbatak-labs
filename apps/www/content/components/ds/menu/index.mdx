@@ -15,6 +15,80 @@ Built on Ark UI's Menu. Each item takes a `value`, and `onSelect` on `Menu.Root`
 
 <Usage />
 
+## Examples
+
+### Sizes
+
+Set `size` to `sm` or `md`. The default is `md`.
+
+<Example id="menu/sizes" />
+
+### Variants
+
+Set `variant` to `subtle` or `solid` to change how the highlighted item looks. The default is `subtle`.
+
+<Example id="menu/variants" />
+
+### Icons and commands
+
+Put an `Icon` before `Menu.ItemText` and a `Menu.ItemCommand` after it to show a keyboard shortcut.
+
+<Example id="menu/icons-and-commands" />
+
+### Groups
+
+Wrap items in `Menu.ItemGroup` with a `Menu.ItemGroupLabel` to label a section.
+
+<Example id="menu/groups" />
+
+### Checkbox items
+
+`Menu.CheckboxItem` is always controlled: pass `checked` and `onCheckedChange`, and add `Menu.ItemIndicator` to show a
+check. Set `closeOnSelect={false}` on the root to keep the menu open while toggling.
+
+<Example id="menu/checkbox-items" />
+
+### Radio items
+
+Put `Menu.RadioItem`s in a `Menu.RadioItemGroup` with `value` and `onValueChange` to pick one option.
+
+<Example id="menu/radio-items" />
+
+### Submenu
+
+Nest a `Menu.Root` inside the content and open it with a `Menu.TriggerItem`.
+
+<Example id="menu/submenu" />
+
+### Context menu
+
+Replace the trigger with `Menu.ContextTrigger` to open the menu on right-click, at the pointer.
+
+<Example id="menu/context-menu" />
+
+### Arrow
+
+Add `Menu.Arrow` with a `Menu.ArrowTip` to point at the trigger.
+
+<Example id="menu/arrow" />
+
+### Indicator
+
+Put `Menu.Indicator` in the trigger to show a chevron that turns while the menu is open.
+
+<Example id="menu/indicator" />
+
+### Modal mode
+
+Set `modalMode` to show the menu as a sheet at the bottom of the screen, above a `Menu.Backdrop`. `Menu.CloseTrigger`
+only shows in modal mode.
+
+<Example id="menu/modal-mode" />
+
+## Recipe
+
+<RecipeVariants />
+
 ## API
 
 <Api />
