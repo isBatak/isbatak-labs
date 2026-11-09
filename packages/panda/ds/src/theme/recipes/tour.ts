@@ -23,7 +23,7 @@ export const tourSlotRecipe = defineSlotRecipe({
       "--tour-z-index": "zIndex.popover",
       zIndex: "calc(var(--tour-z-index) + var(--tour-layer))",
       bg: "blackAlpha.500",
-      "&[data-type=tooltip]": {
+      "&:is([data-type=tooltip], [data-type=floating], [data-type=wait])": {
         display: "none",
       },
       _open: {
@@ -53,6 +53,29 @@ export const tourSlotRecipe = defineSlotRecipe({
     },
     positioner: {
       "--tour-z-index": "zIndex.popover",
+      "&:is([data-type=dialog], [data-type=floating])": {
+        position: "fixed",
+        inset: "0",
+        zIndex: "calc(var(--tour-z-index) + var(--tour-layer))",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        p: "4",
+        pointerEvents: "none",
+        "& > *": {
+          pointerEvents: "auto",
+        },
+      },
+      "&[data-type=floating]": {
+        "&[data-placement^=top]": { alignItems: "flex-start" },
+        "&[data-placement^=bottom]": { alignItems: "flex-end" },
+        "&[data-placement^=left]": { justifyContent: "flex-start" },
+        "&[data-placement^=right]": { justifyContent: "flex-end" },
+        "&:is([data-placement=top-start], [data-placement=bottom-start])": { justifyContent: "flex-start" },
+        "&:is([data-placement=top-end], [data-placement=bottom-end])": { justifyContent: "flex-end" },
+        "&:is([data-placement=left-start], [data-placement=right-start])": { alignItems: "flex-start" },
+        "&:is([data-placement=left-end], [data-placement=right-end])": { alignItems: "flex-end" },
+      },
     },
     content: {
       position: "relative",
@@ -63,6 +86,9 @@ export const tourSlotRecipe = defineSlotRecipe({
       bg: "var(--tour-bg)",
       boxShadow: "lg",
       borderRadius: "l3",
+      borderWidth: "1px",
+      "--tour-border-color": "colors.border.muted",
+      borderColor: "var(--tour-border-color)",
       p: "4",
       width: "min(calc(100dvw - 1rem), {sizes.xs})",
       textStyle: "sm",
@@ -83,7 +109,8 @@ export const tourSlotRecipe = defineSlotRecipe({
     },
     arrowTip: {
       borderTopWidth: "1px",
-      borderLeftWidth: "1px",
+      borderInlineStartWidth: "1px",
+      borderColor: "var(--tour-border-color)",
     },
     title: {
       fontWeight: "semibold",
@@ -96,6 +123,7 @@ export const tourSlotRecipe = defineSlotRecipe({
     progressText: {
       color: "fg.subtle",
       textStyle: "xs",
+      me: "auto",
     },
     closeTrigger: {
       position: "absolute",

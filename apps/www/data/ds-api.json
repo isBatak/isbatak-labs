@@ -3241,6 +3241,264 @@
     ],
     "variants": {}
   },
+  "floating-panel": {
+    "parts": [
+      {
+        "name": "FloatingPanel.Root",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "dir": {
+            "type": "\"ltr\" | \"rtl\" | undefined",
+            "description": "The document's text/writing direction.",
+            "defaultValue": "\"ltr\""
+          },
+          "draggable": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel is draggable",
+            "defaultValue": "true"
+          },
+          "position": {
+            "type": "Point | undefined",
+            "description": "The controlled position of the panel"
+          },
+          "size": {
+            "type": "Size | undefined",
+            "description": "The size of the panel"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the floating panel. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel is disabled"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The translations for the floating panel."
+          },
+          "initialFocusEl": {
+            "type": "(() => HTMLElement | null) | null | undefined",
+            "description": "Element to receive focus when the panel is opened.\nBy default, the first focusable element in the content is focused."
+          },
+          "finalFocusEl": {
+            "type": "(() => HTMLElement | null) | undefined",
+            "description": "Element to receive focus when the panel is closed.\nBy default, the trigger element is focused."
+          },
+          "restoreFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to restore focus to the trigger when the panel is closed.",
+            "defaultValue": "true"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel should close when the escape key is pressed"
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the panel is opened or closed"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the panel"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the panel when rendered.\nUse when you don't need to control the open state of the panel.",
+            "defaultValue": "false"
+          },
+          "strategy": {
+            "type": "\"absolute\" | \"fixed\" | undefined",
+            "description": "The strategy to use for positioning",
+            "defaultValue": "\"fixed\""
+          },
+          "allowOverflow": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel should be strictly contained within the boundary when dragging",
+            "defaultValue": "true"
+          },
+          "resizable": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel is resizable",
+            "defaultValue": "true"
+          },
+          "defaultSize": {
+            "type": "Size | undefined",
+            "description": "The default size of the panel"
+          },
+          "minSize": {
+            "type": "Size | undefined",
+            "description": "The minimum size of the panel"
+          },
+          "maxSize": {
+            "type": "Size | undefined",
+            "description": "The maximum size of the panel"
+          },
+          "defaultPosition": {
+            "type": "Point | undefined",
+            "description": "The initial position of the panel when rendered.\nUse when you don't need to control the position of the panel."
+          },
+          "getAnchorPosition": {
+            "type": "((details: AnchorPositionDetails) => Point) | undefined",
+            "description": "Function that returns the initial position of the panel when it is opened.\nIf provided, will be used instead of the default position."
+          },
+          "lockAspectRatio": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel is locked to its aspect ratio"
+          },
+          "getBoundaryEl": {
+            "type": "(() => HTMLElement | null) | undefined",
+            "description": "The boundary of the panel. Useful for recalculating the boundary rect when\nthe it is resized."
+          },
+          "onPositionChange": {
+            "type": "((details: PositionChangeDetails) => void) | undefined",
+            "description": "Function called when the position of the panel changes via dragging"
+          },
+          "onPositionChangeEnd": {
+            "type": "((details: PositionChangeDetails) => void) | undefined",
+            "description": "Function called when the position of the panel changes via dragging ends"
+          },
+          "onSizeChange": {
+            "type": "((details: SizeChangeDetails) => void) | undefined",
+            "description": "Function called when the size of the panel changes via resizing"
+          },
+          "onSizeChangeEnd": {
+            "type": "((details: SizeChangeDetails) => void) | undefined",
+            "description": "Function called when the size of the panel changes via resizing ends"
+          },
+          "persistRect": {
+            "type": "boolean | undefined",
+            "description": "Whether the panel size and position should be preserved when it is closed"
+          },
+          "gridSize": {
+            "type": "number | undefined",
+            "description": "The snap grid for the panel",
+            "defaultValue": "1"
+          },
+          "onStageChange": {
+            "type": "((details: StageChangeDetails) => void) | undefined",
+            "description": "Function called when the stage of the panel changes"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "FloatingPanel.RootProvider",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "value": {
+            "type": "UseFloatingPanelReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "FloatingPanel.StageTrigger",
+        "props": {
+          "stage": {
+            "type": "Stage",
+            "description": "The stage of the panel"
+          }
+        }
+      },
+      {
+        "name": "FloatingPanel.ResizeTrigger",
+        "props": {
+          "placement": {
+            "type": "HandlePosition",
+            "description": "The placement of the resize handle"
+          }
+        }
+      },
+      {
+        "name": "FloatingPanel.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseFloatingPanelContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {
@@ -7299,6 +7557,15 @@
         "props": {
           "action": {
             "type": "StepAction",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Tour.Actions",
+        "props": {
+          "children": {
+            "type": "(actions: StepAction[]) => ReactNode",
             "description": ""
           }
         }
