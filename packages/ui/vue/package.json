@@ -15,8 +15,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "codegen": "panda codegen",
-    "typecheck": "panda codegen && tsc --noEmit"
+    "codegen": "panda codegen && node scripts/forward-model-value.mjs",
+    "typecheck": "pnpm codegen && tsc --noEmit"
   },
   "dependencies": {
     "@ark-ui/vue": "catalog:",

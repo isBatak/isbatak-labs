@@ -3798,17 +3798,13 @@
             "description": "Whether to loop the keyboard navigation.",
             "defaultValue": "false"
           },
-          "triggerValue": {
-            "type": "string | null | undefined",
-            "description": "The controlled trigger value"
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function called when the menu opens or closes"
           },
-          "defaultTriggerValue": {
-            "type": "string | null | undefined",
-            "description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value."
-          },
-          "onTriggerValueChange": {
-            "type": "((details: TriggerValueChangeDetails) => void) | undefined",
-            "description": "Function called when the trigger value changes."
+          "positioning": {
+            "type": "PositioningOptions | undefined",
+            "description": "The options used to dynamically position the menu"
           },
           "open": {
             "type": "boolean | undefined",
@@ -3818,17 +3814,10 @@
             "type": "boolean | undefined",
             "description": "The initial open state of the menu when rendered.\nUse when you don't need to control the open state of the menu."
           },
-          "onOpenChange": {
-            "type": "((details: OpenChangeDetails) => void) | undefined",
-            "description": "Function called when the menu opens or closes"
-          },
-          "onEscapeKeyDown": {
-            "type": "((event: KeyboardEvent) => void) | undefined",
-            "description": "Function called when the escape key is pressed"
-          },
-          "onRequestDismiss": {
-            "type": "((event: LayerDismissEvent) => void) | undefined",
-            "description": "Function called when this layer is closed due to a parent layer being closed"
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the menu when an option is selected",
+            "defaultValue": "true"
           },
           "onPointerDownOutside": {
             "type": "((event: PointerDownOutsideEvent) => void) | undefined",
@@ -3842,21 +3831,41 @@
             "type": "((event: InteractOutsideEvent) => void) | undefined",
             "description": "Function called when an interaction happens outside the component"
           },
-          "positioning": {
-            "type": "PositioningOptions | undefined",
-            "description": "The options used to dynamically position the menu"
-          },
-          "onHighlightChange": {
-            "type": "((details: HighlightChangeDetails) => void) | undefined",
-            "description": "Function called when the highlighted menu item changes."
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item."
           },
           "highlightedValue": {
             "type": "string | null | undefined",
             "description": "The controlled highlighted value of the menu item."
           },
-          "defaultHighlightedValue": {
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails) => void) | undefined",
+            "description": "Function called when the highlighted menu item changes."
+          },
+          "navigate": {
+            "type": "((details: NavigateDetails) => void) | null | undefined",
+            "description": "Function to navigate to the selected item if it's an anchor element"
+          },
+          "triggerValue": {
             "type": "string | null | undefined",
-            "description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item."
+            "description": "The controlled trigger value"
+          },
+          "defaultTriggerValue": {
+            "type": "string | null | undefined",
+            "description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value."
+          },
+          "onTriggerValueChange": {
+            "type": "((details: TriggerValueChangeDetails) => void) | undefined",
+            "description": "Function called when the trigger value changes."
+          },
+          "onEscapeKeyDown": {
+            "type": "((event: KeyboardEvent) => void) | undefined",
+            "description": "Function called when the escape key is pressed"
+          },
+          "onRequestDismiss": {
+            "type": "((event: LayerDismissEvent) => void) | undefined",
+            "description": "Function called when this layer is closed due to a parent layer being closed"
           },
           "typeahead": {
             "type": "boolean | undefined",
@@ -3867,19 +3876,59 @@
             "type": "Point | null | undefined",
             "description": "The positioning point for the menu. Can be set by the context menu trigger or the button trigger."
           },
-          "closeOnSelect": {
-            "type": "boolean | undefined",
-            "description": "Whether to close the menu when an option is selected",
-            "defaultValue": "true"
-          },
           "composite": {
             "type": "boolean | undefined",
             "description": "Whether the menu is a composed with other composite widgets like a combobox or tabs",
             "defaultValue": "true"
           },
-          "navigate": {
-            "type": "((details: NavigateDetails) => void) | null | undefined",
-            "description": "Function to navigate to the selected item if it's an anchor element"
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Menu.RootProvider",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "value": {
+            "type": "UseMenuReturn",
+            "description": ""
           },
           "skipAnimationOnMount": {
             "type": "boolean | undefined",
@@ -3954,6 +4003,69 @@
         }
       },
       {
+        "name": "Menu.CheckboxItem",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The value of the option"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the menu item is disabled"
+          },
+          "checked": {
+            "type": "boolean",
+            "description": "Whether the option is checked"
+          },
+          "onCheckedChange": {
+            "type": "((checked: boolean) => void) | undefined",
+            "description": "Function called when the option state is changed"
+          },
+          "valueText": {
+            "type": "string | undefined",
+            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether the menu should be closed when the option is selected."
+          }
+        }
+      },
+      {
+        "name": "Menu.RadioItemGroup",
+        "props": {
+          "value": {
+            "type": "string | undefined",
+            "description": ""
+          },
+          "onValueChange": {
+            "type": "((e: ValueChangeDetails) => void) | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Menu.RadioItem",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The value of the option"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the menu item is disabled"
+          },
+          "valueText": {
+            "type": "string | undefined",
+            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether the menu should be closed when the option is selected."
+          }
+        }
+      },
+      {
         "name": "Menu.Context",
         "props": {
           "children": {
@@ -3980,6 +4092,9 @@
       "size": {
         "values": ["sm", "md"],
         "defaultValue": "md"
+      },
+      "modalMode": {
+        "values": ["true", "false"]
       }
     }
   },

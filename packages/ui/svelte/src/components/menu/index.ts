@@ -1,10 +1,25 @@
 export {
   MenuRoot,
+  MenuRootProvider,
   MenuTrigger,
+  MenuContextTrigger,
+  MenuIndicator,
+  MenuBackdrop,
   MenuPositioner,
   MenuContent,
+  MenuCloseTrigger,
+  MenuArrow,
+  MenuArrowTip,
   MenuItem,
   MenuItemText,
+  MenuItemCommand,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemIndicator,
+  MenuCheckboxItem,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuTriggerItem,
   MenuSeparator,
   MenuContext,
   MenuItemContext,
@@ -12,17 +27,38 @@ export {
 
 export type {
   MenuRootProps,
+  MenuRootProviderProps,
   MenuTriggerProps,
+  MenuContextTriggerProps,
+  MenuIndicatorProps,
+  MenuBackdropProps,
   MenuPositionerProps,
   MenuContentProps,
+  MenuCloseTriggerProps,
+  MenuArrowProps,
+  MenuArrowTipProps,
   MenuItemProps,
   MenuItemTextProps,
+  MenuItemCommandProps,
+  MenuItemGroupProps,
+  MenuItemGroupLabelProps,
+  MenuItemIndicatorProps,
+  MenuCheckboxItemProps,
+  MenuRadioItemGroupProps,
+  MenuRadioItemProps,
+  MenuTriggerItemProps,
   MenuSeparatorProps,
   MenuContextProps,
   MenuItemContextProps,
 } from "./menu"
 
 export { useMenu, useMenuContext } from "@ark-ui/svelte/menu"
-export type { MenuSelectionDetails, UseMenuProps, UseMenuReturn } from "@ark-ui/svelte/menu"
+export type {
+  MenuSelectionDetails,
+  MenuOpenChangeDetails,
+  MenuValueChangeDetails,
+  UseMenuProps,
+  UseMenuReturn,
+} from "@ark-ui/svelte/menu"
 
 export * as Menu from "./namespace"
