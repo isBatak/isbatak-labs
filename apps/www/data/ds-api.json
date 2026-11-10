@@ -368,6 +368,19 @@
     "parts": [],
     "variants": {}
   },
+  "breadcrumb": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["underline", "plain"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "button": {
     "parts": [
       {
@@ -3574,6 +3587,48 @@
     ],
     "variants": {}
   },
+  "focus-trap": {
+    "parts": [
+      {
+        "name": "FocusTrap",
+        "props": {
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the focus trap is disabled."
+          },
+          "persistentElements": {
+            "type": "Array<() => Element | null> | undefined",
+            "description": "Additional elements to treat as part of the trap, for portalled content\nnot discoverable via `aria-controls`/`aria-expanded` (see `followControlledElements`)."
+          },
+          "onActivate": {
+            "type": "VoidFunction | undefined",
+            "description": "A function that will be called **before** sending focus to the\ntarget element upon activation."
+          },
+          "onDeactivate": {
+            "type": "VoidFunction | undefined",
+            "description": "A function that will be called **before** sending focus to the\ntrigger element upon deactivation."
+          },
+          "initialFocus": {
+            "type": "FocusTargetOrFalse | undefined | VoidFunction",
+            "description": "By default, when a focus trap is activated the first element in the\nfocus trap's tab order will receive focus. With this option you can\nspecify a different element to receive that initial focus, or use `false`\nfor no initially focused element at all.\n\nNOTE: Setting this option to `false` (or a function that returns `false`)\nwill prevent the `fallbackFocus` option from being used.\n\nSetting this option to `undefined` (or a function that returns `undefined`)\nwill result in the default behavior."
+          },
+          "fallbackFocus": {
+            "type": "FocusTarget | undefined",
+            "description": "By default, an error will be thrown if the focus trap contains no\nelements in its tab order. With this option you can specify a\nfallback element to programmatically receive focus if no other\ntabbable elements are found. For example, you may want a popover's\n`<div>` to receive focus if the popover's content includes no\ntabbable elements. *Make sure the fallback element has a negative\n`tabindex` so it can be programmatically focused.\n\nNOTE: If `initialFocus` is `false` (or a function that returns `false`),\nthis function will not be called when the trap is activated, and no element\nwill be initially focused. This function may still be called while the trap\nis active if things change such that there are no longer any tabbable nodes\nin the trap."
+          },
+          "returnFocusOnDeactivate": {
+            "type": "boolean | undefined",
+            "description": "Default: `true`. If `false`, when the trap is deactivated,\nfocus will *not* return to the element that had focus before activation."
+          },
+          "setReturnFocus": {
+            "type": "FocusTargetValueOrFalse | ((nodeFocusedBeforeActivation: HTMLElement | SVGElement) => FocusTargetValueOrFalse) | undefined",
+            "description": "By default, focus trap on deactivation will return to the element\nthat was focused before activation."
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {
@@ -5120,6 +5175,135 @@
       }
     }
   },
+  "pagination": {
+    "parts": [
+      {
+        "name": "Pagination.Root",
+        "props": {
+          "page": {
+            "type": "ConditionalValue<CssAny>",
+            "description": "The controlled active page"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the accordion. Useful for composition."
+          },
+          "type": {
+            "type": "\"button\" | \"link\" | undefined",
+            "description": "The type of the trigger element",
+            "defaultValue": "\"button\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "Total number of data items"
+          },
+          "pageSize": {
+            "type": "number | undefined",
+            "description": "The controlled number of data items per page"
+          },
+          "defaultPageSize": {
+            "type": "number | undefined",
+            "description": "The initial number of data items per page when rendered.\nUse when you don't need to control the page size of the pagination.",
+            "defaultValue": "10"
+          },
+          "siblingCount": {
+            "type": "number | undefined",
+            "description": "Number of pages to show beside active page",
+            "defaultValue": "1"
+          },
+          "boundaryCount": {
+            "type": "number | undefined",
+            "description": "Number of pages to show at the beginning and end",
+            "defaultValue": "1"
+          },
+          "defaultPage": {
+            "type": "number | undefined",
+            "description": "The initial active page when rendered.\nUse when you don't need to control the active page of the pagination.",
+            "defaultValue": "1"
+          },
+          "onPageChange": {
+            "type": "((details: PageChangeDetails) => void) | undefined",
+            "description": "Called when the page number is changed"
+          },
+          "onPageSizeChange": {
+            "type": "((details: PageSizeChangeDetails) => void) | undefined",
+            "description": "Called when the page size is changed"
+          },
+          "getPageUrl": {
+            "type": "((details: PageUrlDetails) => string) | undefined",
+            "description": "Function to generate href attributes for pagination links.\nOnly used when `type` is set to \"link\"."
+          }
+        }
+      },
+      {
+        "name": "Pagination.RootProvider",
+        "props": {
+          "value": {
+            "type": "UsePaginationReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Item",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": ""
+          },
+          "type": {
+            "type": "\"page\"",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Ellipsis",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.PageText",
+        "props": {
+          "format": {
+            "type": "PaginationPageTextFormat | undefined",
+            "description": "How to describe the position: `short` is \"2 / 10\", `compact` is \"2 of 10\", and `long` is \"11 - 20 of 95\".",
+            "defaultValue": "\"compact\""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Context",
+        "props": {
+          "children": {
+            "type": "(context: UsePaginationContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["ghost", "outline", "subtle", "surface"],
+        "defaultValue": "ghost"
+      },
+      "attached": {
+        "values": ["true"]
+      }
+    }
+  },
   "password-input": {
     "parts": [
       {
@@ -5542,6 +5726,70 @@
         "values": ["true", "false"]
       }
     }
+  },
+  "portal": {
+    "parts": [
+      {
+        "name": "Portal",
+        "props": {
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          },
+          "container": {
+            "type": "RefObject<HTMLElement | null> | undefined",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "presence": {
+    "parts": [
+      {
+        "name": "Presence",
+        "props": {
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "prose": {
     "parts": [],
@@ -6718,6 +6966,113 @@
       }
     }
   },
+  "splitter": {
+    "parts": [
+      {
+        "name": "Splitter.Root",
+        "props": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "nonce": {
+            "type": "string | undefined",
+            "description": "The nonce for the injected splitter cursor stylesheet."
+          },
+          "size": {
+            "type": "PanelSize[] | undefined",
+            "description": "The controlled size data of the panels"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the splitter. Useful for composition."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the splitter. Can be `horizontal` or `vertical`",
+            "defaultValue": "\"horizontal\""
+          },
+          "defaultSize": {
+            "type": "PanelSize[] | undefined",
+            "description": "The initial size of the panels when rendered.\nUse when you don't need to control the size of the panels."
+          },
+          "panels": {
+            "type": "PanelData[]",
+            "description": "The size constraints of the panels."
+          },
+          "onResize": {
+            "type": "((details: ResizeDetails) => void) | undefined",
+            "description": "Function called when the splitter is resized."
+          },
+          "onResizeStart": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the splitter resize starts."
+          },
+          "onResizeEnd": {
+            "type": "((details: ResizeEndDetails) => void) | undefined",
+            "description": "Function called when the splitter resize ends."
+          },
+          "keyboardResizeBy": {
+            "type": "number | null | undefined",
+            "description": "The number of pixels to resize the panel by when the keyboard is used."
+          },
+          "onCollapse": {
+            "type": "((details: ExpandCollapseDetails) => void) | undefined",
+            "description": "Function called when a panel is collapsed."
+          },
+          "onExpand": {
+            "type": "((details: ExpandCollapseDetails) => void) | undefined",
+            "description": "Function called when a panel is expanded."
+          },
+          "registry": {
+            "type": "SplitterRegistry | undefined",
+            "description": "The splitter registry to use for multi-drag support.\nWhen provided, enables dragging at the intersection of multiple splitters."
+          }
+        }
+      },
+      {
+        "name": "Splitter.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSplitterReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.Panel",
+        "props": {
+          "id": {
+            "type": "PanelId",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.ResizeTrigger",
+        "props": {
+          "id": {
+            "type": "ResizeTriggerId",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Splitter.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseSplitterContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "stack": {
     "parts": [
       {
@@ -6785,6 +7140,138 @@
       }
     ],
     "variants": {}
+  },
+  "steps": {
+    "parts": [
+      {
+        "name": "Steps.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The custom ids for the stepper elements"
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the stepper",
+            "defaultValue": "\"horizontal\""
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The controlled value of the stepper"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of steps"
+          },
+          "defaultStep": {
+            "type": "number | undefined",
+            "description": "The initial value of the stepper when rendered.\nUse when you don't need to control the value of the stepper."
+          },
+          "onStepChange": {
+            "type": "((details: StepChangeDetails) => void) | undefined",
+            "description": "Callback to be called when the value changes"
+          },
+          "onStepComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Callback to be called when a step is completed"
+          },
+          "linear": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the stepper requires the user to complete the steps in order"
+          },
+          "isStepValid": {
+            "type": "((index: number) => boolean) | undefined",
+            "description": "Whether a step is valid. Invalid steps block forward navigation in linear mode.",
+            "defaultValue": "() => true"
+          },
+          "isStepSkippable": {
+            "type": "((index: number) => boolean) | undefined",
+            "description": "Whether a step can be skipped during navigation.\nSkippable steps are bypassed when using next/prev.",
+            "defaultValue": "() => false"
+          },
+          "onStepInvalid": {
+            "type": "((details: StepInvalidDetails) => void) | undefined",
+            "description": "Called when navigation is blocked due to an invalid step."
+          }
+        }
+      },
+      {
+        "name": "Steps.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseStepsReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Item",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Status",
+        "props": {
+          "complete": {
+            "type": "ReactNode",
+            "description": ""
+          },
+          "incomplete": {
+            "type": "ReactNode",
+            "description": ""
+          },
+          "current": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Content",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseStepsContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseStepsItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "horizontal"
+      },
+      "variant": {
+        "values": ["solid", "subtle"],
+        "defaultValue": "solid"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
   },
   "sticky": {
     "parts": [],

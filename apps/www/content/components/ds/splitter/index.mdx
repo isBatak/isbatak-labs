@@ -1,0 +1,73 @@
+---
+title: Splitter
+description: Split an area into panels that people resize by dragging the handle between them.
+category: Disclosure
+links:
+  source: packages/ui/react/src/components/splitter
+  recipe: packages/panda/ds/src/theme/recipes/splitter.ts
+  ark: https://ark-ui.com/docs/components/splitter
+---
+
+Built on Ark UI's Splitter. List the panels in `panels`, give each `Splitter.Panel` the matching `id`, and put a
+`Splitter.ResizeTrigger` between two panels with an `id` of `"<before>:<after>"`. Sizes are percentages. With no
+children, `Splitter.ResizeTrigger` shows a separator line and a handle that grows while it's focused or dragged.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Splitter.Root panels={[{ id: "a" }, { id: "b" }]} defaultSize={[50, 50]}>
+  <Splitter.Panel id="a" />
+  <Splitter.ResizeTrigger id="a:b" />
+  <Splitter.Panel id="b" />
+</Splitter.Root>
+```
+
+## Examples
+
+### Vertical
+
+Set `orientation` to `vertical` to stack the panels.
+
+<Example id="splitter/vertical" />
+
+### Multiple panels
+
+Add a `Splitter.ResizeTrigger` between each pair of panels.
+
+<Example id="splitter/multiple-panels" />
+
+### Min and max size
+
+Set `minSize` and `maxSize` on a panel to limit how far it resizes.
+
+<Example id="splitter/min-max-size" />
+
+### Collapsible
+
+Set `collapsible` and `collapsedSize` on a panel to let it snap closed when dragged below its `minSize`.
+
+<Example id="splitter/collapsible" />
+
+### Nested
+
+Put a `Splitter.Root` inside a panel to split it again, here in the other direction.
+
+<Example id="splitter/nested" />
+
+### Controlled
+
+Pass `size` and `onResize` to read or set the panel sizes.
+
+<Example id="splitter/controlled" />
+
+### Disabled
+
+Set `disabled` on a `Splitter.ResizeTrigger` to stop that handle from resizing.
+
+<Example id="splitter/disabled" />
+
+## API
+
+<Api />

@@ -21,12 +21,22 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       position: "relative",
       display: "flex",
       alignItems: "center",
+      _vertical: {
+        alignItems: "flex-start",
+      },
     },
     list: {
       display: "flex",
       alignItems: "center",
       gap: "1",
       isolation: "isolate",
+      _vertical: {
+        flexDirection: "column",
+        alignItems: "stretch",
+      },
+    },
+    item: {
+      position: "relative",
     },
     indicator: {
       zIndex: "-1",
@@ -36,7 +46,7 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       height: "var(--trigger-height)",
       borderRadius: "l2",
       bg: "bg.muted",
-      transitionProperty: "left, width",
+      transitionProperty: "left, width, top, height",
       transitionDuration: "moderate",
       transitionTimingFunction: "ease-in-smooth",
       _open: { animationName: "fade-in", animationDuration: "fast" },
@@ -59,6 +69,10 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       transitionDuration: "fast",
       _hover: { color: "fg" },
       _open: { color: "fg", _icon: { rotate: "180deg" } },
+      "[data-orientation=vertical] &": {
+        justifyContent: "space-between",
+        _open: { _icon: { rotate: "0deg" } },
+      },
       _current: { color: "fg" },
       _focusVisible: {
         outline: "2px solid",
@@ -76,12 +90,34 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
     },
     content: {
       position: "absolute",
-      top: "0",
+      top: "100%",
       left: "0",
+      zIndex: "dropdown",
+      mt: "3",
       display: "flex",
       flexDirection: "column",
       gap: "0.5",
       p: "2",
+      bg: "bg.panel",
+      borderWidth: "1px",
+      borderRadius: "l3",
+      boxShadow: "lg",
+      _vertical: {
+        top: "0",
+        left: "100%",
+        mt: "0",
+        ms: "3",
+      },
+      "[data-slot=viewport] &": {
+        top: "0",
+        left: "0",
+        mt: "0",
+        ms: "0",
+        bg: "transparent",
+        borderWidth: "0",
+        borderRadius: "0",
+        boxShadow: "none",
+      },
       _open: {
         animationName: "fade-in, slide-from-bottom",
         animationDuration: "moderate",
@@ -110,6 +146,14 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
         outline: "2px solid",
         outlineColor: "colorPalette.focusRing",
       },
+      "[data-slot=content] &": {
+        display: "flex",
+        w: "full",
+        color: "fg",
+        transitionProperty: "background",
+        _hover: { bg: "bg.muted" },
+        _currentPage: { bg: "bg.muted" },
+      },
     },
     viewportPositioner: {
       position: "absolute",
@@ -117,6 +161,12 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       left: "0",
       zIndex: "dropdown",
       pt: "3",
+      _vertical: {
+        top: "0",
+        left: "100%",
+        pt: "0",
+        ps: "3",
+      },
     },
     viewport: {
       position: "relative",
@@ -124,6 +174,10 @@ export const navigationMenuSlotRecipe = defineSlotRecipe({
       height: "var(--viewport-height)",
       transform: "translateX(var(--viewport-x))",
       transformOrigin: "top center",
+      _vertical: {
+        transform: "translateY(var(--viewport-y))",
+        transformOrigin: "left center",
+      },
       overflow: "hidden",
       bg: "bg.panel",
       borderWidth: "1px",

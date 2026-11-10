@@ -1,0 +1,29 @@
+---
+title: Focus trap
+description: Keep keyboard focus inside a region until it's released.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/focus-trap
+  ark: https://ark-ui.com/docs/utilities/focus-trap
+---
+
+Ark UI's FocusTrap keeps Tab and Shift+Tab cycling through the focusable elements inside it. Dialog and Drawer trap
+focus on their own; use `FocusTrap` for custom regions that need the same. It has no styles.
+
+Set `disabled` to release the trap. When it's released, focus goes back to the element that had it before, unless
+`returnFocusOnDeactivate` is `false`. Pass `initialFocus` to choose which element gets focus first.
+
+## Usage
+
+<Usage />
+
+```tsx
+<FocusTrap disabled={!trapped}>
+  <input />
+  <button />
+</FocusTrap>
+```
+
+## API
+
+<Api />

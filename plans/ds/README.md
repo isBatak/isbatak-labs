@@ -148,23 +148,22 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] toast
 - [x] action-bar
 - [x] tour
-- [ ] portal — has: solid (lazy, so nested overlays stay visible to screen readers)
-- [ ] presence
-- [ ] focus-trap
+- [x] portal
+- [x] presence
+- [x] focus-trap
 
 ## Disclosure and navigation
 
-- [ ] accordion — has: recipe react vue svelte solid docs
+- [x] accordion
 - [x] collapsible
-- [ ] tabs — has: recipe react vue svelte solid docs
-- [ ] steps — has: recipe
-- [ ] breadcrumb — has: recipe react (React added early for the docs breadcrumb; audit, other frameworks, demos and docs
-      pending)
-- [ ] pagination
-- [ ] navigation-menu — has: recipe react docs
-- [ ] toc — has: recipe react docs
+- [x] tabs
+- [x] steps
+- [x] breadcrumb
+- [x] pagination
+- [x] navigation-menu
+- [x] toc
 - [ ] skip-nav — has: recipe (skip-nav-link)
-- [ ] splitter — has: recipe
+- [x] splitter
 - [ ] scroll-area — has: recipe
 - [ ] carousel — has: recipe
 - [ ] tree-view — has: recipe

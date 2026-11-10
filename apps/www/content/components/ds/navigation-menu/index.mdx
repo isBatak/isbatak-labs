@@ -35,13 +35,44 @@ slides between triggers. The header of this site is one.
 </NavigationMenu.Root>
 ```
 
-`NavigationMenu.Link` is styled as a top-level link that sits beside the triggers. Links inside the content are yours to
-lay out and style: use your router's link or a plain anchor.
+`NavigationMenu.Link` is styled as a top-level link beside the triggers, and as a full-width row inside
+`NavigationMenu.Content`. For richer menu items, lay out your own links: use your router's link or a plain anchor.
 
 Give `NavigationMenu.Content` a width. The viewport measures it and resizes to match when you move between menus.
 
+## Examples
+
+### Without viewport
+
+Leave out `NavigationMenu.ViewportPositioner` and each `NavigationMenu.Content` opens as its own panel under its
+trigger.
+
+<Example id="navigation-menu/without-viewport" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to read or set which menu is open. An empty string means none.
+
+<Example id="navigation-menu/controlled" />
+
+### Current link
+
 Set `current` on a link to mark the page you are on. A trigger takes the current color with `data-current` or
 `aria-current="true"`, for example when one of its links is the current page.
+
+<Example id="navigation-menu/current-link" />
+
+### Vertical
+
+Set `orientation="vertical"` to stack the triggers. Menus open to the side, and the arrow keys follow the orientation.
+
+<Example id="navigation-menu/vertical" />
+
+### Open on click
+
+Set `disableHoverTrigger` so menus open only on click, not on hover.
+
+<Example id="navigation-menu/open-on-click" />
 
 ## API
 
