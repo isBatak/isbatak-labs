@@ -5,6 +5,15 @@ export const collapsibleSlotRecipe = defineSlotRecipe({
   className: "collapsible",
   description: "Single section that expands and collapses",
   base: {
+    indicator: {
+      display: "inline-flex",
+      transitionProperty: "rotate",
+      transitionDuration: "moderate",
+      transformOrigin: "center",
+      _open: {
+        rotate: "180deg",
+      },
+    },
     content: {
       overflow: "hidden",
       _open: {
