@@ -1,0 +1,81 @@
+---
+title: Breadcrumb
+description: Show where the current page sits in the site's hierarchy, with links back up the trail.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/breadcrumb
+  recipe: packages/panda/ds/src/theme/recipes/breadcrumb.ts
+---
+
+A `nav` labelled "Breadcrumb" around an ordered list. `Breadcrumb.CurrentLink` marks the current page with
+`aria-current="page"`. With no children, `Breadcrumb.Separator` shows a chevron and `Breadcrumb.Ellipsis` shows three
+dots; both are hidden from screen readers.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Breadcrumb.Root>
+  <Breadcrumb.List>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href="/docs" />
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+      <Breadcrumb.CurrentLink />
+    </Breadcrumb.Item>
+  </Breadcrumb.List>
+</Breadcrumb.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm`, `md` or `lg` to change the text size and the gap between items. The default is `md`.
+
+<Example id="breadcrumb/sizes" />
+
+### Variants
+
+Set `variant` to `plain` or `underline`. The default is `plain`.
+
+<Example id="breadcrumb/variants" />
+
+### Separator
+
+Pass children to `Breadcrumb.Separator` to replace the chevron, here with a slash.
+
+<Example id="breadcrumb/separator" />
+
+### Icon
+
+Put an `Icon` next to a link's text.
+
+<Example id="breadcrumb/icon" />
+
+### Ellipsis
+
+Use `Breadcrumb.Ellipsis` in place of items you leave out of a long trail.
+
+<Example id="breadcrumb/ellipsis" />
+
+### Menu
+
+Put a `Menu` inside an item to let people jump to a sibling page.
+
+<Example id="breadcrumb/menu" />
+
+### Router links
+
+Pass `asChild` to `Breadcrumb.Link` to render your router's link, such as Next.js's `Link`, with the breadcrumb's
+styles.
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
