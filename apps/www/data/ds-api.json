@@ -368,6 +368,19 @@
     "parts": [],
     "variants": {}
   },
+  "breadcrumb": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["underline", "plain"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "button": {
     "parts": [
       {
