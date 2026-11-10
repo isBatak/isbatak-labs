@@ -159,7 +159,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] tabs
 - [x] steps
 - [x] breadcrumb
-- [ ] pagination
+- [x] pagination
 - [ ] navigation-menu — has: recipe react docs
 - [ ] toc — has: recipe react docs
 - [ ] skip-nav — has: recipe (skip-nav-link)
