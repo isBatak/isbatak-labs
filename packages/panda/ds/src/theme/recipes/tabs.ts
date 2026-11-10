@@ -40,6 +40,9 @@ export const tabsSlotRecipe = defineSlotRecipe({
       ...segmentItem,
       outline: "0",
       cursor: "button",
+      _icon: {
+        flexShrink: "0",
+      },
       _focusVisible: {
         zIndex: 1,
         outline: "2px solid",
@@ -83,35 +86,50 @@ export const tabsSlotRecipe = defineSlotRecipe({
           ...segmentSizes["2xs"].root,
           "--tabs-content-padding": "spacing.2",
         }),
-        trigger: segmentSizes["2xs"].item,
+        trigger: defineStyles({
+          ...segmentSizes["2xs"].item,
+          _icon: { width: "3", height: "3" },
+        }),
       },
       xs: {
         root: defineStyles({
           ...segmentSizes.xs.root,
           "--tabs-content-padding": "spacing.2.5",
         }),
-        trigger: segmentSizes.xs.item,
+        trigger: defineStyles({
+          ...segmentSizes.xs.item,
+          _icon: { width: "3.5", height: "3.5" },
+        }),
       },
       sm: {
         root: defineStyles({
           ...segmentSizes.sm.root,
           "--tabs-content-padding": "spacing.3",
         }),
-        trigger: segmentSizes.sm.item,
+        trigger: defineStyles({
+          ...segmentSizes.sm.item,
+          _icon: { width: "4", height: "4" },
+        }),
       },
       md: {
         root: defineStyles({
           ...segmentSizes.md.root,
           "--tabs-content-padding": "spacing.4",
         }),
-        trigger: segmentSizes.md.item,
+        trigger: defineStyles({
+          ...segmentSizes.md.item,
+          _icon: { width: "4", height: "4" },
+        }),
       },
       lg: {
         root: defineStyles({
           ...segmentSizes.lg.root,
           "--tabs-content-padding": "spacing.4.5",
         }),
-        trigger: segmentSizes.lg.item,
+        trigger: defineStyles({
+          ...segmentSizes.lg.item,
+          _icon: { width: "5", height: "5" },
+        }),
       },
     },
     variant: {
