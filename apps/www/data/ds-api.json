@@ -6188,6 +6188,59 @@
       }
     }
   },
+  "scroll-area": {
+    "parts": [
+      {
+        "name": "ScrollArea.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds",
+            "description": "The ids of the scroll area elements"
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseScrollAreaReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.Scrollbar",
+        "props": {
+          "orientation": {
+            "type": "Orientation",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseScrollAreaContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["hover", "always"],
+        "defaultValue": "hover"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "shadowOverflow": {
+        "values": ["true", "false"]
+      }
+    }
+  },
   "search-input": {
     "parts": [
       {

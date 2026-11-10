@@ -14,3 +14,21 @@
   to `#skip-nav`.
 - Note for next: none of the touched packages have a `test` script, so `pnpm test` is a no-op here.
 
+
+## scroll-area (done, 2026-11-10)
+
+- Recipe: kept the existing Chakra-shaped API (`variant: hover | always`, sizes `xs`–`lg`) and look (gray
+  `colorPalette.solid/10` track, `/25` thumb). Ported tl-ds's `shadowOverflow` boolean variant (mask fade on the edges
+  not at the scroll start/end, vertical-only or horizontal-only overflow). Default is `false`, not tl-ds's `true`, so
+  existing scroll areas don't change. Gradient rewritten with `black`/`transparent` (no hex) and without tl-ds's
+  `@property` registrations, which only matter for transitions. tl-ds's `showScrollbar` was skipped: it duplicates
+  `variant="always"`. Same variant added to the analog override (which had no `description`; left as is).
+- Components: `ScrollArea.Scrollbar` defaults its children to `ScrollArea.Thumb` (tl-ds). Svelte has no bindables
+  beyond `ref`. Exports the zag `ScrollToDetails`/`ScrollToEdge`/`ScrollToEdgeDetails` types.
+- Demos: usage, horizontal, both-directions, sizes, variants, scroll-shadow (uses `shadowOverflow` instead of Chakra's
+  inline mask CSS), thumb-styling, scroll-to-edge (Chakra's "scroll to side"), scroll-to-position. Skipped Chakra's
+  virtualization, stick-to-bottom (extra deps), with-menu, rtl and with-store (same as scroll-to-*). Lorem text and
+  boxes are written inline; heights use size tokens (`36` for Chakra's 8.5rem, `2xl` for 40rem).
+- Storybook check (all four): scrollbar hidden until hover with `hover`, visible with `always`; sizes 4/6/8/12px;
+  shadow mask switches from 0px to 4rem at the top after scrolling; scrollToEdge and scrollTo work.
+- `ds-api.json`: the generator drops `defaultValue` for boolean variants, so `shadowOverflow` shows no default.
