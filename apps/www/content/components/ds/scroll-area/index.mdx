@@ -1,0 +1,87 @@
+---
+title: Scroll area
+description: A scroll container with custom scrollbars that match the rest of the interface.
+category: Layout
+links:
+  source: packages/ui/react/src/components/scroll-area
+  recipe: packages/panda/ds/src/theme/recipes/scroll-area.ts
+  ark: https://ark-ui.com/docs/components/scroll-area
+---
+
+Built on Ark UI's Scroll Area. Give `ScrollArea.Root` a height or width, put the content in `ScrollArea.Viewport` and
+`ScrollArea.Content`, and add a `ScrollArea.Scrollbar` for each direction that scrolls. With no children,
+`ScrollArea.Scrollbar` renders its `ScrollArea.Thumb`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ScrollArea.Root>
+  <ScrollArea.Viewport>
+    <ScrollArea.Content />
+  </ScrollArea.Viewport>
+  <ScrollArea.Scrollbar>
+    <ScrollArea.Thumb />
+  </ScrollArea.Scrollbar>
+  <ScrollArea.Corner />
+</ScrollArea.Root>
+```
+
+## Examples
+
+### Horizontal
+
+Set `orientation="horizontal"` on the scrollbar for content that scrolls sideways.
+
+<Example id="scroll-area/horizontal" />
+
+### Both directions
+
+Add a horizontal and a vertical scrollbar. `ScrollArea.Corner` fills the gap where they meet.
+
+<Example id="scroll-area/both-directions" />
+
+### Sizes
+
+Use `size` to change the scrollbar thickness.
+
+<Example id="scroll-area/sizes" />
+
+### Variants
+
+`hover` shows the scrollbar while the pointer is over the area or it's scrolling. `always` keeps it visible.
+
+<Example id="scroll-area/variants" />
+
+### Scroll shadow
+
+Set `shadowOverflow` to fade the edges that have more content scrolled out of view.
+
+<Example id="scroll-area/scroll-shadow" />
+
+### Thumb styling
+
+Style `ScrollArea.Scrollbar` and `ScrollArea.Thumb` directly to change their colors.
+
+<Example id="scroll-area/thumb-styling" />
+
+### Scroll to an edge
+
+Create the state with `useScrollArea`, pass it to `ScrollArea.RootProvider`, and call `scrollToEdge`.
+
+<Example id="scroll-area/scroll-to-edge" />
+
+### Scroll to a position
+
+Call `scrollTo` with a `top` or `left` offset in pixels.
+
+<Example id="scroll-area/scroll-to-position" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
