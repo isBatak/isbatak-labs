@@ -1,0 +1,92 @@
+---
+title: Steps
+description: Show progress through a sequence of steps, such as a checkout or onboarding flow.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/steps
+  recipe: packages/panda/ds/src/theme/recipes/steps.ts
+  ark: https://ark-ui.com/docs/components/steps
+---
+
+Built on Ark UI's Steps. Set `count` on the root, give each `Steps.Item` and `Steps.Content` its `index`, and move
+between steps with `Steps.PrevTrigger` and `Steps.NextTrigger`. With no children, `Steps.Indicator` shows the step's
+number, then a check once the step is complete.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Steps.Root count={3}>
+  <Steps.List>
+    <Steps.Item index={0}>
+      <Steps.Indicator />
+      <Steps.Title />
+      <Steps.Separator />
+    </Steps.Item>
+  </Steps.List>
+  <Steps.Content index={0} />
+  <Steps.CompletedContent />
+  <Steps.PrevTrigger />
+  <Steps.NextTrigger />
+</Steps.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="steps/sizes" />
+
+### Variants
+
+Set `variant` to `solid` or `subtle`. The default is `solid`.
+
+<Example id="steps/variants" />
+
+### Colors
+
+Set `colorPalette` to color the current and completed steps.
+
+<Example id="steps/colors" />
+
+### Vertical
+
+Set `orientation` to `vertical` to stack the steps.
+
+<Example id="steps/vertical" />
+
+### Controlled
+
+Pass `step` and `onStepChange` to drive the current step from your own state.
+
+<Example id="steps/controlled" />
+
+### Icon
+
+Pass children to `Steps.Indicator` to show an icon instead of the step number. `Steps.Status` picks what to show for
+complete, current and incomplete steps.
+
+<Example id="steps/icon" />
+
+### Description
+
+Add `Steps.Description` under the title.
+
+<Example id="steps/description" />
+
+### Trigger
+
+Wrap the indicator and title in `Steps.Trigger` to let people jump to a step by clicking it.
+
+<Example id="steps/trigger" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
