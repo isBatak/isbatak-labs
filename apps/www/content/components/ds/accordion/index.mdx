@@ -9,11 +9,74 @@ links:
 ---
 
 Built on Ark UI's Accordion. Set `multiple` to keep several items open, and `collapsible` to let the open item close.
-`Accordion.ItemBody` adds the padding inside the animated content.
+`Accordion.ItemBody` adds the padding inside the animated content. With no children, `Accordion.ItemIndicator` shows a
+chevron that turns when the item opens.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Accordion.Root>
+  <Accordion.Item value="a">
+    <Accordion.ItemTrigger>
+      Title
+      <Accordion.ItemIndicator />
+    </Accordion.ItemTrigger>
+    <Accordion.ItemContent>
+      <Accordion.ItemBody />
+    </Accordion.ItemContent>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm`, `md` or `lg` to change the padding and text size. The default is `md`.
+
+<Example id="accordion/sizes" />
+
+### Variants
+
+Set `variant` to `outline`, `subtle`, `enclosed` or `plain`. The default is `outline`.
+
+<Example id="accordion/variants" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to read or set which items are open.
+
+<Example id="accordion/controlled" />
+
+### Multiple
+
+Set `multiple` to let several items stay open at once.
+
+<Example id="accordion/multiple" />
+
+### Disabled item
+
+Set `disabled` on an item to stop it opening or closing.
+
+<Example id="accordion/disabled-item" />
+
+### With icon
+
+Put an `Icon` before the title in `Accordion.ItemTrigger`.
+
+<Example id="accordion/with-icon" />
+
+### With subtext
+
+Stack a title and a muted line of subtext inside the trigger.
+
+<Example id="accordion/with-subtext" />
+
+## Recipe
+
+<RecipeVariants />
 
 ## API
 
