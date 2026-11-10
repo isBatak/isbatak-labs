@@ -8,11 +8,90 @@ links:
   ark: https://ark-ui.com/docs/components/tabs
 ---
 
-Built on Ark UI's Tabs. `Tabs.Indicator` moves to the selected trigger, and `variant` changes the style.
+Built on Ark UI's Tabs. `Tabs.Indicator` moves to the selected trigger, and `variant` changes the style. Tabs shares its
+sizes and variants with Segment Group, so the two line up when they sit side by side.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Tabs.Root defaultValue="projects">
+  <Tabs.List>
+    <Tabs.Trigger value="projects" />
+    <Tabs.Indicator />
+  </Tabs.List>
+  <Tabs.Content value="projects" />
+</Tabs.Root>
+```
+
+## Examples
+
+### Variants
+
+Set `variant` to `line`, `subtle`, `enclosed`, `outline`, `plain` or `folder`. The default is `line`.
+
+<Example id="tabs/variants" />
+
+### Sizes
+
+Set `size` to `2xs`, `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="tabs/sizes" />
+
+### Icons
+
+Put an `Icon` before the label in `Tabs.Trigger`. It's sized to match the tab.
+
+<Example id="tabs/icons" />
+
+### Fitted
+
+Set `fitted` to stretch the triggers across the full width of the list.
+
+<Example id="tabs/fitted" />
+
+### Justify
+
+Set `justify` to `start`, `center` or `end` to align the triggers in the list.
+
+<Example id="tabs/justify" />
+
+### Vertical
+
+Set `orientation` to `vertical` to stack the triggers beside the content.
+
+<Example id="tabs/vertical" />
+
+### Disabled tab
+
+Set `disabled` on a `Tabs.Trigger` so it can't be selected.
+
+<Example id="tabs/disabled" />
+
+### Controlled
+
+Pass `value` and `onValueChange` to select tabs from your own state.
+
+<Example id="tabs/controlled" />
+
+### Manual activation
+
+By default, moving focus with the arrow keys selects a tab. Set `activationMode` to `manual` so a tab is only selected
+when you press Enter or Space.
+
+<Example id="tabs/manual-activation" />
+
+### Lazy mount
+
+Set `lazyMount` to render a panel only when its tab is first selected, and `unmountOnExit` to remove it again when
+another tab is selected.
+
+<Example id="tabs/lazy-mount" />
+
+## Recipe
+
+<RecipeVariants />
 
 ## API
 
