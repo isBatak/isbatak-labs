@@ -6711,6 +6711,138 @@
     ],
     "variants": {}
   },
+  "steps": {
+    "parts": [
+      {
+        "name": "Steps.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The custom ids for the stepper elements"
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the stepper",
+            "defaultValue": "\"horizontal\""
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The controlled value of the stepper"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of steps"
+          },
+          "defaultStep": {
+            "type": "number | undefined",
+            "description": "The initial value of the stepper when rendered.\nUse when you don't need to control the value of the stepper."
+          },
+          "onStepChange": {
+            "type": "((details: StepChangeDetails) => void) | undefined",
+            "description": "Callback to be called when the value changes"
+          },
+          "onStepComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Callback to be called when a step is completed"
+          },
+          "linear": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the stepper requires the user to complete the steps in order"
+          },
+          "isStepValid": {
+            "type": "((index: number) => boolean) | undefined",
+            "description": "Whether a step is valid. Invalid steps block forward navigation in linear mode.",
+            "defaultValue": "() => true"
+          },
+          "isStepSkippable": {
+            "type": "((index: number) => boolean) | undefined",
+            "description": "Whether a step can be skipped during navigation.\nSkippable steps are bypassed when using next/prev.",
+            "defaultValue": "() => false"
+          },
+          "onStepInvalid": {
+            "type": "((details: StepInvalidDetails) => void) | undefined",
+            "description": "Called when navigation is blocked due to an invalid step."
+          }
+        }
+      },
+      {
+        "name": "Steps.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseStepsReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Item",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Status",
+        "props": {
+          "complete": {
+            "type": "ReactNode",
+            "description": ""
+          },
+          "incomplete": {
+            "type": "ReactNode",
+            "description": ""
+          },
+          "current": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Content",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseStepsContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Steps.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseStepsItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "horizontal"
+      },
+      "variant": {
+        "values": ["solid", "subtle"],
+        "defaultValue": "solid"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "sticky": {
     "parts": [],
     "variants": {}
