@@ -163,7 +163,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] navigation-menu
 - [x] toc
 - [ ] skip-nav — has: recipe (skip-nav-link)
-- [ ] splitter — has: recipe
+- [x] splitter
 - [ ] scroll-area — has: recipe
 - [ ] carousel — has: recipe
 - [ ] tree-view — has: recipe
