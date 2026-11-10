@@ -6749,6 +6749,21 @@
     ],
     "variants": {}
   },
+  "skip-nav": {
+    "parts": [
+      {
+        "name": "SkipNavLink",
+        "props": {
+          "id": {
+            "type": "string | undefined",
+            "description": "The id of the `SkipNavContent` the link jumps to.",
+            "defaultValue": "\"skip-nav\""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "slider": {
     "parts": [
       {

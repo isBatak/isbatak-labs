@@ -162,7 +162,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] pagination
 - [x] navigation-menu
 - [x] toc
-- [ ] skip-nav — has: recipe (skip-nav-link)
+- [x] skip-nav — has: recipe (skip-nav-link)
 - [x] splitter
 - [ ] scroll-area — has: recipe
 - [ ] carousel — has: recipe
