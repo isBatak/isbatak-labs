@@ -1,0 +1,29 @@
+---
+title: Presence
+description: Mount and unmount content with enter and exit animations.
+category: Overlays
+links:
+  source: packages/ui/react/src/components/presence
+  ark: https://ark-ui.com/docs/utilities/presence
+---
+
+Ark UI's Presence keeps an element in the page until its exit animation ends, then hides or removes it. It sets
+`data-state="open"` or `"closed"`, so `_open` and `_closed` styles can animate it. Overlays use it for their content and
+backdrop. It has no styles.
+
+Set `lazyMount` to render nothing until the first time it's present, and `unmountOnExit` to remove it again once it
+closes.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Presence present={open} lazyMount unmountOnExit className={css({ _open: {}, _closed: {} })}>
+  Content
+</Presence>
+```
+
+## API
+
+<Api />

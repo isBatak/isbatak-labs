@@ -148,9 +148,9 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] toast
 - [x] action-bar
 - [x] tour
-- [ ] portal — has: solid (lazy, so nested overlays stay visible to screen readers)
-- [ ] presence
-- [ ] focus-trap
+- [x] portal
+- [x] presence
+- [x] focus-trap
 
 ## Disclosure and navigation
 
