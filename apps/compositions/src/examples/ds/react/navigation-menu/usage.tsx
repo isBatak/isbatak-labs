@@ -1,28 +1,11 @@
-import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
-import { styled } from "styled-system/jsx"
-
 import { Icon } from "@isbatak/react-ui/icon"
-
-const ContentLink = styled("a", {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5",
-    px: "3",
-    py: "2.5",
-    borderRadius: "l2",
-    transitionProperty: "background",
-    transitionDuration: "fast",
-    _hover: { bg: "bg.muted" },
-    _focusVisible: { bg: "bg.muted" },
-    _currentPage: { bg: "bg.muted" },
-  },
-})
+import { NavigationMenu } from "@isbatak/react-ui/navigation-menu"
+import { Stack } from "styled-system/jsx"
 
 export function NavigationMenuDemo() {
   return (
-    <styled.div alignSelf="start" h="64" pt="6">
-      <NavigationMenu.Root aria-label="Product">
+    <Stack h="64" alignItems="flex-start">
+      <NavigationMenu.Root aria-label="Main">
         <NavigationMenu.List>
           <NavigationMenu.Indicator />
           <NavigationMenu.Item value="product">
@@ -31,22 +14,9 @@ export function NavigationMenuDemo() {
               <Icon name="chevron-down" />
             </NavigationMenu.Trigger>
             <NavigationMenu.Content w="xs">
-              <ContentLink href="#analytics">
-                <styled.span textStyle="sm" fontWeight="medium">
-                  Analytics
-                </styled.span>
-                <styled.span textStyle="xs" color="fg.muted">
-                  See how visitors find and use your site.
-                </styled.span>
-              </ContentLink>
-              <ContentLink href="#automations">
-                <styled.span textStyle="sm" fontWeight="medium">
-                  Automations
-                </styled.span>
-                <styled.span textStyle="xs" color="fg.muted">
-                  Run tasks when something changes.
-                </styled.span>
-              </ContentLink>
+              <NavigationMenu.Link href="#analytics">Analytics</NavigationMenu.Link>
+              <NavigationMenu.Link href="#automations">Automations</NavigationMenu.Link>
+              <NavigationMenu.Link href="#reports">Reports</NavigationMenu.Link>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item value="resources">
@@ -55,22 +25,9 @@ export function NavigationMenuDemo() {
               <Icon name="chevron-down" />
             </NavigationMenu.Trigger>
             <NavigationMenu.Content w="xs">
-              <ContentLink href="#docs">
-                <styled.span textStyle="sm" fontWeight="medium">
-                  Documentation
-                </styled.span>
-                <styled.span textStyle="xs" color="fg.muted">
-                  Guides and API reference.
-                </styled.span>
-              </ContentLink>
-              <ContentLink href="#changelog">
-                <styled.span textStyle="sm" fontWeight="medium">
-                  Changelog
-                </styled.span>
-                <styled.span textStyle="xs" color="fg.muted">
-                  What shipped this month.
-                </styled.span>
-              </ContentLink>
+              <NavigationMenu.Link href="#docs">Documentation</NavigationMenu.Link>
+              <NavigationMenu.Link href="#guides">Guides</NavigationMenu.Link>
+              <NavigationMenu.Link href="#changelog">Changelog</NavigationMenu.Link>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item value="pricing">
@@ -81,6 +38,6 @@ export function NavigationMenuDemo() {
           <NavigationMenu.Viewport />
         </NavigationMenu.ViewportPositioner>
       </NavigationMenu.Root>
-    </styled.div>
+    </Stack>
   )
 }
