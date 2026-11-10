@@ -5,6 +5,8 @@ import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { breadcrumb } from "@isbatak/panda-ds/recipes"
 
+import { Icon } from "../icon/icon"
+
 const { withProvider, withContext } = createSlotRecipeContext(breadcrumb)
 
 export const BreadcrumbRoot = withProvider(ark.nav, "root", {
@@ -26,12 +28,20 @@ export const BreadcrumbCurrentLink = withContext(ark.span, "currentLink", {
 })
 export type BreadcrumbCurrentLinkProps = ComponentProps<typeof BreadcrumbCurrentLink>
 
-export const BreadcrumbSeparator = withContext(ark.li, "separator", {
+const StyledBreadcrumbSeparator = withContext(ark.li, "separator", {
   defaultProps: { role: "presentation", "aria-hidden": true },
 })
-export type BreadcrumbSeparatorProps = ComponentProps<typeof BreadcrumbSeparator>
+export type BreadcrumbSeparatorProps = ComponentProps<typeof StyledBreadcrumbSeparator>
 
-export const BreadcrumbEllipsis = withContext(ark.li, "ellipsis", {
+export function BreadcrumbSeparator({ children, ...props }: BreadcrumbSeparatorProps) {
+  return <StyledBreadcrumbSeparator {...props}>{children ?? <Icon name="chevron-right" />}</StyledBreadcrumbSeparator>
+}
+
+const StyledBreadcrumbEllipsis = withContext(ark.li, "ellipsis", {
   defaultProps: { role: "presentation", "aria-hidden": true },
 })
-export type BreadcrumbEllipsisProps = ComponentProps<typeof BreadcrumbEllipsis>
+export type BreadcrumbEllipsisProps = ComponentProps<typeof StyledBreadcrumbEllipsis>
+
+export function BreadcrumbEllipsis({ children, ...props }: BreadcrumbEllipsisProps) {
+  return <StyledBreadcrumbEllipsis {...props}>{children ?? <Icon name="dots" />}</StyledBreadcrumbEllipsis>
+}
