@@ -1,0 +1,16 @@
+## skip-nav (done, 2026-11-10)
+
+- Recipe: added `zIndex: "skipNav"` to the focus-visible state (tl-ds has a skipNav z-index; the token already existed
+  in panda-ds but the recipe didn't use it). No analog override exists.
+- Components: `SkipNavLink` and `SkipNavContent` as two flat exports, no `namespace.ts` (same shape as
+  `link-overlay`; there's no root/parts). `id` on `SkipNavLink` is the target id, not the link's own id (Chakra/tl-ds
+  API); it becomes `href="#<id>"`. Default id is `skip-nav` (Chakra uses `chakra-skip-nav`).
+- `SkipNavContent` is `tabIndex=-1`, `outline: "[0]"`. `outline: "0"` fails strictTokens in compositions (no zero
+  border token), so it uses the escape hatch.
+- Vue `SkipNavLink` is a `defineComponent` wrapper reading `attrs.id`; Svelte link isn't generic over the tag (always
+  `a`).
+- Only a `usage` demo: Chakra has no other skip-nav examples. Docs have no `<RecipeVariants />` (no variants).
+- Storybook check (all four): link clipped until Tab, then fixed at top/start 6 with z-index 1600; Enter moves focus
+  to `#skip-nav`.
+- Note for next: none of the touched packages have a `test` script, so `pnpm test` is a no-op here.
+
