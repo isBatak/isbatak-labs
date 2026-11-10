@@ -1,0 +1,85 @@
+---
+title: Pagination
+description: Move between the pages of a long list or table.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/pagination
+  recipe: packages/panda/ds/src/theme/recipes/pagination.ts
+  ark: https://ark-ui.com/docs/components/pagination
+---
+
+Built on Ark UI's Pagination. Pass `count`, the number of items, and `pageSize`, the items per page. `Pagination.Items`
+renders a button for each page and an ellipsis where pages are skipped. With no children, the prev, next, first and last
+triggers show chevron icons.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Pagination.Root count={200} pageSize={10}>
+  <Pagination.PrevTrigger />
+  <Pagination.Items />
+  <Pagination.NextTrigger />
+</Pagination.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="pagination/sizes" />
+
+### Variants
+
+Set `variant` to `ghost`, `outline`, `subtle` or `surface`. The default is `ghost`, where the current page gets an
+outline; in the other variants it's solid.
+
+<Example id="pagination/variants" />
+
+### Attached
+
+Set `attached` to join the buttons into one group.
+
+<Example id="pagination/attached" />
+
+### Compact
+
+Use `Pagination.PageText` instead of `Pagination.Items` to show "2 of 20" between the triggers.
+
+<Example id="pagination/compact" />
+
+### Page range
+
+Set `format="long"` on `Pagination.PageText` to show which items are on the page, like "11 - 20 of 200". `short` shows
+"2 / 20".
+
+<Example id="pagination/page-range" />
+
+### First and last
+
+Add `Pagination.FirstTrigger` and `Pagination.LastTrigger` to jump to either end.
+
+<Example id="pagination/first-and-last" />
+
+### Sibling count
+
+Set `siblingCount` to show more pages on each side of the current one. The default is `1`.
+
+<Example id="pagination/sibling-count" />
+
+### Controlled
+
+Pass `page` and `onPageChange` to keep the page in your own state.
+
+<Example id="pagination/controlled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

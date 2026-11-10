@@ -5045,6 +5045,135 @@
       }
     }
   },
+  "pagination": {
+    "parts": [
+      {
+        "name": "Pagination.Root",
+        "props": {
+          "page": {
+            "type": "ConditionalValue<CssAny>",
+            "description": "The controlled active page"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the accordion. Useful for composition."
+          },
+          "type": {
+            "type": "\"button\" | \"link\" | undefined",
+            "description": "The type of the trigger element",
+            "defaultValue": "\"button\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "Total number of data items"
+          },
+          "pageSize": {
+            "type": "number | undefined",
+            "description": "The controlled number of data items per page"
+          },
+          "defaultPageSize": {
+            "type": "number | undefined",
+            "description": "The initial number of data items per page when rendered.\nUse when you don't need to control the page size of the pagination.",
+            "defaultValue": "10"
+          },
+          "siblingCount": {
+            "type": "number | undefined",
+            "description": "Number of pages to show beside active page",
+            "defaultValue": "1"
+          },
+          "boundaryCount": {
+            "type": "number | undefined",
+            "description": "Number of pages to show at the beginning and end",
+            "defaultValue": "1"
+          },
+          "defaultPage": {
+            "type": "number | undefined",
+            "description": "The initial active page when rendered.\nUse when you don't need to control the active page of the pagination.",
+            "defaultValue": "1"
+          },
+          "onPageChange": {
+            "type": "((details: PageChangeDetails) => void) | undefined",
+            "description": "Called when the page number is changed"
+          },
+          "onPageSizeChange": {
+            "type": "((details: PageSizeChangeDetails) => void) | undefined",
+            "description": "Called when the page size is changed"
+          },
+          "getPageUrl": {
+            "type": "((details: PageUrlDetails) => string) | undefined",
+            "description": "Function to generate href attributes for pagination links.\nOnly used when `type` is set to \"link\"."
+          }
+        }
+      },
+      {
+        "name": "Pagination.RootProvider",
+        "props": {
+          "value": {
+            "type": "UsePaginationReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Item",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": ""
+          },
+          "type": {
+            "type": "\"page\"",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Ellipsis",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Pagination.PageText",
+        "props": {
+          "format": {
+            "type": "PaginationPageTextFormat | undefined",
+            "description": "How to describe the position: `short` is \"2 / 10\", `compact` is \"2 of 10\", and `long` is \"11 - 20 of 95\".",
+            "defaultValue": "\"compact\""
+          }
+        }
+      },
+      {
+        "name": "Pagination.Context",
+        "props": {
+          "children": {
+            "type": "(context: UsePaginationContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["ghost", "outline", "subtle", "surface"],
+        "defaultValue": "ghost"
+      },
+      "attached": {
+        "values": ["true"]
+      }
+    }
+  },
   "password-input": {
     "parts": [
       {
