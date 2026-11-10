@@ -155,7 +155,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 ## Disclosure and navigation
 
 - [x] accordion
-- [ ] collapsible — has: recipe
+- [x] collapsible
 - [ ] tabs — has: recipe react vue svelte solid docs
 - [ ] steps — has: recipe
 - [ ] breadcrumb — has: recipe react (React added early for the docs breadcrumb; audit, other frameworks, demos and docs
