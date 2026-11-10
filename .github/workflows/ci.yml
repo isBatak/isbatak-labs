@@ -102,13 +102,8 @@ jobs:
 
   deploy:
     needs: ci
-    if: >-
-      (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' &&
-      github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    outputs:
-      website: ${{ steps.deploy.outputs.website }}
-      storybook: ${{ steps.deploy.outputs.storybook }}
     strategy:
       fail-fast: false
       matrix:
@@ -118,11 +113,9 @@ jobs:
           - app: website
             project-id-secret: VERCEL_WEBSITE_PROJECT_ID
     environment:
-      name: ${{ matrix.app }}${{ github.event_name == 'pull_request' && '-preview' || '' }}
+      name: ${{ matrix.app }}
       url: ${{ steps.deploy.outputs.url }}
     env:
-      VERCEL_ENVIRONMENT: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
-      VERCEL_PROD: ${{ github.event_name == 'pull_request' && '' || '--prod' }}
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets[matrix.project-id-secret] }}
@@ -145,7 +138,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: npm install --global --ignore-scripts vercel@59.23.2
-      - run: vercel pull --yes --environment="$VERCEL_ENVIRONMENT"
+      - run: vercel pull --yes --environment=production
       - name: Resolve production domain
         if: matrix.app == 'website'
         run: |
@@ -158,29 +151,8 @@ jobs:
             exit 1
           fi
           echo "NEXT_PUBLIC_SITE_URL=https://$domain" >> "$GITHUB_ENV"
-      - run: vercel build $VERCEL_PROD
+      - run: vercel build --prod
       - id: deploy
         run: |
-          url=$(vercel deploy --prebuilt $VERCEL_PROD --archive=tgz)
+          url=$(vercel deploy --prebuilt --prod --archive=tgz)
           echo "url=$url" >> "$GITHUB_OUTPUT"
-          echo "${{ matrix.app }}=$url" >> "$GITHUB_OUTPUT"
-
-  preview-comment:
-    needs: deploy
-    if: github.event_name == 'pull_request' && needs.deploy.result == 'success'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - run: node scripts/pr-preview-comment.mjs
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          WEBSITE_URL: ${{ needs.deploy.outputs.website }}
-          STORYBOOK_URL: ${{ needs.deploy.outputs.storybook }}
