@@ -32,3 +32,34 @@
 - Storybook check (all four): scrollbar hidden until hover with `hover`, visible with `always`; sizes 4/6/8/12px;
   shadow mask switches from 0px to 4rem at the top after scrolling; scrollToEdge and scrollTo work.
 - `ds-api.json`: the generator drops `defaultValue` for boolean variants, so `shadowOverflow` shows no default.
+
+
+## carousel (done, 2026-11-11)
+
+- Zag 2 renamed the root props: it's `count` (not Chakra's `slideCount`) and `autoPlay` (not `autoplay`). Demos and docs
+  use the Zag 2 names.
+- `page` collides with the CSS `page` style prop, so Panda swallowed it and typed it as a style value. `CarouselRoot`
+  uses `forwardProps: ["page"]` in React, Vue and Solid (Chakra does the same). `RootProvider` has no `page` prop and
+  doesn't forward it. Watch for this on any Ark root whose prop shares a name with a CSS property.
+- Recipe: Chakra's look (tl-ds has no carousel). Removed the duplicate `progressText` slot, added `progressText` styles
+  (`sm`, tabular nums, `fg.muted`), and `_vertical` triggers rotate their icon 90deg, so the default chevron points
+  up/down in vertical carousels without the component reading orientation. No analog override exists.
+- Components: `PrevTrigger`/`NextTrigger` with no children render `asChild` into a ghost `xs` `IconButton` with
+  `chevron-left`/`chevron-right` (the floating-panel stage trigger pattern). Added Chakra's `Carousel.Indicators`
+  helper (one indicator per `pageSnapPoints` entry, forwards its props to every indicator). `ProgressText` and
+  `AutoplayIndicator` are Ark's as-is (Ark's indicator takes `children` while playing and `fallback` while paused,
+  instead of Chakra's `play`/`paused` props).
+- Demos (13): usage, with-indicators, vertical, spacing, slides-per-page, slides-per-move, with-mouse-drag,
+  with-autoplay, controlled, with-progress-text, with-floating-arrow (custom outline triggers via `asChild`),
+  variable-size, with-thumbnails. Skipped Chakra's with-images (needs a local ActionButton helper), composition (big
+  static property list), with-dialog and with-store. Slides are inline `Center`s; `spacing` uses rem strings (`3rem`,
+  `2rem`, `0.5rem`) since it's a Zag prop, not a style prop. Thumbnails' current outline uses `[2px]` escape hatches
+  (no outline-width token); images are Unsplash, like the aspect-ratio demo.
+- Docs have no `<RecipeVariants />` (the recipe has no variants).
+- Note for next: `pnpm generate` in `apps/www` takes over 10 minutes here (it builds compositions); run it in the
+  background. Storybook pages never reach `networkidle` (HMR socket), so wait on `load` plus a selector in Playwright.
+- Storybook check (all four): 5 indicators, default prev/next render an `xs` icon button with an svg, next moves the
+  current indicator 0 → 1, vertical trigger icons are rotated 90deg, controlled `page` updates (Vue needs ~1.5s after
+  the click before `data-current` moves), progress text reads `1 / 5`. Vue logs `injection "Symbol(PropsContext)" not
+  found` for the default icon buttons; it's pre-existing (the plain `DS/Button` story logs it too) and comes from
+  Panda's generated `create-recipe-context.js` injecting without a default.
