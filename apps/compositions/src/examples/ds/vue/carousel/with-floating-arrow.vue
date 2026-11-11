@@ -1,0 +1,41 @@
+<script setup lang="ts">
+import { IconButton } from "@isbatak/vue-ui/button"
+import { Carousel } from "@isbatak/vue-ui/carousel"
+import { Center } from "@isbatak/vue-ui/center"
+import { Icon } from "@isbatak/vue-ui/icon"
+</script>
+
+<template>
+  <Carousel.Root :count="5" maxW="xl" mx="auto" gap="4">
+    <Carousel.Control justifyContent="center" gap="4" w="full">
+      <Carousel.PrevTrigger :asChild="true">
+        <IconButton size="xs" variant="outline">
+          <Icon name="arrow-left" />
+        </IconButton>
+      </Carousel.PrevTrigger>
+      <Carousel.ItemGroup w="full">
+        <Carousel.Item :index="0">
+          <Center w="full" h="72" bg="bg.emphasized" borderRadius="l3" textStyle="4xl" fontWeight="semibold">1</Center>
+        </Carousel.Item>
+        <Carousel.Item :index="1">
+          <Center w="full" h="72" bg="bg.emphasized" borderRadius="l3" textStyle="4xl" fontWeight="semibold">2</Center>
+        </Carousel.Item>
+        <Carousel.Item :index="2">
+          <Center w="full" h="72" bg="bg.emphasized" borderRadius="l3" textStyle="4xl" fontWeight="semibold">3</Center>
+        </Carousel.Item>
+        <Carousel.Item :index="3">
+          <Center w="full" h="72" bg="bg.emphasized" borderRadius="l3" textStyle="4xl" fontWeight="semibold">4</Center>
+        </Carousel.Item>
+        <Carousel.Item :index="4">
+          <Center w="full" h="72" bg="bg.emphasized" borderRadius="l3" textStyle="4xl" fontWeight="semibold">5</Center>
+        </Carousel.Item>
+      </Carousel.ItemGroup>
+      <Carousel.NextTrigger :asChild="true">
+        <IconButton size="xs" variant="outline">
+          <Icon name="arrow-right" />
+        </IconButton>
+      </Carousel.NextTrigger>
+    </Carousel.Control>
+    <Carousel.Indicators />
+  </Carousel.Root>
+</template>

@@ -9,7 +9,7 @@ marked blocked in `plans/progress.txt`. Tick it here when done.
 
 - [x] skip-nav — has: recipe (`skip-nav-link`). No Ark machine: a link plus a content target. Category `Navigation`.
 - [x] scroll-area — has: recipe. Ark Scroll Area. Category `Layout`.
-- [ ] carousel — has: recipe. Ark Carousel. Prev/next triggers default to chevron icons. Category `Data Display`.
+- [x] carousel — has: recipe. Ark Carousel. Prev/next triggers default to chevron icons. Category `Data Display`.
 - [ ] tree-view — has: recipe. Ark Tree View. Branch indicator defaults to a chevron. Category `Collections`.
 
 ## Data display
