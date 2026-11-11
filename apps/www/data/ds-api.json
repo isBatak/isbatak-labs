@@ -8374,6 +8374,236 @@
     ],
     "variants": {}
   },
+  "tree-view": {
+    "parts": [
+      {
+        "name": "TreeView.Root",
+        "props": {
+          "collection": {
+            "type": "TreeCollection<T>",
+            "description": "The collection of tree nodes"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the tree elements. Useful for composition."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails<T>) => void) | undefined",
+            "description": "Called when the focused node changes"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "Called when the checked value changes"
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails<T>) => void) | undefined",
+            "description": "Function to scroll to a specific index.\nUseful for virtualized tree views."
+          },
+          "selectionMode": {
+            "type": "\"single\" | \"multiple\" | undefined",
+            "description": "Whether the tree supports multiple selection\n- \"single\": only one node can be selected\n- \"multiple\": multiple nodes can be selected",
+            "defaultValue": "\"single\""
+          },
+          "focusedValue": {
+            "type": "string | null | undefined",
+            "description": "The value of the focused node"
+          },
+          "defaultFocusedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
+            "defaultValue": "true"
+          },
+          "expandedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled expanded node ids"
+          },
+          "defaultExpandedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial expanded node ids when rendered.\nUse when you don't need to control the expanded node value."
+          },
+          "selectedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled selected node value"
+          },
+          "defaultSelectedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial selected node value when rendered.\nUse when you don't need to control the selected node value."
+          },
+          "defaultCheckedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial checked node value when rendered.\nUse when you don't need to control the checked node value."
+          },
+          "checkedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled checked node value"
+          },
+          "onExpandedChange": {
+            "type": "((details: ExpandedChangeDetails<T>) => void) | undefined",
+            "description": "Called when the tree is opened or closed"
+          },
+          "onSelectionChange": {
+            "type": "((details: SelectionChangeDetails<T>) => void) | undefined",
+            "description": "Called when the selection changes"
+          },
+          "canRename": {
+            "type": "((node: T, indexPath: IndexPath) => boolean) | undefined",
+            "description": "Function to determine if a node can be renamed"
+          },
+          "onRenameStart": {
+            "type": "((details: RenameStartDetails<T>) => void) | undefined",
+            "description": "Called when a node starts being renamed"
+          },
+          "onBeforeRename": {
+            "type": "((details: RenameCompleteDetails) => boolean) | undefined",
+            "description": "Called before a rename is completed. Return false to prevent the rename."
+          },
+          "onRenameComplete": {
+            "type": "((details: RenameCompleteDetails) => void) | undefined",
+            "description": "Called when a node label rename is completed"
+          },
+          "onLoadChildrenComplete": {
+            "type": "((details: LoadChildrenCompleteDetails<T>) => void) | undefined",
+            "description": "Called when a node finishes loading children"
+          },
+          "onLoadChildrenError": {
+            "type": "((details: LoadChildrenErrorDetails<T>) => void) | undefined",
+            "description": "Called when loading children fails for one or more nodes"
+          },
+          "expandOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "loadChildren": {
+            "type": "((details: LoadChildrenDetails<T>) => Promise<T[]>) | undefined",
+            "description": "Function to load children for a node asynchronously.\nWhen provided, branches will wait for this promise to resolve before expanding."
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "TreeView.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTreeViewReturn<T>",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "TreeView.Nodes",
+        "props": {
+          "indentGuide": {
+            "type": "ReactNode",
+            "description": "Rendered at the start of every `NodeGroupContent`, usually a `TreeView.IndentGuide`."
+          },
+          "nodeGroupProps": {
+            "type": "TreeViewNodeGroupProps",
+            "description": "Props passed to every `NodeGroup`."
+          },
+          "nodeGroupContentProps": {
+            "type": "TreeViewNodeGroupContentProps",
+            "description": "Props passed to every `NodeGroupContent`."
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeIndicator",
+        "props": {
+          "type": {
+            "type": "TreeView.NodeIndicatorProps[\"type\"]",
+            "description": "What the indicator reflects. `expanded` shows a chevron that rotates when the branch is open.",
+            "defaultValue": "\"expanded\""
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeProvider",
+        "props": {
+          "children": {
+            "type": "React.ReactNode | undefined",
+            "description": ""
+          },
+          "node": {
+            "type": "T",
+            "description": "The tree node"
+          },
+          "indexPath": {
+            "type": "number[]",
+            "description": "The index path of the tree node"
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeContext",
+        "props": {
+          "children": {
+            "type": "(context: UseTreeViewNodeContext) => React.ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "TreeView.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseTreeViewContext<T>) => React.ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["md", "sm", "xs"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["subtle", "solid"],
+        "defaultValue": "subtle"
+      },
+      "animateContent": {
+        "values": ["true"]
+      }
+    }
+  },
   "visually-hidden": {
     "parts": [],
     "variants": {}
