@@ -166,7 +166,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] splitter
 - [x] scroll-area — has: recipe
 - [x] carousel — has: recipe
-- [ ] tree-view — has: recipe
+- [x] tree-view — has: recipe
 
 ## Data display
 

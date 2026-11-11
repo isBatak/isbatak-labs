@@ -63,3 +63,41 @@
   the click before `data-current` moves), progress text reads `1 / 5`. Vue logs `injection "Symbol(PropsContext)" not
   found` for the default icon buttons; it's pre-existing (the plain `DS/Button` story logs it too) and comes from
   Panda's generated `create-recipe-context.js` injecting without a default.
+
+
+## tree-view (done, 2026-11-11)
+
+- Ark 6 / Zag 2 rewrote the tree view anatomy: no more `Branch`, `BranchControl`, `BranchContent`, `Item`,
+  `ItemText`, `BranchIndentGuide`. It's `Node` (the row, branch or leaf), `NodeGroup` (a Collapsible root wrapping a
+  branch row and its children), `NodeGroupContent`, `NodeExpandTrigger`, `NodeIndicator` (with a required
+  `type: expanded | selected | checked | indeterminate`), `NodeText`, `IndentGuide` and `Cell` (a gridcell; the tree is
+  now `role="treegrid"`). Chakra is still on Ark 5, so its API couldn't be copied as-is.
+- Recipe: slots renamed to the Ark 6 anatomy. `branchControl` and `item` were identical and became one `node` slot;
+  `branchIndicator`/`itemIndicator` became `nodeIndicator` (rotates 90deg on `_open`, which only the `expanded` type
+  sets; `_hidden` hides the other types since `display: inline-flex` beat the `hidden` attribute). Added `cell` and a
+  bordered `nodeRenameInput`. Solid variant forces the indicator to `currentColor` on selected rows. Breaking for anyone
+  using the old slot names, so the panda-ds changeset is `minor` (0.x). No analog override exists.
+- Components: Chakra's recursive `TreeView.Node` helper is `TreeView.Nodes` here, because Ark 6 took `Node` for the
+  row. It takes `render`, `indentGuide`, `nodeGroupProps`, `nodeGroupContentProps`. Per framework:
+  React `render` prop + `indentGuide` element; Vue scoped default slot `{ node, indexPath, nodeState }` + `#indentGuide`
+  slot; Svelte `render` snippet + `indentGuide` snippet; Solid `render` gets `nodeState` as an accessor (Ark Solid's
+  node context is an accessor, and a plain object would go stale) and `indentGuide` is a function, since one Solid JSX
+  element can't be mounted in several groups.
+- `NodeIndicator` defaults `type` to `expanded` and renders `chevron-right` when it has no children (the PRD's "branch
+  indicator defaults to a chevron"); other types have no default child.
+- Vue `NodeRenameInput` needed the listbox `Input` cast (`FunctionalComponent<HTMLArkProps<"input">>`), otherwise TS2590.
+  `ContextProps` is generic over `TreeNode` in React, Vue and Solid.
+- Demos (10): usage, sizes, variants, default-expanded, controlled-expansion, multi-select, checkbox (a `Checkmark`
+  inside `NodeCheckbox`), disabled-node, expand-collapse-all (via `TreeView.Context`), collapse-animation
+  (`animateContent`). Skipped Chakra's async, context-menu, custom-icon, explorer, filter, links, mutation, lazy-mount,
+  store and remove-indentation. The collection is declared at the bottom of each demo; `Nodes` does the iteration, so no
+  `.map` in the demos. Leaf rows have no spacer, so a leaf's icon sits under its sibling branch's chevron (Chakra's
+  basic demo looks the same).
+- Story/docs titles are sentence case ("Tree view"), like "Scroll area".
+- Storybook check (all four): 6 rows → 9 after opening node_modules, chevron rotates to 90deg, one indent guide, row
+  padding 12px → 36px one level down, ArrowDown moves focus, solid vs subtle selected bg differ, controlled expansion
+  toggles, checking `src` checks its children, expand all opens 3 branches and collapse all closes them, disabled node
+  has `data-disabled`, sizes pad 4/4/6px.
+- Note for next: cold `tsc` for solid (compositions and storybook-solid) and `svelte-check` in compositions take 20 to
+  60 minutes when they run alongside each other; it's not the new code (an incremental recheck of the solid demos takes
+  2s). Run typechecks one at a time in the background. `timeout` isn't installed on this Mac.

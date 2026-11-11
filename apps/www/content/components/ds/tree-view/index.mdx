@@ -1,0 +1,100 @@
+---
+title: Tree view
+description: Shows a hierarchy of nodes, like a file explorer, that the user can expand, collapse, select and check.
+category: Collections
+links:
+  source: packages/ui/react/src/components/tree-view
+  recipe: packages/panda/ds/src/theme/recipes/tree-view.ts
+  ark: https://ark-ui.com/docs/components/tree-view
+---
+
+Built on Ark UI's Tree View. Describe the hierarchy with `createTreeCollection` and pass it to `TreeView.Root`.
+`TreeView.Nodes` walks the collection for you: it calls `render` for every node's row, and wraps each branch in a
+`TreeView.NodeGroup` with its children in a `TreeView.NodeGroupContent`. With no children, `TreeView.NodeIndicator`
+renders a chevron that rotates when its branch opens.
+
+## Usage
+
+<Usage />
+
+```tsx
+<TreeView.Root collection={collection}>
+  <TreeView.Label />
+  <TreeView.Tree>
+    <TreeView.Nodes
+      indentGuide={<TreeView.IndentGuide />}
+      render={({ node, nodeState }) => (
+        <TreeView.Node>
+          {nodeState.isBranch && <TreeView.NodeIndicator />}
+          <TreeView.NodeText>{node.name}</TreeView.NodeText>
+        </TreeView.Node>
+      )}
+    />
+  </TreeView.Tree>
+</TreeView.Root>
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm` or `md`.
+
+<Example id="tree-view/sizes" />
+
+### Variants
+
+Set `variant` to `subtle` or `solid` to change how selected nodes look.
+
+<Example id="tree-view/variants" />
+
+### Default expanded
+
+Open branches on first render with `defaultExpandedValue`.
+
+<Example id="tree-view/default-expanded" />
+
+### Controlled expansion
+
+Control the open branches with `expandedValue` and `onExpandedChange`.
+
+<Example id="tree-view/controlled-expansion" />
+
+### Multiple selection
+
+Set `selectionMode="multiple"` and select more nodes with Shift or Cmd/Ctrl click.
+
+<Example id="tree-view/multi-select" />
+
+### Checkbox
+
+Put a `TreeView.NodeCheckbox` in each row and pass `defaultCheckedValue` to turn on checking. Checking a branch checks
+its children, and a partly checked branch is indeterminate.
+
+<Example id="tree-view/checkbox" />
+
+### Disabled node
+
+Set `disabled: true` on a node to stop it being selected or focused.
+
+<Example id="tree-view/disabled-node" />
+
+### Expand and collapse all
+
+Read the tree from `TreeView.Context` and call `expand()` or `collapse()` without a value.
+
+<Example id="tree-view/expand-collapse-all" />
+
+### Collapse animation
+
+Set `animateContent` to animate branches as they open and close.
+
+<Example id="tree-view/collapse-animation" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
