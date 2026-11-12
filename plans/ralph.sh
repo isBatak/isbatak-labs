@@ -11,6 +11,7 @@ cd "$(git rev-parse --show-toplevel)"
 task="${2:-plans/task.md}"
 progress="plans/progress.txt"
 mode="${RALPH_PERMISSION_MODE:-auto}"
+model="${RALPH_MODEL:-}"
 
 if [ ! -f "$task" ]; then
   echo "Task file $task not found."
@@ -28,7 +29,7 @@ touch "$progress"
 for ((i = 1; i <= $1; i++)); do
   echo "Iteration $i"
   echo "--------------------------------"
-  result=$(claude -p --permission-mode "$mode" "Read $task (the PRD) and $progress (notes from earlier iterations), then follow AGENTS.md.
+  result=$(claude -p --permission-mode "$mode" ${model:+--model "$model"} "Read $task (the PRD) and $progress (notes from earlier iterations), then follow AGENTS.md.
 1. Find the highest-priority feature to work on and work only on that feature.
 This should be the one YOU decide has the highest priority - not necessarily the first in the list.
 2. Run pnpm typecheck and pnpm test in every package you touched, and pnpm exec oxlint on the files you changed at the root. Fix every error and Panda warning.
