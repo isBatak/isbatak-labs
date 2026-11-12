@@ -22,7 +22,7 @@ Category `Data Display` unless noted.
 - [x] card — has: recipe.
 - [x] data-list — has: recipe.
 - [x] stat — has: recipe.
-- [ ] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
+- [x] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] timeline — has: recipe.
 - [ ] qr-code — has: recipe. Ark QR Code.
