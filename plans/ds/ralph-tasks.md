@@ -17,7 +17,7 @@ marked blocked in `plans/progress.txt`. Tick it here when done.
 Category `Data Display` unless noted.
 
 - [x] avatar — has: recipe. Ark Avatar. Fallback shows initials from `name`, else a user icon.
-- [ ] badge — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
+- [x] badge — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
 - [ ] tag — has: recipe. Close trigger defaults to `CloseButton`.
 - [ ] card — has: recipe.
 - [ ] data-list — has: recipe.

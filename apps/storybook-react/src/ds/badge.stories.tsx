@@ -5,6 +5,7 @@ import { BadgeSizesDemo } from "@isbatak/compositions/ds/react/badge/sizes"
 import { BadgeStatusDemo } from "@isbatak/compositions/ds/react/badge/status"
 import { BadgeVariantsDemo } from "@isbatak/compositions/ds/react/badge/variants"
 import { BadgeWithIconDemo } from "@isbatak/compositions/ds/react/badge/with-icon"
+import { BadgeWithGroupDemo } from "@isbatak/compositions/ds/react/badge/with-group"
 
 const meta = {
   title: "DS/Badge",
@@ -36,4 +37,8 @@ export const Variants: Story = {
 
 export const WithIcon: Story = {
   render: () => <BadgeWithIconDemo />,
+}
+
+export const WithGroup: Story = {
+  render: () => <BadgeWithGroupDemo />,
 }

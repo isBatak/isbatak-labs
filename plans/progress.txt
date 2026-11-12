@@ -130,3 +130,22 @@
 - Storybook check (all four): sizes 24–64px, shapes 0/4px/full, initials `OK`/`SU` and a 20px icon with a broken image,
   group overlap -12px with a 2px border, stacking z-index 0→3 vs 4→1, `borderless` drops the border, Svelte's
   `spaceX="1"` overrides the group's -3, ring outlines in each palette, store reads `loaded`.
+
+
+## badge (done, 2026-11-12)
+
+- Audit only; the components in all four frameworks were already fine (React/Vue/Solid `styled("span", badge)`, Svelte
+  splits variant props by hand), so `packages/ui` is unchanged.
+- Recipe: took tl-ds's look for the shape: radius `l1` instead of `full` (tl-ds and Chakra both use a rounded rect, not
+  a pill). Added tl-ds's `2xs` size (text `2xs`, `px 1`, `minH 3.5`, icon `2.5`). Skipped tl-ds's `3xs`: `minH 2.5`
+  (10px) is shorter than the `2xs` text style's 12px line height. Kept tl-ds's text sizes out: its `sm` = `md.500` is
+  bigger than ours, and the existing `xs`–`lg` scale lines up with buttons. Kept the `status` dot, icon size/offset vars
+  and the `outline` legacy shadow var. No analog override exists.
+- Demos: added `with-group` (Chakra's/tl-ds's attached `Group` of two solid badges) and `2xs` in `sizes`. Ported all 7
+  React demos to Vue, Svelte (colorPalette through `class={css({ colorPalette })}`) and Solid; React demos still import
+  layout from `styled-system/jsx`, the ports use the `-ui` stack/wrap packages. Skipped Chakra's size and variant
+  tables (they loop over static data).
+- Stories: React gets `WithGroup`; Vue, Svelte, Solid got their first `DS/Badge` stories.
+- `ds-api.json`: only `badge.size.values` changed (`2xs` added), edited by hand instead of regenerating.
+- Storybook check (all four): sizes 14/16/20/24/28px, radius 2px, attached group squares the inner corners, status dot
+  ~7.7px, icons 12px at `sm`, palettes switch bg.
