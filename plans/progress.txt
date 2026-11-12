@@ -149,3 +149,21 @@
 - `ds-api.json`: only `badge.size.values` changed (`2xs` added), edited by hand instead of regenerating.
 - Storybook check (all four): sizes 14/16/20/24/28px, radius 2px, attached group squares the inner corners, status dot
   ~7.7px, icons 12px at `sm`, palettes switch bg.
+
+
+## tag (done, 2026-11-12)
+
+- Recipe: took tl-ds's look. Radius `l1` (`l2` at `xl`, as in tl-ds), `fontWeight: medium`, a `plain` variant (tl-ds
+  and badge have it), `display: flex` on start/end elements, `cursor: button` on the close trigger. Kept the existing
+  sizes, text styles and element offsets (tl-ds's `md.500`/`xl.500` text styles don't exist here). No analog override.
+- Judgement call: the PRD says the close trigger defaults to `CloseButton`, but the smallest button size (`2xs`) is 24px
+  and the tag is 18–32px tall, with the end element sized to 12–18px. So `Tag.CloseTrigger` is its own `ark.button`
+  (styled by the tag's `closeTrigger` slot, `type="button"`, `aria-label="Close"`) and shows the same `close` icon
+  `CloseButton` uses when it has no children. That's what Chakra and tl-ds do too.
+- Components: `Tag.Root` (`ark.div`), `Label`, `StartElement`, `EndElement` (`ark.span`), `CloseTrigger`, and
+  `PropsProvider` in React/Vue/Solid. Svelte uses the blockquote pattern (one `Box` per part plus `tag-styles.ts`), no
+  props provider. No Ark machine, so no `Context`/`RootProvider`.
+- Demos (8): usage, sizes, variants, colors, with-icon, closable, with-avatar, overflow. Svelte passes `colorPalette`,
+  `maxW` and `rounded` through `class={css(...)}`, like the badge demos. Skipped Chakra's closed `Tag` helper
+  (`startElement`/`endElement`/`closable` props) and its size/variant tables (they loop over static data).
+- `ds-api.json`: only the `tag` key was added; `parts` is empty because the parts have no JSDoc'd props.
