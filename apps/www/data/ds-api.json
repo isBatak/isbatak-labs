@@ -511,6 +511,22 @@
       }
     }
   },
+  "card": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["elevated", "outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "interactive": {
+        "values": ["true", "false"]
+      }
+    }
+  },
   "carousel": {
     "parts": [
       {
