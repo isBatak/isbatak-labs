@@ -4283,6 +4283,25 @@
       }
     }
   },
+  "image": {
+    "parts": [
+      {
+        "name": "Image",
+        "props": {
+          "fit": {
+            "type": "ComponentProps<typeof StyledImage>[\"objectFit\"]",
+            "description": "How the image fits within its bounds. Maps to `object-fit`.",
+            "defaultValue": "\"cover\""
+          },
+          "align": {
+            "type": "ComponentProps<typeof StyledImage>[\"objectPosition\"]",
+            "description": "How the image is aligned within its bounds. Maps to `object-position`."
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "input": {
     "parts": [],
     "variants": {
