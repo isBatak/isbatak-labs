@@ -99,6 +99,12 @@ When an item is done, change `- [ ]` to `- [x]` here and tick the same line in `
 
 ## Checks before committing
 
+- Run what CI runs, over everything the branch changed: `pnpm turbo run build test typecheck --affected --continue`.
+  Turbo's `--affected` compares against `main`, and `--continue` reports every failure instead of stopping at the first.
+  This catches packages you didn't touch but that consume yours, such as `packages/studio` (its component matrices
+  spread recipe variant props onto styled components, so a variant named like a Panda style prop, e.g. `ring`, breaks
+  its typecheck). It regenerates `apps/www/data/ds-api.json`; restore your version afterwards with `git checkout` and
+  re-insert only your own key.
 - `pnpm typecheck` in `packages/panda/ds`, the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`,
   and `apps/www` (run `pnpm generate` there first, then restore your `ds-api.json`).
 - `git ls-files -m -o --exclude-standard | grep -E "\.(ts|tsx|vue|svelte|mjs)$" | xargs pnpm exec oxlint` and the same
