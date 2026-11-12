@@ -301,6 +301,80 @@
     ],
     "variants": {}
   },
+  "avatar": {
+    "parts": [
+      {
+        "name": "Avatar.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the avatar. Useful for composition."
+          },
+          "onStatusChange": {
+            "type": "((details: StatusChangeDetails) => void) | undefined",
+            "description": "Functional called when the image loading status changes."
+          }
+        }
+      },
+      {
+        "name": "Avatar.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseAvatarReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Avatar.Fallback",
+        "props": {
+          "name": {
+            "type": "string | undefined",
+            "description": "The name to take the initials from. Without it, the fallback shows a user icon."
+          }
+        }
+      },
+      {
+        "name": "Avatar.Icon",
+        "props": {
+          "name": {
+            "type": "IconProps[\"name\"] | undefined",
+            "description": "The icon to show.",
+            "defaultValue": "\"account\""
+          }
+        }
+      },
+      {
+        "name": "Avatar.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseAvatarContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["full", "2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["solid", "subtle", "outline"],
+        "defaultValue": "subtle"
+      },
+      "shape": {
+        "values": ["square", "rounded", "full"],
+        "defaultValue": "full"
+      },
+      "ring": {
+        "values": ["true"]
+      },
+      "borderless": {
+        "values": ["true"]
+      }
+    }
+  },
   "badge": {
     "parts": [],
     "variants": {
