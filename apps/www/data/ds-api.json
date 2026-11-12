@@ -7861,6 +7861,19 @@
       }
     }
   },
+  "tag": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["subtle", "solid", "outline", "surface", "plain"],
+        "defaultValue": "surface"
+      }
+    }
+  },
   "tags-input": {
     "parts": [
       {

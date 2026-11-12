@@ -1,0 +1,78 @@
+---
+title: Tag
+description: A compact label for keywords, filters or selections, with optional icons, an avatar and a close button.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/tag
+  recipe: packages/panda/ds/src/theme/recipes/tag.ts
+---
+
+A tag labels an item and can be removed. Put icons or an avatar in `Tag.StartElement` and `Tag.EndElement`.
+`Tag.CloseTrigger` is a button that shows a close icon when it has no children. Use a badge instead for a status that
+can't be removed or acted on.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Tag.Root>
+  <Tag.StartElement />
+  <Tag.Label />
+  <Tag.EndElement>
+    <Tag.CloseTrigger />
+  </Tag.EndElement>
+</Tag.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the tag's size: `sm`, `md`, `lg` or `xl`.
+
+<Example id="tag/sizes" />
+
+### Variants
+
+Use `variant` to change the look: `subtle`, `solid`, `outline`, `surface` or `plain`.
+
+<Example id="tag/variants" />
+
+### Colors
+
+Use `colorPalette` to change the tag's colors.
+
+<Example id="tag/colors" />
+
+### With icon
+
+Put an icon in `Tag.StartElement` or `Tag.EndElement`. It's sized to match the tag.
+
+<Example id="tag/with-icon" />
+
+### Closable
+
+Put `Tag.CloseTrigger` in `Tag.EndElement`. Handle its `onClick` to remove the tag.
+
+<Example id="tag/closable" />
+
+### With avatar
+
+Put an `Avatar.Root` with `size="full"` in `Tag.StartElement`. Round the tag with `rounded="full"`.
+
+<Example id="tag/with-avatar" />
+
+### Overflow
+
+Give the tag a `maxW` and the label truncates to one line.
+
+<Example id="tag/overflow" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
