@@ -101,3 +101,32 @@
 - Note for next: cold `tsc` for solid (compositions and storybook-solid) and `svelte-check` in compositions take 20 to
   60 minutes when they run alongside each other; it's not the new code (an incremental recheck of the solid demos takes
   2s). Run typechecks one at a time in the background. `timeout` isn't installed on this Mac.
+
+
+## avatar (done, 2026-11-12)
+
+- Recipe: kept the Chakra API (`variant: solid | subtle | outline`, sizes `full`, `2xs`–`2xl`, `shape`, `borderless`)
+  and added tl-ds's bits: a `ring` boolean (2px solid `colorPalette.focusRing` outline, 2px offset), the fallback icon
+  sized per size through `--avatar-icon-size` (tl-ds's 4/4/5/5/6/6/8, 60% for `full`), and `rounded` radius that grows
+  with size (`l1` for 2xs/xs, `l2` for sm–lg, `l3` from xl up; tl-ds's `l4` for 2xl doesn't exist here, so 2xl stays
+  `l3`). Kept the `colorPalette`-driven variants instead of tl-ds's fixed neutral bg. No analog override exists.
+- `ring` collides with Panda's `ring` style prop, so React/Vue/Solid root types are
+  `Omit<…, "ring"> & Pick<AvatarVariantProps, "ring">` (tl-ds does the same). At runtime the recipe's
+  `splitVariantProps` takes it first, so it reaches the recipe. Same trap as carousel's `page`.
+- Panda didn't extract variants passed to `AvatarGroup` (no `borderless`/`stacking` CSS was generated). Added
+  `jsx: ["Avatar", /^Avatar\./, "AvatarGroup"]` to the avatar recipe and `"AvatarGroup"` to the group recipe's `jsx`.
+  Any new `<Name>Group` wrapper that forwards recipe props needs the same.
+- Components: `Avatar.Root`, `RootProvider`, `Image` (defaults `draggable=false`, `referrerPolicy=no-referrer`, from
+  tl-ds), `Fallback` (`name` → initials of first and last word, else `Avatar.Icon`), `Icon` (defaults to the `account`
+  icon; there's no `user` icon in `@isbatak/icons`, and `account` is tagged user/avatar), `Context`, `PropsProvider`
+  (not in Svelte), `AvatarGroup` (a `Group` with `gap="0" spaceX="-3"` that passes avatar variant props down through
+  the props context), and `getInitials`. Svelte uses its own `avatar-styles.ts` props context for the group, and the
+  group adds its spacing as a `css()` class before the caller's `class`. Skipped tl-ds's `getRandomAvatarColor`: it
+  returns hex colors.
+- Vue boolean variants in demos are `:ring="true"` / `:borderless="true"`; a bare attribute arrives as `""`.
+- Demos (12): usage, sizes, variants, shapes, fallback, colors, group, group-stacking, ring (uses the `ring` variant
+  instead of Chakra's inline css), with-badge, persona, store. Skipped Chakra's with-overflow (menu + partition helper)
+  and random-color (picks a palette with a helper function). Badge dot outline is `[0.2em solid]`.
+- Storybook check (all four): sizes 24–64px, shapes 0/4px/full, initials `OK`/`SU` and a 20px icon with a broken image,
+  group overlap -12px with a 2px border, stacking z-index 0→3 vs 4→1, `borderless` drops the border, Svelte's
+  `spaceX="1"` overrides the group's -3, ring outlines in each palette, store reads `loaded`.
