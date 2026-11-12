@@ -167,3 +167,20 @@
   `maxW` and `rounded` through `class={css(...)}`, like the badge demos. Skipped Chakra's closed `Tag` helper
   (`startElement`/`endElement`/`closable` props) and its size/variant tables (they loop over static data).
 - `ds-api.json`: only the `tag` key was added; `parts` is empty because the parts have no JSDoc'd props.
+
+
+## card (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe and took tl-ds's `interactive` boolean (pointer cursor via `cursor:
+  button`, `backgrounds` transition, hover bg) with its `--card-bg` / `--card-bg-hover` variables, set per variant
+  (subtle hovers to `bg.emphasized`, outline/elevated to `bg.muted`). Kept our `sm`/`md`/`lg` sizes and `outline`
+  default; tl-ds's single `md` size and `subtle` default were skipped, as were its `3xl.500`/`md.DEFAULT` text styles
+  (don't exist here). No analog override exists.
+- Components: `Card.Root`, `Header`, `Body`, `Footer`, `Title` (`h3`), `Description` (`p`), plus `PropsProvider` in
+  React/Vue/Solid. No Ark machine, so no `Context`. Svelte uses one Box per part plus `card-styles.ts`, no provider.
+- Demos (5): usage, variants, sizes, interactive, with-avatar. Skipped Chakra's with-form and horizontal-with-image
+  (needs form fields and an Image component, which is a later PRD item). Vue passes `:interactive="true"`.
+- `ds-api.json`: only the `card` key was added (alphabetically before `carousel`), written by hand.
+- Checks run: typecheck in panda-ds build, the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`
+  and `packages/studio`; oxlint and oxfmt on the changed files. NOT run: the Playwright Storybook behaviour check, the
+  `apps/www` typecheck and the full `turbo --affected` run. Worth a visual look at the `interactive` hover.

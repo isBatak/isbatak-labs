@@ -1,0 +1,60 @@
+---
+title: Card
+description: A container for content about a single subject, with a header, body and footer.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/card
+  recipe: packages/panda/ds/src/theme/recipes/card.ts
+---
+
+A card groups related content about one subject. Put a title and description in `Card.Body`, and actions in
+`Card.Footer`. Set `interactive` when the whole card is clickable.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Card.Root>
+  <Card.Header />
+  <Card.Body>
+    <Card.Title />
+    <Card.Description />
+  </Card.Body>
+  <Card.Footer />
+</Card.Root>
+```
+
+## Examples
+
+### Variants
+
+Use `variant` to change the look: `elevated`, `outline` or `subtle`.
+
+<Example id="card/variants" />
+
+### Sizes
+
+Use `size` to change the padding and title size: `sm`, `md` or `lg`.
+
+<Example id="card/sizes" />
+
+### Interactive
+
+Set `interactive` to show a pointer cursor and a hover background.
+
+<Example id="card/interactive" />
+
+### With avatar
+
+Put an `Avatar.Root` in `Card.Header`.
+
+<Example id="card/with-avatar" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
