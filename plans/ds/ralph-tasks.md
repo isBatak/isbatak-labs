@@ -21,7 +21,7 @@ Category `Data Display` unless noted.
 - [x] tag — has: recipe. Close trigger defaults to `CloseButton`.
 - [x] card — has: recipe.
 - [x] data-list — has: recipe.
-- [ ] stat — has: recipe.
+- [x] stat — has: recipe.
 - [ ] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] timeline — has: recipe.

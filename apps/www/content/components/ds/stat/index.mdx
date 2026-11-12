@@ -1,0 +1,78 @@
+---
+title: Stat
+description: A metric with a label, value, unit and change indicator.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/stat
+  recipe: packages/panda/ds/src/theme/recipes/stat.ts
+---
+
+A stat shows a single metric: a label, its value and optionally a unit, a help text and an up or down indicator.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Stat.Root>
+  <Stat.Label />
+  <Stat.ValueText>
+    <Stat.ValueUnit />
+  </Stat.ValueText>
+  <Stat.HelpText>
+    <Stat.UpIndicator />
+  </Stat.HelpText>
+</Stat.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the value's text size: `xs`, `sm`, `md` or `lg`.
+
+<Example id="stat/sizes" />
+
+### Indicator
+
+`Stat.UpIndicator` and `Stat.DownIndicator` render an arrow icon, green for up and red for down.
+
+<Example id="stat/with-indicator" />
+
+### Trend
+
+Combine a value with a `Badge` to show how it changed.
+
+<Example id="stat/with-trend" />
+
+### Value unit
+
+Use `Stat.ValueUnit` to add a muted unit after a number.
+
+<Example id="stat/with-value-unit" />
+
+### Group
+
+`Stat.Group` lays out several stats in a row and passes its `size` and `card` to each one.
+
+<Example id="stat/with-group" />
+
+### Icon
+
+Put an icon next to the label.
+
+<Example id="stat/with-icon" />
+
+### Card
+
+Set `card` to draw a border and padding around the stat.
+
+<Example id="stat/card" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

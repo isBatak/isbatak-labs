@@ -199,3 +199,23 @@
 - Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
   `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
   `turbo --affected`. Worth a visual look at the `separator` dividers.
+
+
+## stat (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe and took tl-ds's `card` boolean (1px `border` outline, `l3` radius,
+  padding 4) and its `xs` size (value in `lg` text). Couldn't read tl-ds's own recipe file (only its component and
+  story), so the `card` look is inferred from the story, not copied. No analog override exists.
+- Components: `Stat.Root` (`dl`), `Label` (`dt`), `ValueText` (`dd`), `HelpText`, `ValueUnit`, `UpIndicator`,
+  `DownIndicator`, `Group`, plus `PropsProvider` in React/Vue/Solid. The indicators default to the `arrow-up` /
+  `arrow-down` icons: tl-ds's `caret-up_filled` doesn't exist in `@isbatak/icons` and there are no caret icons.
+  `Stat.Group` passes `size`/`card` to its stats (same pattern as `AvatarGroup`; Svelte uses a `stat-styles.ts` props
+  context). Svelte `Group` takes no style props, so demos use `class={css(...)}`.
+- Demos (8): usage, sizes, with-indicator, with-trend, with-value-unit, with-group, with-icon (`shopping-bag`, there is
+  no dollar icon), card. Skipped Chakra's with-format-options, with-progress-bar (no `FormatNumber`/`Progress` yet,
+  both are later PRD items), with-info-tip and the closed-component demo. Revisit with-trend/with-progress-bar once
+  `format` and `progress` land; with-trend uses a plain `$8,456.40` string.
+- `ds-api.json`: only the `stat` key added before `steps`, by hand.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
+  `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
+  `turbo --affected`. Worth a visual look at the `card` variant and the indicator colours.
