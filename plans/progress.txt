@@ -252,3 +252,18 @@
 - Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
   changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
   look at the subgrid alignment and sticky columns in Vue/Svelte/Solid.
+
+
+## timeline (done, 2026-11-12)
+
+- Recipe already existed (Chakra's slot recipe: `variant` solid/subtle/outline/plain, `size` sm–xl, `showLastSeparator`).
+  tl-ds has no timeline, so no recipe change and no `@isbatak/panda-ds` changeset. No analog override exists.
+- Components (all four frameworks): `Timeline.Root`, `Item`, `Content`, `Separator`, `Indicator`, `Connector`, `Title`
+  (`h3`), `Description` (`p`), plus `PropsProvider` in React/Vue/Solid. No Ark machine. Svelte uses one Box per part plus
+  `timeline-styles.ts`, no provider.
+- Demos (5): usage, variants, sizes, with-icons (`check`), with-last-separator. Skipped Chakra's with-avatar,
+  with-content-card, with-connector-icon and with-dynamic-items style demos (need Avatar/Card combos or loop over data).
+  Vue uses `:showLastSeparator="true"`.
+- `ds-api.json`: only the `timeline` key added before `toast`, by hand (parts left empty like card/stat).
+- Checks run: see commit; NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a
+  visual look at the separator line alignment and the `outline` indicator.

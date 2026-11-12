@@ -8147,6 +8147,23 @@
       }
     }
   },
+  "timeline": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "solid", "outline", "plain"],
+        "defaultValue": "solid"
+      },
+      "showLastSeparator": {
+        "values": ["true", "false"],
+        "defaultValue": "false"
+      },
+      "size": {
+        "values": ["sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "toast": {
     "parts": [],
     "variants": {}

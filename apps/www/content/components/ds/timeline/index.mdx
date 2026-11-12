@@ -1,0 +1,64 @@
+---
+title: Timeline
+description: A vertical sequence of events, each with an indicator, a title and a description.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/timeline
+  recipe: packages/panda/ds/src/theme/recipes/timeline.ts
+---
+
+A timeline lists events in order along a vertical line. Each `Timeline.Item` holds a `Timeline.Connector` with the
+separator line and indicator, and a `Timeline.Content` with the title and description.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Timeline.Root>
+  <Timeline.Item>
+    <Timeline.Connector>
+      <Timeline.Separator />
+      <Timeline.Indicator />
+    </Timeline.Connector>
+    <Timeline.Content>
+      <Timeline.Title />
+      <Timeline.Description />
+    </Timeline.Content>
+  </Timeline.Item>
+</Timeline.Root>
+```
+
+## Examples
+
+### Variants
+
+Use `variant` to change the indicator: `solid`, `subtle`, `outline` or `plain`.
+
+<Example id="timeline/variants" />
+
+### Sizes
+
+Use `size` to change the indicator and text size: `sm`, `md`, `lg` or `xl`.
+
+<Example id="timeline/sizes" />
+
+### With icons
+
+Put an `Icon` in `Timeline.Indicator`.
+
+<Example id="timeline/with-icons" />
+
+### With last separator
+
+Set `showLastSeparator` to keep the line below the last item.
+
+<Example id="timeline/with-last-separator" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
