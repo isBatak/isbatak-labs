@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/ark-search-input",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Ark UI style search input components for React, Solid, Vue and Svelte",
   "keywords": [
     "ark",
