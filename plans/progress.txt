@@ -167,3 +167,135 @@
   `maxW` and `rounded` through `class={css(...)}`, like the badge demos. Skipped Chakra's closed `Tag` helper
   (`startElement`/`endElement`/`closable` props) and its size/variant tables (they loop over static data).
 - `ds-api.json`: only the `tag` key was added; `parts` is empty because the parts have no JSDoc'd props.
+
+
+## card (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe and took tl-ds's `interactive` boolean (pointer cursor via `cursor:
+  button`, `backgrounds` transition, hover bg) with its `--card-bg` / `--card-bg-hover` variables, set per variant
+  (subtle hovers to `bg.emphasized`, outline/elevated to `bg.muted`). Kept our `sm`/`md`/`lg` sizes and `outline`
+  default; tl-ds's single `md` size and `subtle` default were skipped, as were its `3xl.500`/`md.DEFAULT` text styles
+  (don't exist here). No analog override exists.
+- Components: `Card.Root`, `Header`, `Body`, `Footer`, `Title` (`h3`), `Description` (`p`), plus `PropsProvider` in
+  React/Vue/Solid. No Ark machine, so no `Context`. Svelte uses one Box per part plus `card-styles.ts`, no provider.
+- Demos (5): usage, variants, sizes, interactive, with-avatar. Skipped Chakra's with-form and horizontal-with-image
+  (needs form fields and an Image component, which is a later PRD item). Vue passes `:interactive="true"`.
+- `ds-api.json`: only the `card` key was added (alphabetically before `carousel`), written by hand.
+- Checks run: typecheck in panda-ds build, the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`
+  and `packages/studio`; oxlint and oxfmt on the changed files. NOT run: the Playwright Storybook behaviour check, the
+  `apps/www` typecheck and the full `turbo --affected` run. Worth a visual look at the `interactive` hover.
+
+
+## data-list (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe (`orientation`, `size` sm–lg, `variant` subtle/bold) and took tl-ds's
+  `separator` boolean (`divideY 1px`, `border.muted`, items get `py 2`, as accordion does for its dividers). Skipped
+  tl-ds's default item padding and its `md.DEFAULT`/`xl.DEFAULT` text styles (don't exist here). No analog override.
+- Components: `DataList.Root` (`dl`), `Item` (`div`), `ItemLabel` (`dt`), `ItemValue` (`dd`), plus `PropsProvider` in
+  React/Vue/Solid. No Ark machine. Svelte uses one Box per part plus `data-list-styles.ts`, no provider.
+- Demos (5): usage, orientation, sizes, variants, separator. Vue uses `:separator="true"`. Skipped Chakra's
+  with-info-tip, with-actions, and the closed-component demos (need Tooltip/Menu helpers or loop over static data).
+- `ds-api.json`: only the `data-list` key added before `date-picker`, by hand.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
+  `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
+  `turbo --affected`. Worth a visual look at the `separator` dividers.
+
+
+## stat (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe and took tl-ds's `card` boolean (1px `border` outline, `l3` radius,
+  padding 4) and its `xs` size (value in `lg` text). Couldn't read tl-ds's own recipe file (only its component and
+  story), so the `card` look is inferred from the story, not copied. No analog override exists.
+- Components: `Stat.Root` (`dl`), `Label` (`dt`), `ValueText` (`dd`), `HelpText`, `ValueUnit`, `UpIndicator`,
+  `DownIndicator`, `Group`, plus `PropsProvider` in React/Vue/Solid. The indicators default to the `arrow-up` /
+  `arrow-down` icons: tl-ds's `caret-up_filled` doesn't exist in `@isbatak/icons` and there are no caret icons.
+  `Stat.Group` passes `size`/`card` to its stats (same pattern as `AvatarGroup`; Svelte uses a `stat-styles.ts` props
+  context). Svelte `Group` takes no style props, so demos use `class={css(...)}`.
+- Demos (8): usage, sizes, with-indicator, with-trend, with-value-unit, with-group, with-icon (`shopping-bag`, there is
+  no dollar icon), card. Skipped Chakra's with-format-options, with-progress-bar (no `FormatNumber`/`Progress` yet,
+  both are later PRD items), with-info-tip and the closed-component demo. Revisit with-trend/with-progress-bar once
+  `format` and `progress` land; with-trend uses a plain `$8,456.40` string.
+- `ds-api.json`: only the `stat` key added before `steps`, by hand.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
+  `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
+  `turbo --affected`. Worth a visual look at the `card` variant and the indicator colours.
+
+
+## table (done, 2026-11-12)
+
+- Audit of React: recipe, `Table.Row` `selected` (sets `aria-selected`, same as tl-ds) and `sticky` on `ColumnHeader`/`Cell`
+  already match tl-ds and Chakra. No recipe or React changes, so no `@isbatak/panda-ds` changeset.
+- Added Vue, Svelte, Solid. Vue wraps Row/ColumnHeader/Cell in `defineComponent` with declared `selected`/`sticky`
+  props (so `<Table.Row selected>` casts to a boolean). Solid uses `splitProps`. Svelte uses one Box per part plus
+  `table-styles.ts`; Row/ColumnHeader/Cell take `selected`/`sticky`. `PropsProvider` exported in Vue/Solid only.
+- Demos (5 per framework, ported from React): usage, sizes, borders, interactive, sticky. Svelte uses `class={css(...)}`
+  for `textAlign`/`minW` and the lowercase native `colspan` attribute. Vue uses `:prop="true"` for booleans. Did not add
+  Chakra's striped/selection-with-checkbox/scroll-area demos (checkbox + loops over data).
+- Stories for vue, svelte, solid (React already had them). `ds-api.json` untouched: the `table` key already exists.
+- Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. No `test` script exists in those packages. NOT run: Playwright Storybook check, `apps/www` typecheck,
+  full `turbo --affected`. Worth a visual look at sticky columns in Vue/Svelte/Solid.
+
+
+## grid-table (done, 2026-11-12)
+
+- Audit of React: recipe (subgrid rows, sticky columns, `stickyHeader`, `interactive`, borders) and components already
+  match Table's look and the docs page. No recipe or React changes, so no `@isbatak/panda-ds` changeset.
+- Added Vue, Svelte, Solid. Parts are `div`s with default roles (`table`, `rowgroup`, `row`, `columnheader`, `cell`).
+  `Root` takes `columns` and sets `--grid-template-columns` on `style`: Vue merges it with `attrs.style` in a
+  `defineComponent`, Solid merges object styles through `splitProps`, Svelte prepends it to the `style` string. A string
+  `style` passed to Solid's root is dropped. Row/ColumnHeader/Cell follow the table wrappers (`selected`, `sticky`).
+  Svelte: one Box per part plus `grid-table-styles.ts`; no props provider (React has none either).
+- Demos (3 per framework, ported from React): usage, interactive, sticky. Svelte uses `class={css(...)}` for style
+  props; Vue uses `:prop="true"` for booleans.
+- Stories for vue, svelte, solid (React already had them). `ds-api.json` untouched: the `grid-table` key exists.
+- Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
+  look at the subgrid alignment and sticky columns in Vue/Svelte/Solid.
+
+
+## timeline (done, 2026-11-12)
+
+- Recipe already existed (Chakra's slot recipe: `variant` solid/subtle/outline/plain, `size` sm–xl, `showLastSeparator`).
+  tl-ds has no timeline, so no recipe change and no `@isbatak/panda-ds` changeset. No analog override exists.
+- Components (all four frameworks): `Timeline.Root`, `Item`, `Content`, `Separator`, `Indicator`, `Connector`, `Title`
+  (`h3`), `Description` (`p`), plus `PropsProvider` in React/Vue/Solid. No Ark machine. Svelte uses one Box per part plus
+  `timeline-styles.ts`, no provider.
+- Demos (5): usage, variants, sizes, with-icons (`check`), with-last-separator. Skipped Chakra's with-avatar,
+  with-content-card, with-connector-icon and with-dynamic-items style demos (need Avatar/Card combos or loop over data).
+  Vue uses `:showLastSeparator="true"`.
+- `ds-api.json`: only the `timeline` key added before `toast`, by hand (parts left empty like card/stat).
+- Checks run: see commit; NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a
+  visual look at the separator line alignment and the `outline` indicator.
+
+
+## qr-code (done, 2026-11-12)
+
+- Recipe already existed (Chakra's slot recipe: `size` 2xs–2xl and `full`, via `--qr-code-size`). tl-ds has no qr-code, so
+  no recipe change and no `@isbatak/panda-ds` changeset. The recipe still uses px values for the sizes; left as is.
+- Components (all four frameworks): `QrCode.Root`, `RootProvider`, `Frame`, `Pattern`, `Overlay`, `DownloadTrigger`,
+  `Context`, plus `useQrCode`/`useQrCodeContext`. `Frame` renders `Pattern` when it has no children (React `??`, Vue
+  slot fallback, Solid `??`, Svelte `{#if children}`). Svelte uses one part per file plus `qr-code-styles.ts`, with
+  `bind:value` on the root. `DownloadTrigger` has no recipe styles (the slot is empty), so demos wrap a `Button`.
+- Demos (4): usage, sizes, with-overlay (`star` icon, `ecc: "H"`), with-download-trigger. Skipped Chakra's controlled
+  and pixel-size demos (need Input/extra helpers).
+- `ds-api.json`: only the `qr-code` key added before `radio-card`-ish alphabetical position, via the generator.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
+  look at the overlay centering and the `full` size.
+
+
+## image (done, 2026-11-12)
+
+- No recipe (none needed; Chakra's Image and tl-ds's Image are a styled `img` with `fit`/`align`), so no `@isbatak/panda-ds`
+  changeset. `fit` (default `cover`) maps to `objectFit`, `align` to `objectPosition`; tl-ds used CSS vars for this, I
+  pass Panda style props instead. `htmlWidth`/`htmlHeight` are handled by Panda's JSX helper in React/Vue/Solid.
+- `align` is omitted from the inherited `img` props (the HTML `align` attribute clashes with the object-position type).
+- Svelte renders a plain `<img>` with `splitCssProps` instead of `Box`, because `Box` treats `width`/`height` as style
+  props and would never emit the attributes; its `htmlWidth`/`htmlHeight` props set them. oxfmt skips `.svelte` files.
+- Demos (5): usage, circular, with-aspect-ratio (`aspectRatio="landscape"`, the only token), with-fit, with-html-dimensions.
+  Images are Unsplash, like the aspect-ratio demos. Skipped Chakra's fallback/fade-in style demos.
+- `ds-api.json`: only the `image` key, inserted by hand from the generator output; the `fit`/`align` types print as
+  `ComponentProps<typeof StyledImage>[...]`, which could be prettier.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).

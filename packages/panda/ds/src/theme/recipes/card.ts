@@ -14,6 +14,7 @@ export const cardSlotRecipe = defineSlotRecipe({
       borderRadius: "l3",
       color: "fg",
       textAlign: "start",
+      bg: "var(--card-bg)",
     },
     title: {
       fontWeight: "semibold",
@@ -73,20 +74,34 @@ export const cardSlotRecipe = defineSlotRecipe({
     variant: {
       elevated: {
         root: {
-          bg: "bg.panel",
+          "--card-bg": "colors.bg.panel",
+          "--card-bg-hover": "colors.bg.muted",
           boxShadow: "md",
         },
       },
       outline: {
         root: {
-          bg: "bg.panel",
+          "--card-bg": "colors.bg.panel",
+          "--card-bg-hover": "colors.bg.muted",
           borderWidth: "1px",
           borderColor: "border",
         },
       },
       subtle: {
         root: {
-          bg: "bg.muted",
+          "--card-bg": "colors.bg.muted",
+          "--card-bg-hover": "colors.bg.emphasized",
+        },
+      },
+    },
+    interactive: {
+      true: {
+        root: {
+          cursor: "button",
+          transition: "backgrounds",
+          _hover: {
+            bg: "var(--card-bg-hover)",
+          },
         },
       },
     },

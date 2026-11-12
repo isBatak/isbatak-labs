@@ -1,0 +1,58 @@
+---
+title: Data List
+description: Label and value pairs for detail views.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/data-list
+  recipe: packages/panda/ds/src/theme/recipes/data-list.ts
+---
+
+A data list shows pairs of labels and values, such as the details of a record. It renders a `dl` with `dt` and `dd`
+elements.
+
+## Usage
+
+<Usage />
+
+```tsx
+<DataList.Root>
+  <DataList.Item>
+    <DataList.ItemLabel />
+    <DataList.ItemValue />
+  </DataList.Item>
+</DataList.Root>
+```
+
+## Examples
+
+### Orientation
+
+Use `orientation` to put the label beside the value (`horizontal`) or above it (`vertical`).
+
+<Example id="data-list/orientation" />
+
+### Sizes
+
+Use `size` to change the text size: `sm`, `md` or `lg`.
+
+<Example id="data-list/sizes" />
+
+### Variants
+
+Use `variant` to switch between a muted label (`subtle`) and a medium weight label with a muted value (`bold`).
+
+<Example id="data-list/variants" />
+
+### Separator
+
+Set `separator` to draw a line between items.
+
+<Example id="data-list/separator" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

@@ -1,0 +1,8 @@
+export { default as TableRoot, type TableRootProps } from "./table-root.svelte"
+export { default as TableHeader, type TableHeaderProps } from "./table-header.svelte"
+export { default as TableBody, type TableBodyProps } from "./table-body.svelte"
+export { default as TableFooter, type TableFooterProps } from "./table-footer.svelte"
+export { default as TableRow, type TableRowProps } from "./table-row.svelte"
+export { default as TableColumnHeader, type TableColumnHeaderProps } from "./table-column-header.svelte"
+export { default as TableCell, type TableCellProps } from "./table-cell.svelte"
+export { default as TableCaption, type TableCaptionProps } from "./table-caption.svelte"
