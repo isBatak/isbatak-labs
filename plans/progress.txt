@@ -184,3 +184,18 @@
 - Checks run: typecheck in panda-ds build, the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`
   and `packages/studio`; oxlint and oxfmt on the changed files. NOT run: the Playwright Storybook behaviour check, the
   `apps/www` typecheck and the full `turbo --affected` run. Worth a visual look at the `interactive` hover.
+
+
+## data-list (done, 2026-11-12)
+
+- Recipe: kept the Chakra-shaped slot recipe (`orientation`, `size` sm–lg, `variant` subtle/bold) and took tl-ds's
+  `separator` boolean (`divideY 1px`, `border.muted`, items get `py 2`, as accordion does for its dividers). Skipped
+  tl-ds's default item padding and its `md.DEFAULT`/`xl.DEFAULT` text styles (don't exist here). No analog override.
+- Components: `DataList.Root` (`dl`), `Item` (`div`), `ItemLabel` (`dt`), `ItemValue` (`dd`), plus `PropsProvider` in
+  React/Vue/Solid. No Ark machine. Svelte uses one Box per part plus `data-list-styles.ts`, no provider.
+- Demos (5): usage, orientation, sizes, variants, separator. Vue uses `:separator="true"`. Skipped Chakra's
+  with-info-tip, with-actions, and the closed-component demos (need Tooltip/Menu helpers or loop over static data).
+- `ds-api.json`: only the `data-list` key added before `date-picker`, by hand.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
+  `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
+  `turbo --affected`. Worth a visual look at the `separator` dividers.

@@ -2059,6 +2059,26 @@
       }
     }
   },
+  "data-list": {
+    "parts": [],
+    "variants": {
+      "orientation": {
+        "values": ["horizontal", "vertical"],
+        "defaultValue": "vertical"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "separator": {
+        "values": ["true"]
+      },
+      "variant": {
+        "values": ["subtle", "bold"],
+        "defaultValue": "subtle"
+      }
+    }
+  },
   "date-picker": {
     "parts": [
       {

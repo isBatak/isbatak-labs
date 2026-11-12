@@ -20,7 +20,7 @@ Category `Data Display` unless noted.
 - [x] badge — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
 - [x] tag — has: recipe. Close trigger defaults to `CloseButton`.
 - [x] card — has: recipe.
-- [ ] data-list — has: recipe.
+- [x] data-list — has: recipe.
 - [ ] stat — has: recipe.
 - [ ] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
