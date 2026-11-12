@@ -267,3 +267,19 @@
 - `ds-api.json`: only the `timeline` key added before `toast`, by hand (parts left empty like card/stat).
 - Checks run: see commit; NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a
   visual look at the separator line alignment and the `outline` indicator.
+
+
+## qr-code (done, 2026-11-12)
+
+- Recipe already existed (Chakra's slot recipe: `size` 2xs–2xl and `full`, via `--qr-code-size`). tl-ds has no qr-code, so
+  no recipe change and no `@isbatak/panda-ds` changeset. The recipe still uses px values for the sizes; left as is.
+- Components (all four frameworks): `QrCode.Root`, `RootProvider`, `Frame`, `Pattern`, `Overlay`, `DownloadTrigger`,
+  `Context`, plus `useQrCode`/`useQrCodeContext`. `Frame` renders `Pattern` when it has no children (React `??`, Vue
+  slot fallback, Solid `??`, Svelte `{#if children}`). Svelte uses one part per file plus `qr-code-styles.ts`, with
+  `bind:value` on the root. `DownloadTrigger` has no recipe styles (the slot is empty), so demos wrap a `Button`.
+- Demos (4): usage, sizes, with-overlay (`star` icon, `ecc: "H"`), with-download-trigger. Skipped Chakra's controlled
+  and pixel-size demos (need Input/extra helpers).
+- `ds-api.json`: only the `qr-code` key added before `radio-card`-ish alphabetical position, via the generator.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
+  look at the overlay centering and the `full` size.

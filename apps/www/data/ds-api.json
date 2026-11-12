@@ -6072,6 +6072,84 @@
       }
     }
   },
+  "qr-code": {
+    "parts": [
+      {
+        "name": "QrCode.Root",
+        "props": {
+          "defaultValue": {
+            "type": "string | undefined",
+            "description": "The initial value to encode when rendered.\nUse when you don't need to control the value of the qr code."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The element ids."
+          },
+          "value": {
+            "type": "string | undefined",
+            "description": "The controlled value to encode."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the value changes."
+          },
+          "encoding": {
+            "type": "QrCodeGenerateOptions | undefined",
+            "description": "The qr code encoding options."
+          },
+          "pixelSize": {
+            "type": "number | undefined",
+            "description": "The pixel size of the qr code."
+          }
+        }
+      },
+      {
+        "name": "QrCode.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseQrCodeReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "QrCode.DownloadTrigger",
+        "props": {
+          "fileName": {
+            "type": "string",
+            "description": "The name of the file."
+          },
+          "mimeType": {
+            "type": "DataUrlType",
+            "description": "The mime type of the image."
+          },
+          "quality": {
+            "type": "number | undefined",
+            "description": "The quality of the image."
+          }
+        }
+      },
+      {
+        "name": "QrCode.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseQrCodeContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "full"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "quote": {
     "parts": [],
     "variants": {}
