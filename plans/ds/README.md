@@ -180,7 +180,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] grid-table — has: recipe react docs
 - [x] timeline — has: recipe
 - [x] qr-code — has: recipe
-- [ ] image
+- [x] image
 - [ ] marquee — has: recipe
 - [ ] empty-state — has: recipe
 - [ ] format

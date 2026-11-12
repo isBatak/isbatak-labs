@@ -26,7 +26,7 @@ Category `Data Display` unless noted.
 - [x] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [x] timeline — has: recipe.
 - [x] qr-code — has: recipe. Ark QR Code.
-- [ ] image — nothing yet. Chakra's Image: a styled `img` with `fit`, `htmlWidth`/`htmlHeight`, aspect ratio.
+- [x] image — nothing yet. Chakra's Image: a styled `img` with `fit`, `htmlWidth`/`htmlHeight`, aspect ratio.
 - [ ] marquee — has: recipe. Ark Marquee if available, else a CSS-only component.
 - [ ] empty-state — has: recipe. Category `Feedback`.
 - [ ] format — nothing yet. Ark Format (`Format.Number`, `Format.Byte`, `Format.RelativeTime`). No recipe.

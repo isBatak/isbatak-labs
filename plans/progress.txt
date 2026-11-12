@@ -283,3 +283,19 @@
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
   changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
   look at the overlay centering and the `full` size.
+
+
+## image (done, 2026-11-12)
+
+- No recipe (none needed; Chakra's Image and tl-ds's Image are a styled `img` with `fit`/`align`), so no `@isbatak/panda-ds`
+  changeset. `fit` (default `cover`) maps to `objectFit`, `align` to `objectPosition`; tl-ds used CSS vars for this, I
+  pass Panda style props instead. `htmlWidth`/`htmlHeight` are handled by Panda's JSX helper in React/Vue/Solid.
+- `align` is omitted from the inherited `img` props (the HTML `align` attribute clashes with the object-position type).
+- Svelte renders a plain `<img>` with `splitCssProps` instead of `Box`, because `Box` treats `width`/`height` as style
+  props and would never emit the attributes; its `htmlWidth`/`htmlHeight` props set them. oxfmt skips `.svelte` files.
+- Demos (5): usage, circular, with-aspect-ratio (`aspectRatio="landscape"`, the only token), with-fit, with-html-dimensions.
+  Images are Unsplash, like the aspect-ratio demos. Skipped Chakra's fallback/fade-in style demos.
+- `ds-api.json`: only the `image` key, inserted by hand from the generator output; the `fit`/`align` types print as
+  `ComponentProps<typeof StyledImage>[...]`, which could be prettier.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
