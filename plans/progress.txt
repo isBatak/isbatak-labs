@@ -219,3 +219,19 @@
 - Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`,
   `packages/studio`; oxlint and oxfmt on changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full
   `turbo --affected`. Worth a visual look at the `card` variant and the indicator colours.
+
+
+## table (done, 2026-11-12)
+
+- Audit of React: recipe, `Table.Row` `selected` (sets `aria-selected`, same as tl-ds) and `sticky` on `ColumnHeader`/`Cell`
+  already match tl-ds and Chakra. No recipe or React changes, so no `@isbatak/panda-ds` changeset.
+- Added Vue, Svelte, Solid. Vue wraps Row/ColumnHeader/Cell in `defineComponent` with declared `selected`/`sticky`
+  props (so `<Table.Row selected>` casts to a boolean). Solid uses `splitProps`. Svelte uses one Box per part plus
+  `table-styles.ts`; Row/ColumnHeader/Cell take `selected`/`sticky`. `PropsProvider` exported in Vue/Solid only.
+- Demos (5 per framework, ported from React): usage, sizes, borders, interactive, sticky. Svelte uses `class={css(...)}`
+  for `textAlign`/`minW` and the lowercase native `colspan` attribute. Vue uses `:prop="true"` for booleans. Did not add
+  Chakra's striped/selection-with-checkbox/scroll-area demos (checkbox + loops over data).
+- Stories for vue, svelte, solid (React already had them). `ds-api.json` untouched: the `table` key already exists.
+- Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. No `test` script exists in those packages. NOT run: Playwright Storybook check, `apps/www` typecheck,
+  full `turbo --affected`. Worth a visual look at sticky columns in Vue/Svelte/Solid.
