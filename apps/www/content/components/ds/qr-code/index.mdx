@@ -1,0 +1,56 @@
+---
+title: QR code
+description: Encodes a value as a QR code in a fixed size, with an optional overlay and download button.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/qr-code
+  recipe: packages/panda/ds/src/theme/recipes/qr-code.ts
+  ark: https://ark-ui.com/docs/components/qr-code
+---
+
+Built on Ark UI's QR Code. Pass the `value` to `QrCode.Root`, then render a `QrCode.Frame`. With no children,
+`QrCode.Frame` renders its `QrCode.Pattern`. The code takes the current text color.
+
+## Usage
+
+<Usage />
+
+```tsx
+<QrCode.Root>
+  <QrCode.Frame>
+    <QrCode.Pattern />
+  </QrCode.Frame>
+  <QrCode.Overlay />
+  <QrCode.DownloadTrigger />
+</QrCode.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the width and height of the code, from `2xs` to `2xl`. `full` fills the width of the parent.
+
+<Example id="qr-code/sizes" />
+
+### Overlay
+
+Place content, such as a logo, in the center with `QrCode.Overlay`. Raise the error correction with
+`encoding={{ ecc: "H" }}` so the code stays readable behind it.
+
+<Example id="qr-code/with-overlay" />
+
+### Download
+
+`QrCode.DownloadTrigger` saves the code as an image. Set `fileName` and `mimeType`, and render your own button with
+`asChild`.
+
+<Example id="qr-code/with-download-trigger" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
