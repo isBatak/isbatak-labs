@@ -235,3 +235,20 @@
 - Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
   changed files. No `test` script exists in those packages. NOT run: Playwright Storybook check, `apps/www` typecheck,
   full `turbo --affected`. Worth a visual look at sticky columns in Vue/Svelte/Solid.
+
+
+## grid-table (done, 2026-11-12)
+
+- Audit of React: recipe (subgrid rows, sticky columns, `stickyHeader`, `interactive`, borders) and components already
+  match Table's look and the docs page. No recipe or React changes, so no `@isbatak/panda-ds` changeset.
+- Added Vue, Svelte, Solid. Parts are `div`s with default roles (`table`, `rowgroup`, `row`, `columnheader`, `cell`).
+  `Root` takes `columns` and sets `--grid-template-columns` on `style`: Vue merges it with `attrs.style` in a
+  `defineComponent`, Solid merges object styles through `splitProps`, Svelte prepends it to the `style` string. A string
+  `style` passed to Solid's root is dropped. Row/ColumnHeader/Cell follow the table wrappers (`selected`, `sticky`).
+  Svelte: one Box per part plus `grid-table-styles.ts`; no props provider (React has none either).
+- Demos (3 per framework, ported from React): usage, interactive, sticky. Svelte uses `class={css(...)}` for style
+  props; Vue uses `:prop="true"` for booleans.
+- Stories for vue, svelte, solid (React already had them). `ds-api.json` untouched: the `grid-table` key exists.
+- Checks run: typecheck in the three `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt on
+  changed files. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual
+  look at the subgrid alignment and sticky columns in Vue/Svelte/Solid.

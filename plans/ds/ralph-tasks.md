@@ -23,7 +23,7 @@ Category `Data Display` unless noted.
 - [x] data-list — has: recipe.
 - [x] stat — has: recipe.
 - [x] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
-- [ ] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
+- [x] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
 - [ ] timeline — has: recipe.
 - [ ] qr-code — has: recipe. Ark QR Code.
 - [ ] image — nothing yet. Chakra's Image: a styled `img` with `fit`, `htmlWidth`/`htmlHeight`, aspect ratio.
