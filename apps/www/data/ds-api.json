@@ -383,7 +383,7 @@
         "defaultValue": "subtle"
       },
       "size": {
-        "values": ["xs", "sm", "md", "lg"],
+        "values": ["2xs", "xs", "sm", "md", "lg"],
         "defaultValue": "sm"
       },
       "status": {
