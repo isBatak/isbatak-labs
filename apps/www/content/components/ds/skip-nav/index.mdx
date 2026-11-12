@@ -1,0 +1,26 @@
+---
+title: Skip nav
+description: A keyboard link that jumps past the navigation to the main content.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/skip-nav
+  recipe: packages/panda/ds/src/theme/recipes/skip-nav-link.ts
+---
+
+`SkipNavLink` stays hidden until it gets keyboard focus, then shows in the top corner of the page. Following it moves
+focus to `SkipNavContent`. Put the link first in the page and wrap the main content in `SkipNavContent`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<SkipNavLink>Skip to content</SkipNavLink>
+<SkipNavContent>{/* main content */}</SkipNavContent>
+```
+
+Both default to the id `skip-nav`. To use another target, pass the same `id` to both.
+
+## API
+
+<Api />

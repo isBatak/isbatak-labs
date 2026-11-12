@@ -1,0 +1,39 @@
+export {
+  CarouselRoot as Root,
+  CarouselRootProvider as RootProvider,
+  CarouselItemGroup as ItemGroup,
+  CarouselItem as Item,
+  CarouselControl as Control,
+  CarouselPrevTrigger as PrevTrigger,
+  CarouselNextTrigger as NextTrigger,
+  CarouselIndicatorGroup as IndicatorGroup,
+  CarouselIndicator as Indicator,
+  CarouselIndicators as Indicators,
+  CarouselAutoplayTrigger as AutoplayTrigger,
+  CarouselAutoplayIndicator as AutoplayIndicator,
+  CarouselProgressText as ProgressText,
+  CarouselContext as Context,
+} from "./carousel"
+
+export type {
+  CarouselRootProps as RootProps,
+  CarouselRootProviderProps as RootProviderProps,
+  CarouselItemGroupProps as ItemGroupProps,
+  CarouselItemProps as ItemProps,
+  CarouselControlProps as ControlProps,
+  CarouselPrevTriggerProps as PrevTriggerProps,
+  CarouselNextTriggerProps as NextTriggerProps,
+  CarouselIndicatorGroupProps as IndicatorGroupProps,
+  CarouselIndicatorProps as IndicatorProps,
+  CarouselIndicatorsProps as IndicatorsProps,
+  CarouselAutoplayTriggerProps as AutoplayTriggerProps,
+  CarouselAutoplayIndicatorProps as AutoplayIndicatorProps,
+  CarouselProgressTextProps as ProgressTextProps,
+  CarouselContextProps as ContextProps,
+} from "./carousel"
+
+export type {
+  CarouselAutoplayStatusDetails as AutoplayStatusDetails,
+  CarouselDragStatusDetails as DragStatusDetails,
+  CarouselPageChangeDetails as PageChangeDetails,
+} from "@ark-ui/vue/carousel"

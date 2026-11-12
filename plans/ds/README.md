@@ -162,17 +162,17 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] pagination
 - [x] navigation-menu
 - [x] toc
-- [ ] skip-nav — has: recipe (skip-nav-link)
+- [x] skip-nav — has: recipe (skip-nav-link)
 - [x] splitter
-- [ ] scroll-area — has: recipe
-- [ ] carousel — has: recipe
-- [ ] tree-view — has: recipe
+- [x] scroll-area — has: recipe
+- [x] carousel — has: recipe
+- [x] tree-view — has: recipe
 
 ## Data display
 
-- [ ] avatar — has: recipe
-- [ ] badge — has: recipe react vue svelte solid docs
-- [ ] tag — has: recipe
+- [x] avatar — has: recipe
+- [x] badge — has: recipe react vue svelte solid docs
+- [x] tag — has: recipe
 - [ ] card — has: recipe
 - [ ] data-list — has: recipe
 - [ ] stat — has: recipe

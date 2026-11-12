@@ -2,7 +2,8 @@ import { defineSlotRecipe } from "@pandacss/dev"
 
 export const carouselSlotRecipe = defineSlotRecipe({
   className: "carousel",
-  description: "Horizontally scrolling slides with controls and indicators",
+  description:
+    "Slides the user pages through one or a few at a time, with prev/next triggers, indicators and optional autoplay. Use scroll-area for free scrolling content.",
   slots: [
     "root",
     "itemGroup",
@@ -13,7 +14,6 @@ export const carouselSlotRecipe = defineSlotRecipe({
     "indicatorGroup",
     "indicator",
     "autoplayTrigger",
-    "progressText",
     "progressText",
     "autoplayIndicator",
   ],
@@ -48,6 +48,25 @@ export const carouselSlotRecipe = defineSlotRecipe({
         flexDirection: "column",
         height: "100%",
       },
+    },
+    prevTrigger: {
+      _vertical: {
+        _icon: {
+          rotate: "90deg",
+        },
+      },
+    },
+    nextTrigger: {
+      _vertical: {
+        _icon: {
+          rotate: "90deg",
+        },
+      },
+    },
+    progressText: {
+      textStyle: "sm",
+      fontVariantNumeric: "tabular-nums",
+      color: "fg.muted",
     },
     indicatorGroup: {
       display: "flex",

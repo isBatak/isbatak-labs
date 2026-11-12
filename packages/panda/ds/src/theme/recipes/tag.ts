@@ -11,7 +11,8 @@ export const tagSlotRecipe = defineSlotRecipe({
       verticalAlign: "top",
       maxWidth: "100%",
       userSelect: "none",
-      borderRadius: "l2",
+      borderRadius: "l1",
+      fontWeight: "medium",
       focusVisibleRing: "outside",
     },
     label: {
@@ -19,6 +20,7 @@ export const tagSlotRecipe = defineSlotRecipe({
     },
     closeTrigger: {
       display: "flex",
+      cursor: "button",
       alignItems: "center",
       justifyContent: "center",
       outline: "0",
@@ -29,6 +31,7 @@ export const tagSlotRecipe = defineSlotRecipe({
     },
     startElement: {
       flexShrink: 0,
+      display: "flex",
       boxSize: "var(--tag-element-size)",
       ms: "var(--tag-element-offset)",
       "&:has([data-avatar-root])": {
@@ -41,6 +44,7 @@ export const tagSlotRecipe = defineSlotRecipe({
     },
     endElement: {
       flexShrink: 0,
+      display: "flex",
       boxSize: "var(--tag-element-size)",
       me: "var(--tag-element-offset)",
       _icon: {
@@ -97,6 +101,7 @@ export const tagSlotRecipe = defineSlotRecipe({
           px: "2.5",
           minH: "8",
           gap: "1.5",
+          borderRadius: "l2",
           "--tag-avatar-size": "spacing.6",
           "--tag-element-size": "spacing.4.5",
           "--tag-element-offset": "-4px",
@@ -134,6 +139,11 @@ export const tagSlotRecipe = defineSlotRecipe({
           color: "colorPalette.fg",
           shadow: "inset 0 0 0px 1px var(--shadow-color)",
           shadowColor: "colorPalette.muted",
+        },
+      },
+      plain: {
+        root: {
+          color: "colorPalette.fg",
         },
       },
     },

@@ -301,6 +301,80 @@
     ],
     "variants": {}
   },
+  "avatar": {
+    "parts": [
+      {
+        "name": "Avatar.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the avatar. Useful for composition."
+          },
+          "onStatusChange": {
+            "type": "((details: StatusChangeDetails) => void) | undefined",
+            "description": "Functional called when the image loading status changes."
+          }
+        }
+      },
+      {
+        "name": "Avatar.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseAvatarReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Avatar.Fallback",
+        "props": {
+          "name": {
+            "type": "string | undefined",
+            "description": "The name to take the initials from. Without it, the fallback shows a user icon."
+          }
+        }
+      },
+      {
+        "name": "Avatar.Icon",
+        "props": {
+          "name": {
+            "type": "IconProps[\"name\"] | undefined",
+            "description": "The icon to show.",
+            "defaultValue": "\"account\""
+          }
+        }
+      },
+      {
+        "name": "Avatar.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseAvatarContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["full", "2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["solid", "subtle", "outline"],
+        "defaultValue": "subtle"
+      },
+      "shape": {
+        "values": ["square", "rounded", "full"],
+        "defaultValue": "full"
+      },
+      "ring": {
+        "values": ["true"]
+      },
+      "borderless": {
+        "values": ["true"]
+      }
+    }
+  },
   "badge": {
     "parts": [],
     "variants": {
@@ -309,7 +383,7 @@
         "defaultValue": "subtle"
       },
       "size": {
-        "values": ["xs", "sm", "md", "lg"],
+        "values": ["2xs", "xs", "sm", "md", "lg"],
         "defaultValue": "sm"
       },
       "status": {
@@ -436,6 +510,168 @@
         "values": ["true", "false"]
       }
     }
+  },
+  "carousel": {
+    "parts": [
+      {
+        "name": "Carousel.Root",
+        "props": {
+          "page": {
+            "type": "number | undefined",
+            "description": "The controlled page of the carousel."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the carousel. Useful for composition."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the element.",
+            "defaultValue": "\"horizontal\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "spacing": {
+            "type": "string | undefined",
+            "description": "The amount of space between items.",
+            "defaultValue": "\"0px\""
+          },
+          "slidesPerPage": {
+            "type": "number | undefined",
+            "description": "The number of slides to show at a time.",
+            "defaultValue": "1"
+          },
+          "autoSize": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable variable width slides.",
+            "defaultValue": "false"
+          },
+          "slidesPerMove": {
+            "type": "number | \"auto\" | undefined",
+            "description": "The number of slides to scroll at a time.\n\nWhen set to `auto`, the number of slides to scroll is determined by the\n`slidesPerPage` property.",
+            "defaultValue": "\"auto\""
+          },
+          "autoPlay": {
+            "type": "boolean | { delay: number; } | undefined",
+            "description": "Whether to scroll automatically. The default delay is 4000ms.",
+            "defaultValue": "false"
+          },
+          "allowMouseDrag": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow scrolling via dragging with mouse",
+            "defaultValue": "false"
+          },
+          "loop": {
+            "type": "boolean | undefined",
+            "description": "Whether the carousel should loop around.",
+            "defaultValue": "false"
+          },
+          "defaultPage": {
+            "type": "number | undefined",
+            "description": "The initial page to scroll to when rendered.\nUse when you don't need to control the page of the carousel.",
+            "defaultValue": "0"
+          },
+          "itemSpacing": {
+            "type": "string | undefined",
+            "description": "Defines the extra space added around the scrollable area,\nenabling nearby items to remain partially in view."
+          },
+          "onPageChange": {
+            "type": "((details: PageChangeDetails) => void) | undefined",
+            "description": "Function called when the page changes."
+          },
+          "inViewThreshold": {
+            "type": "number | number[] | undefined",
+            "description": "The threshold for determining if an item is in view.",
+            "defaultValue": "0.6"
+          },
+          "snapType": {
+            "type": "\"proximity\" | \"mandatory\" | undefined",
+            "description": "The snap type of the item.",
+            "defaultValue": "\"mandatory\""
+          },
+          "count": {
+            "type": "number",
+            "description": "The total number of slides.\nUseful for SSR to render the initial snap points."
+          },
+          "onDragStatusChange": {
+            "type": "((details: DragStatusDetails) => void) | undefined",
+            "description": "Function called when the drag status changes."
+          },
+          "onAutoplayStatusChange": {
+            "type": "((details: AutoplayStatusDetails) => void) | undefined",
+            "description": "Function called when the autoplay status changes."
+          }
+        }
+      },
+      {
+        "name": "Carousel.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseCarouselReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Carousel.Item",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": "The index of the item."
+          },
+          "snapAlign": {
+            "type": "\"start\" | \"end\" | \"center\" | undefined",
+            "description": "The snap alignment of the item.",
+            "defaultValue": "\"start\""
+          }
+        }
+      },
+      {
+        "name": "Carousel.Indicator",
+        "props": {
+          "index": {
+            "type": "number",
+            "description": "The index of the indicator."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the indicator is read only.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "Carousel.Indicators",
+        "props": {
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the indicator is read only.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "Carousel.AutoplayIndicator",
+        "props": {
+          "fallback": {
+            "type": "React.ReactNode",
+            "description": "The fallback content to render when autoplay is paused."
+          }
+        }
+      },
+      {
+        "name": "Carousel.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseCarouselContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "center": {
     "parts": [
@@ -6188,6 +6424,59 @@
       }
     }
   },
+  "scroll-area": {
+    "parts": [
+      {
+        "name": "ScrollArea.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds",
+            "description": "The ids of the scroll area elements"
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseScrollAreaReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.Scrollbar",
+        "props": {
+          "orientation": {
+            "type": "Orientation",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ScrollArea.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseScrollAreaContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["hover", "always"],
+        "defaultValue": "hover"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "shadowOverflow": {
+        "values": ["true", "false"]
+      }
+    }
+  },
   "search-input": {
     "parts": [
       {
@@ -6743,6 +7032,21 @@
           "templateRows": {
             "type": "SystemProperties[\"gridTemplateRows\"]",
             "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
+  "skip-nav": {
+    "parts": [
+      {
+        "name": "SkipNavLink",
+        "props": {
+          "id": {
+            "type": "string | undefined",
+            "description": "The id of the `SkipNavContent` the link jumps to.",
+            "defaultValue": "\"skip-nav\""
           }
         }
       }
@@ -7557,6 +7861,19 @@
       }
     }
   },
+  "tag": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["subtle", "solid", "outline", "surface", "plain"],
+        "defaultValue": "surface"
+      }
+    }
+  },
   "tags-input": {
     "parts": [
       {
@@ -8143,6 +8460,236 @@
       }
     ],
     "variants": {}
+  },
+  "tree-view": {
+    "parts": [
+      {
+        "name": "TreeView.Root",
+        "props": {
+          "collection": {
+            "type": "TreeCollection<T>",
+            "description": "The collection of tree nodes"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the tree elements. Useful for composition."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails<T>) => void) | undefined",
+            "description": "Called when the focused node changes"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "Called when the checked value changes"
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails<T>) => void) | undefined",
+            "description": "Function to scroll to a specific index.\nUseful for virtualized tree views."
+          },
+          "selectionMode": {
+            "type": "\"single\" | \"multiple\" | undefined",
+            "description": "Whether the tree supports multiple selection\n- \"single\": only one node can be selected\n- \"multiple\": multiple nodes can be selected",
+            "defaultValue": "\"single\""
+          },
+          "focusedValue": {
+            "type": "string | null | undefined",
+            "description": "The value of the focused node"
+          },
+          "defaultFocusedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
+            "defaultValue": "true"
+          },
+          "expandedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled expanded node ids"
+          },
+          "defaultExpandedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial expanded node ids when rendered.\nUse when you don't need to control the expanded node value."
+          },
+          "selectedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled selected node value"
+          },
+          "defaultSelectedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial selected node value when rendered.\nUse when you don't need to control the selected node value."
+          },
+          "defaultCheckedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial checked node value when rendered.\nUse when you don't need to control the checked node value."
+          },
+          "checkedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled checked node value"
+          },
+          "onExpandedChange": {
+            "type": "((details: ExpandedChangeDetails<T>) => void) | undefined",
+            "description": "Called when the tree is opened or closed"
+          },
+          "onSelectionChange": {
+            "type": "((details: SelectionChangeDetails<T>) => void) | undefined",
+            "description": "Called when the selection changes"
+          },
+          "canRename": {
+            "type": "((node: T, indexPath: IndexPath) => boolean) | undefined",
+            "description": "Function to determine if a node can be renamed"
+          },
+          "onRenameStart": {
+            "type": "((details: RenameStartDetails<T>) => void) | undefined",
+            "description": "Called when a node starts being renamed"
+          },
+          "onBeforeRename": {
+            "type": "((details: RenameCompleteDetails) => boolean) | undefined",
+            "description": "Called before a rename is completed. Return false to prevent the rename."
+          },
+          "onRenameComplete": {
+            "type": "((details: RenameCompleteDetails) => void) | undefined",
+            "description": "Called when a node label rename is completed"
+          },
+          "onLoadChildrenComplete": {
+            "type": "((details: LoadChildrenCompleteDetails<T>) => void) | undefined",
+            "description": "Called when a node finishes loading children"
+          },
+          "onLoadChildrenError": {
+            "type": "((details: LoadChildrenErrorDetails<T>) => void) | undefined",
+            "description": "Called when loading children fails for one or more nodes"
+          },
+          "expandOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "loadChildren": {
+            "type": "((details: LoadChildrenDetails<T>) => Promise<T[]>) | undefined",
+            "description": "Function to load children for a node asynchronously.\nWhen provided, branches will wait for this promise to resolve before expanding."
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "TreeView.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTreeViewReturn<T>",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "TreeView.Nodes",
+        "props": {
+          "indentGuide": {
+            "type": "ReactNode",
+            "description": "Rendered at the start of every `NodeGroupContent`, usually a `TreeView.IndentGuide`."
+          },
+          "nodeGroupProps": {
+            "type": "TreeViewNodeGroupProps",
+            "description": "Props passed to every `NodeGroup`."
+          },
+          "nodeGroupContentProps": {
+            "type": "TreeViewNodeGroupContentProps",
+            "description": "Props passed to every `NodeGroupContent`."
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeIndicator",
+        "props": {
+          "type": {
+            "type": "TreeView.NodeIndicatorProps[\"type\"]",
+            "description": "What the indicator reflects. `expanded` shows a chevron that rotates when the branch is open.",
+            "defaultValue": "\"expanded\""
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeProvider",
+        "props": {
+          "children": {
+            "type": "React.ReactNode | undefined",
+            "description": ""
+          },
+          "node": {
+            "type": "T",
+            "description": "The tree node"
+          },
+          "indexPath": {
+            "type": "number[]",
+            "description": "The index path of the tree node"
+          }
+        }
+      },
+      {
+        "name": "TreeView.NodeContext",
+        "props": {
+          "children": {
+            "type": "(context: UseTreeViewNodeContext) => React.ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "TreeView.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseTreeViewContext<T>) => React.ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["md", "sm", "xs"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["subtle", "solid"],
+        "defaultValue": "subtle"
+      },
+      "animateContent": {
+        "values": ["true"]
+      }
+    }
   },
   "visually-hidden": {
     "parts": [],

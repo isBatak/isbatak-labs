@@ -1,0 +1,5 @@
+export { default as TagRoot, type TagRootProps } from "./tag-root.svelte"
+export { default as TagLabel, type TagLabelProps } from "./tag-label.svelte"
+export { default as TagStartElement, type TagStartElementProps } from "./tag-start-element.svelte"
+export { default as TagEndElement, type TagEndElementProps } from "./tag-end-element.svelte"
+export { default as TagCloseTrigger, type TagCloseTriggerProps } from "./tag-close-trigger.svelte"

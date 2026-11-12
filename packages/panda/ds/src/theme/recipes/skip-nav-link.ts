@@ -25,6 +25,7 @@ export const skipNavLinkRecipe = defineRecipe({
       width: "auto",
       height: "auto",
       position: "fixed",
+      zIndex: "skipNav",
       top: "6",
       insetStart: "6",
     },

@@ -1,0 +1,169 @@
+## skip-nav (done, 2026-11-10)
+
+- Recipe: added `zIndex: "skipNav"` to the focus-visible state (tl-ds has a skipNav z-index; the token already existed
+  in panda-ds but the recipe didn't use it). No analog override exists.
+- Components: `SkipNavLink` and `SkipNavContent` as two flat exports, no `namespace.ts` (same shape as
+  `link-overlay`; there's no root/parts). `id` on `SkipNavLink` is the target id, not the link's own id (Chakra/tl-ds
+  API); it becomes `href="#<id>"`. Default id is `skip-nav` (Chakra uses `chakra-skip-nav`).
+- `SkipNavContent` is `tabIndex=-1`, `outline: "[0]"`. `outline: "0"` fails strictTokens in compositions (no zero
+  border token), so it uses the escape hatch.
+- Vue `SkipNavLink` is a `defineComponent` wrapper reading `attrs.id`; Svelte link isn't generic over the tag (always
+  `a`).
+- Only a `usage` demo: Chakra has no other skip-nav examples. Docs have no `<RecipeVariants />` (no variants).
+- Storybook check (all four): link clipped until Tab, then fixed at top/start 6 with z-index 1600; Enter moves focus
+  to `#skip-nav`.
+- Note for next: none of the touched packages have a `test` script, so `pnpm test` is a no-op here.
+
+
+## scroll-area (done, 2026-11-10)
+
+- Recipe: kept the existing Chakra-shaped API (`variant: hover | always`, sizes `xs`–`lg`) and look (gray
+  `colorPalette.solid/10` track, `/25` thumb). Ported tl-ds's `shadowOverflow` boolean variant (mask fade on the edges
+  not at the scroll start/end, vertical-only or horizontal-only overflow). Default is `false`, not tl-ds's `true`, so
+  existing scroll areas don't change. Gradient rewritten with `black`/`transparent` (no hex) and without tl-ds's
+  `@property` registrations, which only matter for transitions. tl-ds's `showScrollbar` was skipped: it duplicates
+  `variant="always"`. Same variant added to the analog override (which had no `description`; left as is).
+- Components: `ScrollArea.Scrollbar` defaults its children to `ScrollArea.Thumb` (tl-ds). Svelte has no bindables
+  beyond `ref`. Exports the zag `ScrollToDetails`/`ScrollToEdge`/`ScrollToEdgeDetails` types.
+- Demos: usage, horizontal, both-directions, sizes, variants, scroll-shadow (uses `shadowOverflow` instead of Chakra's
+  inline mask CSS), thumb-styling, scroll-to-edge (Chakra's "scroll to side"), scroll-to-position. Skipped Chakra's
+  virtualization, stick-to-bottom (extra deps), with-menu, rtl and with-store (same as scroll-to-*). Lorem text and
+  boxes are written inline; heights use size tokens (`36` for Chakra's 8.5rem, `2xl` for 40rem).
+- Storybook check (all four): scrollbar hidden until hover with `hover`, visible with `always`; sizes 4/6/8/12px;
+  shadow mask switches from 0px to 4rem at the top after scrolling; scrollToEdge and scrollTo work.
+- `ds-api.json`: the generator drops `defaultValue` for boolean variants, so `shadowOverflow` shows no default.
+
+
+## carousel (done, 2026-11-11)
+
+- Zag 2 renamed the root props: it's `count` (not Chakra's `slideCount`) and `autoPlay` (not `autoplay`). Demos and docs
+  use the Zag 2 names.
+- `page` collides with the CSS `page` style prop, so Panda swallowed it and typed it as a style value. `CarouselRoot`
+  uses `forwardProps: ["page"]` in React, Vue and Solid (Chakra does the same). `RootProvider` has no `page` prop and
+  doesn't forward it. Watch for this on any Ark root whose prop shares a name with a CSS property.
+- Recipe: Chakra's look (tl-ds has no carousel). Removed the duplicate `progressText` slot, added `progressText` styles
+  (`sm`, tabular nums, `fg.muted`), and `_vertical` triggers rotate their icon 90deg, so the default chevron points
+  up/down in vertical carousels without the component reading orientation. No analog override exists.
+- Components: `PrevTrigger`/`NextTrigger` with no children render `asChild` into a ghost `xs` `IconButton` with
+  `chevron-left`/`chevron-right` (the floating-panel stage trigger pattern). Added Chakra's `Carousel.Indicators`
+  helper (one indicator per `pageSnapPoints` entry, forwards its props to every indicator). `ProgressText` and
+  `AutoplayIndicator` are Ark's as-is (Ark's indicator takes `children` while playing and `fallback` while paused,
+  instead of Chakra's `play`/`paused` props).
+- Demos (13): usage, with-indicators, vertical, spacing, slides-per-page, slides-per-move, with-mouse-drag,
+  with-autoplay, controlled, with-progress-text, with-floating-arrow (custom outline triggers via `asChild`),
+  variable-size, with-thumbnails. Skipped Chakra's with-images (needs a local ActionButton helper), composition (big
+  static property list), with-dialog and with-store. Slides are inline `Center`s; `spacing` uses rem strings (`3rem`,
+  `2rem`, `0.5rem`) since it's a Zag prop, not a style prop. Thumbnails' current outline uses `[2px]` escape hatches
+  (no outline-width token); images are Unsplash, like the aspect-ratio demo.
+- Docs have no `<RecipeVariants />` (the recipe has no variants).
+- Note for next: `pnpm generate` in `apps/www` takes over 10 minutes here (it builds compositions); run it in the
+  background. Storybook pages never reach `networkidle` (HMR socket), so wait on `load` plus a selector in Playwright.
+- Storybook check (all four): 5 indicators, default prev/next render an `xs` icon button with an svg, next moves the
+  current indicator 0 → 1, vertical trigger icons are rotated 90deg, controlled `page` updates (Vue needs ~1.5s after
+  the click before `data-current` moves), progress text reads `1 / 5`. Vue logs `injection "Symbol(PropsContext)" not
+  found` for the default icon buttons; it's pre-existing (the plain `DS/Button` story logs it too) and comes from
+  Panda's generated `create-recipe-context.js` injecting without a default.
+
+
+## tree-view (done, 2026-11-11)
+
+- Ark 6 / Zag 2 rewrote the tree view anatomy: no more `Branch`, `BranchControl`, `BranchContent`, `Item`,
+  `ItemText`, `BranchIndentGuide`. It's `Node` (the row, branch or leaf), `NodeGroup` (a Collapsible root wrapping a
+  branch row and its children), `NodeGroupContent`, `NodeExpandTrigger`, `NodeIndicator` (with a required
+  `type: expanded | selected | checked | indeterminate`), `NodeText`, `IndentGuide` and `Cell` (a gridcell; the tree is
+  now `role="treegrid"`). Chakra is still on Ark 5, so its API couldn't be copied as-is.
+- Recipe: slots renamed to the Ark 6 anatomy. `branchControl` and `item` were identical and became one `node` slot;
+  `branchIndicator`/`itemIndicator` became `nodeIndicator` (rotates 90deg on `_open`, which only the `expanded` type
+  sets; `_hidden` hides the other types since `display: inline-flex` beat the `hidden` attribute). Added `cell` and a
+  bordered `nodeRenameInput`. Solid variant forces the indicator to `currentColor` on selected rows. Breaking for anyone
+  using the old slot names, so the panda-ds changeset is `minor` (0.x). No analog override exists.
+- Components: Chakra's recursive `TreeView.Node` helper is `TreeView.Nodes` here, because Ark 6 took `Node` for the
+  row. It takes `render`, `indentGuide`, `nodeGroupProps`, `nodeGroupContentProps`. Per framework:
+  React `render` prop + `indentGuide` element; Vue scoped default slot `{ node, indexPath, nodeState }` + `#indentGuide`
+  slot; Svelte `render` snippet + `indentGuide` snippet; Solid `render` gets `nodeState` as an accessor (Ark Solid's
+  node context is an accessor, and a plain object would go stale) and `indentGuide` is a function, since one Solid JSX
+  element can't be mounted in several groups.
+- `NodeIndicator` defaults `type` to `expanded` and renders `chevron-right` when it has no children (the PRD's "branch
+  indicator defaults to a chevron"); other types have no default child.
+- Vue `NodeRenameInput` needed the listbox `Input` cast (`FunctionalComponent<HTMLArkProps<"input">>`), otherwise TS2590.
+  `ContextProps` is generic over `TreeNode` in React, Vue and Solid.
+- Demos (10): usage, sizes, variants, default-expanded, controlled-expansion, multi-select, checkbox (a `Checkmark`
+  inside `NodeCheckbox`), disabled-node, expand-collapse-all (via `TreeView.Context`), collapse-animation
+  (`animateContent`). Skipped Chakra's async, context-menu, custom-icon, explorer, filter, links, mutation, lazy-mount,
+  store and remove-indentation. The collection is declared at the bottom of each demo; `Nodes` does the iteration, so no
+  `.map` in the demos. Leaf rows have no spacer, so a leaf's icon sits under its sibling branch's chevron (Chakra's
+  basic demo looks the same).
+- Story/docs titles are sentence case ("Tree view"), like "Scroll area".
+- Storybook check (all four): 6 rows → 9 after opening node_modules, chevron rotates to 90deg, one indent guide, row
+  padding 12px → 36px one level down, ArrowDown moves focus, solid vs subtle selected bg differ, controlled expansion
+  toggles, checking `src` checks its children, expand all opens 3 branches and collapse all closes them, disabled node
+  has `data-disabled`, sizes pad 4/4/6px.
+- Note for next: cold `tsc` for solid (compositions and storybook-solid) and `svelte-check` in compositions take 20 to
+  60 minutes when they run alongside each other; it's not the new code (an incremental recheck of the solid demos takes
+  2s). Run typechecks one at a time in the background. `timeout` isn't installed on this Mac.
+
+
+## avatar (done, 2026-11-12)
+
+- Recipe: kept the Chakra API (`variant: solid | subtle | outline`, sizes `full`, `2xs`–`2xl`, `shape`, `borderless`)
+  and added tl-ds's bits: a `ring` boolean (2px solid `colorPalette.focusRing` outline, 2px offset), the fallback icon
+  sized per size through `--avatar-icon-size` (tl-ds's 4/4/5/5/6/6/8, 60% for `full`), and `rounded` radius that grows
+  with size (`l1` for 2xs/xs, `l2` for sm–lg, `l3` from xl up; tl-ds's `l4` for 2xl doesn't exist here, so 2xl stays
+  `l3`). Kept the `colorPalette`-driven variants instead of tl-ds's fixed neutral bg. No analog override exists.
+- `ring` collides with Panda's `ring` style prop, so React/Vue/Solid root types are
+  `Omit<…, "ring"> & Pick<AvatarVariantProps, "ring">` (tl-ds does the same). At runtime the recipe's
+  `splitVariantProps` takes it first, so it reaches the recipe. Same trap as carousel's `page`.
+- Panda didn't extract variants passed to `AvatarGroup` (no `borderless`/`stacking` CSS was generated). Added
+  `jsx: ["Avatar", /^Avatar\./, "AvatarGroup"]` to the avatar recipe and `"AvatarGroup"` to the group recipe's `jsx`.
+  Any new `<Name>Group` wrapper that forwards recipe props needs the same.
+- Components: `Avatar.Root`, `RootProvider`, `Image` (defaults `draggable=false`, `referrerPolicy=no-referrer`, from
+  tl-ds), `Fallback` (`name` → initials of first and last word, else `Avatar.Icon`), `Icon` (defaults to the `account`
+  icon; there's no `user` icon in `@isbatak/icons`, and `account` is tagged user/avatar), `Context`, `PropsProvider`
+  (not in Svelte), `AvatarGroup` (a `Group` with `gap="0" spaceX="-3"` that passes avatar variant props down through
+  the props context), and `getInitials`. Svelte uses its own `avatar-styles.ts` props context for the group, and the
+  group adds its spacing as a `css()` class before the caller's `class`. Skipped tl-ds's `getRandomAvatarColor`: it
+  returns hex colors.
+- Vue boolean variants in demos are `:ring="true"` / `:borderless="true"`; a bare attribute arrives as `""`.
+- Demos (12): usage, sizes, variants, shapes, fallback, colors, group, group-stacking, ring (uses the `ring` variant
+  instead of Chakra's inline css), with-badge, persona, store. Skipped Chakra's with-overflow (menu + partition helper)
+  and random-color (picks a palette with a helper function). Badge dot outline is `[0.2em solid]`.
+- Storybook check (all four): sizes 24–64px, shapes 0/4px/full, initials `OK`/`SU` and a 20px icon with a broken image,
+  group overlap -12px with a 2px border, stacking z-index 0→3 vs 4→1, `borderless` drops the border, Svelte's
+  `spaceX="1"` overrides the group's -3, ring outlines in each palette, store reads `loaded`.
+
+
+## badge (done, 2026-11-12)
+
+- Audit only; the components in all four frameworks were already fine (React/Vue/Solid `styled("span", badge)`, Svelte
+  splits variant props by hand), so `packages/ui` is unchanged.
+- Recipe: took tl-ds's look for the shape: radius `l1` instead of `full` (tl-ds and Chakra both use a rounded rect, not
+  a pill). Added tl-ds's `2xs` size (text `2xs`, `px 1`, `minH 3.5`, icon `2.5`). Skipped tl-ds's `3xs`: `minH 2.5`
+  (10px) is shorter than the `2xs` text style's 12px line height. Kept tl-ds's text sizes out: its `sm` = `md.500` is
+  bigger than ours, and the existing `xs`–`lg` scale lines up with buttons. Kept the `status` dot, icon size/offset vars
+  and the `outline` legacy shadow var. No analog override exists.
+- Demos: added `with-group` (Chakra's/tl-ds's attached `Group` of two solid badges) and `2xs` in `sizes`. Ported all 7
+  React demos to Vue, Svelte (colorPalette through `class={css({ colorPalette })}`) and Solid; React demos still import
+  layout from `styled-system/jsx`, the ports use the `-ui` stack/wrap packages. Skipped Chakra's size and variant
+  tables (they loop over static data).
+- Stories: React gets `WithGroup`; Vue, Svelte, Solid got their first `DS/Badge` stories.
+- `ds-api.json`: only `badge.size.values` changed (`2xs` added), edited by hand instead of regenerating.
+- Storybook check (all four): sizes 14/16/20/24/28px, radius 2px, attached group squares the inner corners, status dot
+  ~7.7px, icons 12px at `sm`, palettes switch bg.
+
+
+## tag (done, 2026-11-12)
+
+- Recipe: took tl-ds's look. Radius `l1` (`l2` at `xl`, as in tl-ds), `fontWeight: medium`, a `plain` variant (tl-ds
+  and badge have it), `display: flex` on start/end elements, `cursor: button` on the close trigger. Kept the existing
+  sizes, text styles and element offsets (tl-ds's `md.500`/`xl.500` text styles don't exist here). No analog override.
+- Judgement call: the PRD says the close trigger defaults to `CloseButton`, but the smallest button size (`2xs`) is 24px
+  and the tag is 18–32px tall, with the end element sized to 12–18px. So `Tag.CloseTrigger` is its own `ark.button`
+  (styled by the tag's `closeTrigger` slot, `type="button"`, `aria-label="Close"`) and shows the same `close` icon
+  `CloseButton` uses when it has no children. That's what Chakra and tl-ds do too.
+- Components: `Tag.Root` (`ark.div`), `Label`, `StartElement`, `EndElement` (`ark.span`), `CloseTrigger`, and
+  `PropsProvider` in React/Vue/Solid. Svelte uses the blockquote pattern (one `Box` per part plus `tag-styles.ts`), no
+  props provider. No Ark machine, so no `Context`/`RootProvider`.
+- Demos (8): usage, sizes, variants, colors, with-icon, closable, with-avatar, overflow. Svelte passes `colorPalette`,
+  `maxW` and `rounded` through `class={css(...)}`, like the badge demos. Skipped Chakra's closed `Tag` helper
+  (`startElement`/`endElement`/`closable` props) and its size/variant tables (they loop over static data).
+- `ds-api.json`: only the `tag` key was added; `parts` is empty because the parts have no JSDoc'd props.
