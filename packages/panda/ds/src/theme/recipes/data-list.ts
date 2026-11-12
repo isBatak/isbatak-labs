@@ -70,6 +70,17 @@ export const dataListSlotRecipe = defineSlotRecipe({
         },
       },
     },
+    separator: {
+      true: {
+        root: {
+          divideY: "1px",
+          divideColor: "border.muted",
+        },
+        item: {
+          py: "2",
+        },
+      },
+    },
     variant: {
       subtle: {
         itemLabel: {
