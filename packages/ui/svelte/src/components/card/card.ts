@@ -1,0 +1,6 @@
+export { default as CardRoot, type CardRootProps } from "./card-root.svelte"
+export { default as CardHeader, type CardHeaderProps } from "./card-header.svelte"
+export { default as CardBody, type CardBodyProps } from "./card-body.svelte"
+export { default as CardFooter, type CardFooterProps } from "./card-footer.svelte"
+export { default as CardTitle, type CardTitleProps } from "./card-title.svelte"
+export { default as CardDescription, type CardDescriptionProps } from "./card-description.svelte"

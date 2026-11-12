@@ -173,14 +173,14 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] avatar — has: recipe
 - [x] badge — has: recipe react vue svelte solid docs
 - [x] tag — has: recipe
-- [ ] card — has: recipe
-- [ ] data-list — has: recipe
-- [ ] stat — has: recipe
-- [ ] table — has: recipe react docs
-- [ ] grid-table — has: recipe react docs
-- [ ] timeline — has: recipe
-- [ ] qr-code — has: recipe
-- [ ] image
+- [x] card — has: recipe
+- [x] data-list — has: recipe
+- [x] stat — has: recipe
+- [x] table — has: recipe react docs
+- [x] grid-table — has: recipe react docs
+- [x] timeline — has: recipe
+- [x] qr-code — has: recipe
+- [x] image
 - [ ] marquee — has: recipe
 - [ ] empty-state — has: recipe
 - [ ] format

@@ -56,7 +56,22 @@ export const statSlotRecipe = defineSlotRecipe({
     },
   },
   variants: {
+    card: {
+      true: {
+        root: {
+          borderWidth: "1px",
+          borderColor: "border",
+          borderRadius: "l3",
+          padding: "4",
+        },
+      },
+    },
     size: {
+      xs: {
+        valueText: {
+          textStyle: "lg",
+        },
+      },
       sm: {
         valueText: {
           textStyle: "xl",
