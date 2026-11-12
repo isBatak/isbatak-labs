@@ -1,25 +1,50 @@
 import { defineSlotRecipe } from "@pandacss/dev"
 
+const nodeRow = {
+  display: "flex",
+  alignItems: "center",
+  gap: "var(--tree-item-gap)",
+  rounded: "l2",
+  userSelect: "none",
+  position: "relative",
+  cursor: "button",
+  outline: "none",
+  "--tree-depth": "calc(var(--depth) - 1)",
+  "--tree-indentation-offset": "calc(var(--tree-indentation) * var(--tree-depth))",
+  "--tree-offset": "calc(var(--tree-padding-inline) + var(--tree-indentation-offset))",
+  ps: "var(--tree-offset)",
+  pe: "var(--tree-padding-inline)",
+  py: "var(--tree-padding-block)",
+  focusVisibleRing: "inside",
+  focusRingColor: "border.emphasized",
+  focusRingWidth: "2px",
+  "&:hover, &:focus-visible": {
+    bg: "bg.muted",
+  },
+  _disabled: {
+    layerStyle: "disabled",
+  },
+} as const
+
 export const treeViewSlotRecipe = defineSlotRecipe({
   slots: [
-    "branch",
-    "branchContent",
-    "branchControl",
-    "branchIndentGuide",
-    "branchIndicator",
-    "branchText",
-    "branchTrigger",
-    "item",
-    "itemIndicator",
-    "itemText",
+    "cell",
+    "indentGuide",
     "label",
+    "node",
     "nodeCheckbox",
+    "nodeExpandTrigger",
+    "nodeGroup",
+    "nodeGroupContent",
+    "nodeIndicator",
     "nodeRenameInput",
+    "nodeText",
     "root",
     "tree",
   ],
   className: "tree-view",
-  description: "Expandable hierarchical list",
+  description:
+    "Expandable hierarchical list of nodes, such as a file explorer or nested navigation. Use Accordion for a flat list of collapsible sections.",
   base: {
     root: {
       width: "full",
@@ -30,6 +55,7 @@ export const treeViewSlotRecipe = defineSlotRecipe({
     tree: {
       display: "flex",
       flexDirection: "column",
+      outline: "none",
       "--tree-item-gap": "spacing.2",
       "--tree-indentation": "calc(var(--tree-indent-size) + var(--tree-icon-size) * 0.5)",
       _icon: {
@@ -40,14 +66,14 @@ export const treeViewSlotRecipe = defineSlotRecipe({
       fontWeight: "medium",
       textStyle: "sm",
     },
-    branch: {
+    nodeGroup: {
       position: "relative",
     },
-    branchContent: {
+    nodeGroupContent: {
       position: "relative",
     },
-    branchIndentGuide: {
-      height: "100%",
+    indentGuide: {
+      height: "full",
       width: "1px",
       bg: "border",
       position: "absolute",
@@ -57,7 +83,16 @@ export const treeViewSlotRecipe = defineSlotRecipe({
       insetInlineStart: "calc(var(--tree-offset) + var(--tree-icon-size) * 0.5)",
       zIndex: "1",
     },
-    branchIndicator: {
+    node: nodeRow,
+    nodeExpandTrigger: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    nodeIndicator: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
       color: "fg.muted",
       transformOrigin: "center",
       transitionDuration: "normal",
@@ -66,66 +101,33 @@ export const treeViewSlotRecipe = defineSlotRecipe({
       _open: {
         transform: "rotate(90deg)",
       },
-    },
-    branchTrigger: {
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    branchControl: {
-      display: "flex",
-      alignItems: "center",
-      gap: "var(--tree-item-gap)",
-      rounded: "l2",
-      userSelect: "none",
-      position: "relative",
-      "--tree-depth": "calc(var(--depth) - 1)",
-      "--tree-indentation-offset": "calc(var(--tree-indentation) * var(--tree-depth))",
-      "--tree-offset": "calc(var(--tree-padding-inline) + var(--tree-indentation-offset))",
-      ps: "var(--tree-offset)",
-      pe: "var(--tree-padding-inline)",
-      py: "var(--tree-padding-block)",
-      focusVisibleRing: "inside",
-      focusRingColor: "border.emphasized",
-      focusRingWidth: "2px",
-      "&:hover, &:focus-visible": {
-        bg: "bg.muted",
-      },
-      _disabled: {
-        layerStyle: "disabled",
+      _hidden: {
+        display: "none",
       },
     },
-    item: {
-      display: "flex",
-      alignItems: "center",
-      gap: "var(--tree-item-gap)",
-      rounded: "l2",
-      userSelect: "none",
-      position: "relative",
-      "--tree-depth": "calc(var(--depth) - 1)",
-      "--tree-indentation-offset": "calc(var(--tree-indentation) * var(--tree-depth))",
-      "--tree-offset": "calc(var(--tree-padding-inline) + var(--tree-indentation-offset))",
-      ps: "var(--tree-offset)",
-      pe: "var(--tree-padding-inline)",
-      py: "var(--tree-padding-block)",
-      focusVisibleRing: "inside",
-      focusRingColor: "border.emphasized",
-      focusRingWidth: "2px",
-      "&:hover, &:focus-visible": {
-        bg: "bg.muted",
-      },
-      _disabled: {
-        layerStyle: "disabled",
-      },
-    },
-    itemText: {
+    nodeText: {
       flex: "1",
-    },
-    branchText: {
-      flex: "1",
+      truncate: true,
     },
     nodeCheckbox: {
       display: "inline-flex",
+    },
+    nodeRenameInput: {
+      flex: "1",
+      minW: "0",
+      bg: "bg",
+      rounded: "l1",
+      px: "1",
+      outline: "none",
+      borderWidth: "1px",
+      borderColor: "border.emphasized",
+      _hidden: {
+        display: "none",
+      },
+    },
+    cell: {
+      display: "inline-flex",
+      alignItems: "center",
     },
   },
   variants: {
@@ -160,13 +162,7 @@ export const treeViewSlotRecipe = defineSlotRecipe({
     },
     variant: {
       subtle: {
-        branchControl: {
-          _selected: {
-            bg: "colorPalette.subtle",
-            color: "colorPalette.fg",
-          },
-        },
-        item: {
+        node: {
           _selected: {
             bg: "colorPalette.subtle",
             color: "colorPalette.fg",
@@ -174,21 +170,19 @@ export const treeViewSlotRecipe = defineSlotRecipe({
         },
       },
       solid: {
-        branchControl: {
+        node: {
           _selected: {
             layerStyle: "fill.solid",
-          },
-        },
-        item: {
-          _selected: {
-            layerStyle: "fill.solid",
+            "& [data-tree-view-node-indicator]": {
+              color: "currentColor",
+            },
           },
         },
       },
     },
     animateContent: {
       true: {
-        branchContent: {
+        nodeGroupContent: {
           _open: {
             animationName: "expand-height, fade-in",
             animationDuration: "moderate",

@@ -3,7 +3,7 @@ import { defineRecipe } from "@pandacss/dev"
 export const groupRecipe = defineRecipe({
   className: "group-root",
   description: "Lays out sibling controls in a row or column, optionally attached so they share borders",
-  jsx: ["Group", "ButtonGroup"],
+  jsx: ["Group", "ButtonGroup", "AvatarGroup"],
   base: {
     display: "inline-flex",
     alignItems: "center",

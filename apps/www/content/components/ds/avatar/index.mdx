@@ -1,0 +1,100 @@
+---
+title: Avatar
+description: Shows a user's picture, with their initials or a user icon while it loads or when it fails.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/avatar
+  recipe: packages/panda/ds/src/theme/recipes/avatar.ts
+  ark: https://ark-ui.com/docs/components/avatar
+---
+
+Built on Ark UI's Avatar. `Avatar.Fallback` shows until the image loads. Give it a `name` and it shows the initials of
+the first and last word; with neither a `name` nor children it shows a user icon. `AvatarGroup` stacks avatars and
+passes its variant props down to each of them.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Avatar.Root>
+  <Avatar.Fallback name="Segun Adebayo" />
+  <Avatar.Image src="https://bit.ly/sage-adebayo" />
+</Avatar.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the avatar's size, from `2xs` to `2xl`. `full` fills the parent.
+
+<Example id="avatar/sizes" />
+
+### Variants
+
+Use `variant` to change how the fallback looks: `solid`, `outline` or `subtle`.
+
+<Example id="avatar/variants" />
+
+### Shapes
+
+Use `shape` to pick `square`, `rounded` or `full`. The `rounded` radius grows with the size.
+
+<Example id="avatar/shapes" />
+
+### Fallback
+
+When the image fails, the fallback stays: initials when there's a `name`, a user icon otherwise.
+
+<Example id="avatar/fallback" />
+
+### Colors
+
+Use `colorPalette` to change the fallback's colors.
+
+<Example id="avatar/colors" />
+
+### Group
+
+Wrap avatars in `AvatarGroup` to overlap them. Variant props on the group, like `size`, reach every avatar.
+
+<Example id="avatar/group" />
+
+### Stacking
+
+Set `stacking` on the group to choose which avatar sits on top. Set `borderless` to drop the ring between them.
+
+<Example id="avatar/group-stacking" />
+
+### Ring
+
+Set `ring` to draw an outline around the avatar in its `colorPalette`.
+
+<Example id="avatar/ring" />
+
+### Badge
+
+Put a `Float` inside the root to pin a status dot to a corner.
+
+<Example id="avatar/with-badge" />
+
+### Persona
+
+Pair the avatar with a name and an email.
+
+<Example id="avatar/persona" />
+
+### Store
+
+Use `useAvatar` with `Avatar.RootProvider` to read the loading state from outside.
+
+<Example id="avatar/store" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

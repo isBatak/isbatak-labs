@@ -1,0 +1,109 @@
+---
+title: Carousel
+description: Slides the user pages through one or a few at a time, with prev and next triggers, indicators and autoplay.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/carousel
+  recipe: packages/panda/ds/src/theme/recipes/carousel.ts
+  ark: https://ark-ui.com/docs/components/carousel
+---
+
+Built on Ark UI's Carousel. Pass the number of slides to `Carousel.Root` as `count` and give each `Carousel.Item` its
+`index`. With no children, `Carousel.PrevTrigger` and `Carousel.NextTrigger` render a ghost icon button with a chevron,
+and `Carousel.Indicators` renders one indicator per page.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Carousel.Root count={3}>
+  <Carousel.ItemGroup>
+    <Carousel.Item index={0} />
+  </Carousel.ItemGroup>
+  <Carousel.Control>
+    <Carousel.PrevTrigger />
+    <Carousel.Indicators />
+    <Carousel.NextTrigger />
+  </Carousel.Control>
+</Carousel.Root>
+```
+
+## Examples
+
+### Indicators
+
+Leave out the triggers and page with the indicators alone.
+
+<Example id="carousel/with-indicators" />
+
+### Vertical
+
+Set `orientation="vertical"` and give the root a height. The default trigger chevrons turn to point up and down.
+
+<Example id="carousel/vertical" />
+
+### Spacing
+
+Use `spacing` to set the gap between slides.
+
+<Example id="carousel/spacing" />
+
+### Slides per page
+
+Use `slidesPerPage` to show more than one slide at a time.
+
+<Example id="carousel/slides-per-page" />
+
+### Slides per move
+
+Combine `slidesPerMove` with `slidesPerPage` to move fewer slides than a page holds.
+
+<Example id="carousel/slides-per-move" />
+
+### Mouse drag
+
+Set `allowMouseDrag` to change slides by clicking and dragging.
+
+<Example id="carousel/with-mouse-drag" />
+
+### Autoplay
+
+Pass `autoPlay` as `true` or `{ delay }` in milliseconds. `Carousel.AutoplayTrigger` pauses and resumes it, and
+`Carousel.AutoplayIndicator` shows its children while playing and its `fallback` while paused.
+
+<Example id="carousel/with-autoplay" />
+
+### Controlled
+
+Control the current page with `page` and `onPageChange`.
+
+<Example id="carousel/controlled" />
+
+### Progress text
+
+`Carousel.ProgressText` shows the current page out of the total.
+
+<Example id="carousel/with-progress-text" />
+
+### Custom triggers
+
+Put the triggers on either side of the slides and pass your own button with `asChild`.
+
+<Example id="carousel/with-floating-arrow" />
+
+### Variable size
+
+Set `autoSize` so each slide keeps its own width.
+
+<Example id="carousel/variable-size" />
+
+### Thumbnails
+
+Render `Carousel.Indicator` yourself, `unstyled`, with a thumbnail of each slide inside.
+
+<Example id="carousel/with-thumbnails" />
+
+## API
+
+<Api />

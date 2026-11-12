@@ -131,9 +131,42 @@ export const scrollAreaSlotRecipe = defineSlotRecipe({
         },
       },
     },
+    shadowOverflow: {
+      true: {
+        viewport: {
+          "--scroll-shadow-size": "{sizes.16}",
+          "--scroll-shadow-top": "var(--scroll-shadow-size)",
+          "--scroll-shadow-bottom": "var(--scroll-shadow-size)",
+          "--scroll-shadow-left": "var(--scroll-shadow-size)",
+          "--scroll-shadow-right": "var(--scroll-shadow-size)",
+          "&[data-at-top]": {
+            "--scroll-shadow-top": "0px",
+          },
+          "&[data-at-bottom]": {
+            "--scroll-shadow-bottom": "0px",
+          },
+          "&[data-at-left]": {
+            "--scroll-shadow-left": "0px",
+          },
+          "&[data-at-right]": {
+            "--scroll-shadow-right": "0px",
+          },
+          "&[data-overflow-y]:not([data-overflow-x])": {
+            maskImage:
+              "linear-gradient(transparent, black var(--scroll-shadow-top), black calc(100% - var(--scroll-shadow-bottom)), transparent)",
+          },
+          "&[data-overflow-x]:not([data-overflow-y])": {
+            maskImage:
+              "linear-gradient(90deg, transparent, black var(--scroll-shadow-left), black calc(100% - var(--scroll-shadow-right)), transparent)",
+          },
+        },
+      },
+      false: {},
+    },
   },
   defaultVariants: {
     size: "md",
     variant: "hover",
+    shadowOverflow: false,
   },
 })

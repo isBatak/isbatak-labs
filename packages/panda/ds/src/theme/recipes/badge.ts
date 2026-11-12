@@ -6,7 +6,7 @@ export const badgeRecipe = defineRecipe({
   base: {
     display: "inline-flex",
     alignItems: "center",
-    borderRadius: "full",
+    borderRadius: "l1",
     gap: "1",
     fontWeight: "medium",
     fontVariantNumeric: "tabular-nums",
@@ -51,6 +51,14 @@ export const badgeRecipe = defineRecipe({
       },
     },
     size: {
+      "2xs": {
+        "--badge-icon-size": "sizes.2.5",
+        "--badge-icon-offset": "spacing.0.5",
+        textStyle: "2xs",
+        px: "1",
+        minH: "3.5",
+        gap: "0.5",
+      },
       xs: {
         "--badge-icon-size": "sizes.2.5",
         "--badge-icon-offset": "spacing.0.5",

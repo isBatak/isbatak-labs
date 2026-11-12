@@ -3,7 +3,8 @@ import { defineSlotRecipe } from "@pandacss/dev"
 export const avatarSlotRecipe = defineSlotRecipe({
   slots: ["root", "image", "fallback"],
   className: "avatar",
-  description: "User image with initials or icon fallback",
+  jsx: ["Avatar", /^Avatar\./, "AvatarGroup"],
+  description: "User image with initials or icon fallback; use AvatarGroup to stack several",
   base: {
     root: {
       display: "inline-flex",
@@ -35,6 +36,9 @@ export const avatarSlotRecipe = defineSlotRecipe({
       fontWeight: "medium",
       fontSize: "var(--avatar-font-size)",
       borderRadius: "var(--avatar-radius)",
+      _icon: {
+        boxSize: "var(--avatar-icon-size)",
+      },
     },
   },
   variants: {
@@ -43,46 +47,54 @@ export const avatarSlotRecipe = defineSlotRecipe({
         root: {
           "--avatar-size": "100%",
           "--avatar-font-size": "100%",
+          "--avatar-icon-size": "60%",
         },
       },
       "2xs": {
         root: {
+          "--avatar-icon-size": "sizes.4",
           "--avatar-font-size": "fontSizes.2xs",
           "--avatar-size": "sizes.6",
         },
       },
       xs: {
         root: {
+          "--avatar-icon-size": "sizes.4",
           "--avatar-font-size": "fontSizes.xs",
           "--avatar-size": "sizes.8",
         },
       },
       sm: {
         root: {
+          "--avatar-icon-size": "sizes.5",
           "--avatar-font-size": "fontSizes.sm",
           "--avatar-size": "sizes.9",
         },
       },
       md: {
         root: {
+          "--avatar-icon-size": "sizes.5",
           "--avatar-font-size": "fontSizes.md",
           "--avatar-size": "sizes.10",
         },
       },
       lg: {
         root: {
+          "--avatar-icon-size": "sizes.6",
           "--avatar-font-size": "fontSizes.md",
           "--avatar-size": "sizes.11",
         },
       },
       xl: {
         root: {
+          "--avatar-icon-size": "sizes.6",
           "--avatar-font-size": "fontSizes.lg",
           "--avatar-size": "sizes.12",
         },
       },
       "2xl": {
         root: {
+          "--avatar-icon-size": "sizes.8",
           "--avatar-font-size": "fontSizes.xl",
           "--avatar-size": "sizes.16",
         },
@@ -124,6 +136,16 @@ export const avatarSlotRecipe = defineSlotRecipe({
         },
       },
     },
+    ring: {
+      true: {
+        root: {
+          outlineWidth: "2px",
+          outlineStyle: "solid",
+          outlineColor: "colorPalette.focusRing",
+          outlineOffset: "2px",
+        },
+      },
+    },
     borderless: {
       true: {
         root: {
@@ -134,6 +156,26 @@ export const avatarSlotRecipe = defineSlotRecipe({
       },
     },
   },
+  compoundVariants: [
+    {
+      shape: "rounded",
+      size: ["2xs", "xs"],
+      css: {
+        root: {
+          "--avatar-radius": "radii.l1",
+        },
+      },
+    },
+    {
+      shape: "rounded",
+      size: ["sm", "md", "lg"],
+      css: {
+        root: {
+          "--avatar-radius": "radii.l2",
+        },
+      },
+    },
+  ],
   defaultVariants: {
     size: "md",
     shape: "full",
