@@ -175,7 +175,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] tag — has: recipe
 - [x] card — has: recipe
 - [x] data-list — has: recipe
-- [ ] stat — has: recipe
+- [x] stat — has: recipe
 - [ ] table — has: recipe react docs
 - [ ] grid-table — has: recipe react docs
 - [ ] timeline — has: recipe
