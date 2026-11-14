@@ -145,9 +145,11 @@ catalogs:
       specifier: 4.1.12
       version: 4.1.12
 
+overrides:
+  '@zag-js/dismissable': 2.0.0-next.4
+
 patchedDependencies:
   '@pandacss/eslint-plugin@2.5.0': b8ed51ad14cd3f846c639466bc5f517e5c63a4cb9efb5d2905d0ef1aa7607e2e
-  '@zag-js/dismissable@2.0.0-next.3': a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d
 
 importers:
 
@@ -5174,11 +5176,14 @@ packages:
   '@zag-js/dialog@2.0.0-next.3':
     resolution: {integrity: sha512-jQ2jV+Kg2aXwruNmv56wjwlYIpnbbnWbBb0cqEQsqHw/cMWxnzhBH2oJ/hWtiqsvDNpQokMiIf+gKSWZRyk1Og==}
 
-  '@zag-js/dismissable@2.0.0-next.3':
-    resolution: {integrity: sha512-tXJOx39qkEoRGQzHgcbJ9mD+I8NoorsK6WNfFFp0BHuub+yhHR61QJ8/AlUIXCvqN86W6nkQ67YXWSGtleJSoQ==}
+  '@zag-js/dismissable@2.0.0-next.4':
+    resolution: {integrity: sha512-wbNWFBWzeXseYdfIDuWw/nwk1kY5smmhj91Cj1u+ZhA/lfZh9F5CvIxhNJGnytmvs99cu+LjkTftl4opHaSq7Q==}
 
   '@zag-js/dom-query@2.0.0-next.3':
     resolution: {integrity: sha512-bwtBahCat7JivtvxXhqwzwhb0RfcCQ8MHXbOKp5JDi7BP+Dvlib87EQdG22etk0qyvcCm8Nh9Vi0E/r4GtKBvw==}
+
+  '@zag-js/dom-query@2.0.0-next.4':
+    resolution: {integrity: sha512-PS/RcCu+X2rdjsh7+BoHZRurZhJCsrpOPeKFw5knooP3yoQW4YegYINebe6r+lcTXdMh7GegjbgjTgZz60GPXg==}
 
   '@zag-js/drawer@2.0.0-next.3':
     resolution: {integrity: sha512-UgqeJkPx3i6FuwJwr7/sv8p0rqEJV21HX55JkhZLoehhY/6p26YeRjqdZ5bb9+k8Fa7Z1hHKsgqly3a/NCqFAg==}
@@ -5218,6 +5223,9 @@ packages:
 
   '@zag-js/interact-outside@2.0.0-next.3':
     resolution: {integrity: sha512-XAuHvGjECnmHBjGDQjlyu0pf+wtYYLY4Qr9XcFGIQFDoo+WIGRUuTDK4vXe31QPjOyRNrG7AJv0thqyJTlhvog==}
+
+  '@zag-js/interact-outside@2.0.0-next.4':
+    resolution: {integrity: sha512-NeP5iRMta58NIS97fcDxUxdTorJiJVaIX+osislsZiWzsibiKIABrnNbvmDavYiNYmRGzWqNrrloLoCM7lA4IQ==}
 
   '@zag-js/json-tree-utils@2.0.0-next.3':
     resolution: {integrity: sha512-FpkZ3vVfJpQVsGPEur4o7UMWG1ncYtSxk37VJwiQgby/wKZrdyzQcL+u2rUpSbZ04XKvP+TrucGvzejlTX8btQ==}
@@ -5363,8 +5371,14 @@ packages:
   '@zag-js/types@2.0.0-next.3':
     resolution: {integrity: sha512-EsfhD5EnKC7r9qcUU4LP2J7OEB58kxQR7MxKIUb8VgENfA5hYvOilvw1sY6fQDc3umnjatm1Z1kolh9+wqS/zA==}
 
+  '@zag-js/types@2.0.0-next.4':
+    resolution: {integrity: sha512-kA/gdHvljyV4HpZmLBtx5Imfebt7BSk7Seh5pSek+oIPlRu3SBWjPNy+g05YBVxgyhg1l1VHemmPr5nLraLF/w==}
+
   '@zag-js/utils@2.0.0-next.3':
     resolution: {integrity: sha512-4EtwkQ3xiREYTBAc9P7qmWARHdScG2OXg383ZNDEvIftA1hBnPCP8kADa2P5jll2oAFjnoczS2PUe/jbutlCsw==}
+
+  '@zag-js/utils@2.0.0-next.4':
+    resolution: {integrity: sha512-SS5QhUHLvmvXGryptK7cVvmtdefy9xoZP8wUHgx14ftT8L934yzwLIRnmjvlJFTOAVJ1XTA6NBXrWULmX2IrbA==}
 
   '@zag-js/vanilla@2.0.0-next.3':
     resolution: {integrity: sha512-l97wAzQIvB0le91AVcy5AgDZFNH6jGuSYb1yMI0ZjC99JDPsTmJV2lfQsRkQcFFhE4qaMrMRfWU2ZpK0daKPHw==}
@@ -11850,7 +11864,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/collection': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-visible': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
@@ -11892,7 +11906,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/color-utils': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
       '@zag-js/types': 2.0.0-next.3
@@ -11907,7 +11921,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/collection': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-visible': 2.0.0-next.3
       '@zag-js/live-region': 2.0.0-next.3
@@ -11948,7 +11962,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
       '@zag-js/date-utils': 2.0.0-next.3(@internationalized/date@3.12.3)
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/live-region': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
@@ -11968,29 +11982,33 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/aria-hidden': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-trap': 2.0.0-next.3
       '@zag-js/remove-scroll': 2.0.0-next.3
       '@zag-js/types': 2.0.0-next.3
       '@zag-js/utils': 2.0.0-next.3
 
-  '@zag-js/dismissable@2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)':
+  '@zag-js/dismissable@2.0.0-next.4':
     dependencies:
-      '@zag-js/dom-query': 2.0.0-next.3
-      '@zag-js/interact-outside': 2.0.0-next.3
-      '@zag-js/utils': 2.0.0-next.3
+      '@zag-js/dom-query': 2.0.0-next.4
+      '@zag-js/interact-outside': 2.0.0-next.4
+      '@zag-js/utils': 2.0.0-next.4
 
   '@zag-js/dom-query@2.0.0-next.3':
     dependencies:
       '@zag-js/types': 2.0.0-next.3
+
+  '@zag-js/dom-query@2.0.0-next.4':
+    dependencies:
+      '@zag-js/types': 2.0.0-next.4
 
   '@zag-js/drawer@2.0.0-next.3':
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/aria-hidden': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-trap': 2.0.0-next.3
       '@zag-js/remove-scroll': 2.0.0-next.3
@@ -12047,7 +12065,7 @@ snapshots:
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-visible': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
@@ -12072,6 +12090,11 @@ snapshots:
     dependencies:
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/utils': 2.0.0-next.3
+
+  '@zag-js/interact-outside@2.0.0-next.4':
+    dependencies:
+      '@zag-js/dom-query': 2.0.0-next.4
+      '@zag-js/utils': 2.0.0-next.4
 
   '@zag-js/json-tree-utils@2.0.0-next.3': {}
 
@@ -12099,7 +12122,7 @@ snapshots:
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-visible': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
@@ -12119,7 +12142,7 @@ snapshots:
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/types': 2.0.0-next.3
       '@zag-js/utils': 2.0.0-next.3
@@ -12162,7 +12185,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/aria-hidden': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-trap': 2.0.0-next.3
       '@zag-js/popper': 2.0.0-next.3
@@ -12261,7 +12284,7 @@ snapshots:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/collection': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-visible': 2.0.0-next.3
       '@zag-js/live-region': 2.0.0-next.3
@@ -12362,7 +12385,7 @@ snapshots:
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/types': 2.0.0-next.3
       '@zag-js/utils': 2.0.0-next.3
@@ -12406,7 +12429,7 @@ snapshots:
     dependencies:
       '@zag-js/anatomy': 2.0.0-next.3
       '@zag-js/core': 2.0.0-next.3
-      '@zag-js/dismissable': 2.0.0-next.3(patch_hash=a5be2f4489e896b1f615107c7600abedba9642b8206b6d3847ecec452c9b3b9d)
+      '@zag-js/dismissable': 2.0.0-next.4
       '@zag-js/dom-query': 2.0.0-next.3
       '@zag-js/focus-trap': 2.0.0-next.3
       '@zag-js/interact-outside': 2.0.0-next.3
@@ -12427,7 +12450,13 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
+  '@zag-js/types@2.0.0-next.4':
+    dependencies:
+      csstype: 3.2.3
+
   '@zag-js/utils@2.0.0-next.3': {}
+
+  '@zag-js/utils@2.0.0-next.4': {}
 
   '@zag-js/vanilla@2.0.0-next.3':
     dependencies:
