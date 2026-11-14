@@ -8,38 +8,38 @@ export function TagWithAvatarDemo() {
       <Tag.Root size="sm" rounded="full">
         <Tag.StartElement>
           <Avatar.Root size="full">
-            <Avatar.Image src="https://bit.ly/sage-adebayo" />
-            <Avatar.Fallback name="Segun Adebayo" />
+            <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+            <Avatar.Fallback name="Jane Doe" />
           </Avatar.Root>
         </Tag.StartElement>
-        <Tag.Label>Segun</Tag.Label>
+        <Tag.Label>Jane</Tag.Label>
       </Tag.Root>
       <Tag.Root size="md" rounded="full">
         <Tag.StartElement>
           <Avatar.Root size="full">
-            <Avatar.Image src="https://bit.ly/sage-adebayo" />
-            <Avatar.Fallback name="Segun Adebayo" />
+            <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+            <Avatar.Fallback name="Jane Doe" />
           </Avatar.Root>
         </Tag.StartElement>
-        <Tag.Label>Segun</Tag.Label>
+        <Tag.Label>Jane</Tag.Label>
       </Tag.Root>
       <Tag.Root size="lg" rounded="full">
         <Tag.StartElement>
           <Avatar.Root size="full">
-            <Avatar.Image src="https://bit.ly/sage-adebayo" />
-            <Avatar.Fallback name="Segun Adebayo" />
+            <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+            <Avatar.Fallback name="Jane Doe" />
           </Avatar.Root>
         </Tag.StartElement>
-        <Tag.Label>Segun</Tag.Label>
+        <Tag.Label>Jane</Tag.Label>
       </Tag.Root>
       <Tag.Root size="xl" rounded="full">
         <Tag.StartElement>
           <Avatar.Root size="full">
-            <Avatar.Image src="https://bit.ly/sage-adebayo" />
-            <Avatar.Fallback name="Segun Adebayo" />
+            <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+            <Avatar.Fallback name="Jane Doe" />
           </Avatar.Root>
         </Tag.StartElement>
-        <Tag.Label>Segun</Tag.Label>
+        <Tag.Label>Jane</Tag.Label>
       </Tag.Root>
     </HStack>
   )

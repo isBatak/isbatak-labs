@@ -3,6 +3,6 @@
 </script>
 
 <Avatar.Root>
-  <Avatar.Fallback name="Segun Adebayo" />
-  <Avatar.Image src="https://bit.ly/sage-adebayo" />
+  <Avatar.Fallback name="Jane Doe" />
+  <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
 </Avatar.Root>
