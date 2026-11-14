@@ -3910,6 +3910,75 @@
     ],
     "variants": {}
   },
+  "format": {
+    "parts": [
+      {
+        "name": "FormatByte",
+        "props": {
+          "unit": {
+            "type": "'bit' | 'byte' | undefined",
+            "description": "The unit granularity to display"
+          },
+          "unitDisplay": {
+            "type": "'long' | 'short' | 'narrow' | undefined",
+            "description": "The unit display"
+          },
+          "unitSystem": {
+            "type": "'decimal' | 'binary' | undefined",
+            "description": "The unit system to use for formatting"
+          },
+          "value": {
+            "type": "number",
+            "description": "The byte size to format"
+          }
+        }
+      },
+      {
+        "name": "FormatNumber",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": "The number to format"
+          }
+        }
+      },
+      {
+        "name": "FormatRelativeTime",
+        "props": {
+          "value": {
+            "type": "Date",
+            "description": "The date to format"
+          }
+        }
+      },
+      {
+        "name": "FormatTime",
+        "props": {
+          "value": {
+            "type": "string | Date",
+            "description": "The time to format"
+          },
+          "format": {
+            "type": "TimeFormat",
+            "description": ""
+          },
+          "amLabel": {
+            "type": "string",
+            "description": ""
+          },
+          "pmLabel": {
+            "type": "string",
+            "description": ""
+          },
+          "withSeconds": {
+            "type": "boolean",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {

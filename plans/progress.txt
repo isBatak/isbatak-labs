@@ -332,3 +332,18 @@
 - `ds-api.json`: only the `empty-state` key, inserted by hand (the generator rewrites unicode escapes elsewhere).
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
+
+
+## format (done, 2026-11-14)
+
+- No recipe (Format renders plain text), so no `@isbatak/panda-ds` changeset. Each framework's `format/index.ts` re-exports
+  Ark's `Format` namespace plus `FormatNumber`/`FormatByte`/`FormatRelativeTime`/`FormatTime` and their prop types from
+  `@ark-ui/<fw>/format`, like `presence`. No `namespace.ts`; Ark already ships the namespace.
+- Ark 6 also has `Format.Time` (not in the PRD list); added a demo for it.
+- Vue's `Format.Number` only declares `value`, `compactDisplay`, `notation`, `signDisplay`, `unit`, `unitDisplay`,
+  `currencyDisplay` and `currencySign` as props, so `style`/`currency`/`maximumFractionDigits` don't work there (upstream
+  gap). The Vue usage demo only shows plain and compact; React/Solid/Svelte also show currency and percent.
+- Demos (4): usage (number), byte, relative-time, time. Docs category `Typography`. Locale comes from `LocaleProvider`
+  (next PRD item).
+- `ds-api.json`: only the `format` key inserted alphabetically; the generator output for it is just the four parts.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
