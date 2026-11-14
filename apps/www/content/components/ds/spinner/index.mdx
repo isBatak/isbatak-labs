@@ -7,9 +7,60 @@ links:
   recipe: packages/panda/ds/src/theme/recipes/spinner.ts
 ---
 
-A `span` styled with the `spinner` recipe. `size="inherit"` matches the surrounding font size, which is how `Loader`
-uses it.
+A `span` styled with the `spinner` recipe. It draws its ring in `currentColor`, so it takes the text color around it.
+`size="inherit"` matches the surrounding font size, which is how `Loader` uses it.
 
 ## Usage
 
 <Usage />
+
+```tsx
+<Spinner />
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `xs`, `sm`, `md`, `lg` or `xl`, or `inherit` to follow the font size. The default is `md`. The ring gets
+thicker as the spinner grows.
+
+<Example id="spinner/sizes" />
+
+### Colors
+
+The ring uses `currentColor`. Set `color`, here to the palette's `solid` color, to change it.
+
+<Example id="spinner/colors" />
+
+### With track
+
+Set `showTrack` to draw the rest of the ring in the palette's `subtle` color. Override `--spinner-track-color` for any
+other color.
+
+<Example id="spinner/with-track" />
+
+### With label
+
+Put a `Text` next to the spinner to say what is loading.
+
+<Example id="spinner/with-label" />
+
+### Custom speed
+
+Set `animationDuration` to change how long one turn takes. The default is the `slowest` duration token.
+
+<Example id="spinner/custom-speed" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable                | Description                                               |
+| ----------------------- | --------------------------------------------------------- |
+| `--spinner-size`        | The width and height, set by `size`                       |
+| `--spinner-track-color` | The color of the ring's trailing half, set by `showTrack` |
+
+## API
+
+<Api />
