@@ -287,6 +287,26 @@
       }
     }
   },
+  "alert": {
+    "parts": [],
+    "variants": {
+      "status": {
+        "values": ["info", "warning", "success", "error", "neutral"],
+        "defaultValue": "info"
+      },
+      "inline": {
+        "values": ["true", "false"]
+      },
+      "variant": {
+        "values": ["subtle", "surface", "outline", "solid"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "aspect-ratio": {
     "parts": [
       {
@@ -1218,13 +1238,13 @@
             "description": "Whether to allow the initial presence animation.",
             "defaultValue": "false"
           },
-          "format": {
-            "type": "ColorFormat | undefined",
-            "description": "The controlled color format to use"
-          },
           "inline": {
             "type": "boolean | undefined",
             "description": "Whether to render the color picker inline"
+          },
+          "format": {
+            "type": "ColorFormat | undefined",
+            "description": "The controlled color format to use"
           },
           "readOnly": {
             "type": "boolean | undefined",
@@ -2176,6 +2196,10 @@
             "description": "Whether to allow the initial presence animation.",
             "defaultValue": "false"
           },
+          "inline": {
+            "type": "boolean | undefined",
+            "description": "Whether to render the date picker inline"
+          },
           "max": {
             "type": "DateValue | undefined",
             "description": "The maximum date that can be selected."
@@ -2187,10 +2211,6 @@
           "format": {
             "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
             "description": "The format of the date to display in the input."
-          },
-          "inline": {
-            "type": "boolean | undefined",
-            "description": "Whether to render the date picker inline"
           },
           "readOnly": {
             "type": "boolean | undefined",
@@ -3182,6 +3202,15 @@
     "parts": [],
     "variants": {}
   },
+  "empty-state": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "field": {
     "parts": [
       {
@@ -3901,6 +3930,75 @@
     ],
     "variants": {}
   },
+  "format": {
+    "parts": [
+      {
+        "name": "FormatByte",
+        "props": {
+          "unit": {
+            "type": "'bit' | 'byte' | undefined",
+            "description": "The unit granularity to display"
+          },
+          "unitDisplay": {
+            "type": "'long' | 'short' | 'narrow' | undefined",
+            "description": "The unit display"
+          },
+          "unitSystem": {
+            "type": "'decimal' | 'binary' | undefined",
+            "description": "The unit system to use for formatting"
+          },
+          "value": {
+            "type": "number",
+            "description": "The byte size to format"
+          }
+        }
+      },
+      {
+        "name": "FormatNumber",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": "The number to format"
+          }
+        }
+      },
+      {
+        "name": "FormatRelativeTime",
+        "props": {
+          "value": {
+            "type": "Date",
+            "description": "The date to format"
+          }
+        }
+      },
+      {
+        "name": "FormatTime",
+        "props": {
+          "value": {
+            "type": "string | Date",
+            "description": "The time to format"
+          },
+          "format": {
+            "type": "TimeFormat",
+            "description": ""
+          },
+          "amLabel": {
+            "type": "string",
+            "description": ""
+          },
+          "pmLabel": {
+            "type": "string",
+            "description": ""
+          },
+          "withSeconds": {
+            "type": "boolean",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {
@@ -4600,6 +4698,21 @@
     ],
     "variants": {}
   },
+  "locale": {
+    "parts": [
+      {
+        "name": "LocaleProvider",
+        "props": {
+          "locale": {
+            "type": "string",
+            "description": "The locale to use for the application.",
+            "defaultValue": "'en-US'"
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "mark": {
     "parts": [],
     "variants": {
@@ -4607,6 +4720,121 @@
         "values": ["subtle", "solid", "text", "plain"]
       }
     }
+  },
+  "marquee": {
+    "parts": [
+      {
+        "name": "Marquee.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the marquee. Useful for composition."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "spacing": {
+            "type": "string | undefined",
+            "description": "The spacing between marquee items.",
+            "defaultValue": "\"1rem\""
+          },
+          "speed": {
+            "type": "number | undefined",
+            "description": "The speed of the marquee animation in pixels per second.",
+            "defaultValue": "50"
+          },
+          "reverse": {
+            "type": "boolean | undefined",
+            "description": "Whether to reverse the animation direction.",
+            "defaultValue": "false"
+          },
+          "side": {
+            "type": "Side | undefined",
+            "description": "The side/direction the marquee scrolls towards.",
+            "defaultValue": "\"start\""
+          },
+          "delay": {
+            "type": "number | undefined",
+            "description": "The delay before the animation starts (in seconds).",
+            "defaultValue": "0"
+          },
+          "loopCount": {
+            "type": "number | undefined",
+            "description": "The number of times to loop the animation (0 = infinite).",
+            "defaultValue": "0"
+          },
+          "autoFill": {
+            "type": "boolean | undefined",
+            "description": "Whether to automatically duplicate content to fill the container.",
+            "defaultValue": "false"
+          },
+          "pauseOnInteraction": {
+            "type": "boolean | undefined",
+            "description": "Whether to pause the marquee on user interaction (hover, focus).",
+            "defaultValue": "false"
+          },
+          "paused": {
+            "type": "boolean | undefined",
+            "description": "Whether the marquee is paused."
+          },
+          "defaultPaused": {
+            "type": "boolean | undefined",
+            "description": "Whether the marquee is paused by default.",
+            "defaultValue": "false"
+          },
+          "onPauseChange": {
+            "type": "((details: PauseStatusDetails) => void) | undefined",
+            "description": "Function called when the pause status changes."
+          },
+          "onLoopComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the marquee completes one loop iteration."
+          },
+          "onComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the marquee completes all loops and stops.\nOnly fires for finite loops (loopCount > 0)."
+          }
+        }
+      },
+      {
+        "name": "Marquee.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseMarqueeReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Marquee.Content",
+        "props": {
+          "children": {
+            "type": "ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Marquee.Edge",
+        "props": {
+          "side": {
+            "type": "Side",
+            "description": "The side where the edge gradient should appear."
+          }
+        }
+      },
+      {
+        "name": "Marquee.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseMarqueeContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "menu": {
     "parts": [
@@ -6082,6 +6310,189 @@
     ],
     "variants": {}
   },
+  "progress": {
+    "parts": [
+      {
+        "name": "Progress.Root",
+        "props": {
+          "defaultValue": {
+            "type": "number | null | undefined",
+            "description": "The initial value of the progress bar when rendered.\nUse when you don't need to control the value of the progress bar.",
+            "defaultValue": "50"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the progress bar. Useful for composition."
+          },
+          "value": {
+            "type": "number | null | undefined",
+            "description": "The controlled value of the progress bar."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the value changes."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the element.",
+            "defaultValue": "\"horizontal\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum allowed value of the progress bar.",
+            "defaultValue": "100"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum allowed value of the progress bar.",
+            "defaultValue": "0"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale to use for formatting the value.",
+            "defaultValue": "\"en-US\""
+          },
+          "formatOptions": {
+            "type": "Intl.NumberFormatOptions | undefined",
+            "description": "The options to use for formatting the value.",
+            "defaultValue": "{ style: \"percent\" }"
+          }
+        }
+      },
+      {
+        "name": "Progress.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseProgressReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Progress.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseProgressContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "shape": {
+        "values": ["square", "rounded", "full"],
+        "defaultValue": "rounded"
+      },
+      "striped": {
+        "values": ["true"]
+      },
+      "animated": {
+        "values": ["true"]
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
+  "progress-circle": {
+    "parts": [
+      {
+        "name": "ProgressCircle.Root",
+        "props": {
+          "defaultValue": {
+            "type": "number | null | undefined",
+            "description": "The initial value of the progress bar when rendered.\nUse when you don't need to control the value of the progress bar.",
+            "defaultValue": "50"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the progress bar. Useful for composition."
+          },
+          "value": {
+            "type": "number | null | undefined",
+            "description": "The controlled value of the progress bar."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the value changes."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the element.",
+            "defaultValue": "\"horizontal\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum allowed value of the progress bar.",
+            "defaultValue": "100"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum allowed value of the progress bar.",
+            "defaultValue": "0"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale to use for formatting the value.",
+            "defaultValue": "\"en-US\""
+          },
+          "formatOptions": {
+            "type": "Intl.NumberFormatOptions | undefined",
+            "description": "The options to use for formatting the value.",
+            "defaultValue": "{ style: \"percent\" }"
+          }
+        }
+      },
+      {
+        "name": "ProgressCircle.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseProgressReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ProgressCircle.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseProgressContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "round": {
+        "values": ["true", "false"]
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl", "2xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "prose": {
     "parts": [],
     "variants": {
@@ -7170,6 +7581,43 @@
       }
     ],
     "variants": {}
+  },
+  "skeleton": {
+    "parts": [
+      {
+        "name": "SkeletonCircle",
+        "props": {
+          "size": {
+            "type": "CircleProps[\"size\"] | undefined",
+            "description": "The width and height of the circle."
+          }
+        }
+      },
+      {
+        "name": "SkeletonText",
+        "props": {
+          "noOfLines": {
+            "type": "number | undefined",
+            "description": "The number of lines to render. The last line is shorter.",
+            "defaultValue": "3"
+          },
+          "rootProps": {
+            "type": "StackProps | undefined",
+            "description": "Props for the stack that wraps the lines."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "loading": {
+        "values": ["true", "false"],
+        "defaultValue": "true"
+      },
+      "variant": {
+        "values": ["pulse", "shine", "none"],
+        "defaultValue": "pulse"
+      }
+    }
   },
   "skip-nav": {
     "parts": [
