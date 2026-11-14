@@ -188,7 +188,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 
 ## Feedback
 
-- [ ] alert — has: recipe
+- [x] alert — has: recipe
 - [ ] progress — has: recipe
 - [ ] progress-circle — has: recipe
 - [ ] skeleton — has: recipe
