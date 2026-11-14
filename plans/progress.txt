@@ -490,3 +490,26 @@
 - Checks run: panda-ds build; `turbo --affected` (63/63); oxlint and oxfmt; Playwright Storybook check in all four
   (4/8/12/16px by size, ring `ping` running, `--ping-transform-scale` 4 on sm, palette colors, "Live" label, no page
   errors). The website build prints existing Panda diagnostics (fonts, `avatar`), unrelated.
+
+
+## action-item (done, 2026-11-14)
+
+- New slot recipe `actionItem` after tl-ds: slots root, startElement, label, endElement, controlElement; variants
+  `subtle` (default, `--action-item-bg: bg.subtle`, `l2` radius) and `plain`. tl-ds's `neutral.subtle/muted/emphasized`
+  map to `bg.subtle/muted/emphasized`; its `xl.500` label is `textStyle: md` + `fontWeight: medium` (no weight-suffixed
+  text styles here). Rows without a `[data-slot=controlElement]` child get `cursor: button`, hover `bg.muted`, active
+  `bg.emphasized` (tl-ds's nested `_hover._active` collapsed into one `_active`). Additions over tl-ds: `color: fg`,
+  `textAlign: start`, `focusVisibleRing: outside`, `fg.muted` on the end element, `layerStyle: disabled` plus
+  tl-ds's `pointerEvents: none` on `_disabled`. No analog override. `@isbatak/panda-ds` minor changeset.
+- Components (all four frameworks): Root (`ark.div`), StartElement, Label, EndElement (`ark.span`), ControlElement
+  (`ark.div`), plus `PropsProvider` in React/Vue/Solid. Svelte: one file per part on `Box` with `action-item-styles.ts`;
+  Svelte parts have no `asChild` (like `status`), so the with-control demo nests the switch inside ControlElement
+  instead of tl-ds's `asChild` on it, in every framework.
+- Demos (6): usage, variants, with-start-element, with-description (muted `Text as="span"` inside Label), with-control
+  (Switch, `aria-label` on HiddenInput), disabled (`data-disabled` + `aria-disabled` on root; no `disabled` prop). From
+  tl-ds's three stories plus description and disabled.
+- Docs category `Navigation` (settings/menu rows). Story title `DS/Action item`. `ds-api.json`: only the `actionItem` key.
+- Checks run: panda-ds build; `turbo --affected`; oxlint and oxfmt; Playwright Storybook check in all four (subtle bg
+  rgb(250,250,250) → hover rgb(244,244,245), 4px radius vs plain transparent/0, min height 40px, label 16px/500, start
+  icons 24px, description span 14px/400, control row cursor auto and switch toggles, disabled opacity 0.5 and
+  pointer-events none, no page errors). turbo 63/63; website build prints the existing `avatar` and `blue.500/6` diagnostics.

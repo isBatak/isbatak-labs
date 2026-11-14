@@ -202,7 +202,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [ ] ripple
 - [ ] bottom-nav-bar
 - [ ] sidebar
-- [ ] action-item
+- [x] action-item
 - [ ] tone
 
 ## Ark-only

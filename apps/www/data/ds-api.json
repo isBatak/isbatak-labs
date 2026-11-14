@@ -287,6 +287,15 @@
       }
     }
   },
+  "action-item": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "plain"],
+        "defaultValue": "subtle"
+      }
+    }
+  },
   "alert": {
     "parts": [],
     "variants": {
