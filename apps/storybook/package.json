@@ -12,6 +12,6 @@
     "@storybook/html-vite": "catalog:",
     "storybook": "catalog:",
     "vite": "catalog:",
-    "wait-on": "^9.1.0"
+    "wait-on": "^9.5.1"
   }
 }

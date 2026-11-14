@@ -31,6 +31,6 @@
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
     "vue": "^3.5.43",
-    "vue-component-type-helpers": "^3.3.11"
+    "vue-component-type-helpers": "3.3.11"
   }
 }
