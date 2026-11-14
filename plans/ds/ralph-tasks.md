@@ -134,8 +134,8 @@ When an item is done, change `- [ ]` to `- [x]` here and tick the same line in `
    above, links), intro, `## Usage` with `<Usage />` and an anatomy snippet, `## Examples` with
    `<Example id="<name>/<demo>" />`, `## Recipe` with `<RecipeVariants />` when it has variants, `## API` with
    `<Api />`.
-6. `apps/www/data/ds-api.json`: back it up, run `pnpm api:generate` in `apps/www`, then restore the backup and insert
-   only this component's key at its alphabetical position. Run oxfmt on it. Never commit unrelated churn in that file.
+6. `apps/www/data/ds-api.json`: run `pnpm api:generate` in `apps/www`. The generator formats its output with oxfmt, so
+   the diff is only this component's key. If other keys change too, note it in `plans/progress.txt`.
 7. Changesets: `.changeset/ds-<name>.md` for `@isbatak/panda-ds` (only if the recipe changed) and
    `.changeset/ds-<name>-ui.md` for the four private `-ui` packages, in separate files.
 
@@ -147,10 +147,9 @@ When an item is done, change `- [ ]` to `- [x]` here and tick the same line in `
   Turbo's `--affected` compares against `main`, and `--continue` reports every failure instead of stopping at the first.
   This catches packages you didn't touch but that consume yours, such as `packages/studio` (its component matrices
   spread recipe variant props onto styled components, so a variant named like a Panda style prop, e.g. `ring`, breaks
-  its typecheck). It regenerates `apps/www/data/ds-api.json`; restore your version afterwards with `git checkout` and
-  re-insert only your own key.
+  its typecheck).
 - `pnpm typecheck` in `packages/panda/ds`, the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`,
-  and `apps/www` (run `pnpm generate` there first, then restore your `ds-api.json`).
+  and `apps/www` (run `pnpm generate` there first).
 - `git ls-files -m -o --exclude-standard | grep -E "\.(ts|tsx|vue|svelte|mjs)$" | xargs pnpm exec oxlint` and the same
   list through `pnpm exec oxfmt --check` (zsh doesn't word-split variables; use xargs).
 - Behaviour check in Storybook: `pnpm build` in `apps/storybook-shared` first (Storybook CSS is pre-generated), then
