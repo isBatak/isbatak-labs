@@ -439,3 +439,20 @@
   `apps/storybook-*`, `packages/studio`, `apps/www` (after `pnpm generate`); oxlint and oxfmt; `turbo --affected`;
   Playwright Storybook check (all four: sizes 12/16/20/32/40px, border 1/1/2/2/3px, palette colors, track colors in
   with-track, durations 0.3s/0.5s/1s).
+
+
+## loader (done, 2026-11-14)
+
+- Audit. No recipe (Loader and LoaderOverlay are styled spans/divs), and the components in all four frameworks already
+  matched Chakra's `Loader`/`LoaderOverlay`, so `packages/ui` is unchanged and there are no changesets.
+- Demos (5, all four frameworks; only React `usage` existed before): usage, spinner-placement, custom-spinner,
+  with-badge, with-overlay. Chakra's three examples are basic (folded into usage), with-badge and with-overlay; added
+  spinner-placement and custom-spinner to cover the `spinnerPlacement` and `spinner` props. Custom spinner is a `Spinner`
+  with `showTrack` passed as the React/Solid `spinner` prop, the Vue `#spinner` slot and the Svelte `spinner` snippet.
+  Overlay uses `bg="bg/80"`, which passes strictTokens.
+- Stories: React now has all five; Vue, Svelte, Solid got their first `DS/Loader` stories.
+- Docs page got a code snippet and one section per example. `ds-api.json` unchanged (generator gave no diff).
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`, `apps/www` (after
+  `pnpm generate`); oxlint and oxfmt; `turbo --affected` (63/63); Playwright Storybook check in all four (spinner hides
+  children in usage, start/end placement, blue tracked custom spinner, spinner in badge, overlay covers the card with
+  `bg/80` after toggling, no page errors).
