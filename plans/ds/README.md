@@ -198,7 +198,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 
 ## tl-ds extras
 
-- [ ] beacon
+- [x] beacon
 - [ ] ripple
 - [ ] bottom-nav-bar
 - [ ] sidebar
