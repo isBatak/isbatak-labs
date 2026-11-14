@@ -63,6 +63,7 @@ import { radioCardSlotRecipe } from "./radio-card"
 import { radioGroupSlotRecipe } from "./radio-group"
 import { radiomarkRecipe } from "./radiomark"
 import { ratingGroupSlotRecipe } from "./rating-group"
+import { rippleRecipe } from "./ripple"
 import { scrollAreaSlotRecipe } from "./scroll-area"
 import { searchInputSlotRecipe } from "./search-input"
 import { segmentGroupSlotRecipe } from "./segment-group"
@@ -104,6 +105,7 @@ export const recipes = {
   kbd: kbdRecipe,
   link: linkRecipe,
   mark: markRecipe,
+  ripple: rippleRecipe,
   separator: separatorRecipe,
   strong: strongRecipe,
   skeleton: skeletonRecipe,

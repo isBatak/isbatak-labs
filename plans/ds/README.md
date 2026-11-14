@@ -199,7 +199,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 ## tl-ds extras
 
 - [x] beacon
-- [ ] ripple
+- [x] ripple
 - [ ] bottom-nav-bar
 - [ ] sidebar
 - [x] action-item

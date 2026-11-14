@@ -55,7 +55,7 @@ look, and its stories as demos. Pick the docs category that fits.
 
 - [x] beacon — 60 lines, no recipe here. A pulsing dot.
 - [x] action-item — 125 lines, 4 parts.
-- [ ] ripple — 204 lines.
+- [x] ripple — 204 lines.
 - [ ] swap — has an Ark Swap. tl-ds has it too: take tl-ds's look and Ark's `swap.module.css` for the states.
 - [ ] bottom-nav-bar — 266 lines, parts Root, Item, ItemIcon, ItemLabel. Items take a link element; mark the active item
       with `aria-current="page"` and style that, rather than depending on a router.
