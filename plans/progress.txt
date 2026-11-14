@@ -406,3 +406,16 @@
 - Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`;
   oxlint and oxfmt. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
   Worth a visual look at the indeterminate spinner and `round`.
+
+
+## skeleton (done, 2026-11-14)
+
+- Recipe already existed (`loading`, `variant` pulse/shine/none), so no recipe change and no `@isbatak/panda-ds` changeset.
+- Components (all four frameworks): `Skeleton` (styled `ark.div`), `SkeletonText` (stack of `noOfLines` skeletons, last one
+  shorter, `rootProps`) and `SkeletonCircle` (wraps `Circle`, `size`). Svelte: one file per part.
+- Demos (4): usage, text, variants, with-children. Skipped Chakra's `feed` and `with-children` variants beyond the basic one.
+- `ds-api.json`: only the `skeleton` key, inserted alphabetically.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+- Note: svelte-check in `apps/compositions` and `apps/storybook-svelte` prints a TypeScript "RangeError: Map maximum size
+  exceeded" trace during inference but still reports 0 errors and exits 0. Not investigated whether it predates skeleton.

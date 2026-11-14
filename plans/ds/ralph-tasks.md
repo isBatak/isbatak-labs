@@ -43,7 +43,7 @@ Category `Feedback`. tl-ds has all of these, so take its look.
 - [x] progress — has: recipe. Ark Progress (linear). Compare with Ark's `progress.module.css`.
 - [x] progress-circle — has: recipe. It is Ark's Progress with the circular parts (`Progress.Circle`, `CircleTrack`,
       `CircleRange`), not a separate Ark component. Compare with `progress-circular.module.css`.
-- [ ] skeleton — has: recipe.
+- [x] skeleton — has: recipe.
 - [ ] spinner — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
 - [ ] loader — has: all four frameworks, docs. Audit: Chakra's examples, stories.
 - [ ] status — has: recipe.
