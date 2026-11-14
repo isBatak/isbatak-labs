@@ -181,7 +181,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] timeline — has: recipe
 - [x] qr-code — has: recipe
 - [x] image
-- [ ] marquee — has: recipe
+- [x] marquee — has: recipe
 - [ ] empty-state — has: recipe
 - [ ] format
 - [ ] locale

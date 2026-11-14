@@ -299,3 +299,22 @@
   `ComponentProps<typeof StyledImage>[...]`, which could be prettier.
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
+
+
+## marquee (done, 2026-11-14)
+
+- Recipe compared with Ark's `marquee.module.css`: same animation, reduced-motion, pause and edge rules (the recipe adds
+  absolute positioning, a token-based edge colour and the 20% edge size). Ark's `Item` look and fixed root sizes are
+  demo-only CSS, so the `item` slot stays empty; demos wrap a `Badge variant="outline"` in `Marquee.Item`. No recipe
+  change, so no `@isbatak/panda-ds` changeset. No analog override exists.
+- Components (all four frameworks): `Marquee.Root`, `RootProvider`, `Viewport`, `Content`, `Edge`, `Item`, `Context`, plus
+  `useMarquee`/`useMarqueeContext`. No children defaulting. Svelte: one part per file plus `marquee-styles.ts`.
+- Demos (7): usage, auto-fill, reverse, vertical, with-edges, pause-on-interaction, programmatic-control. Skipped Ark's
+  `speed` (three stacked copies) and `finite-loops` (counter state). Vertical needs `h="60"` on the root; `spacing` is a
+  CSS length (`"2rem"`), not a token. Items are written inline (no `.map`).
+- `ds-api.json`: only the `marquee` key, inserted alphabetically; no `<RecipeVariants />` since the recipe has none.
+- A stale `@isbatak/panda-ds` dist made compositions typecheck fail on `data-list/separator`; `pnpm --filter
+  @isbatak/panda-ds build` fixed it.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at the edges and
+  the vertical scroll.

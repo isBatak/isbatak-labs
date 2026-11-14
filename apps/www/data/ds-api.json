@@ -4608,6 +4608,121 @@
       }
     }
   },
+  "marquee": {
+    "parts": [
+      {
+        "name": "Marquee.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the marquee. Useful for composition."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "spacing": {
+            "type": "string | undefined",
+            "description": "The spacing between marquee items.",
+            "defaultValue": "\"1rem\""
+          },
+          "speed": {
+            "type": "number | undefined",
+            "description": "The speed of the marquee animation in pixels per second.",
+            "defaultValue": "50"
+          },
+          "reverse": {
+            "type": "boolean | undefined",
+            "description": "Whether to reverse the animation direction.",
+            "defaultValue": "false"
+          },
+          "side": {
+            "type": "Side | undefined",
+            "description": "The side/direction the marquee scrolls towards.",
+            "defaultValue": "\"start\""
+          },
+          "delay": {
+            "type": "number | undefined",
+            "description": "The delay before the animation starts (in seconds).",
+            "defaultValue": "0"
+          },
+          "loopCount": {
+            "type": "number | undefined",
+            "description": "The number of times to loop the animation (0 = infinite).",
+            "defaultValue": "0"
+          },
+          "autoFill": {
+            "type": "boolean | undefined",
+            "description": "Whether to automatically duplicate content to fill the container.",
+            "defaultValue": "false"
+          },
+          "pauseOnInteraction": {
+            "type": "boolean | undefined",
+            "description": "Whether to pause the marquee on user interaction (hover, focus).",
+            "defaultValue": "false"
+          },
+          "paused": {
+            "type": "boolean | undefined",
+            "description": "Whether the marquee is paused."
+          },
+          "defaultPaused": {
+            "type": "boolean | undefined",
+            "description": "Whether the marquee is paused by default.",
+            "defaultValue": "false"
+          },
+          "onPauseChange": {
+            "type": "((details: PauseStatusDetails) => void) | undefined",
+            "description": "Function called when the pause status changes."
+          },
+          "onLoopComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the marquee completes one loop iteration."
+          },
+          "onComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function called when the marquee completes all loops and stops.\nOnly fires for finite loops (loopCount > 0)."
+          }
+        }
+      },
+      {
+        "name": "Marquee.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseMarqueeReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Marquee.Content",
+        "props": {
+          "children": {
+            "type": "ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Marquee.Edge",
+        "props": {
+          "side": {
+            "type": "Side",
+            "description": "The side where the edge gradient should appear."
+          }
+        }
+      },
+      {
+        "name": "Marquee.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseMarqueeContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "menu": {
     "parts": [
       {
