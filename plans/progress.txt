@@ -318,3 +318,17 @@
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at the edges and
   the vertical scroll.
+
+
+## empty-state (done, 2026-11-14)
+
+- Recipe already existed (slots root/content/indicator/title/description, `size` sm/md/lg) and matches tl-ds's
+  `EmptyState`, so no recipe change and no `@isbatak/panda-ds` changeset. Analog override exists and is untouched.
+- Components (all four frameworks): `EmptyState.Root`, `Content`, `Indicator`, `Title` (`h3`), `Description` (`p`), plus
+  `PropsProvider` in React/Vue/Solid. No Ark machine, no children defaulting. Svelte: one part per file plus
+  `empty-state-styles.ts`, no provider. tl-ds wraps title and description in a `VStack` in its stories; the recipe's
+  `content` gap already spaces them, so demos skip that wrapper.
+- Demos (3): usage (`search` icon), sizes, with-action (`ButtonGroup`). Skipped Chakra's list/with-icon variants.
+- `ds-api.json`: only the `empty-state` key, inserted by hand (the generator rewrites unicode escapes elsewhere).
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
