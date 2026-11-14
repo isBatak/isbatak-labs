@@ -3182,6 +3182,15 @@
     "parts": [],
     "variants": {}
   },
+  "empty-state": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "field": {
     "parts": [
       {

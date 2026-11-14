@@ -1,0 +1,47 @@
+---
+title: Empty State
+description: A placeholder for lists and views that have no data yet.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/empty-state
+  recipe: packages/panda/ds/src/theme/recipes/empty-state.ts
+---
+
+An empty state tells people why a view is empty and, optionally, what to do next. It centres an indicator, a title and a
+description, with room for actions below.
+
+## Usage
+
+<Usage />
+
+```tsx
+<EmptyState.Root>
+  <EmptyState.Content>
+    <EmptyState.Indicator />
+    <EmptyState.Title />
+    <EmptyState.Description />
+  </EmptyState.Content>
+</EmptyState.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the spacing and text size: `sm`, `md` or `lg`.
+
+<Example id="empty-state/sizes" />
+
+### With action
+
+Put buttons inside `EmptyState.Content` after the description.
+
+<Example id="empty-state/with-action" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
