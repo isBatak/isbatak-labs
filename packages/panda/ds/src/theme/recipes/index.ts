@@ -35,6 +35,7 @@ import { groupRecipe } from "./group"
 import { headingRecipe } from "./heading"
 import { hoverCardSlotRecipe } from "./hover-card"
 import { iconRecipe } from "./icon"
+import { imageRecipe } from "./image"
 import { inputRecipe } from "./input"
 import { inputAddonRecipe } from "./input-addon"
 import { inputElementRecipe } from "./input-element"
@@ -107,6 +108,7 @@ export const recipes = {
   spinner: spinnerRecipe,
   textarea: textareaRecipe,
   icon: iconRecipe,
+  image: imageRecipe,
   checkmark: checkmarkRecipe,
   radiomark: radiomarkRecipe,
   colorSwatch: colorSwatchRecipe,

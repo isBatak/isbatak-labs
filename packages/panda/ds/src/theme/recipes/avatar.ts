@@ -29,6 +29,7 @@ export const avatarSlotRecipe = defineSlotRecipe({
       height: "100%",
       objectFit: "cover",
       borderRadius: "var(--avatar-radius)",
+      layerStyle: "imageOutline",
     },
     fallback: {
       lineHeight: "1",
