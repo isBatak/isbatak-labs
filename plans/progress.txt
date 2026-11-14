@@ -513,3 +513,30 @@
   rgb(250,250,250) → hover rgb(244,244,245), 4px radius vs plain transparent/0, min height 40px, label 16px/500, start
   icons 24px, description span 14px/400, control row cursor auto and switch toggles, disabled opacity 0.5 and
   pointer-events none, no page errors). turbo 63/63; website build prints the existing `avatar` and `blue.500/6` diagnostics.
+
+
+## ripple (done, 2026-11-15)
+
+- New recipe `ripple` (no variants) after tl-ds's inline `css()`: `position: relative`, `overflow: hidden`, and
+  `& > [data-ripple]` circles placed by `--ripple-x/-y/-size`, `blackAlpha.200` / dark `whiteAlpha.100`, `slowest`
+  `ease-out`, `forwards`; `_disabled` hides the circles. tl-ds has a dedicated `ripple` keyframe; instead of adding one,
+  the recipe runs the existing `scale-in, fade-out` keyframes with `--scale-in-from: 0` (`1` under `_motionReduce`, so
+  reduced motion only fades). Same result, no new keyframe. No analog override. `@isbatak/panda-ds` minor changeset.
+- Components (all four frameworks): single `Ripple` on `ark.span` with `centered` and `disabled` props, plus a
+  `spawn-ripple.ts` per package (DOM span appended to `currentTarget`, removed on `animationend`/`animationcancel`).
+  Pointer press spawns at the pointer (primary button only); a click with `detail === 0` (Enter/Space) spawns from the
+  center. User `onPointerDown`/`onClick` run first and can `preventDefault` to skip the ripple. No `PropsProvider` (no
+  variants). Vue/Solid handlers accept the array handler forms; Svelte uses Ark's `asChild` snippet.
+- Demos (5): usage, centered, with-button, disabled, disabled-button = tl-ds's stories minus `Frozen`, which is a
+  screenshot fixture with hand-placed ripples (would need `.map` over static data and inline styles). React/Vue/Solid
+  surfaces are `Center` via `asChild`; Svelte uses a plain `div` with `props({ class: center({...}) })`, because
+  spreading `props()` onto the generic Svelte `Center` made svelte-check crash ("Map maximum size exceeded", exit 1).
+- Note: `svelte-check` in `apps/compositions` prints 151 `RangeError: Map maximum size exceeded` stack traces on this
+  branch even without the ripple demos, but still exits 0. Worth a look separately.
+- Solid's `disabled-button` gets no ripple element at all (Solid's delegated events skip disabled buttons); the other
+  three add one and hide it via `_disabled`. Same visible result.
+- Docs category `Feedback`. `ds-api.json`: only the `ripple` key.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `turbo --affected`; Playwright Storybook check in all four (ripple at the press point / center, size covers the
+  element, `scale-in, fade-out` running, removed after ~700ms, keyboard Enter on the button spawns from center, none
+  when `disabled`, hidden on the disabled button, no page errors).

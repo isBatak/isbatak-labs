@@ -6986,6 +6986,26 @@
       }
     }
   },
+  "ripple": {
+    "parts": [
+      {
+        "name": "Ripple",
+        "props": {
+          "centered": {
+            "type": "boolean | undefined",
+            "description": "Start every ripple from the center instead of the pointer position",
+            "defaultValue": "false"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Stop spawning new ripples",
+            "defaultValue": "false"
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "scroll-area": {
     "parts": [
       {
