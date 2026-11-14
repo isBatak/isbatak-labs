@@ -456,3 +456,19 @@
   `pnpm generate`); oxlint and oxfmt; `turbo --affected` (63/63); Playwright Storybook check in all four (spinner hides
   children in usage, start/end placement, blue tracked custom spinner, spinner in badge, overlay covers the card with
   `bg/80` after toggling, no page errors).
+
+
+## status (done, 2026-11-14)
+
+- Recipe took tl-ds's indicator sizes: dropped the `0.64em` width/height and set `boxSize` per `size` (sm `1.5`, md `2`,
+  lg `2.5` → 6/8/10px). Kept this repo's text styles (xs/sm/md) and default `md`; tl-ds defaults to `sm` and uses its own
+  textStyle scale. `@isbatak/panda-ds` minor changeset. No analog override exists.
+- Components (all four frameworks): `Status.Root`, `Indicator`, plus `PropsProvider` in React/Vue/Solid. No Ark machine.
+  Color comes from `colorPalette`; Chakra's `value` prop (success/error/...) was not added, to keep the recipe API.
+  Svelte: one part per file plus `status-styles.ts`; demos set `colorPalette` through a `css()` class.
+- Demos (3): usage (four indicators), with-label, sizes, following Chakra's three examples.
+- `ds-api.json`: only the `status` key (generator output; no parts with own props, one `size` variant).
+- Checks run: panda-ds build; `turbo --affected` (63/63, covers typecheck of ui packages, compositions, storybooks,
+  studio, www); oxlint and oxfmt; Playwright Storybook check in all four (indicator 6/8/10px by size, text 12/14/16px,
+  palette colors, labels, no page errors). The website build prints existing Panda diagnostics (font token and `avatar`
+  recipe conflicts), unrelated to status.

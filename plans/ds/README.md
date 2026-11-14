@@ -194,7 +194,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] skeleton — has: recipe.
 - [x] spinner — has: recipe react vue svelte solid docs
 - [x] loader — has: react vue svelte solid docs
-- [ ] status — has: recipe
+- [x] status — has: recipe
 
 ## tl-ds extras
 
