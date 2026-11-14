@@ -183,7 +183,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] image
 - [x] marquee — has: recipe
 - [x] empty-state — has: recipe
-- [ ] format
+- [x] format
 - [ ] locale
 
 ## Feedback
