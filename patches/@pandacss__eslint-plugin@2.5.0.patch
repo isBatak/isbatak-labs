@@ -1,8 +1,8 @@
-diff --git a/dist/chunk-PSDFXFYF.js b/dist/chunk-PSDFXFYF.js
-index 3e2af351826d5aeded786a8e23e55da0b16cf3c0..6f9edea91afbec57c80cd38e0b5bd5b8df2f70bc 100644
---- a/dist/chunk-PSDFXFYF.js
-+++ b/dist/chunk-PSDFXFYF.js
-@@ -1228,7 +1228,8 @@ function hardcodedValueClassifier(compiler) {
+diff --git a/dist/chunk-5Y2AKO37.js b/dist/chunk-5Y2AKO37.js
+index e6ed2a0..bfc168a 100644
+--- a/dist/chunk-5Y2AKO37.js
++++ b/dist/chunk-5Y2AKO37.js
+@@ -1257,7 +1257,8 @@ function hardcodedValueClassifier(compiler) {
      const cached = cache.get(key);
      if (cached !== void 0) return cached;
      let result = false;
