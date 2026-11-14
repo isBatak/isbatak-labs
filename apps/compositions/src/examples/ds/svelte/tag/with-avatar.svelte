@@ -9,8 +9,8 @@
   <Tag.Root size="sm" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
-        <Avatar.Fallback name="Jane Doe" />
+        <Avatar.Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" />
+        <Avatar.Fallback name="Vincent van Gogh" />
       </Avatar.Root>
     </Tag.StartElement>
     <Tag.Label>Jane</Tag.Label>
@@ -18,8 +18,8 @@
   <Tag.Root size="md" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
-        <Avatar.Fallback name="Jane Doe" />
+        <Avatar.Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" />
+        <Avatar.Fallback name="Vincent van Gogh" />
       </Avatar.Root>
     </Tag.StartElement>
     <Tag.Label>Jane</Tag.Label>
@@ -27,8 +27,8 @@
   <Tag.Root size="lg" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
-        <Avatar.Fallback name="Jane Doe" />
+        <Avatar.Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" />
+        <Avatar.Fallback name="Vincent van Gogh" />
       </Avatar.Root>
     </Tag.StartElement>
     <Tag.Label>Jane</Tag.Label>
@@ -36,8 +36,8 @@
   <Tag.Root size="xl" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
-        <Avatar.Fallback name="Jane Doe" />
+        <Avatar.Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" />
+        <Avatar.Fallback name="Vincent van Gogh" />
       </Avatar.Root>
     </Tag.StartElement>
     <Tag.Label>Jane</Tag.Label>

@@ -16,14 +16,19 @@ export function ImageOutlineStrengthDemo() {
 
   return (
     <styled.div display="flex" flexDirection="column" gap="6" w="full" maxW="sm">
-      <styled.img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/960px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg"
-        alt="Water Lilies by Claude Monet"
-        w="full"
-        rounded="l3"
-        layerStyle="imageOutline"
-        style={style}
-      />
+      <styled.figure display="flex" flexDirection="column" alignItems="center" gap="3">
+        <styled.img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/960px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg"
+          alt="Water Lilies by Claude Monet"
+          w="full"
+          rounded="l3"
+          layerStyle="imageOutline"
+          style={style}
+        />
+        <styled.figcaption textStyle="xs" color="fg.subtle">
+          Claude Monet, <em>Water Lilies</em>
+        </styled.figcaption>
+      </styled.figure>
       <Slider.Root value={[percent]} min={0} max={30} onValueChange={(details) => setPercent(details.value[0] ?? 0)}>
         <styled.div display="flex" justifyContent="space-between" textStyle="sm">
           <Slider.Label>--image-outline-opacity</Slider.Label>

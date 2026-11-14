@@ -32,6 +32,9 @@ export function ImageOutlineCompareDemo() {
           layerStyle=&quot;imageOutline&quot;
         </styled.figcaption>
       </styled.figure>
+      <styled.p gridColumn="1 / -1" textAlign="center" textStyle="xs" color="fg.subtle">
+        Ivan Aivazovsky, <em>Storm at Sea on a Moonlit Night</em>
+      </styled.p>
     </styled.div>
   )
 }

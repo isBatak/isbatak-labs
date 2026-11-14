@@ -16,27 +16,42 @@ import { Icon } from "@isbatak/vue-ui/icon"
       <Carousel.ItemGroup w="full">
         <Carousel.Item :index="0">
           <AspectRatio :ratio="16 / 9" borderRadius="l2" overflow="hidden">
-            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200" alt="Mountain landscape" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/John_Constable_-_The_Hay_Wain_%281821%29.jpg/1280px-John_Constable_-_The_Hay_Wain_%281821%29.jpg"
+              alt="The Hay Wain by John Constable"
+            />
           </AspectRatio>
         </Carousel.Item>
         <Carousel.Item :index="1">
           <AspectRatio :ratio="16 / 9" borderRadius="l2" overflow="hidden">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200" alt="Forest path" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_%28National_Gallery_version%29.jpg/1280px-Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_%28National_Gallery_version%29.jpg"
+              alt="Wheat Field with Cypresses by Vincent van Gogh"
+            />
           </AspectRatio>
         </Carousel.Item>
         <Carousel.Item :index="2">
           <AspectRatio :ratio="16 / 9" borderRadius="l2" overflow="hidden">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200" alt="Ocean waves" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/1280px-Tsunami_by_hokusai_19th_century.jpg"
+              alt="The Great Wave off Kanagawa by Hokusai"
+            />
           </AspectRatio>
         </Carousel.Item>
         <Carousel.Item :index="3">
           <AspectRatio :ratio="16 / 9" borderRadius="l2" overflow="hidden">
-            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200" alt="Lake house" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/1280px-Monet_-_Impression%2C_Sunrise.jpg"
+              alt="Impression, Sunrise by Claude Monet"
+            />
           </AspectRatio>
         </Carousel.Item>
         <Carousel.Item :index="4">
           <AspectRatio :ratio="16 / 9" borderRadius="l2" overflow="hidden">
-            <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200" alt="Sunset lake" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Aivazovsky%2C_Ivan_-_The_Ninth_Wave.jpg/1280px-Aivazovsky%2C_Ivan_-_The_Ninth_Wave.jpg"
+              alt="The Ninth Wave by Ivan Aivazovsky"
+            />
           </AspectRatio>
         </Carousel.Item>
       </Carousel.ItemGroup>
@@ -62,7 +77,10 @@ import { Icon } from "@isbatak/vue-ui/icon"
         }"
       >
         <AspectRatio :ratio="16 / 9">
-          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=320" alt="Mountain landscape" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/John_Constable_-_The_Hay_Wain_%281821%29.jpg/330px-John_Constable_-_The_Hay_Wain_%281821%29.jpg"
+            alt="The Hay Wain by John Constable"
+          />
         </AspectRatio>
       </Carousel.Indicator>
       <Carousel.Indicator
@@ -80,7 +98,10 @@ import { Icon } from "@isbatak/vue-ui/icon"
         }"
       >
         <AspectRatio :ratio="16 / 9">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=320" alt="Forest path" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_%28National_Gallery_version%29.jpg/330px-Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_%28National_Gallery_version%29.jpg"
+            alt="Wheat Field with Cypresses by Vincent van Gogh"
+          />
         </AspectRatio>
       </Carousel.Indicator>
       <Carousel.Indicator
@@ -98,7 +119,10 @@ import { Icon } from "@isbatak/vue-ui/icon"
         }"
       >
         <AspectRatio :ratio="16 / 9">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=320" alt="Ocean waves" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/330px-Tsunami_by_hokusai_19th_century.jpg"
+            alt="The Great Wave off Kanagawa by Hokusai"
+          />
         </AspectRatio>
       </Carousel.Indicator>
       <Carousel.Indicator
@@ -116,7 +140,10 @@ import { Icon } from "@isbatak/vue-ui/icon"
         }"
       >
         <AspectRatio :ratio="16 / 9">
-          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=320" alt="Lake house" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/330px-Monet_-_Impression%2C_Sunrise.jpg"
+            alt="Impression, Sunrise by Claude Monet"
+          />
         </AspectRatio>
       </Carousel.Indicator>
       <Carousel.Indicator
@@ -134,7 +161,10 @@ import { Icon } from "@isbatak/vue-ui/icon"
         }"
       >
         <AspectRatio :ratio="16 / 9">
-          <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=320" alt="Sunset lake" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Aivazovsky%2C_Ivan_-_The_Ninth_Wave.jpg/330px-Aivazovsky%2C_Ivan_-_The_Ninth_Wave.jpg"
+            alt="The Ninth Wave by Ivan Aivazovsky"
+          />
         </AspectRatio>
       </Carousel.Indicator>
     </Carousel.IndicatorGroup>
