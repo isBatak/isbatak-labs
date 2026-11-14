@@ -8,8 +8,8 @@ import { Button } from "@isbatak/vue-ui/button"
   <Card.Root maxW="sm">
     <Card.Header>
       <Avatar.Root size="lg" shape="rounded">
-        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        <Avatar.Fallback name="Segun Adebayo" />
+        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+        <Avatar.Fallback name="Jane Doe" />
       </Avatar.Root>
     </Card.Header>
     <Card.Body>

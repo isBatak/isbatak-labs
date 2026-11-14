@@ -9,8 +9,8 @@ const avatar = useAvatar()
 <template>
   <Stack align="flex-start">
     <Avatar.RootProvider :value="avatar">
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.RootProvider>
     <Code>{{ avatar.loaded ? "loaded" : "not loaded" }}</Code>
   </Stack>

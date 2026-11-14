@@ -1,0 +1,72 @@
+---
+title: Progress Circle
+description: A circular indicator that shows how far a task has got.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/progress-circle
+  recipe: packages/panda/ds/src/theme/recipes/progress-circle.ts
+---
+
+A progress circle shows how much of a task is done in a small, round space. It is the circular form of `Progress`. Leave
+the value out, or pass `null`, for an indeterminate spinner.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ProgressCircle.Root>
+  <ProgressCircle.Label />
+  <ProgressCircle.Circle>
+    <ProgressCircle.Track />
+    <ProgressCircle.Range />
+  </ProgressCircle.Circle>
+  <ProgressCircle.ValueText />
+</ProgressCircle.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the diameter: `xs`, `sm`, `md`, `lg`, `xl` or `2xl`.
+
+<Example id="progress-circle/sizes" />
+
+### Round
+
+Use `round` to give the end of the range a rounded cap.
+
+<Example id="progress-circle/round" />
+
+### Colors
+
+Use `colorPalette` to change the colour of the range.
+
+<Example id="progress-circle/colors" />
+
+### With value text
+
+Centre `ProgressCircle.ValueText` over the circle with `AbsoluteCenter` to show the percentage.
+
+<Example id="progress-circle/with-value-text" />
+
+### With label
+
+Add `ProgressCircle.Label` to name what is in progress.
+
+<Example id="progress-circle/with-label" />
+
+### Indeterminate
+
+Set the value to `null` when the amount of work is unknown.
+
+<Example id="progress-circle/indeterminate" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

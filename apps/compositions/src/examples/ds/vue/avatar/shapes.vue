@@ -10,8 +10,8 @@ import { HStack } from "@isbatak/vue-ui/stack"
       <Avatar.Image src="https://i.pravatar.cc/300?u=jane" />
     </Avatar.Root>
     <Avatar.Root shape="rounded" size="lg">
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root shape="full" size="lg">
       <Avatar.Fallback name="Random User" />
