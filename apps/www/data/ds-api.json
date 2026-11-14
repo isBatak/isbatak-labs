@@ -287,6 +287,26 @@
       }
     }
   },
+  "alert": {
+    "parts": [],
+    "variants": {
+      "status": {
+        "values": ["info", "warning", "success", "error", "neutral"],
+        "defaultValue": "info"
+      },
+      "inline": {
+        "values": ["true", "false"]
+      },
+      "variant": {
+        "values": ["subtle", "surface", "outline", "solid"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "aspect-ratio": {
     "parts": [
       {

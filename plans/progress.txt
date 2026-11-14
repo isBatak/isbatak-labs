@@ -358,3 +358,19 @@
 - `ds-api.json`: only the `locale` key (LocaleProvider's `locale` prop), inserted after `loader`, written by hand.
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+
+
+## alert (done, 2026-11-14)
+
+- Recipe already existed (slots root/content/title/description/indicator; `status`, `variant`, `size`, `inline`), so no recipe
+  change and no `@isbatak/panda-ds` changeset. tl-ds also has `container`, `closeTrigger` and `actionsContainer` slots that
+  this recipe lacks; kept the existing API and left those out. Demos put actions as a sibling after `Alert.Content`.
+- Components (all four frameworks): `Alert.Root` (adds `role="alert"`), `Content`, `Title`, `Description`, `Indicator`, plus
+  `PropsProvider` in React/Vue/Solid. Root publishes `status` through a context so `Indicator` defaults its icon
+  (info/neutral `info-circle`, warning `warning`, success `check-circle`, error `error`) like tl-ds. A `PropsProvider`
+  `status` does not reach the indicator icon. Svelte: one part per file, `alert-styles.ts` has the styles and status contexts.
+- `AlertVariantProps["status"]` includes arrays and responsive objects, so the status type is a literal union in each package.
+- Demos (6): usage, status, variants, sizes, with-description, with-action. Skipped Chakra's close-button and `inline` demos.
+- `ds-api.json`: only the `alert` key, inserted alphabetically from generator output.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.

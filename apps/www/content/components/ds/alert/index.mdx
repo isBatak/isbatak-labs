@@ -1,0 +1,65 @@
+---
+title: Alert
+description: An inline message that tells people about the status of a task or the page.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/alert
+  recipe: packages/panda/ds/src/theme/recipes/alert.ts
+---
+
+An alert shows a short status message inline with the page content. The indicator defaults to an icon that matches the
+`status`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Alert.Root>
+  <Alert.Indicator />
+  <Alert.Content>
+    <Alert.Title />
+    <Alert.Description />
+  </Alert.Content>
+</Alert.Root>
+```
+
+## Examples
+
+### Status
+
+Use `status` to pick the colour and the default indicator icon: `info`, `warning`, `success`, `error` or `neutral`.
+
+<Example id="alert/status" />
+
+### Variants
+
+Use `variant` to change the visual style: `subtle`, `surface`, `outline` or `solid`.
+
+<Example id="alert/variants" />
+
+### Sizes
+
+Use `size` to change the spacing and text size: `sm`, `md` or `lg`.
+
+<Example id="alert/sizes" />
+
+### With description
+
+Add `Alert.Description` below the title for more detail.
+
+<Example id="alert/with-description" />
+
+### With action
+
+Place a button after `Alert.Content` as an action.
+
+<Example id="alert/with-action" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
