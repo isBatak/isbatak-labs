@@ -1,0 +1,31 @@
+---
+title: Locale
+description: Provide a locale to every component below it, and filter and sort text by that locale.
+category: Typography
+links:
+  source: packages/ui/react/src/components/locale
+---
+
+`LocaleProvider` sets the locale that Format and the other locale-aware components read. Without it they use `en-US`. It
+also sets the text direction for right-to-left locales.
+
+## Usage
+
+<Usage />
+
+```tsx
+<LocaleProvider locale="de-DE">
+  <Format.Number value={1234567.891} />
+</LocaleProvider>
+```
+
+Read the current locale with `useLocaleContext`, and match text against it with `useFilter`:
+
+```tsx
+const locale = useLocaleContext()
+const { contains } = useFilter({ sensitivity: "base" })
+```
+
+## API
+
+<Api />

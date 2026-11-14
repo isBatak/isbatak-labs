@@ -32,7 +32,7 @@ Category `Data Display` unless noted.
 - [x] empty-state — has: recipe. Category `Feedback`.
 - [x] format — no recipe, no tl-ds version. Ark Format: `Format.Number`, `Format.Byte`, `Format.RelativeTime`. One demo
       per part, docs page, no recipe.
-- [ ] locale — no recipe. tl-ds re-exports `LocaleProvider`, `useLocaleContext` and `useFilter` from Ark's locale
+- [x] locale — no recipe. tl-ds re-exports `LocaleProvider`, `useLocaleContext` and `useFilter` from Ark's locale
       module; do the same in every framework. One demo, a short docs page, no stories beyond the demo.
 
 ## Feedback

@@ -4678,6 +4678,19 @@
     ],
     "variants": {}
   },
+  "locale": {
+    "parts": [
+      {
+        "name": "LocaleProvider",
+        "props": {
+          "locale": {
+            "type": "string",
+            "description": "The locale to use for the application."
+          }
+        }
+      }
+    ]
+  },
   "mark": {
     "parts": [],
     "variants": {
