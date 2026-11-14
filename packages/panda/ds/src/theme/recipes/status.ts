@@ -11,8 +11,6 @@ export const statusSlotRecipe = defineSlotRecipe({
       gap: "2",
     },
     indicator: {
-      width: "0.64em",
-      height: "0.64em",
       flexShrink: 0,
       borderRadius: "full",
       forcedColorAdjust: "none",
@@ -25,15 +23,24 @@ export const statusSlotRecipe = defineSlotRecipe({
         root: {
           textStyle: "xs",
         },
+        indicator: {
+          boxSize: "1.5",
+        },
       },
       md: {
         root: {
           textStyle: "sm",
         },
+        indicator: {
+          boxSize: "2",
+        },
       },
       lg: {
         root: {
           textStyle: "md",
+        },
+        indicator: {
+          boxSize: "2.5",
         },
       },
     },

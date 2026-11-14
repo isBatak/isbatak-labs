@@ -8051,6 +8051,15 @@
       }
     }
   },
+  "status": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "steps": {
     "parts": [
       {
