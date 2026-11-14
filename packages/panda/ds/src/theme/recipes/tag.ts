@@ -50,9 +50,6 @@ export const tagSlotRecipe = defineSlotRecipe({
       _icon: {
         boxSize: "100%",
       },
-      "&:has(button)": {
-        ms: "calc(var(--tag-element-offset) * -1)",
-      },
     },
   },
   variants: {
