@@ -1,0 +1,71 @@
+---
+title: Marquee
+description: A continuously scrolling strip of content, horizontal or vertical, with optional fading edges.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/marquee
+  recipe: packages/panda/ds/src/theme/recipes/marquee.ts
+  ark: https://ark-ui.com/docs/components/marquee
+---
+
+Built on Ark UI's Marquee. Put the items in `Marquee.Content` inside a `Marquee.Viewport`. The content scrolls forever
+unless you set `loopCount`, and stops when the user prefers reduced motion.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Marquee.Root>
+  <Marquee.Edge side="start" />
+  <Marquee.Viewport>
+    <Marquee.Content>
+      <Marquee.Item />
+    </Marquee.Content>
+  </Marquee.Viewport>
+  <Marquee.Edge side="end" />
+</Marquee.Root>
+```
+
+## Examples
+
+### Auto fill
+
+`autoFill` repeats the items until they fill the viewport, and `spacing` sets the gap between them.
+
+<Example id="marquee/auto-fill" />
+
+### Reverse
+
+`reverse` flips the direction of the scroll.
+
+<Example id="marquee/reverse" />
+
+### Vertical
+
+`side="bottom"` (or `"top"`) scrolls vertically. Give the root a height.
+
+<Example id="marquee/vertical" />
+
+### Edges
+
+`Marquee.Edge` fades the content out at either end. Its color follows `--marquee-edge-color`, which defaults to the page
+background.
+
+<Example id="marquee/with-edges" />
+
+### Pause on interaction
+
+`pauseOnInteraction` pauses the scroll while the pointer is over the marquee or it has focus.
+
+<Example id="marquee/pause-on-interaction" />
+
+### Programmatic control
+
+Create the machine with `useMarquee`, pass it to `Marquee.RootProvider`, and call `pause()` and `resume()`.
+
+<Example id="marquee/programmatic-control" />
+
+## API
+
+<Api />

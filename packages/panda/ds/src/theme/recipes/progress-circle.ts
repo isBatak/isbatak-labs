@@ -16,13 +16,12 @@ export const progressCircleSlotRecipe = defineSlotRecipe({
       },
     },
     circleTrack: {
-      "--track-color": "colors.colorPalette.muted",
-      stroke: "var(--track-color)",
+      stroke: "border.muted",
     },
     circleRange: {
       stroke: "colorPalette.solid",
       transitionProperty: "stroke-dashoffset, stroke-dasharray",
-      transitionDuration: "0.6s",
+      transitionDuration: "slow",
       _indeterminate: {
         animation: "circular-progress 1.5s linear infinite",
       },
@@ -31,18 +30,30 @@ export const progressCircleSlotRecipe = defineSlotRecipe({
       display: "inline-flex",
     },
     valueText: {
+      color: "fg",
       lineHeight: "1",
       fontWeight: "medium",
-      letterSpacing: "tight",
       fontVariantNumeric: "tabular-nums",
     },
   },
   variants: {
+    round: {
+      true: {
+        circleRange: {
+          strokeLinecap: "round",
+        },
+      },
+      false: {
+        circleRange: {
+          strokeLinecap: "butt",
+        },
+      },
+    },
     size: {
       xs: {
         circle: {
-          "--size": "24px",
-          "--thickness": "4px",
+          "--size": "sizes.6",
+          "--thickness": "sizes.1",
         },
         valueText: {
           textStyle: "2xs",
@@ -50,8 +61,8 @@ export const progressCircleSlotRecipe = defineSlotRecipe({
       },
       sm: {
         circle: {
-          "--size": "32px",
-          "--thickness": "5px",
+          "--size": "sizes.8",
+          "--thickness": "sizes.1",
         },
         valueText: {
           textStyle: "2xs",
@@ -59,8 +70,8 @@ export const progressCircleSlotRecipe = defineSlotRecipe({
       },
       md: {
         circle: {
-          "--size": "40px",
-          "--thickness": "6px",
+          "--size": "sizes.10",
+          "--thickness": "sizes.1.5",
         },
         valueText: {
           textStyle: "xs",
@@ -68,25 +79,35 @@ export const progressCircleSlotRecipe = defineSlotRecipe({
       },
       lg: {
         circle: {
-          "--size": "48px",
-          "--thickness": "7px",
+          "--size": "sizes.12",
+          "--thickness": "sizes.1.5",
         },
         valueText: {
-          textStyle: "sm",
+          textStyle: "md",
         },
       },
       xl: {
         circle: {
-          "--size": "64px",
-          "--thickness": "8px",
+          "--size": "sizes.16",
+          "--thickness": "sizes.1.5",
         },
         valueText: {
-          textStyle: "sm",
+          textStyle: "xl",
+        },
+      },
+      "2xl": {
+        circle: {
+          "--size": "sizes.20",
+          "--thickness": "sizes.2",
+        },
+        valueText: {
+          textStyle: "3xl",
         },
       },
     },
   },
   defaultVariants: {
     size: "md",
+    round: false,
   },
 })

@@ -1,0 +1,45 @@
+---
+title: Format
+description: Locale-aware formatting of numbers, bytes, relative times and clock times.
+category: Typography
+links:
+  source: packages/ui/react/src/components/format
+---
+
+Format renders a value as plain text in the current locale, so it takes its text styles from the element around it. It
+reads the locale from `LocaleProvider`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Format.Number value={1234567.891} />
+<Format.Byte value={1450.45} />
+<Format.RelativeTime value={date} />
+<Format.Time value={date} />
+```
+
+## Examples
+
+### Byte
+
+Use `unitSystem` for `decimal` or `binary` sizes, `unit` for bits and `unitDisplay` for the label length.
+
+<Example id="format/byte" />
+
+### Relative time
+
+Pass a `Date`. Use `numeric="auto"` for phrases like "yesterday" and "now".
+
+<Example id="format/relative-time" />
+
+### Time
+
+Pass a `Date` or a time string. Use `format` for `12h` or `24h` and `withSeconds` to include seconds.
+
+<Example id="format/time" />
+
+## API
+
+<Api />

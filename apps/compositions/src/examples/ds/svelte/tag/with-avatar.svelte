@@ -9,37 +9,37 @@
   <Tag.Root size="sm" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        <Avatar.Fallback name="Segun Adebayo" />
+        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+        <Avatar.Fallback name="Jane Doe" />
       </Avatar.Root>
     </Tag.StartElement>
-    <Tag.Label>Segun</Tag.Label>
+    <Tag.Label>Jane</Tag.Label>
   </Tag.Root>
   <Tag.Root size="md" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        <Avatar.Fallback name="Segun Adebayo" />
+        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+        <Avatar.Fallback name="Jane Doe" />
       </Avatar.Root>
     </Tag.StartElement>
-    <Tag.Label>Segun</Tag.Label>
+    <Tag.Label>Jane</Tag.Label>
   </Tag.Root>
   <Tag.Root size="lg" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        <Avatar.Fallback name="Segun Adebayo" />
+        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+        <Avatar.Fallback name="Jane Doe" />
       </Avatar.Root>
     </Tag.StartElement>
-    <Tag.Label>Segun</Tag.Label>
+    <Tag.Label>Jane</Tag.Label>
   </Tag.Root>
   <Tag.Root size="xl" class={css({ rounded: "full" })}>
     <Tag.StartElement>
       <Avatar.Root size="full">
-        <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        <Avatar.Fallback name="Segun Adebayo" />
+        <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
+        <Avatar.Fallback name="Jane Doe" />
       </Avatar.Root>
     </Tag.StartElement>
-    <Tag.Label>Segun</Tag.Label>
+    <Tag.Label>Jane</Tag.Label>
   </Tag.Root>
 </HStack>

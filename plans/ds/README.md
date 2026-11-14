@@ -181,17 +181,17 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] timeline — has: recipe
 - [x] qr-code — has: recipe
 - [x] image
-- [ ] marquee — has: recipe
-- [ ] empty-state — has: recipe
-- [ ] format
-- [ ] locale
+- [x] marquee — has: recipe
+- [x] empty-state — has: recipe
+- [x] format
+- [x] locale
 
 ## Feedback
 
-- [ ] alert — has: recipe
-- [ ] progress — has: recipe
-- [ ] progress-circle — has: recipe
-- [ ] skeleton — has: recipe
+- [x] alert — has: recipe
+- [x] progress — has: recipe
+- [x] progress-circle — has: recipe
+- [x] skeleton — has: recipe.
 - [ ] spinner — has: recipe react vue svelte solid docs
 - [ ] loader — has: react vue svelte solid docs
 - [ ] status — has: recipe
