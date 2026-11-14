@@ -23,27 +23,47 @@ export function ImageOutlineAvatarDemo() {
         bg="bg.panel"
       >
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Jane Doe" />
-          <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" outlineStyle={outlineStyle} />
+          <Avatar.Fallback name="Vincent van Gogh" />
+          <Avatar.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/330px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg"
+            alt="Vincent van Gogh"
+            outlineStyle={outlineStyle}
+          />
         </Avatar.Root>
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Sasuke" />
-          <Avatar.Image src="https://i.pravatar.cc/300?u=sasuke" outlineStyle={outlineStyle} />
+          <Avatar.Fallback name="Claude Monet" />
+          <Avatar.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Claude_Monet_1899_Nadar_crop.jpg/330px-Claude_Monet_1899_Nadar_crop.jpg"
+            alt="Claude Monet"
+            outlineStyle={outlineStyle}
+          />
         </Avatar.Root>
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Marko" />
-          <Avatar.Image src="https://randomuser.me/api/portraits/men/70.jpg" outlineStyle={outlineStyle} />
+          <Avatar.Fallback name="Ivan Aivazovsky" />
+          <Avatar.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Aivazovsky_-_Self-portrait_1874.jpg/330px-Aivazovsky_-_Self-portrait_1874.jpg"
+            alt="Ivan Aivazovsky"
+            outlineStyle={outlineStyle}
+          />
         </Avatar.Root>
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Guest" />
+          <Avatar.Fallback name="Berthe Morisot" />
         </Avatar.Root>
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Baki" />
-          <Avatar.Image src="https://i.pravatar.cc/300?u=baki" outlineStyle={outlineStyle} />
+          <Avatar.Fallback name="Rembrandt van Rijn" />
+          <Avatar.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg/330px-Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg"
+            alt="Rembrandt van Rijn"
+            outlineStyle={outlineStyle}
+          />
         </Avatar.Root>
         <Avatar.Root size="2xl">
-          <Avatar.Fallback name="Jane" />
-          <Avatar.Image src="https://i.pravatar.cc/300?u=jane" outlineStyle={outlineStyle} />
+          <Avatar.Fallback name="Edgar Degas" />
+          <Avatar.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Edgar_Degas_self_portrait_1855.jpeg/330px-Edgar_Degas_self_portrait_1855.jpeg"
+            alt="Edgar Degas"
+            outlineStyle={outlineStyle}
+          />
         </Avatar.Root>
       </styled.div>
 

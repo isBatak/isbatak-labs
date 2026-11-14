@@ -1,8 +1,8 @@
 ---
 title: Image outlines
 description:
-  A faint line just inside the edge of an image, so pale images don't blend into the page. Add layerStyle="imageOutline"
-  to any image or avatar.
+  A faint line just inside the edge of an image, so it doesn't blend into a page of the same color. Add
+  layerStyle="imageOutline" to any image or avatar.
 order: 2
 status: new
 links:
@@ -10,8 +10,8 @@ links:
   package: "@isbatak/panda-ds"
 ---
 
-A white product shot on a white page has no edge. Neither does a snowy landscape or an avatar with a pale background.
-They float on the surface, and the eye can't tell where the image stops.
+When the edges of an image are close in color to the page, the image blends into it. A white product shot on a white
+page, or a night sky on a dark one, loses its edge, and the eye can't tell where the image stops.
 
 The `imageOutline` layer style draws a 1px line just inside the image: black at 10% in light mode, white at 10% in dark
 mode. It's too faint to read as a border, but it gives every image the same defined edge.
@@ -23,23 +23,31 @@ mode. It's too faint to read as a border, but it gives every image the same defi
 The `Image` component and `Avatar.Image` already have it: the `image` and `avatar` recipes apply the layer style by
 default. Turn it off on one element with `outlineStyle="none"`.
 
-```tsx title="product.tsx"
-<Image src="/mug.jpg" alt="White mug" rounded="l3" />
-<Image src="/logo.png" alt="Logo" outlineStyle="none" />
+```tsx title="painting.tsx"
+<Image src="/sunflowers.jpg" alt="Sunflowers by Vincent van Gogh" rounded="l3" />
+<Image src="/van-gogh-signature.png" alt="Vincent van Gogh's signature" outlineStyle="none" />
 ```
 
 The layer style ships with `@isbatak/panda-ds`, so there is nothing to install. Add it to any other image.
 
-```tsx title="product.tsx"
-<styled.img src="/mug.jpg" alt="White mug" rounded="l3" layerStyle="imageOutline" />
+```tsx title="painting.tsx"
+<styled.img src="/water-lilies.jpg" alt="Water Lilies by Claude Monet" rounded="l3" layerStyle="imageOutline" />
 ```
 
 Or from `css()`, next to your other styles.
 
-```tsx title="product.tsx"
+```tsx title="painting.tsx"
 import { css } from "styled-system/css"
 
-;<img src="/mug.jpg" alt="White mug" className={css({ layerStyle: "imageOutline", rounded: "l3" })} />
+export function Painting() {
+  return (
+    <img
+      src="/the-magpie.jpg"
+      alt="The Magpie by Claude Monet"
+      className={css({ layerStyle: "imageOutline", rounded: "l3" })}
+    />
+  )
+}
 ```
 
 The outline follows the element's `border-radius`, so it works on rounded images and circles without extra styles.
@@ -73,8 +81,8 @@ it shifts the layout around it. An outline is painted on top and takes up no spa
 but it's drawn under an `<img>`'s content, so the image covers it.
 
 ```tsx title="compare.tsx"
-<styled.img borderWidth="1px" /> {/* adds 2px to the box */}
-<styled.img layerStyle="imageOutline" /> {/* takes up no space */}
+<styled.img src="/the-night-cafe.jpg" borderWidth="1px" /> {/* adds 2px to the box */}
+<styled.img src="/the-night-cafe.jpg" layerStyle="imageOutline" /> {/* takes up no space */}
 ```
 
 ## Strength
@@ -89,8 +97,8 @@ can set it on one image or on a whole gallery.
 
 ```tsx title="gallery.tsx"
 <styled.div css={{ "--image-outline-opacity": "0.15" }}>
-  <styled.img src="/a.jpg" layerStyle="imageOutline" />
-  <styled.img src="/b.jpg" layerStyle="imageOutline" />
+  <styled.img src="/the-starry-night.jpg" alt="The Starry Night by Vincent van Gogh" layerStyle="imageOutline" />
+  <styled.img src="/impression-sunrise.jpg" alt="Impression, Sunrise by Claude Monet" layerStyle="imageOutline" />
 </styled.div>
 ```
 
@@ -98,7 +106,12 @@ Light and dark modes can need different values. A dark page often needs a little
 condition.
 
 ```tsx title="gallery.tsx"
-<styled.img layerStyle="imageOutline" css={{ "--image-outline-opacity": { base: "0.1", _dark: "0.14" } }} />
+<styled.img
+  src="/the-ninth-wave.jpg"
+  alt="The Ninth Wave by Ivan Aivazovsky"
+  layerStyle="imageOutline"
+  css={{ "--image-outline-opacity": { base: "0.1", _dark: "0.14" } }}
+/>
 ```
 
 ## Avatars
@@ -114,8 +127,8 @@ To turn it off for one avatar, remove the outline or set its opacity to 0.
 
 ```tsx title="avatar.tsx"
 <Avatar.Root>
-  <Avatar.Fallback name="Ana Horvat" />
-  <Avatar.Image src="/ana.jpg" outlineStyle="none" />
+  <Avatar.Fallback name="Rembrandt van Rijn" />
+  <Avatar.Image src="/rembrandt.jpg" alt="Rembrandt van Rijn" outlineStyle="none" />
 </Avatar.Root>
 ```
 
@@ -159,6 +172,18 @@ The same technique outside Panda, for reference.
 
 From Jakub Krehel's
 [Details that make interfaces feel better](https://jakub.kr/writing/details-that-make-interfaces-feel-better#add-an-outline-to-images)
-and Gustavo Fior's [Image outlines](https://craft.gustavofior.com/image-outlines). The paintings are Ivan Aivazovsky's
-_Storm at Sea on a Moonlit Night_ and Claude Monet's _Water Lilies_, in the public domain, from
-[Wikimedia Commons](https://commons.wikimedia.org).
+and Gustavo Fior's [Image outlines](https://craft.gustavofior.com/image-outlines).
+
+The paintings and portraits are in the public domain, from Wikimedia Commons:
+
+- Ivan Aivazovsky,
+  [_Storm at Sea on a Moonlit Night_](<https://commons.wikimedia.org/wiki/File:Storm_at_Sea_on_a_Moonlit_Night_(Aivazovsky).jpg>)
+- Claude Monet,
+  [_Water Lilies_ (1906)](https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg)
+- Vincent van Gogh,
+  [_Self-Portrait_ (1887)](<https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg>)
+- Nadar, [_Claude Monet_ (1899)](https://commons.wikimedia.org/wiki/File:Claude_Monet_1899_Nadar_crop.jpg)
+- Ivan Aivazovsky, [_Self-Portrait_ (1874)](https://commons.wikimedia.org/wiki/File:Aivazovsky_-_Self-portrait_1874.jpg)
+- Rembrandt van Rijn,
+  [_Self-Portrait_](https://commons.wikimedia.org/wiki/File:Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg)
+- Edgar Degas, [_Self-Portrait_ (1855)](https://commons.wikimedia.org/wiki/File:Edgar_Degas_self_portrait_1855.jpeg)
