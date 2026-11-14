@@ -45,7 +45,7 @@ Category `Feedback`. tl-ds has all of these, so take its look.
       `CircleRange`), not a separate Ark component. Compare with `progress-circular.module.css`.
 - [x] skeleton — has: recipe.
 - [x] spinner — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
-- [ ] loader — has: all four frameworks, docs. Audit: Chakra's examples, stories.
+- [x] loader — has: all four frameworks, docs. Audit: Chakra's examples, stories.
 - [ ] status — has: recipe.
 
 ## tl-ds extras
