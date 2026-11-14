@@ -391,3 +391,18 @@
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at striped/animated
   and the indeterminate bar.
+
+
+## progress-circle (done, 2026-11-14)
+
+- Recipe restyled after tl-ds: tokens for sizes/thickness (`sizes.*`), track `border.muted`, `round` variant (round
+  linecap, default false), new `2xl` size, valueText `fg`. `@isbatak/panda-ds` minor changeset added.
+- Components (all four frameworks): `ProgressCircle.Root`, `RootProvider`, `Label`, `Circle`, `Track`, `Range`,
+  `ValueText`, plus `PropsProvider` in React/Vue/Solid. Built on Ark Progress's circle parts. Svelte: one part per file
+  plus `progress-circle-styles.ts`.
+- Demos (7): usage, sizes, round, colors, with-label, with-value-text, indeterminate. Svelte demos use `css()` classes
+  for `colorPalette`/`gap`, since Svelte root props don't accept style props.
+- `ds-api.json`: only the `progress-circle` key added.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`;
+  oxlint and oxfmt. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+  Worth a visual look at the indeterminate spinner and `round`.
