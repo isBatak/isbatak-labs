@@ -27,7 +27,7 @@ Category `Data Display` unless noted.
 - [x] timeline — has: recipe.
 - [x] qr-code — has: recipe. Ark QR Code.
 - [x] image — nothing yet. Chakra's Image: a styled `img` with `fit`, `htmlWidth`/`htmlHeight`, aspect ratio.
-- [ ] marquee — has: recipe. Ark Marquee. Compare the recipe with Ark's `marquee.module.css` (see "Ark and Zag example
+- [x] marquee — has: recipe. Ark Marquee. Compare the recipe with Ark's `marquee.module.css` (see "Ark and Zag example
       CSS").
 - [ ] empty-state — has: recipe. Category `Feedback`.
 - [ ] format — no recipe, no tl-ds version. Ark Format: `Format.Number`, `Format.Byte`, `Format.RelativeTime`. One demo
