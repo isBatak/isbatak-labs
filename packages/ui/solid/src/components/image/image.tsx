@@ -1,8 +1,9 @@
 import { ark } from "@ark-ui/solid/factory"
 import { styled } from "@isbatak/solid-ui/jsx"
+import { image } from "@isbatak/panda-ds/recipes"
 import { type ComponentProps, splitProps } from "solid-js"
 
-const StyledImage = styled(ark.img)
+const StyledImage = styled(ark.img, image)
 
 export interface ImageProps extends Omit<ComponentProps<typeof StyledImage>, "align"> {
   /**

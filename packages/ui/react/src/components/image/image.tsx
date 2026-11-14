@@ -1,8 +1,9 @@
 import { ark } from "@ark-ui/react/factory"
 import type { ComponentProps } from "react"
 import { styled } from "@isbatak/panda-ds/jsx"
+import { image } from "@isbatak/panda-ds/recipes"
 
-const StyledImage = styled(ark.img)
+const StyledImage = styled(ark.img, image)
 
 export interface ImageProps extends Omit<ComponentProps<typeof StyledImage>, "align"> {
   /**

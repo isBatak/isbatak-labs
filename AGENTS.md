@@ -1,5 +1,7 @@
 - Never `.map()` over static data to render JSX; write the structure inline instead.
 - Put plans, todo lists and notes in the `plans/` folder at the root, never loose in the repo root or a package.
+- Every image in docs, demos and stories is a public-domain painting or painter portrait from Wikimedia Commons, never a
+  stock photo or placeholder service.
 - Adding or changing a design-system component (recipe, framework component, demo, docs page): read
   `docs/ds-component.md` for where each file lives.
 

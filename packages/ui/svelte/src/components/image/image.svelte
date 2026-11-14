@@ -26,6 +26,7 @@
 
 <script lang="ts">
   import { css as toClass } from "@isbatak/panda-ds/css"
+  import { image } from "@isbatak/panda-ds/recipes"
   import { splitCssProps } from "@isbatak/panda-ds/jsx/is-valid-prop"
 
   let { ref = $bindable(), fit = "cover", align, htmlWidth, htmlHeight, class: className, children: _children, as: _as, ...props }: ImageProps = $props()
@@ -37,4 +38,4 @@
   })
 </script>
 
-<img bind:this={ref} {...htmlProps} width={htmlWidth} height={htmlHeight} class={[classes, className]} />
+<img bind:this={ref} {...htmlProps} width={htmlWidth} height={htmlHeight} class={[image(), classes, className]} />

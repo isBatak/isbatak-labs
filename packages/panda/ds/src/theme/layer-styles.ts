@@ -97,6 +97,19 @@ export const layerStyles = defineLayerStyles({
       },
     },
   },
+  imageOutline: {
+    description:
+      "Use on images and avatars. Draws a faint 1px line just inside the edge, black in light mode and white in dark mode, so pale images don't blend into the page. Doesn't take up space or shift layout. Set --image-outline-opacity (0–1, default 0.1) to change its strength.",
+    value: {
+      outlineWidth: "1px",
+      outlineStyle: "solid",
+      outlineOffset: "-1px",
+      outlineColor: "color-mix(in srgb, {colors.black} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+      _dark: {
+        outlineColor: "color-mix(in srgb, {colors.white} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+      },
+    },
+  },
   disabled: {
     value: {
       opacity: "0.5",
