@@ -18,12 +18,12 @@
     "@zag-js/date-input": "catalog:",
     "@zag-js/popover": "catalog:",
     "@zag-js/solid": "catalog:",
-    "solid-js": "^1.9.15"
+    "solid-js": "^1.9.19"
   },
   "devDependencies": {
     "storybook": "catalog:",
     "storybook-solidjs-vite": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-solid": "^2.11.14"
+    "vite-plugin-solid": "^2.11.16"
   }
 }

@@ -30,7 +30,7 @@
     "@vitejs/plugin-react": "catalog:",
     "magic-string": "^0.30.21",
     "oxc-parser": "^0.127.0",
-    "postcss": "8.5.28",
+    "postcss": "8.5.32",
     "react": "catalog:",
     "react-dom": "catalog:",
     "vite": "catalog:"
