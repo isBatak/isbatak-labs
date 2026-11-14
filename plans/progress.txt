@@ -299,3 +299,123 @@
   `ComponentProps<typeof StyledImage>[...]`, which could be prettier.
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
+
+
+## marquee (done, 2026-11-14)
+
+- Recipe compared with Ark's `marquee.module.css`: same animation, reduced-motion, pause and edge rules (the recipe adds
+  absolute positioning, a token-based edge colour and the 20% edge size). Ark's `Item` look and fixed root sizes are
+  demo-only CSS, so the `item` slot stays empty; demos wrap a `Badge variant="outline"` in `Marquee.Item`. No recipe
+  change, so no `@isbatak/panda-ds` changeset. No analog override exists.
+- Components (all four frameworks): `Marquee.Root`, `RootProvider`, `Viewport`, `Content`, `Edge`, `Item`, `Context`, plus
+  `useMarquee`/`useMarqueeContext`. No children defaulting. Svelte: one part per file plus `marquee-styles.ts`.
+- Demos (7): usage, auto-fill, reverse, vertical, with-edges, pause-on-interaction, programmatic-control. Skipped Ark's
+  `speed` (three stacked copies) and `finite-loops` (counter state). Vertical needs `h="60"` on the root; `spacing` is a
+  CSS length (`"2rem"`), not a token. Items are written inline (no `.map`).
+- `ds-api.json`: only the `marquee` key, inserted alphabetically; no `<RecipeVariants />` since the recipe has none.
+- A stale `@isbatak/panda-ds` dist made compositions typecheck fail on `data-list/separator`; `pnpm --filter
+  @isbatak/panda-ds build` fixed it.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at the edges and
+  the vertical scroll.
+
+
+## empty-state (done, 2026-11-14)
+
+- Recipe already existed (slots root/content/indicator/title/description, `size` sm/md/lg) and matches tl-ds's
+  `EmptyState`, so no recipe change and no `@isbatak/panda-ds` changeset. Analog override exists and is untouched.
+- Components (all four frameworks): `EmptyState.Root`, `Content`, `Indicator`, `Title` (`h3`), `Description` (`p`), plus
+  `PropsProvider` in React/Vue/Solid. No Ark machine, no children defaulting. Svelte: one part per file plus
+  `empty-state-styles.ts`, no provider. tl-ds wraps title and description in a `VStack` in its stories; the recipe's
+  `content` gap already spaces them, so demos skip that wrapper.
+- Demos (3): usage (`search` icon), sizes, with-action (`ButtonGroup`). Skipped Chakra's list/with-icon variants.
+- `ds-api.json`: only the `empty-state` key, inserted by hand (the generator rewrites unicode escapes elsewhere).
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`, tests (none in those packages).
+
+
+## format (done, 2026-11-14)
+
+- No recipe (Format renders plain text), so no `@isbatak/panda-ds` changeset. Each framework's `format/index.ts` re-exports
+  Ark's `Format` namespace plus `FormatNumber`/`FormatByte`/`FormatRelativeTime`/`FormatTime` and their prop types from
+  `@ark-ui/<fw>/format`, like `presence`. No `namespace.ts`; Ark already ships the namespace.
+- Ark 6 also has `Format.Time` (not in the PRD list); added a demo for it.
+- Vue's `Format.Number` only declares `value`, `compactDisplay`, `notation`, `signDisplay`, `unit`, `unitDisplay`,
+  `currencyDisplay` and `currencySign` as props, so `style`/`currency`/`maximumFractionDigits` don't work there (upstream
+  gap). The Vue usage demo only shows plain and compact; React/Solid/Svelte also show currency and percent.
+- Demos (4): usage (number), byte, relative-time, time. Docs category `Typography`. Locale comes from `LocaleProvider`
+  (next PRD item).
+- `ds-api.json`: only the `format` key inserted alphabetically; the generator output for it is just the four parts.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+
+
+## locale (done, 2026-11-14)
+
+- No recipe, so no `@isbatak/panda-ds` changeset. Each framework's `locale/index.ts` re-exports `LocaleProvider`,
+  `useLocaleContext` and `useFilter` (plus prop types) from `@ark-ui/<fw>/locale`. No `namespace.ts`.
+- One demo (usage): three `LocaleProvider`s (en-US, de-DE, hr-HR) around `Format.Number`. One `Usage` story per framework.
+  Docs category `Typography`, short page with a hooks snippet.
+- `ds-api.json`: only the `locale` key (LocaleProvider's `locale` prop), inserted after `loader`, written by hand.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+
+
+## alert (done, 2026-11-14)
+
+- Recipe already existed (slots root/content/title/description/indicator; `status`, `variant`, `size`, `inline`), so no recipe
+  change and no `@isbatak/panda-ds` changeset. tl-ds also has `container`, `closeTrigger` and `actionsContainer` slots that
+  this recipe lacks; kept the existing API and left those out. Demos put actions as a sibling after `Alert.Content`.
+- Components (all four frameworks): `Alert.Root` (adds `role="alert"`), `Content`, `Title`, `Description`, `Indicator`, plus
+  `PropsProvider` in React/Vue/Solid. Root publishes `status` through a context so `Indicator` defaults its icon
+  (info/neutral `info-circle`, warning `warning`, success `check-circle`, error `error`) like tl-ds. A `PropsProvider`
+  `status` does not reach the indicator icon. Svelte: one part per file, `alert-styles.ts` has the styles and status contexts.
+- `AlertVariantProps["status"]` includes arrays and responsive objects, so the status type is a literal union in each package.
+- Demos (6): usage, status, variants, sizes, with-description, with-action. Skipped Chakra's close-button and `inline` demos.
+- `ds-api.json`: only the `alert` key, inserted alphabetically from generator output.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+
+
+## progress (done, 2026-11-14)
+
+- Recipe already existed (slots incl. the circle ones shared with `progress-circle`; `variant`, `shape`, `size`, `striped`,
+  `animated`) and matches tl-ds's `Progress`, so no recipe change and no `@isbatak/panda-ds` changeset. Ark's example CSS adds
+  a vertical orientation that the recipe doesn't style; left out (Chakra has none either). No analog override exists.
+- Components (all four frameworks): `Progress.Root`, `RootProvider`, `Label`, `Track`, `Range`, `ValueText`, `Context`, plus
+  `useProgress`/`useProgressContext`, and `PropsProvider` in React/Vue/Solid. The circle parts are left to `progress-circle`.
+  Svelte: one part per file plus `progress-styles.ts`, no provider.
+- Demos (9): usage, sizes, variants, shapes, striped, with-label, with-value-text, indeterminate, colors. Skipped Chakra's
+  controlled, min-max and with-info-tip demos. Indeterminate passes `value={null}` (`:value="null"` in Vue).
+- `ds-api.json`: only the `progress` key, inserted alphabetically (the generator output sorts the whole file, so it was
+  merged by hand).
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at striped/animated
+  and the indeterminate bar.
+
+
+## progress-circle (done, 2026-11-14)
+
+- Recipe restyled after tl-ds: tokens for sizes/thickness (`sizes.*`), track `border.muted`, `round` variant (round
+  linecap, default false), new `2xl` size, valueText `fg`. `@isbatak/panda-ds` minor changeset added.
+- Components (all four frameworks): `ProgressCircle.Root`, `RootProvider`, `Label`, `Circle`, `Track`, `Range`,
+  `ValueText`, plus `PropsProvider` in React/Vue/Solid. Built on Ark Progress's circle parts. Svelte: one part per file
+  plus `progress-circle-styles.ts`.
+- Demos (7): usage, sizes, round, colors, with-label, with-value-text, indeterminate. Svelte demos use `css()` classes
+  for `colorPalette`/`gap`, since Svelte root props don't accept style props.
+- `ds-api.json`: only the `progress-circle` key added.
+- Checks run: panda-ds build, typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`;
+  oxlint and oxfmt. NOT run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+  Worth a visual look at the indeterminate spinner and `round`.
+
+
+## skeleton (done, 2026-11-14)
+
+- Recipe already existed (`loading`, `variant` pulse/shine/none), so no recipe change and no `@isbatak/panda-ds` changeset.
+- Components (all four frameworks): `Skeleton` (styled `ark.div`), `SkeletonText` (stack of `noOfLines` skeletons, last one
+  shorter, `rootProps`) and `SkeletonCircle` (wraps `Circle`, `size`). Svelte: one file per part.
+- Demos (4): usage, text, variants, with-children. Skipped Chakra's `feed` and `with-children` variants beyond the basic one.
+- `ds-api.json`: only the `skeleton` key, inserted alphabetically.
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+- Note: svelte-check in `apps/compositions` and `apps/storybook-svelte` prints a TypeScript "RangeError: Map maximum size
+  exceeded" trace during inference but still reports 0 errors and exits 0. Not investigated whether it predates skeleton.

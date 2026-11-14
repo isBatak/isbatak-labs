@@ -1,0 +1,47 @@
+---
+title: Skeleton
+description: A placeholder shaped like the content while it loads.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/skeleton
+  recipe: packages/panda/ds/src/theme/recipes/skeleton.ts
+---
+
+A `div` styled with the `skeleton` recipe. Give it the size of the content it stands in for, and set `loading` to
+`false` once the content is ready. Use `SkeletonText` for paragraphs and `SkeletonCircle` for avatars.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Skeleton height="5" />
+```
+
+## Examples
+
+### Text
+
+`SkeletonText` stacks `noOfLines` skeletons, three by default, and makes the last one shorter.
+
+<Example id="skeleton/text" />
+
+### Variants
+
+Set `variant` to `pulse`, `shine` or `none`. The default is `pulse`.
+
+<Example id="skeleton/variants" />
+
+### With children
+
+While `loading` is true the children keep their size but are hidden. Set it to `false` to show them.
+
+<Example id="skeleton/with-children" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

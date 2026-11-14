@@ -9,11 +9,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">gray</Text>
     <Avatar.Root class={css({ colorPalette: "gray" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "gray" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "gray" })}>
       <Avatar.Fallback />
@@ -22,11 +22,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">red</Text>
     <Avatar.Root class={css({ colorPalette: "red" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "red" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "red" })}>
       <Avatar.Fallback />
@@ -35,11 +35,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">green</Text>
     <Avatar.Root class={css({ colorPalette: "green" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "green" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "green" })}>
       <Avatar.Fallback />
@@ -48,11 +48,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">blue</Text>
     <Avatar.Root class={css({ colorPalette: "blue" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "blue" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "blue" })}>
       <Avatar.Fallback />
@@ -61,11 +61,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">teal</Text>
     <Avatar.Root class={css({ colorPalette: "teal" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "teal" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "teal" })}>
       <Avatar.Fallback />
@@ -74,11 +74,11 @@
   <HStack gap="10">
     <Text minW="[8ch]">purple</Text>
     <Avatar.Root class={css({ colorPalette: "purple" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
-      <Avatar.Image src="https://bit.ly/sage-adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
+      <Avatar.Image src="https://i.pravatar.cc/300?u=jane-doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "purple" })}>
-      <Avatar.Fallback name="Segun Adebayo" />
+      <Avatar.Fallback name="Jane Doe" />
     </Avatar.Root>
     <Avatar.Root class={css({ colorPalette: "purple" })}>
       <Avatar.Fallback />
