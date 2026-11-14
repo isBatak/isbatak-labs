@@ -18,13 +18,13 @@
     "@zag-js/date-input": "catalog:",
     "@zag-js/popover": "catalog:",
     "@zag-js/svelte": "catalog:",
-    "svelte": "^5.57.1"
+    "svelte": "^5.57.3"
   },
   "devDependencies": {
     "@storybook/svelte-vite": "catalog:",
-    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "storybook": "catalog:",
-    "svelte-check": "^4.7.6",
+    "svelte-check": "^4.7.8",
     "vite": "catalog:"
   }
 }

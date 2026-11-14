@@ -37,7 +37,7 @@
     "@isbatak/zag-text-flip": "workspace:*",
     "@isbatak/zag-wheel-picker": "workspace:*",
     "@zag-js/react": "catalog:",
-    "next": "16.4.2",
+    "next": "16.4.6",
     "next-themes": "0.4.6",
     "react": "catalog:",
     "react-dom": "catalog:",

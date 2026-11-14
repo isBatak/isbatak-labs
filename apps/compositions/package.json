@@ -72,8 +72,8 @@
     "lit": "catalog:",
     "preact": "^10.29.8",
     "react": "catalog:",
-    "solid-js": "^1.9.15",
-    "svelte": "^5.57.1",
+    "solid-js": "^1.9.19",
+    "svelte": "^5.57.3",
     "vue": "^3.5.43"
   },
   "devDependencies": {
@@ -85,13 +85,13 @@
     "@pandacss/preset-base": "catalog:",
     "@pandacss/transformer": "catalog:",
     "@preact/preset-vite": "^2.10.6",
-    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/react": "catalog:",
-    "@vitejs/plugin-vue": "^6.0.9",
+    "@vitejs/plugin-vue": "^6.0.11",
     "oxfmt": "0.70.0",
-    "svelte-check": "^4.7.6",
+    "svelte-check": "^4.7.8",
     "vite": "catalog:",
-    "vite-plugin-solid": "^2.11.14",
-    "vue-tsc": "^3.3.11"
+    "vite-plugin-solid": "^2.11.16",
+    "vue-tsc": "3.3.11"
   }
 }
