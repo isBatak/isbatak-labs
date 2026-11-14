@@ -189,7 +189,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 ## Feedback
 
 - [x] alert — has: recipe
-- [ ] progress — has: recipe
+- [x] progress — has: recipe
 - [ ] progress-circle — has: recipe
 - [ ] skeleton — has: recipe
 - [ ] spinner — has: recipe react vue svelte solid docs
