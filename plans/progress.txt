@@ -419,3 +419,23 @@
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
 - Note: svelte-check in `apps/compositions` and `apps/storybook-svelte` prints a TypeScript "RangeError: Map maximum size
   exceeded" trace during inference but still reports 0 errors and exits 0. Not investigated whether it predates skeleton.
+
+
+## spinner (done, 2026-11-14)
+
+- Audit. Recipe took tl-ds's look: border width scales with `size` (xs/sm `0.09375rem`, md `spacing.0.5`, lg `0.15625rem`,
+  xl `0.1875rem`, copied from tl-ds since there are no border-width tokens) and a `showTrack` variant that sets
+  `--spinner-track-color` to `colorPalette.subtle`. `@isbatak/panda-ds` minor changeset. No analog override exists.
+  Browsers round the fractional widths (sm 1px, lg 2px).
+- Components in all four frameworks were already fine (`createRecipeContext` span, Svelte splits variant props), so
+  `packages/ui` is unchanged and there's no `-ui` changeset.
+- Demos (6, all four frameworks): usage (one spinner now, was the sizes row), sizes, colors (`color="colorPalette.solid"`),
+  with-track, with-label, custom-speed (`slow`, default `slowest`, `[1s]`; no duration token above 500ms). Skipped Chakra's
+  overlay demo. Vue needs `:showTrack="true"`: a bare `showTrack` attribute passes `""` and the variant doesn't apply.
+- Stories: React gets the five new ones; Vue, Svelte, Solid got their first `DS/Spinner` stories.
+- `ds-api.json`: only `spinner.variants.showTrack` added (generator output). Docs page got examples, a CSS variable
+  table, `<RecipeVariants />` and `<Api />`.
+- Checks run: panda-ds build, typecheck in panda-ds, the four `packages/ui/*`, `apps/compositions`, four
+  `apps/storybook-*`, `packages/studio`, `apps/www` (after `pnpm generate`); oxlint and oxfmt; `turbo --affected`;
+  Playwright Storybook check (all four: sizes 12/16/20/32/40px, border 1/1/2/2/3px, palette colors, track colors in
+  with-track, durations 0.3s/0.5s/1s).
