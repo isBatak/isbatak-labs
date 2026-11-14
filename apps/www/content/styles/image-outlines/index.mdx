@@ -1,0 +1,164 @@
+---
+title: Image outlines
+description:
+  A faint line just inside the edge of an image, so pale images don't blend into the page. Add layerStyle="imageOutline"
+  to any image or avatar.
+order: 2
+status: new
+links:
+  source: packages/panda/ds/src/theme/layer-styles.ts
+  package: "@isbatak/panda-ds"
+---
+
+A white product shot on a white page has no edge. Neither does a snowy landscape or an avatar with a pale background.
+They float on the surface, and the eye can't tell where the image stops.
+
+The `imageOutline` layer style draws a 1px line just inside the image: black at 10% in light mode, white at 10% in dark
+mode. It's too faint to read as a border, but it gives every image the same defined edge.
+
+<Example id="image-outline/compare" />
+
+## Usage
+
+The `Image` component and `Avatar.Image` already have it: the `image` and `avatar` recipes apply the layer style by
+default. Turn it off on one element with `outlineStyle="none"`.
+
+```tsx title="product.tsx"
+<Image src="/mug.jpg" alt="White mug" rounded="l3" />
+<Image src="/logo.png" alt="Logo" outlineStyle="none" />
+```
+
+The layer style ships with `@isbatak/panda-ds`, so there is nothing to install. Add it to any other image.
+
+```tsx title="product.tsx"
+<styled.img src="/mug.jpg" alt="White mug" rounded="l3" layerStyle="imageOutline" />
+```
+
+Or from `css()`, next to your other styles.
+
+```tsx title="product.tsx"
+import { css } from "styled-system/css"
+
+;<img src="/mug.jpg" alt="White mug" className={css({ layerStyle: "imageOutline", rounded: "l3" })} />
+```
+
+The outline follows the element's `border-radius`, so it works on rounded images and circles without extra styles.
+
+## How it works
+
+The layer style sets four properties.
+
+```ts title="layer-styles.ts"
+imageOutline: {
+  value: {
+    outlineWidth: "1px",
+    outlineStyle: "solid",
+    outlineOffset: "-1px",
+    outlineColor: "color-mix(in srgb, {colors.black} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+    _dark: {
+      outlineColor: "color-mix(in srgb, {colors.white} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+    },
+  },
+}
+```
+
+- `outline-offset: -1px` pulls the outline inside the image, so it paints over the edge pixels instead of around them.
+- `color-mix()` mixes the `black` or `white` token with `transparent`, so the opacity can come from a CSS variable.
+- `_dark` swaps black for white. A dark line disappears on a dark page, and a light one would glow on a light page.
+
+### Why not a border
+
+A border takes up space. On a sized image it either grows the box by 2px or shrinks the picture inside it, and toggling
+it shifts the layout around it. An outline is painted on top and takes up no space. An inset `box-shadow` does the same,
+but it's drawn under an `<img>`'s content, so the image covers it.
+
+```tsx title="compare.tsx"
+<styled.img borderWidth="1px" /> {/* adds 2px to the box */}
+<styled.img layerStyle="imageOutline" /> {/* takes up no space */}
+```
+
+## Strength
+
+About 10% is a good default. Below 5%, the line disappears against pale backgrounds. Above 20%, it stops reading as an
+edge and starts to look like a frame. Drag the slider to compare.
+
+<Example id="image-outline/strength" />
+
+Set `--image-outline-opacity` to change it. It takes a number from 0 to 1 and inherits like any custom property, so you
+can set it on one image or on a whole gallery.
+
+```tsx title="gallery.tsx"
+<styled.div css={{ "--image-outline-opacity": "0.15" }}>
+  <styled.img src="/a.jpg" layerStyle="imageOutline" />
+  <styled.img src="/b.jpg" layerStyle="imageOutline" />
+</styled.div>
+```
+
+Light and dark modes can need different values. A dark page often needs a little more contrast. Set the variable per
+condition.
+
+```tsx title="gallery.tsx"
+<styled.img layerStyle="imageOutline" css={{ "--image-outline-opacity": { base: "0.1", _dark: "0.14" } }} />
+```
+
+## Avatars
+
+Avatars benefit most. They're small and round, and they often have a white or pale background, so without an outline
+they look like a gap in the page. The `avatar` recipe applies the layer style to `Avatar.Image` by default, and the
+image already takes the avatar's radius, so the outline stays round. Switch between the two and watch the edges of the
+bright and dark photos.
+
+<Example id="image-outline/avatar" />
+
+To turn it off for one avatar, remove the outline or set its opacity to 0.
+
+```tsx title="avatar.tsx"
+<Avatar.Root>
+  <Avatar.Fallback name="Ana Horvat" />
+  <Avatar.Image src="/ana.jpg" outlineStyle="none" />
+</Avatar.Root>
+```
+
+## In plain CSS
+
+The same technique outside Panda, for reference.
+
+```css title="image-outline.css"
+.image-outline {
+  outline: 1px solid rgb(0 0 0 / var(--image-outline-opacity, 0.1));
+  outline-offset: -1px;
+}
+
+.dark .image-outline {
+  outline-color: rgb(255 255 255 / var(--image-outline-opacity, 0.1));
+}
+```
+
+## FAQ
+
+<Faq>
+  <FaqItem question="Does it work on elements other than images?">
+    Yes. It's a regular outline, so it works on `<video>`, `<canvas>`, `<picture>` and any box with a background image.
+    Pick it for media, though: cards and panels already have `border.*` tokens.
+  </FaqItem>
+  <FaqItem question="Does it conflict with focus rings?">
+    It sets `outline`, so a focus style that also sets `outline` replaces it while the element is focused. Images aren't
+    focusable, so this only matters when the image is itself a link or button. Put the layer style on the `<img>`
+    inside, not on the link.
+  </FaqItem>
+  <FaqItem question="Why is the line inside the image instead of around it?">
+    An outline outside the image adds a visible ring with the page's background between it and the picture. Inside, it
+    darkens or lightens the edge pixels, which reads as the image's own edge.
+  </FaqItem>
+  <FaqItem question="Which browsers support color-mix()?">
+    Chrome 111, Safari 16.2 and Firefox 113 or newer.
+  </FaqItem>
+</Faq>
+
+## Credits
+
+From Jakub Krehel's
+[Details that make interfaces feel better](https://jakub.kr/writing/details-that-make-interfaces-feel-better#add-an-outline-to-images)
+and Gustavo Fior's [Image outlines](https://craft.gustavofior.com/image-outlines). The paintings are Ivan Aivazovsky's
+_Storm at Sea on a Moonlit Night_ and Claude Monet's _Water Lilies_, in the public domain, from
+[Wikimedia Commons](https://commons.wikimedia.org).

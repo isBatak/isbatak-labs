@@ -1,9 +1,10 @@
 import { ark } from "@ark-ui/vue/factory"
 import { styled } from "@isbatak/vue-ui/jsx"
+import { image } from "@isbatak/panda-ds/recipes"
 import { type Component, defineComponent, h } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 
-const StyledImage = styled(ark.img)
+const StyledImage = styled(ark.img, image)
 
 export type ImageProps = Omit<ComponentProps<typeof StyledImage>, "align"> & {
   /**

@@ -4,9 +4,12 @@ description: Display an image with control over how it fits its box.
 category: Data Display
 links:
   source: packages/ui/react/src/components/image
+  recipe: packages/panda/ds/src/theme/recipes/image.ts
 ---
 
-A styled `img`. `fit` and `align` map to `object-fit` and `object-position`; `fit` defaults to `cover`.
+A styled `img`. `fit` and `align` map to `object-fit` and `object-position`; `fit` defaults to `cover`. The `image`
+recipe adds a faint inset [image outline](/ds/styles/image-outlines) so pale pictures keep their edge; set
+`outlineStyle="none"` to turn it off.
 
 ## Usage
 
