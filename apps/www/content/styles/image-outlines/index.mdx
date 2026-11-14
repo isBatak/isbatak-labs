@@ -1,0 +1,189 @@
+---
+title: Image outlines
+description:
+  A faint line just inside the edge of an image, so it doesn't blend into a page of the same color. Add
+  layerStyle="imageOutline" to any image or avatar.
+order: 2
+status: new
+links:
+  source: packages/panda/ds/src/theme/layer-styles.ts
+  package: "@isbatak/panda-ds"
+---
+
+When the edges of an image are close in color to the page, the image blends into it. A white product shot on a white
+page, or a night sky on a dark one, loses its edge, and the eye can't tell where the image stops.
+
+The `imageOutline` layer style draws a 1px line just inside the image: black at 10% in light mode, white at 10% in dark
+mode. It's too faint to read as a border, but it gives every image the same defined edge.
+
+<Example id="image-outline/compare" />
+
+## Usage
+
+The `Image` component and `Avatar.Image` already have it: the `image` and `avatar` recipes apply the layer style by
+default. Turn it off on one element with `outlineStyle="none"`.
+
+```tsx title="painting.tsx"
+<Image src="/sunflowers.jpg" alt="Sunflowers by Vincent van Gogh" rounded="l3" />
+<Image src="/van-gogh-signature.png" alt="Vincent van Gogh's signature" outlineStyle="none" />
+```
+
+The layer style ships with `@isbatak/panda-ds`, so there is nothing to install. Add it to any other image.
+
+```tsx title="painting.tsx"
+<styled.img src="/water-lilies.jpg" alt="Water Lilies by Claude Monet" rounded="l3" layerStyle="imageOutline" />
+```
+
+Or from `css()`, next to your other styles.
+
+```tsx title="painting.tsx"
+import { css } from "styled-system/css"
+
+export function Painting() {
+  return (
+    <img
+      src="/the-magpie.jpg"
+      alt="The Magpie by Claude Monet"
+      className={css({ layerStyle: "imageOutline", rounded: "l3" })}
+    />
+  )
+}
+```
+
+The outline follows the element's `border-radius`, so it works on rounded images and circles without extra styles.
+
+## How it works
+
+The layer style sets four properties.
+
+```ts title="layer-styles.ts"
+imageOutline: {
+  value: {
+    outlineWidth: "1px",
+    outlineStyle: "solid",
+    outlineOffset: "-1px",
+    outlineColor: "color-mix(in srgb, {colors.black} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+    _dark: {
+      outlineColor: "color-mix(in srgb, {colors.white} calc(var(--image-outline-opacity, 0.1) * 100%), transparent)",
+    },
+  },
+}
+```
+
+- `outline-offset: -1px` pulls the outline inside the image, so it paints over the edge pixels instead of around them.
+- `color-mix()` mixes the `black` or `white` token with `transparent`, so the opacity can come from a CSS variable.
+- `_dark` swaps black for white. A dark line disappears on a dark page, and a light one would glow on a light page.
+
+### Why not a border
+
+A border takes up space. On a sized image it either grows the box by 2px or shrinks the picture inside it, and toggling
+it shifts the layout around it. An outline is painted on top and takes up no space. An inset `box-shadow` does the same,
+but it's drawn under an `<img>`'s content, so the image covers it.
+
+```tsx title="compare.tsx"
+<styled.img src="/the-night-cafe.jpg" borderWidth="1px" /> {/* adds 2px to the box */}
+<styled.img src="/the-night-cafe.jpg" layerStyle="imageOutline" /> {/* takes up no space */}
+```
+
+## Strength
+
+About 10% is a good default. Below 5%, the line disappears against pale backgrounds. Above 20%, it stops reading as an
+edge and starts to look like a frame. Drag the slider to compare.
+
+<Example id="image-outline/strength" />
+
+Set `--image-outline-opacity` to change it. It takes a number from 0 to 1 and inherits like any custom property, so you
+can set it on one image or on a whole gallery.
+
+```tsx title="gallery.tsx"
+<styled.div css={{ "--image-outline-opacity": "0.15" }}>
+  <styled.img src="/the-starry-night.jpg" alt="The Starry Night by Vincent van Gogh" layerStyle="imageOutline" />
+  <styled.img src="/impression-sunrise.jpg" alt="Impression, Sunrise by Claude Monet" layerStyle="imageOutline" />
+</styled.div>
+```
+
+Light and dark modes can need different values. A dark page often needs a little more contrast. Set the variable per
+condition.
+
+```tsx title="gallery.tsx"
+<styled.img
+  src="/the-ninth-wave.jpg"
+  alt="The Ninth Wave by Ivan Aivazovsky"
+  layerStyle="imageOutline"
+  css={{ "--image-outline-opacity": { base: "0.1", _dark: "0.14" } }}
+/>
+```
+
+## Avatars
+
+Avatars benefit most. They're small and round, and they often have a white or pale background, so without an outline
+they look like a gap in the page. The `avatar` recipe applies the layer style to `Avatar.Image` by default, and the
+image already takes the avatar's radius, so the outline stays round. Switch between the two and watch the edges of the
+bright and dark photos.
+
+<Example id="image-outline/avatar" />
+
+To turn it off for one avatar, remove the outline or set its opacity to 0.
+
+```tsx title="avatar.tsx"
+<Avatar.Root>
+  <Avatar.Fallback name="Rembrandt van Rijn" />
+  <Avatar.Image src="/rembrandt.jpg" alt="Rembrandt van Rijn" outlineStyle="none" />
+</Avatar.Root>
+```
+
+## In plain CSS
+
+The same technique outside Panda, for reference.
+
+```css title="image-outline.css"
+.image-outline {
+  outline: 1px solid rgb(0 0 0 / var(--image-outline-opacity, 0.1));
+  outline-offset: -1px;
+}
+
+.dark .image-outline {
+  outline-color: rgb(255 255 255 / var(--image-outline-opacity, 0.1));
+}
+```
+
+## FAQ
+
+<Faq>
+  <FaqItem question="Does it work on elements other than images?">
+    Yes. It's a regular outline, so it works on `<video>`, `<canvas>`, `<picture>` and any box with a background image.
+    Pick it for media, though: cards and panels already have `border.*` tokens.
+  </FaqItem>
+  <FaqItem question="Does it conflict with focus rings?">
+    It sets `outline`, so a focus style that also sets `outline` replaces it while the element is focused. Images aren't
+    focusable, so this only matters when the image is itself a link or button. Put the layer style on the `<img>`
+    inside, not on the link.
+  </FaqItem>
+  <FaqItem question="Why is the line inside the image instead of around it?">
+    An outline outside the image adds a visible ring with the page's background between it and the picture. Inside, it
+    darkens or lightens the edge pixels, which reads as the image's own edge.
+  </FaqItem>
+  <FaqItem question="Which browsers support color-mix()?">
+    Chrome 111, Safari 16.2 and Firefox 113 or newer.
+  </FaqItem>
+</Faq>
+
+## Credits
+
+From Jakub Krehel's
+[Details that make interfaces feel better](https://jakub.kr/writing/details-that-make-interfaces-feel-better#add-an-outline-to-images)
+and Gustavo Fior's [Image outlines](https://craft.gustavofior.com/image-outlines).
+
+The paintings and portraits are in the public domain, from Wikimedia Commons:
+
+- Ivan Aivazovsky,
+  [_Storm at Sea on a Moonlit Night_](<https://commons.wikimedia.org/wiki/File:Storm_at_Sea_on_a_Moonlit_Night_(Aivazovsky).jpg>)
+- Claude Monet,
+  [_Water Lilies_ (1906)](https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg)
+- Vincent van Gogh,
+  [_Self-Portrait_ (1887)](<https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg>)
+- Nadar, [_Claude Monet_ (1899)](https://commons.wikimedia.org/wiki/File:Claude_Monet_1899_Nadar_crop.jpg)
+- Ivan Aivazovsky, [_Self-Portrait_ (1874)](https://commons.wikimedia.org/wiki/File:Aivazovsky_-_Self-portrait_1874.jpg)
+- Rembrandt van Rijn,
+  [_Self-Portrait_](https://commons.wikimedia.org/wiki/File:Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg)
+- Edgar Degas, [_Self-Portrait_ (1855)](https://commons.wikimedia.org/wiki/File:Edgar_Degas_self_portrait_1855.jpeg)

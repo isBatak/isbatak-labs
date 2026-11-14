@@ -9,7 +9,7 @@ import { Icon } from "../../../../components/ui/icon"
 
 export const metadata: Metadata = {
   title: "Design system styles",
-  description: "Style utilities that extend the Panda design system.",
+  description: "Presets and layer styles on top of the Panda design system.",
 }
 
 const StyleLink = styled(Link, {
@@ -38,8 +38,8 @@ export default function StylesPage() {
           Styles
         </styled.h1>
         <styled.p mt="4" maxW="2xl" color="fg.muted" textStyle="md" lineHeight="1.8">
-          Panda presets that add style props on top of the design system. Install one, add it to your Panda config and
-          use its props on any element.
+          Presets and layer styles on top of the Panda design system. Use them on any element to handle details the
+          tokens alone don&apos;t cover.
         </styled.p>
 
         <styled.ul
