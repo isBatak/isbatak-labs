@@ -472,3 +472,21 @@
   studio, www); oxlint and oxfmt; Playwright Storybook check in all four (indicator 6/8/10px by size, text 12/14/16px,
   palette colors, labels, no page errors). The website build prints existing Panda diagnostics (font token and `avatar`
   recipe conflicts), unrelated to status.
+
+
+## beacon (done, 2026-11-14)
+
+- New recipe `beacon` after tl-ds: dot in `colorPalette.solid`, `::before` ring running the existing `ping` keyframe
+  (`ping 1s ease-in-out infinite`, tl-ds's timing rather than the `ping` animation token's curve). Sizes sm/md/lg/xl as
+  `boxSize` 1/2/3/4 (4/8/12/16px), default md; `sm` sets `--ping-transform-scale: 4`, others 2. Additions over tl-ds:
+  `display: inline-block`, `flexShrink: 0`, `forcedColorAdjust: none`, and `_motionReduce` stops the ring. No default
+  `colorPalette` in the recipe (tl-ds used `neutral`); it inherits the global `gray`. No analog override.
+  `@isbatak/panda-ds` minor changeset.
+- Components (all four frameworks): single-element `Beacon` (`ark.div`, so `asChild` works) plus `BeaconPropsProvider`,
+  same shape as `Spinner`, so no `namespace.ts`. Svelte: `beacon.svelte` on `Box`, with `beacon-props.ts` context and a
+  props provider.
+- Demos (4): usage, sizes, colors, with-label, from tl-ds's one Propstar story (sizes x palettes) plus a labelled one.
+- Docs category `Feedback` (next to Status). `ds-api.json`: only the `beacon` key added.
+- Checks run: panda-ds build; `turbo --affected` (63/63); oxlint and oxfmt; Playwright Storybook check in all four
+  (4/8/12/16px by size, ring `ping` running, `--ping-transform-scale` 4 on sm, palette colors, "Live" label, no page
+  errors). The website build prints existing Panda diagnostics (fonts, `avatar`), unrelated.

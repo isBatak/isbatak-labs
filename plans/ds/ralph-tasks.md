@@ -53,7 +53,7 @@ Category `Feedback`. tl-ds has all of these, so take its look.
 Only in tl-ds, in `/Users/ivicabatinic/Documents/projects/tl-ds/packages/ds/src/components/<name>`. Port its API and
 look, and its stories as demos. Pick the docs category that fits.
 
-- [ ] beacon — 60 lines, no recipe here. A pulsing dot.
+- [x] beacon — 60 lines, no recipe here. A pulsing dot.
 - [ ] action-item — 125 lines, 4 parts.
 - [ ] ripple — 204 lines.
 - [ ] swap — has an Ark Swap. tl-ds has it too: take tl-ds's look and Ark's `swap.module.css` for the states.

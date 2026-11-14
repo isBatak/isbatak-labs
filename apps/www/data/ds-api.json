@@ -411,6 +411,15 @@
       }
     }
   },
+  "beacon": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "bleed": {
     "parts": [
       {

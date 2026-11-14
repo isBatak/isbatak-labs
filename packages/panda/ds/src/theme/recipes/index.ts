@@ -3,6 +3,7 @@ import { actionBarSlotRecipe } from "./action-bar"
 import { alertSlotRecipe } from "./alert"
 import { avatarSlotRecipe } from "./avatar"
 import { badgeRecipe } from "./badge"
+import { beaconRecipe } from "./beacon"
 import { blockquoteSlotRecipe } from "./blockquote"
 import { breadcrumbSlotRecipe } from "./breadcrumb"
 import { buttonRecipe } from "./button"
@@ -90,6 +91,7 @@ import { treeViewSlotRecipe } from "./tree-view"
 
 export const recipes = {
   badge: badgeRecipe,
+  beacon: beaconRecipe,
   button: buttonRecipe,
   code: codeRecipe,
   container: containerRecipe,
