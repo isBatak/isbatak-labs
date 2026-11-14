@@ -374,3 +374,20 @@
 - `ds-api.json`: only the `alert` key, inserted alphabetically from generator output.
 - Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
   run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`.
+
+
+## progress (done, 2026-11-14)
+
+- Recipe already existed (slots incl. the circle ones shared with `progress-circle`; `variant`, `shape`, `size`, `striped`,
+  `animated`) and matches tl-ds's `Progress`, so no recipe change and no `@isbatak/panda-ds` changeset. Ark's example CSS adds
+  a vertical orientation that the recipe doesn't style; left out (Chakra has none either). No analog override exists.
+- Components (all four frameworks): `Progress.Root`, `RootProvider`, `Label`, `Track`, `Range`, `ValueText`, `Context`, plus
+  `useProgress`/`useProgressContext`, and `PropsProvider` in React/Vue/Solid. The circle parts are left to `progress-circle`.
+  Svelte: one part per file plus `progress-styles.ts`, no provider.
+- Demos (9): usage, sizes, variants, shapes, striped, with-label, with-value-text, indeterminate, colors. Skipped Chakra's
+  controlled, min-max and with-info-tip demos. Indeterminate passes `value={null}` (`:value="null"` in Vue).
+- `ds-api.json`: only the `progress` key, inserted alphabetically (the generator output sorts the whole file, so it was
+  merged by hand).
+- Checks run: typecheck in the four `packages/ui/*`, `apps/compositions`, four `apps/storybook-*`; oxlint and oxfmt. NOT
+  run: Playwright Storybook check, `apps/www` typecheck, full `turbo --affected`. Worth a visual look at striped/animated
+  and the indeterminate bar.

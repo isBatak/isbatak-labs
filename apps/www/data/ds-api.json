@@ -6308,6 +6308,103 @@
     ],
     "variants": {}
   },
+  "progress": {
+    "parts": [
+      {
+        "name": "Progress.Root",
+        "props": {
+          "defaultValue": {
+            "type": "number | null | undefined",
+            "description": "The initial value of the progress bar when rendered.\nUse when you don't need to control the value of the progress bar.",
+            "defaultValue": "50"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the progress bar. Useful for composition."
+          },
+          "value": {
+            "type": "number | null | undefined",
+            "description": "The controlled value of the progress bar."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Callback fired when the value changes."
+          },
+          "orientation": {
+            "type": "\"horizontal\" | \"vertical\" | undefined",
+            "description": "The orientation of the element.",
+            "defaultValue": "\"horizontal\""
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The localized messages to use."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum allowed value of the progress bar.",
+            "defaultValue": "100"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum allowed value of the progress bar.",
+            "defaultValue": "0"
+          },
+          "locale": {
+            "type": "string | undefined",
+            "description": "The locale to use for formatting the value.",
+            "defaultValue": "\"en-US\""
+          },
+          "formatOptions": {
+            "type": "Intl.NumberFormatOptions | undefined",
+            "description": "The options to use for formatting the value.",
+            "defaultValue": "{ style: \"percent\" }"
+          }
+        }
+      },
+      {
+        "name": "Progress.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseProgressReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Progress.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseProgressContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "shape": {
+        "values": ["square", "rounded", "full"],
+        "defaultValue": "rounded"
+      },
+      "striped": {
+        "values": ["true"]
+      },
+      "animated": {
+        "values": ["true"]
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "prose": {
     "parts": [],
     "variants": {

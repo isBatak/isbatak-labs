@@ -1,0 +1,82 @@
+---
+title: Progress
+description: A linear bar that shows how far a task has got.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/progress
+  recipe: packages/panda/ds/src/theme/recipes/progress.ts
+---
+
+A progress bar shows how much of a task is done. Leave the value out, or pass `null`, for an indeterminate bar.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Progress.Root>
+  <Progress.Label />
+  <Progress.ValueText />
+  <Progress.Track>
+    <Progress.Range />
+  </Progress.Track>
+</Progress.Root>
+```
+
+## Examples
+
+### Sizes
+
+Use `size` to change the height of the track: `xs`, `sm`, `md`, `lg` or `xl`.
+
+<Example id="progress/sizes" />
+
+### Variants
+
+Use `variant` to change the visual style: `outline` or `subtle`.
+
+<Example id="progress/variants" />
+
+### Shapes
+
+Use `shape` to change the corner radius: `square`, `rounded` or `full`.
+
+<Example id="progress/shapes" />
+
+### Striped
+
+Use `striped` to add stripes to the range, and `animated` to move them.
+
+<Example id="progress/striped" />
+
+### With label
+
+Add `Progress.Label` to name what is in progress.
+
+<Example id="progress/with-label" />
+
+### With value text
+
+`Progress.ValueText` shows the current value as a percentage.
+
+<Example id="progress/with-value-text" />
+
+### Indeterminate
+
+Set the value to `null` when the amount of work is unknown.
+
+<Example id="progress/indeterminate" />
+
+### Colors
+
+Use `colorPalette` to change the colour of the range.
+
+<Example id="progress/colors" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
