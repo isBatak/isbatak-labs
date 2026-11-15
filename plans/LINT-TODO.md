@@ -10,6 +10,3 @@
           tests. Decide whether these are intended.
    1. [ ] `no-misused-spread` (3): string spreads in promos `sourcery/brand/marks.ts`.
    1. [ ] `no-redundant-type-constituents` (1): studio `define-component-matrix.ts`.
-1. [x] Clear the 46 `prefer-token` warnings, then run `oxlint --deny-warnings` in CI. Concentric demos are exempt by a
-       file override, `1px` is the new `px` spacing token, values no token expresses use the `[…]` escape hatch
-       (`patches/@pandacss__eslint-plugin@2.4.0.patch` makes `prefer-token` skip them), and the rest snapped to tokens.
