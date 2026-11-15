@@ -1,0 +1,60 @@
+---
+title: Ripple
+description: An ink ripple that spreads from where a surface is pressed.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/ripple
+  recipe: packages/panda/ds/src/theme/recipes/ripple.ts
+---
+
+A `span` styled with the `ripple` recipe. Pressing it adds a circle at the pointer that grows to cover the element and
+fades out, then removes itself. A keyboard click (Enter or Space) starts the ripple from the center. Use `asChild` to
+put the ripple on a card, tile or button. With reduced motion the circle only fades.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Ripple asChild>
+  <Center>Click anywhere</Center>
+</Ripple>
+```
+
+## Examples
+
+### Centered
+
+Set `centered` to start every ripple from the middle instead of the pointer.
+
+<Example id="ripple/centered" />
+
+### With button
+
+Wrap a `Button` with `asChild`. Press it or focus it and press Enter.
+
+<Example id="ripple/with-button" />
+
+### Disabled
+
+Set `disabled` to stop new ripples.
+
+<Example id="ripple/disabled" />
+
+### Disabled button
+
+A disabled child (`disabled`, `data-disabled` or `aria-disabled="true"`) hides its ripples.
+
+<Example id="ripple/disabled-button" />
+
+## Recipe
+
+| Variable        | Description                                             |
+| --------------- | ------------------------------------------------------- |
+| `--ripple-x`    | Horizontal center of a ripple, set on each ripple       |
+| `--ripple-y`    | Vertical center of a ripple, set on each ripple         |
+| `--ripple-size` | Diameter of a ripple, large enough to cover the element |
+
+## API
+
+<Api />

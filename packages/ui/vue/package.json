@@ -16,7 +16,8 @@
   },
   "scripts": {
     "codegen": "panda codegen && node scripts/forward-model-value.mjs",
-    "typecheck": "pnpm codegen && tsc --noEmit"
+    "typecheck": "pnpm codegen && tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ark-ui/vue": "catalog:",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
+    "vitest": "catalog:",
     "vue": "^3.5.43",
     "vue-component-type-helpers": "3.3.11"
   }

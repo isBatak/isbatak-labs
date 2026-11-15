@@ -1,0 +1,67 @@
+---
+title: Action item
+description: A settings-style row with a label, an optional leading icon and a trailing chevron or control.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/action-item
+  recipe: packages/panda/ds/src/theme/recipes/action-item.ts
+---
+
+An action item is a full-width row for settings screens and mobile menus. It shows a label, an optional icon before it,
+and either a chevron that hints at a next screen or a control such as a switch. Rows without a control are clickable and
+show hover and pressed backgrounds.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ActionItem.Root>
+  <ActionItem.StartElement />
+  <ActionItem.Label />
+  <ActionItem.EndElement />
+  <ActionItem.ControlElement />
+</ActionItem.Root>
+```
+
+## Examples
+
+### Variants
+
+`subtle`, the default, gives the row a faint background and rounded corners. `plain` drops both, for rows stacked inside
+a card or a list.
+
+<Example id="action-item/variants" />
+
+### With start element
+
+Put an icon in `ActionItem.StartElement` before the label.
+
+<Example id="action-item/with-start-element" />
+
+### With description
+
+`ActionItem.Label` stacks its children, so a second line of muted text sits under the title.
+
+<Example id="action-item/with-description" />
+
+### With control
+
+Put a switch, checkbox or other control in `ActionItem.ControlElement`. A row with a control element loses its pointer
+cursor and hover background, so only the control reacts to clicks.
+
+<Example id="action-item/with-control" />
+
+### Disabled
+
+Set `data-disabled` and `aria-disabled` on the root to dim the row and block pointer events.
+
+<Example id="action-item/disabled" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

@@ -1,9 +1,13 @@
 import { accordionSlotRecipe } from "./accordion"
 import { actionBarSlotRecipe } from "./action-bar"
+import { actionItemSlotRecipe } from "./action-item"
 import { alertSlotRecipe } from "./alert"
+import { angleSliderSlotRecipe } from "./angle-slider"
 import { avatarSlotRecipe } from "./avatar"
 import { badgeRecipe } from "./badge"
+import { beaconRecipe } from "./beacon"
 import { blockquoteSlotRecipe } from "./blockquote"
+import { bottomNavBarSlotRecipe } from "./bottom-nav-bar"
 import { breadcrumbSlotRecipe } from "./breadcrumb"
 import { buttonRecipe } from "./button"
 import { cardSlotRecipe } from "./card"
@@ -34,8 +38,11 @@ import { gridTableSlotRecipe } from "./grid-table"
 import { groupRecipe } from "./group"
 import { headingRecipe } from "./heading"
 import { hoverCardSlotRecipe } from "./hover-card"
+import { imageCropperSlotRecipe } from "./image-cropper"
 import { iconRecipe } from "./icon"
 import { imageRecipe } from "./image"
+import { frameRecipe } from "./frame"
+import { jsonTreeViewSlotRecipe } from "./json-tree-view"
 import { inputRecipe } from "./input"
 import { inputAddonRecipe } from "./input-addon"
 import { inputElementRecipe } from "./input-element"
@@ -46,6 +53,7 @@ import { listboxSlotRecipe } from "./listbox"
 import { markRecipe } from "./mark"
 import { marqueeSlotRecipe } from "./marquee"
 import { menuSlotRecipe } from "./menu"
+import { menubarSlotRecipe } from "./menubar"
 import { nativeSelectSlotRecipe } from "./native-select"
 import { navigationMenuSlotRecipe } from "./navigation-menu"
 import { numberInputSlotRecipe } from "./number-input"
@@ -61,11 +69,14 @@ import { radioCardSlotRecipe } from "./radio-card"
 import { radioGroupSlotRecipe } from "./radio-group"
 import { radiomarkRecipe } from "./radiomark"
 import { ratingGroupSlotRecipe } from "./rating-group"
+import { rippleRecipe } from "./ripple"
 import { scrollAreaSlotRecipe } from "./scroll-area"
 import { searchInputSlotRecipe } from "./search-input"
 import { segmentGroupSlotRecipe } from "./segment-group"
 import { selectSlotRecipe } from "./select"
 import { separatorRecipe } from "./separator"
+import { sidebarSlotRecipe } from "./sidebar"
+import { signaturePadSlotRecipe } from "./signature-pad"
 import { skeletonRecipe } from "./skeleton"
 import { skipNavLinkRecipe } from "./skip-nav-link"
 import { sliderSlotRecipe } from "./slider"
@@ -75,6 +86,7 @@ import { statSlotRecipe } from "./stat"
 import { statusSlotRecipe } from "./status"
 import { stepsSlotRecipe } from "./steps"
 import { strongRecipe } from "./strong"
+import { swapSlotRecipe } from "./swap"
 import { switchSlotRecipe } from "./switch"
 import { tableSlotRecipe } from "./table"
 import { tabsSlotRecipe } from "./tabs"
@@ -82,14 +94,19 @@ import { tagSlotRecipe } from "./tag"
 import { tagsInputSlotRecipe } from "./tags-input"
 import { textareaRecipe } from "./textarea"
 import { timelineSlotRecipe } from "./timeline"
+import { timerSlotRecipe } from "./timer"
 import { toastSlotRecipe } from "./toast"
 import { tocSlotRecipe } from "./toc"
+import { toggleGroupSlotRecipe } from "./toggle-group"
+import { toneSlotRecipe } from "./tone"
 import { tooltipSlotRecipe } from "./tooltip"
 import { tourSlotRecipe } from "./tour"
 import { treeViewSlotRecipe } from "./tree-view"
+import { virtualizerSlotRecipe } from "./virtualizer"
 
 export const recipes = {
   badge: badgeRecipe,
+  beacon: beaconRecipe,
   button: buttonRecipe,
   code: codeRecipe,
   container: containerRecipe,
@@ -101,6 +118,7 @@ export const recipes = {
   kbd: kbdRecipe,
   link: linkRecipe,
   mark: markRecipe,
+  ripple: rippleRecipe,
   separator: separatorRecipe,
   strong: strongRecipe,
   skeleton: skeletonRecipe,
@@ -109,6 +127,7 @@ export const recipes = {
   textarea: textareaRecipe,
   icon: iconRecipe,
   image: imageRecipe,
+  frame: frameRecipe,
   checkmark: checkmarkRecipe,
   radiomark: radiomarkRecipe,
   colorSwatch: colorSwatchRecipe,
@@ -118,9 +137,12 @@ export const recipes = {
 export const slotRecipes = {
   accordion: accordionSlotRecipe,
   actionBar: actionBarSlotRecipe,
+  actionItem: actionItemSlotRecipe,
+  angleSlider: angleSliderSlotRecipe,
   alert: alertSlotRecipe,
   avatar: avatarSlotRecipe,
   blockquote: blockquoteSlotRecipe,
+  bottomNavBar: bottomNavBarSlotRecipe,
   breadcrumb: breadcrumbSlotRecipe,
   card: cardSlotRecipe,
   carousel: carouselSlotRecipe,
@@ -139,9 +161,12 @@ export const slotRecipes = {
   fieldset: fieldsetSlotRecipe,
   fileUpload: fileUploadSlotRecipe,
   hoverCard: hoverCardSlotRecipe,
+  imageCropper: imageCropperSlotRecipe,
+  jsonTreeView: jsonTreeViewSlotRecipe,
   list: listSlotRecipe,
   listbox: listboxSlotRecipe,
   menu: menuSlotRecipe,
+  menubar: menubarSlotRecipe,
   nativeSelect: nativeSelectSlotRecipe,
   navigationMenu: navigationMenuSlotRecipe,
   numberInput: numberInputSlotRecipe,
@@ -159,6 +184,8 @@ export const slotRecipes = {
   searchInput: searchInputSlotRecipe,
   segmentGroup: segmentGroupSlotRecipe,
   select: selectSlotRecipe,
+  sidebar: sidebarSlotRecipe,
+  signaturePad: signaturePadSlotRecipe,
   combobox: comboboxSlotRecipe,
   slider: sliderSlotRecipe,
   splitter: splitterSlotRecipe,
@@ -169,8 +196,11 @@ export const slotRecipes = {
   tabs: tabsSlotRecipe,
   tag: tagSlotRecipe,
   tagsInput: tagsInputSlotRecipe,
+  timer: timerSlotRecipe,
   toast: toastSlotRecipe,
   toc: tocSlotRecipe,
+  tone: toneSlotRecipe,
+  toggleGroup: toggleGroupSlotRecipe,
   tooltip: tooltipSlotRecipe,
   tour: tourSlotRecipe,
   status: statusSlotRecipe,
@@ -181,4 +211,6 @@ export const slotRecipes = {
   marquee: marqueeSlotRecipe,
   floatingPanel: floatingPanelSlotRecipe,
   gridTable: gridTableSlotRecipe,
+  swap: swapSlotRecipe,
+  virtualizer: virtualizerSlotRecipe,
 }

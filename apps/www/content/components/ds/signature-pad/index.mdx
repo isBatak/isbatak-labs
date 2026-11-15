@@ -1,0 +1,76 @@
+---
+title: Signature pad
+description: A drawing area for capturing a handwritten signature with a mouse, pen or finger.
+category: Forms
+links:
+  source: packages/ui/react/src/components/signature-pad
+  recipe: packages/panda/ds/src/theme/recipes/signature-pad.ts
+  ark: https://ark-ui.com/docs/components/signature-pad
+---
+
+Built on Ark UI's SignaturePad. Each stroke is stored as an SVG path in `paths`. The clear trigger shows once something
+is drawn and defaults to an undo icon unless you give it children. The guide is the dashed line people sign on. The
+stroke takes the text colour, so it follows the color mode; pass `drawing.fill` to pick another colour.
+
+## Usage
+
+<Usage />
+
+```tsx
+<SignaturePad.Root>
+  <SignaturePad.Label />
+  <SignaturePad.Control>
+    <SignaturePad.Segment />
+    <SignaturePad.ClearTrigger />
+    <SignaturePad.Guide />
+  </SignaturePad.Control>
+  <SignaturePad.HiddenInput value={dataUrl} />
+</SignaturePad.Root>
+```
+
+## Examples
+
+### Controlled
+
+Pass `paths` and `onDraw`, here to count the strokes and clear them from outside.
+
+<Example id="signature-pad/controlled" />
+
+### Image preview
+
+`onDrawEnd` hands you `getDataUrl`, which renders the signature as a PNG, JPEG or SVG data URL. The exported image
+doesn't carry the page's styles, so the stroke is black; the preview sits on a white background.
+
+<Example id="signature-pad/image-preview" />
+
+### Root provider
+
+`useSignaturePad` creates the machine outside the pad, so other controls can read its paths and clear it.
+
+<Example id="signature-pad/root-provider" />
+
+### With field
+
+Inside a `Field`, the pad takes the field's label id, and its `disabled`, `readOnly` and `required` state.
+
+<Example id="signature-pad/with-field" />
+
+### Disabled
+
+<Example id="signature-pad/disabled" />
+
+### Sizes
+
+<Example id="signature-pad/sizes" />
+
+### Variants
+
+<Example id="signature-pad/variants" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

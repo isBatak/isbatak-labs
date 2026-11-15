@@ -1,0 +1,91 @@
+---
+title: Timer
+description: A stopwatch or countdown that shows the time left or passed, with start, pause, resume and reset actions.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/timer
+  recipe: packages/panda/ds/src/theme/recipes/timer.ts
+  ark: https://ark-ui.com/docs/components/timer
+---
+
+Built on Ark UI's Timer. `Timer.Item` renders one zero-padded part of the time (`days`, `hours`, `minutes`, `seconds` or
+`milliseconds`). `Timer.ItemGroup` and `Timer.ItemLabel` aren't Ark parts: they stack an item over its label. Each
+`Timer.ActionTrigger` hides itself when its action doesn't apply, so start, resume and pause can sit side by side and
+only the one that fits shows.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Timer.Root>
+  <Timer.Area>
+    <Timer.ItemGroup>
+      <Timer.Item type="minutes" />
+      <Timer.ItemLabel />
+    </Timer.ItemGroup>
+    <Timer.Separator />
+    <Timer.ItemGroup>
+      <Timer.Item type="seconds" />
+      <Timer.ItemLabel />
+    </Timer.ItemGroup>
+  </Timer.Area>
+  <Timer.Control>
+    <Timer.ActionTrigger action="start" />
+    <Timer.ActionTrigger action="pause" />
+    <Timer.ActionTrigger action="resume" />
+    <Timer.ActionTrigger action="reset" />
+  </Timer.Control>
+</Timer.Root>
+```
+
+## Examples
+
+### Countdown
+
+Set `countdown` and a `startMs` to count down to zero, or to `targetMs` when you pass one.
+
+<Example id="timer/countdown" />
+
+### Events
+
+`onTick` fires on every interval and `onComplete` when the timer reaches `targetMs`.
+
+<Example id="timer/events" />
+
+### Interval
+
+`interval` sets how often the timer ticks, in milliseconds. Use a short one to show `milliseconds`.
+
+<Example id="timer/interval" />
+
+### Pomodoro
+
+Change `startMs` in `onComplete` to chain sessions: here a 25-minute work session, then a 5-minute break.
+
+<Example id="timer/pomodoro" />
+
+### Root provider
+
+`useTimer` creates the machine outside the timer, so other parts of the page can read `running`, `paused` and `time`, or
+call `start()`, `pause()` and `reset()`.
+
+<Example id="timer/root-provider" />
+
+### Variants
+
+`outline` and `subtle` put each item and its label in a box.
+
+<Example id="timer/variants" />
+
+### Sizes
+
+<Example id="timer/sizes" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

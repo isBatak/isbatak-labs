@@ -1,0 +1,52 @@
+---
+title: Beacon
+description: A pulsing dot that draws the eye to a spot on the page.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/beacon
+  recipe: packages/panda/ds/src/theme/recipes/beacon.ts
+---
+
+A `div` styled with the `beacon` recipe. A ring grows out of the dot and fades, over and over, to point at something new
+or live. The ring stops when the user prefers reduced motion. For a still dot with a label, use `Status`.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Beacon />
+```
+
+## Examples
+
+### Sizes
+
+Set `size` to `sm`, `md`, `lg` or `xl`. The default is `md`. The `sm` ring grows to four times the dot so it stays
+visible; the others double.
+
+<Example id="beacon/sizes" />
+
+### Colors
+
+The dot and its ring use the palette's `solid` color. Set `colorPalette` to change it.
+
+<Example id="beacon/colors" />
+
+### With label
+
+Put text next to the beacon to say what it marks.
+
+<Example id="beacon/with-label" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable                 | Description                                      |
+| ------------------------ | ------------------------------------------------ |
+| `--ping-transform-scale` | How far the ring grows, as a multiple of the dot |
+
+## API
+
+<Api />
