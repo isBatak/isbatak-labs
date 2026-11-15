@@ -71,7 +71,7 @@ Ark components with no Chakra or tl-ds version. Design each recipe yourself, sta
 section). Full depth: all four frameworks, every Ark example as a demo, stories and docs, as for every other component.
 
 - [x] toggle-group — parts Root, Item. Also borrow from `toggle` and `group`.
-- [ ] angle-slider — parts Root, Control, Thumb, MarkerGroup, Marker, ValueText, Label, HiddenInput. Also borrow from
+- [x] angle-slider — parts Root, Control, Thumb, MarkerGroup, Marker, ValueText, Label, HiddenInput. Also borrow from
       `slider`.
 - [ ] menubar — Ark has only a root; its menus are Ark Menu parts, so reuse the `menu` recipe for the content and
       `button` for the bar.

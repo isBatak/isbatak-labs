@@ -316,6 +316,106 @@
       }
     }
   },
+  "angle-slider": {
+    "parts": [
+      {
+        "name": "AngleSlider.Root",
+        "props": {
+          "defaultValue": {
+            "type": "number | undefined",
+            "description": "The initial value of the slider.\nUse when you don't need to control the value of the slider.",
+            "defaultValue": "0"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "aria-label": {
+            "type": "string | undefined",
+            "description": "The accessible label for the slider thumb."
+          },
+          "aria-labelledby": {
+            "type": "string | undefined",
+            "description": "The id of the element that labels the slider thumb."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the machine.\nUseful for composition."
+          },
+          "value": {
+            "type": "number | undefined",
+            "description": "The value of the slider."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "The callback function for when the value changes."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the slider. Useful for form submission."
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The step value for the slider.",
+            "defaultValue": "1"
+          },
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "The callback function for when the value changes ends."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is read-only."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is invalid."
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseAngleSliderReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.Marker",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": "The value of the marker"
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseAngleSliderContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "solid"],
+        "defaultValue": "outline"
+      }
+    }
+  },
   "aspect-ratio": {
     "parts": [
       {
@@ -689,14 +789,14 @@
       {
         "name": "Carousel.Indicator",
         "props": {
-          "index": {
-            "type": "number",
-            "description": "The index of the indicator."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the indicator is read only.",
             "defaultValue": "false"
+          },
+          "index": {
+            "type": "number",
+            "description": "The index of the indicator."
           }
         }
       },
@@ -787,13 +887,13 @@
             "type": "boolean | undefined",
             "description": "Whether the checkbox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the checkbox is required"
-          },
           "checked": {
             "type": "CheckedState | undefined",
             "description": "The controlled checked state of the checkbox"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -910,13 +1010,13 @@
             "type": "boolean | undefined",
             "description": "Whether the checkbox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the checkbox is required"
-          },
           "checked": {
             "type": "CheckedState | undefined",
             "description": "The controlled checked state of the checkbox"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -1264,9 +1364,9 @@
             "type": "boolean | undefined",
             "description": "Whether to render the color picker inline"
           },
-          "format": {
-            "type": "ColorFormat | undefined",
-            "description": "The controlled color format to use"
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user stops dragging."
           },
           "readOnly": {
             "type": "boolean | undefined",
@@ -1280,9 +1380,9 @@
             "type": "boolean | undefined",
             "description": "Whether the color picker is required"
           },
-          "onValueChangeEnd": {
-            "type": "((details: ValueChangeDetails) => void) | undefined",
-            "description": "Handler that is called when the user stops dragging."
+          "format": {
+            "type": "ColorFormat | undefined",
+            "description": "The controlled color format to use"
           },
           "defaultFormat": {
             "type": "ColorFormat | undefined",
@@ -1659,13 +1759,13 @@
             "type": "boolean | undefined",
             "description": "Whether the combobox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the combobox is required"
-          },
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text of the combobox's input"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is required"
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -1967,18 +2067,6 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
-          "max": {
-            "type": "DateValue | undefined",
-            "description": "The maximum date that can be selected."
-          },
-          "min": {
-            "type": "DateValue | undefined",
-            "description": "The minimum date that can be selected."
-          },
-          "format": {
-            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
-            "description": "The format function for converting a DateValue to a string."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the date input is read-only."
@@ -1987,9 +2075,21 @@
             "type": "boolean | undefined",
             "description": "Whether the date input is invalid"
           },
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
+          },
           "required": {
             "type": "boolean | undefined",
             "description": "Whether the date input is required"
+          },
+          "format": {
+            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
+            "description": "The format function for converting a DateValue to a string."
           },
           "locale": {
             "type": "string | undefined",
@@ -2222,18 +2322,6 @@
             "type": "boolean | undefined",
             "description": "Whether to render the date picker inline"
           },
-          "max": {
-            "type": "DateValue | undefined",
-            "description": "The maximum date that can be selected."
-          },
-          "min": {
-            "type": "DateValue | undefined",
-            "description": "The minimum date that can be selected."
-          },
-          "format": {
-            "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
-            "description": "The format of the date to display in the input."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the calendar is read-only."
@@ -2242,13 +2330,25 @@
             "type": "boolean | undefined",
             "description": "Whether the date picker is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the date picker is required"
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
           },
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text to display in the input."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the date picker is required"
+          },
+          "format": {
+            "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
+            "description": "The format of the date to display in the input."
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -3141,10 +3241,6 @@
             "type": "boolean | undefined",
             "description": "Whether the input's value is invalid."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the editable is required."
-          },
           "maxLength": {
             "type": "number | undefined",
             "description": "The maximum number of characters allowed in the editable"
@@ -3152,6 +3248,10 @@
           "placeholder": {
             "type": "string | { edit: string; preview: string; } | undefined",
             "description": "The placeholder text for the editable."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is required."
           },
           "autoResize": {
             "type": "boolean | undefined",
@@ -3246,10 +3346,6 @@
             "type": "boolean | undefined",
             "description": "Indicates whether the field is disabled."
           },
-          "target": {
-            "type": "string | undefined",
-            "description": "The target field item value the label should point to."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Indicates whether the field is read-only."
@@ -3261,6 +3357,10 @@
           "required": {
             "type": "boolean | undefined",
             "description": "Indicates whether the field is required."
+          },
+          "target": {
+            "type": "string | undefined",
+            "description": "The target field item value the label should point to."
           }
         }
       },
@@ -3360,10 +3460,6 @@
             "type": "boolean | undefined",
             "description": "Whether the file input is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the file input is required"
-          },
           "accept": {
             "type": "Record<string, string[]> | FileMimeType | FileMimeType[] | undefined",
             "description": "The accept file types"
@@ -3371,6 +3467,10 @@
           "capture": {
             "type": "\"user\" | \"environment\" | undefined",
             "description": "The default camera to use when capturing media"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is required"
           },
           "locale": {
             "type": "string | undefined",
@@ -4756,6 +4856,11 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
+          "reverse": {
+            "type": "boolean | undefined",
+            "description": "Whether to reverse the animation direction.",
+            "defaultValue": "false"
+          },
           "spacing": {
             "type": "string | undefined",
             "description": "The spacing between marquee items.",
@@ -4765,11 +4870,6 @@
             "type": "number | undefined",
             "description": "The speed of the marquee animation in pixels per second.",
             "defaultValue": "50"
-          },
-          "reverse": {
-            "type": "boolean | undefined",
-            "description": "Whether to reverse the animation direction.",
-            "defaultValue": "false"
           },
           "side": {
             "type": "Side | undefined",
@@ -5103,6 +5203,10 @@
             "type": "boolean | undefined",
             "description": "Whether the menu item is disabled"
           },
+          "valueText": {
+            "type": "string | undefined",
+            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
+          },
           "checked": {
             "type": "boolean",
             "description": "Whether the option is checked"
@@ -5110,10 +5214,6 @@
           "onCheckedChange": {
             "type": "((checked: boolean) => void) | undefined",
             "description": "Function called when the option state is changed"
-          },
-          "valueText": {
-            "type": "string | undefined",
-            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -5403,16 +5503,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The maximum value of the number input",
-            "defaultValue": "Number.MAX_SAFE_INTEGER"
-          },
-          "min": {
-            "type": "number | undefined",
-            "description": "The minimum value of the number input",
-            "defaultValue": "Number.MIN_SAFE_INTEGER"
-          },
           "step": {
             "type": "number | undefined",
             "description": "The amount to increment or decrement the value by",
@@ -5425,6 +5515,16 @@
           "invalid": {
             "type": "boolean | undefined",
             "description": "Whether the number input value is invalid."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
           },
           "required": {
             "type": "boolean | undefined",
@@ -5587,16 +5687,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The maximum value of the number input",
-            "defaultValue": "Number.MAX_SAFE_INTEGER"
-          },
-          "min": {
-            "type": "number | undefined",
-            "description": "The minimum value of the number input",
-            "defaultValue": "Number.MIN_SAFE_INTEGER"
-          },
           "step": {
             "type": "number | undefined",
             "description": "The amount to increment or decrement the value by",
@@ -5609,6 +5699,16 @@
           "invalid": {
             "type": "boolean | undefined",
             "description": "Whether the number input value is invalid."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
           },
           "required": {
             "type": "boolean | undefined",
@@ -5870,10 +5970,6 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
-          "visible": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is visible."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the password input is read only."
@@ -5882,14 +5978,18 @@
             "type": "boolean | undefined",
             "description": "The invalid state of the password input."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is required."
-          },
           "autoComplete": {
             "type": "\"current-password\" | \"new-password\" | undefined",
             "description": "The autocomplete attribute for the password input.",
             "defaultValue": "\"current-password\""
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is required."
+          },
+          "visible": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is visible."
           },
           "defaultVisible": {
             "type": "boolean | undefined",
@@ -6002,10 +6102,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "count": {
-            "type": "number",
-            "description": "The number of pin input fields."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the pin input is in the valid state"
@@ -6014,14 +6110,18 @@
             "type": "boolean | undefined",
             "description": "Whether the pin input is in the invalid state"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the pin input is required"
-          },
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text for the input",
             "defaultValue": "\"○\""
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the pin input is required"
+          },
+          "count": {
+            "type": "number",
+            "description": "The number of pin input fields."
           },
           "selectOnFocus": {
             "type": "boolean | undefined",
@@ -6905,11 +7005,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "count": {
-            "type": "number | undefined",
-            "description": "The total number of ratings.",
-            "defaultValue": "5"
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the rating is readonly."
@@ -6917,6 +7012,11 @@
           "required": {
             "type": "boolean | undefined",
             "description": "Whether the rating is required."
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of ratings.",
+            "defaultValue": "5"
           },
           "allowHalf": {
             "type": "boolean | undefined",
@@ -7356,13 +7456,13 @@
             "type": "boolean | undefined",
             "description": "Whether the select is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is required"
-          },
           "autoComplete": {
             "type": "string | undefined",
             "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is required"
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -7750,10 +7850,22 @@
             "type": "string | undefined",
             "description": "The name associated with each slider thumb (when used in a form)"
           },
-          "origin": {
-            "type": "SliderOrigin | undefined",
-            "description": "The origin of the slider range. The track is filled from the origin to the thumb.\n- `\"start\"` / `\"end\"`: fill from `min` / `max`\n- `\"center\"`: fill from the midpoint of `min`/`max`\n- a `number`: fill from that value instead, for when the neutral point isn't the midpoint",
-            "defaultValue": "\"start\""
+          "step": {
+            "type": "number | undefined",
+            "description": "The step value of the slider",
+            "defaultValue": "1"
+          },
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function invoked when the slider value change is done"
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is read-only"
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is invalid"
           },
           "max": {
             "type": "number | undefined",
@@ -7765,22 +7877,10 @@
             "description": "The minimum value of the slider",
             "defaultValue": "0"
           },
-          "step": {
-            "type": "number | undefined",
-            "description": "The step value of the slider",
-            "defaultValue": "1"
-          },
-          "readOnly": {
-            "type": "boolean | undefined",
-            "description": "Whether the slider is read-only"
-          },
-          "invalid": {
-            "type": "boolean | undefined",
-            "description": "Whether the slider is invalid"
-          },
-          "onValueChangeEnd": {
-            "type": "((details: ValueChangeDetails) => void) | undefined",
-            "description": "Function invoked when the slider value change is done"
+          "origin": {
+            "type": "SliderOrigin | undefined",
+            "description": "The origin of the slider range. The track is filled from the origin to the thumb.\n- `\"start\"` / `\"end\"`: fill from `min` / `max`\n- `\"center\"`: fill from the midpoint of `min`/`max`\n- a `number`: fill from that value instead, for when the neutral point isn't the midpoint",
+            "defaultValue": "\"start\""
           },
           "largeStep": {
             "type": "number | undefined",
@@ -8349,13 +8449,13 @@
             "type": "boolean | undefined",
             "description": "If `true`, the switch is marked as invalid."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the switch input is marked as required,"
-          },
           "checked": {
             "type": "boolean | undefined",
             "description": "The controlled checked state of the switch"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the switch input is marked as required,"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -8661,11 +8761,6 @@
             "type": "((event: InteractOutsideEvent) => void) | undefined",
             "description": "Function called when an interaction happens outside the component"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The max number of tags",
-            "defaultValue": "Infinity"
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the tags input should be read-only"
@@ -8674,9 +8769,10 @@
             "type": "boolean | undefined",
             "description": "Whether the tags input is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the tags input is required"
+          "max": {
+            "type": "number | undefined",
+            "description": "The max number of tags",
+            "defaultValue": "Infinity"
           },
           "maxLength": {
             "type": "number | undefined",
@@ -8685,6 +8781,10 @@
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text for the input"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input is required"
           },
           "inputValue": {
             "type": "string | undefined",
