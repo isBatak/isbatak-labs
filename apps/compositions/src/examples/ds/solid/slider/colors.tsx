@@ -44,6 +44,51 @@ export function SliderColorsDemo() {
           <Slider.Thumbs />
         </Slider.Control>
       </Slider.Root>
+      <Slider.Root defaultValue={[40]} colorPalette="gray" variant="field">
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
+      <Slider.Root defaultValue={[40]} colorPalette="blue" variant="field">
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
+      <Slider.Root defaultValue={[40]} colorPalette="green" variant="field">
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
+      <Slider.Root defaultValue={[40]} colorPalette="orange" variant="field">
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
+      <Slider.Root defaultValue={[40]} colorPalette="pink" variant="field">
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
     </Stack>
   )
 }

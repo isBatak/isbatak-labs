@@ -16,5 +16,15 @@
       <Slider.Thumbs />
     </Slider.Control>
   </Slider.Root>
+  <Slider.Root bind:value variant="field">
+    <Slider.Label>Volume</Slider.Label>
+    <Slider.ValueText />
+    <Slider.Control>
+      <Slider.Track>
+        <Slider.Range />
+      </Slider.Track>
+      <Slider.Thumbs />
+    </Slider.Control>
+  </Slider.Root>
   <Text textStyle="sm" color="fg.muted">Value: {value[0]}</Text>
 </Stack>
