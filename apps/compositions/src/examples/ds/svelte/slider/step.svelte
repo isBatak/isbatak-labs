@@ -1,17 +1,30 @@
 <script lang="ts">
   import { Slider } from "@isbatak/svelte-ui/slider"
-  import { css } from "styled-system/css"
+  import { Stack } from "@isbatak/svelte-ui/stack"
 
   const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 </script>
 
-<Slider.Root defaultValue={[40]} step={10} class={css({ width: "full", maxW: "xs" })}>
-  <Slider.Label>Volume</Slider.Label>
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumbs />
-    <Slider.Marks {marks} />
-  </Slider.Control>
-</Slider.Root>
+<Stack gap="6" width="full" maxW="xs">
+  <Slider.Root defaultValue={[40]} step={10}>
+    <Slider.Label>Volume</Slider.Label>
+    <Slider.Control>
+      <Slider.Track>
+        <Slider.Range />
+      </Slider.Track>
+      <Slider.Thumbs />
+      <Slider.Marks {marks} />
+    </Slider.Control>
+  </Slider.Root>
+  <Slider.Root defaultValue={[40]} step={10} variant="field">
+    <Slider.Label>Volume</Slider.Label>
+    <Slider.ValueText />
+    <Slider.Control>
+      <Slider.Track>
+        <Slider.Range />
+      </Slider.Track>
+      <Slider.Thumbs />
+      <Slider.Marks {marks} />
+    </Slider.Control>
+  </Slider.Root>
+</Stack>

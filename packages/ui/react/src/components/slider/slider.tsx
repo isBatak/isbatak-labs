@@ -1,7 +1,8 @@
 "use client"
 
+import { useFocusVisible } from "@ark-ui/react/interaction"
 import { Slider, useSliderContext } from "@ark-ui/react/slider"
-import type { ComponentProps, ReactNode } from "react"
+import { type ComponentProps, type ReactNode, useLayoutEffect, useRef, useState } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
 
@@ -28,8 +29,49 @@ export type SliderTrackProps = ComponentProps<typeof SliderTrack>
 export const SliderRange = withContext(Slider.Range, "range")
 export type SliderRangeProps = ComponentProps<typeof SliderRange>
 
-export const SliderThumb = withContext(Slider.Thumb, "thumb")
-export type SliderThumbProps = ComponentProps<typeof SliderThumb>
+const StyledSliderThumb = withContext(Slider.Thumb, "thumb")
+export type SliderThumbProps = ComponentProps<typeof StyledSliderThumb>
+
+function isUnderText(thumb: HTMLElement | null) {
+  const root = thumb?.closest("[data-slider-root]")
+  if (!thumb || !root) return false
+  const thumbRect = thumb.getBoundingClientRect()
+  return Array.from(root.querySelectorAll("[data-slider-label], [data-slider-value-text]")).some((text) => {
+    const rect = text.getBoundingClientRect()
+    return (
+      thumbRect.left < rect.right &&
+      thumbRect.right > rect.left &&
+      thumbRect.top < rect.bottom &&
+      thumbRect.bottom > rect.top
+    )
+  })
+}
+
+export function SliderThumb({ ref, ...props }: SliderThumbProps) {
+  const focusVisible = useFocusVisible()
+  const slider = useSliderContext()
+  const thumbRef = useRef<HTMLDivElement | null>(null)
+  const [underText, setUnderText] = useState(false)
+
+  useLayoutEffect(() => {
+    setUnderText(isUnderText(thumbRef.current))
+  }, [slider.value])
+
+  const setRef = (node: HTMLDivElement | null) => {
+    thumbRef.current = node
+    if (typeof ref === "function") ref(node)
+    else if (ref) ref.current = node
+  }
+
+  return (
+    <StyledSliderThumb
+      ref={setRef}
+      data-focus-visible={focusVisible ? "" : undefined}
+      data-under-text={underText ? "" : undefined}
+      {...props}
+    />
+  )
+}
 
 export const SliderHiddenInput = Slider.HiddenInput
 export type SliderHiddenInputProps = ComponentProps<typeof SliderHiddenInput>

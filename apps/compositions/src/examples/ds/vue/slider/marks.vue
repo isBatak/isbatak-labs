@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Slider } from "@isbatak/vue-ui/slider"
+import { Stack } from "@isbatak/vue-ui/stack"
 
 const marks = [
   { value: 0, label: "0%" },
@@ -9,14 +10,27 @@ const marks = [
 </script>
 
 <template>
-  <Slider.Root :defaultValue="[50]" width="full" maxW="xs">
-    <Slider.Label>Opacity</Slider.Label>
-    <Slider.Control>
-      <Slider.Track>
-        <Slider.Range />
-      </Slider.Track>
-      <Slider.Thumbs />
-      <Slider.Marks :marks="marks" />
-    </Slider.Control>
-  </Slider.Root>
+  <Stack gap="6" width="full" maxW="xs">
+    <Slider.Root :defaultValue="[50]">
+      <Slider.Label>Opacity</Slider.Label>
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+        <Slider.Marks :marks="marks" />
+      </Slider.Control>
+    </Slider.Root>
+    <Slider.Root :defaultValue="[50]" variant="field">
+      <Slider.Label>Opacity</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+        <Slider.Marks :marks="marks" />
+      </Slider.Control>
+    </Slider.Root>
+  </Stack>
 </template>

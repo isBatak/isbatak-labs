@@ -32,5 +32,35 @@ import { Stack } from "@isbatak/vue-ui/stack"
         <Slider.Thumbs />
       </Slider.Control>
     </Slider.Root>
+    <Slider.Root :defaultValue="[40]" size="sm" variant="field">
+      <Slider.Label>size sm</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider.Root>
+    <Slider.Root :defaultValue="[40]" size="md" variant="field">
+      <Slider.Label>size md</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider.Root>
+    <Slider.Root :defaultValue="[40]" size="lg" variant="field">
+      <Slider.Label>size lg</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider.Root>
   </Stack>
 </template>
