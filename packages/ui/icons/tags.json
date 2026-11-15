@@ -55,6 +55,8 @@
   "calendar": ["calendar", "date", "schedule", "event", "day", "month"],
   "cancel": ["cancel", "forbidden", "ban", "block", "not allowed", "prohibited"],
   "captions": ["captions", "subtitles", "cc", "closed captions", "transcript"],
+  "caret-down-filled": ["caret", "down", "triangle", "decrease", "loss", "negative", "filled"],
+  "caret-up-filled": ["caret", "up", "triangle", "increase", "profit", "positive", "filled"],
   "chart-pie": ["chart", "pie", "graph", "analytics", "statistics", "report"],
   "check-circle": ["check", "success", "done", "complete", "confirm", "valid"],
   "check-square": ["check", "checkbox", "checked", "task", "done", "todo"],

@@ -8974,6 +8974,18 @@
     ],
     "variants": {}
   },
+  "tone": {
+    "parts": [],
+    "variants": {
+      "tone": {
+        "values": ["positive", "negative", "neutral"],
+        "defaultValue": "neutral"
+      },
+      "plain": {
+        "values": ["true", "false"]
+      }
+    }
+  },
   "tooltip": {
     "parts": [
       {

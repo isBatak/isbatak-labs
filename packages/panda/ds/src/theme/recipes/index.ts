@@ -90,6 +90,7 @@ import { textareaRecipe } from "./textarea"
 import { timelineSlotRecipe } from "./timeline"
 import { toastSlotRecipe } from "./toast"
 import { tocSlotRecipe } from "./toc"
+import { toneSlotRecipe } from "./tone"
 import { tooltipSlotRecipe } from "./tooltip"
 import { tourSlotRecipe } from "./tour"
 import { treeViewSlotRecipe } from "./tree-view"
@@ -182,6 +183,7 @@ export const slotRecipes = {
   tagsInput: tagsInputSlotRecipe,
   toast: toastSlotRecipe,
   toc: tocSlotRecipe,
+  tone: toneSlotRecipe,
   tooltip: tooltipSlotRecipe,
   tour: tourSlotRecipe,
   status: statusSlotRecipe,

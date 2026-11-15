@@ -580,6 +580,30 @@
     ]
   },
   {
+    "name": "caret-down-filled",
+    "tags": [
+      "caret",
+      "down",
+      "triangle",
+      "decrease",
+      "loss",
+      "negative",
+      "filled"
+    ]
+  },
+  {
+    "name": "caret-up-filled",
+    "tags": [
+      "caret",
+      "up",
+      "triangle",
+      "increase",
+      "profit",
+      "positive",
+      "filled"
+    ]
+  },
+  {
     "name": "chart-pie",
     "tags": [
       "chart",
