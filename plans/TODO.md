@@ -1,6 +1,6 @@
 1. [ ] finish all components in ds
-   1. [ ] port all the chakra components
-   1. [ ] port composition, partialy open and closed components
+   1. [ ] port composition, partialy open and closed components (plan in [ds/README.md](./ds/README.md))
+   1. [ ] code-block, alongside code-preview
    1. write docs
    1. [ ] DS API tables come from React's types, so Vue, Svelte and Solid pages show React-only types, such as Stack's
           `separator: boolean | ReactElement`
@@ -30,11 +30,8 @@
    1. [ ] Concentric radius: inner radius = outer radius − padding, and how `concentric-preset` does it
    1. [ ] Grain Panda plugin: what `grain-preset` adds, how to put grain on surface layers
    1. [ ] Menu sizing rules: min width for short labels, fit-content with 16px trailing space, max width then truncate
+          (https://www.kevdu.co/reads/sizing-dropdown-menus)
 1. [ ] Heading https://github.com/chakra-ui/chakra-ui/discussions/10937
-1. [ ] Port the layout primitives from tl-ds (`Box`, `Flex`, `Span`, `Stack`, `Center`, `Grid`, …) to every UI
-       framework: re-export Panda's generated `jsx` components with `asChild` for React, Preact, Solid and Vue, and
-       write them as Svelte components like `Box`. Then use them in place of hand-written layout classes, such as the
-       storybook class maps.
 1. [ ] Raise the https://is-agentic.com/scan/isbatak.dev score (50/100 on 2026-11-07)
    1. [ ] Markdown content negotiation: answer `Accept: text/markdown` with a Markdown body,
           `Content-Type:     text/markdown` and `Vary: Accept`, including a Markdown 404 body that links to the docs,
@@ -42,10 +39,29 @@
    1. [ ] Put more of the homepage and inner page text in the raw HTML (homepage content ratio is 4.5%, target 5%), with
           one H1 and sequential headings
    1. [ ] `/sitemap.xml` with every indexable URL and lastmod dates
-   1. [ ] Homepage metadata: canonical link, `<html lang>`, `og:image`, `og:type`
+   1. [ ] Homepage metadata: canonical link, `og:image`, `og:type`
    1. [ ] Homepage JSON-LD (Organization or SoftwareApplication) with name, description, url, contactPoint
    1. [ ] Link `/docs` and the GitHub org from the homepage; name the product clearly in the homepage title and headings
    1. [ ] llms.txt with a "when to use this" section naming concrete use cases
    1. [ ] `/about`, `/contact` and `/privacy` pages, 500+ characters each
    1. [ ] The OpenAPI, public API, JSON error and function-calling checks assume an HTTP API. Skip them unless the site
           gets one.
+1. [ ] Post the Boring Icons promo on social media: video and posts are ready in [ICONS-PROMO.md](./ICONS-PROMO.md)
+1. [ ] DS follow-ups from the component loop (details in `git show 95e87297:plans/progress.txt`)
+   1. [ ] Vue boolean variants: a bare `striped` attribute arrives as `""` and misses the variant, so demos pass
+          `:striped="true"` (virtualizer, card `interactive`). Declare them as Boolean props.
+   1. [ ] Svelte `Button`, `IconButton` and `Badge` take no style props, so demos fall back to `class={css(...)}` or
+          wrappers. Add style props like `Box`.
+   1. [ ] svelte-check prints "Map maximum size exceeded" traces in `apps/compositions` and `storybook-svelte`, takes
+          about 10 minutes, and crashed on ripple props passed to `Center`. Find the type that blows up.
+   1. [ ] `api:generate` reorders `typeahead` in the listbox and tree-view entries of `ds-api.json` between runs. Sort
+          keys in the generator.
+   1. [ ] Drop the Svelte `frame` port once Ark's Svelte Frame stops rendering into the replaced `about:blank` body.
+   1. [ ] json-tree-view: `indentGuide={false}` still draws guides in React and Svelte (Ark checks
+          `typeof === "boolean"`). Patch the wrapper or report upstream.
+   1. [ ] Menu submenus: Vue logs "Maximum recursive updates exceeded in <menu-content>"; hovering `Menu.TriggerItem`
+          doesn't open the submenu in Svelte and Solid. Reproduces on the `DS/Menu` Submenu story.
+   1. [ ] Vue `Format.Number` doesn't declare `style`, `currency` or `maximumFractionDigits` as props (upstream Ark).
+   1. [ ] Visual check of the components committed without a Storybook run: card `interactive`, data-list separators,
+          stat, table sticky columns, grid-table, qr-code, marquee, progress striped/animated, progress-circle
+          indeterminate and `round`.

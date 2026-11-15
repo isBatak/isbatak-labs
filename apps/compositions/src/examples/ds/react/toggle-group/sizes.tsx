@@ -1,0 +1,54 @@
+import { Icon } from "@isbatak/react-ui/icon"
+import { Stack } from "@isbatak/react-ui/stack"
+import { ToggleGroup } from "@isbatak/react-ui/toggle-group"
+
+export function ToggleGroupSizesDemo() {
+  return (
+    <Stack gap="4" align="flex-start">
+      <ToggleGroup.Root size="xs" defaultValue={["bold"]} multiple aria-label="Text formatting (xs)">
+        <ToggleGroup.Item value="bold" aria-label="Bold">
+          <Icon name="bold" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic">
+          <Icon name="italic" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="underline" aria-label="Underline">
+          <Icon name="underline" />
+        </ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root size="sm" defaultValue={["bold"]} multiple aria-label="Text formatting (sm)">
+        <ToggleGroup.Item value="bold" aria-label="Bold">
+          <Icon name="bold" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic">
+          <Icon name="italic" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="underline" aria-label="Underline">
+          <Icon name="underline" />
+        </ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root size="md" defaultValue={["bold"]} multiple aria-label="Text formatting (md)">
+        <ToggleGroup.Item value="bold" aria-label="Bold">
+          <Icon name="bold" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic">
+          <Icon name="italic" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="underline" aria-label="Underline">
+          <Icon name="underline" />
+        </ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root size="lg" defaultValue={["bold"]} multiple aria-label="Text formatting (lg)">
+        <ToggleGroup.Item value="bold" aria-label="Bold">
+          <Icon name="bold" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="italic" aria-label="Italic">
+          <Icon name="italic" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="underline" aria-label="Underline">
+          <Icon name="underline" />
+        </ToggleGroup.Item>
+      </ToggleGroup.Root>
+    </Stack>
+  )
+}

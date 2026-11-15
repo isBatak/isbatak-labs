@@ -1,0 +1,22 @@
+import { ImageCropper } from "@isbatak/solid-ui/image-cropper"
+import { Stack } from "@isbatak/solid-ui/stack"
+import { Text } from "@isbatak/solid-ui/text"
+
+export function ImageCropperMinMaxSizeDemo() {
+  return (
+    <Stack gap="4" maxW="md" w="full">
+      <Text textStyle="sm" color="fg.muted">
+        Crop area constrained to min 80px and max 200px
+      </Text>
+      <ImageCropper.Root minWidth={80} minHeight={80} maxWidth={200} maxHeight={200}>
+        <ImageCropper.Viewport>
+          <ImageCropper.Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/John_Constable_-_The_Hay_Wain_%281821%29.jpg/960px-John_Constable_-_The_Hay_Wain_%281821%29.jpg"
+            alt="The Hay Wain by John Constable"
+          />
+          <ImageCropper.Selection />
+        </ImageCropper.Viewport>
+      </ImageCropper.Root>
+    </Stack>
+  )
+}

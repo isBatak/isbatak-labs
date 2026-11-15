@@ -1,0 +1,75 @@
+---
+title: Menubar
+description: A persistent bar of menu triggers, such as File, Edit and View, each opening its own menu.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/menubar
+  recipe: packages/panda/ds/src/theme/recipes/menubar.ts
+  ark: https://ark-ui.com/docs/components/menubar
+---
+
+Built on Ark UI's Menubar. The bar only holds the triggers: each menu is a regular [Menu](/ds/components/menu), so its
+content, items, groups and submenus come from the `menu` recipe. Arrow keys move between triggers, and once a menu is
+open, moving to the next trigger opens its menu instead.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Menubar.Root>
+  <Menu.Root>
+    <Menubar.Trigger>File</Menubar.Trigger>
+    <Menu.Positioner>
+      <Menu.Content>
+        <Menu.Item value="new">New File</Menu.Item>
+      </Menu.Content>
+    </Menu.Positioner>
+  </Menu.Root>
+</Menubar.Root>
+```
+
+`Menubar.Trigger` is a `Menu.Trigger` styled as a bar button, so it goes inside each `Menu.Root`. Disable one menu with
+`disabled` on its trigger.
+
+## Examples
+
+### Disabled
+
+`disabled` on the root disables every trigger.
+
+<Example id="menubar/disabled" />
+
+### Nested
+
+A `Menu.Root` with a `Menu.TriggerItem` inside a menu's content opens a submenu.
+
+<Example id="menubar/nested" />
+
+### Root provider
+
+`useMenubar` creates the machine outside the bar, so other parts of the page can read whether a menu is open.
+
+<Example id="menubar/root-provider" />
+
+### Vertical
+
+`orientation="vertical"` stacks the triggers; open the menus to the side with `positioning`.
+
+<Example id="menubar/vertical" />
+
+### Variants
+
+<Example id="menubar/variants" />
+
+### Sizes
+
+<Example id="menubar/sizes" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
