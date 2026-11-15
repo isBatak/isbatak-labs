@@ -1,0 +1,76 @@
+---
+title: Toggle group
+description: A row of toggles where one or several can be pressed, such as text alignment or formatting.
+category: Forms
+links:
+  source: packages/ui/react/src/components/toggle-group
+  recipe: packages/panda/ds/src/theme/recipes/toggle-group.ts
+  ark: https://ark-ui.com/docs/components/toggle-group
+---
+
+Built on Ark UI's ToggleGroup. Pressed items get `aria-pressed` and `data-pressed`. Arrow keys move focus between items.
+By default one item can be pressed at a time and pressing it again clears it; `multiple` lets several stay pressed. For
+a single choice that must always have a value, use [Segment group](/ds/components/segment-group).
+
+## Usage
+
+<Usage />
+
+```tsx
+<ToggleGroup.Root defaultValue={["left"]} aria-label="Text alignment">
+  <ToggleGroup.Item value="left" aria-label="Align left" />
+  <ToggleGroup.Item value="center" aria-label="Align center" />
+</ToggleGroup.Root>
+```
+
+Give icon-only items an `aria-label`, and the root a label for the whole group.
+
+## Examples
+
+### Multiple
+
+<Example id="toggle-group/multiple" />
+
+### Controlled
+
+Pass `value` and `onValueChange`. The value is always an array, even without `multiple`.
+
+<Example id="toggle-group/controlled" />
+
+### Root provider
+
+`useToggleGroup` creates the machine outside the group, so other controls can read and set its value.
+
+<Example id="toggle-group/root-provider" />
+
+### Variants
+
+<Example id="toggle-group/variants" />
+
+### Sizes
+
+<Example id="toggle-group/sizes" />
+
+### Vertical
+
+<Example id="toggle-group/vertical" />
+
+### Fitted
+
+`fitted` stretches the items to fill the group's width.
+
+<Example id="toggle-group/fitted" />
+
+### With tooltip
+
+Wrap each item in a tooltip trigger with `asChild` to label icon-only items on hover.
+
+<Example id="toggle-group/with-tooltip" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

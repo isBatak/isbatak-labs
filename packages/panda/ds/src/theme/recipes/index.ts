@@ -90,6 +90,7 @@ import { textareaRecipe } from "./textarea"
 import { timelineSlotRecipe } from "./timeline"
 import { toastSlotRecipe } from "./toast"
 import { tocSlotRecipe } from "./toc"
+import { toggleGroupSlotRecipe } from "./toggle-group"
 import { toneSlotRecipe } from "./tone"
 import { tooltipSlotRecipe } from "./tooltip"
 import { tourSlotRecipe } from "./tour"
@@ -184,6 +185,7 @@ export const slotRecipes = {
   toast: toastSlotRecipe,
   toc: tocSlotRecipe,
   tone: toneSlotRecipe,
+  toggleGroup: toggleGroupSlotRecipe,
   tooltip: tooltipSlotRecipe,
   tour: tourSlotRecipe,
   status: statusSlotRecipe,
