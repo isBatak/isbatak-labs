@@ -12,7 +12,7 @@ export function DocLinks({ links }: { links: Prototype["links"] }) {
   if (!source && !storybook && !recipe && !ark) return null
 
   return (
-    <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
+    <styled.div display="flex" flexWrap="wrap" gap="2" mt="6">
       {source && (
         <ResourceLink href={repoUrl(source)} icon="brand-github">
           Source

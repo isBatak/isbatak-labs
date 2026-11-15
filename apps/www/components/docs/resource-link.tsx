@@ -1,27 +1,7 @@
+import { Button } from "@isbatak/react-ui/button"
 import type { ReactNode } from "react"
-import { styled } from "styled-system/jsx"
 
 import { Icon, type IconName } from "../ui/icon"
-
-const Anchor = styled("a", {
-  base: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "2",
-    textStyle: "sm",
-    color: "fg.muted",
-    "& > span": {
-      textDecoration: "underline",
-      textDecorationColor: "border",
-      textUnderlineOffset: "4px",
-    },
-    _hover: {
-      color: "fg",
-      "& > span": { textDecorationColor: "fg.subtle" },
-    },
-    _focusVisible: { outline: "2px solid", outlineColor: "colorPalette.focusRing", outlineOffset: "1" },
-  },
-})
 
 interface ResourceLinkProps {
   href: string
@@ -31,10 +11,12 @@ interface ResourceLinkProps {
 
 export function ResourceLink({ href, icon, children }: ResourceLinkProps) {
   return (
-    <Anchor href={href} target="_blank" rel="noopener">
-      <Icon name={icon} color="fg" />
-      <span>{children}</span>
-      <Icon name="external-link" color="fg.subtle" />
-    </Anchor>
+    <Button asChild variant="subtle" size="xs">
+      <a href={href} target="_blank" rel="noopener">
+        <Icon name={icon} />
+        {children}
+        <Icon name="external-link" color="fg.subtle" />
+      </a>
+    </Button>
   )
 }
