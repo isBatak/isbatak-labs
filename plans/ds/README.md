@@ -211,7 +211,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] toggle-group
 - [x] angle-slider
 - [x] menubar
-- [ ] signature-pad
+- [x] signature-pad
 - [ ] timer
 - [ ] image-cropper
 - [ ] json-tree-view

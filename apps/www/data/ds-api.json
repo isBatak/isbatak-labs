@@ -7743,6 +7743,97 @@
       }
     }
   },
+  "signature-pad": {
+    "parts": [
+      {
+        "name": "SignaturePad.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the signature pad elements. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is disabled."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the signature pad. Useful for form submission."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The translations of the signature pad. Useful for internationalization."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is read-only."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is required."
+          },
+          "onDraw": {
+            "type": "((details: DrawDetails) => void) | undefined",
+            "description": "Callback when the signature pad is drawing or the committed paths change.\n`paths` contains only committed strokes; use `currentPath` for the in-progress stroke."
+          },
+          "onDrawEnd": {
+            "type": "((details: DrawEndDetails) => void) | undefined",
+            "description": "Callback when the signature pad is done drawing."
+          },
+          "drawing": {
+            "type": "DrawingOptions | undefined",
+            "description": "The drawing options.",
+            "defaultValue": "'{ size: 2, simulatePressure: true }'"
+          },
+          "defaultPaths": {
+            "type": "string[] | undefined",
+            "description": "The default paths of the signature pad.\nUse when you don't need to control the paths of the signature pad."
+          },
+          "paths": {
+            "type": "string[] | undefined",
+            "description": "The controlled paths of the signature pad."
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSignaturePadReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.HiddenInput",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseSignaturePadContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "simple-grid": {
     "parts": [
       {
