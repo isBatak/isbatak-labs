@@ -17,6 +17,8 @@ const category = s.enum([
 
 const status = s.enum(["new", "beta", "stable"]).optional()
 
+const icon = s.string().optional()
+
 const components = defineCollection({
   name: "Component",
   pattern: "components/ds/*/index.mdx",
@@ -26,6 +28,7 @@ const components = defineCollection({
       description: s.string().max(999),
       order: s.number().default(0),
       category,
+      icon,
       status,
       hidden: s.boolean().default(false),
       hero: s.boolean().default(true),
@@ -83,6 +86,7 @@ const styles = defineCollection({
       title: s.string().max(99),
       description: s.string().max(999),
       order: s.number().default(0),
+      icon,
       status,
       links: s.object({
         source: s.string(),
@@ -106,6 +110,7 @@ const icons = defineCollection({
       title: s.string().max(99),
       description: s.string().max(999),
       order: s.number().default(0),
+      icon,
       path: s.path(),
       toc: s.toc(),
       code: s.mdx(),

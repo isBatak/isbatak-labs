@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 
 import { SITE_URL } from "../../../../../components/docs/site-url"
 import { IconDocPage } from "../../../../../components/ds/icon-doc-page"
-import { Section } from "../../../../../components/home/section"
 
 interface IconDocRouteProps {
   params: Promise<{ slug: string }>
@@ -34,9 +33,5 @@ export default async function IconDocRoute({ params }: IconDocRouteProps) {
   const doc = getDoc((await params).slug)
   if (!doc) notFound()
 
-  return (
-    <Section>
-      <IconDocPage doc={doc} />
-    </Section>
-  )
+  return <IconDocPage doc={doc} />
 }

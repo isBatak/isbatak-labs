@@ -62,7 +62,7 @@ export function DsArticle({ section, crumb, title, description, source, toc, cod
         {description}
       </styled.p>
 
-      <styled.div display="flex" flexWrap="wrap" columnGap="6" rowGap="3" mt="6">
+      <styled.div display="flex" flexWrap="wrap" gap="2" mt="6">
         <ResourceLink href={`${REPO_URL}/tree/main/${source}`} icon="brand-github">
           Source
         </ResourceLink>

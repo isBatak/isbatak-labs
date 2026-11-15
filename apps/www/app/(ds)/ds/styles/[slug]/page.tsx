@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 
 import { SITE_URL } from "../../../../../components/docs/site-url"
 import { StylePage } from "../../../../../components/ds/style-page"
-import { Section } from "../../../../../components/home/section"
 
 interface StyleRouteProps {
   params: Promise<{ slug: string }>
@@ -34,9 +33,5 @@ export default async function StyleRoute({ params }: StyleRouteProps) {
   const style = getStyle((await params).slug)
   if (!style) notFound()
 
-  return (
-    <Section>
-      <StylePage style={style} />
-    </Section>
-  )
+  return <StylePage style={style} />
 }
