@@ -84,9 +84,11 @@ section). Full depth: all four frameworks, every Ark example as a demo, stories 
 - [x] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
       are Ark's four: basic, inherit-styles, script, src-doc. Done: single `frame` recipe on the iframe; Ark exports
       only `Frame` (its `FrameContent` is internal), so there is no Content part.
-- [ ] virtualizer — three variants: list, grid and window, each with its own Root, Content and Item (Row and Cell for
+- [x] virtualizer — three variants: list, grid and window, each with its own Root, Content and Item (Row and Cell for
       the grid). Build them as one component. Demos are Ark's six: list, grid, horizontal, window, dynamic-size,
-      scroll-to-index.
+      scroll-to-index. Done: one `virtualizer` slot recipe (root, content, item, row, cell) shared by the
+      `ListVirtualizer`, `GridVirtualizer` and `WindowVirtualizer` namespaces in one `virtualizer` folder, plus variants
+      and sizes demos.
 
 ## Ark and Zag example CSS
 

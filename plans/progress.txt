@@ -962,3 +962,44 @@
   2px taller than it, content not clipped, children rendered inside the iframe, head `<style>` applied, copied page
   styles give the Heading a token font size and Text a muted colour, script wrote its paragraph, src-doc `base`
   target and Open Sans with `maxW="3xl"`, no page errors; 148 checks).
+
+
+## virtualizer (done, 2026-11-15)
+
+- One slot recipe `virtualizer` with slots root, content, item, row, cell, shared by the three kinds. Variants:
+  `variant` outline (default) / subtle / plain on the root, `orientation` vertical / horizontal (item divider at the
+  bottom or the side), `size` sm / md / lg (text, padding, and via compound variants an item `minH` of 40/48/56px when
+  vertical or `minW` of 64/80/96px when horizontal), and boolean `striped`. No analog override.
+- Ark sets no `data-orientation` on the parts and keeps `isHorizontal` protected, so the root takes an `orientation`
+  recipe variant that has to match the hook's `orientation`. The docs say so.
+- Ark positions items absolutely, and nth-child doesn't follow the item index, so `striped` matches odd indexes with
+  `[data-index$="1"|"3"|"5"|"7"|"9"]` on items and grid rows.
+- No default height: the list and grid roots get `contain: strict` inline, so without a height they collapse to 0, but
+  a recipe height would break `WindowVirtualizer`, whose root grows with the page. Every demo sets `h`, and the docs say
+  to.
+- The recipe needs `jsx: [/^(List|Grid|Window)Virtualizer(\.|Root$)/]`. Without it Panda's default matcher looks for
+  `Virtualizer` and never generates CSS for variant values used only in demos (striped, subtle, horizontal, sm were
+  missing in Storybook).
+- Components: `virtualizer.tsx` (Vue `.ts`) builds every part with three `createSlotRecipeContext(virtualizer)` calls,
+  one per kind. `list-virtualizer.ts`, `grid-virtualizer.ts` and `window-virtualizer.ts` hold the namespaces (Root,
+  Content, Item or Row/Cell, and Ark's unstyled Context), and `index.ts` exports them as `ListVirtualizer`,
+  `GridVirtualizer` and `WindowVirtualizer` next to the flat parts and Ark's hooks and types. There is no
+  `namespace.ts`: the API generator only supports one namespace per folder, so without one it lists the flat part names
+  (`ListVirtualizerRoot`, ...). Content parts have no own props, so they don't appear in the API table. Svelte has one
+  file per part and a single `virtualizer-styles.ts` context.
+- Demos (8): Ark's six (usage = list, horizontal, grid, window, dynamic-size, scroll-to-index), plus variants and sizes.
+  scroll-to-index uses our `Button`s in a `Stack`, and dynamic-size uses `Text` for its lines, with the item switched to
+  a column through style props (Svelte: `class={css(...)}`). Vue passes the boolean variant as `:striped="true"`, since
+  a bare `striped` attribute arrives as `""` and doesn't match the variant. Docs category `Collections`.
+- `ds-api.json`: `api:generate` again reordered `typeahead` in the listbox and tree-view entries. Those hunks were
+  dropped, so the diff is only the `virtualizer` key.
+- Checks run: panda-ds build and typecheck; typecheck in the four `packages/ui/*`, `apps/compositions`, the four
+  `apps/storybook-*` and `apps/www` (after `pnpm generate`); oxlint and oxfmt; `api:generate`; `turbo --affected` (68/68;
+  svelte-check prints the known `RangeError` traces with 0 errors);
+  Playwright Storybook check in all four (list/grid roles, root height and border, items 48px with a bottom divider and
+  14px text, fewer than 30 items rendered of 10,000, odd rows striped before and after scrolling, wheel and scrollTop
+  scrolling, horizontal items 80px wide with a side divider, grid cells 120x40 with borders and R1C1 text, grid scrolled
+  to R101C21, window root overflow visible and page scroll reaching Item 201, measured dynamic heights with no overlap,
+  scroll to top/middle/bottom buttons, variant borders and subtle background, sizes 40/48/56px and 12/14/16px, no page
+  errors; 152 checks).
+- This was the last item: the PRD is complete.

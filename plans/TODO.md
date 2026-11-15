@@ -30,6 +30,7 @@
    1. [ ] Concentric radius: inner radius = outer radius − padding, and how `concentric-preset` does it
    1. [ ] Grain Panda plugin: what `grain-preset` adds, how to put grain on surface layers
    1. [ ] Menu sizing rules: min width for short labels, fit-content with 16px trailing space, max width then truncate
+          (https://www.kevdu.co/reads/sizing-dropdown-menus)
 1. [ ] Heading https://github.com/chakra-ui/chakra-ui/discussions/10937
 1. [ ] Port the layout primitives from tl-ds (`Box`, `Flex`, `Span`, `Stack`, `Center`, `Grid`, …) to every UI
        framework: re-export Panda's generated `jsx` components with `asChild` for React, Preact, Solid and Vue, and

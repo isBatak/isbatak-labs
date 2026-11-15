@@ -5107,6 +5107,10 @@
             "description": "How multiple selection should behave in the listbox.\n\n- `single`: The user can select a single item.\n- `multiple`: The user can select multiple items without using modifier keys.\n- `extended`: The user can select multiple items by using modifier keys.",
             "defaultValue": "\"single\""
           },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable typeahead on the listbox"
+          },
           "disallowSelectAll": {
             "type": "boolean | undefined",
             "description": "Whether to disallow selecting all items when `meta+a` is pressed"
@@ -5118,10 +5122,6 @@
           "deselectable": {
             "type": "boolean | undefined",
             "description": "Whether to disallow empty selection"
-          },
-          "typeahead": {
-            "type": "boolean | undefined",
-            "description": "Whether to enable typeahead on the listbox"
           }
         }
       },
@@ -10117,11 +10117,6 @@
             "type": "string | null | undefined",
             "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
           },
-          "typeahead": {
-            "type": "boolean | undefined",
-            "description": "Whether the tree supports typeahead search",
-            "defaultValue": "true"
-          },
           "expandedValue": {
             "type": "string[] | undefined",
             "description": "The controlled expanded node ids"
@@ -10181,6 +10176,11 @@
           "expandOnClick": {
             "type": "boolean | undefined",
             "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
             "defaultValue": "true"
           },
           "loadChildren": {
@@ -10301,6 +10301,132 @@
         "defaultValue": "subtle"
       },
       "animateContent": {
+        "values": ["true"]
+      }
+    }
+  },
+  "virtualizer": {
+    "parts": [
+      {
+        "name": "GridVirtualizerCell",
+        "props": {
+          "column": {
+            "type": "VirtualColumn",
+            "description": "The virtual column to render within the current row."
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseGridVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseGridVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useGridVirtualizer`."
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerRow",
+        "props": {
+          "row": {
+            "type": "VirtualRow",
+            "description": "The virtual row to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered height of the row and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseListVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerItem",
+        "props": {
+          "item": {
+            "type": "VirtualItem",
+            "description": "The virtual item to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered size of the item and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseListVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useListVirtualizer`."
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseWindowVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerItem",
+        "props": {
+          "item": {
+            "type": "VirtualItem",
+            "description": "The virtual item to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered size of the item and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseWindowVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useWindowVirtualizer`."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "vertical"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "striped": {
         "values": ["true"]
       }
     }
