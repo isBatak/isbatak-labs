@@ -476,6 +476,10 @@
       }
     }
   },
+  "bottom-nav-bar": {
+    "parts": [],
+    "variants": {}
+  },
   "box": {
     "parts": [],
     "variants": {}

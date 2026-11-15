@@ -1,0 +1,52 @@
+---
+title: Bottom nav bar
+description: A mobile tab bar of icon-and-label links pinned to the bottom of the screen.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/bottom-nav-bar
+  recipe: packages/panda/ds/src/theme/recipes/bottom-nav-bar.ts
+---
+
+A bottom nav bar holds the top-level destinations of a mobile app. Each item is a link with an icon and an optional
+label. The bar doesn't know about your router: set `aria-current="page"` on the link for the current page and it shows
+in the foreground color, while the others stay muted. The root pads its bottom edge by the device's safe area inset.
+
+## Usage
+
+<Usage />
+
+```tsx
+<BottomNavBar.Root>
+  <BottomNavBar.Item href="/" aria-current="page">
+    <BottomNavBar.ItemIcon />
+    <BottomNavBar.ItemLabel />
+  </BottomNavBar.Item>
+</BottomNavBar.Root>
+```
+
+`BottomNavBar.Item` renders an `a`. Use `asChild` to render your router's link component instead.
+
+## Examples
+
+### Icon only
+
+Leave out `BottomNavBar.ItemLabel` for a shorter bar, and give each link an `aria-label`.
+
+<Example id="bottom-nav-bar/icon-only" />
+
+### With badge
+
+`BottomNavBar.ItemIcon` is positioned, so a `Float` inside it pins a badge to the icon's corner. `FloatGap` cuts a gap
+around the badge out of the icon.
+
+<Example id="bottom-nav-bar/with-badge" />
+
+### With ripple
+
+Wrap each item in `Ripple` with `asChild` for press feedback.
+
+<Example id="bottom-nav-bar/with-ripple" />
+
+## API
+
+<Api />
