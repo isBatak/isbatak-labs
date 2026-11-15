@@ -20,7 +20,8 @@
   },
   "scripts": {
     "codegen": "panda codegen && node scripts/reactive-slot-styles.mjs",
-    "typecheck": "pnpm codegen && tsc --noEmit"
+    "typecheck": "pnpm codegen && tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ark-ui/solid": "catalog:",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
-    "solid-js": "^1.9.19"
+    "solid-js": "^1.9.19",
+    "vitest": "catalog:"
   }
 }

@@ -55,6 +55,8 @@ export type IconName =
   | 'calendar'
   | 'cancel'
   | 'captions'
+  | 'caret-down-filled'
+  | 'caret-up-filled'
   | 'chart-pie'
   | 'check-circle'
   | 'check-square'
