@@ -3,6 +3,7 @@ import { SliderDemo } from "@isbatak/compositions/ds/solid/slider/usage"
 import { SliderColorsDemo } from "@isbatak/compositions/ds/solid/slider/colors"
 import { SliderControlledDemo } from "@isbatak/compositions/ds/solid/slider/controlled"
 import { SliderDisabledDemo } from "@isbatak/compositions/ds/solid/slider/disabled"
+import { SliderFieldDemo } from "@isbatak/compositions/ds/solid/slider/field"
 import { SliderMarksDemo } from "@isbatak/compositions/ds/solid/slider/marks"
 import { SliderRangeDemo } from "@isbatak/compositions/ds/solid/slider/range"
 import { SliderSizesDemo } from "@isbatak/compositions/ds/solid/slider/sizes"
@@ -32,6 +33,10 @@ export const Controlled: Story = {
 
 export const Disabled: Story = {
   render: () => <SliderDisabledDemo />,
+}
+
+export const Field: Story = {
+  render: () => <SliderFieldDemo />,
 }
 
 export const Marks: Story = {

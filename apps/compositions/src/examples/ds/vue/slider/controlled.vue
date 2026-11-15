@@ -18,6 +18,16 @@ const value = ref([40])
         <Slider.Thumbs />
       </Slider.Control>
     </Slider.Root>
+    <Slider.Root v-model="value" variant="field">
+      <Slider.Label>Volume</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider.Root>
     <Text textStyle="sm" color="fg.muted">Value: {{ value[0] }}</Text>
   </Stack>
 </template>

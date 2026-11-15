@@ -3,6 +3,7 @@ import SliderDemo from "@isbatak/compositions/ds/svelte/slider/usage"
 import SliderColorsDemo from "@isbatak/compositions/ds/svelte/slider/colors"
 import SliderControlledDemo from "@isbatak/compositions/ds/svelte/slider/controlled"
 import SliderDisabledDemo from "@isbatak/compositions/ds/svelte/slider/disabled"
+import SliderFieldDemo from "@isbatak/compositions/ds/svelte/slider/field"
 import SliderMarksDemo from "@isbatak/compositions/ds/svelte/slider/marks"
 import SliderRangeDemo from "@isbatak/compositions/ds/svelte/slider/range"
 import SliderSizesDemo from "@isbatak/compositions/ds/svelte/slider/sizes"
@@ -30,6 +31,10 @@ export const Controlled: StoryObj<typeof SliderControlledDemo> = {
 
 export const Disabled: StoryObj<typeof SliderDisabledDemo> = {
   render: () => ({ Component: SliderDisabledDemo }),
+}
+
+export const Field: StoryObj<typeof SliderFieldDemo> = {
+  render: () => ({ Component: SliderFieldDemo }),
 }
 
 export const Marks: StoryObj<typeof SliderMarksDemo> = {
