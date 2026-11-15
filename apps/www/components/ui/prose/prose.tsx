@@ -6,6 +6,9 @@ const docsProse = css({
   "--prose-leading": "1.7",
   "--prose-flow": "1em",
   maxWidth: "none",
+  "& > :where(p, ul, ol, blockquote, h3, h4)": {
+    maxWidth: "3xl",
+  },
   '& :where(h1, h2, h3, h4):not(:where([class~="not-prose"],[class~="not-prose"] *))': {
     scrollMarginTop: "28",
   },
