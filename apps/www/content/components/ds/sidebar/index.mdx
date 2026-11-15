@@ -1,0 +1,79 @@
+---
+title: Sidebar
+description: An app navigation column with sections of nav links and menu buttons.
+category: Navigation
+links:
+  source: packages/ui/react/src/components/sidebar
+  recipe: packages/panda/ds/src/theme/recipes/sidebar.ts
+---
+
+A sidebar holds an app's main destinations in sections, each with an optional title. Nav items are links; menu items are
+buttons for actions such as switching accounts. The sidebar doesn't know about your router: set `aria-current="page"` on
+the link for the current page and it gets an indicator bar on its edge. The indicator takes the root's `colorPalette`,
+gray by default.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Sidebar.Root>
+  <Sidebar.Section>
+    <Sidebar.SectionTitle />
+    <Sidebar.SectionContent>
+      <Sidebar.NavItem href="/" aria-current="page">
+        <Sidebar.NavItemStartElement />
+        <Sidebar.NavItemText />
+        <Sidebar.NavItemEndElement />
+      </Sidebar.NavItem>
+      <Sidebar.MenuItem>
+        <Sidebar.MenuItemStartElement />
+        <Sidebar.MenuItemText>
+          <Sidebar.MenuItemTextTitle />
+          <Sidebar.MenuItemTextDescription />
+        </Sidebar.MenuItemText>
+        <Sidebar.MenuItemEndElement />
+      </Sidebar.MenuItem>
+    </Sidebar.SectionContent>
+  </Sidebar.Section>
+  <Sidebar.Separator />
+</Sidebar.Root>
+```
+
+`Sidebar.Root` renders a `nav`, so give it an `aria-label`. `Sidebar.NavItem` renders an `a`; use `asChild` to render
+your router's link component instead. To disable a nav item, leave out its `href` and set `aria-disabled="true"`.
+
+## Examples
+
+### Sizes
+
+<Example id="sidebar/sizes" />
+
+### Subtle
+
+The `subtle` variant puts each section on a filled panel. Menu items take a title and a description; mark the selected
+one with `aria-current="true"`.
+
+<Example id="sidebar/subtle" />
+
+### Compact
+
+Set `compact` to collapse the sidebar to its icons. The text and end elements fade out, so give each nav item an
+`aria-label`.
+
+<Example id="sidebar/compact" />
+
+### Indicator
+
+Set `colorPalette` on the root or on a nav item to color the indicator, and `indicatorPlacement="end"` to move it to the
+other edge.
+
+<Example id="sidebar/indicator" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

@@ -70,6 +70,7 @@ import { searchInputSlotRecipe } from "./search-input"
 import { segmentGroupSlotRecipe } from "./segment-group"
 import { selectSlotRecipe } from "./select"
 import { separatorRecipe } from "./separator"
+import { sidebarSlotRecipe } from "./sidebar"
 import { skeletonRecipe } from "./skeleton"
 import { skipNavLinkRecipe } from "./skip-nav-link"
 import { sliderSlotRecipe } from "./slider"
@@ -168,6 +169,7 @@ export const slotRecipes = {
   searchInput: searchInputSlotRecipe,
   segmentGroup: segmentGroupSlotRecipe,
   select: selectSlotRecipe,
+  sidebar: sidebarSlotRecipe,
   combobox: comboboxSlotRecipe,
   slider: sliderSlotRecipe,
   splitter: splitterSlotRecipe,

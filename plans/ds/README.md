@@ -201,7 +201,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] beacon
 - [x] ripple
 - [x] bottom-nav-bar
-- [ ] sidebar
+- [x] sidebar
 - [x] action-item
 - [ ] tone
 
