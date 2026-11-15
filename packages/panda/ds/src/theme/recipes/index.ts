@@ -91,6 +91,7 @@ import { tagSlotRecipe } from "./tag"
 import { tagsInputSlotRecipe } from "./tags-input"
 import { textareaRecipe } from "./textarea"
 import { timelineSlotRecipe } from "./timeline"
+import { timerSlotRecipe } from "./timer"
 import { toastSlotRecipe } from "./toast"
 import { tocSlotRecipe } from "./toc"
 import { toggleGroupSlotRecipe } from "./toggle-group"
@@ -188,6 +189,7 @@ export const slotRecipes = {
   tabs: tabsSlotRecipe,
   tag: tagSlotRecipe,
   tagsInput: tagsInputSlotRecipe,
+  timer: timerSlotRecipe,
   toast: toastSlotRecipe,
   toc: tocSlotRecipe,
   tone: toneSlotRecipe,
