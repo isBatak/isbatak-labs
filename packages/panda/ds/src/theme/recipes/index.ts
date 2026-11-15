@@ -73,6 +73,7 @@ import { segmentGroupSlotRecipe } from "./segment-group"
 import { selectSlotRecipe } from "./select"
 import { separatorRecipe } from "./separator"
 import { sidebarSlotRecipe } from "./sidebar"
+import { signaturePadSlotRecipe } from "./signature-pad"
 import { skeletonRecipe } from "./skeleton"
 import { skipNavLinkRecipe } from "./skip-nav-link"
 import { sliderSlotRecipe } from "./slider"
@@ -176,6 +177,7 @@ export const slotRecipes = {
   segmentGroup: segmentGroupSlotRecipe,
   select: selectSlotRecipe,
   sidebar: sidebarSlotRecipe,
+  signaturePad: signaturePadSlotRecipe,
   combobox: comboboxSlotRecipe,
   slider: sliderSlotRecipe,
   splitter: splitterSlotRecipe,

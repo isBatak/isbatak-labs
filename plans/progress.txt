@@ -764,3 +764,38 @@
   closes and refocuses with ring, disabled root dimmed and won't open, submenu in React/Vue, root-provider
   false→true, vertical column with the menu to the right, variant chrome, plain 40px triggers, sizes 36/40/44 with
   28/32/36 triggers, no page errors besides the Vue one above; 142 checks).
+
+
+## signature-pad (done, 2026-11-15)
+
+- New slot recipe `signature-pad` (slots root, label, control, segment, guide, clearTrigger), designed from Ark's
+  `signature-pad.module.css` (Chakra and tl-ds have none). Borrowed from `input`: `l2` radius, `focusVisibleRing:
+  "inside"` on the control (Zag makes the control the focusable `role=application` element, so the ring is there,
+  not on the segment as in Ark's CSS), and the variants outline (default: `bg` with a 1px `border`) and subtle
+  (`bg.muted`, transparent border, clear trigger hovers `bg.emphasized`). `size` sm/md/lg sets the drawing height
+  (sizes 32/40/48 = 128/160/192px, md is Ark's 10rem), guide inset (spacing 4/6/8, md is Ark's 1.5rem), clear trigger
+  offset (2/3/4) and size (7/8/9). Root is `width: full`; demos cap it with `maxW="sm"`. No analog override.
+- Stroke colour: Zag puts `drawing.fill` in the segment's inline style, and its default is unset, so the recipe gives
+  the segment `color: fg` and `fill: currentColor`. The stroke follows the color mode, and a `drawing.fill` prop still
+  wins. `getDataUrl` serialises the SVG without page styles, so exported images are black; the image-preview demo puts
+  the preview on `bg="white"`. Dropped Ark's `cursor: crosshair` idea: no cursor token for it.
+- Clear trigger is styled by the recipe (Ark's ghost square, `fg.muted`, hover `bg.muted`/`fg`, `focusVisibleRing:
+  "outside"`, `_hidden` → `display: none`; Zag sets `hidden` until something is drawn) and defaults its children to the
+  `undo` icon (Ark uses lucide `RotateCcw`; `undo` is the same glyph). Children still win.
+- Components (all four): Root, RootProvider, Label, Control, Segment, Guide, ClearTrigger, HiddenInput, Context +
+  `useSignaturePad`, `useSignaturePadContext`, `SignaturePadDrawDetails`, `SignaturePadDrawEndDetails`,
+  `SignaturePadDrawingOptions`. Svelte root has `bind:paths`.
+- Demos (8): Ark's five (usage = basic, controlled with an outside Clear button, image-preview, root-provider,
+  with-field) plus disabled, sizes, variants. `HiddenInput` requires a `value` (the data URL) in its types, and Ark's
+  examples leave it out, so the demos do too; the docs anatomy shows it with `value`. Svelte parts take no style
+  props, so Svelte demos wrap in `Box maxW="sm" w="full"` (as the field demos do). Stacks need `w="full"` next to
+  `maxW`, or they shrink to fit in the centered preview.
+- Docs category `Forms`. `ds-api.json`: only the `signature-pad` key, no other key changed.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions` (svelte-check prints the
+  known `RangeError` traces, 0 errors); oxlint and oxfmt; `api:generate`; `turbo --affected` (68/68, includes
+  storybooks and website); Playwright Storybook check in all four (160px control with 1px border and radius,
+  role=application, 500-weight label, dashed guide 24px in, clear trigger hidden until drawn then 32px at 12px with a
+  16px `undo` icon and hover bg, drawing adds a path filled with the root's `fg`, clear removes it, Tab focuses the
+  control with a ring, controlled and root-provider counts 0→1→0, image-preview PNG data URL, with-field label and
+  helper, disabled dimmed/untabbable/won't draw, sizes 128/160/192, outline vs subtle, 384px root, no page errors;
+  152 checks).
