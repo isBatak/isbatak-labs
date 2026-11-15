@@ -918,3 +918,47 @@
   expands/collapses tags (10 rows incl. `length`), ArrowDown focus with ring, Enter selects, expand-level 14 rows,
   non-enumerable keys, error/function/regex types, email link, root-provider expand all 3 / collapse 0, 1px indent
   guides, outline border and 8px padding, subtle bg, sizes 12/14/16px and 12px sm icons, no page errors; 164 checks).
+
+
+## frame (done, 2026-11-15)
+
+- New plain recipe `frame` (not a slot recipe): `display: block`, `width: full`, 1px `border`, `l2` radius and
+  `height: [calc(var(--height) + 2px)]` (the global border-box sizing puts the two border pixels inside the height,
+  so plain `var(--height)` clipped the content by 2px; `content-box` instead would overflow `width: full`). Ark's Frame keeps `--width`/`--height` on the iframe in sync with the mount node's scroll
+  size through a ResizeObserver, so the frame grows to its content without every demo setting Ark's inline
+  `height: var(--height)`. No background: when the page's color scheme differs from the frame document's, the browser
+  paints the iframe canvas opaque anyway. No variants, no analog override.
+- The PRD lists parts Frame and Content, but Ark exports only `Frame`; `FrameContent` is an internal wrapper that fires
+  `onMount`/`onUnmount`, so there is no Content part to wrap or style. Ark's API differs per framework and the wrappers
+  keep it: React/Solid `head` is an element, Vue `#head` slot and `@mount`/`@unmount` emits, Svelte `head` snippet and
+  `bind:ref`; the custom document is `srcDoc` in React and Vue and `srcdoc` in Svelte and Solid.
+- Components: React, Vue and Solid are `styled(ArkFrame, frame)` (single element, so no namespace.ts, like `image`).
+  Svelte is a port of Ark's `frame.svelte` (+ its internal `frame-content.svelte`) with `unstyled` and class, not a
+  wrapper: Ark's Svelte Frame derives `mountNode` from the iframe before its effect runs `doc.write()`, so the
+  children portal into the `about:blank` body that the write then replaces, and the frame stayed empty with
+  `--height: 0px` (head content survived because it's read later). The port keeps `mountNode` in `$state` and sets
+  it after the write, as Ark's React version does. Drop the port once Ark fixes it.
+- Ark measures the mount node (`.frame-root`, or `body` with a custom `srcDoc`), so padding on `body` around
+  `.frame-root` gets cut off; the demos pad `.frame-root` and the docs say so.
+- Demos (4, Ark's): usage (= basic), inherit-styles, script, src-doc. Panda's classes don't reach the iframe, so the
+  usage and script demos style their content with a `<style>` in `head` (Vue builds it with `h("style")`, since a
+  `<style>` tag in a Vue template is dropped; Svelte uses `{@html}` in the `head` snippet). inherit-styles copies the
+  page's `<style>` and stylesheet `<link>`s into the frame in `onMount` and then uses our `Heading` and `Text` inside
+  it. script appends a `<script>` that writes into a paragraph instead of Ark's `console.log`, so the effect is
+  visible. src-doc loads Open Sans from Google Fonts (Ark also loads Font Awesome; dropped). Vue reaches the iframe
+  through a wrapper `div` ref because the styled component's template ref is a component instance.
+- Docs category `Layout`.
+- `ds-api.json`: `api:generate` again reordered `typeahead` in the listbox and tree-view entries; those hunks were
+  dropped so the diff is only the `frame` key.
+- `apps/storybook-svelte` runs with `exactOptionalPropertyTypes`, which `packages/ui/svelte` doesn't, so the ported
+  Svelte props need `| undefined`; only the storybook typecheck caught it.
+- svelte-check in `apps/compositions` and `apps/storybook-svelte` crawls when run in parallel with other checks (the
+  `turbo --affected` run hit the 2h background limit while both were still in svelte-check, and they "failed" only
+  because the shell was killed). Run them alone, one after the other, after turbo.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*`, `apps/compositions`, the four `apps/storybook-*`
+  and `apps/www` (after `pnpm generate`); oxlint and oxfmt; `api:generate`; `turbo --affected` (66/68 tasks passed,
+  the two svelte-checks were then rerun alone and pass; `website:build` logs the existing panda token/avatar conflict
+  warning); Playwright Storybook check in all four (frame class, 1px border, radius, `--height` set and the iframe
+  2px taller than it, content not clipped, children rendered inside the iframe, head `<style>` applied, copied page
+  styles give the Heading a token font size and Text a muted colour, script wrote its paragraph, src-doc `base`
+  target and Open Sans with `maxW="3xl"`, no page errors; 148 checks).

@@ -4121,6 +4121,28 @@
     ],
     "variants": {}
   },
+  "frame": {
+    "parts": [
+      {
+        "name": "Frame",
+        "props": {
+          "head": {
+            "type": "React.ReactNode | undefined",
+            "description": "Additional content to be inserted into the frame's <head>"
+          },
+          "onMount": {
+            "type": "(() => void) | undefined",
+            "description": "Callback function to be executed when the frame is mounted"
+          },
+          "onUnmount": {
+            "type": "(() => void) | undefined",
+            "description": "Callback function to be executed when the frame is unmounted"
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {

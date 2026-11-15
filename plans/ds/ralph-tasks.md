@@ -81,8 +81,9 @@ section). Full depth: all four frameworks, every Ark example as a demo, stories 
       from. Budget a whole iteration for it.
 - [x] json-tree-view — parts Root, Tree, Node, KeyNode, ValueNode. Also borrow from `tree-view`. Done: root and tree
       slots; Node, KeyNode and ValueNode are Ark-internal and styled through their data attributes from the tree slot.
-- [ ] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
-      are Ark's four: basic, inherit-styles, script, src-doc.
+- [x] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
+      are Ark's four: basic, inherit-styles, script, src-doc. Done: single `frame` recipe on the iframe; Ark exports
+      only `Frame` (its `FrameContent` is internal), so there is no Content part.
 - [ ] virtualizer — three variants: list, grid and window, each with its own Root, Content and Item (Row and Cell for
       the grid). Build them as one component. Demos are Ark's six: list, grid, horizontal, window, dynamic-size,
       scroll-to-index.

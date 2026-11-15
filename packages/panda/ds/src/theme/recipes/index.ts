@@ -41,6 +41,7 @@ import { hoverCardSlotRecipe } from "./hover-card"
 import { imageCropperSlotRecipe } from "./image-cropper"
 import { iconRecipe } from "./icon"
 import { imageRecipe } from "./image"
+import { frameRecipe } from "./frame"
 import { jsonTreeViewSlotRecipe } from "./json-tree-view"
 import { inputRecipe } from "./input"
 import { inputAddonRecipe } from "./input-addon"
@@ -125,6 +126,7 @@ export const recipes = {
   textarea: textareaRecipe,
   icon: iconRecipe,
   image: imageRecipe,
+  frame: frameRecipe,
   checkmark: checkmarkRecipe,
   radiomark: radiomarkRecipe,
   colorSwatch: colorSwatchRecipe,
