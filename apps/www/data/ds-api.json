@@ -4772,6 +4772,212 @@
     ],
     "variants": {}
   },
+  "json-tree-view": {
+    "parts": [
+      {
+        "name": "JsonTreeView.Root",
+        "props": {
+          "data": {
+            "type": "unknown",
+            "description": "The data to display in the tree."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the tree elements. Useful for composition."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails<T>) => void) | undefined",
+            "description": "Called when the focused node changes"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "Called when the checked value changes"
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails<T>) => void) | undefined",
+            "description": "Function to scroll to a specific index.\nUseful for virtualized tree views."
+          },
+          "selectionMode": {
+            "type": "\"single\" | \"multiple\" | undefined",
+            "description": "Whether the tree supports multiple selection\n- \"single\": only one node can be selected\n- \"multiple\": multiple nodes can be selected",
+            "defaultValue": "\"single\""
+          },
+          "focusedValue": {
+            "type": "string | null | undefined",
+            "description": "The value of the focused node"
+          },
+          "defaultFocusedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
+          },
+          "expandedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled expanded node ids"
+          },
+          "defaultExpandedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial expanded node ids when rendered.\nUse when you don't need to control the expanded node value."
+          },
+          "selectedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled selected node value"
+          },
+          "defaultSelectedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial selected node value when rendered.\nUse when you don't need to control the selected node value."
+          },
+          "defaultCheckedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial checked node value when rendered.\nUse when you don't need to control the checked node value."
+          },
+          "checkedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled checked node value"
+          },
+          "onExpandedChange": {
+            "type": "((details: ExpandedChangeDetails<T>) => void) | undefined",
+            "description": "Called when the tree is opened or closed"
+          },
+          "onSelectionChange": {
+            "type": "((details: SelectionChangeDetails<T>) => void) | undefined",
+            "description": "Called when the selection changes"
+          },
+          "canRename": {
+            "type": "((node: T, indexPath: IndexPath) => boolean) | undefined",
+            "description": "Function to determine if a node can be renamed"
+          },
+          "onRenameStart": {
+            "type": "((details: RenameStartDetails<T>) => void) | undefined",
+            "description": "Called when a node starts being renamed"
+          },
+          "onBeforeRename": {
+            "type": "((details: RenameCompleteDetails) => boolean) | undefined",
+            "description": "Called before a rename is completed. Return false to prevent the rename."
+          },
+          "onRenameComplete": {
+            "type": "((details: RenameCompleteDetails) => void) | undefined",
+            "description": "Called when a node label rename is completed"
+          },
+          "onLoadChildrenComplete": {
+            "type": "((details: LoadChildrenCompleteDetails<T>) => void) | undefined",
+            "description": "Called when a node finishes loading children"
+          },
+          "onLoadChildrenError": {
+            "type": "((details: LoadChildrenErrorDetails<T>) => void) | undefined",
+            "description": "Called when loading children fails for one or more nodes"
+          },
+          "expandOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
+            "defaultValue": "true"
+          },
+          "loadChildren": {
+            "type": "((details: LoadChildrenDetails<T>) => Promise<T[]>) | undefined",
+            "description": "Function to load children for a node asynchronously.\nWhen provided, branches will wait for this promise to resolve before expanding."
+          },
+          "maxPreviewItems": {
+            "type": "number",
+            "description": ""
+          },
+          "collapseStringsAfterLength": {
+            "type": "number",
+            "description": ""
+          },
+          "groupArraysAfterLength": {
+            "type": "number",
+            "description": ""
+          },
+          "showNonenumerable": {
+            "type": "boolean",
+            "description": ""
+          },
+          "defaultExpandedDepth": {
+            "type": "number",
+            "description": "The default expand level."
+          },
+          "quotesOnKeys": {
+            "type": "boolean",
+            "description": "Whether to show quotes on the keys."
+          }
+        }
+      },
+      {
+        "name": "JsonTreeView.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseJsonTreeViewReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "JsonTreeView.Tree",
+        "props": {
+          "arrow": {
+            "type": "React.ReactElement",
+            "description": "The icon to use for the arrow."
+          },
+          "indentGuide": {
+            "type": "boolean | React.ReactElement",
+            "description": "The indent guide to use for the tree."
+          },
+          "renderValue": {
+            "type": "(node: JsonNodeHastElement) => React.ReactNode",
+            "description": "The function to render the value of the node."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "kbd": {
     "parts": [],
     "variants": {

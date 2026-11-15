@@ -79,7 +79,8 @@ section). Full depth: all four frameworks, every Ark example as a demo, stories 
 - [x] timer — parts Root, Area, Item, Separator, Control, ActionTrigger. Also borrow from `button`.
 - [x] image-cropper — parts Root, Viewport, Image, Selection, Handle, Grid. The hardest: no existing component to borrow
       from. Budget a whole iteration for it.
-- [ ] json-tree-view — parts Root, Tree, Node, KeyNode, ValueNode. Also borrow from `tree-view`.
+- [x] json-tree-view — parts Root, Tree, Node, KeyNode, ValueNode. Also borrow from `tree-view`. Done: root and tree
+      slots; Node, KeyNode and ValueNode are Ark-internal and styled through their data attributes from the tree slot.
 - [ ] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
       are Ark's four: basic, inherit-styles, script, src-doc.
 - [ ] virtualizer — three variants: list, grid and window, each with its own Root, Content and Item (Row and Cell for

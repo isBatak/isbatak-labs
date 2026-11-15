@@ -1,0 +1,94 @@
+---
+title: JSON Tree View
+description: An expandable, syntax-coloured view of any JavaScript value, for inspecting objects, arrays, maps and more.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/json-tree-view
+  recipe: packages/panda/ds/src/theme/recipes/json-tree-view.ts
+  ark: https://ark-ui.com/docs/components/json-tree-view
+---
+
+Built on Ark UI's JSON Tree View, which is a Tree View over a collection made from `data`. Pass any value: objects,
+arrays, `Map`, `Set`, functions, errors, regular expressions, dates. `JsonTreeView.Tree` renders every node itself, so
+there are only two parts. Branch arrows default to a chevron; pass `arrow` to change it.
+
+## Usage
+
+<Usage />
+
+```tsx
+<JsonTreeView.Root data={data}>
+  <JsonTreeView.Tree />
+</JsonTreeView.Root>
+```
+
+## Examples
+
+### Array data
+
+Sparse arrays show their holes, and non-enumerable properties are listed after the items, dimmed.
+
+<Example id="json-tree-view/array-data" />
+
+### Errors
+
+An `Error` expands to its message and stack.
+
+<Example id="json-tree-view/errors" />
+
+### Expand level
+
+`defaultExpandedDepth` sets how many levels start open.
+
+<Example id="json-tree-view/expand-level" />
+
+### Functions
+
+Functions show their kind (async, generator) and signature, and expand to their body.
+
+<Example id="json-tree-view/functions" />
+
+### Map and Set
+
+<Example id="json-tree-view/map-and-set" />
+
+### Regex
+
+<Example id="json-tree-view/regex" />
+
+### Render value
+
+`renderValue` replaces how a text value renders, here turning email addresses into links.
+
+<Example id="json-tree-view/render-value" />
+
+### Root provider
+
+`useJsonTreeView` creates the machine outside the tree, so other parts of the page can read `expandedValue` or call
+`expand()` and `collapse()`.
+
+<Example id="json-tree-view/root-provider" />
+
+### Indent guide
+
+`indentGuide` draws a line down each open branch.
+
+<Example id="json-tree-view/indent-guide" />
+
+### Variants
+
+`outline` and `subtle` put the tree in a padded box.
+
+<Example id="json-tree-view/variants" />
+
+### Sizes
+
+<Example id="json-tree-view/sizes" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />
