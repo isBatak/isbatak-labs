@@ -540,3 +540,29 @@
   `turbo --affected`; Playwright Storybook check in all four (ripple at the press point / center, size covers the
   element, `scale-in, fade-out` running, removed after ~700ms, keyboard Enter on the button spawns from center, none
   when `disabled`, hidden on the disabled button, no page errors).
+
+
+## swap (done, 2026-11-15)
+
+- New slot recipe `swap` (slots root, indicator) ported from tl-ds as is: indicators share `gridArea: 1 / 1` on a grid
+  root; variants fade (default), scale, rotate, flip, slide, stack with tl-ds's durations and easings. Ark's
+  `swap.module.css` matches tl-ds's open/closed states except rotate's open duration (Ark 250ms, tl-ds `moderate`);
+  kept tl-ds. Every keyframe it uses (`fade-*`, `blur-*`, `scale-*`, `rotate-*`, `flip-*`, `slide-*-full`,
+  `slide-to-left/right`) already exists in panda-ds, so nothing new. `flip` keeps tl-ds's
+  `perspective: var(--swap-perspective, 200px)` (no perspective token). `slide`/`stack` read `data-direction` on the root,
+  which the consumer sets. No analog override. `@isbatak/panda-ds` minor changeset.
+- Components (all four frameworks): Root, RootProvider (`withProvider`) and Indicator (`withContext`), plus
+  `useSwap`/`useSwapContext` re-exports. Ark Swap has no `Context` part. Svelte: one file per part with
+  `swap-styles.ts`.
+- Demos (6): usage (fade, copy → check), scale (heart → heart-filled), rotate (moon → sun), flip (lock → unlock),
+  slide, stack. These are tl-ds's stories; Ark's four examples (fade, flip, rotate, scale) are a subset, and Chakra has no
+  Swap. tl-ds's `bell-ringing`/`eye-off` icons aren't in `@isbatak/icons`, so the pairs differ. The icon demos put the
+  Swap inside an `IconButton` with `aria-pressed`. tl-ds's `lazyMount unmountOnExit` were dropped from the demos: Ark
+  hides the inactive indicator with `hidden` anyway.
+- Ark sets no `data-state` on the indicators before the first toggle, only `hidden` on the inactive one.
+- Docs category `Feedback`. `ds-api.json`: only the `swap` key.
+- Checks run: panda-ds build; `turbo --affected` (63/63, website build prints the existing `avatar` and `blue.500/6`
+  diagnostics); oxlint and oxfmt; Playwright Storybook check in all four (grid root, both indicators in cell 1/1, one
+  hidden, enter/exit `animation-name` for every variant, `--scale-in-from: 0` on scale, 200px perspective and hidden
+  backface on flip, overflow hidden plus forward/backward direction on slide/stack, inactive indicator hidden after
+  exit, no page errors; 188 checks).

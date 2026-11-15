@@ -8238,6 +8238,59 @@
     "parts": [],
     "variants": {}
   },
+  "swap": {
+    "parts": [
+      {
+        "name": "Swap.Root",
+        "props": {
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "swap": {
+            "type": "boolean",
+            "description": "Whether the swap is in the \"on\" state.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "Swap.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSwapReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Swap.Indicator",
+        "props": {
+          "type": {
+            "type": "'on' | 'off'",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["fade", "scale", "rotate", "flip", "slide", "stack"],
+        "defaultValue": "fade"
+      }
+    }
+  },
   "switch": {
     "parts": [
       {

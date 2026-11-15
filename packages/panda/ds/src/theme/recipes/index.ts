@@ -78,6 +78,7 @@ import { statSlotRecipe } from "./stat"
 import { statusSlotRecipe } from "./status"
 import { stepsSlotRecipe } from "./steps"
 import { strongRecipe } from "./strong"
+import { swapSlotRecipe } from "./swap"
 import { switchSlotRecipe } from "./switch"
 import { tableSlotRecipe } from "./table"
 import { tabsSlotRecipe } from "./tabs"
@@ -187,4 +188,5 @@ export const slotRecipes = {
   marquee: marqueeSlotRecipe,
   floatingPanel: floatingPanelSlotRecipe,
   gridTable: gridTableSlotRecipe,
+  swap: swapSlotRecipe,
 }
