@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process"
 import { existsSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { fileURLToPath } from "node:url"
@@ -197,3 +198,8 @@ for (const [slug, { source, parts }] of Object.entries(partPages)) {
 }
 
 await writeFile(dsOutFile, `${JSON.stringify(dsData, null, 2)}\n`)
+
+execFileSync("pnpm", ["exec", "oxfmt", outFile, dsOutFile], {
+  cwd: fileURLToPath(new URL("../../..", import.meta.url)),
+  stdio: "inherit",
+})

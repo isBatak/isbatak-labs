@@ -1,0 +1,77 @@
+---
+title: Angle slider
+description: A circular dial for picking an angle from 0 to 360 degrees, such as a rotation or a gradient direction.
+category: Forms
+links:
+  source: packages/ui/react/src/components/angle-slider
+  recipe: packages/panda/ds/src/theme/recipes/angle-slider.ts
+  ark: https://ark-ui.com/docs/components/angle-slider
+---
+
+Built on Ark UI's AngleSlider. Drag the thumb around the dial, or focus it and use the arrow keys; Home and End jump to
+0 and 360. The value text shows the angle with a degree sign unless you give it children. Markers mark angles on the
+dial and get `data-state` `under-value`, `at-value` or `over-value`, so the ones the thumb has passed are tinted.
+
+## Usage
+
+<Usage />
+
+```tsx
+<AngleSlider.Root>
+  <AngleSlider.Label />
+  <AngleSlider.Control>
+    <AngleSlider.MarkerGroup>
+      <AngleSlider.Marker value={0} />
+    </AngleSlider.MarkerGroup>
+    <AngleSlider.Thumb />
+  </AngleSlider.Control>
+  <AngleSlider.ValueText />
+  <AngleSlider.HiddenInput />
+</AngleSlider.Root>
+```
+
+## Examples
+
+### Controlled
+
+Pass `value` and `onValueChange`.
+
+<Example id="angle-slider/controlled" />
+
+### Context
+
+`AngleSlider.Context` reads the slider's state, here to put the angle in the label.
+
+<Example id="angle-slider/context" />
+
+### Step
+
+`step` snaps the value to multiples of it, for dragging and arrow keys alike.
+
+<Example id="angle-slider/step" />
+
+### Disabled
+
+<Example id="angle-slider/disabled" />
+
+### Root provider
+
+`useAngleSlider` creates the machine outside the slider, so other controls can read and set its value.
+
+<Example id="angle-slider/root-provider" />
+
+### Sizes
+
+<Example id="angle-slider/sizes" />
+
+### Variants
+
+<Example id="angle-slider/variants" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

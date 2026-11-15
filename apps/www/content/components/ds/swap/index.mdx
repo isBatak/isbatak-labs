@@ -1,0 +1,60 @@
+---
+title: Swap
+description: Animates between two indicators, such as an icon that turns into another when toggled.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/swap
+  recipe: packages/panda/ds/src/theme/recipes/swap.ts
+---
+
+Ark's Swap shows one of two indicators depending on `swap`. Both sit in the same grid cell, so the one leaving animates
+out while the other animates in. The `variant` picks the animation. Put it inside a button and toggle `swap` from the
+button's state. With reduced motion the change is instant.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Swap.Root swap={swapped}>
+  <Swap.Indicator type="off" />
+  <Swap.Indicator type="on" />
+</Swap.Root>
+```
+
+## Examples
+
+### Scale
+
+<Example id="swap/scale" />
+
+### Rotate
+
+<Example id="swap/rotate" />
+
+### Flip
+
+Set `--swap-perspective` on the root to change the depth of the flip.
+
+<Example id="swap/flip" />
+
+### Slide
+
+`slide` and `stack` read `data-direction` (`forward` or `backward`) on the root to pick the side the indicators enter
+from.
+
+<Example id="swap/slide" />
+
+### Stack
+
+Like `slide`, but the leaving indicator shrinks behind the entering one.
+
+<Example id="swap/stack" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

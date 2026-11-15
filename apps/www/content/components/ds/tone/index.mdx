@@ -1,0 +1,52 @@
+---
+title: Tone
+description: A profit or loss figure, colored and marked with a caret by the sign of its value.
+category: Data Display
+links:
+  source: packages/ui/react/src/components/tone
+  recipe: packages/panda/ds/src/theme/recipes/tone.ts
+---
+
+A tone shows whether a number went up or down. `tone="positive"` colors it `fg.success` with an up caret,
+`tone="negative"` colors it `fg.error` with a down caret, and `tone="neutral"` keeps the inherited color and leaves an
+empty slot where the caret would be, so neutral figures line up with the others. Digits use tabular numbers.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Tone.Root tone="positive">
+  <Tone.Indicator />
+  100.001
+</Tone.Root>
+```
+
+## Examples
+
+### Profit and loss
+
+`detectTone` turns a number, or a numeric string, into a tone: `positive` above zero, `negative` below and `neutral` for
+zero or anything that isn't a number. Show the absolute value; the caret carries the sign.
+
+<Example id="tone/pnl" />
+
+### Plain
+
+`plain` drops the color from the root, so only what you color yourself, here the indicator, changes.
+
+<Example id="tone/plain" />
+
+### Custom indicator
+
+Pass children to `Tone.Indicator` to replace the caret.
+
+<Example id="tone/custom-indicator" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

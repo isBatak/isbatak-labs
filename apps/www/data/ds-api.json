@@ -287,6 +287,15 @@
       }
     }
   },
+  "action-item": {
+    "parts": [],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "plain"],
+        "defaultValue": "subtle"
+      }
+    }
+  },
   "alert": {
     "parts": [],
     "variants": {
@@ -304,6 +313,106 @@
       "size": {
         "values": ["sm", "md", "lg"],
         "defaultValue": "md"
+      }
+    }
+  },
+  "angle-slider": {
+    "parts": [
+      {
+        "name": "AngleSlider.Root",
+        "props": {
+          "defaultValue": {
+            "type": "number | undefined",
+            "description": "The initial value of the slider.\nUse when you don't need to control the value of the slider.",
+            "defaultValue": "0"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "aria-label": {
+            "type": "string | undefined",
+            "description": "The accessible label for the slider thumb."
+          },
+          "aria-labelledby": {
+            "type": "string | undefined",
+            "description": "The id of the element that labels the slider thumb."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the machine.\nUseful for composition."
+          },
+          "value": {
+            "type": "number | undefined",
+            "description": "The value of the slider."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "The callback function for when the value changes."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the slider. Useful for form submission."
+          },
+          "step": {
+            "type": "number | undefined",
+            "description": "The step value for the slider.",
+            "defaultValue": "1"
+          },
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "The callback function for when the value changes ends."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is read-only."
+          },
+          "invalid": {
+            "type": "boolean | undefined",
+            "description": "Whether the slider is invalid."
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseAngleSliderReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.Marker",
+        "props": {
+          "value": {
+            "type": "number",
+            "description": "The value of the marker"
+          }
+        }
+      },
+      {
+        "name": "AngleSlider.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseAngleSliderContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["outline", "solid"],
+        "defaultValue": "outline"
       }
     }
   },
@@ -411,6 +520,15 @@
       }
     }
   },
+  "beacon": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg", "xl"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "bleed": {
     "parts": [
       {
@@ -457,6 +575,10 @@
         "defaultValue": "subtle"
       }
     }
+  },
+  "bottom-nav-bar": {
+    "parts": [],
+    "variants": {}
   },
   "box": {
     "parts": [],
@@ -667,14 +789,14 @@
       {
         "name": "Carousel.Indicator",
         "props": {
-          "index": {
-            "type": "number",
-            "description": "The index of the indicator."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the indicator is read only.",
             "defaultValue": "false"
+          },
+          "index": {
+            "type": "number",
+            "description": "The index of the indicator."
           }
         }
       },
@@ -765,13 +887,13 @@
             "type": "boolean | undefined",
             "description": "Whether the checkbox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the checkbox is required"
-          },
           "checked": {
             "type": "CheckedState | undefined",
             "description": "The controlled checked state of the checkbox"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -888,13 +1010,13 @@
             "type": "boolean | undefined",
             "description": "Whether the checkbox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the checkbox is required"
-          },
           "checked": {
             "type": "CheckedState | undefined",
             "description": "The controlled checked state of the checkbox"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the checkbox is required"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -1242,9 +1364,9 @@
             "type": "boolean | undefined",
             "description": "Whether to render the color picker inline"
           },
-          "format": {
-            "type": "ColorFormat | undefined",
-            "description": "The controlled color format to use"
+          "onValueChangeEnd": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Handler that is called when the user stops dragging."
           },
           "readOnly": {
             "type": "boolean | undefined",
@@ -1258,9 +1380,9 @@
             "type": "boolean | undefined",
             "description": "Whether the color picker is required"
           },
-          "onValueChangeEnd": {
-            "type": "((details: ValueChangeDetails) => void) | undefined",
-            "description": "Handler that is called when the user stops dragging."
+          "format": {
+            "type": "ColorFormat | undefined",
+            "description": "The controlled color format to use"
           },
           "defaultFormat": {
             "type": "ColorFormat | undefined",
@@ -1637,13 +1759,13 @@
             "type": "boolean | undefined",
             "description": "Whether the combobox is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the combobox is required"
-          },
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text of the combobox's input"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the combobox is required"
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -1722,7 +1844,7 @@
           },
           "popupType": {
             "type": "\"listbox\" | \"dialog\" | undefined",
-            "description": "The ARIA pattern of the popup. Drives `aria-haspopup` on the trigger, the\n`role` of the content element, the trigger's keyboard handling, and the\nlabel's click target.\n- `\"listbox\"` (default) — input-driven combobox; popup is a passive listbox.\n- `\"dialog\"` — popover-style combobox; popup is announced as a dialog,\n  trigger is keyboard-active, label-click focuses the trigger.",
+            "description": "The ARIA pattern of the popup. Drives `aria-haspopup` on the trigger, the\n`role` of the content element, the trigger's keyboard handling, and the\nlabel's click target.\n- `\"listbox\"` (default) \u2014 input-driven combobox; popup is a passive listbox.\n- `\"dialog\"` \u2014 popover-style combobox; popup is announced as a dialog,\n  trigger is keyboard-active, label-click focuses the trigger.",
             "defaultValue": "\"listbox\""
           },
           "skipAnimationOnMount": {
@@ -1945,18 +2067,6 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
-          "max": {
-            "type": "DateValue | undefined",
-            "description": "The maximum date that can be selected."
-          },
-          "min": {
-            "type": "DateValue | undefined",
-            "description": "The minimum date that can be selected."
-          },
-          "format": {
-            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
-            "description": "The format function for converting a DateValue to a string."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the date input is read-only."
@@ -1965,9 +2075,21 @@
             "type": "boolean | undefined",
             "description": "Whether the date input is invalid"
           },
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
+          },
           "required": {
             "type": "boolean | undefined",
             "description": "Whether the date input is required"
+          },
+          "format": {
+            "type": "((date: DateValue, details: FormatDateDetails) => string) | undefined",
+            "description": "The format function for converting a DateValue to a string."
           },
           "locale": {
             "type": "string | undefined",
@@ -2200,18 +2322,6 @@
             "type": "boolean | undefined",
             "description": "Whether to render the date picker inline"
           },
-          "max": {
-            "type": "DateValue | undefined",
-            "description": "The maximum date that can be selected."
-          },
-          "min": {
-            "type": "DateValue | undefined",
-            "description": "The minimum date that can be selected."
-          },
-          "format": {
-            "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
-            "description": "The format of the date to display in the input."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the calendar is read-only."
@@ -2220,13 +2330,25 @@
             "type": "boolean | undefined",
             "description": "Whether the date picker is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the date picker is required"
+          "max": {
+            "type": "DateValue | undefined",
+            "description": "The maximum date that can be selected."
+          },
+          "min": {
+            "type": "DateValue | undefined",
+            "description": "The minimum date that can be selected."
           },
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text to display in the input."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the date picker is required"
+          },
+          "format": {
+            "type": "((date: DateValue, details: LocaleDetails) => string) | undefined",
+            "description": "The format of the date to display in the input."
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -3119,10 +3241,6 @@
             "type": "boolean | undefined",
             "description": "Whether the input's value is invalid."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the editable is required."
-          },
           "maxLength": {
             "type": "number | undefined",
             "description": "The maximum number of characters allowed in the editable"
@@ -3130,6 +3248,10 @@
           "placeholder": {
             "type": "string | { edit: string; preview: string; } | undefined",
             "description": "The placeholder text for the editable."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the editable is required."
           },
           "autoResize": {
             "type": "boolean | undefined",
@@ -3224,10 +3346,6 @@
             "type": "boolean | undefined",
             "description": "Indicates whether the field is disabled."
           },
-          "target": {
-            "type": "string | undefined",
-            "description": "The target field item value the label should point to."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Indicates whether the field is read-only."
@@ -3239,6 +3357,10 @@
           "required": {
             "type": "boolean | undefined",
             "description": "Indicates whether the field is required."
+          },
+          "target": {
+            "type": "string | undefined",
+            "description": "The target field item value the label should point to."
           }
         }
       },
@@ -3338,10 +3460,6 @@
             "type": "boolean | undefined",
             "description": "Whether the file input is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the file input is required"
-          },
           "accept": {
             "type": "Record<string, string[]> | FileMimeType | FileMimeType[] | undefined",
             "description": "The accept file types"
@@ -3349,6 +3467,10 @@
           "capture": {
             "type": "\"user\" | \"environment\" | undefined",
             "description": "The default camera to use when capturing media"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the file input is required"
           },
           "locale": {
             "type": "string | undefined",
@@ -3999,6 +4121,28 @@
     ],
     "variants": {}
   },
+  "frame": {
+    "parts": [
+      {
+        "name": "Frame",
+        "props": {
+          "head": {
+            "type": "React.ReactNode | undefined",
+            "description": "Additional content to be inserted into the frame's <head>"
+          },
+          "onMount": {
+            "type": "(() => void) | undefined",
+            "description": "Callback function to be executed when the frame is mounted"
+          },
+          "onUnmount": {
+            "type": "(() => void) | undefined",
+            "description": "Callback function to be executed when the frame is unmounted"
+          }
+        }
+      }
+    ],
+    "variants": {}
+  },
   "grid": {
     "parts": [
       {
@@ -4400,6 +4544,185 @@
     ],
     "variants": {}
   },
+  "image-cropper": {
+    "parts": [
+      {
+        "name": "ImageCropper.Root",
+        "props": {
+          "aspectRatio": {
+            "type": "number | undefined",
+            "description": "The aspect ratio to maintain for the crop area (width / height).\nFor example, an aspect ratio of 16 / 9 will maintain a width to height ratio of 16:9.\nIf not provided, the crop area can be freely resized."
+          },
+          "maxHeight": {
+            "type": "number | undefined",
+            "description": "The maximum height of the crop area",
+            "defaultValue": "Infinity"
+          },
+          "maxWidth": {
+            "type": "number | undefined",
+            "description": "The maximum width of the crop area",
+            "defaultValue": "Infinity"
+          },
+          "minHeight": {
+            "type": "number | undefined",
+            "description": "The minimum height of the crop area",
+            "defaultValue": "40"
+          },
+          "minWidth": {
+            "type": "number | undefined",
+            "description": "The minimum width of the crop area",
+            "defaultValue": "40"
+          },
+          "zoom": {
+            "type": "number | undefined",
+            "description": "The controlled zoom level of the image."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the image cropper elements"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identify accessibility elements and their states."
+          },
+          "initialCrop": {
+            "type": "Rect | undefined",
+            "description": "The initial rectangle of the crop area.\nIf not provided, a smart default will be computed based on viewport size and aspect ratio."
+          },
+          "cropShape": {
+            "type": "\"rectangle\" | \"circle\" | undefined",
+            "description": "The shape of the crop area.",
+            "defaultValue": "\"rectangle\""
+          },
+          "rotation": {
+            "type": "number | undefined",
+            "description": "The controlled rotation of the image in degrees (0 - 360)."
+          },
+          "flip": {
+            "type": "FlipState | undefined",
+            "description": "The controlled flip state of the image."
+          },
+          "defaultZoom": {
+            "type": "number | undefined",
+            "description": "The initial zoom factor to apply to the image.",
+            "defaultValue": "1"
+          },
+          "defaultRotation": {
+            "type": "number | undefined",
+            "description": "The initial rotation to apply to the image in degrees.",
+            "defaultValue": "0"
+          },
+          "defaultFlip": {
+            "type": "FlipState | undefined",
+            "description": "The initial flip state to apply to the image.",
+            "defaultValue": "{ horizontal: false, vertical: false }"
+          },
+          "zoomStep": {
+            "type": "number | undefined",
+            "description": "The amount of zoom applied per wheel step.",
+            "defaultValue": "0.1"
+          },
+          "zoomSensitivity": {
+            "type": "number | undefined",
+            "description": "Controls how responsive pinch-to-zoom is.",
+            "defaultValue": "2"
+          },
+          "minZoom": {
+            "type": "number | undefined",
+            "description": "The minimum zoom factor allowed.",
+            "defaultValue": "1"
+          },
+          "maxZoom": {
+            "type": "number | undefined",
+            "description": "The maximum zoom factor allowed.",
+            "defaultValue": "5"
+          },
+          "nudgeStep": {
+            "type": "number | undefined",
+            "description": "The base nudge step for keyboard arrow keys (in pixels).",
+            "defaultValue": "1"
+          },
+          "nudgeStepShift": {
+            "type": "number | undefined",
+            "description": "The nudge step when Shift key is held (in pixels).",
+            "defaultValue": "10"
+          },
+          "nudgeStepCtrl": {
+            "type": "number | undefined",
+            "description": "The nudge step when Ctrl/Cmd key is held (in pixels).",
+            "defaultValue": "50"
+          },
+          "onZoomChange": {
+            "type": "((details: ZoomChangeDetails) => void) | undefined",
+            "description": "Callback fired when the zoom level changes."
+          },
+          "onRotationChange": {
+            "type": "((details: RotationChangeDetails) => void) | undefined",
+            "description": "Callback fired when the rotation changes."
+          },
+          "onFlipChange": {
+            "type": "((details: FlipChangeDetails) => void) | undefined",
+            "description": "Callback fired when the flip state changes."
+          },
+          "onCropChange": {
+            "type": "((details: CropChangeDetails) => void) | undefined",
+            "description": "Callback fired when the crop area changes."
+          },
+          "fixedCropArea": {
+            "type": "boolean | undefined",
+            "description": "Whether the crop area is fixed in size and position.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseImageCropperReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Handle",
+        "props": {
+          "placement": {
+            "type": "HandlePosition",
+            "description": "The placement of the handle"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Grid",
+        "props": {
+          "axis": {
+            "type": "\"horizontal\" | \"vertical\"",
+            "description": "The axis of the grid lines to display"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseImageCropperContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "outline"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "input": {
     "parts": [],
     "variants": {
@@ -4470,6 +4793,212 @@
       }
     ],
     "variants": {}
+  },
+  "json-tree-view": {
+    "parts": [
+      {
+        "name": "JsonTreeView.Root",
+        "props": {
+          "data": {
+            "type": "unknown",
+            "description": "The data to display in the tree."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the tree elements. Useful for composition."
+          },
+          "onFocusChange": {
+            "type": "((details: FocusChangeDetails<T>) => void) | undefined",
+            "description": "Called when the focused node changes"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onCheckedChange": {
+            "type": "((details: CheckedChangeDetails) => void) | undefined",
+            "description": "Called when the checked value changes"
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails<T>) => void) | undefined",
+            "description": "Function to scroll to a specific index.\nUseful for virtualized tree views."
+          },
+          "selectionMode": {
+            "type": "\"single\" | \"multiple\" | undefined",
+            "description": "Whether the tree supports multiple selection\n- \"single\": only one node can be selected\n- \"multiple\": multiple nodes can be selected",
+            "defaultValue": "\"single\""
+          },
+          "focusedValue": {
+            "type": "string | null | undefined",
+            "description": "The value of the focused node"
+          },
+          "defaultFocusedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
+          },
+          "expandedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled expanded node ids"
+          },
+          "defaultExpandedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial expanded node ids when rendered.\nUse when you don't need to control the expanded node value."
+          },
+          "selectedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled selected node value"
+          },
+          "defaultSelectedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial selected node value when rendered.\nUse when you don't need to control the selected node value."
+          },
+          "defaultCheckedValue": {
+            "type": "string[] | undefined",
+            "description": "The initial checked node value when rendered.\nUse when you don't need to control the checked node value."
+          },
+          "checkedValue": {
+            "type": "string[] | undefined",
+            "description": "The controlled checked node value"
+          },
+          "onExpandedChange": {
+            "type": "((details: ExpandedChangeDetails<T>) => void) | undefined",
+            "description": "Called when the tree is opened or closed"
+          },
+          "onSelectionChange": {
+            "type": "((details: SelectionChangeDetails<T>) => void) | undefined",
+            "description": "Called when the selection changes"
+          },
+          "canRename": {
+            "type": "((node: T, indexPath: IndexPath) => boolean) | undefined",
+            "description": "Function to determine if a node can be renamed"
+          },
+          "onRenameStart": {
+            "type": "((details: RenameStartDetails<T>) => void) | undefined",
+            "description": "Called when a node starts being renamed"
+          },
+          "onBeforeRename": {
+            "type": "((details: RenameCompleteDetails) => boolean) | undefined",
+            "description": "Called before a rename is completed. Return false to prevent the rename."
+          },
+          "onRenameComplete": {
+            "type": "((details: RenameCompleteDetails) => void) | undefined",
+            "description": "Called when a node label rename is completed"
+          },
+          "onLoadChildrenComplete": {
+            "type": "((details: LoadChildrenCompleteDetails<T>) => void) | undefined",
+            "description": "Called when a node finishes loading children"
+          },
+          "onLoadChildrenError": {
+            "type": "((details: LoadChildrenErrorDetails<T>) => void) | undefined",
+            "description": "Called when loading children fails for one or more nodes"
+          },
+          "expandOnClick": {
+            "type": "boolean | undefined",
+            "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
+            "defaultValue": "true"
+          },
+          "loadChildren": {
+            "type": "((details: LoadChildrenDetails<T>) => Promise<T[]>) | undefined",
+            "description": "Function to load children for a node asynchronously.\nWhen provided, branches will wait for this promise to resolve before expanding."
+          },
+          "maxPreviewItems": {
+            "type": "number",
+            "description": ""
+          },
+          "collapseStringsAfterLength": {
+            "type": "number",
+            "description": ""
+          },
+          "groupArraysAfterLength": {
+            "type": "number",
+            "description": ""
+          },
+          "showNonenumerable": {
+            "type": "boolean",
+            "description": ""
+          },
+          "defaultExpandedDepth": {
+            "type": "number",
+            "description": "The default expand level."
+          },
+          "quotesOnKeys": {
+            "type": "boolean",
+            "description": "Whether to show quotes on the keys."
+          }
+        }
+      },
+      {
+        "name": "JsonTreeView.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseJsonTreeViewReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "JsonTreeView.Tree",
+        "props": {
+          "arrow": {
+            "type": "React.ReactElement",
+            "description": "The icon to use for the arrow."
+          },
+          "indentGuide": {
+            "type": "boolean | React.ReactElement",
+            "description": "The indent guide to use for the tree."
+          },
+          "renderValue": {
+            "type": "(node: JsonNodeHastElement) => React.ReactNode",
+            "description": "The function to render the value of the node."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
   },
   "kbd": {
     "parts": [],
@@ -4578,6 +5107,10 @@
             "description": "How multiple selection should behave in the listbox.\n\n- `single`: The user can select a single item.\n- `multiple`: The user can select multiple items without using modifier keys.\n- `extended`: The user can select multiple items by using modifier keys.",
             "defaultValue": "\"single\""
           },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable typeahead on the listbox"
+          },
           "disallowSelectAll": {
             "type": "boolean | undefined",
             "description": "Whether to disallow selecting all items when `meta+a` is pressed"
@@ -4589,10 +5122,6 @@
           "deselectable": {
             "type": "boolean | undefined",
             "description": "Whether to disallow empty selection"
-          },
-          "typeahead": {
-            "type": "boolean | undefined",
-            "description": "Whether to enable typeahead on the listbox"
           }
         }
       },
@@ -4734,6 +5263,11 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
+          "reverse": {
+            "type": "boolean | undefined",
+            "description": "Whether to reverse the animation direction.",
+            "defaultValue": "false"
+          },
           "spacing": {
             "type": "string | undefined",
             "description": "The spacing between marquee items.",
@@ -4743,11 +5277,6 @@
             "type": "number | undefined",
             "description": "The speed of the marquee animation in pixels per second.",
             "defaultValue": "50"
-          },
-          "reverse": {
-            "type": "boolean | undefined",
-            "description": "Whether to reverse the animation direction.",
-            "defaultValue": "false"
           },
           "side": {
             "type": "Side | undefined",
@@ -5081,6 +5610,10 @@
             "type": "boolean | undefined",
             "description": "Whether the menu item is disabled"
           },
+          "valueText": {
+            "type": "string | undefined",
+            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
+          },
           "checked": {
             "type": "boolean",
             "description": "Whether the option is checked"
@@ -5088,10 +5621,6 @@
           "onCheckedChange": {
             "type": "((checked: boolean) => void) | undefined",
             "description": "Function called when the option state is changed"
-          },
-          "valueText": {
-            "type": "string | undefined",
-            "description": "The textual value of the option. Used in typeahead navigation of the menu.\nIf not provided, the text content of the menu item will be used."
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -5163,6 +5692,71 @@
       },
       "modalMode": {
         "values": ["true", "false"]
+      }
+    }
+  },
+  "menubar": {
+    "parts": [
+      {
+        "name": "Menubar.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the menubar. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the menubar (and all its menu triggers) is disabled.",
+            "defaultValue": "false"
+          },
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": "The orientation of the menubar.",
+            "defaultValue": "\"horizontal\""
+          },
+          "loopFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to loop the keyboard navigation across the triggers.",
+            "defaultValue": "true"
+          }
+        }
+      },
+      {
+        "name": "Menubar.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseMenubarReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Menubar.Trigger",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The value that identifies this specific trigger"
+          }
+        }
+      },
+      {
+        "name": "Menubar.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseMenubarContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle", "plain"],
+        "defaultValue": "outline"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
       }
     }
   },
@@ -5381,16 +5975,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The maximum value of the number input",
-            "defaultValue": "Number.MAX_SAFE_INTEGER"
-          },
-          "min": {
-            "type": "number | undefined",
-            "description": "The minimum value of the number input",
-            "defaultValue": "Number.MIN_SAFE_INTEGER"
-          },
           "step": {
             "type": "number | undefined",
             "description": "The amount to increment or decrement the value by",
@@ -5403,6 +5987,16 @@
           "invalid": {
             "type": "boolean | undefined",
             "description": "Whether the number input value is invalid."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
           },
           "required": {
             "type": "boolean | undefined",
@@ -5565,16 +6159,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The maximum value of the number input",
-            "defaultValue": "Number.MAX_SAFE_INTEGER"
-          },
-          "min": {
-            "type": "number | undefined",
-            "description": "The minimum value of the number input",
-            "defaultValue": "Number.MIN_SAFE_INTEGER"
-          },
           "step": {
             "type": "number | undefined",
             "description": "The amount to increment or decrement the value by",
@@ -5587,6 +6171,16 @@
           "invalid": {
             "type": "boolean | undefined",
             "description": "Whether the number input value is invalid."
+          },
+          "max": {
+            "type": "number | undefined",
+            "description": "The maximum value of the number input",
+            "defaultValue": "Number.MAX_SAFE_INTEGER"
+          },
+          "min": {
+            "type": "number | undefined",
+            "description": "The minimum value of the number input",
+            "defaultValue": "Number.MIN_SAFE_INTEGER"
           },
           "required": {
             "type": "boolean | undefined",
@@ -5848,10 +6442,6 @@
             "type": "IntlTranslations | undefined",
             "description": "The localized messages to use."
           },
-          "visible": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is visible."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the password input is read only."
@@ -5860,14 +6450,18 @@
             "type": "boolean | undefined",
             "description": "The invalid state of the password input."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the password input is required."
-          },
           "autoComplete": {
             "type": "\"current-password\" | \"new-password\" | undefined",
             "description": "The autocomplete attribute for the password input.",
             "defaultValue": "\"current-password\""
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is required."
+          },
+          "visible": {
+            "type": "boolean | undefined",
+            "description": "Whether the password input is visible."
           },
           "defaultVisible": {
             "type": "boolean | undefined",
@@ -5980,10 +6574,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "count": {
-            "type": "number",
-            "description": "The number of pin input fields."
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the pin input is in the valid state"
@@ -5992,14 +6582,18 @@
             "type": "boolean | undefined",
             "description": "Whether the pin input is in the invalid state"
           },
+          "placeholder": {
+            "type": "string | undefined",
+            "description": "The placeholder text for the input",
+            "defaultValue": "\"\u25cb\""
+          },
           "required": {
             "type": "boolean | undefined",
             "description": "Whether the pin input is required"
           },
-          "placeholder": {
-            "type": "string | undefined",
-            "description": "The placeholder text for the input",
-            "defaultValue": "\"○\""
+          "count": {
+            "type": "number",
+            "description": "The number of pin input fields."
           },
           "selectOnFocus": {
             "type": "boolean | undefined",
@@ -6883,11 +7477,6 @@
             "type": "IntlTranslations | undefined",
             "description": "Specifies the localized strings that identifies the accessibility elements and their states"
           },
-          "count": {
-            "type": "number | undefined",
-            "description": "The total number of ratings.",
-            "defaultValue": "5"
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the rating is readonly."
@@ -6895,6 +7484,11 @@
           "required": {
             "type": "boolean | undefined",
             "description": "Whether the rating is required."
+          },
+          "count": {
+            "type": "number | undefined",
+            "description": "The total number of ratings.",
+            "defaultValue": "5"
           },
           "allowHalf": {
             "type": "boolean | undefined",
@@ -6967,6 +7561,26 @@
         "defaultValue": "md"
       }
     }
+  },
+  "ripple": {
+    "parts": [
+      {
+        "name": "Ripple",
+        "props": {
+          "centered": {
+            "type": "boolean | undefined",
+            "description": "Start every ripple from the center instead of the pointer position",
+            "defaultValue": "false"
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Stop spawning new ripples",
+            "defaultValue": "false"
+          }
+        }
+      }
+    ],
+    "variants": {}
   },
   "scroll-area": {
     "parts": [
@@ -7314,13 +7928,13 @@
             "type": "boolean | undefined",
             "description": "Whether the select is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the select is required"
-          },
           "autoComplete": {
             "type": "string | undefined",
             "description": "The autocomplete attribute for the hidden select. Enables browser autofill (e.g. \"address-level1\" for state)."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the select is required"
           },
           "closeOnSelect": {
             "type": "boolean | undefined",
@@ -7345,7 +7959,7 @@
           },
           "popupType": {
             "type": "\"listbox\" | \"dialog\" | undefined",
-            "description": "The ARIA pattern of the popup. Drives `aria-haspopup` on the trigger and\nthe `role` of the content element.\n- `\"listbox\"` (default) — content is a passthrough wrapper; the list bears `role=\"listbox\"`.\n- `\"dialog\"` — content is announced as a dialog; useful when composing search inputs, tabs, or other widgets inside the popup.",
+            "description": "The ARIA pattern of the popup. Drives `aria-haspopup` on the trigger and\nthe `role` of the content element.\n- `\"listbox\"` (default) \u2014 content is a passthrough wrapper; the list bears `role=\"listbox\"`.\n- `\"dialog\"` \u2014 content is announced as a dialog; useful when composing search inputs, tabs, or other widgets inside the popup.",
             "defaultValue": "\"listbox\""
           },
           "deselectable": {
@@ -7513,6 +8127,117 @@
       "size": {
         "values": ["xs", "sm", "md", "lg"],
         "defaultValue": "sm"
+      }
+    }
+  },
+  "sidebar": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["plain", "subtle"],
+        "defaultValue": "plain"
+      },
+      "indicatorPlacement": {
+        "values": ["start", "end"],
+        "defaultValue": "start"
+      },
+      "compact": {
+        "values": ["false", "true"]
+      }
+    }
+  },
+  "signature-pad": {
+    "parts": [
+      {
+        "name": "SignaturePad.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the signature pad elements. Useful for composition."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is disabled."
+          },
+          "name": {
+            "type": "string | undefined",
+            "description": "The name of the signature pad. Useful for form submission."
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "The translations of the signature pad. Useful for internationalization."
+          },
+          "readOnly": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is read-only."
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the signature pad is required."
+          },
+          "onDraw": {
+            "type": "((details: DrawDetails) => void) | undefined",
+            "description": "Callback when the signature pad is drawing or the committed paths change.\n`paths` contains only committed strokes; use `currentPath` for the in-progress stroke."
+          },
+          "onDrawEnd": {
+            "type": "((details: DrawEndDetails) => void) | undefined",
+            "description": "Callback when the signature pad is done drawing."
+          },
+          "drawing": {
+            "type": "DrawingOptions | undefined",
+            "description": "The drawing options.",
+            "defaultValue": "'{ size: 2, simulatePressure: true }'"
+          },
+          "defaultPaths": {
+            "type": "string[] | undefined",
+            "description": "The default paths of the signature pad.\nUse when you don't need to control the paths of the signature pad."
+          },
+          "paths": {
+            "type": "string[] | undefined",
+            "description": "The controlled paths of the signature pad."
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSignaturePadReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.HiddenInput",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "SignaturePad.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseSignaturePadContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
       }
     }
   },
@@ -7848,6 +8573,9 @@
       "size": {
         "values": ["inherit", "xs", "sm", "md", "lg", "xl"],
         "defaultValue": "md"
+      },
+      "showTrack": {
+        "values": ["true"]
       }
     }
   },
@@ -8048,6 +8776,15 @@
       }
     }
   },
+  "status": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "steps": {
     "parts": [
       {
@@ -8188,6 +8925,59 @@
     "parts": [],
     "variants": {}
   },
+  "swap": {
+    "parts": [
+      {
+        "name": "Swap.Root",
+        "props": {
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          },
+          "swap": {
+            "type": "boolean",
+            "description": "Whether the swap is in the \"on\" state.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "Swap.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseSwapReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Swap.Indicator",
+        "props": {
+          "type": {
+            "type": "'on' | 'off'",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["fade", "scale", "rotate", "flip", "slide", "stack"],
+        "defaultValue": "fade"
+      }
+    }
+  },
   "switch": {
     "parts": [
       {
@@ -8222,13 +9012,13 @@
             "type": "boolean | undefined",
             "description": "If `true`, the switch is marked as invalid."
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "If `true`, the switch input is marked as required,"
-          },
           "checked": {
             "type": "boolean | undefined",
             "description": "The controlled checked state of the switch"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "If `true`, the switch input is marked as required,"
           },
           "onCheckedChange": {
             "type": "((details: CheckedChangeDetails) => void) | undefined",
@@ -8410,7 +9200,7 @@
           },
           "virtualFocus": {
             "type": "boolean | undefined",
-            "description": "Whether the tabs use virtual focus instead of roving tabindex.\n\nWhen `true`, triggers receive no DOM focus — arrow keys update `focusedValue`\nand all triggers remain `tabIndex: -1`. Useful when tabs live inside another\nwidget that manages focus (e.g. a combobox).",
+            "description": "Whether the tabs use virtual focus instead of roving tabindex.\n\nWhen `true`, triggers receive no DOM focus \u2014 arrow keys update `focusedValue`\nand all triggers remain `tabIndex: -1`. Useful when tabs live inside another\nwidget that manages focus (e.g. a combobox).",
             "defaultValue": "false"
           }
         }
@@ -8534,11 +9324,6 @@
             "type": "((event: InteractOutsideEvent) => void) | undefined",
             "description": "Function called when an interaction happens outside the component"
           },
-          "max": {
-            "type": "number | undefined",
-            "description": "The max number of tags",
-            "defaultValue": "Infinity"
-          },
           "readOnly": {
             "type": "boolean | undefined",
             "description": "Whether the tags input should be read-only"
@@ -8547,9 +9332,10 @@
             "type": "boolean | undefined",
             "description": "Whether the tags input is invalid"
           },
-          "required": {
-            "type": "boolean | undefined",
-            "description": "Whether the tags input is required"
+          "max": {
+            "type": "number | undefined",
+            "description": "The max number of tags",
+            "defaultValue": "Infinity"
           },
           "maxLength": {
             "type": "number | undefined",
@@ -8558,6 +9344,10 @@
           "placeholder": {
             "type": "string | undefined",
             "description": "The placeholder text for the input"
+          },
+          "required": {
+            "type": "boolean | undefined",
+            "description": "Whether the tags input is required"
           },
           "inputValue": {
             "type": "string | undefined",
@@ -8718,6 +9508,98 @@
       }
     }
   },
+  "timer": {
+    "parts": [
+      {
+        "name": "Timer.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the timer parts"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function invoked when the timer is completed"
+          },
+          "countdown": {
+            "type": "boolean | undefined",
+            "description": "Whether the timer should countdown, decrementing the timer on each tick."
+          },
+          "startMs": {
+            "type": "number | undefined",
+            "description": "The total duration of the timer in milliseconds."
+          },
+          "targetMs": {
+            "type": "number | undefined",
+            "description": "The minimum count of the timer in milliseconds."
+          },
+          "autoStart": {
+            "type": "boolean | undefined",
+            "description": "Whether the timer should start automatically"
+          },
+          "interval": {
+            "type": "number | undefined",
+            "description": "The interval in milliseconds to update the timer count.",
+            "defaultValue": "1000"
+          },
+          "onTick": {
+            "type": "((details: TickDetails) => void) | undefined",
+            "description": "Function invoked when the timer ticks"
+          }
+        }
+      },
+      {
+        "name": "Timer.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTimerReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.Item",
+        "props": {
+          "type": {
+            "type": "TimePart",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.ActionTrigger",
+        "props": {
+          "action": {
+            "type": "TimerAction",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseTimerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "toast": {
     "parts": [],
     "variants": {}
@@ -8846,6 +9728,119 @@
       }
     ],
     "variants": {}
+  },
+  "toggle-group": {
+    "parts": [
+      {
+        "name": "ToggleGroup.Root",
+        "props": {
+          "defaultValue": {
+            "type": "string[] | undefined",
+            "description": "The initial selected value of the toggle group when rendered.\nUse when you don't need to control the selected value of the toggle group."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the toggle. Useful for composition."
+          },
+          "multiple": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow multiple toggles to be selected."
+          },
+          "value": {
+            "type": "string[] | undefined",
+            "description": "The controlled selected value of the toggle group."
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": "Whether the toggle is disabled."
+          },
+          "onValueChange": {
+            "type": "((details: ValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the toggle is clicked."
+          },
+          "orientation": {
+            "type": "Orientation | undefined",
+            "description": "The orientation of the toggle group.",
+            "defaultValue": "\"horizontal\""
+          },
+          "loopFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to loop focus inside the toggle group.",
+            "defaultValue": "true"
+          },
+          "deselectable": {
+            "type": "boolean | undefined",
+            "description": "Whether the toggle group allows empty selection.\n**Note:** This is ignored if `multiple` is `true`.",
+            "defaultValue": "true"
+          },
+          "rovingFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to use roving tab index to manage focus.",
+            "defaultValue": "true"
+          }
+        }
+      },
+      {
+        "name": "ToggleGroup.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseToggleGroupReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ToggleGroup.Item",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean | undefined",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ToggleGroup.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseToggleGroupContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "outline", "ghost"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["xs", "sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "fitted": {
+        "values": ["true"]
+      }
+    }
+  },
+  "tone": {
+    "parts": [],
+    "variants": {
+      "tone": {
+        "values": ["positive", "negative", "neutral"],
+        "defaultValue": "neutral"
+      },
+      "plain": {
+        "values": ["true", "false"]
+      }
+    }
   },
   "tooltip": {
     "parts": [
@@ -9122,11 +10117,6 @@
             "type": "string | null | undefined",
             "description": "The initial focused node value when rendered.\nUse when you don't need to control the focused node value."
           },
-          "typeahead": {
-            "type": "boolean | undefined",
-            "description": "Whether the tree supports typeahead search",
-            "defaultValue": "true"
-          },
           "expandedValue": {
             "type": "string[] | undefined",
             "description": "The controlled expanded node ids"
@@ -9186,6 +10176,11 @@
           "expandOnClick": {
             "type": "boolean | undefined",
             "description": "Whether clicking on a branch should open it or not",
+            "defaultValue": "true"
+          },
+          "typeahead": {
+            "type": "boolean | undefined",
+            "description": "Whether the tree supports typeahead search",
             "defaultValue": "true"
           },
           "loadChildren": {
@@ -9306,6 +10301,132 @@
         "defaultValue": "subtle"
       },
       "animateContent": {
+        "values": ["true"]
+      }
+    }
+  },
+  "virtualizer": {
+    "parts": [
+      {
+        "name": "GridVirtualizerCell",
+        "props": {
+          "column": {
+            "type": "VirtualColumn",
+            "description": "The virtual column to render within the current row."
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseGridVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseGridVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useGridVirtualizer`."
+          }
+        }
+      },
+      {
+        "name": "GridVirtualizerRow",
+        "props": {
+          "row": {
+            "type": "VirtualRow",
+            "description": "The virtual row to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered height of the row and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseListVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerItem",
+        "props": {
+          "item": {
+            "type": "VirtualItem",
+            "description": "The virtual item to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered size of the item and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ListVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseListVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useListVirtualizer`."
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerContext",
+        "props": {
+          "children": {
+            "type": "(context: UseWindowVirtualizerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerItem",
+        "props": {
+          "item": {
+            "type": "VirtualItem",
+            "description": "The virtual item to render."
+          },
+          "measure": {
+            "type": "boolean | undefined",
+            "description": "Whether to measure the rendered size of the item and use it instead of the estimate.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "WindowVirtualizerRoot",
+        "props": {
+          "value": {
+            "type": "UseWindowVirtualizerReturn",
+            "description": "The virtualizer instance returned by `useWindowVirtualizer`."
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "outline"
+      },
+      "orientation": {
+        "values": ["vertical", "horizontal"],
+        "defaultValue": "vertical"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      },
+      "striped": {
         "values": ["true"]
       }
     }

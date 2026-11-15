@@ -1,0 +1,43 @@
+---
+title: Status
+description: A colored dot, with an optional label, that shows an online or health state.
+category: Feedback
+links:
+  source: packages/ui/react/src/components/status
+  recipe: packages/panda/ds/src/theme/recipes/status.ts
+---
+
+A status pairs a small colored dot with an optional label. The dot takes its color from `colorPalette`, so any palette
+works: green for online, red for offline, yellow for away.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Status.Root>
+  <Status.Indicator />
+</Status.Root>
+```
+
+## Examples
+
+### With label
+
+Put the label text inside `Status.Root` after the indicator.
+
+<Example id="status/with-label" />
+
+### Sizes
+
+Use `size` to change the dot and text size: `sm`, `md` or `lg`.
+
+<Example id="status/sizes" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

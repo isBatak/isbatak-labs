@@ -13,6 +13,38 @@ over the children, which stay hidden but keep their size. Set `visible={false}` 
 
 <Usage />
 
+```tsx
+<Loader text="Loading…">Click me</Loader>
+```
+
+## Examples
+
+### Spinner placement
+
+Set `spinnerPlacement` to `start` or `end` to put the spinner before or after the text. The default is `start`.
+
+<Example id="loader/spinner-placement" />
+
+### Custom spinner
+
+Pass your own element to `spinner` (a `spinner` slot in Vue, a `spinner` snippet in Svelte). The default is a `Spinner`
+that follows the font size and text color.
+
+<Example id="loader/custom-spinner" />
+
+### With badge
+
+The loader renders with `display: contents`, so it fits inside other components such as `Badge`.
+
+<Example id="loader/with-badge" />
+
+### With overlay
+
+Put a `Loader` in a `LoaderOverlay` to cover a positioned container while it loads. The overlay fills its nearest
+positioned parent and centers what's inside.
+
+<Example id="loader/with-overlay" />
+
 ## API
 
 <Api />

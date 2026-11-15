@@ -15,7 +15,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "typecheck": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings"
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ark-ui/svelte": "catalog:",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "svelte": "^5.57.3",
-    "svelte-check": "^4.7.8"
+    "svelte-check": "^4.7.8",
+    "vitest": "catalog:"
   }
 }

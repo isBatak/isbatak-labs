@@ -1,0 +1,53 @@
+---
+title: Frame
+description: Render content inside an iframe, isolated from the page's styles and scripts.
+category: Layout
+links:
+  source: packages/ui/react/src/components/frame
+  recipe: packages/panda/ds/src/theme/recipes/frame.ts
+  ark: https://ark-ui.com/docs/components/frame
+---
+
+Ark UI's Frame renders its children into an iframe through a portal, so the page's styles and scripts don't reach them.
+Use it for previews, embeds and widgets that need their own document. The `frame` recipe gives the iframe a border and a
+radius and sets its height to `--height`, which Frame keeps in sync with the content, so it grows to fit.
+
+Pass `head` to add elements to the frame's `<head>`, such as a `<style>` tag. `onMount` runs once the children are in
+the frame, with the iframe's document ready to change. `srcDoc` (`srcdoc` in Svelte and Solid) replaces the document
+Frame starts from; without an element with the `frame-root` class, the children render into its `<body>`. Frame measures
+that element, so pad it rather than an element around it, or the frame cuts off the padding.
+
+## Usage
+
+<Usage />
+
+```tsx
+import { Frame } from "@isbatak/react-ui/frame"
+
+;<Frame title="Preview" head={<style>{".frame-root { padding: 1rem; }"}</style>}>
+  <p>Rendered inside the iframe</p>
+</Frame>
+```
+
+## Examples
+
+### Inherit styles
+
+The frame doesn't load the page's stylesheets. Copy them into its `<head>` in `onMount` to use the design system's
+components inside it.
+
+<Example id="frame/inherit-styles" />
+
+### Script
+
+Append a `<script>` to the frame's document in `onMount` to run code inside the frame.
+
+<Example id="frame/script" />
+
+### Custom document
+
+<Example id="frame/src-doc" />
+
+## API
+
+<Api />

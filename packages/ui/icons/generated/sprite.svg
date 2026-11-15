@@ -254,6 +254,12 @@
     <path d="M10.5 10h-3v4h3m6-4h-3v4h3"></path>
   </g>
 </symbol>
+<symbol viewBox="0 0 24 24" id="caret-down-filled">
+  <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 9 6 7 6-7z"></path>
+</symbol>
+<symbol viewBox="0 0 24 24" id="caret-up-filled">
+  <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 15 6-7 6 7z"></path>
+</symbol>
 <symbol viewBox="0 0 24 24" id="chart-pie">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5M11 3c5.523 0 10 4.477 10 10H11z"></path>
 </symbol>
