@@ -207,7 +207,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 
 ## Ark-only
 
-- [ ] swap
+- [x] swap
 - [ ] toggle-group
 - [ ] angle-slider
 - [ ] menubar
