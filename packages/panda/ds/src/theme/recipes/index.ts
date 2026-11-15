@@ -41,6 +41,7 @@ import { hoverCardSlotRecipe } from "./hover-card"
 import { imageCropperSlotRecipe } from "./image-cropper"
 import { iconRecipe } from "./icon"
 import { imageRecipe } from "./image"
+import { jsonTreeViewSlotRecipe } from "./json-tree-view"
 import { inputRecipe } from "./input"
 import { inputAddonRecipe } from "./input-addon"
 import { inputElementRecipe } from "./input-element"
@@ -158,6 +159,7 @@ export const slotRecipes = {
   fileUpload: fileUploadSlotRecipe,
   hoverCard: hoverCardSlotRecipe,
   imageCropper: imageCropperSlotRecipe,
+  jsonTreeView: jsonTreeViewSlotRecipe,
   list: listSlotRecipe,
   listbox: listboxSlotRecipe,
   menu: menuSlotRecipe,

@@ -874,3 +874,47 @@
   crop 200px, max size, controlled/context/root-provider zoom 1.1x with image transform, zoom limit 0.5x, rotation
   90°, horizontal flip, events size, reset restores the transform, crop-preview data URL, sizes 20/24/32px, outline
   border, no page errors; 196 checks).
+
+
+## json-tree-view (done, 2026-11-15)
+
+- New slot recipe `json-tree-view` with slots root and tree only. Ark exports just Root, RootProvider and Tree;
+  Node, KeyNode and ValueNode are internal components that `Tree` renders itself, so they can't be wrapped. The tree
+  slot styles them by descendant selectors on the markup they produce: Ark's tree-view parts
+  (`[data-tree-view-node]`, `-cell`, `-node-indicator`, `-node-text`, `-indent-guide`, `-node-group(-content)`) and
+  json-tree-utils' `data-kind` (key, colon, brace, preview-text, constructor, operator) and `data-type` (string,
+  number, boolean, null...). Designed from Ark's `json-tree-view.module.css`, whose `branch-*`/`item` part names are
+  out of date for v6. Chakra and tl-ds have none.
+- Syntax colours are palette `*.fg` tokens: key `purple.fg`, string `green.fg`, number/bigint/date `blue.fg`,
+  boolean/function `orange.fg`, regex/symbol `pink.fg`, constructor `teal.fg`, colon `fg.muted`, error `fg.error`,
+  null/undefined/preview text `fg.muted` italic. The `code.*` tokens the Panda MCP lists exist only in
+  `apps/www/theme`, not in panda-ds, so they compile to nothing in the recipe.
+- `--tree-depth`/`--tree-offset` must be declared on the row and the indent guide, not on the tree: Zag sets
+  `--depth` per node, and a custom property declared where `--depth` is undefined goes invalid (padding came out 0).
+  Leaves add one icon + gap of padding so their text lines up with branch text. `[data-type=...]` doesn't clash
+  with the indicator's `data-type="expanded"`.
+- Variants plain (default), outline, subtle (padded box with border or `bg.subtle`, like timer). Sizes sm/md/lg:
+  textStyle xs/sm/md, icon 12/16/16px, row padding 1/1.5/2. Mono font, `lineHeight: taller`. No analog override.
+- `Tree` defaults `arrow` to a `chevron-right` Icon in all four. Two Ark bugs worked around in the wrappers:
+  Solid's `Tree` copies props into a plain object, so a JSX `arrow` is one DOM node that ends up only in the last
+  row; the wrapper passes a function (cast to `JSX.Element`) so each row renders its own icon. Vue's `Tree` always
+  forwards an `indentGuide` slot, so the node never falls back to the boolean prop; the wrapper declares
+  `indentGuide: Boolean` and supplies a slot that renders Ark's `TreeView.IndentGuide`. Also Ark's
+  `typeof indentGuide === "boolean"` means `indentGuide={false}` still draws guides (React, Svelte); not patched.
+- Svelte root has `bind:expandedValue/selectedValue/focusedValue/checkedValue` and no `ref` (Ark's json-tree-view
+  root and tree don't bind `ref`). `renderValue` is a snippet in Svelte and a `#renderValue` slot in Vue; both need
+  an else branch that prints `node.value`, since Ark doesn't fall back when they're given.
+- Demos (12): Ark's nine (usage = basic, array-data, errors, expand-level, functions, map-and-set, regex,
+  render-value, root-provider) plus indent-guide, variants, sizes. render-value strips the JSON quotes before
+  `mailto:` (Ark's example links to `mailto:"john…"`) and uses our `Link`. root-provider adds Expand all/Collapse
+  all buttons and an expanded count instead of Ark's bare tree. Emitted by a throwaway script, written out inline.
+- Docs category `Data Display`, title "JSON Tree View". Story title `DS/JSON tree view`.
+- `ds-api.json`: `api:generate` also reordered the `typeahead` key inside the listbox and tree-view entries (same
+  content, different position); those hunks were dropped so the diff is only the `json-tree-view` key.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` (svelte-check 0 errors); oxlint and oxfmt;
+  `api:generate`; `turbo --affected`; Playwright Storybook check in all four (mono font, treegrid, 6 rows at depth 1,
+  default chevrons at 16px rotated when open, distinct key/string/number colours, key 500 and brace 700 weights,
+  italic preview, 14px md, leaves indented past branches with text aligned, pointer on branches, hover bg, click
+  expands/collapses tags (10 rows incl. `length`), ArrowDown focus with ring, Enter selects, expand-level 14 rows,
+  non-enumerable keys, error/function/regex types, email link, root-provider expand all 3 / collapse 0, 1px indent
+  guides, outline border and 8px padding, subtle bg, sizes 12/14/16px and 12px sm icons, no page errors; 164 checks).
