@@ -59,7 +59,7 @@ look, and its stories as demos. Pick the docs category that fits.
 - [x] swap — has an Ark Swap. tl-ds has it too: take tl-ds's look and Ark's `swap.module.css` for the states.
 - [x] bottom-nav-bar — 266 lines, parts Root, Item, ItemIcon, ItemLabel. Items take a link element; mark the active item
       with `aria-current="page"` and style that, rather than depending on a router.
-- [ ] sidebar — 653 lines, about 20 parts (Root, NavItem and its start/end/text parts, Section, SectionTitle,
+- [x] sidebar — 653 lines, about 20 parts (Root, NavItem and its start/end/text parts, Section, SectionTitle,
       SectionContent, Separator, MenuItem with title and description). The nav item takes a link element and marks the
       active one with `aria-current="page"`. The biggest port: build it in the order Root, NavItem, Section, MenuItem.
 - [ ] tone — the profit/loss indicator, with its `detectTone` helper and the spec `detect-tone.node.spec.ts`. Port the

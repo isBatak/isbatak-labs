@@ -7558,6 +7558,26 @@
       }
     }
   },
+  "sidebar": {
+    "parts": [],
+    "variants": {
+      "size": {
+        "values": ["sm", "md"],
+        "defaultValue": "md"
+      },
+      "variant": {
+        "values": ["plain", "subtle"],
+        "defaultValue": "plain"
+      },
+      "indicatorPlacement": {
+        "values": ["start", "end"],
+        "defaultValue": "start"
+      },
+      "compact": {
+        "values": ["false", "true"]
+      }
+    }
+  },
   "simple-grid": {
     "parts": [
       {

@@ -592,3 +592,40 @@
   in all four (nav flex, links with href and aria-current, 56px items with label / 48px without, 24px icons, 14px/500
   labels, current item fg vs muted others, no underline, focus outline on Tab, badge at the icon's top-end, ripple spawns
   on press with overflow hidden, no page errors; 52 checks).
+
+
+## sidebar (done, 2026-11-15)
+
+- New slot recipe `sidebar` (15 slots after tl-ds's anatomy) with variants `size` sm/md, `variant` plain/subtle,
+  `compact` and a new `indicatorPlacement` start/end. Mappings: `surface.layer-2` → `bg.subtle`, `surface.layer-3`
+  hover → `bg.muted`, `neutral.muted` selected → `bg.emphasized`; tl-ds font sizes are 2px smaller than here, so
+  `xl.500` → `textStyle: sm` + `fontWeight: medium`, section title `xs.500` → `xs`, compact title `2xs.500` → `2xs`,
+  description `md` → `xs`. Widths: `--sidebar-width: sizes.60` (15rem), compact `sizes.12`/`sizes.14`. Nav item heights
+  9/10 from this repo's button sm/md, written out instead of tl-ds's `withoutGap(buttonRecipe.variants.size)`. Indicator
+  is `w: 1` (4px; tl-ds 3px, no token) at `calc({spacing.2} * -1)`, placed with logical `insetInlineStart/End` and
+  `borderStart/EndRadius` through root CSS vars, so RTL needs no extra rules. Nav items no longer spread button's
+  `ghost` variant: hover is fixed `bg.muted`, so `colorPalette` is free to color the indicator only.
+- `staticCss: [{ compact: ["*"] }]` (like action-bar's `placement`): the compact demo passes a variable, so Panda never
+  extracted `compact_true`. Without it the toggle did nothing in Storybook.
+- Judgement calls on the API: tl-ds's `currentPage`, `indicatorColorPalette`, `indicatorPlacement` (per item),
+  `disabled` (nav item) and `selected` (menu item) props are gone, so every part is a plain factory part in all four
+  frameworks. Instead: `aria-current="page"` on the link; root `colorPalette` (default gray) or a nav item's own
+  `colorPalette` colors the indicator; `indicatorPlacement` is a root variant; a disabled nav item drops `href` and sets
+  `aria-disabled="true"` (`_disabled` covers it; no click handler needed since an `a` without href doesn't navigate);
+  menu items style both `_selected` and `_current`, and the demo uses `aria-current="true"` (aria-selected isn't valid
+  on a button).
+- Components: Root `ark.nav` with `PropsProvider` (React/Vue/Solid; Svelte root splits variant props like `card`),
+  SectionTitle `h3`, Separator `span`, NavItem `a`, MenuItem `button`, the rest `span`/`div`/`section` as in tl-ds.
+- Demos (5): usage, sizes, subtle (tl-ds's `SidebarSubtleVariant`, with Monet / Rembrandt / Vigée Le Brun portraits
+  and `power` instead of `logout`), compact (tl-ds's `ExpandableSidebar` with an `aria-expanded` toggle), indicator
+  (colorPalette + end placement, from `AllNavItems`/`MulticolorNavItem`). Left out tl-ds's Propstar grids and
+  `MulticolorNavItem`'s gradient (needs a raw `linear-gradient` style). Svelte `IconButton` takes no style props, so
+  its position and `colorPalette` go through `class={css(...)}`.
+- Note for whoever drives Playwright next: Chromium 158 reports computed `justify-content: flex-start` as
+  `flow-start`, even on a plain div. Not a recipe bug.
+- Docs category `Navigation`. `ds-api.json`: only the `sidebar` key (empty parts, variants listed).
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `turbo --affected` (63/63, run again after the staticCss change); Playwright Storybook check in all four (240px
+  root, 40/36px items, 20/16px icons, indicator 4px at -8px only on the current link, blue / end-placed indicators, no
+  underline, focus ring on Tab, hover bg, subtle section fill and current menu item bg, compact toggle to 56px with
+  hidden text and back, no page errors; 108 checks).
