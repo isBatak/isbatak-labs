@@ -43,7 +43,8 @@ Set `size` to `sm`, `md` or `lg`. The default is `md`.
 
 ### Variants
 
-Set `variant` to `outline` or `solid`. The default is `outline`.
+Set `variant` to `capsule` or `field`. The default is `capsule`. For `field`, place `Slider.Label` and
+`Slider.ValueText` directly in `Slider.Root`.
 
 <Example id="slider/variants" />
 
@@ -95,7 +96,8 @@ Set `disabled` to disable the slider.
 
 | Variable                 | Description                                     |
 | ------------------------ | ----------------------------------------------- |
-| `--slider-thumb-size`    | The thumb's width and height, set by `size`     |
+| `--slider-thumb-size`    | The thumb's height, set by `size`               |
+| `--slider-field-height`  | The track's thickness in `field`, set by `size` |
 | `--slider-track-size`    | The track's thickness, set by `size`            |
 | `--slider-marker-size`   | The size of a marker's dot, set by `size`       |
 | `--slider-marker-center` | How far the markers sit from the track's edge   |

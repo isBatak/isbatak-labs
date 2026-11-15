@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Slider } from "@isbatak/vue-ui/slider"
+import { HStack } from "@isbatak/vue-ui/stack"
 
 const marks = [
   { value: 0, label: "0%" },
@@ -9,14 +10,27 @@ const marks = [
 </script>
 
 <template>
-  <Slider.Root :defaultValue="[40]" orientation="vertical" height="48">
-    <Slider.Label>Volume</Slider.Label>
-    <Slider.Control>
-      <Slider.Track>
-        <Slider.Range />
-      </Slider.Track>
-      <Slider.Thumbs />
-      <Slider.Marks :marks="marks" />
-    </Slider.Control>
-  </Slider.Root>
+  <HStack gap="10" alignItems="flex-start">
+    <Slider.Root :defaultValue="[40]" orientation="vertical" height="48">
+      <Slider.Label>Volume</Slider.Label>
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+        <Slider.Marks :marks="marks" />
+      </Slider.Control>
+    </Slider.Root>
+    <Slider.Root :defaultValue="[40]" orientation="vertical" height="48" variant="field">
+      <Slider.Label>Vol</Slider.Label>
+      <Slider.ValueText />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+        <Slider.Marks :marks="marks" />
+      </Slider.Control>
+    </Slider.Root>
+  </HStack>
 </template>

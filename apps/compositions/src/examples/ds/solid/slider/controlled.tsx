@@ -17,6 +17,16 @@ export function SliderControlledDemo() {
           <Slider.Thumbs />
         </Slider.Control>
       </Slider.Root>
+      <Slider.Root value={value()} onValueChange={(details) => setValue(details.value)} variant="field">
+        <Slider.Label>Volume</Slider.Label>
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider.Root>
       <Text textStyle="sm" color="fg.muted">
         Value: {value()[0]}
       </Text>

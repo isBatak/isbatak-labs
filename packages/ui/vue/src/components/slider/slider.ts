@@ -1,5 +1,6 @@
+import { useFocusVisible } from "@ark-ui/vue/interaction"
 import { Slider, useSliderContext } from "@ark-ui/vue/slider"
-import { type Component, type PropType, type VNodeChild, defineComponent, h } from "vue"
+import { type Component, type PropType, type VNodeChild, defineComponent, h, onMounted, ref, watch } from "vue"
 import type { ComponentProps } from "vue-component-type-helpers"
 import { createSlotRecipeContext } from "@isbatak/vue-ui/jsx"
 import { slider } from "@isbatak/panda-ds/recipes"
@@ -27,8 +28,52 @@ export type SliderTrackProps = ComponentProps<typeof SliderTrack>
 export const SliderRange = withContext(Slider.Range, "range")
 export type SliderRangeProps = ComponentProps<typeof SliderRange>
 
-export const SliderThumb = withContext(Slider.Thumb, "thumb")
-export type SliderThumbProps = ComponentProps<typeof SliderThumb>
+const StyledSliderThumb = withContext(Slider.Thumb, "thumb")
+export type SliderThumbProps = ComponentProps<typeof StyledSliderThumb>
+
+function isUnderText(thumb: HTMLElement | undefined) {
+  const root = thumb?.closest("[data-slider-root]")
+  if (!thumb || !root) return false
+  const thumbRect = thumb.getBoundingClientRect()
+  return Array.from(root.querySelectorAll("[data-slider-label], [data-slider-value-text]")).some((text) => {
+    const rect = text.getBoundingClientRect()
+    return (
+      thumbRect.left < rect.right &&
+      thumbRect.right > rect.left &&
+      thumbRect.top < rect.bottom &&
+      thumbRect.bottom > rect.top
+    )
+  })
+}
+
+export const SliderThumb = defineComponent({
+  name: "SliderThumb",
+  inheritAttrs: false,
+  setup(_, { attrs, slots }) {
+    const focusVisible = useFocusVisible()
+    const slider = useSliderContext()
+    const thumb = ref<{ $el?: HTMLElement } | null>(null)
+    const underText = ref(false)
+    const update = () => {
+      underText.value = isUnderText(thumb.value?.$el)
+    }
+
+    onMounted(update)
+    watch(() => slider.value.value, update, { flush: "post" })
+
+    return () =>
+      h(
+        StyledSliderThumb as Component,
+        {
+          ref: thumb,
+          "data-focus-visible": focusVisible.value ? "" : undefined,
+          "data-under-text": underText.value ? "" : undefined,
+          ...attrs,
+        },
+        slots,
+      )
+  },
+}) as unknown as Component<SliderThumbProps>
 
 export const SliderHiddenInput = Slider.HiddenInput
 export type SliderHiddenInputProps = ComponentProps<typeof SliderHiddenInput>
