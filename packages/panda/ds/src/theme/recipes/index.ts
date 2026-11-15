@@ -102,6 +102,7 @@ import { toneSlotRecipe } from "./tone"
 import { tooltipSlotRecipe } from "./tooltip"
 import { tourSlotRecipe } from "./tour"
 import { treeViewSlotRecipe } from "./tree-view"
+import { virtualizerSlotRecipe } from "./virtualizer"
 
 export const recipes = {
   badge: badgeRecipe,
@@ -211,4 +212,5 @@ export const slotRecipes = {
   floatingPanel: floatingPanelSlotRecipe,
   gridTable: gridTableSlotRecipe,
   swap: swapSlotRecipe,
+  virtualizer: virtualizerSlotRecipe,
 }

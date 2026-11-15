@@ -1,0 +1,88 @@
+---
+title: Virtualizer
+description: Render lists and grids of thousands of items by keeping only the visible ones in the DOM.
+category: Collections
+links:
+  source: packages/ui/react/src/components/virtualizer
+  recipe: packages/panda/ds/src/theme/recipes/virtualizer.ts
+  ark: https://ark-ui.com/docs/components/virtualizer
+---
+
+Built on Ark UI's Virtualizer. A hook measures the scroll position and returns the items in view, and you render only
+those. There are three kinds, each with its own hook and parts: `ListVirtualizer` (`useListVirtualizer`) for a list in
+its own scroll container, vertical or horizontal; `GridVirtualizer` (`useGridVirtualizer`) for rows and columns; and
+`WindowVirtualizer` (`useWindowVirtualizer`) for a list that scrolls with the page. All three share one `virtualizer`
+recipe.
+
+Ark positions every item absolutely, so two things are up to you. Give the list and grid roots a height, since they
+scroll inside it. And keep each item as tall as the hook's `estimatedSize`: the recipe gives items a minimum height of
+40, 48 and 56px for `sm`, `md` and `lg`, so pass the matching estimate, or set `measure` on items whose height varies.
+
+## Usage
+
+<Usage />
+
+```tsx
+const virtualizer = useListVirtualizer({ count: items.length, estimatedSize: () => 48 })
+
+<ListVirtualizer.Root value={virtualizer} h="96">
+  <ListVirtualizer.Content>
+    {virtualizer.getVirtualItems().map((item) => (
+      <ListVirtualizer.Item key={item.key} item={item}>
+        {items[item.index]}
+      </ListVirtualizer.Item>
+    ))}
+  </ListVirtualizer.Content>
+</ListVirtualizer.Root>
+```
+
+## Examples
+
+### Horizontal
+
+Pass `orientation: "horizontal"` to the hook and `orientation="horizontal"` to the root, which moves the item divider to
+the side and gives items a minimum width instead.
+
+<Example id="virtualizer/horizontal" />
+
+### Grid
+
+`GridVirtualizer` virtualizes rows and columns. Each `Row` renders the visible `columns` of that row as `Cell`s.
+
+<Example id="virtualizer/grid" />
+
+### Window
+
+`WindowVirtualizer` uses the page as the scroll container, so the root has no height of its own.
+
+<Example id="virtualizer/window" />
+
+### Dynamic size
+
+`measure` reads each item's rendered height and uses it in place of the estimate.
+
+<Example id="virtualizer/dynamic-size" />
+
+### Scroll to index
+
+The hook's return value scrolls the list: `scrollToIndex(index, { align })`.
+
+<Example id="virtualizer/scroll-to-index" />
+
+### Variants
+
+<Example id="virtualizer/variants" />
+
+### Sizes
+
+<Example id="virtualizer/sizes" />
+
+## Recipe
+
+`striped` shades every other item or row.
+
+<RecipeVariants />
+
+## API
+
+<Api />
