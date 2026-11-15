@@ -1,94 +1,15 @@
 # PRD: design-system components
 
+Reusable brief for `plans/ralph.sh`. Every component it listed is done; the process below applies to the next batch.
+
 Implement each component below in `@isbatak/panda-ds` and the React, Vue, Svelte and Solid UI packages, combining Chakra
 UI's component with tl-ds's modifications (`/Users/ivicabatinic/Documents/projects/tl-ds/packages/ds/src/components`).
 One component per iteration, one commit per component. Work top to bottom: pick the first unticked item that isn't
 marked blocked in `plans/progress.txt`. Tick it here when done.
 
-## Disclosure and navigation
+## Tasks
 
-- [x] skip-nav — has: recipe (`skip-nav-link`). No Ark machine: a link plus a content target. Category `Navigation`.
-- [x] scroll-area — has: recipe. Ark Scroll Area. Category `Layout`.
-- [x] carousel — has: recipe. Ark Carousel. Prev/next triggers default to chevron icons. Category `Data Display`.
-- [x] tree-view — has: recipe. Ark Tree View. Branch indicator defaults to a chevron. Category `Collections`.
-
-## Data display
-
-Category `Data Display` unless noted.
-
-- [x] avatar — has: recipe. Ark Avatar. Fallback shows initials from `name`, else a user icon.
-- [x] badge — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
-- [x] tag — has: recipe. Close trigger defaults to `CloseButton`.
-- [x] card — has: recipe.
-- [x] data-list — has: recipe.
-- [x] stat — has: recipe.
-- [x] table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
-- [x] grid-table — has: recipe, react, docs. Audit react; add vue, svelte, solid.
-- [x] timeline — has: recipe.
-- [x] qr-code — has: recipe. Ark QR Code.
-- [x] image — nothing yet. Chakra's Image: a styled `img` with `fit`, `htmlWidth`/`htmlHeight`, aspect ratio.
-- [x] marquee — has: recipe. Ark Marquee. Compare the recipe with Ark's `marquee.module.css` (see "Ark and Zag example
-      CSS").
-- [x] empty-state — has: recipe. Category `Feedback`.
-- [x] format — no recipe, no tl-ds version. Ark Format: `Format.Number`, `Format.Byte`, `Format.RelativeTime`. One demo
-      per part, docs page, no recipe.
-- [x] locale — no recipe. tl-ds re-exports `LocaleProvider`, `useLocaleContext` and `useFilter` from Ark's locale
-      module; do the same in every framework. One demo, a short docs page, no stories beyond the demo.
-
-## Feedback
-
-Category `Feedback`. tl-ds has all of these, so take its look.
-
-- [x] alert — has: recipe.
-- [x] progress — has: recipe. Ark Progress (linear). Compare with Ark's `progress.module.css`.
-- [x] progress-circle — has: recipe. It is Ark's Progress with the circular parts (`Progress.Circle`, `CircleTrack`,
-      `CircleRange`), not a separate Ark component. Compare with `progress-circular.module.css`.
-- [x] skeleton — has: recipe.
-- [x] spinner — has: recipe, all four frameworks, docs. Audit: tl-ds look, Chakra's examples, stories.
-- [x] loader — has: all four frameworks, docs. Audit: Chakra's examples, stories.
-- [x] status — has: recipe.
-
-## tl-ds extras
-
-Only in tl-ds, in `/Users/ivicabatinic/Documents/projects/tl-ds/packages/ds/src/components/<name>`. Port its API and
-look, and its stories as demos. Pick the docs category that fits.
-
-- [x] beacon — 60 lines, no recipe here. A pulsing dot.
-- [x] action-item — 125 lines, 4 parts.
-- [x] ripple — 204 lines.
-- [x] swap — has an Ark Swap. tl-ds has it too: take tl-ds's look and Ark's `swap.module.css` for the states.
-- [x] bottom-nav-bar — 266 lines, parts Root, Item, ItemIcon, ItemLabel. Items take a link element; mark the active item
-      with `aria-current="page"` and style that, rather than depending on a router.
-- [x] sidebar — 653 lines, about 20 parts (Root, NavItem and its start/end/text parts, Section, SectionTitle,
-      SectionContent, Separator, MenuItem with title and description). The nav item takes a link element and marks the
-      active one with `aria-current="page"`. The biggest port: build it in the order Root, NavItem, Section, MenuItem.
-- [x] tone — the profit/loss indicator, with its `detectTone` helper and the spec `detect-tone.node.spec.ts`. Port the
-      helper and its tests too, and run them.
-
-## Ark-only
-
-Ark components with no Chakra or tl-ds version. Design each recipe yourself, starting from Ark's example CSS (next
-section). Full depth: all four frameworks, every Ark example as a demo, stories and docs, as for every other component.
-
-- [x] toggle-group — parts Root, Item. Also borrow from `toggle` and `group`.
-- [x] angle-slider — parts Root, Control, Thumb, MarkerGroup, Marker, ValueText, Label, HiddenInput. Also borrow from
-      `slider`.
-- [x] menubar — Ark has only a root; its menus are Ark Menu parts, so reuse the `menu` recipe for the content and
-      `button` for the bar.
-- [x] signature-pad — parts Root, Control, Segment, Guide, ClearTrigger, Label, HiddenInput. Also borrow from `input`.
-- [x] timer — parts Root, Area, Item, Separator, Control, ActionTrigger. Also borrow from `button`.
-- [x] image-cropper — parts Root, Viewport, Image, Selection, Handle, Grid. The hardest: no existing component to borrow
-      from. Budget a whole iteration for it.
-- [x] json-tree-view — parts Root, Tree, Node, KeyNode, ValueNode. Also borrow from `tree-view`. Done: root and tree
-      slots; Node, KeyNode and ValueNode are Ark-internal and styled through their data attributes from the tree slot.
-- [x] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
-      are Ark's four: basic, inherit-styles, script, src-doc. Done: single `frame` recipe on the iframe; Ark exports
-      only `Frame` (its `FrameContent` is internal), so there is no Content part.
-- [x] virtualizer — three variants: list, grid and window, each with its own Root, Content and Item (Row and Cell for
-      the grid). Build them as one component. Demos are Ark's six: list, grid, horizontal, window, dynamic-size,
-      scroll-to-index. Done: one `virtualizer` slot recipe (root, content, item, row, cell) shared by the
-      `ListVirtualizer`, `GridVirtualizer` and `WindowVirtualizer` namespaces in one `virtualizer` folder, plus variants
-      and sizes demos.
+None left. Add the next components here as `- [ ] <name> — <notes>` lines before starting a loop.
 
 ## Ark and Zag example CSS
 
