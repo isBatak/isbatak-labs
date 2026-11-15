@@ -57,6 +57,8 @@ import type { IconName } from './types/icon-name';
       "calendar",
       "cancel",
       "captions",
+      "caret-down-filled",
+      "caret-up-filled",
       "chart-pie",
       "check-circle",
       "check-square",

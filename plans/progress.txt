@@ -629,3 +629,34 @@
   root, 40/36px items, 20/16px icons, indicator 4px at -8px only on the current link, blue / end-placed indicators, no
   underline, focus ring on Tab, hover bg, subtle section fill and current menu item bg, compact toggle to 56px with
   hidden text and back, no page errors; 108 checks).
+
+
+## tone (done, 2026-11-15)
+
+- New slot recipe `tone` (slots root, indicator) after tl-ds. Judgement call: tl-ds keys colors off `data-tone` with
+  `_tonePositive`/`_toneNegative` conditions; here `tone` (positive/negative/neutral, default neutral) is a recipe
+  variant, like alert's `status`, and the colors are `compoundVariants` with `plain: false` (`fg.success`/`fg.error`).
+  So `tone` shows in `<RecipeVariants />` and Svelte splits it with `splitVariantProps`. Root and indicator still set
+  `data-tone` for consumers. tl-ds's icon margins `-px`/`-2px` → `m: "-px"`, `me: "-0.5"`. Added `flexShrink: 0` on
+  the indicator. No analog override. `@isbatak/panda-ds` minor changeset.
+- New icons `caret-up-filled` and `caret-down-filled` in `packages/ui/icons/extra` (hand-drawn like `play-filled`),
+  tagged in `tags.json`, sprite regenerated with `pnpm generate` (also rewrites the find-icons skill catalog). tl-ds's
+  `caret-up_filled`/`caret-down_filled` had no equivalent here. No changeset for `@isbatak/icons` (private, never had
+  one).
+- Components (all four frameworks): Root (`span`) and Indicator (`span`) on the alert pattern: a tone context from the
+  root, and the indicator defaults its children to the caret, or an empty `aria-hidden` `svg` for neutral so neutral
+  figures keep the caret's 12px slot (as tl-ds does). Plus `PropsProvider` (React/Vue/Solid), `useToneContext`
+  (React value, Vue `ComputedRef`, Solid/Svelte getter), `detectTone` and `ToneType`. tl-ds's headless
+  `useTone`/`RootProvider`/`Context` primitives were dropped: the hook only produced an id, `dir` and `data-tone`.
+- `detectTone` lives in `detect-tone.ts` in each framework package (like avatar's `getInitials`), with tl-ds's
+  `detect-tone.node.spec.ts` ported next to it. The UI packages had no tests: each now has `"test": "vitest run"` and
+  `vitest` (catalog) as a dev dependency, no config file. 11 tests pass in each.
+- Demos (4): usage (tl-ds's `All`), pnl (tl-ds's `PnlIndicator`, two literal values with `detectTone`, written out
+  instead of `For`), plain, custom-indicator (arrow-up/down children). Chakra and Ark have no Tone.
+- Docs category `Data Display`. `ds-api.json`: only the `tone` key (empty parts, variants listed).
+- Checks run: panda-ds build; `pnpm test` and typecheck in the four `packages/ui/*`; compositions typecheck;
+  `turbo --affected` (68/68; the first run hit a 10-minute tool limit and was rerun); oxlint and oxfmt; Playwright
+  Storybook check in all four (data-tone on root and indicator,
+  success/error/muted colors, caret-up/down sprite hrefs, empty 12px svg for neutral, tabular-nums, 2px gap, pnl text
+  and 4px gap, plain keeps the root uncolored while the indicator is, custom arrows, no page errors; 52 checks). The
+  root's computed `display` reads `flex` in the demos because VStack's flex items are blockified, not a recipe bug.
