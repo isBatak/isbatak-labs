@@ -799,3 +799,34 @@
   control with a ring, controlled and root-provider counts 0→1→0, image-preview PNG data URL, with-field label and
   helper, disabled dimmed/untabbable/won't draw, sizes 128/160/192, outline vs subtle, 384px root, no page errors;
   152 checks).
+
+
+## timer (done, 2026-11-15)
+
+- New slot recipe `timer` (slots root, area, itemGroup, item, itemLabel, separator, control, actionTrigger), designed
+  from Ark's `timer.module.css` (Chakra and tl-ds have none). Item is semibold, `tabular-nums`, `min-width: 2ch`; label
+  `fg.muted`; separator `fg.subtle`. Variants: plain (default, Ark's look), outline and subtle, which box each item group
+  (`l2`, 1px `border` or `bg.muted`) and centre the separators. Sizes sm/md/lg: item textStyle xl/2xl/4xl, label
+  xs/xs/sm, area gap 1.5/2/3, group min width 12/14/20. No analog override.
+- `ItemGroup` (div) and `ItemLabel` (span) are not Ark parts: Ark's examples use plain `div.ItemGroup` and
+  `span.ItemLabel`, so they are recipe slots wrapped as plain elements (`withContext("div", ...)`; Svelte has its own
+  `.svelte` files for them). Zag 2 has `itemLabel`/`itemValue` anatomy parts but Ark v6 doesn't export components for
+  them, and `Timer.Item` already renders the formatted value as its children.
+- Action trigger borrowed from button's `outline` look (1px `colorPalette.border`, hover `colorPalette.subtle`,
+  `focusVisibleRing: "outside"`, 16px icons), copied into the slot like menubar's trigger, with heights 8/9/10 (button
+  xs/sm/md) per timer size. `_hidden` → `display: none`, since Zag sets `hidden` on actions that don't apply. No default
+  children: demos pass `Icon` play/pause/undo plus a label (Ark uses lucide Play/Pause/RotateCcw).
+- Components (all four): Root, RootProvider, Area, ItemGroup, Item, ItemLabel, Separator, Control, ActionTrigger,
+  Context + `useTimer`, `useTimerContext`, `TimerTickDetails`. Svelte root has no bindables (Ark's timer has none).
+- Demos (8): Ark's six (usage = basic, countdown, events, interval, pomodoro, root-provider) plus variants and sizes.
+  Events shows the tick count and a "Completed" flag instead of Ark's `console.log`, with a 10s target. Root-provider
+  shows `Running: yes/no` instead of Ark's `JSON.stringify(timer.time)`. The demo files were emitted by a throwaway
+  script, so they're written out inline.
+- Docs category `Data Display`. `ds-api.json`: only the `timer` key, no other key changed.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` (svelte-check 0 errors); oxlint and oxfmt;
+  `api:generate`; `turbo --affected` (68/68, includes compositions, storybooks and website); Playwright Storybook check
+  in all four (role=timer area, usage 00:00:40:00, 24px/600/tabular-nums items, 12px muted labels, 3 aria-hidden
+  separators, only Play visible at rest, 36px trigger with 1px border, radius and 16px icon, hover bg, Tab focus ring,
+  start → seconds advance and Pause shows, pause freezes and Resume shows, countdown 05:00 → 04:59 then reset, events
+  tick count, interval milliseconds, pomodoro heading and 25:00, root-provider Running no → yes, variants plain/outline
+  border/subtle bg with 10px padding, sizes 20/24/36px items and 32/36/40px triggers, no page errors; 144 checks).

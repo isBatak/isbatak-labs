@@ -9101,6 +9101,98 @@
       }
     }
   },
+  "timer": {
+    "parts": [
+      {
+        "name": "Timer.Root",
+        "props": {
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the timer parts"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identifies the accessibility elements and their states"
+          },
+          "onComplete": {
+            "type": "(() => void) | undefined",
+            "description": "Function invoked when the timer is completed"
+          },
+          "countdown": {
+            "type": "boolean | undefined",
+            "description": "Whether the timer should countdown, decrementing the timer on each tick."
+          },
+          "startMs": {
+            "type": "number | undefined",
+            "description": "The total duration of the timer in milliseconds."
+          },
+          "targetMs": {
+            "type": "number | undefined",
+            "description": "The minimum count of the timer in milliseconds."
+          },
+          "autoStart": {
+            "type": "boolean | undefined",
+            "description": "Whether the timer should start automatically"
+          },
+          "interval": {
+            "type": "number | undefined",
+            "description": "The interval in milliseconds to update the timer count.",
+            "defaultValue": "1000"
+          },
+          "onTick": {
+            "type": "((details: TickDetails) => void) | undefined",
+            "description": "Function invoked when the timer ticks"
+          }
+        }
+      },
+      {
+        "name": "Timer.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTimerReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.Item",
+        "props": {
+          "type": {
+            "type": "TimePart",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.ActionTrigger",
+        "props": {
+          "action": {
+            "type": "TimerAction",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Timer.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseTimerContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["plain", "outline", "subtle"],
+        "defaultValue": "plain"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "toast": {
     "parts": [],
     "variants": {}
