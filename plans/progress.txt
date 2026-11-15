@@ -696,3 +696,35 @@
   ring, outline inset shadow, ghost no padding and 40px items, sizes 32/36/40/44, vertical column, fitted 384px with
   equal items, controlled and root-provider text, tooltip on hover, no page errors; 120 checks). Note: Zag's roving
   focus ignores focus from a mouse click in Playwright; drive arrow keys after a Tab.
+
+
+## angle-slider (done, 2026-11-15)
+
+- New slot recipe `angle-slider` (slots root, label, control, thumb, markerGroup, marker, valueText), designed from
+  Ark's `angle-slider.module.css` (Chakra and tl-ds have none). The control is the track ring (`--angle-slider-track-size`
+  wide) with a `bg` inner disc (`::before`, `shadows.inner`) and a 6px `fg.muted` centre dot (`::after`). The thumb is
+  a full-height strip Zag rotates with `rotate: var(--angle)`; its `::before` is the knob, centred on the ring, and its
+  `::after` the pointer line to the centre, a `colorPalette.solid` → transparent gradient as in Ark. Markers are ticks
+  inside the ring: `border.emphasized`, `colorPalette.muted` under the value, `colorPalette.solid` at it.
+- Borrowed from `slider`: variants `variant` outline (default: `bg.emphasized/72` ring with `shadows.inset`, `bg` knob
+  with a 2px `colorPalette.solid` border) and solid (`colorPalette.subtle` ring, `colorPalette.solid` knob with a 2px
+  `bg` border and `shadows.sm`), disabled knobs in `border.emphasized`, and the 2px border width. `size` sm/md/lg is
+  dial 20/24/28 (80/96/112px, md is Ark's ~100px), ring 1/1.5/2, knob 3/3.5/4, value text md/lg/xl.
+- Judgement calls: Zag 2 sets no `data-focus` on the control (Ark's CSS uses it), so the focus ring is on the control
+  via `&:has(:focus-visible)`, outline 2px with a 2px offset like `focusVisibleRing: "outside"` (that utility can't
+  target a parent). Ark's ValueText renders `valueAsDegree` ("45deg"), so ours defaults its children to `45°` in all
+  four frameworks (floating-panel's default-children pattern); children still win. No `AngleSlider.Markers` helper:
+  the demos write the eight markers out. Ark exports no `ValueChangeDetails` type for angle-slider, so none is
+  re-exported. Vue: `AngleSlider.ContextProps` isn't on Ark Vue's namespace, so the type comes from
+  `AngleSliderContextProps`. Svelte root has `bind:value`. No analog override.
+- Demos (8): Ark's six (usage = basic, context, controlled, disabled, root-provider, step) plus sizes and variants.
+  `HStack` takes `alignItems`, not `align`.
+- `ds-api.json`: `pnpm api:generate` reordered props inside many other keys (same content, checked with a JSON diff),
+  so only the new `angle-slider` key was kept and the rest left as on `main`'s order.
+- Docs category `Forms` (next to slider).
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `turbo --affected` (68/68, includes storybooks and website); Playwright Storybook check in all four (96px control,
+  6px ring inset and centre dot, 14px knob with 2px border, gradient pointer, value text `0°`/`1°`, Tab focuses the
+  thumb and rings the control, arrow keys, thumb `rotate`, click at the right edge → ~90 with marker states
+  under/over, context label, controlled 45→46, disabled dimmed and not tabbable, step 15, root-provider "Set to 90",
+  sizes 80/96/112 with knobs 12/14/16, outline vs solid colors, no page errors; 200 checks).

@@ -2,6 +2,7 @@ import { accordionSlotRecipe } from "./accordion"
 import { actionBarSlotRecipe } from "./action-bar"
 import { actionItemSlotRecipe } from "./action-item"
 import { alertSlotRecipe } from "./alert"
+import { angleSliderSlotRecipe } from "./angle-slider"
 import { avatarSlotRecipe } from "./avatar"
 import { badgeRecipe } from "./badge"
 import { beaconRecipe } from "./beacon"
@@ -129,6 +130,7 @@ export const slotRecipes = {
   accordion: accordionSlotRecipe,
   actionBar: actionBarSlotRecipe,
   actionItem: actionItemSlotRecipe,
+  angleSlider: angleSliderSlotRecipe,
   alert: alertSlotRecipe,
   avatar: avatarSlotRecipe,
   blockquote: blockquoteSlotRecipe,

@@ -209,7 +209,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 
 - [x] swap
 - [x] toggle-group
-- [ ] angle-slider
+- [x] angle-slider
 - [ ] menubar
 - [ ] signature-pad
 - [ ] timer
