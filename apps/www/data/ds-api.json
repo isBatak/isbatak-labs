@@ -4522,6 +4522,185 @@
     ],
     "variants": {}
   },
+  "image-cropper": {
+    "parts": [
+      {
+        "name": "ImageCropper.Root",
+        "props": {
+          "aspectRatio": {
+            "type": "number | undefined",
+            "description": "The aspect ratio to maintain for the crop area (width / height).\nFor example, an aspect ratio of 16 / 9 will maintain a width to height ratio of 16:9.\nIf not provided, the crop area can be freely resized."
+          },
+          "maxHeight": {
+            "type": "number | undefined",
+            "description": "The maximum height of the crop area",
+            "defaultValue": "Infinity"
+          },
+          "maxWidth": {
+            "type": "number | undefined",
+            "description": "The maximum width of the crop area",
+            "defaultValue": "Infinity"
+          },
+          "minHeight": {
+            "type": "number | undefined",
+            "description": "The minimum height of the crop area",
+            "defaultValue": "40"
+          },
+          "minWidth": {
+            "type": "number | undefined",
+            "description": "The minimum width of the crop area",
+            "defaultValue": "40"
+          },
+          "zoom": {
+            "type": "number | undefined",
+            "description": "The controlled zoom level of the image."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the image cropper elements"
+          },
+          "translations": {
+            "type": "IntlTranslations | undefined",
+            "description": "Specifies the localized strings that identify accessibility elements and their states."
+          },
+          "initialCrop": {
+            "type": "Rect | undefined",
+            "description": "The initial rectangle of the crop area.\nIf not provided, a smart default will be computed based on viewport size and aspect ratio."
+          },
+          "cropShape": {
+            "type": "\"rectangle\" | \"circle\" | undefined",
+            "description": "The shape of the crop area.",
+            "defaultValue": "\"rectangle\""
+          },
+          "rotation": {
+            "type": "number | undefined",
+            "description": "The controlled rotation of the image in degrees (0 - 360)."
+          },
+          "flip": {
+            "type": "FlipState | undefined",
+            "description": "The controlled flip state of the image."
+          },
+          "defaultZoom": {
+            "type": "number | undefined",
+            "description": "The initial zoom factor to apply to the image.",
+            "defaultValue": "1"
+          },
+          "defaultRotation": {
+            "type": "number | undefined",
+            "description": "The initial rotation to apply to the image in degrees.",
+            "defaultValue": "0"
+          },
+          "defaultFlip": {
+            "type": "FlipState | undefined",
+            "description": "The initial flip state to apply to the image.",
+            "defaultValue": "{ horizontal: false, vertical: false }"
+          },
+          "zoomStep": {
+            "type": "number | undefined",
+            "description": "The amount of zoom applied per wheel step.",
+            "defaultValue": "0.1"
+          },
+          "zoomSensitivity": {
+            "type": "number | undefined",
+            "description": "Controls how responsive pinch-to-zoom is.",
+            "defaultValue": "2"
+          },
+          "minZoom": {
+            "type": "number | undefined",
+            "description": "The minimum zoom factor allowed.",
+            "defaultValue": "1"
+          },
+          "maxZoom": {
+            "type": "number | undefined",
+            "description": "The maximum zoom factor allowed.",
+            "defaultValue": "5"
+          },
+          "nudgeStep": {
+            "type": "number | undefined",
+            "description": "The base nudge step for keyboard arrow keys (in pixels).",
+            "defaultValue": "1"
+          },
+          "nudgeStepShift": {
+            "type": "number | undefined",
+            "description": "The nudge step when Shift key is held (in pixels).",
+            "defaultValue": "10"
+          },
+          "nudgeStepCtrl": {
+            "type": "number | undefined",
+            "description": "The nudge step when Ctrl/Cmd key is held (in pixels).",
+            "defaultValue": "50"
+          },
+          "onZoomChange": {
+            "type": "((details: ZoomChangeDetails) => void) | undefined",
+            "description": "Callback fired when the zoom level changes."
+          },
+          "onRotationChange": {
+            "type": "((details: RotationChangeDetails) => void) | undefined",
+            "description": "Callback fired when the rotation changes."
+          },
+          "onFlipChange": {
+            "type": "((details: FlipChangeDetails) => void) | undefined",
+            "description": "Callback fired when the flip state changes."
+          },
+          "onCropChange": {
+            "type": "((details: CropChangeDetails) => void) | undefined",
+            "description": "Callback fired when the crop area changes."
+          },
+          "fixedCropArea": {
+            "type": "boolean | undefined",
+            "description": "Whether the crop area is fixed in size and position.",
+            "defaultValue": "false"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseImageCropperReturn",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Handle",
+        "props": {
+          "placement": {
+            "type": "HandlePosition",
+            "description": "The placement of the handle"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Grid",
+        "props": {
+          "axis": {
+            "type": "\"horizontal\" | \"vertical\"",
+            "description": "The axis of the grid lines to display"
+          }
+        }
+      },
+      {
+        "name": "ImageCropper.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseImageCropperContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "variant": {
+        "values": ["subtle", "outline"],
+        "defaultValue": "subtle"
+      },
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "input": {
     "parts": [],
     "variants": {

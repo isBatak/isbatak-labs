@@ -38,6 +38,7 @@ import { gridTableSlotRecipe } from "./grid-table"
 import { groupRecipe } from "./group"
 import { headingRecipe } from "./heading"
 import { hoverCardSlotRecipe } from "./hover-card"
+import { imageCropperSlotRecipe } from "./image-cropper"
 import { iconRecipe } from "./icon"
 import { imageRecipe } from "./image"
 import { inputRecipe } from "./input"
@@ -156,6 +157,7 @@ export const slotRecipes = {
   fieldset: fieldsetSlotRecipe,
   fileUpload: fileUploadSlotRecipe,
   hoverCard: hoverCardSlotRecipe,
+  imageCropper: imageCropperSlotRecipe,
   list: listSlotRecipe,
   listbox: listboxSlotRecipe,
   menu: menuSlotRecipe,

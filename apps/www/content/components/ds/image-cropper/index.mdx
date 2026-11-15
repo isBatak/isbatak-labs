@@ -1,0 +1,135 @@
+---
+title: Image cropper
+description: A crop area over an image with resize handles, zoom, rotation and flip.
+category: Forms
+links:
+  source: packages/ui/react/src/components/image-cropper
+  recipe: packages/panda/ds/src/theme/recipes/image-cropper.ts
+  ark: https://ark-ui.com/docs/components/image-cropper
+---
+
+Built on Ark UI's ImageCropper. Drag the selection to move it, drag a handle to resize it, scroll or pinch to zoom, and
+drag outside the selection to pan the image. With the selection focused, arrow keys move it, Alt+arrows resize it and
+`+`/`-` zoom. Leave `Selection` empty and it renders the eight resize handles and the rule-of-thirds grid for you; pass
+children to place your own.
+
+## Usage
+
+<Usage />
+
+```tsx
+<ImageCropper.Root>
+  <ImageCropper.Viewport>
+    <ImageCropper.Image src={src} alt={alt} />
+    <ImageCropper.Selection>
+      <ImageCropper.Handle placement="nw" />
+      <ImageCropper.Handle placement="n" />
+      <ImageCropper.Handle placement="ne" />
+      <ImageCropper.Handle placement="e" />
+      <ImageCropper.Handle placement="se" />
+      <ImageCropper.Handle placement="s" />
+      <ImageCropper.Handle placement="sw" />
+      <ImageCropper.Handle placement="w" />
+      <ImageCropper.Grid axis="horizontal" />
+      <ImageCropper.Grid axis="vertical" />
+    </ImageCropper.Selection>
+  </ImageCropper.Viewport>
+</ImageCropper.Root>
+```
+
+## Examples
+
+### Aspect ratio
+
+`aspectRatio` locks the selection's width to height ratio.
+
+<Example id="image-cropper/aspect-ratio" />
+
+### Circle
+
+`cropShape="circle"` rounds the selection, for avatars.
+
+<Example id="image-cropper/circle" />
+
+### Fixed crop area
+
+With `fixedCropArea` the selection stays put and the handles are hidden; drag the image instead.
+
+<Example id="image-cropper/fixed" />
+
+### Initial crop
+
+`initialCrop` sets the starting selection in viewport pixels.
+
+<Example id="image-cropper/initial-crop" />
+
+### Min and max size
+
+<Example id="image-cropper/min-max-size" />
+
+### Controlled zoom
+
+Pass `zoom` and `onZoomChange` to drive the zoom from your own controls.
+
+<Example id="image-cropper/controlled-zoom" />
+
+### Zoom limits
+
+`minZoom` and `maxZoom` clamp the zoom, from controls and from the wheel.
+
+<Example id="image-cropper/zoom-limits" />
+
+### Rotation
+
+<Example id="image-cropper/rotation" />
+
+### Flip
+
+<Example id="image-cropper/flip" />
+
+### Events
+
+`onCropChange` reports the selection in viewport pixels, `onZoomChange` the zoom.
+
+<Example id="image-cropper/events" />
+
+### Context
+
+`ImageCropper.Context` hands its children the cropper's API from inside the root.
+
+<Example id="image-cropper/context" />
+
+### Root provider
+
+`useImageCropper` creates the machine outside the cropper, so controls elsewhere can read and change it.
+
+<Example id="image-cropper/root-provider" />
+
+### Reset
+
+`zoomBy`, `rotateBy`, `flipHorizontally` and `reset` from the same API.
+
+<Example id="image-cropper/reset" />
+
+### Crop preview
+
+`getCroppedImage` renders the selection to a data URL or a `Blob`. The image must allow cross-origin reads, so it sets
+`crossOrigin="anonymous"`.
+
+<Example id="image-cropper/crop-preview" />
+
+### Sizes
+
+<Example id="image-cropper/sizes" />
+
+### Variants
+
+<Example id="image-cropper/variants" />
+
+## Recipe
+
+<RecipeVariants />
+
+## API
+
+<Api />

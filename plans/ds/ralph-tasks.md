@@ -77,7 +77,7 @@ section). Full depth: all four frameworks, every Ark example as a demo, stories 
       `button` for the bar.
 - [x] signature-pad — parts Root, Control, Segment, Guide, ClearTrigger, Label, HiddenInput. Also borrow from `input`.
 - [x] timer — parts Root, Area, Item, Separator, Control, ActionTrigger. Also borrow from `button`.
-- [ ] image-cropper — parts Root, Viewport, Image, Selection, Handle, Grid. The hardest: no existing component to borrow
+- [x] image-cropper — parts Root, Viewport, Image, Selection, Handle, Grid. The hardest: no existing component to borrow
       from. Budget a whole iteration for it.
 - [ ] json-tree-view — parts Root, Tree, Node, KeyNode, ValueNode. Also borrow from `tree-view`.
 - [ ] frame — parts Frame, Content. Ark has no CSS for it: a border and a radius on the root, otherwise unstyled. Demos
