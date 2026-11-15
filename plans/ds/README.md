@@ -213,7 +213,7 @@ toast and action-bar, floating-panel and tour, then portal, presence and focus-t
 - [x] menubar
 - [x] signature-pad
 - [x] timer
-- [ ] image-cropper
+- [x] image-cropper
 - [ ] json-tree-view
 - [ ] frame
 - [ ] virtualizer

@@ -830,3 +830,47 @@
   start → seconds advance and Pause shows, pause freezes and Resume shows, countdown 05:00 → 04:59 then reset, events
   tick count, interval milliseconds, pomodoro heading and 25:00, root-provider Running no → yes, variants plain/outline
   border/subtle bg with 10px padding, sizes 20/24/36px items and 32/36/40px triggers, no page errors; 144 checks).
+
+
+## image-cropper (done, 2026-11-15)
+
+- New slot recipe `image-cropper` (slots root, viewport, image, selection, handle, grid), designed from Ark's
+  `image-cropper.module.css` (Chakra and tl-ds have none). Lines and handles are white with alpha
+  (`whiteAlpha.*`), not the colour palette: the default palette's `solid` is gray.900, which disappears on a photo.
+  The outside of the selection is darkened by `0 0 0 100vmax blackAlpha.600` on the selection, as `tour`'s spotlight
+  does. Focus-visible turns the selection border solid white; dragging makes it brighter and shows the thirds grid
+  (Zag sets `data-dragging`/`data-panning` on the grid). Cursors `move`/`grabbing` are raw values (no cursor token, as
+  `drawer` does for `grab`); Zag puts the resize cursors on the handles inline.
+- Ark's CSS targets `data-position` on handles; Zag 2 sets `data-placement` (`nw`, `n`, `ne`, `e`, `se`, `s`, `sw`,
+  `w`), so the recipe uses that. Corner indicators are L-shapes (16px, 3px border at md) moved by
+  `indicator / 2 - line width` so they sit on the selection's corner; edge indicators are pills that show on hover.
+  Handles get `display: none` with `data-disabled` (Zag sets it under `fixedCropArea`).
+- Variants: `subtle` (default, viewport `bg.muted`) and `outline` (`bg` with a 1px `border`). Sizes sm/md/lg set the
+  selection line (1/2/2px), the handle hit area (sizes 5/6/8) and indicator (3/4/5), and the corner line (2/3/4px).
+  Viewport is `aspectRatio: wide` (Ark's 16/9) and `l2`. No analog override.
+- `Selection` defaults its children to the eight handles and both grids, and `Handle` defaults to an empty `div`
+  indicator (the "parts that default their children" pattern). Without this every demo would repeat 10 lines, and
+  the no-`.map` rule rules out `placements.map`. Children still win; the docs anatomy writes the parts out.
+- Root `forwardProps`: `aspectRatio`, `zoom`, `minWidth`, `minHeight`, `maxWidth`, `maxHeight` are both Panda style
+  props and Ark props, and without forwarding Panda eats them as CSS (`zoom` silently zoomed nothing). React, Vue and
+  Solid only; Svelte parts take no style props. Watch for this on any Ark prop named like a CSS property.
+- Components (all four): Root, RootProvider, Viewport, Image, Selection, Handle, Grid, Context + `useImageCropper`,
+  `useImageCropperContext` and the change-detail types. Svelte root has `bind:zoom`, `bind:rotation`, `bind:flip`.
+- Demos (17): Ark's fifteen (usage = basic, aspect-ratio, circle, context, controlled-zoom, crop-preview, events,
+  fixed, flip, initial-crop, min-max-size, reset, root-provider, rotation, zoom-limits) plus sizes and variants. The
+  image is Constable's The Hay Wain from Wikimedia (CORS-enabled, so crop-preview's `getCroppedImage` works with
+  `crossOrigin="anonymous"`). Rotate icons are `undo`/`redo` (lucide RotateCcw/RotateCw), reset is `refresh`; Ark's
+  rectangle icons on the aspect buttons were dropped (no such icons). Vue uses `v-model:zoom/rotation/flip`, Svelte
+  `bind:`. Demo files were emitted by a throwaway script, written out inline.
+- Docs category `Forms` (with file-upload and signature-pad; the docs schema has no `Media`). `ds-api.json`: only
+  the `image-cropper` key, no other key changed.
+- `apps/compositions` typecheck: its `svelte-check` step takes ~10 minutes on this machine even without the new demos,
+  so run it with a long timeout (or in the background); it isn't hanging.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `api:generate`; `turbo --affected`; Playwright Storybook check in all four (role group/slider, 8 default handles
+  and 2 grids, 2px border, overlay shadow, move cursor, 16:9 448px viewport with bg and radius, 24px handles with 16px
+  L indicators, edge pills hidden, grid hidden at rest and shown while dragging, Tab focuses selection with white
+  border, ArrowLeft and drag move it, se handle resizes, circle shape, fixed hides handles, 1:1 aspect square, initial
+  crop 200px, max size, controlled/context/root-provider zoom 1.1x with image transform, zoom limit 0.5x, rotation
+  90°, horizontal flip, events size, reset restores the transform, crop-preview data URL, sizes 20/24/32px, outline
+  border, no page errors; 196 checks).
