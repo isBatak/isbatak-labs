@@ -6,6 +6,7 @@ import { avatarSlotRecipe } from "./avatar"
 import { badgeRecipe } from "./badge"
 import { beaconRecipe } from "./beacon"
 import { blockquoteSlotRecipe } from "./blockquote"
+import { bottomNavBarSlotRecipe } from "./bottom-nav-bar"
 import { breadcrumbSlotRecipe } from "./breadcrumb"
 import { buttonRecipe } from "./button"
 import { cardSlotRecipe } from "./card"
@@ -128,6 +129,7 @@ export const slotRecipes = {
   alert: alertSlotRecipe,
   avatar: avatarSlotRecipe,
   blockquote: blockquoteSlotRecipe,
+  bottomNavBar: bottomNavBarSlotRecipe,
   breadcrumb: breadcrumbSlotRecipe,
   card: cardSlotRecipe,
   carousel: carouselSlotRecipe,

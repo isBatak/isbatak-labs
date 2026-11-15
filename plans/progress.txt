@@ -566,3 +566,29 @@
   hidden, enter/exit `animation-name` for every variant, `--scale-in-from: 0` on scale, 200px perspective and hidden
   backface on flip, overflow hidden plus forward/backward direction on slide/stack, inactive indicator hidden after
   exit, no page errors; 188 checks).
+
+
+## bottom-nav-bar (done, 2026-11-15)
+
+- New slot recipe `bottomNavBar` (slots root, item, itemIcon, itemLabel, no variants) ported from tl-ds: item spreads
+  `buttonRecipe.base` like tl-ds does. Mappings: `surface.layer-1` → `bg.panel`; `textStyle: sm.500` → `textStyle: sm`
+  + `fontWeight: medium`; `focusRingOffset: -2px` → `focusVisibleRing: inside`; tl-ds's `.tl-bottom-nav-bar__*` class
+  selectors → `[data-slot=itemIcon|itemLabel]`; safe-area padding via `[env(safe-area-inset-bottom)]`. Added
+  `textDecoration: none` since the item is now a link. No analog override. `@isbatak/panda-ds` minor changeset.
+- Components (all four frameworks): Root on `ark.nav` (tl-ds: `div`), Item on `ark.a` (tl-ds: `button`), ItemIcon and
+  ItemLabel on `ark.span`. No `PropsProvider` (no variants). Judgement call: dropped tl-ds's `current` boolean prop;
+  consumers set `aria-current="page"` directly (works with router links that set it themselves, e.g. NavLink, and keeps
+  Item a plain factory part in every framework). `asChild` renders a router link. Svelte: one file per part on `Box`
+  with `bottom-nav-bar-styles.ts`.
+- Demos (4): usage, icon-only (6 items with `aria-label`), with-badge (Float + FloatGap + Badge, tl-ds's `WithBadge`
+  without `colorPalette="brand"`), with-ripple. tl-ds's `ItemCounts`, `ManyItems` and viewport stories map over static
+  data and are left out; `All` is a Propstar grid. tl-ds's icons replaced by `home`/`search`/`bell`/`heart`/
+  `shopping-bag`/`settings`/`account`. Svelte: Badge takes no style props, so `class={css(...)}`; spreading Ripple's
+  `props()` onto the generic Item needed `props() as Record<string, unknown>` (svelte-check: union too complex / `color`
+  null mismatch).
+- Docs category `Navigation`. `ds-api.json`: only the `bottom-nav-bar` key added (empty parts, like `box`).
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; `turbo --affected` (63/63,
+  website build prints the existing `avatar` and `blue.500/6` diagnostics); oxlint and oxfmt; Playwright Storybook check
+  in all four (nav flex, links with href and aria-current, 56px items with label / 48px without, 24px icons, 14px/500
+  labels, current item fg vs muted others, no underline, focus outline on Tab, badge at the icon's top-end, ripple spawns
+  on press with overflow hidden, no page errors; 52 checks).
