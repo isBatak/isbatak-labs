@@ -660,3 +660,39 @@
   success/error/muted colors, caret-up/down sprite hrefs, empty 12px svg for neutral, tabular-nums, 2px gap, pnl text
   and 4px gap, plain keeps the root uncolored while the indicator is, custom arrows, no page errors; 52 checks). The
   root's computed `display` reads `flex` in the demos because VStack's flex items are blockified, not a recipe bug.
+
+
+## toggle-group (done, 2026-11-15)
+
+- New slot recipe `toggle-group` (slots root, item), designed from Ark's `toggle-group.module.css` (Chakra has no
+  ToggleGroup). Variants `variant` subtle (default, Ark's look: `bg.muted` track, pressed item gets `bg`/dark
+  `bg.emphasized` + `shadows.xs`, the same pair segment-group's indicator uses), outline (inset 1px `border` shadow
+  instead of a border so heights stay equal across variants; pressed `colorPalette.muted`), ghost (no track, padding
+  `0rem`, gap 1, pressed `colorPalette.subtle`), `size` xs/sm/md/lg and `fitted` (borrowed from group's `grow`).
+  Sizes go through `--toggle-group-height` (sizes 8–11, matching button xs–lg), and items are
+  `height - 2 * padding`, so a subtle/outline root and a ghost item are both button height. Ghost's padding is
+  `0rem`, not `spacing.0`: that token is unitless `0`, which breaks the `calc()`. Pressed state is `_pressed`: Zag 2
+  sets `aria-pressed` and `data-pressed` on items, and there is no `data-state=on` anymore. Focus ring is `outside` with
+  `--focus-ring-offset: 0px` plus `zIndex: 1`, like Ark's -1px offset. `toggle` has no recipe, so nothing borrowed
+  from it beyond the pressed idea. No analog override.
+- Components (all four): Root, RootProvider, Item, Context + `useToggleGroup`, `useToggleGroupContext`,
+  `ToggleGroupValueChangeDetails`. Svelte root has `bind:value`.
+- Demos (9): usage (Ark basic), multiple, controlled, root-provider, with-tooltip (Ark's five), plus variants, sizes,
+  vertical, fitted (a weekday picker, multiple). Judgement call on with-tooltip: Ark shares one `useTooltip` across
+  items via `ids.trigger` and maps over static data; here each item sits in its own `Tooltip.Root` with
+  `Trigger asChild`, written out. Svelte needs `props() as Record<string, unknown>` on the spread (as in
+  bottom-nav-bar's with-ripple).
+- Vue gotcha: a bare boolean recipe prop (`fitted`) arrives as `""` and renders `toggle-group__root--fitted_`, so the
+  Vue demo uses `:fitted="true"`. Ark's own boolean props (`multiple`) are fine bare. The existing Vue
+  `segment-group/fitted.vue` has the same bare `fitted` and is probably broken the same way; not touched here.
+- compositions' svelte-check prints many `RangeError: Map maximum size exceeded` traces but still reports 0 errors and
+  exits 0. It happens without the toggle-group demos too (159 traces with them moved out), so it's not from this
+  component.
+- Docs category `Forms` (next to segment-group). `ds-api.json`: only the `toggle-group` key.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `turbo --affected` (68/68, includes all storybooks and website typecheck/build; website build prints the existing
+  `avatar` and `blue.500/6` diagnostics); Playwright Storybook check in all four (role=group, default/single/multiple
+  pressed, 40px root / 32px items / 16px icons, pressed shadow and color, arrow-key roving focus after Tab, focus
+  ring, outline inset shadow, ghost no padding and 40px items, sizes 32/36/40/44, vertical column, fitted 384px with
+  equal items, controlled and root-provider text, tooltip on hover, no page errors; 120 checks). Note: Zag's roving
+  focus ignores focus from a mouse click in Playwright; drive arrow keys after a Tab.
