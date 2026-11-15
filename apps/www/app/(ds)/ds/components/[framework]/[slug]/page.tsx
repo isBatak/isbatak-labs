@@ -4,7 +4,6 @@ import { notFound } from "next/navigation"
 
 import { ComponentPage } from "../../../../../../components/ds/component-page"
 import { dsFrameworkIds, isDsFramework } from "../../../../../../components/ds/ds-framework"
-import { Section } from "../../../../../../components/home/section"
 import { SITE_URL } from "../../../../../../components/docs/site-url"
 
 interface ComponentRouteProps {
@@ -36,9 +35,5 @@ export default async function ComponentRoute({ params }: ComponentRouteProps) {
   const component = getComponent(slug)
   if (!component || !isDsFramework(framework)) notFound()
 
-  return (
-    <Section>
-      <ComponentPage component={component} framework={framework} />
-    </Section>
-  )
+  return <ComponentPage component={component} framework={framework} />
 }

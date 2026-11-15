@@ -10,9 +10,9 @@ import { styled } from "styled-system/jsx"
 
 import { LayoutContainer } from "../layout/layout-container"
 import { Icon } from "../ui/icon"
-import type { DsNavGroup } from "./ds-nav-data"
+import type { DsNavNode } from "./ds-nav-data"
+import { DsNavTree } from "./ds-nav-tree"
 import { sectionLabels } from "./ds-sections"
-import { DsNavGroups } from "./ds-nav-groups"
 
 const NavLink = styled(Link, {
   base: {
@@ -33,12 +33,12 @@ const NavLink = styled(Link, {
 })
 
 export interface DsSubNavProps {
-  components: DsNavGroup[]
-  styles: DsNavGroup[]
-  icons: DsNavGroup[]
+  components: DsNavNode[]
+  styles: DsNavNode[]
+  icons: DsNavNode[]
 }
 
-function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string }) {
+function SectionDrawer({ nodes, label }: { nodes: DsNavNode[]; label: string }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
@@ -74,10 +74,10 @@ function SectionDrawer({ groups, label }: { groups: DsNavGroup[]; label: string 
                 </Button>
               </Drawer.CloseTrigger>
             </Drawer.Header>
-            <Drawer.Body maxH="70dvh" overflowY="auto" pb="6">
-              <nav aria-label={label}>
-                <DsNavGroups groups={groups} />
-              </nav>
+            <Drawer.Body h="70dvh" pb="0">
+              <styled.nav aria-label={label} h="full">
+                <DsNavTree nodes={nodes} label={label} />
+              </styled.nav>
             </Drawer.Body>
           </Drawer.Content>
         </Drawer.Positioner>
@@ -94,7 +94,7 @@ export function DsSubNav({ components, styles, icons }: DsSubNavProps) {
     : pathname.startsWith("/ds/icons")
       ? "icons"
       : "components"
-  const groups = { components, styles, icons }[section]
+  const nodes = { components, styles, icons }[section]
 
   return (
     <styled.div
@@ -109,7 +109,7 @@ export function DsSubNav({ components, styles, icons }: DsSubNavProps) {
       overflowX="clip"
     >
       <LayoutContainer size="wide" display="flex" alignItems="center" gap="2" h="full" px={{ base: "3", md: "8" }}>
-        <SectionDrawer groups={groups} label={sectionLabels[section]} />
+        <SectionDrawer nodes={nodes} label={sectionLabels[section]} />
         <styled.nav aria-label="Design system" display="flex" alignItems="center" gap="1">
           <NavLink href="/ds/components" aria-current={current("/ds/components")}>
             Components

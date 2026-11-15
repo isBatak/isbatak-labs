@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
-import { LayoutContainer } from "../layout/layout-container"
+import { BottomBlur } from "../layout/bottom-blur"
 import type { DsSection } from "./ds-nav-data"
 import { DsSidebar } from "./ds-sidebar"
 import { DsToc, type TocEntry } from "./ds-toc"
@@ -14,21 +14,30 @@ interface DsDocLayoutProps {
 
 export function DsDocLayout({ section, toc, children }: DsDocLayoutProps) {
   return (
-    <LayoutContainer
-      size="wide"
+    <styled.div
       display="grid"
       gridTemplateColumns={{
         base: "minmax(0, 1fr)",
-        lg: "15rem minmax(0, 1fr)",
-        xl: "15rem minmax(0, 1fr) 14rem",
+        lg: "{sizes.60} minmax(0, 1fr)",
       }}
-      columnGap={{ lg: "10", xl: "16" }}
     >
       <DsSidebar section={section} />
-      <styled.div minW="0" w="full" pt={{ base: "10", md: "14" }} pb="24">
-        {children}
+      <styled.div
+        minW="0"
+        display="grid"
+        gridTemplateColumns={{
+          base: "minmax(0, 1fr)",
+          xl: "minmax(0, 1fr) {sizes.56}",
+        }}
+        columnGap="16"
+        px={{ base: "5", md: "10" }}
+      >
+        <styled.article minW="0" pt={{ base: "10", md: "14" }} pb="24">
+          {children}
+        </styled.article>
+        <DsToc toc={toc} />
       </styled.div>
-      <DsToc toc={toc} />
-    </LayoutContainer>
+      <BottomBlur aside />
+    </styled.div>
   )
 }
