@@ -50,6 +50,7 @@ import { listboxSlotRecipe } from "./listbox"
 import { markRecipe } from "./mark"
 import { marqueeSlotRecipe } from "./marquee"
 import { menuSlotRecipe } from "./menu"
+import { menubarSlotRecipe } from "./menubar"
 import { nativeSelectSlotRecipe } from "./native-select"
 import { navigationMenuSlotRecipe } from "./navigation-menu"
 import { numberInputSlotRecipe } from "./number-input"
@@ -156,6 +157,7 @@ export const slotRecipes = {
   list: listSlotRecipe,
   listbox: listboxSlotRecipe,
   menu: menuSlotRecipe,
+  menubar: menubarSlotRecipe,
   nativeSelect: nativeSelectSlotRecipe,
   navigationMenu: navigationMenuSlotRecipe,
   numberInput: numberInputSlotRecipe,

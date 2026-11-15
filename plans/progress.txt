@@ -728,3 +728,39 @@
   thumb and rings the control, arrow keys, thumb `rotate`, click at the right edge → ~90 with marker states
   under/over, context label, controlled 45→46, disabled dimmed and not tabbable, step 15, root-provider "Set to 90",
   sizes 80/96/112 with knobs 12/14/16, outline vs solid colors, no page errors; 200 checks).
+
+
+## menubar (done, 2026-11-15)
+
+- New slot recipe `menubar` (slots root, trigger), from Ark's `menubar.module.css`. Ark's Menubar only has Root,
+  RootProvider and Context; the menus are plain `Menu` parts, so the content, items, separators, commands and submenus
+  all come from the existing `menu` recipe and nothing in it changed. The only new part is `Menubar.Trigger`, a
+  `Menu.Trigger` styled by the menubar recipe's `trigger` slot. It goes inside each `Menu.Root`; it reads the menubar
+  style context, so the Menu root's own provider doesn't get in the way.
+- Trigger look borrowed from button's `ghost` (transparent, `colorPalette.subtle` on hover and `_expanded`, medium
+  weight, `focusVisibleRing: "outside"` with `--focus-ring-offset: 0px` and `zIndex: 1`, like toggle-group). Sizes work
+  like toggle-group's: `--menubar-height` sizes 9/10/11 (button sm/md/lg) and triggers are `height - 2 * padding`
+  (28/32/36px). Variants: outline (default, Ark's look: `bg.panel` with an inset 1px `border` shadow instead of a border,
+  so the bar is 36/40/44px in every variant), subtle (`bg.muted`, triggers hover `bg.emphasized`) and plain (no chrome,
+  `--menubar-padding: 0rem`, so the triggers are full button height). Root `_disabled` and `_vertical` both work: Zag
+  sets `data-disabled` and `data-orientation` on the root. No analog override.
+- Components (all four): Root, RootProvider, Trigger, Context + `useMenubar`, `useMenubarContext`,
+  `MenubarMenuContext`, `MenubarMenuCloseReason`. Svelte root has no bindables (Ark's menubar props have none).
+- Demos (7): Ark's five (usage = basic with ⌘ shortcuts through `Menu.ItemCommand`, which covers Ark's `.Shortcut`;
+  disabled, nested, root-provider showing `hasOpenMenu`, vertical with `right-start` positioning) plus variants and
+  sizes. The 28 demo files were emitted by a throwaway script, so they're written out inline. Submenu triggers use the
+  menu `submenu` demo's explicit `chevron-right` icon.
+- Docs category `Navigation` (Menu itself is `Overlays`, but a menubar is app chrome). `ds-api.json`: only the
+  `menubar` key. `Menubar.Trigger`'s API shows Ark v6's `value` prop from `Menu.Trigger`.
+- Pre-existing, not from this component (both reproduce on the existing `DS/Menu` Submenu story):
+  - Vue: opening a submenu logs `Maximum recursive updates exceeded in component <menu-content>` (twice). The submenu
+    still opens.
+  - Svelte and Solid: hovering a `Menu.TriggerItem` in Playwright doesn't open the submenu; in Svelte ArrowRight does,
+    in Solid neither does. Worth a look in the menu component or upstream Ark.
+- Checks run: panda-ds build; typecheck in the four `packages/ui/*` and `apps/compositions`; oxlint and oxfmt;
+  `turbo --affected` (68/68, run again after the outline shadow change); Playwright Storybook check in all four (role
+  menubar, 40px bar with 4px padding and inset ring, 32px/12px/14px/500 triggers, disabled Develop dimmed and skipped by
+  ArrowRight, hover bg, click opens with ⌘N command and menu-recipe shadow, ArrowRight moves the open menu, Escape
+  closes and refocuses with ring, disabled root dimmed and won't open, submenu in React/Vue, root-provider
+  false→true, vertical column with the menu to the right, variant chrome, plain 40px triggers, sizes 36/40/44 with
+  28/32/36 triggers, no page errors besides the Vue one above; 142 checks).

@@ -73,7 +73,7 @@ section). Full depth: all four frameworks, every Ark example as a demo, stories 
 - [x] toggle-group — parts Root, Item. Also borrow from `toggle` and `group`.
 - [x] angle-slider — parts Root, Control, Thumb, MarkerGroup, Marker, ValueText, Label, HiddenInput. Also borrow from
       `slider`.
-- [ ] menubar — Ark has only a root; its menus are Ark Menu parts, so reuse the `menu` recipe for the content and
+- [x] menubar — Ark has only a root; its menus are Ark Menu parts, so reuse the `menu` recipe for the content and
       `button` for the bar.
 - [ ] signature-pad — parts Root, Control, Segment, Guide, ClearTrigger, Label, HiddenInput. Also borrow from `input`.
 - [ ] timer — parts Root, Area, Item, Separator, Control, ActionTrigger. Also borrow from `button`.
