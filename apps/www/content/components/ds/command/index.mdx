@@ -10,8 +10,7 @@ links:
 ---
 
 A port of Chakra UI's Command, built on Ark UI's Combobox and Dialog. Command runs actions and keeps no selected value.
-For a picker that keeps a value, use [Combobox](/ds/components/combobox) or [Listbox](/ds/components/listbox). React
-only for now.
+For a picker that keeps a value, use [Combobox](/ds/components/combobox) or [Listbox](/ds/components/listbox).
 
 ## Usage
 
@@ -61,6 +60,9 @@ result with the dialog and the root.
 - The dialog clears the query after it closes, and `Command.DialogBackdrop` is optional.
 - Set `disabled: true` on an item to show it without letting it run.
 - There's no built-in shortcut to open the dialog. Bind ⌘K yourself, as in [Hotkeys](#hotkeys).
+- In Vue, Svelte and Solid, pass `useCommandCollection` a function when its options read state, so it follows them. Read
+  `command.collection` and the other fields through the returned object rather than destructuring them.
+- In Svelte, give `Command.ItemText` the label as `text`, since highlighting needs a string rather than children.
 
 ## Examples
 
@@ -205,8 +207,8 @@ Put any content in `Command.Empty` for when nothing matches.
 
 ### Virtualized
 
-Virtualize long lists with Ark's `ListVirtualizer`. Pass a deferred copy of the query as `filterQuery` so typing stays
-responsive; Enter still runs the top match for what was typed.
+Virtualize long lists with Ark's `ListVirtualizer`. In React, pass a deferred copy of the query as `filterQuery` so
+typing stays responsive; Enter still runs the top match for what was typed.
 
 <Example id="command/virtualized" />
 

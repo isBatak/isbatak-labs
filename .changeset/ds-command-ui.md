@@ -1,5 +1,8 @@
 ---
 "@isbatak/react-ui": minor
+"@isbatak/vue-ui": minor
+"@isbatak/svelte-ui": minor
+"@isbatak/solid-ui": minor
 ---
 
 Add `Command`, a port of Chakra UI's command palette on Ark's Combobox and Dialog, with `useCommandCollection` for fuzzy
