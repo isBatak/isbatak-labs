@@ -1,0 +1,235 @@
+---
+title: Command
+description: Searchable command menus and palettes that run actions, inline or in a dialog.
+category: Overlays
+icon: keyboard
+status: new
+links:
+  source: packages/ui/react/src/components/command
+  recipe: packages/panda/ds/src/theme/recipes/command.ts
+---
+
+A port of Chakra UI's Command, built on Ark UI's Combobox and Dialog. Command runs actions and keeps no selected value.
+For a picker that keeps a value, use [Combobox](/ds/components/combobox) or [Listbox](/ds/components/listbox). React
+only for now.
+
+## Usage
+
+<Usage />
+
+```tsx
+<Command.Provider value={command}>
+  <Command.Dialog>
+    <Command.DialogTrigger />
+    <Portal>
+      <Command.DialogBackdrop />
+      <Command.DialogContent>
+        <Command.Root>
+          <Command.Label />
+          <Command.Control>
+            <Command.Indicator />
+            <Command.Input />
+            <Command.ClearTrigger />
+          </Command.Control>
+          <Command.List>
+            <Command.Loading />
+            <Command.ItemGroup>
+              <Command.ItemGroupLabel />
+              <Command.Item item={item}>
+                <Command.ItemText />
+                <Command.ItemCommand />
+              </Command.Item>
+            </Command.ItemGroup>
+            <Command.Separator />
+            <Command.Empty />
+          </Command.List>
+          <Command.Footer />
+        </Command.Root>
+      </Command.DialogContent>
+    </Portal>
+  </Command.Dialog>
+</Command.Provider>
+```
+
+Items are data. `useCommandCollection` ranks them with a fuzzy match as people type, and `Command.Provider` shares the
+result with the dialog and the root.
+
+- Selecting an item runs its `onSelect` and closes the dialog. Set `closeOnSelect: false` on the item, or on
+  `Command.Root`, to keep it open.
+- Holding ⌘, Ctrl, Shift or Alt while selecting keeps the dialog open, for example to open several links in new tabs.
+  `onSelect` receives them as `modifiers`.
+- The dialog clears the query after it closes, and `Command.DialogBackdrop` is optional.
+- Set `disabled: true` on an item to show it without letting it run.
+- There's no built-in shortcut to open the dialog. Bind ⌘K yourself, as in [Hotkeys](#hotkeys).
+
+## Examples
+
+### Inline
+
+Render `Command.Root` without a dialog and pass the collection with the `command` prop. Add a `Command.Label` to name
+the search; the recipe hides it visually. In a dialog, the hidden title from `Command.DialogContent` names it instead.
+
+<Example id="command/inline" />
+
+### Groups
+
+Pass `groupBy` to `useCommandCollection` and render `collection.group()`. Items are ranked within each group, and the
+group order stays fixed while people type.
+
+<Example id="command/groups" />
+
+### Keywords
+
+Add `keywords` to an item so other words find it, like "preferences" for Settings. Keyword matches rank just below label
+matches.
+
+<Example id="command/keywords" />
+
+### Controlled search
+
+Pass `query` and `onQueryChange` to keep the query in your own state, for example to sync it with the URL.
+
+<Example id="command/controlled-search" />
+
+### Prefix search
+
+Type `>`, `@` or `#` first to search only commands, people or projects. Backspace on an empty input clears the scope.
+
+<Example id="command/prefix-search" />
+
+### Tabs
+
+Filter the items by the active tab.
+
+<Example id="command/tabs" />
+
+### Async content
+
+Pass `load` to fetch items as people type. Stale requests are aborted, and `Command.Loading` and `Command.Empty` never
+show at the same time.
+
+<Example id="command/async-content" />
+
+### Load more
+
+Return `{ items, cursor }` from `load` to page through results. Call `command.loadMore()` when the list reaches its end
+and `command.hasMore` is true.
+
+<Example id="command/load-more" />
+
+### Bring your own data
+
+To fetch with your own data layer, control the query and pass the results in. Set `filter: null` so server results show
+as returned.
+
+```tsx
+const [query, setQuery] = useState("")
+const people = useQuery({ queryKey: ["people", query], queryFn: () => searchPeople(query) })
+
+const command = useCommandCollection({ initialItems: people.data ?? [], query, onQueryChange: setQuery, filter: null })
+
+<Command.Root command={command} loading={people.isFetching} />
+```
+
+### Nested
+
+Give an item a `parent` to put it on that item's page. Nothing else changes in the markup.
+
+- Selecting an item with children opens its page.
+- Escape goes back to the previous page, then closes the dialog.
+- Backspace on an empty input goes up a page.
+- Going back restores the query and highlights the item you came from.
+- `command.pages` is the trail of open pages, for a breadcrumb.
+- With `deepSearch`, a query also matches items on nested pages, and `command.getPath(item)` returns where a match
+  lives.
+- To open a page directly, such as from a shortcut, call `command.reset("status")` before opening the dialog.
+
+<Example id="command/nested" />
+
+### Async pages
+
+Set `page: true` on an item to open a page that loads its own items. `load` receives the open `page` and runs again when
+it changes.
+
+<Example id="command/async-pages" />
+
+### Input pages
+
+Build a page's items from the query, such as "Rename to …" or "Invite by email".
+
+<Example id="command/input-page" />
+
+### Hotkeys
+
+Register the same items with Ark's `useHotkeys` so their shortcuts work while the menu is closed, and format them per
+platform with `useFormatHotkey`. Both come from `@ark-ui/react/hotkeys`.
+
+<Example id="command/hotkeys" />
+
+### Root provider
+
+Use `useCommand` with `Command.RootProvider` to read the command's state from outside, such as opening the dialog from a
+⌘K shortcut.
+
+<Example id="command/root-provider" />
+
+### Links
+
+Render items as anchors with `asChild`, so links open with a click, a middle-click or Enter.
+
+<Example id="command/links" />
+
+### Recent items
+
+Store recently used commands and show them in their own group.
+
+<Example id="command/recent-items" />
+
+### Toggle items
+
+Set `closeOnSelect={false}` and toggle values in `onSelect` to pick several items without closing.
+
+<Example id="command/multiple" />
+
+### Footer actions
+
+Show shortcut hints or actions below the list with `Command.Footer`.
+
+<Example id="command/footer-actions" />
+
+### Empty state
+
+Put any content in `Command.Empty` for when nothing matches.
+
+<Example id="command/empty-state" />
+
+### Virtualized
+
+Virtualize long lists with Ark's `ListVirtualizer`. Pass a deferred copy of the query as `filterQuery` so typing stays
+responsive; Enter still runs the top match for what was typed.
+
+<Example id="command/virtualized" />
+
+### Sizes
+
+Set `size` on `Command.Root` to `sm`, `md` or `lg`. The default is `md`.
+
+<Example id="command/sizes" />
+
+## Recipe
+
+<RecipeVariants />
+
+| Variable                      | Description                                        |
+| ----------------------------- | -------------------------------------------------- |
+| `--command-control-padding-x` | The control's and footer's side padding, by `size` |
+| `--command-input-height`      | The input's height, set by `size`                  |
+| `--command-indicator-size`    | The size of the search and item icons, by `size`   |
+| `--command-list-padding`      | The list's padding, set by `size`                  |
+| `--command-item-padding-x`    | An item's horizontal padding, set by `size`        |
+| `--command-item-padding-y`    | An item's vertical padding, set by `size`          |
+| `--command-item-gap`          | The gap between an item's icon, text and shortcuts |
+
+## API
+
+<Api />

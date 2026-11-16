@@ -21,6 +21,7 @@ import { collapsibleSlotRecipe } from "./collapsible"
 import { colorPickerSlotRecipe } from "./color-picker"
 import { colorSwatchRecipe } from "./color-swatch"
 import { comboboxSlotRecipe } from "./combobox"
+import { commandSlotRecipe } from "./command"
 import { containerRecipe } from "./container"
 import { dataListSlotRecipe } from "./data-list"
 import { dateInputSlotRecipe } from "./date-input"
@@ -187,6 +188,7 @@ export const slotRecipes = {
   sidebar: sidebarSlotRecipe,
   signaturePad: signaturePadSlotRecipe,
   combobox: comboboxSlotRecipe,
+  command: commandSlotRecipe,
   slider: sliderSlotRecipe,
   splitter: splitterSlotRecipe,
   stat: statSlotRecipe,
