@@ -1,5 +1,12 @@
 # @isbatak/panda-turbopack
 
+## 0.2.1
+
+### Patch Changes
+
+- 28661d2: Require Next.js 16 or newer, since the Turbopack rules use `condition`, which Next.js added in 16.0. Document
+  that dynamic values and `cx()` with runtime arguments still use the `styled-system` runtime.
+
 ## 0.2.0
 
 ### Minor Changes
