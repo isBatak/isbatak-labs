@@ -1,0 +1,308 @@
+import type { SlotRecipeDefinition } from "@isbatak/panda-ds/types"
+import { anatomy, parts } from "@isbatak/zag-caliper/anatomy"
+import { defineSlotRecipe } from "@pandacss/dev"
+import type { SlotRecipeConfig, SystemStyleObject } from "@pandacss/types"
+
+export const caliperSlots = anatomy.omit("calloutLeader", "calloutAnchor").keys()
+
+type CaliperStyles = SlotRecipeDefinition<(typeof caliperSlots)[number]>
+
+const inside = <T extends SystemStyleObject>(attr: string, styles: T, nested = "") =>
+  ({ [`& [${attr}]${nested}`]: styles }) as Record<`&${string}`, T>
+
+const motion = {
+  transitionProperty: "left, right, top, bottom, width, height, margin",
+  transitionDuration: "moderate",
+  transitionTimingFunction: "default",
+} satisfies SystemStyleObject
+
+const hatchImage = (gap: string) =>
+  `repeating-linear-gradient(-45deg, var(--colors-color-palette-solid) 0 1px, transparent 1px ${gap})`
+
+const tick = {
+  content: '""',
+  position: "absolute",
+  borderColor: "inherit",
+  borderStyle: "solid",
+  borderWidth: "0",
+} satisfies SystemStyleObject
+
+const tickAcross = (edge: "top" | "bottom") =>
+  ({
+    ...tick,
+    [edge]: "[-0.5px]",
+    h: "1.5",
+    translate: edge === "top" ? "0 -50%" : "0 50%",
+  }) satisfies SystemStyleObject
+
+const tickAlong = (edge: "left" | "right") =>
+  ({
+    ...tick,
+    [edge]: "[-0.5px]",
+    w: "1.5",
+    translate: edge === "left" ? "-50% 0" : "50% 0",
+  }) satisfies SystemStyleObject
+
+const horizontalTicks = (edge: "top" | "bottom") => ({
+  "&[data-ticks]::before": {
+    ...tickAcross(edge),
+    insetInlineStart: "calc(-1 * var(--caliper-extension-width))",
+    borderInlineStartWidth: "1px",
+  },
+  "&[data-ticks]::after": {
+    ...tickAcross(edge),
+    insetInlineEnd: "calc(-1 * var(--caliper-extension-width))",
+    borderInlineEndWidth: "1px",
+  },
+})
+
+const verticalTicks = (edge: "left" | "right") => ({
+  "&[data-ticks]::before": {
+    ...tickAlong(edge),
+    top: "calc(-1 * var(--caliper-extension-width))",
+    borderTopWidth: "1px",
+  },
+  "&[data-ticks]::after": {
+    ...tickAlong(edge),
+    bottom: "calc(-1 * var(--caliper-extension-width))",
+    borderBottomWidth: "1px",
+  },
+})
+
+export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
+  className: "caliper",
+  description:
+    "Spec drawings over live UI: dimension lines, hatching, outlines and legends. Bind the @isbatak/ark-caliper parts to it with createSlotRecipeContext.",
+  jsx: ["Caliper", /Caliper\.\w+/],
+  slots: caliperSlots,
+  base: {
+    root: {
+      colorPalette: "gray",
+      display: "flex",
+      flexDirection: "column",
+      gap: "3",
+    },
+    canvas: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "8",
+      px: { base: "4", md: "8" },
+      py: { base: "14", md: "20" },
+      bg: "bg.subtle",
+      borderWidth: "1px",
+      borderColor: "border.muted",
+      rounded: "l3",
+      overflowX: "auto",
+    },
+    caption: {
+      px: "1",
+      textStyle: "sm",
+      color: "fg.muted",
+      textWrap: "pretty",
+    },
+    frame: {
+      "--caliper-scale": "1",
+      "--caliper-px": "calc(var(--caliper-scale) * 1px)",
+      position: "relative",
+      display: "inline-flex",
+      flexShrink: "0",
+      "&[data-magnify=fit]": {
+        "--caliper-scale": { base: "1.5", sm: "2", md: "3" },
+      },
+      "&[data-annotated]": {
+        my: "14",
+      },
+    },
+    subject: {
+      display: "inline-flex",
+      zoom: "var(--caliper-scale)",
+    },
+    outline: {
+      position: "absolute",
+      pointerEvents: "none",
+      borderWidth: "1px",
+      borderStyle: "dashed",
+      borderColor: "colorPalette.solid/60",
+      ...motion,
+    },
+    hatch: {
+      position: "absolute",
+      pointerEvents: "none",
+      bg: "colorPalette.solid/10",
+      bgImage: hatchImage("0.3125rem"),
+      opacity: "0.8",
+      ...motion,
+    },
+    dimension: {
+      "--caliper-extension-width": "1px",
+      "--caliper-extension-style": "dashed",
+      "--caliper-line-style": "solid",
+      "--caliper-gap": "spacing.6",
+      position: "absolute",
+      pointerEvents: "none",
+      borderColor: "colorPalette.solid",
+      borderWidth: "0",
+      ...motion,
+      "&[data-extension=solid]": { "--caliper-extension-style": "solid" },
+      "&[data-extension=none]": { "--caliper-extension-width": "0px" },
+      "&[data-line=dashed]": { "--caliper-line-style": "dashed" },
+      "&[data-distance=sm]": { "--caliper-gap": "spacing.3" },
+      "&[data-distance=lg]": { "--caliper-gap": "spacing.10" },
+      "&[data-placement=top]": {
+        bottom: "calc(100% - var(--caliper-reach))",
+        height: "calc(var(--caliper-reach) + var(--caliper-gap))",
+        borderInlineWidth: "var(--caliper-extension-width)",
+        borderInlineStyle: "var(--caliper-extension-style)",
+        borderTopWidth: "1px",
+        borderTopStyle: "var(--caliper-line-style)",
+        ...horizontalTicks("top"),
+      },
+      "&[data-placement=bottom]": {
+        top: "calc(100% - var(--caliper-reach))",
+        height: "calc(var(--caliper-reach) + var(--caliper-gap))",
+        borderInlineWidth: "var(--caliper-extension-width)",
+        borderInlineStyle: "var(--caliper-extension-style)",
+        borderBottomWidth: "1px",
+        borderBottomStyle: "var(--caliper-line-style)",
+        ...horizontalTicks("bottom"),
+      },
+      "&[data-placement=left]": {
+        right: "calc(100% - var(--caliper-reach))",
+        width: "calc(var(--caliper-reach) + var(--caliper-gap))",
+        borderBlockWidth: "var(--caliper-extension-width)",
+        borderBlockStyle: "var(--caliper-extension-style)",
+        borderLeftWidth: "1px",
+        borderLeftStyle: "var(--caliper-line-style)",
+        ...verticalTicks("left"),
+      },
+      "&[data-placement=right]": {
+        left: "calc(100% - var(--caliper-reach))",
+        width: "calc(var(--caliper-reach) + var(--caliper-gap))",
+        borderBlockWidth: "var(--caliper-extension-width)",
+        borderBlockStyle: "var(--caliper-extension-style)",
+        borderRightWidth: "1px",
+        borderRightStyle: "var(--caliper-line-style)",
+        ...verticalTicks("right"),
+      },
+    },
+    dimensionLabel: {
+      position: "absolute",
+      display: "inline-flex",
+      alignItems: "center",
+      h: "6",
+      px: "2.5",
+      rounded: "l2",
+      bg: "colorPalette.solid",
+      color: "colorPalette.contrast",
+      textStyle: "sm",
+      fontWeight: "medium",
+      whiteSpace: "nowrap",
+      "[data-placement=top] > &": {
+        top: "0",
+        left: "50%",
+        translate: "-50% -125%",
+      },
+      "[data-placement=bottom] > &": {
+        bottom: "0",
+        left: "50%",
+        translate: "-50% 125%",
+      },
+      "[data-placement=left] > &": {
+        left: "0",
+        top: "50%",
+        translate: "calc(-100% - 0.375rem) -50%",
+      },
+      "[data-placement=right] > &": {
+        right: "0",
+        top: "50%",
+        translate: "calc(100% + 0.375rem) -50%",
+      },
+    },
+    legend: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      columnGap: "5",
+      rowGap: "2",
+      textStyle: "xs",
+      color: "fg.muted",
+    },
+    legendItem: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "1.5",
+    },
+    legendSwatch: {
+      display: "inline-block",
+      flexShrink: "0",
+      boxSize: "3",
+      rounded: "l1",
+      bg: "colorPalette.solid",
+      "&[data-kind=dashed]": {
+        bg: "transparent",
+        borderWidth: "1px",
+        borderStyle: "dashed",
+        borderColor: "colorPalette.solid/60",
+      },
+      "&[data-kind=hatch]": {
+        bg: "colorPalette.solid/10",
+        bgImage: hatchImage("0.25rem"),
+      },
+    },
+    callout: {
+      position: "absolute",
+      inset: "0",
+      pointerEvents: "none",
+      color: "colorPalette.solid",
+      ...inside(parts.calloutLeader.attr, {
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: "var(--caliper-px)",
+        height: "var(--caliper-px)",
+        overflow: "visible",
+      }),
+      ...inside(
+        parts.calloutLeader.attr,
+        {
+          fill: "none",
+          stroke: "currentColor",
+          strokeWidth: "1",
+          vectorEffect: "non-scaling-stroke",
+        },
+        " path",
+      ),
+      ...inside(parts.calloutAnchor.attr, {
+        r: "calc(4px / var(--caliper-scale))",
+        fill: "currentColor",
+      }),
+    },
+    calloutLabel: {
+      position: "absolute",
+      left: "var(--caliper-callout-x)",
+      w: "max-content",
+      maxW: "64",
+      pointerEvents: "auto",
+      textStyle: "sm",
+      color: "fg.muted",
+      textWrap: "pretty",
+      "[data-side=bottom] > &": { top: "var(--caliper-callout-y)", pt: "4" },
+      "[data-side=top] > &": {
+        bottom: "calc(100% - var(--caliper-callout-y))",
+        pb: "4",
+      },
+      "[data-align=center] > &": { translate: "-50% 0", textAlign: "center" },
+      "[data-align=end] > &": { translate: "-100% 0", textAlign: "end" },
+    },
+    calloutTitle: {
+      display: "block",
+      mb: "1",
+      textStyle: "xs",
+      fontFamily: "mono",
+      color: "fg.subtle",
+    },
+  } satisfies CaliperStyles["base"],
+})

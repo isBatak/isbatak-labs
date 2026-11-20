@@ -10,6 +10,7 @@ import { MDXContent } from "../mdx-content"
 import { Icon } from "../ui/icon"
 import { Prose } from "../ui/prose"
 import { toolComponents } from "./mdx-components"
+import { toolArt } from "./tool-art"
 import { PackageInstall } from "./package-install"
 import { VideoDemo } from "./video-demo"
 
@@ -45,6 +46,8 @@ export function ToolPageSkeleton() {
 }
 
 export function ToolPage({ tool }: { tool: Tool }) {
+  const Wordmark = toolArt[tool.slug]?.Wordmark
+
   return (
     <Section>
       <styled.div maxW="2xl" mx="auto" pt={{ base: "16", md: "28" }} textAlign="center">
@@ -64,21 +67,20 @@ export function ToolPage({ tool }: { tool: Tool }) {
           letterSpacing="tighter"
           textWrap="balance"
         >
-          {tool.wordmark ? (
+          {Wordmark ? (
+            <Wordmark title={tool.title} />
+          ) : tool.wordmark ? (
             <styled.img src={tool.wordmark} alt={tool.title} w="full" maxW="xl" mx="auto" />
           ) : (
             tool.title
           )}
         </styled.h1>
-        <styled.p mt="4" fontFamily="mono" textStyle="sm" color="fg.subtle">
-          {tool.package}
-        </styled.p>
         <styled.p mt="5" mx="auto" maxW="lg" color="fg.muted" lineHeight="1.7" textWrap="pretty">
           {tool.description}
         </styled.p>
 
-        <styled.div mx="auto" maxW="md" mt="8">
-          <PackageInstall name={tool.package} dev />
+        <styled.div mx="auto" maxW="xl" mt="8">
+          <PackageInstall name={(tool.install ?? [tool.package]).join(" ")} dev={tool.devDependency} />
         </styled.div>
 
         <styled.div display="flex" flexWrap="wrap" justifyContent="center" alignItems="center" columnGap="6" rowGap="3">
