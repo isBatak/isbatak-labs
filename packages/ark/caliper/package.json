@@ -1,0 +1,68 @@
+{
+  "name": "@isbatak/ark-caliper",
+  "version": "0.0.0",
+  "description": "Headless Ark UI parts for Caliper: draw dimension lines, hatching and outlines over live UI",
+  "keywords": [
+    "ark",
+    "ark-ui",
+    "react",
+    "caliper",
+    "spec",
+    "redline",
+    "dimension"
+  ],
+  "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/ark/caliper#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isBatak/isbatak-labs.git",
+    "directory": "packages/ark/caliper"
+  },
+  "bugs": {
+    "url": "https://github.com/isBatak/isbatak-labs/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./react": "./src/react/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      "./react": {
+        "import": {
+          "types": "./dist/react/index.d.ts",
+          "default": "./dist/react/index.js"
+        },
+        "require": {
+          "types": "./dist/react/index.d.cts",
+          "default": "./dist/react/index.cjs"
+        }
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@isbatak/zag-caliper": "workspace:*"
+  },
+  "peerDependencies": {
+    "@ark-ui/react": ">=6.0.0-next.0",
+    "@zag-js/react": ">=2.0.0-next.0",
+    "react": ">=19.0.0"
+  },
+  "devDependencies": {
+    "@ark-ui/react": "catalog:",
+    "@types/react": "catalog:",
+    "@zag-js/react": "catalog:",
+    "react": "catalog:"
+  }
+}

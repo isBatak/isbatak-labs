@@ -807,6 +807,9 @@ importers:
       '@internationalized/date':
         specifier: 3.12.3
         version: 3.12.3
+      '@isbatak/ark-caliper':
+        specifier: workspace:*
+        version: link:../../packages/ark/caliper
       '@isbatak/ark-code-preview':
         specifier: workspace:*
         version: link:../../packages/ark/code-preview
@@ -825,6 +828,9 @@ importers:
       '@isbatak/icons':
         specifier: workspace:*
         version: link:../../packages/ui/icons
+      '@isbatak/panda-caliper':
+        specifier: workspace:*
+        version: link:../../packages/panda/caliper
       '@isbatak/panda-code-preview':
         specifier: workspace:*
         version: link:../../packages/panda/code-preview
@@ -904,6 +910,25 @@ importers:
       velite:
         specifier: 0.4.0
         version: 0.4.0(supports-color@10.2.2)
+
+  packages/ark/caliper:
+    dependencies:
+      '@isbatak/zag-caliper':
+        specifier: workspace:*
+        version: link:../../zag/caliper
+    devDependencies:
+      '@ark-ui/react':
+        specifier: 'catalog:'
+        version: 6.0.0-next.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@zag-js/react':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
 
   packages/ark/code-preview:
     dependencies:
@@ -1197,6 +1222,22 @@ importers:
       vue:
         specifier: ^3.5.43
         version: 3.5.45(typescript@6.0.3)
+
+  packages/panda/caliper:
+    dependencies:
+      '@isbatak/zag-caliper':
+        specifier: workspace:*
+        version: link:../../zag/caliper
+    devDependencies:
+      '@isbatak/panda-ds':
+        specifier: workspace:*
+        version: link:../ds
+      '@pandacss/dev':
+        specifier: 'catalog:'
+        version: 2.5.0(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2)(postcss@8.5.32)
+      '@pandacss/types':
+        specifier: 'catalog:'
+        version: 2.5.0
 
   packages/panda/code-preview:
     dependencies:
@@ -1616,6 +1657,18 @@ importers:
       vue-component-type-helpers:
         specifier: 3.3.11
         version: 3.3.11
+
+  packages/zag/caliper:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
 
   packages/zag/lit:
     dependencies:
