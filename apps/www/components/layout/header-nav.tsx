@@ -214,6 +214,11 @@ export function HeaderNav({ prototypes, tools }: HeaderNavProps) {
             </Footer>
           </NavigationMenu.Content>
         </Section>
+        <NavigationMenu.Item value="blog">
+          <NavigationMenu.Link asChild value="blog" current={pathname.startsWith("/blog")}>
+            <Link href="/blog">Blog</Link>
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
       </NavigationMenu.List>
       <NavigationMenu.ViewportPositioner align="start">
         <NavigationMenu.Viewport />

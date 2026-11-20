@@ -1,3 +1,4 @@
+import { caliperPreset } from "@isbatak/panda-caliper"
 import { codePreviewPreset } from "@isbatak/panda-code-preview"
 import { concentricPreset } from "@isbatak/panda-concentric-preset"
 import { masonryPreset } from "@isbatak/panda-masonry"
@@ -11,7 +12,7 @@ import { utilities } from "./theme/utilities"
 
 export default defineConfig({
   designSystem: "@isbatak/panda-ds",
-  presets: [concentricPreset, codePreviewPreset, masonryPreset, textFlipPreset, wheelPickerPreset],
+  presets: [concentricPreset, codePreviewPreset, masonryPreset, textFlipPreset, wheelPickerPreset, caliperPreset],
   preflight: true,
   cssVarRoot: ":where(:root, :host, .light)",
   jsxFramework: "react",
