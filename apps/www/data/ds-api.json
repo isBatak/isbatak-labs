@@ -1982,6 +1982,330 @@
       }
     }
   },
+  "command": {
+    "parts": [
+      {
+        "name": "Command.Root",
+        "props": {
+          "collection": {
+            "type": "ListCollection<T> | undefined",
+            "description": "The items to show. Not needed when `command` is passed."
+          },
+          "command": {
+            "type": "CommandSource<T> | undefined",
+            "description": "The value of `useCommandCollection`."
+          },
+          "loading": {
+            "type": "boolean | undefined",
+            "description": "Whether results are loading. Defaults to `command.loading`."
+          },
+          "closeOnSelect": {
+            "type": "boolean | undefined",
+            "description": "Whether selecting an item calls `onClose`. Holding a modifier key keeps it open.",
+            "defaultValue": "true"
+          },
+          "onClose": {
+            "type": "VoidFunction | undefined",
+            "description": "Called when a selection should close the command. `Command.Dialog` sets it."
+          },
+          "onSelect": {
+            "type": "((details: CommandSelectionDetails) => void) | undefined",
+            "description": "Called when an item is selected."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the combobox. Useful for composition."
+          },
+          "inputValue": {
+            "type": "string | undefined",
+            "description": "The controlled value of the combobox's input"
+          },
+          "defaultInputValue": {
+            "type": "string | undefined",
+            "description": "The initial value of the combobox's input when rendered.\nUse when you don't need to control the value of the combobox's input.",
+            "defaultValue": "\"\""
+          },
+          "defaultHighlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The initial highlighted value of the combobox when rendered.\nUse when you don't need to control the highlighted value of the combobox."
+          },
+          "highlightedValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled highlighted value of the combobox"
+          },
+          "onInputValueChange": {
+            "type": "((details: InputValueChangeDetails) => void) | undefined",
+            "description": "Function called when the input's value changes"
+          },
+          "onHighlightChange": {
+            "type": "((details: HighlightChangeDetails<T>) => void) | undefined",
+            "description": "Function called when an item is highlighted using the pointer\nor keyboard navigation."
+          },
+          "scrollToIndexFn": {
+            "type": "((details: ScrollToIndexDetails) => void) | undefined",
+            "description": "Function to scroll to a specific index"
+          },
+          "navigate": {
+            "type": "((details: NavigateDetails) => void) | null | undefined",
+            "description": "Function to navigate to the selected item"
+          }
+        }
+      },
+      {
+        "name": "Command.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseCommandReturn<any>",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Command.Provider",
+        "props": {
+          "value": {
+            "type": "CommandSource<T>",
+            "description": "The value of `useCommandCollection`, shared with the dialog and every `Command.Root` inside."
+          },
+          "children": {
+            "type": "ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Command.Dialog",
+        "props": {
+          "children": {
+            "type": "ReactNode | undefined",
+            "description": ""
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the machine."
+          },
+          "role": {
+            "type": "\"dialog\" | \"alertdialog\" | undefined",
+            "description": "The dialog's role",
+            "defaultValue": "\"dialog\""
+          },
+          "aria-label": {
+            "type": "string | undefined",
+            "description": "Human readable label for the dialog, in event the dialog title is not rendered"
+          },
+          "ids": {
+            "type": "ElementIds | undefined",
+            "description": "The ids of the elements in the dialog. Useful for composition."
+          },
+          "modal": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent pointer interaction outside the element and hide all content below it",
+            "defaultValue": "true"
+          },
+          "closeOnInteractOutside": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the dialog when the outside is clicked",
+            "defaultValue": "true"
+          },
+          "initialFocusEl": {
+            "type": "(() => MaybeElement) | null | undefined",
+            "description": "Element to receive focus when the dialog is opened"
+          },
+          "finalFocusEl": {
+            "type": "(() => MaybeElement) | undefined",
+            "description": "Element to receive focus when the dialog is closed"
+          },
+          "restoreFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to restore focus to the element that had focus before the dialog was opened"
+          },
+          "closeOnEscape": {
+            "type": "boolean | undefined",
+            "description": "Whether to close the dialog when the escape key is pressed",
+            "defaultValue": "true"
+          },
+          "onOpenChange": {
+            "type": "((details: OpenChangeDetails) => void) | undefined",
+            "description": "Function to call when the dialog's open state changes"
+          },
+          "open": {
+            "type": "boolean | undefined",
+            "description": "The controlled open state of the dialog"
+          },
+          "defaultOpen": {
+            "type": "boolean | undefined",
+            "description": "The initial open state of the dialog when rendered.\nUse when you don't need to control the open state of the dialog.",
+            "defaultValue": "false"
+          },
+          "triggerValue": {
+            "type": "string | null | undefined",
+            "description": "The controlled active trigger value"
+          },
+          "defaultTriggerValue": {
+            "type": "string | null | undefined",
+            "description": "The initial active trigger value when rendered.\nUse when you don't need to control the active trigger value."
+          },
+          "onTriggerValueChange": {
+            "type": "((details: TriggerValueChangeDetails) => void) | undefined",
+            "description": "Function to call when the active trigger changes"
+          },
+          "onEscapeKeyDown": {
+            "type": "((event: KeyboardEvent) => void) | undefined",
+            "description": "Function called when the escape key is pressed"
+          },
+          "onRequestDismiss": {
+            "type": "((event: LayerDismissEvent) => void) | undefined",
+            "description": "Function called when this layer is closed due to a parent layer being closed"
+          },
+          "onPointerDownOutside": {
+            "type": "((event: PointerDownOutsideEvent) => void) | undefined",
+            "description": "Function called when the pointer is pressed down outside the component"
+          },
+          "onFocusOutside": {
+            "type": "((event: FocusOutsideEvent) => void) | undefined",
+            "description": "Function called when the focus is moved outside the component"
+          },
+          "onInteractOutside": {
+            "type": "((event: InteractOutsideEvent) => void) | undefined",
+            "description": "Function called when an interaction happens outside the component"
+          },
+          "persistentElements": {
+            "type": "Array<() => Element | null> | undefined",
+            "description": "Returns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+          },
+          "trapFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether to trap focus inside the dialog when it's opened",
+            "defaultValue": "true"
+          },
+          "preventScroll": {
+            "type": "boolean | undefined",
+            "description": "Whether to prevent scrolling behind the dialog when it's opened",
+            "defaultValue": "true"
+          },
+          "skipAnimationOnMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to allow the initial presence animation.",
+            "defaultValue": "false"
+          },
+          "present": {
+            "type": "boolean | undefined",
+            "description": "Whether the node is present (controlled by the user)"
+          },
+          "onExitComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the closed state"
+          },
+          "onEnterComplete": {
+            "type": "VoidFunction | undefined",
+            "description": "Function called when the animation ends in the open state"
+          },
+          "immediate": {
+            "type": "boolean | undefined",
+            "description": "Whether to synchronize the present change immediately or defer it to the next frame"
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
+        "name": "Command.DialogTrigger",
+        "props": {
+          "value": {
+            "type": "string",
+            "description": "The value that identifies this specific trigger"
+          }
+        }
+      },
+      {
+        "name": "Command.DialogContent",
+        "props": {
+          "title": {
+            "type": "ReactNode",
+            "description": "The accessible title of the dialog. Visually hidden.",
+            "defaultValue": "\"Command palette\""
+          },
+          "description": {
+            "type": "ReactNode",
+            "description": "The accessible description of the dialog. Visually hidden.",
+            "defaultValue": "\"Search for a command to run\""
+          }
+        }
+      },
+      {
+        "name": "Command.Item",
+        "props": {
+          "item": {
+            "type": "CollectionItem",
+            "description": "The item to render"
+          },
+          "persistFocus": {
+            "type": "boolean | undefined",
+            "description": "Whether hovering outside should clear the highlighted state"
+          }
+        }
+      },
+      {
+        "name": "Command.ItemText",
+        "props": {
+          "highlight": {
+            "type": "boolean | undefined",
+            "description": "Whether to bold the characters that match the search query. Applies when the children are a string."
+          }
+        }
+      },
+      {
+        "name": "Command.Context",
+        "props": {
+          "children": {
+            "type": "(context: UseComboboxContext<T>) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Command.DialogContext",
+        "props": {
+          "children": {
+            "type": "(context: UseDialogContext) => ReactNode",
+            "description": ""
+          }
+        }
+      },
+      {
+        "name": "Command.ItemContext",
+        "props": {
+          "children": {
+            "type": "(context: UseComboboxItemContext) => ReactNode",
+            "description": ""
+          }
+        }
+      }
+    ],
+    "variants": {
+      "size": {
+        "values": ["sm", "md", "lg"],
+        "defaultValue": "md"
+      }
+    }
+  },
   "container": {
     "parts": [],
     "variants": {
