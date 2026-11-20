@@ -1,0 +1,89 @@
+---
+title: Optical alignment for button icons
+description: Measure to the ink, not to the box.
+date: 2026-11-20
+---
+
+A button with an icon and a label usually gets the same padding on both sides. On paper that's symmetric. On screen the
+icon side looks wider, because the icon's box is wider than the icon you see.
+
+<OpticalAlignmentFigure />
+
+## Icons come with air
+
+Icons are drawn on a fixed grid, 24 units for ours, and the glyph rarely fills it. The plus runs from 6 to 18 with a 1.5
+unit round-capped stroke, so its ink starts at 5.25. That's 22% of the box left empty on each side.
+
+In the md Button the icon is 20px, so the plus starts 4.4px inside its box. With 16px of padding the eye measures from
+the edge to the ink, and reads 20.4px on the left against 16px on the right.
+
+<OpticalComparisonFigure />
+
+## Measure to the ink, not the box
+
+Text has the same problem in a smaller dose. Letters have side bearings, but at button sizes they're under a pixel, so
+the label's box is close enough to its ink. The icon is the outlier, so the icon is what moves.
+
+The fix is a negative margin on the icon, roughly the size of the empty space in its box. The padding stays the same on
+both sides, so the button still has one `--button-padding-x`, and the content inside it moves 4px toward the edge.
+
+## How the Button recipe does it
+
+`StartIcon` and `EndIcon` mark the icon with `data-icon-start` and `data-icon-end`. The recipe targets those with the
+`_iconStart` and `_iconEnd` conditions and pulls the icon out by a spacing token:
+
+```ts
+md: {
+  h: "10",
+  textStyle: "sm",
+  "--button-padding-x": "spacing.4",
+  gap: "2",
+  _icon: { width: "5", height: "5" },
+  _iconStart: { ms: "-1" },
+  _iconEnd: { me: "-1" },
+},
+```
+
+That's why icons are slots rather than plain children. The recipe can't tell a leading icon from a trailing one by
+looking at an `svg`, and a button with only an icon must not get the offset at all.
+
+```tsx
+<Button variant="outline">
+  <StartIcon asChild>
+    <Icon name="plus" />
+  </StartIcon>
+  New project
+</Button>
+```
+
+## End icons
+
+The trailing side is the same problem mirrored. The arrow's tip sits 3.5px inside its box, so `_iconEnd` pulls the icon
+4px toward the edge.
+
+<EndIconFigure />
+
+## Every size
+
+The offset scales with the icon. Small buttons use a 2px pull, the rest 4px. The table shows where the plus icon's ink
+lands, against the padding the label gets on the other side.
+
+| Size | Padding | Icon | Pull | Ink from edge |
+| ---- | ------- | ---- | ---- | ------------- |
+| 2xs  | 8px     | 14px | 2px  | 9.1px         |
+| xs   | 10px    | 16px | 2px  | 11.5px        |
+| sm   | 14px    | 16px | 2px  | 15.5px        |
+| md   | 16px    | 20px | 4px  | 16.4px        |
+| lg   | 20px    | 20px | 4px  | 20.4px        |
+| xl   | 20px    | 20px | 4px  | 20.4px        |
+| 2xl  | 28px    | 24px | 4px  | 29.3px        |
+
+Every size lands within 1.5px of its padding. A pixel either way is fine; what reads as wrong is the 4px to 5px an
+uncorrected icon adds.
+
+## Rules
+
+- Pad the button evenly. Correct the icon, not the padding.
+- Pull a start icon out with a negative start margin, and an end icon with a negative end margin.
+- Size the pull to the empty space in the icon grid: about a fifth of the icon size.
+- Don't pull an icon-only button. It's centered, so the empty space is even on both sides.

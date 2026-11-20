@@ -19,14 +19,17 @@ const nextConfig: NextConfig = {
   // Workspace packages that export their TypeScript source
   transpilePackages: [
     "@isbatak/icons",
+    "@isbatak/zag-caliper",
     "@isbatak/zag-masonry",
     "@isbatak/zag-text-flip",
     "@isbatak/zag-wheel-picker",
+    "@isbatak/ark-caliper",
     "@isbatak/ark-code-preview",
     "@isbatak/ark-masonry",
     "@isbatak/ark-search-input",
     "@isbatak/ark-text-flip",
     "@isbatak/ark-wheel-picker",
+    "@isbatak/panda-caliper",
     "@isbatak/panda-code-preview",
     "@isbatak/panda-ds",
     "@isbatak/panda-masonry",

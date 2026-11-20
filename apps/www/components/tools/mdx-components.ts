@@ -1,4 +1,15 @@
 import type { MDXComponents } from "../mdx-content"
+import {
+  CaliperBoxModelDemo,
+  CaliperCalloutDemo,
+  CaliperColorDemo,
+  CaliperDistanceDemo,
+  CaliperLinesDemo,
+  CaliperMarksDemo,
+  CaliperPlacementDemo,
+  CaliperReachDemo,
+  CaliperScaleDemo,
+} from "./caliper-demos"
 import { CodeFile, CodeFiles } from "./code-files"
 import { DocTabs, Tab } from "./doc-tabs"
 import { Editor, Editors } from "./editors"
@@ -9,6 +20,15 @@ import { SetupPrompt } from "./setup-prompt"
 import { Term } from "./term"
 
 export const toolComponents: MDXComponents = {
+  CaliperBoxModelDemo,
+  CaliperCalloutDemo,
+  CaliperColorDemo,
+  CaliperDistanceDemo,
+  CaliperLinesDemo,
+  CaliperMarksDemo,
+  CaliperPlacementDemo,
+  CaliperReachDemo,
+  CaliperScaleDemo,
   CodeFile,
   CodeFiles,
   Editor,

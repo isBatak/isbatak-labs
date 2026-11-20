@@ -37,6 +37,7 @@ export function SiteFooter({ size }: { size?: "default" | "wide" }) {
           <FooterLink href="/ds/components">Design system</FooterLink>
           <FooterLink href="/ds/icons">Icons</FooterLink>
           <FooterLink href="/tools">Tools</FooterLink>
+          <FooterLink href="/blog">Blog</FooterLink>
           <FooterLink href={SPONSOR_URL} target="_blank" rel="noopener">
             Sponsor
           </FooterLink>

@@ -1,9 +1,11 @@
 import type { Tool } from "#site/content"
 import Link from "next/link"
 import type { ComponentProps } from "react"
+import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { Icon, type IconName } from "../ui/icon"
+import { toolArt } from "./tool-art"
 
 const itemStyles = {
   display: "flex",
@@ -67,11 +69,17 @@ const Description = styled("p", {
   },
 })
 
+const logo = css({ boxSize: "8" })
+
 function ItemBody({ tool }: { tool: Tool }) {
+  const Logo = toolArt[tool.slug]?.Logo
+
   return (
     <>
       <Glyph palette={tool.color as Palette}>
-        {tool.logo ? (
+        {Logo ? (
+          <Logo className={logo} />
+        ) : tool.logo ? (
           <styled.img src={tool.logo} alt="" boxSize="8" objectFit="contain" />
         ) : (
           <Icon name={tool.icon as IconName} size="2xl" />
