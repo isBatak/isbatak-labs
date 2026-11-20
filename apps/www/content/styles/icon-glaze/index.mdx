@@ -1,0 +1,207 @@
+---
+title: Icon glaze
+description:
+  Light and shade for flat, single-color icon tiles, so they read as lit, rounded objects. Add layerStyle="iconGlaze" to
+  any icon tile.
+order: 3
+status: new
+links:
+  source: packages/panda/ds/src/theme/layer-styles.ts
+  package: "@isbatak/panda-ds"
+---
+
+A flat, single-color tile looks like a sticker. Put it on a photo or a frosted-glass panel and it sits on the surface
+instead of in it. Real app icons look like small pieces of lacquered glass: light catches the top edge, a little bounces
+back along the bottom, and the sides fall into shade.
+
+The `iconGlaze` layer style adds that light to any tile. It keeps the tile's own color, so one style works on blue,
+yellow, red or white.
+
+<Example id="icon-glaze/compare" />
+
+## Usage
+
+Give the tile a background color, a squircle radius and the layer style. The glyph inside stays above the effect.
+
+```tsx title="app-icon.tsx"
+<styled.div
+  display="flex"
+  alignItems="center"
+  justifyContent="center"
+  boxSize="16"
+  rounded="[32%]"
+  cornerShape="squircle"
+  bg="blue.600"
+  color="white"
+  layerStyle="iconGlaze"
+>
+  <Icon name="mail" boxSize="[50%]" />
+</styled.div>
+```
+
+The layer style ships with `@isbatak/panda-ds`, so there is nothing to install. It works from `css()` too.
+
+```tsx title="app-icon.tsx"
+import { css } from "styled-system/css"
+
+const tile = css({
+  bg: "yellow.400",
+  rounded: "[32%]",
+  cornerShape: "squircle",
+  boxSize: "16",
+  layerStyle: "iconGlaze",
+})
+```
+
+It reads best over something colorful: a wallpaper, a blurred photo, or a frosted-glass folder.
+
+<Example id="icon-glaze/home-screen" />
+
+## How it works
+
+The face of the tile stays flat. All the light sits in a thin bevel around the edge, the way light catches the rounded
+rim of a glass tile. The effect has three layers:
+
+- **Rims and drop shadow.** `box-shadow`s on the tile: a 1px white hairline on top, a fainter one on the bottom, and a
+  tight shadow underneath that lifts the tile off the background.
+- **Edge light.** Gradients on a `::before` that fills the tile: white along the top edge, fading out by 12% of the
+  height; fainter white along the bottom; and a little shade on the left and right edges.
+- **Face.** An `::after` inset by 3.5% with `background: inherit`, so it's the tile's own color, blurred by 4px. It
+  covers the middle of the edge light, so only a soft bevel shows around the rim.
+
+```ts title="layer-styles.ts"
+iconGlaze: {
+  value: {
+    position: "relative",
+    isolation: "isolate",
+    overflow: "hidden",
+    boxShadow: "inset 0 1px 0 0 <white 55%>, inset 0 -1px 0 0 <white 30%>, …, 0 0.5em 1em -0.5em <black 35%>",
+    _before: {
+      content: '""',
+      position: "absolute",
+      inset: "0",
+      zIndex: "-1",
+      borderRadius: "inherit",
+      backgroundImage: "<top light>, <bottom light>, <side shade>",
+    },
+    _after: {
+      content: '""',
+      position: "absolute",
+      inset: "3.5%",
+      zIndex: "-1",
+      borderRadius: "inherit",
+      background: "inherit",
+      filter: "blur({blurs.sm})",
+    },
+  },
+}
+```
+
+Every color is `color-mix()` of the `white` or `black` token with `transparent`, so the effect works on any tile color
+and its strength can come from one CSS variable.
+
+### Why pseudo-elements
+
+The light goes on `::before` instead of on the tile's `background-image`, so `bg="blue.600"` can't reset it. The `bg`
+shorthand sets `background`, which clears every background layer. `isolation: isolate` makes the tile a stacking
+context, and `z-index: -1` paints both pseudo-elements above the tile's background but below its children, so the glyph
+keeps its own color. `::after` comes later in the source, so the face paints over the light.
+
+`overflow: hidden` clips both to the tile's outline, so the bevel follows any corner shape, squircle included.
+
+### Scales with the tile
+
+The gradients stop at percentages of the tile and the face is inset by a percentage, so the bevel grows with the tile.
+The rims stay 1px at every size, as a real edge would.
+
+<Example id="icon-glaze/sizes" />
+
+## Squircle corners
+
+App icons don't have round corners. Their edge is a squircle: the curve starts earlier and eases into the straight side,
+so there's no visible point where the corner begins. Set `corner-shape: squircle` next to the radius.
+
+```tsx title="app-icon.tsx"
+<styled.div bg="blue.600" boxSize="16" rounded="[32%]" cornerShape="squircle" layerStyle="iconGlaze" />
+```
+
+A squircle corner at the same radius looks tighter than a round one, so it needs a bigger radius: about 32% of the tile
+reads like a home-screen icon, where a round corner would use about 22%. A percentage keeps the corners in proportion at
+every size.
+
+`corner-shape` is in Chrome and Edge 139 or newer. Other browsers ignore it and draw a round corner at the same radius,
+which still looks right, just a little softer.
+
+## Frosted glass
+
+Icons on a home screen often sit in a folder: a pane of frosted glass over the wallpaper. The `frostGlaze` layer style
+is that pane. It blurs and brightens whatever is behind it, then lights the glass the same way `iconGlaze` lights a
+tile: a bright rim along the top, fainter rims on the sides and bottom, a soft glow under the top edge and a drop
+shadow.
+
+<Example id="icon-glaze/folder" />
+
+```tsx title="folder.tsx"
+<styled.div p="7" rounded="[3.5rem]" cornerShape="squircle" layerStyle="frostGlaze">
+  <styled.div bg="red.600" boxSize="14" rounded="[32%]" cornerShape="squircle" layerStyle="iconGlaze" />
+</styled.div>
+```
+
+The glass is white at 18% with `blur(24px) saturate(160%)` behind it. Set `bg` to tint it, for example
+`bg="blackAlpha.300"` for smoked glass, and `--frost-glaze-intensity` (0 to 2, default 1) to change the light.
+
+The frost only shows over something with color or detail. Over a plain page it's a faint gray panel, so keep it for
+photos, wallpapers and gradients.
+
+## Intensity
+
+Set `--icon-glaze-intensity` to make the effect stronger or weaker. It multiplies every highlight and shadow, from 0
+(flat) to 2. The default is 1. Drag the slider to compare.
+
+<Example id="icon-glaze/intensity" />
+
+It inherits like any custom property, so set it on one tile or on a whole grid. Pale tiles, like yellow or white, often
+need a little more.
+
+```tsx title="dock.tsx"
+<styled.div css={{ "--icon-glaze-intensity": "1.2" }}>
+  <styled.div bg="yellow.400" layerStyle="iconGlaze" boxSize="16" rounded="[32%]" cornerShape="squircle" />
+  <styled.div bg="white" layerStyle="iconGlaze" boxSize="16" rounded="[32%]" cornerShape="squircle" />
+</styled.div>
+```
+
+## FAQ
+
+<Faq>
+  <FaqItem question="Does the tile need position: relative?">
+    The layer style sets it, along with `isolation: isolate`. If you position the tile yourself with `absolute` or
+    `fixed`, that wins and the `::before` still fills it.
+  </FaqItem>
+  <FaqItem question="Can I use it on a tile that already has a ::before or ::after?">
+    No. The effect uses both. Put that content on a child element instead.
+  </FaqItem>
+  <FaqItem question="Does it clip what's inside the tile?">
+    Yes. The layer style sets `overflow: hidden`, so a badge or glyph that pokes past the edge is cut off. Put a badge
+    on a wrapper around the tile instead. The drop shadow isn't clipped.
+  </FaqItem>
+  <FaqItem question="Does it work with round corners?">
+    Yes. Any radius and corner shape work, since the `::before` is clipped to the tile's outline.
+  </FaqItem>
+  <FaqItem question="Does it work on gradients or images?">
+    Yes, the light sits on top of whatever background the tile has. It's tuned for a single flat color, which is where
+    it adds the most.
+  </FaqItem>
+</Faq>
+
+## Credits
+
+The backgrounds are public-domain paintings from Wikimedia Commons, blurred:
+
+- Claude Monet, [_Impression, Sunrise_](https://commons.wikimedia.org/wiki/File:Monet_-_Impression,_Sunrise.jpg)
+- Vincent van Gogh,
+  [_The Starry Night_](https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg)
+- Wassily Kandinsky,
+  [_Composition VII_](https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1913_-_Composition_7.jpg)
+- J. M. W. Turner,
+  [_The Fighting Temeraire_](https://commons.wikimedia.org/wiki/File:The_Fighting_Temeraire,_JMW_Turner,_National_Gallery.jpg)
+- Vincent van Gogh, [_Sunflowers_](https://commons.wikimedia.org/wiki/File:Vincent_Willem_van_Gogh_127.jpg)
