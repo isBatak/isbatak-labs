@@ -2,7 +2,8 @@
 
 import { Combobox, useComboboxContext } from "@ark-ui/react/combobox"
 import { Dialog } from "@ark-ui/react/dialog"
-import { createContext, dataAttr } from "@ark-ui/react/utils"
+import { type HTMLArkProps, ark } from "@ark-ui/react/factory"
+import { createContext, dataAttr, mergeProps } from "@ark-ui/react/utils"
 import {
   type ComponentProps,
   type HTMLAttributes,
@@ -263,7 +264,12 @@ export function CommandClearTrigger({ children, ...props }: CommandClearTriggerP
   )
 }
 
-export const CommandList = withContext(Combobox.Content, "list")
+const CommandListBase = forwardRef<HTMLDivElement, HTMLArkProps<"div">>(function CommandListBase(props, ref) {
+  const combobox = useComboboxContext()
+  return <ark.div ref={ref} {...mergeProps(combobox.getContentProps(), props)} />
+})
+
+export const CommandList = withContext(CommandListBase, "list")
 export type CommandListProps = ComponentProps<typeof CommandList>
 
 export const CommandItemGroup = withContext(Combobox.ItemGroup, "itemGroup")
