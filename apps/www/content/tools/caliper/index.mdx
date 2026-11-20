@@ -1,0 +1,348 @@
+---
+title: Caliper
+package: "@isbatak/panda-caliper"
+install: ["@isbatak/panda-caliper", "@isbatak/ark-caliper"]
+devDependency: false
+description:
+  "Draw specs over live UI: dimension lines, hatching and outlines that measure the real component. Headless Ark UI
+  parts, with a Panda CSS recipe."
+order: 4
+icon: crop
+color: gray
+category: UI library
+status: new
+links:
+  source: packages/panda/caliper
+---
+
+Caliper draws redlines on a live component instead of a screenshot. Wrap the component in a frame, then place
+dimensions, hatches and outlines in the component's own pixels. When the component changes, the drawing stays accurate.
+The figures in the [blog](/blog) are built with it.
+
+- Headless parts built on Ark UI, with the `render` prop
+- A Panda CSS slot recipe that styles them with your theme's tokens
+- Magnify the subject while labels quote the real values
+- Dashed or solid extension lines, end ticks, chained dimensions, hatching, outlines, callouts and legends
+
+<CaliperBoxModelDemo />
+
+## Packages
+
+Caliper is split into three packages, so you can use only the layers you need.
+
+| Package                  | What it holds                                                                               |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| `@isbatak/zag-caliper`   | Framework-agnostic core: the anatomy, span math and prop getters. No React, no styles.      |
+| `@isbatak/ark-caliper`   | Headless React parts built on Ark UI. They set attributes and positions, and take `render`. |
+| `@isbatak/panda-caliper` | The `caliper` slot recipe and a preset that adds it.                                        |
+
+A Panda app installs `@isbatak/panda-caliper` and `@isbatak/ark-caliper`, then binds the parts to the recipe.
+
+## Setup
+
+Install the recipe and the parts:
+
+```sh
+pnpm add @isbatak/panda-caliper @isbatak/ark-caliper
+```
+
+Add the preset to your Panda config. It registers the `caliper` slot recipe.
+
+```ts
+import { caliperPreset } from "@isbatak/panda-caliper"
+import { defineConfig } from "@pandacss/dev"
+
+export default defineConfig({
+  presets: [caliperPreset],
+})
+```
+
+The recipe reads the `bg.subtle`, `border.muted`, `fg.muted` and `colorPalette.*` semantic tokens, as defined by
+`@isbatak/panda-ds`.
+
+Then bind the parts to the recipe with your project's `createSlotRecipeContext`, as for any Panda slot recipe. The
+binding has to live in your app, because only your generated `styled-system` knows your tokens and style props.
+
+```tsx title="components/ui/caliper.tsx"
+"use client"
+
+import { Caliper as ArkCaliper } from "@isbatak/ark-caliper/react"
+import { createSlotRecipeContext } from "styled-system/jsx"
+import { caliper } from "styled-system/recipes"
+
+const { withProvider, withContext } = createSlotRecipeContext(caliper)
+
+export const Root = withProvider(ArkCaliper.Root, "root")
+export const Canvas = withContext(ArkCaliper.Canvas, "canvas")
+export const Caption = withContext(ArkCaliper.Caption, "caption")
+export const Frame = withContext(ArkCaliper.Frame, "frame")
+export const Subject = withContext(ArkCaliper.Subject, "subject")
+export const Outline = withContext(ArkCaliper.Outline, "outline")
+export const Hatch = withContext(ArkCaliper.Hatch, "hatch")
+export const Dimension = withContext(ArkCaliper.Dimension, "dimension")
+export const DimensionLabel = withContext(ArkCaliper.DimensionLabel, "dimensionLabel")
+export const Legend = withContext(ArkCaliper.Legend, "legend")
+export const LegendItem = withContext(ArkCaliper.LegendItem, "legendItem")
+export const LegendSwatch = withContext(ArkCaliper.LegendSwatch, "legendSwatch")
+export const Callout = withContext(ArkCaliper.Callout, "callout")
+export const CalloutLabel = withContext(ArkCaliper.CalloutLabel, "calloutLabel")
+export const CalloutTitle = withContext(ArkCaliper.CalloutTitle, "calloutTitle")
+```
+
+Import that file as a namespace, `import * as Caliper from "./caliper"`. The bound parts take every Panda style prop,
+including `colorPalette`.
+
+## Anatomy
+
+`Root` is the figure, `Canvas` is the drawing area and `Caption` is the text under it. A `Frame` holds one subject and
+the marks drawn over it. Marks are positioned in the subject's own pixels, from the frame's top-left corner.
+
+```tsx
+<Caliper.Root>
+  <Caliper.Canvas>
+    <Caliper.Frame magnify={2} annotated>
+      <Caliper.Subject>
+        <Card />
+      </Caliper.Subject>
+      <Caliper.Hatch spanY={{ start: 0, size: 16 }} />
+      <Caliper.Outline spanX={{ start: 16, end: 16 }} spanY={{ start: 16, end: 16 }} />
+      <Caliper.Dimension placement="top">
+        <Caliper.DimensionLabel>160px</Caliper.DimensionLabel>
+      </Caliper.Dimension>
+    </Caliper.Frame>
+    <Caliper.Legend>
+      <Caliper.LegendItem>
+        <Caliper.LegendSwatch kind="hatch" />
+        Padding
+      </Caliper.LegendItem>
+    </Caliper.Legend>
+  </Caliper.Canvas>
+  <Caliper.Caption>A 160 × 96 card with 16px padding.</Caliper.Caption>
+</Caliper.Root>
+```
+
+Every part sets a `data-caliper-<part>` attribute, such as `data-caliper-dimension-label`. Options are set as data
+attributes too: `data-placement`, `data-extension`, `data-line`, `data-distance`, `data-ticks`, `data-magnify`,
+`data-annotated` and `data-kind`. Use them to target parts from your own CSS.
+
+## Spans
+
+Each mark takes a span per axis: `spanX` and `spanY` for `Hatch` and `Outline`, and `span` for `Dimension`. Give any two
+of `start`, `end` and `size`, in subject pixels. Leave the span out to cover the whole frame.
+
+```tsx
+<Caliper.Hatch spanX={{ start: 0, size: 16 }} />
+<Caliper.Hatch spanX={{ end: 0, size: 16 }} spanY={{ start: 16, end: 16 }} />
+<Caliper.Dimension span={{ start: 16, end: 16 }} />
+```
+
+## Magnify
+
+`magnify` scales the subject with CSS `zoom` and multiplies every position by the same factor, so a label can say 24px
+while the tile is drawn at 72px. `magnify="fit"` uses 1.5 on phones, 2 from `sm` and 3 from `md`.
+
+<CaliperScaleDemo />
+
+```tsx
+<Caliper.Frame magnify={3}>
+  <Caliper.Subject>
+    <Tile />
+  </Caliper.Subject>
+  <Caliper.Dimension distance="sm">
+    <Caliper.DimensionLabel>24px</Caliper.DimensionLabel>
+  </Caliper.Dimension>
+</Caliper.Frame>
+```
+
+Marks sit outside the subject, so they take up no layout space. Add `annotated` to a frame to reserve room above and
+below it for dimension labels.
+
+## Placement
+
+`placement` puts a dimension on any side of the frame: `top`, `bottom` (the default), `left` or `right`. The label
+follows the line.
+
+<CaliperPlacementDemo />
+
+```tsx
+<Caliper.Dimension placement="left">
+  <Caliper.DimensionLabel>left</Caliper.DimensionLabel>
+</Caliper.Dimension>
+```
+
+## Lines and ticks
+
+`extension` styles the lines that run from the subject to the dimension line: `dashed` (the default), `solid`, or `none`
+for a bare I-beam. `line` styles the dimension line itself, and `ticks={false}` removes the end caps.
+
+<CaliperLinesDemo />
+
+```tsx
+<Caliper.Dimension extension="none" distance="sm" />
+<Caliper.Dimension line="dashed" />
+<Caliper.Dimension ticks={false} />
+```
+
+## Reach
+
+`reach` extends the extension lines into the subject, in subject pixels, so a dimension can point at something inside
+the subject rather than at its edge.
+
+<CaliperReachDemo />
+
+```tsx
+<Caliper.Dimension placement="top" span={{ start: 16, end: 16 }} reach={16} />
+```
+
+## Distance
+
+`distance` sets the gap between the frame and the dimension line: `sm`, `md` (the default) or `lg`. Use it to stack
+dimensions in rows, such as a chain of segments above an overall size.
+
+<CaliperDistanceDemo />
+
+```tsx
+<Caliper.Dimension span={{ start: 0, size: 40 }} distance="sm" />
+<Caliper.Dimension span={{ start: 40, size: 80 }} distance="md" />
+<Caliper.Dimension span={{ end: 0, size: 40 }} distance="lg" />
+```
+
+## Outline and hatch
+
+`Outline` draws a dashed box around a region, such as an icon's bounding box or a content box. `Hatch` fills a region
+with diagonal lines, for padding, gaps and empty space.
+
+<CaliperMarksDemo />
+
+```tsx
+<Caliper.Outline spanX={{ start: 8, end: 8 }} spanY={{ start: 8, end: 8 }} />
+<Caliper.Hatch spanX={{ start: 0, size: 16 }} />
+```
+
+## Callouts
+
+`Callout` puts a dot on each point in `anchors` and runs a leader line from them to a note at `to`, all in subject
+pixels. Each line drops from its anchor to `bend`, runs across to `to.x`, then on to the note, so several anchors share
+one line. An anchor straight above its note gets a straight line. `bend` defaults to halfway.
+
+<CaliperCalloutDemo />
+
+```tsx
+<Caliper.Callout
+  anchors={[
+    { x: 20, y: 40 },
+    { x: 56, y: 40 },
+  ]}
+  to={{ x: 0, y: 88 }}
+  bend={56}
+>
+  <Caliper.CalloutLabel>
+    <Caliper.CalloutTitle>bold, italic</Caliper.CalloutTitle>
+    Both add emphasis, so they share one line.
+  </Caliper.CalloutLabel>
+</Caliper.Callout>
+```
+
+The note starts at `to.x`; `align="center"` or `"end"` lines it up the other way. When `to` sits above the anchors, the
+note goes above the line. Notes sit outside the layout like the other marks, so give the frame room with a margin, such
+as `mb="56"`.
+
+## Color
+
+Marks, labels and swatches use the `colorPalette` color. `Root` defaults to `gray`. Set `colorPalette` on any part to
+change it; the part's children use the same palette.
+
+<CaliperColorDemo />
+
+```tsx
+<Caliper.Dimension colorPalette="blue">
+  <Caliper.DimensionLabel>blue</Caliper.DimensionLabel>
+</Caliper.Dimension>
+```
+
+## Legend
+
+`Legend` explains what the marks mean. Each `LegendItem` pairs a `LegendSwatch` with a label; `kind` is `solid`,
+`dashed` or `hatch`, matching the marks. See the box model figure at the top for an example.
+
+## Render prop
+
+The parts are Ark UI parts, so each one takes `render` to swap the element it renders. Pass an element to merge the
+part's props into it, or a function to merge them yourself. `Frame`, `Dimension` and `LegendSwatch` pass their state as
+the function's second argument.
+
+```tsx
+<Caliper.Dimension
+  placement="left"
+  render={(props, state) => <div {...props} data-vertical={state.axis === "y" ? "" : undefined} />}
+/>
+```
+
+`asChild` still works, but Ark UI 6 deprecates it in favor of `render`.
+
+## Headless
+
+The parts from `@isbatak/ark-caliper/react` work without Panda. They render the `data-caliper-*` attributes and
+positions with no classes, so you can style them with any CSS.
+
+To support another framework, use `connect` from `@isbatak/zag-caliper` with that framework's `normalizeProps`. It
+returns a prop getter for each part, such as `getDimensionProps({ placement: "top" })`.
+
+## API
+
+### Frame
+
+| Prop        | Type              | Default |
+| ----------- | ----------------- | ------- |
+| `magnify`   | `number \| "fit"` | `1`     |
+| `annotated` | `boolean`         | `false` |
+
+Render state: `{ magnify }`.
+
+### Dimension
+
+| Prop        | Type                                     | Default    |
+| ----------- | ---------------------------------------- | ---------- |
+| `span`      | `{ start?, end?, size? }`                | full frame |
+| `placement` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` |
+| `reach`     | `number`                                 | `0`        |
+| `extension` | `"dashed" \| "solid" \| "none"`          | `"dashed"` |
+| `line`      | `"solid" \| "dashed"`                    | `"solid"`  |
+| `ticks`     | `boolean`                                | `true`     |
+| `distance`  | `"sm" \| "md" \| "lg"`                   | `"md"`     |
+
+Render state: `{ placement, axis }`, where `axis` is `"x"` for `top` and `bottom` and `"y"` for `left` and `right`.
+
+### Hatch and Outline
+
+| Prop    | Type                      | Default    |
+| ------- | ------------------------- | ---------- |
+| `spanX` | `{ start?, end?, size? }` | full frame |
+| `spanY` | `{ start?, end?, size? }` | full frame |
+
+### Callout
+
+| Prop      | Type                           | Default   |
+| --------- | ------------------------------ | --------- |
+| `anchors` | `{ x, y }[]`                   | required  |
+| `to`      | `{ x, y }`                     | required  |
+| `bend`    | `number`                       | halfway   |
+| `align`   | `"start" \| "center" \| "end"` | `"start"` |
+
+Render state: `{ side, align }`, where `side` is `"bottom"` when the note is below the anchors and `"top"` otherwise.
+
+### LegendSwatch
+
+| Prop   | Type                             | Default   |
+| ------ | -------------------------------- | --------- |
+| `kind` | `"solid" \| "dashed" \| "hatch"` | `"solid"` |
+
+Render state: `{ kind }`.
+
+### Every part
+
+| Prop     | Type                                  | Default |
+| -------- | ------------------------------------- | ------- |
+| `render` | `ReactElement \| (props, state) => …` | —       |
+
+Every part also takes the props of the element it renders. Bound to the recipe, it also takes Panda style props.

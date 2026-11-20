@@ -1,0 +1,74 @@
+{
+  "name": "@isbatak/zag-caliper",
+  "version": "0.0.0",
+  "description": "Framework-agnostic core for Caliper: the anatomy and prop getters for drawing specs over live UI",
+  "keywords": [
+    "zag",
+    "caliper",
+    "spec",
+    "redline",
+    "dimension",
+    "hatching"
+  ],
+  "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/zag/caliper#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isBatak/isbatak-labs.git",
+    "directory": "packages/zag/caliper"
+  },
+  "bugs": {
+    "url": "https://github.com/isBatak/isbatak-labs/issues"
+  },
+  "type": "module",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./anatomy": "./src/caliper.anatomy.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      },
+      "./anatomy": {
+        "import": {
+          "types": "./dist/caliper.anatomy.d.ts",
+          "default": "./dist/caliper.anatomy.js"
+        },
+        "require": {
+          "types": "./dist/caliper.anatomy.d.cts",
+          "default": "./dist/caliper.anatomy.cjs"
+        }
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@zag-js/anatomy": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
+  }
+}

@@ -128,6 +128,8 @@ const tools = defineCollection({
     .object({
       title: s.string().max(99),
       package: s.string(),
+      install: s.array(s.string()).optional(),
+      devDependency: s.boolean().default(true),
       description: s.string().max(999),
       order: s.number().default(0),
       category: s.string(),
@@ -157,6 +159,26 @@ const tools = defineCollection({
     }),
 })
 
+const posts = defineCollection({
+  name: "Post",
+  pattern: "blog/*/index.mdx",
+  schema: s
+    .object({
+      title: s.string().max(99),
+      description: s.string().max(999),
+      date: s.isodate(),
+      draft: s.boolean().default(false),
+      path: s.path(),
+      toc: s.toc(),
+      metadata: s.metadata(),
+      code: s.mdx(),
+    })
+    .transform(({ path, ...data }) => {
+      const slug = path.replace(/^blog\//, "")
+      return { ...data, slug, permalink: `/blog/${slug}` }
+    }),
+})
+
 export default defineConfig({
   root: "content",
   output: {
@@ -166,7 +188,7 @@ export default defineConfig({
     name: "[name]-[hash:6].[ext]",
     clean: true,
   },
-  collections: { components, icons, prototypes, styles, tools },
+  collections: { components, icons, posts, prototypes, styles, tools },
   mdx: {
     rehypePlugins: [rehypeSlug],
   },

@@ -24,8 +24,9 @@
 1. studio
    1. simplify, remove all unnecessary clutter
    1. implement theme and tokens explorer similar to figma but with panda css support
-1. [ ] Blog page in apps/www, with posts illustrated by spec figures (dashed guides, measured widths, hatched padding,
-       value pills) like the menu sizing figure
+1. [x] Blog page in apps/www, with posts illustrated by spec figures (dashed guides, measured widths, hatched padding,
+       value pills) like the menu sizing figure. Figures use Caliper (`@isbatak/panda-caliper`, see `plans/caliper.md`).
+   1. [x] Optical alignment for button icons
    1. [ ] StartIcon and EndIcon: why icons are slots rather than children, spacing and sizing against the label
    1. [ ] Concentric radius: inner radius = outer radius − padding, and how `concentric-preset` does it
    1. [ ] Grain Panda plugin: what `grain-preset` adds, how to put grain on surface layers
