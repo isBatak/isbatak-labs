@@ -5,7 +5,6 @@ packages:
   - packages/panda/themes/*
   - packages/studio
   - apps/*
-  - promo/*
 
 allowBuilds:
   "@parcel/watcher": false
