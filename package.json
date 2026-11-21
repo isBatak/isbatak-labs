@@ -16,7 +16,7 @@
     "www": "pnpm --parallel --filter \"./apps/www*\"",
     "studio": "pnpm --filter @isbatak/sourcery --filter @isbatak/panda-ds build && pnpm --filter @isbatak/website studio",
     "studio:analog": "pnpm --filter @isbatak/sourcery --filter @isbatak/panda-ds --filter @isbatak/panda-theme-analog build && pnpm --filter @isbatak/website studio:analog",
-    "video": "pnpm --parallel --filter \"./promo/video*\"",
+    "promos": "pnpm --filter \"./apps/promos*\"",
     "changeset": "changeset",
     "version-packages": "changeset version && oxfmt",
     "prepare": "simple-git-hooks && node scripts/sync-mcp.mjs",
