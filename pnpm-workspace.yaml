@@ -5,6 +5,7 @@ packages:
   - packages/panda/themes/*
   - packages/studio
   - apps/*
+  - promo/*
 
 allowBuilds:
   "@parcel/watcher": false
@@ -72,6 +73,7 @@ catalog:
   storybook: ^10.6.7
   storybook-solidjs-vite: ^10.7.4
   vite: ^8.3.8
+  "@types/node": 25.9.5
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
   "@vitejs/plugin-react": ^6.3.0
