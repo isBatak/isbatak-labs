@@ -4,6 +4,7 @@ import { Badge } from "@isbatak/react-ui/badge"
 import { Button } from "@isbatak/react-ui/button"
 import { EndIcon, StartIcon } from "@isbatak/react-ui/icon"
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
+import { Span } from "@isbatak/react-ui/span"
 import { useState } from "react"
 import { css, cx } from "styled-system/css"
 import { HStack } from "styled-system/jsx"
@@ -56,24 +57,24 @@ export function OpticalAlignmentFigure() {
           spanY={{ start: md.iconTop, size: md.icon }}
         />
         <Caliper.Dimension placement="top" reach={md.iconTop} span={{ start: md.border, size: boxStart - md.border }}>
-          <Caliper.DimensionLabel>{px(boxStart - md.border)} to the box</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(boxStart - md.border)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
         <Caliper.Dimension placement="top" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-          <Caliper.DimensionLabel>{px(md.padding)} to the box</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
         <Caliper.Dimension
           colorPalette={alignment === "equal" ? "red" : "blue"}
           reach={md.iconTop}
           span={{ start: md.border, size: inkGap }}
         >
-          <Caliper.DimensionLabel>{px(inkGap)} to the ink</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(inkGap)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
         <Caliper.Dimension
           colorPalette={alignment === "equal" ? "red" : "blue"}
           reach={md.iconTop}
           span={{ end: md.border, size: md.padding }}
         >
-          <Caliper.DimensionLabel>{px(md.padding)} to the ink</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
       </Caliper.Frame>
 
@@ -96,12 +97,18 @@ export function OpticalAlignmentFigure() {
         aria-label="Alignment"
       >
         <SegmentGroup.Indicator />
-        <SegmentGroup.Item value="equal">
+        <SegmentGroup.Item value="equal" h="auto" py="2" flexDirection="column" gap="0.5">
           <SegmentGroup.ItemText>Equal</SegmentGroup.ItemText>
+          <Span color="fg.muted" fontWeight="normal">
+            {px(md.padding + plusInk)} to the ink
+          </Span>
           <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
-        <SegmentGroup.Item value="optical">
+        <SegmentGroup.Item value="optical" h="auto" py="2" flexDirection="column" gap="0.5">
           <SegmentGroup.ItemText>Optical</SegmentGroup.ItemText>
+          <Span color="fg.muted" fontWeight="normal">
+            {px(md.padding - md.offset + plusInk)} to the ink
+          </Span>
           <SegmentGroup.ItemHiddenInput />
         </SegmentGroup.Item>
       </SegmentGroup.Root>
@@ -161,13 +168,13 @@ export function EndIconFigure() {
           spanY={{ start: md.iconTop, size: md.icon }}
         />
         <Caliper.Dimension placement="top" reach={md.iconTop} span={{ end: md.border, size: boxEnd - md.border }}>
-          <Caliper.DimensionLabel>{px(boxEnd - md.border)} to the box</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(boxEnd - md.border)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
         <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ start: md.border, size: md.padding }}>
-          <Caliper.DimensionLabel>{px(md.padding)} to the ink</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
         <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ end: md.border, size: inkGap }}>
-          <Caliper.DimensionLabel>{px(inkGap)} to the ink</Caliper.DimensionLabel>
+          <Caliper.DimensionLabel>{px(inkGap)}</Caliper.DimensionLabel>
         </Caliper.Dimension>
       </Caliper.Frame>
     </Caliper.Figure>

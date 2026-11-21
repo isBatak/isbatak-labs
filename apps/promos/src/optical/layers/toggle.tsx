@@ -1,10 +1,11 @@
 import { Box } from "@isbatak/react-ui/box"
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
+import { Span } from "@isbatak/react-ui/span"
 import { css } from "@isbatak/panda-ds/css"
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion"
 
 import { clamp, ease, mix, tween } from "../../sourcery/lib/motion"
-import { LAYOUT, shapeOf, T } from "../theme"
+import { LAYOUT, md, plusInk, px, shapeOf, T } from "../theme"
 
 const cursorClass = css({ fill: "fg", stroke: "bg", strokeWidth: "1.25", strokeLinejoin: "round" })
 
@@ -43,12 +44,18 @@ export function Toggle() {
       <Box position="relative">
         <SegmentGroup.Root size="sm" orientation="horizontal" value={value} aria-label="Alignment">
           <SegmentGroup.Indicator />
-          <SegmentGroup.Item value="equal">
+          <SegmentGroup.Item value="equal" h="auto" py="2" flexDirection="column" gap="0.5">
             <SegmentGroup.ItemText>Equal</SegmentGroup.ItemText>
+            <Span color="fg.muted" fontWeight="normal">
+              {px(md.padding + plusInk)} to the ink
+            </Span>
             <SegmentGroup.ItemHiddenInput />
           </SegmentGroup.Item>
-          <SegmentGroup.Item value="optical">
+          <SegmentGroup.Item value="optical" h="auto" py="2" flexDirection="column" gap="0.5">
             <SegmentGroup.ItemText>Optical</SegmentGroup.ItemText>
+            <Span color="fg.muted" fontWeight="normal">
+              {px(md.padding - md.offset + plusInk)} to the ink
+            </Span>
             <SegmentGroup.ItemHiddenInput />
           </SegmentGroup.Item>
         </SegmentGroup.Root>
@@ -56,7 +63,7 @@ export function Toggle() {
           position="absolute"
           style={{
             left: `calc(${mix(72, 100, away)}% + ${mix(-6, 180, away)}px)`,
-            top: `calc(50% + ${mix(-6, -40, away)}px)`,
+            top: `calc(30% + ${mix(-4, -30, away)}px)`,
             scale: press,
             transformOrigin: "top left",
           }}
