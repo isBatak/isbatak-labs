@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite"
 import { h } from "vue"
 import SegmentGroupDemo from "@isbatak/compositions/ds/vue/segment-group/usage"
+import SegmentGroupDescriptionDemo from "@isbatak/compositions/ds/vue/segment-group/description"
 import SegmentGroupFittedDemo from "@isbatak/compositions/ds/vue/segment-group/fitted"
 import SegmentGroupIconDemo from "@isbatak/compositions/ds/vue/segment-group/icon"
 import SegmentGroupSizesDemo from "@isbatak/compositions/ds/vue/segment-group/sizes"
@@ -32,4 +33,8 @@ export const Sizes: Story = {
 
 export const Tinted: Story = {
   render: () => ({ setup: () => () => h(SegmentGroupTintedDemo) }),
+}
+
+export const Description: Story = {
+  render: () => ({ setup: () => () => h(SegmentGroupDescriptionDemo) }),
 }
