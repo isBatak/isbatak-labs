@@ -34,7 +34,7 @@ A promo is a showcase of the design system too, so everything on screen comes fr
 - **Scope theme switches.** A theme condition like `data-radius` goes on the promo's own root element, never on
   `document`, so it can't leak into other promos.
 - **By hand last.** Hand styling is for layout (flex, grid, gaps) and brand marks the recipes don't cover, like a logo
-  tile.
+  tile, written as style props on `Box`, `Flex` and `Grid`.
 - **Scale with `zoom`, not pixels.** Recipes size in tokens, so wrap each block in `zoom: k * unit` (with
   `unit = Math.min(width, height) / 1080`) and leave font sizes and paddings to the recipes. Zoom multiplies when nested.
 - **Literal style values.** Panda only generates CSS for values it can read in the source, so a `textStyle` or variant
