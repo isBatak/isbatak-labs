@@ -10,7 +10,7 @@ export function Promo() {
   const unit = Math.min(width, height) / 1080
 
   return (
-    <Box position="absolute" inset="0" bg="bg.subtle" color="fg" overflow="hidden">
+    <Box className="dark" position="absolute" inset="0" bg="bg.subtle" color="fg" overflow="hidden">
       <Sprite />
       <Box position="absolute" inset="0" style={{ zoom: unit }}>
         <Stage />

@@ -89,10 +89,10 @@ export function Stage() {
                   reach={md.iconTop}
                   span={{ start: md.border, size: boxStart - md.border }}
                 >
-                  <Caliper.DimensionLabel>{px(md.padding - shown)} to the box</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding - shown)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
                 <Caliper.Dimension placement="top" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)} to the box</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
               </Box>
             )}
@@ -136,20 +136,20 @@ export function Stage() {
             {inkGuides * (1 - blue) > 0.001 && (
               <Box style={{ opacity: inkGuides * (1 - blue) }}>
                 <Caliper.Dimension colorPalette="red" reach={md.iconTop} span={{ start: md.border, size: inkGap }}>
-                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)} to the ink</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
                 <Caliper.Dimension colorPalette="red" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)} to the ink</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
               </Box>
             )}
             {inkGuides * blue > 0.001 && (
               <Box style={{ opacity: inkGuides * blue }}>
                 <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ start: md.border, size: inkGap }}>
-                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)} to the ink</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
                 <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)} to the ink</Caliper.DimensionLabel>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
                 </Caliper.Dimension>
               </Box>
             )}
