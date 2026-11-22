@@ -19,10 +19,10 @@ export function OpticalCompositions() {
           shape: "square",
           timing: {
             measure: {
-              boxGuides: 60,
-              iconBox: 120,
+              boxGuides: 96,
+              iconBox: 60,
               emptyNote: 150,
-              inkGuides: 180,
+              inkGuides: 192,
               reach: 252,
               click: 288,
               slide: 36,
