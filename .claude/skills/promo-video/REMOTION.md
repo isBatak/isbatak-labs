@@ -2,15 +2,24 @@
 
 ## Direction
 
-- **Every motion has a cause.** Content changes by moving (sliding, pushing, popping in place), so the viewer sees what
-  turned into what. Groups stagger, beats overlap slightly, and the payoff holds long enough to read every word on
-  screen. Between beats, something is always moving toward the next one.
+- **Motion follows the [animation skill](../animation/SKILL.md).** Its direction, 12 principles and faults apply to
+  every beat: scenes enter the way they leave, pieces stagger, and nothing swaps without motion. Frame keys are the poses
+  in `T`, and the helpers are in `apps/promos/src/sourcery/lib/motion.ts` (`ease`, `tween`, `track`, `mix`, and the
+  springs `pop` and `settle`). Magnify a detail with Caliper `magnify` and `zoom`.
+
+  A scene's entry and exit, with `durationInFrames` from `useVideoConfig()` being the `Sequence`'s own length:
+
+  ```ts
+  const { durationInFrames } = useVideoConfig()
+  const shown = tween(frame, 0, 18, ease.inOut) * (1 - tween(frame, durationInFrames - 18, 18, ease.inOut))
+  ```
+
+  `shown` drives the focal thing's `opacity` and `scale: mix(0.92, 1, shown)`; a secondary piece rises
+  `(1 - shown) * 16px`. A staggered piece `i` enters with `tween(frame, i * 6, 18, ease.inOut)`.
 - **One thing leads.** The focal thing of a beat is the largest and highest-contrast object on screen; supporting text
   and secondary objects sit quieter around it.
 - **Frame the story.** The focal thing fills most of the frame. Real words go where the story is; everything else stays
   plain. Keep the frame full: no empty corner, no band of nothing under a block, no small panel floating in white.
-- **Continuity.** An object that carries across segments, like a component panel, keeps its position and size from one
-  segment to the next.
 - **Credits are part of the story.** Third-party work on screen gets its author's name in the beat that shows it.
 
 ## Build from the design system
@@ -61,15 +70,13 @@ A promo is a showcase of the design system too, so everything on screen comes fr
 
 Check each one on the contact sheet and the transition stills, in both orientations:
 
-1. Content swaps between frames with no motion connecting old and new.
+1. Any fault from the [animation skill](../animation/SKILL.md#faults).
 2. A beat where several objects compete at the same weight.
 3. Empty corners or bands, or a small panel floating with air on all four sides.
 4. Text cut off, controls clipped by the frame, or shadows cut at an edge.
-5. A shared object that jumps position or size between segments.
-6. A hold where nothing moves for more than about two seconds, or a payoff gone before it can be read.
-7. Stock decoration: sparkles, gradients, invented logos, or an accent other than orange.
-8. Something shown that step 1 didn't verify.
-9. A hand-styled box where a component or recipe exists, a font size in pixels, or a hex color.
-10. A component that looks different from its demo on the www docs page: square corners, an icon over the text, a
-    missing border or padding. Check the recipe with the Panda MCP and the generated CSS in `styled-system/styles.css`,
-    and fix the cause in the recipe, the component or `panda.config.ts`, never with overrides in the promo.
+5. Stock decoration: sparkles, gradients, invented logos, or an accent other than orange.
+6. Something shown that step 1 didn't verify.
+7. A hand-styled box where a component or recipe exists, a font size in pixels, or a hex color.
+8. A component that looks different from its demo on the www docs page: square corners, an icon over the text, a
+   missing border or padding. Check the recipe with the Panda MCP and the generated CSS in `styled-system/styles.css`,
+   and fix the cause in the recipe, the component or `panda.config.ts`, never with overrides in the promo.
