@@ -36,6 +36,10 @@ const iconMotion = css({
 
 const equalIcon = css({ ms: "0", me: "0" })
 
+const compareScale = css({ "--caliper-scale": { base: "1.25", md: "2" }, ms: { base: "16", md: "0" } })
+
+const stackScale = css({ "--caliper-scale": { base: "1.2", md: "2" } })
+
 function SaveArticleButton({ alignment }: { alignment: Alignment }) {
   return (
     <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
@@ -158,7 +162,7 @@ export function OpticalComparisonFigure() {
 
   return (
     <Caliper.Figure caption="The same two buttons at 2×. The top one looks heavier on the left; the bottom one looks centered.">
-      <Caliper.Frame magnify={2}>
+      <Caliper.Frame magnify="fit" className={compareScale}>
         <Caliper.Subject>
           <SaveArticleButton alignment="equal" />
         </Caliper.Subject>
@@ -169,7 +173,7 @@ export function OpticalComparisonFigure() {
           </Caliper.CalloutLabel>
         </Caliper.Callout>
       </Caliper.Frame>
-      <Caliper.Frame magnify={2}>
+      <Caliper.Frame magnify="fit" className={compareScale}>
         <Caliper.Subject>
           <SaveArticleButton alignment="optical" />
         </Caliper.Subject>
@@ -265,7 +269,7 @@ export function StackedButtonsFigure() {
 
   return (
     <Caliper.Figure caption="Three md Buttons stacked, left aligned. Pull each icon to its own ink and the icons line up, but the labels drift. With the fixed pull the labels share one edge and the icons' ink lands up to 3.333px apart.">
-      <Caliper.Frame magnify={2}>
+      <Caliper.Frame magnify="fit" className={stackScale}>
         <Caliper.Subject>
           <VStack gap="2" alignItems="stretch" w="60">
             <Button variant="outline" colorPalette="gray" justifyContent="flex-start" data-hover tabIndex={-1}>

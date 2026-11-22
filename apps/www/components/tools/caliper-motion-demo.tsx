@@ -2,9 +2,12 @@
 
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
 import { useState } from "react"
+import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { Caliper } from "../ui/caliper"
+
+const phoneScale = css({ "--caliper-scale": { base: "1.5", sm: "2" } })
 
 const Sample = styled("div", {
   base: {
@@ -22,7 +25,7 @@ export function CaliperMotionDemo() {
 
   return (
     <Caliper.Figure caption="enter='draw' opens each dimension from its center, drops its extension lines, then shows the label. exit='retract' plays it back out, last mark first.">
-      <Caliper.Frame magnify={2} annotated animate={animate}>
+      <Caliper.Frame magnify="fit" className={phoneScale} annotated animate={animate}>
         <Caliper.Subject>
           <Sample />
         </Caliper.Subject>

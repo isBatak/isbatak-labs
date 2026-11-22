@@ -1,7 +1,10 @@
+import { css } from "styled-system/css"
 import { HStack, styled } from "styled-system/jsx"
 
 import { Caliper } from "../ui/caliper"
 import { Icon } from "../ui/icon"
+
+const phoneScale = css({ "--caliper-scale": { base: "1.5", sm: "2" } })
 
 const Sample = styled("div", {
   base: {
@@ -57,7 +60,7 @@ const Tool = styled("span", {
 export function CaliperBoxModelDemo() {
   return (
     <Caliper.Figure caption="A 160 × 96 card with 16px padding: hatched padding, an outlined content box and a chain of dimensions.">
-      <Caliper.Frame magnify={2} annotated>
+      <Caliper.Frame magnify="fit" className={phoneScale} annotated>
         <Caliper.Subject>
           <Sample size="card" />
         </Caliper.Subject>
@@ -220,7 +223,7 @@ export function CaliperLinesDemo() {
 export function CaliperReachDemo() {
   return (
     <Caliper.Figure caption="reach pulls the extension lines into the subject, here up to the content box 16px inside the card.">
-      <Caliper.Frame magnify={2} annotated>
+      <Caliper.Frame magnify="fit" className={phoneScale} annotated>
         <Caliper.Subject>
           <Sample size="card" />
         </Caliper.Subject>
@@ -239,7 +242,7 @@ export function CaliperReachDemo() {
 export function CaliperDistanceDemo() {
   return (
     <Caliper.Figure caption="distance sets how far the dimension line sits from the frame, so dimensions can stack in rows.">
-      <Caliper.Frame magnify={2} annotated>
+      <Caliper.Frame magnify="fit" className={phoneScale} annotated>
         <Caliper.Subject>
           <Sample size="card" />
         </Caliper.Subject>
@@ -282,7 +285,7 @@ export function CaliperMarksDemo() {
 export function CaliperColorDemo() {
   return (
     <Caliper.Figure caption="Every mark takes its color from colorPalette: gray by default, or any palette set on a part.">
-      <Caliper.Frame magnify={2} annotated>
+      <Caliper.Frame magnify="fit" className={phoneScale} annotated>
         <Caliper.Subject>
           <Sample size="card" />
         </Caliper.Subject>
