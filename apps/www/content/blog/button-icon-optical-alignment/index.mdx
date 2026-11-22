@@ -1,6 +1,6 @@
 ---
 title: Optical alignment for button icons
-description: Measure to the ink, not to the box.
+description: Pull the icon by a fixed amount, and to its ink only when nothing lines up with it.
 date: 2026-11-20
 ---
 
@@ -9,19 +9,7 @@ icon side looks wider, because the icon's box is wider than the icon you see.
 
 <OpticalAlignmentFigure />
 
-## Icons come with air
-
-Icons are drawn on a fixed grid, 24 units for ours, and the glyph rarely fills it. The plus runs from 6 to 18 with a 1.5
-unit round-capped stroke, so its ink starts at 5.25. That's 22% of the box left empty on each side.
-
-<IconGridFigure />
-
-In the md Button the icon is 20px, so the plus starts 4.4px inside its box. With 16px of padding the eye measures from
-the edge to the ink, and reads 20.4px on the left against 16px on the right.
-
-<OpticalComparisonFigure />
-
-## Measure to the ink, not the box
+## Pull by a fixed amount
 
 Text has the same problem in a smaller dose. Letters have side bearings, but at button sizes they're under a pixel, so
 the label's box is close enough to its ink. The icon is the outlier, so the icon is what moves.
@@ -29,10 +17,16 @@ the label's box is close enough to its ink. The icon is the outlier, so the icon
 The fix is a negative margin on the icon, roughly the size of the empty space in its box. The padding stays the same on
 both sides, so the button still has one `--button-padding-x`, and the content inside it moves 4px toward the edge.
 
+<OpticalComparisonFigure />
+
+The pull is a fixed value per size, the same for every icon. It gets each icon close to its ink, and keeps every label
+in a stack of buttons on one line. [Perfect optical alignment](#perfect-optical-alignment) shows why that matters.
+
 ## How the Button recipe does it
 
 `StartIcon` and `EndIcon` mark the icon with `data-icon-start` and `data-icon-end`. The recipe targets those with the
-`_iconStart` and `_iconEnd` conditions and pulls the icon out by a spacing token:
+`_iconStart` and `_iconEnd` conditions and pulls the icon out with the `iconPullStart` and `iconPullEnd` utilities. Each
+takes a spacing token and turns it into a negative margin:
 
 ```ts
 md: {
@@ -41,10 +35,13 @@ md: {
   "--button-padding-x": "spacing.4",
   gap: "2",
   _icon: { width: "5", height: "5" },
-  _iconStart: { ms: "-1" },
-  _iconEnd: { me: "-1" },
+  _iconStart: { iconPullStart: "1" },
+  _iconEnd: { iconPullEnd: "1" },
 },
 ```
+
+The margin also adds `--icon-offset`, which is zero unless you set it. More on that below, and the
+[Icon pull](/ds/styles/icon-pull) page covers the utilities in full.
 
 That's why icons are slots rather than plain children. The recipe can't tell a leading icon from a trailing one by
 looking at an `svg`, and a button with only an icon must not get the offset at all.
@@ -60,32 +57,89 @@ looking at an `svg`, and a button with only an icon must not get the offset at a
 
 ## End icons
 
-The trailing side is the same problem mirrored. The arrow's tip sits 3.5px inside its box, so `_iconEnd` pulls the icon
-4px toward the edge.
+The trailing side is the same problem mirrored. The arrow's tip sits about 4px inside its box, so `_iconEnd` pulls the
+icon 4px toward the edge.
 
 <EndIconFigure />
 
 ## Every size
 
-The offset scales with the icon. Small buttons use a 2px pull, the rest 4px. The table shows where the plus icon's ink
-lands, against the padding the label gets on the other side.
+The pull scales with the icon: about a fifth of its size, rounded to the spacing scale. Small buttons use a 2px pull,
+the rest 4px.
 
-| Size | Padding | Icon | Pull | Ink from edge |
-| ---- | ------- | ---- | ---- | ------------- |
-| 2xs  | 8px     | 14px | 2px  | 9.1px         |
-| xs   | 10px    | 16px | 2px  | 11.5px        |
-| sm   | 14px    | 16px | 2px  | 15.5px        |
-| md   | 16px    | 20px | 4px  | 16.4px        |
-| lg   | 20px    | 20px | 4px  | 20.4px        |
-| xl   | 20px    | 20px | 4px  | 20.4px        |
-| 2xl  | 28px    | 24px | 4px  | 29.3px        |
+| Size | Padding | Icon | Pull |
+| ---- | ------- | ---- | ---- |
+| 2xs  | 8px     | 14px | 2px  |
+| xs   | 10px    | 16px | 2px  |
+| sm   | 14px    | 16px | 2px  |
+| md   | 16px    | 20px | 4px  |
+| lg   | 20px    | 20px | 4px  |
+| xl   | 20px    | 20px | 4px  |
+| 2xl  | 28px    | 24px | 4px  |
 
-Every size lands within 1.5px of its padding. A pixel either way is fine; what reads as wrong is the 4px to 5px an
+The rounded pull lands a pixel or so off any one glyph's ink. That's fine; what reads as wrong is the 4px to 5px an
 uncorrected icon adds.
+
+## Perfect optical alignment
+
+Sometimes an icon has nothing to line up with. Then it can go all the way to its ink, and that takes knowing exactly
+where the ink is.
+
+### Icons come with air
+
+Icons are drawn on a fixed grid, 24 units for ours, and the glyph rarely fills it. The plus runs from 6 to 18 with a 1.5
+unit round-capped stroke, so its ink starts at 5.25. That's 21.875% of the box left empty on each side. The arrow's tip
+stops 4.25 units short of the end.
+
+<IconGridFigure />
+
+In the md Button the icon is 20px, so the plus starts 4.375px inside its box. Without a pull the eye reads 20.375px on
+the left against 16px on the right. The fixed 4px pull brings that to 16.375px, 0.375px past the label side. The arrow's
+tip sits 3.542px inside its box, so the same pull leaves it at 15.542px, 0.458px short.
+
+### Why it isn't the default
+
+Each glyph has a different amount of air. The plus starts 5.25 units in, the share icon 2.25, the settings hexagon 1.25:
+4.375px, 1.875px and 1.042px in a 20px box. Stack a few left-aligned buttons, as in a menu or an action sheet, and
+pulling each icon to its own ink moves each label by a different amount. The labels stop sharing an edge, and a ragged
+column of text is easier to see than icons up to 3.333px apart.
+
+<StackedButtonsFigure />
+
+So going to the ink is opt-in, for an icon with nothing to line up with.
+
+### Symbols in a Kbd
+
+A keyboard shortcut is a small box with a symbol or two and a letter, and it sits alone in a menu or a tooltip. Its
+padding is only a few pixels, so the air inside a glyph is a large share of it: at 16px, the command symbol starts
+2.833px inside its box, next to 4px of padding.
+
+Here a pull per icon is worth it. `StartIcon` and `EndIcon` take an `offset`, added to the recipe's own pull through
+`--icon-offset`. Kbd has no pull of its own, so the offset is the whole correction. Give it in `em` and it follows the
+icon at every Kbd size: the command glyph's 4.25 units of air are 0.177em.
+
+```tsx
+<Kbd>
+  <StartIcon asChild offset="0.177em">
+    <Icon name="command" />
+  </StartIcon>
+  K
+</Kbd>
+```
+
+<KbdSymbolsFigure />
+
+### A single Button
+
+The same prop works in a Button that stands alone, such as a single call to action. The md Button pulls 4px and the plus
+has 4.375px of air, so `offset="0.375px"` lands it on its ink. A negative offset pulls less, for a glyph with less air
+than the pull assumes.
 
 ## Rules
 
 - Pad the button evenly. Correct the icon, not the padding.
 - Pull a start icon out with a negative start margin, and an end icon with a negative end margin.
 - Size the pull to the empty space in the icon grid: about a fifth of the icon size.
+- Keep the pull the same for every icon at a size, so stacked labels share an edge.
+- Pull a single icon to its ink with `offset` only when nothing lines up with it, like a symbol in a Kbd.
 - Don't pull an icon-only button. It's centered, so the empty space is even on both sides.

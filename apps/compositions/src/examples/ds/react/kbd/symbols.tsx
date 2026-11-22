@@ -6,19 +6,19 @@ export function KbdSymbolsDemo() {
   return (
     <HStack gap="2">
       <Kbd>
-        <StartIcon asChild offset="0.18em">
+        <StartIcon asChild offset="0.177em">
           <Icon name="command" />
         </StartIcon>
         K
       </Kbd>
       <Kbd>
-        <StartIcon asChild offset="0.15em">
+        <StartIcon asChild offset="0.153em">
           <Icon name="shift" />
         </StartIcon>
         <Icon name="command" />P
       </Kbd>
       <Kbd>
-        <StartIcon asChild offset="0.18em">
+        <StartIcon asChild offset="0.177em">
           <Icon name="option" />
         </StartIcon>
         <EndIcon asChild offset="0.26em">
