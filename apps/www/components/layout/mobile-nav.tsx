@@ -66,9 +66,6 @@ export function MobileNav() {
                 <NavLink href="/components" aria-current={pathname.startsWith("/components") ? "page" : undefined}>
                   Experiments
                 </NavLink>
-                <NavLink href="/blocks" aria-current={pathname.startsWith("/blocks") ? "page" : undefined}>
-                  Blocks
-                </NavLink>
                 <NavLink href="/ds/components" aria-current={pathname.startsWith("/ds") ? "page" : undefined}>
                   DS
                 </NavLink>
