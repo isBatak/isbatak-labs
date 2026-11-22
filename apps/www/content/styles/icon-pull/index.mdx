@@ -1,0 +1,134 @@
+---
+title: Icon pull
+description:
+  Pull an icon beside a label toward the edge, so the padding on its side looks as wide as on the label side. Set it in
+  a recipe with iconPullStart and iconPullEnd, and nudge a single icon with offset.
+order: 3
+icon: align-left
+status: new
+links:
+  source: packages/panda/ds/src/theme/utilities.ts
+  package: "@isbatak/panda-ds"
+---
+
+A button with an icon and a label usually gets the same padding on both sides. On screen the icon side looks wider,
+because an icon's box is wider than the icon you see: a 24-unit plus only starts drawing 5.25 units in. Pulling the icon
+toward the edge by a fixed amount makes the two sides look even.
+
+<Example id="icon-pull/compare" />
+
+Three utilities ship with `@isbatak/panda-ds`:
+
+| Utility          | Takes         | Sets                                                   |
+| ---------------- | ------------- | ------------------------------------------------------ |
+| `iconPullStart`  | spacing token | A negative `margin-inline-start`, plus `--icon-offset` |
+| `iconPullEnd`    | spacing token | A negative `margin-inline-end`, plus `--icon-offset`   |
+| `iconPullOffset` | spacing token | `--icon-offset`, the extra pull for a single icon      |
+
+## In a recipe
+
+Put the pull on the icon slots with the `_iconStart` and `_iconEnd` conditions, which match `StartIcon` and `EndIcon`.
+The value is positive; the utility makes the margin negative.
+
+```ts title="button.ts"
+size: {
+  sm: {
+    _iconStart: { iconPullStart: "0.5" },
+    _iconEnd: { iconPullEnd: "0.5" },
+  },
+  md: {
+    _iconStart: { iconPullStart: "1" },
+    _iconEnd: { iconPullEnd: "1" },
+  },
+}
+```
+
+Button, Badge, Timer and Kbd already do this, so an icon in `StartIcon` or `EndIcon` is pulled without extra styles. Kbd
+uses `"0"`: its keys are too tight to pull, but a single icon can still take an offset.
+
+Keep the pull the same for every icon at a size. Labels in a stack of buttons then share one edge, whatever icon sits
+before them.
+
+## One icon at a time
+
+Some icons carry more air than others. To pull a single icon further, to its ink, pass `offset` to `StartIcon` or
+`EndIcon` as a CSS length. It's added to the recipe's pull, and a negative length pulls less. Drag the slider.
+
+<Example id="icon-pull/offset" />
+
+```tsx title="new-file.tsx"
+<Button>
+  <StartIcon asChild offset="0.4px">
+    <Icon name="plus" />
+  </StartIcon>
+  New file
+</Button>
+```
+
+Use `em` when the icon scales with the text, as in Kbd, so one value fits every size.
+
+```tsx title="shortcut.tsx"
+<Kbd>
+  <StartIcon asChild offset="0.18em">
+    <Icon name="command" />
+  </StartIcon>
+  K
+</Kbd>
+```
+
+`offset` sets `--icon-offset` on the icon. `iconPullOffset` sets the same variable from a style, for a recipe that wants
+a default extra pull. The prop wins, because it's set on the element itself.
+
+```ts title="tag.ts"
+_iconStart: {
+  iconPullStart: "1",
+  iconPullOffset: "0.5",
+},
+```
+
+See [Optical alignment for button icons](/blog/button-icon-optical-alignment) for how to measure an icon's ink.
+
+## Outside a recipe
+
+The utilities are plain style props, so they work on any element. Put them on the icon itself:
+
+```tsx title="new-file.tsx"
+<Flex alignItems="center" gap="2" h="12" px="5" borderWidth="1px" rounded="l2">
+  <Icon name="plus" size="md" iconPullStart="1" />
+  New file
+</Flex>
+```
+
+`iconPullOffset` sets the extra pull the same way:
+
+```tsx title="new-file.tsx"
+<Icon name="plus" size="md" iconPullStart="1" iconPullOffset="0.5" />
+```
+
+## How it works
+
+`iconPullStart: "1"` writes one margin that adds the token and the offset, then flips the sign:
+
+```css title="styles.css"
+.icon-pull-start_1 {
+  margin-inline-start: calc((var(--spacing-1) + var(--icon-offset, 0px)) * -1);
+}
+```
+
+- `--icon-offset` falls back to `0px`, so without an offset the icon is pulled by the token alone.
+- `"0"` drops the token and keeps only the offset, since `calc(0 + 0px)` mixes a unitless zero with a length and is
+  invalid.
+- Recipes sit in Panda's `recipes` layer and `css()` in `utilities`, so a class on the icon overrides the recipe's pull.
+
+## FAQ
+
+<Faq>
+  <FaqItem question="Why not write ms and me in the recipe?">
+    A plain margin replaces the pull instead of adding to it. A single icon would then need the recipe's value for its
+    size plus its own, and the fix breaks when the size changes. The utilities keep the recipe's pull and the icon's
+    offset in separate places and add them.
+  </FaqItem>
+  <FaqItem question="Does it work in right-to-left layouts?">
+    Yes. The margins are logical, so in RTL `iconPullStart` pulls the icon toward the right edge.
+  </FaqItem>
+</Faq>

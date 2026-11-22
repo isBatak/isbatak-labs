@@ -786,6 +786,17 @@
     ]
   },
   {
+    "name": "command",
+    "tags": [
+      "command",
+      "cmd",
+      "keyboard",
+      "shortcut",
+      "modifier",
+      "mac"
+    ]
+  },
+  {
     "name": "components",
     "tags": [
       "components",
@@ -1277,6 +1288,17 @@
     ]
   },
   {
+    "name": "option",
+    "tags": [
+      "option",
+      "alt",
+      "keyboard",
+      "shortcut",
+      "modifier",
+      "mac"
+    ]
+  },
+  {
     "name": "package",
     "tags": [
       "package",
@@ -1487,6 +1509,16 @@
       "export",
       "social",
       "forward"
+    ]
+  },
+  {
+    "name": "shift",
+    "tags": [
+      "shift",
+      "keyboard",
+      "shortcut",
+      "modifier",
+      "uppercase"
     ]
   },
   {

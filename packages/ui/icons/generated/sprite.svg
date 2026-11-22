@@ -314,6 +314,9 @@
 <symbol viewBox="0 0 24 24" id="color-picker">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11 7 6 6M4 16 15.7 4.3a1 1 0 0 1 1.4 0l2.6 2.6a1 1 0 0 1 0 1.4L8 20H4z"></path>
 </symbol>
+<symbol viewBox="0 0 24 24" id="command">
+  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 9a2 2 0 1 1 2-2v10a2 2 0 1 1-2-2h10a2 2 0 1 1-2 2V7a2 2 0 1 1 2 2z"></path>
+</symbol>
 <symbol viewBox="0 0 24 24" id="components">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m3 12 3 3 3-3-3-3zm12 0 3 3 3-3-3-3zM9 6l3 3 3-3-3-3zm0 12 3 3 3-3-3-3z"></path>
 </symbol>
@@ -476,6 +479,9 @@
 <symbol viewBox="0 0 24 24" id="multiply">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m8 8 4 4m0 0 4 4m-4-4 4-4m-4 4-4 4"></path>
 </symbol>
+<symbol viewBox="0 0 24 24" id="option">
+  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 6h5m0 12h-5L9 6H5"></path>
+</symbol>
 <symbol viewBox="0 0 24 24" id="package">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12 3 8 4.5v9L12 21l-8-4.5v-9zm0 9 8-4.5M12 12v9m0-9L4 7.5m12-2.25-8 4.5"></path>
 </symbol>
@@ -544,6 +550,9 @@
 </symbol>
 <symbol viewBox="0 0 24 24" id="share">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14 7.5-5 3m0 3 5 3M9 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0m11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0m0-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+</symbol>
+<symbol viewBox="0 0 24 24" id="shift">
+  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20v-8H5.414a1 1 0 0 1-.707-1.707l6.586-6.586a1 1 0 0 1 1.414 0l6.586 6.586A1 1 0 0 1 18.586 12H15v8a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1"></path>
 </symbol>
 <symbol viewBox="0 0 24 24" id="shopping-bag">
   <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 8V6a3 3 0 1 1 6 0v2m5 12L18 8H6L4 20z"></path>

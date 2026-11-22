@@ -17,10 +17,10 @@ export const badgeRecipe = defineRecipe({
       boxSize: "var(--badge-icon-size)",
     },
     _iconStart: {
-      ms: "calc(var(--badge-icon-offset) * -1)",
+      iconPullStart: "var(--badge-icon-offset)",
     },
     _iconEnd: {
-      me: "calc(var(--badge-icon-offset) * -1)",
+      iconPullEnd: "var(--badge-icon-offset)",
     },
   },
   variants: {

@@ -1,12 +1,36 @@
 import { ark } from "@ark-ui/solid/factory"
-import type { ComponentProps } from "solid-js"
+import { type ComponentProps, type JSX, splitProps } from "solid-js"
 
-export type StartIconProps = ComponentProps<typeof ark.span>
-export function StartIcon(props: StartIconProps) {
-  return <ark.span data-icon-start="" aria-hidden {...props} />
+type IconSlotProps = ComponentProps<typeof ark.span> & {
+  /**
+   * Extra pull toward the edge, added to the recipe's own, as a CSS length such as `"0.4px"` or `"0.18em"`. Use it to
+   * land a single icon on its ink; a negative length pulls less.
+   */
+  offset?: string | undefined
 }
 
-export type EndIconProps = ComponentProps<typeof ark.span>
+export type StartIconProps = IconSlotProps
+export function StartIcon(props: StartIconProps) {
+  const [local, rest] = splitProps(props, ["offset", "style"])
+  return (
+    <ark.span
+      data-icon-start=""
+      aria-hidden
+      {...rest}
+      style={{ "--icon-offset": local.offset, ...(local.style as JSX.CSSProperties | undefined) }}
+    />
+  )
+}
+
+export type EndIconProps = IconSlotProps
 export function EndIcon(props: EndIconProps) {
-  return <ark.span data-icon-end="" aria-hidden {...props} />
+  const [local, rest] = splitProps(props, ["offset", "style"])
+  return (
+    <ark.span
+      data-icon-end=""
+      aria-hidden
+      {...rest}
+      style={{ "--icon-offset": local.offset, ...(local.style as JSX.CSSProperties | undefined) }}
+    />
+  )
 }

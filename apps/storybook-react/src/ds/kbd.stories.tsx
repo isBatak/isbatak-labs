@@ -4,6 +4,7 @@ import { KbdCombinationsDemo } from "@isbatak/compositions/ds/react/kbd/combinat
 import { KbdFunctionKeysDemo } from "@isbatak/compositions/ds/react/kbd/function-keys"
 import { KbdGroupDemo } from "@isbatak/compositions/ds/react/kbd/group"
 import { KbdSizesDemo } from "@isbatak/compositions/ds/react/kbd/sizes"
+import { KbdSymbolsDemo } from "@isbatak/compositions/ds/react/kbd/symbols"
 import { KbdVariantsDemo } from "@isbatak/compositions/ds/react/kbd/variants"
 import { KbdWithinTextDemo } from "@isbatak/compositions/ds/react/kbd/within-text"
 
@@ -41,4 +42,8 @@ export const Variants: Story = {
 
 export const WithinText: Story = {
   render: () => <KbdWithinTextDemo />,
+}
+
+export const Symbols: Story = {
+  render: () => <KbdSymbolsDemo />,
 }
