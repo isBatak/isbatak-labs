@@ -21,6 +21,9 @@ const motion = {
 const hatchImage = (gap: string) =>
   `repeating-linear-gradient(-45deg, var(--colors-color-palette-solid) 0 1px, transparent 1px ${gap})`
 
+const stroke = "var(--caliper-stroke, 1px)"
+const halfStroke = "calc(var(--caliper-stroke, 1px) / -2)"
+
 const tick = {
   content: '""',
   position: "absolute",
@@ -32,7 +35,7 @@ const tick = {
 const tickAcross = (edge: "top" | "bottom") =>
   ({
     ...tick,
-    [edge]: "[-0.5px]",
+    [edge]: halfStroke,
     h: "1.5",
     translate: edge === "top" ? "0 -50%" : "0 50%",
   }) satisfies SystemStyleObject
@@ -40,7 +43,7 @@ const tickAcross = (edge: "top" | "bottom") =>
 const tickAlong = (edge: "left" | "right") =>
   ({
     ...tick,
-    [edge]: "[-0.5px]",
+    [edge]: halfStroke,
     w: "1.5",
     translate: edge === "left" ? "-50% 0" : "50% 0",
   }) satisfies SystemStyleObject
@@ -49,12 +52,12 @@ const horizontalTicks = (edge: "top" | "bottom") => ({
   "&[data-ticks]::before": {
     ...tickAcross(edge),
     insetInlineStart: "calc(-1 * var(--caliper-extension-width))",
-    borderInlineStartWidth: "1px",
+    borderInlineStartWidth: stroke,
   },
   "&[data-ticks]::after": {
     ...tickAcross(edge),
     insetInlineEnd: "calc(-1 * var(--caliper-extension-width))",
-    borderInlineEndWidth: "1px",
+    borderInlineEndWidth: stroke,
   },
 })
 
@@ -62,12 +65,12 @@ const verticalTicks = (edge: "left" | "right") => ({
   "&[data-ticks]::before": {
     ...tickAlong(edge),
     top: "calc(-1 * var(--caliper-extension-width))",
-    borderTopWidth: "1px",
+    borderTopWidth: stroke,
   },
   "&[data-ticks]::after": {
     ...tickAlong(edge),
     bottom: "calc(-1 * var(--caliper-extension-width))",
-    borderBottomWidth: "1px",
+    borderBottomWidth: stroke,
   },
 })
 
@@ -141,7 +144,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
     outline: {
       position: "absolute",
       pointerEvents: "none",
-      borderWidth: "1px",
+      borderWidth: stroke,
       borderStyle: "dashed",
       borderColor: "colorPalette.solid/60",
       ...motion,
@@ -155,7 +158,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       ...motion,
     },
     dimension: {
-      "--caliper-extension-width": "1px",
+      "--caliper-extension-width": stroke,
       "--caliper-extension-style": "dashed",
       "--caliper-line-style": "solid",
       "--caliper-gap": "spacing.6",
@@ -174,7 +177,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         height: "calc(var(--caliper-reach) + var(--caliper-gap))",
         borderInlineWidth: "var(--caliper-extension-width)",
         borderInlineStyle: "var(--caliper-extension-style)",
-        borderTopWidth: "1px",
+        borderTopWidth: stroke,
         borderTopStyle: "var(--caliper-line-style)",
         ...horizontalTicks("top"),
       },
@@ -183,7 +186,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         height: "calc(var(--caliper-reach) + var(--caliper-gap))",
         borderInlineWidth: "var(--caliper-extension-width)",
         borderInlineStyle: "var(--caliper-extension-style)",
-        borderBottomWidth: "1px",
+        borderBottomWidth: stroke,
         borderBottomStyle: "var(--caliper-line-style)",
         ...horizontalTicks("bottom"),
       },
@@ -192,7 +195,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         width: "calc(var(--caliper-reach) + var(--caliper-gap))",
         borderBlockWidth: "var(--caliper-extension-width)",
         borderBlockStyle: "var(--caliper-extension-style)",
-        borderLeftWidth: "1px",
+        borderLeftWidth: stroke,
         borderLeftStyle: "var(--caliper-line-style)",
         ...verticalTicks("left"),
       },
@@ -201,7 +204,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         width: "calc(var(--caliper-reach) + var(--caliper-gap))",
         borderBlockWidth: "var(--caliper-extension-width)",
         borderBlockStyle: "var(--caliper-extension-style)",
-        borderRightWidth: "1px",
+        borderRightWidth: stroke,
         borderRightStyle: "var(--caliper-line-style)",
         ...verticalTicks("right"),
       },
@@ -262,7 +265,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       bg: "colorPalette.solid",
       "&[data-kind=dashed]": {
         bg: "transparent",
-        borderWidth: "1px",
+        borderWidth: stroke,
         borderStyle: "dashed",
         borderColor: "colorPalette.solid/60",
       },
@@ -289,7 +292,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         {
           fill: "none",
           stroke: "currentColor",
-          strokeWidth: "1",
+          strokeWidth: stroke,
           vectorEffect: "non-scaling-stroke",
         },
         " path",
