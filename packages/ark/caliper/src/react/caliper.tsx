@@ -146,3 +146,23 @@ export type CaliperCalloutTitleProps = PartProps<"span">
 export function CaliperCalloutTitle(props: CaliperCalloutTitleProps) {
   return <ark.span {...mergeProps(api.getCalloutTitleProps(), props)} />
 }
+
+export type CaliperIconGridProps = PartProps<"div", caliper.IconGridProps>
+
+/**
+ * An icon keyline grid over a region, such as an icon's box: the hatched trim area, a line per unit, and the circle, square
+ * and rectangle keylines. Set `units` to the icon set's grid size.
+ */
+export function CaliperIconGrid(props: CaliperIconGridProps) {
+  const [gridProps, { children, ...localProps }] = caliper.splitIconGridProps(props)
+  return (
+    <ark.div {...mergeProps(api.getIconGridProps(gridProps), localProps)}>
+      <svg {...api.getIconGridCanvasProps(gridProps)}>
+        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "minor" })} />
+        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "keylines" })} />
+        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "major" })} />
+      </svg>
+      {children}
+    </ark.div>
+  )
+}

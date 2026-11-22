@@ -18,6 +18,8 @@ export const anatomy = createAnatomy("caliper").parts(
   "calloutAnchor",
   "calloutLabel",
   "calloutTitle",
+  "iconGrid",
+  "iconGridLayer",
 )
 
 export const parts = anatomy.build()

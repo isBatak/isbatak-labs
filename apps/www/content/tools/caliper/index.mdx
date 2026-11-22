@@ -87,6 +87,7 @@ export const LegendSwatch = withContext(ArkCaliper.LegendSwatch, "legendSwatch")
 export const Callout = withContext(ArkCaliper.Callout, "callout")
 export const CalloutLabel = withContext(ArkCaliper.CalloutLabel, "calloutLabel")
 export const CalloutTitle = withContext(ArkCaliper.CalloutTitle, "calloutTitle")
+export const IconGrid = withContext(ArkCaliper.IconGrid, "iconGrid")
 ```
 
 Import that file as a namespace, `import * as Caliper from "./caliper"`. The bound parts take every Panda style prop,
@@ -244,8 +245,27 @@ one line. An anchor straight above its note gets a straight line. `bend` default
 ```
 
 The note starts at `to.x`; `align="center"` or `"end"` lines it up the other way. When `to` sits above the anchors, the
-note goes above the line. Notes sit outside the layout like the other marks, so give the frame room with a margin, such
-as `mb="56"`.
+note goes above the line. When `to` has the same `y` as every anchor, the line runs straight across and the note sits
+beside its end, on the left or the right. Notes sit outside the layout like the other marks, so give the frame room with
+a margin, such as `mb="56"`.
+
+## Icon grid
+
+`IconGrid` draws an icon keyline grid over a region: the hatched trim area glyphs stay out of, a line per unit, the
+center and eighth lines, and the circle, square and rectangle keylines. Put it over the icon's box with `spanX` and
+`spanY`, or leave them out to cover the frame. `units` is the icon set's grid size, 24 by default, and `trim` the trim
+width in units, 2 by default. Lines stay 1px at any magnification.
+
+<CaliperIconGridDemo />
+
+```tsx
+<Caliper.Frame magnify={8}>
+  <Caliper.Subject>
+    <Icon name="plus" />
+  </Caliper.Subject>
+  <Caliper.IconGrid colorPalette="red" />
+</Caliper.Frame>
+```
 
 ## Color
 

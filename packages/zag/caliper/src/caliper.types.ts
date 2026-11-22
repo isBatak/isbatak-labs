@@ -70,21 +70,37 @@ export type CalloutAlign = "start" | "center" | "end"
 export interface CalloutProps {
   /** The points the callout marks, in subject px. Their leader lines join on the way to the label. */
   anchors: Point[]
-  /** Where the leader line ends and the label starts, in subject px. Usually outside the subject. */
+  /**
+   * Where the leader line ends and the label starts, in subject px. Usually outside the subject. When it shares every
+   * anchor's y, the line runs straight across and the label sits beside its end.
+   */
   to: Point
   /** The y, in subject px, where leader lines turn toward `to.x`. Defaults to halfway between the anchors and `to`. */
   bend?: number | undefined
-  /** How the label lines up with `to.x`. */
+  /** How the label lines up with `to.x`, for a label above or below the line. */
   align?: CalloutAlign | undefined
 }
 
 export interface CalloutState {
-  side: "top" | "bottom"
+  side: "top" | "bottom" | "left" | "right"
   align: CalloutAlign
 }
 
 export interface CalloutAnchorProps {
   point: Point
+}
+
+export interface IconGridProps extends BoxProps {
+  /** Grid size in units, such as 24 for a 24 × 24 icon set. The grid stretches to fill its box. */
+  units?: number | undefined
+  /** Width of the trim area around the safe area, in units. */
+  trim?: number | undefined
+}
+
+export type IconGridLayer = "minor" | "major" | "keylines"
+
+export interface IconGridLayerProps extends IconGridProps {
+  layer: IconGridLayer
 }
 
 export interface CaliperApi<T extends PropTypes = PropTypes> {
@@ -110,4 +126,7 @@ export interface CaliperApi<T extends PropTypes = PropTypes> {
   getCalloutAnchorProps(props: CalloutAnchorProps): T["circle"]
   getCalloutLabelProps(): T["element"]
   getCalloutTitleProps(): T["element"]
+  getIconGridProps(props?: IconGridProps): T["element"]
+  getIconGridCanvasProps(props?: IconGridProps): T["svg"]
+  getIconGridLayerProps(props: IconGridLayerProps): T["path"]
 }

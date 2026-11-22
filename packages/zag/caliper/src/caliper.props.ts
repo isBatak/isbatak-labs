@@ -1,6 +1,13 @@
 import { createProps } from "@zag-js/types"
 import { createSplitProps } from "@zag-js/utils"
-import type { BoxProps, CalloutProps, DimensionProps, FrameProps, LegendSwatchProps } from "./caliper.types"
+import type {
+  BoxProps,
+  CalloutProps,
+  DimensionProps,
+  FrameProps,
+  IconGridProps,
+  LegendSwatchProps,
+} from "./caliper.types"
 
 export const frameProps = createProps<FrameProps>()(["annotated", "magnify"])
 export const splitFrameProps = createSplitProps<FrameProps>(frameProps)
@@ -24,3 +31,6 @@ export const splitLegendSwatchProps = createSplitProps<LegendSwatchProps>(legend
 
 export const calloutProps = createProps<CalloutProps>()(["align", "anchors", "bend", "to"])
 export const splitCalloutProps = createSplitProps<CalloutProps>(calloutProps)
+
+export const iconGridProps = createProps<IconGridProps>()(["spanX", "spanY", "trim", "units"])
+export const splitIconGridProps = createSplitProps<IconGridProps>(iconGridProps)

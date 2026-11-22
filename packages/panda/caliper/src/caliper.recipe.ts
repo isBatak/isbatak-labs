@@ -3,7 +3,7 @@ import { anatomy, parts } from "@isbatak/zag-caliper/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { SlotRecipeConfig, SystemStyleObject } from "@pandacss/types"
 
-export const caliperSlots = anatomy.omit("calloutLeader", "calloutAnchor").keys()
+export const caliperSlots = anatomy.omit("calloutLeader", "calloutAnchor", "iconGridLayer").keys()
 
 type CaliperStyles = SlotRecipeDefinition<(typeof caliperSlots)[number]>
 
@@ -72,7 +72,7 @@ const verticalTicks = (edge: "left" | "right") => ({
 export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
   className: "caliper",
   description:
-    "Spec drawings over live UI: dimension lines, hatching, outlines and legends. Bind the @isbatak/ark-caliper parts to it with createSlotRecipeContext.",
+    "Spec drawings over live UI: dimension lines, hatching, outlines, icon grids and legends. Bind the @isbatak/ark-caliper parts to it with createSlotRecipeContext.",
   jsx: ["Caliper", /Caliper\.\w+/],
   slots: caliperSlots,
   base: {
@@ -194,7 +194,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       alignItems: "center",
       h: "6",
       px: "2.5",
-      rounded: "l2",
+      rounded: "full",
       bg: "colorPalette.solid",
       color: "colorPalette.contrast",
       textStyle: "sm",
@@ -239,7 +239,6 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       display: "inline-block",
       flexShrink: "0",
       boxSize: "3",
-      rounded: "l1",
       bg: "colorPalette.solid",
       "&[data-kind=dashed]": {
         bg: "transparent",
@@ -294,6 +293,17 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         bottom: "calc(100% - var(--caliper-callout-y))",
         pb: "4",
       },
+      "[data-side=left] > &": {
+        top: "var(--caliper-callout-y)",
+        translate: "-100% -50%",
+        pe: "3",
+        textAlign: "end",
+      },
+      "[data-side=right] > &": {
+        top: "var(--caliper-callout-y)",
+        translate: "0 -50%",
+        ps: "3",
+      },
       "[data-align=center] > &": { translate: "-50% 0", textAlign: "center" },
       "[data-align=end] > &": { translate: "-100% 0", textAlign: "end" },
     },
@@ -303,6 +313,43 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       textStyle: "xs",
       fontFamily: "mono",
       color: "fg.subtle",
+    },
+    iconGrid: {
+      position: "absolute",
+      pointerEvents: "none",
+      color: "colorPalette.solid",
+      ...motion,
+      _before: {
+        content: '""',
+        position: "absolute",
+        inset: "0",
+        bg: "colorPalette.solid/10",
+        bgImage: hatchImage("0.3125rem"),
+        opacity: "0.8",
+        clipPath:
+          "polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--caliper-trim) var(--caliper-trim), var(--caliper-trim) calc(100% - var(--caliper-trim)), calc(100% - var(--caliper-trim)) calc(100% - var(--caliper-trim)), calc(100% - var(--caliper-trim)) var(--caliper-trim), var(--caliper-trim) var(--caliper-trim))",
+      },
+      "& svg": {
+        position: "absolute",
+        inset: "0",
+        w: "full",
+        h: "full",
+        overflow: "visible",
+      },
+      ...inside(parts.iconGridLayer.attr, {
+        fill: "none",
+        stroke: "currentColor",
+        strokeWidth: "1",
+        vectorEffect: "non-scaling-stroke",
+        shapeRendering: "crispEdges",
+      }),
+      ...inside(parts.iconGridLayer.attr, { stroke: "colorPalette.solid/15" }, "[data-layer=minor]"),
+      ...inside(
+        parts.iconGridLayer.attr,
+        { stroke: "colorPalette.solid/30", shapeRendering: "geometricPrecision" },
+        "[data-layer=keylines]",
+      ),
+      ...inside(parts.iconGridLayer.attr, { stroke: "colorPalette.solid/40" }, "[data-layer=major]"),
     },
   } satisfies CaliperStyles["base"],
 })

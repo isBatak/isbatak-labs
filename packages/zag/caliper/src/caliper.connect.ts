@@ -9,10 +9,11 @@ import type {
   DimensionState,
   FrameProps,
   FrameState,
+  IconGridProps,
   LegendSwatchProps,
   LegendSwatchState,
 } from "./caliper.types"
-import { axisOf, calloutPath, spanStyle, unit } from "./caliper.utils"
+import { axisOf, calloutPath, iconGridPath, spanStyle, unit } from "./caliper.utils"
 
 const boxStyle = ({ spanX, spanY }: BoxProps = {}) => ({ ...spanStyle(spanX, "x"), ...spanStyle(spanY, "y") })
 
@@ -23,10 +24,12 @@ const dimensionState = (props: DimensionProps = {}): DimensionState => {
   return { placement, axis: axisOf(placement) }
 }
 
-const calloutState = ({ anchors, to, align = "start" }: CalloutProps): CalloutState => ({
-  side: anchors.every((point) => point.y <= to.y) ? "bottom" : "top",
-  align,
-})
+const calloutState = ({ anchors, to, align = "start" }: CalloutProps): CalloutState => {
+  if (anchors.length > 0 && anchors.every((point) => point.y === to.y)) {
+    return { side: anchors.every((point) => to.x <= point.x) ? "left" : "right", align: "start" }
+  }
+  return { side: anchors.every((point) => point.y <= to.y) ? "bottom" : "top", align }
+}
 
 const legendSwatchState = (props: LegendSwatchProps = {}): LegendSwatchState => ({ kind: props.kind ?? "solid" })
 
@@ -134,6 +137,22 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getCalloutTitleProps() {
       return normalize.element({ ...parts.calloutTitle.attrs("") })
+    },
+
+    getIconGridProps({ units = 24, trim = 2, ...props } = {}) {
+      return normalize.element({
+        ...parts.iconGrid.attrs(""),
+        "aria-hidden": true,
+        style: { ...boxStyle(props), "--caliper-trim": `${(trim / units) * 100}%` },
+      })
+    },
+
+    getIconGridCanvasProps({ units = 24 }: IconGridProps = {}) {
+      return normalize.svg({ viewBox: `0 0 ${units} ${units}`, preserveAspectRatio: "none" })
+    },
+
+    getIconGridLayerProps({ layer, ...props }) {
+      return normalize.path({ ...parts.iconGridLayer.attrs(""), "data-layer": layer, d: iconGridPath(layer, props) })
     },
   }
 }
