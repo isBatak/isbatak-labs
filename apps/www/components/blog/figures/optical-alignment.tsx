@@ -1,6 +1,5 @@
 "use client"
 
-import { Badge } from "@isbatak/react-ui/badge"
 import { Button } from "@isbatak/react-ui/button"
 import { EndIcon, StartIcon } from "@isbatak/react-ui/icon"
 import { SegmentGroup } from "@isbatak/react-ui/segment-group"
@@ -14,7 +13,14 @@ import { Icon } from "../../ui/icon"
 
 type Alignment = "equal" | "optical"
 
-const md = { border: 1, padding: 16, height: 40, icon: 20, iconTop: 10, offset: 4 }
+const md = {
+  border: 1,
+  padding: 16,
+  height: 40,
+  icon: 20,
+  iconTop: 10,
+  offset: 4,
+}
 const plusInk = (md.icon * 5.25) / 24
 const arrowInk = (md.icon * 4.25) / 24
 
@@ -30,7 +36,7 @@ const equalIcon = css({ ms: "0", me: "0" })
 
 function NewProjectButton({ alignment }: { alignment: Alignment }) {
   return (
-    <Button variant="outline" colorPalette="gray" bg="bg" tabIndex={-1}>
+    <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
       <StartIcon asChild className={cx(iconMotion, alignment === "equal" && equalIcon)}>
         <Icon name="plus" />
       </StartIcon>
@@ -116,29 +122,62 @@ export function OpticalAlignmentFigure() {
   )
 }
 
-export function OpticalComparisonFigure() {
+export function IconGridFigure() {
   return (
-    <Caliper.Figure caption="The same two buttons at 2×, with no guides. The top one looks heavier on the left; the bottom one looks centered.">
-      <HStack gap="4">
-        <Badge variant="solid" colorPalette="red" size="md">
-          Equal
-        </Badge>
-        <Caliper.Frame magnify={2}>
+    <Caliper.Figure caption="The plus and the arrow on our 24-unit grid. The hatched band is the 2-unit trim area every glyph stays out of; the keylines inside it are the shapes glyphs are drawn to. The plus's ink starts 5.25 units in, the arrow's tip 4.25 units from the end.">
+      <HStack gap="12" flexWrap="wrap" justifyContent="center">
+        <Caliper.Frame magnify={8} annotated>
           <Caliper.Subject>
-            <NewProjectButton alignment="equal" />
+            <Icon name="plus" size="lg" />
           </Caliper.Subject>
+          <Caliper.IconGrid colorPalette="red" />
+          <Caliper.Dimension placement="top" reach={12} span={{ start: 0, size: 5.25 }}>
+            <Caliper.DimensionLabel>5.25</Caliper.DimensionLabel>
+          </Caliper.Dimension>
+        </Caliper.Frame>
+        <Caliper.Frame magnify={8} annotated>
+          <Caliper.Subject>
+            <Icon name="arrow-right" size="lg" />
+          </Caliper.Subject>
+          <Caliper.IconGrid colorPalette="red" />
+          <Caliper.Dimension placement="top" reach={12} span={{ end: 0, size: 4.25 }}>
+            <Caliper.DimensionLabel>4.25</Caliper.DimensionLabel>
+          </Caliper.Dimension>
         </Caliper.Frame>
       </HStack>
-      <HStack gap="4">
-        <Badge variant="solid" colorPalette="blue" size="md">
-          Optical
-        </Badge>
-        <Caliper.Frame magnify={2}>
-          <Caliper.Subject>
-            <NewProjectButton alignment="optical" />
-          </Caliper.Subject>
-        </Caliper.Frame>
-      </HStack>
+    </Caliper.Figure>
+  )
+}
+
+export function OpticalComparisonFigure() {
+  const inkY = md.height / 2
+  const labelX = -24
+  const dotX = md.border + 5
+
+  return (
+    <Caliper.Figure caption="The same two buttons at 2×. The top one looks heavier on the left; the bottom one looks centered.">
+      <Caliper.Frame magnify={2}>
+        <Caliper.Subject>
+          <NewProjectButton alignment="equal" />
+        </Caliper.Subject>
+        <Caliper.Callout anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
+          <Caliper.CalloutLabel maxW="40">
+            <Caliper.CalloutTitle>equal</Caliper.CalloutTitle>
+            {px(md.padding + plusInk)} to the ink
+          </Caliper.CalloutLabel>
+        </Caliper.Callout>
+      </Caliper.Frame>
+      <Caliper.Frame magnify={2}>
+        <Caliper.Subject>
+          <NewProjectButton alignment="optical" />
+        </Caliper.Subject>
+        <Caliper.Callout colorPalette="blue" anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
+          <Caliper.CalloutLabel maxW="40">
+            <Caliper.CalloutTitle>optical</Caliper.CalloutTitle>
+            {px(md.padding - md.offset + plusInk)} to the ink
+          </Caliper.CalloutLabel>
+        </Caliper.Callout>
+      </Caliper.Frame>
     </Caliper.Figure>
   )
 }
@@ -151,7 +190,7 @@ export function EndIconFigure() {
     <Caliper.Figure caption="EndIcon mirrors it: the arrow's tip sits 3.5px inside its box, so the recipe pulls the box 4px toward the edge.">
       <Caliper.Frame magnify="fit" annotated>
         <Caliper.Subject>
-          <Button variant="outline" colorPalette="gray" bg="bg" tabIndex={-1}>
+          <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
             Continue
             <EndIcon asChild>
               <Icon name="arrow-right" />
