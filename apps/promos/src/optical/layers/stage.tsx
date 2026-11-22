@@ -169,16 +169,16 @@ export function Stage() {
 
           {legend > 0.001 && (
             <Box position="absolute" top="[100%]" left="[50%]" pt="2" style={{ opacity: legend, translate: "-50% 0" }}>
-              <Caliper.Legend flexWrap="nowrap" w="max-content">
-                <Caliper.LegendItem>
-                  <Caliper.LegendSwatch kind="dashed" />
+              <Caliper.Legend flexWrap="nowrap" w="max-content" textStyle="lg" columnGap="8">
+                <Caliper.LegendItem gap="2">
+                  <Caliper.LegendSwatch kind="dashed" boxSize="4" />
                   Icon box
                 </Caliper.LegendItem>
-                <Caliper.LegendItem>
+                <Caliper.LegendItem gap="2">
                   <Box position="relative" display="inline-flex">
-                    <Caliper.LegendSwatch kind="hatch" colorPalette="red" style={{ opacity: 1 - blue }} />
+                    <Caliper.LegendSwatch kind="hatch" colorPalette="red" boxSize="4" style={{ opacity: 1 - blue }} />
                     <Box position="absolute" inset="0" display="inline-flex" style={{ opacity: blue }}>
-                      <Caliper.LegendSwatch kind="hatch" colorPalette="blue" />
+                      <Caliper.LegendSwatch kind="hatch" colorPalette="blue" boxSize="4" />
                     </Box>
                   </Box>
                   Empty space inside the icon

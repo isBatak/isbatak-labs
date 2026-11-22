@@ -17,7 +17,7 @@
     "render:optical": "panda && pnpm icons && remotion render OpticalPromo ../www/public/videos/optical-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --concurrency=1",
     "render:optical-wide": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-wide.mp4 --props='{\"shape\":\"wide\"}' --concurrency=1",
     "render:optical-vertical": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-vertical.mp4 --props='{\"shape\":\"tall\"}' --concurrency=1",
-    "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=760 --image-format=jpeg --jpeg-quality=85",
+    "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=498 --image-format=jpeg --jpeg-quality=85",
     "typecheck": "panda && pnpm icons && tsc --noEmit"
   },
   "dependencies": {

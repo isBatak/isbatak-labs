@@ -2,16 +2,16 @@ import { z } from "zod"
 
 export const VIDEO = {
   fps: 60,
-  duration: 2160,
+  duration: 1585,
 } as const
 
 export const SCENES = {
-  measure: { from: 0, duration: 510 },
-  compare: { from: 498, duration: 330 },
-  endIcon: { from: 816, duration: 300 },
-  grid: { from: 1104, duration: 240 },
-  stacked: { from: 1332, duration: 420 },
-  kbd: { from: 1740, duration: 420 },
+  measure: { from: 0, duration: 360 },
+  compare: { from: 348, duration: 190 },
+  endIcon: { from: 526, duration: 230 },
+  grid: { from: 744, duration: 180 },
+  kbd: { from: 912, duration: 345 },
+  stacked: { from: 1245, duration: 340 },
 } as const
 
 export const SIZE = {
@@ -31,42 +31,45 @@ export const LAYOUT = {
     grid: 11,
     kbd: 5.5,
     stack: 2.3,
+    kbdTop: 0.42,
     stackTop: 0.46,
     zoom: 1.4,
     magnify: 3.6,
-    compare: 2,
+    compare: 3,
     top: 0.4,
-    compareTop: 0.5,
+    centerTop: 0.55,
     toggleTop: 0.8,
-    toggleZoom: 1.5,
+    toggleZoom: 2,
   },
   wide: {
     titleTop: 0.11,
     grid: 9,
     kbd: 4.5,
     stack: 2,
+    kbdTop: 0.44,
     stackTop: 0.46,
     zoom: 1.3,
     magnify: 4.6,
-    compare: 2,
+    compare: 3,
     top: 0.4,
-    compareTop: 0.52,
+    centerTop: 0.55,
     toggleTop: 0.84,
-    toggleZoom: 1.4,
+    toggleZoom: 1.9,
   },
   tall: {
     titleTop: 0.14,
     grid: 13,
     kbd: 3.6,
     stack: 2.2,
+    kbdTop: 0.42,
     stackTop: 0.42,
     zoom: 1.2,
     magnify: 2.5,
-    compare: 2,
+    compare: 2.6,
     top: 0.42,
-    compareTop: 0.5,
+    centerTop: 0.55,
     toggleTop: 0.6,
-    toggleZoom: 1.6,
+    toggleZoom: 2.1,
   },
 } as const
 
@@ -114,6 +117,7 @@ export const timingSchema = z.object({
     inkGuides: z.number().int().min(0),
     change: z.number().int().min(0),
     slide: z.number().int().min(1),
+    marksOut: z.number().int().min(0),
   }),
 })
 

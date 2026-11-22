@@ -14,6 +14,9 @@ export default defineConfig({
   outdir: "styled-system",
   globalCss: {
     extend: {
+      ":root": {
+        "--caliper-stroke": "2px",
+      },
       "*, *::before, *::after": {
         transition: "none !important",
       },
@@ -28,7 +31,9 @@ export default defineConfig({
         fonts: {
           body: { value: "Inter, ui-sans-serif, system-ui, sans-serif" },
           heading: { value: "Inter, ui-sans-serif, system-ui, sans-serif" },
-          mono: { value: '"JetBrains Mono", ui-monospace, SFMono-Regular, monospace' },
+          mono: {
+            value: '"JetBrains Mono", ui-monospace, SFMono-Regular, monospace',
+          },
         },
       },
     },

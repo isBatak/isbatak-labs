@@ -27,15 +27,18 @@ function KeyFrame({ index, start, end, ink, children }: KeyFrameProps) {
   const layout = LAYOUT[shapeOf(width, height)]
   const T = useTiming().kbd
   const lag = index * 6
-  const iconBox = settle(frame, T.iconBox + lag, fps)
-  const hatch = settle(frame, T.emptyNote + lag, fps)
+  const leaving = frame >= T.marksOut
+  const fade = 1 - tween(frame, T.marksOut + lag, 18, ease.inOut)
+  const iconBox = settle(frame, T.iconBox + lag, fps) * fade
+  const hatch = settle(frame, T.emptyNote + lag, fps) * fade
+  const markDelay = ((leaving ? T.marksOut : T.inkGuides) + lag) / fps
   const palette = ink > 0.5 ? "blue" : "red"
   const edge = (units: number) => key.border + key.padding - keyAir(units) * ink
   const inkGap = (units: number) => key.padding - keyAir(units) * ink + keyAir(units)
   const endPad = end === undefined ? key.padding : inkGap(end)
 
   return (
-    <Caliper.Frame magnify={layout.kbd} annotated animate="in" time={frame / fps}>
+    <Caliper.Frame magnify={layout.kbd} annotated animate={leaving ? "out" : "in"} time={frame / fps}>
       <Caliper.Subject>{children}</Caliper.Subject>
       <Box style={{ opacity: iconBox }}>
         <Caliper.Outline
@@ -62,7 +65,8 @@ function KeyFrame({ index, start, end, ink, children }: KeyFrameProps) {
       </Box>
       <Caliper.Dimension
         enter="draw"
-        delay={(T.inkGuides + lag) / fps}
+        exit="retract"
+        delay={markDelay}
         order={0}
         colorPalette={palette}
         reach={key.iconBottom}
@@ -72,7 +76,8 @@ function KeyFrame({ index, start, end, ink, children }: KeyFrameProps) {
       </Caliper.Dimension>
       <Caliper.Dimension
         enter="draw"
-        delay={(T.inkGuides + lag) / fps}
+        exit="retract"
+        delay={markDelay}
         order={1}
         colorPalette={palette}
         reach={key.iconBottom}
@@ -100,7 +105,7 @@ export function KbdScene() {
         position="absolute"
         left="[50%]"
         style={{
-          top: `${layout.top * 100}%`,
+          top: `${layout.kbdTop * 100}%`,
           opacity: enter,
           translate: "-50% -50%",
           scale: mix(0.92, 1, enter),

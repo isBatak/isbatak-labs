@@ -1,4 +1,5 @@
 import { Box } from "@isbatak/react-ui/box"
+import { Flex } from "@isbatak/react-ui/flex"
 import { useCurrentFrame, useVideoConfig } from "remotion"
 
 import { ease, mix, settle, tween } from "../../sourcery/lib/motion"
@@ -25,21 +26,15 @@ export function Compare() {
       position="absolute"
       left="[50%]"
       style={{
-        top: `${layout.compareTop * 100}%`,
+        top: `${layout.centerTop * 100}%`,
         opacity: enter,
         translate: "-50% -50%",
         scale: mix(0.92, 1, enter),
       }}
     >
       <Caliper.Root style={{ zoom: layout.zoom }}>
-        <Box position="relative">
-          <Box
-            position="absolute"
-            bottom="[100%]"
-            left="[50%]"
-            pb="5"
-            style={{ opacity: equal, translate: `-50% ${(1 - equal) * 12}px` }}
-          >
+        <Flex direction="column" alignItems="center" gap="5">
+          <Box style={{ opacity: equal, translate: `0 ${(1 - equal) * 12}px` }}>
             <Caliper.Frame magnify={layout.compare} animate="in" time={frame / fps}>
               <Caliper.Subject>
                 <NewProjectButton offset={0} />
@@ -47,12 +42,13 @@ export function Compare() {
               <Caliper.Callout
                 enter="draw"
                 delay={T.callouts / fps}
+                duration={0.6}
                 order={0}
                 anchors={[{ x: dotX, y: calloutY }]}
                 to={{ x: calloutX, y: calloutY }}
               >
-                <Caliper.CalloutLabel>
-                  <Caliper.CalloutTitle>equal</Caliper.CalloutTitle>
+                <Caliper.CalloutLabel textStyle="xl">
+                  <Caliper.CalloutTitle textStyle="md">equal</Caliper.CalloutTitle>
                   no pull
                 </Caliper.CalloutLabel>
               </Caliper.Callout>
@@ -72,17 +68,18 @@ export function Compare() {
               colorPalette="blue"
               enter="draw"
               delay={T.callouts / fps}
+              duration={0.6}
               order={1}
               anchors={[{ x: dotX, y: calloutY }]}
               to={{ x: calloutX, y: calloutY }}
             >
-              <Caliper.CalloutLabel>
-                <Caliper.CalloutTitle>optical</Caliper.CalloutTitle>
+              <Caliper.CalloutLabel textStyle="xl">
+                <Caliper.CalloutTitle textStyle="md">optical</Caliper.CalloutTitle>
                 {px(md.offset)} pull
               </Caliper.CalloutLabel>
             </Caliper.Callout>
           </Caliper.Frame>
-        </Box>
+        </Flex>
       </Caliper.Root>
     </Box>
   )
