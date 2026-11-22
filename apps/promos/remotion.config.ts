@@ -4,6 +4,7 @@ Config.setVideoImageFormat("jpeg")
 Config.setOverwriteOutput(true)
 Config.setCodec("h264")
 Config.setCrf(18)
+Config.setChromeMode("chrome-for-testing")
 Config.overrideWebpackConfig((config) => ({
   ...config,
   module: {
