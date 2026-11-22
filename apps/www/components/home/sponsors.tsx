@@ -23,7 +23,7 @@ const tiers: { id: TierId; label: string; seats: number }[] = [
   { id: "friend", label: "Friend", seats: 3 },
 ]
 
-const Seat = styled("a", {
+export const Seat = styled("a", {
   base: {
     display: "flex",
     flexDirection: "column",
@@ -45,7 +45,7 @@ const Seat = styled("a", {
   },
 })
 
-const SeatIcon = styled("span", {
+export const SeatIcon = styled("span", {
   base: {
     display: "flex",
     alignItems: "center",

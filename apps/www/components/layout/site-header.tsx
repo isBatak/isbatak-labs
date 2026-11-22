@@ -5,7 +5,7 @@ import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
 import { ColorModeButton } from "../color-mode-button"
-import { Icon } from "../ui/icon"
+import { Icon, type IconName } from "../ui/icon"
 import { HeaderNav, type NavEntry } from "./header-nav"
 import { LayoutContainer } from "./layout-container"
 import { MobileNav } from "./mobile-nav"
@@ -22,19 +22,21 @@ const Separator = styled("div", {
 
 const prototypeEntries: NavEntry[] = prototypes
   .toSorted((a, b) => a.order - b.order)
-  .map(({ title, description, permalink }) => ({
+  .map(({ title, description, permalink, icon }) => ({
     title,
     description,
     href: permalink,
+    icon: icon as IconName | undefined,
   }))
 
 const toolEntries: NavEntry[] = tools
   .toSorted((a, b) => a.order - b.order)
-  .map(({ title, description, permalink, external }) => ({
+  .map(({ title, description, permalink, external, icon }) => ({
     title,
     description,
     href: permalink,
     external,
+    icon: icon as IconName,
   }))
 
 export interface SiteHeaderProps {
@@ -59,6 +61,7 @@ export function SiteHeader({ size }: SiteHeaderProps) {
         alignItems="center"
         gap={{ base: "2", sm: "4" }}
         h="header"
+        position="static"
         ps={{ base: "5", md: "10" }}
         pe={{ base: "3", md: "8" }}
       >
@@ -66,7 +69,7 @@ export function SiteHeader({ size }: SiteHeaderProps) {
           <Wordmark />
         </Link>
         <Separator aria-hidden mx="2" display={{ base: "none", md: "block" }} />
-        <HeaderNav prototypes={prototypeEntries} tools={toolEntries} />
+        <HeaderNav prototypes={prototypeEntries} tools={toolEntries} size={size} />
         <styled.div flex="1" />
         <styled.div display="flex" alignItems="center">
           <Button asChild variant="ghost" size="xs" px="0" icon>

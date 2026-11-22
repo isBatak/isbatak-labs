@@ -56,6 +56,7 @@ const prototypes = defineCollection({
       description: s.string().max(999).optional(),
       order: s.number().default(0),
       category,
+      icon,
       status,
       preview: s.string().optional(),
       links: s
