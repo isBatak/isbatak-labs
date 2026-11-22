@@ -84,8 +84,8 @@ export function StackedScene() {
           <Caliper.Frame magnify={layout.stack}>
             <Caliper.Subject>
               <VStack gap="2" alignItems="stretch" w="60">
-                <StackButton icon="plus" shift={shift(5.25)}>
-                  New project
+                <StackButton icon="bookmark" shift={shift(5.25)}>
+                  Save article
                 </StackButton>
                 <StackButton icon="share" shift={shift(2.25)}>
                   Share

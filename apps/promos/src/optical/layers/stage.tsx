@@ -2,7 +2,7 @@ import { Box } from "@isbatak/react-ui/box"
 import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion"
 
 import { clamp, ease, mix, settle, tween } from "../../sourcery/lib/motion"
-import { NewProjectButton } from "../button"
+import { SaveArticleButton } from "../button"
 import * as Caliper from "../caliper"
 import { LAYOUT, md, plusInk, px, shapeOf } from "../theme"
 import { useTiming } from "../timing"
@@ -49,7 +49,7 @@ export function Stage() {
         <Box position="relative">
           <Caliper.Frame magnify={layout.magnify} annotated animate="in" time={frame / fps}>
             <Caliper.Subject>
-              <NewProjectButton offset={offset} />
+              <SaveArticleButton offset={offset} />
             </Caliper.Subject>
 
             {boxGuides > 0.001 && (
@@ -168,7 +168,7 @@ export function Stage() {
           </Caliper.Frame>
 
           {legend > 0.001 && (
-            <Box position="absolute" top="[100%]" left="[50%]" pt="2" style={{ opacity: legend, translate: "-50% 0" }}>
+            <Box position="absolute" top="[100%]" left="[50%]" pt="6" style={{ opacity: legend, translate: "-50% 0" }}>
               <Caliper.Legend flexWrap="nowrap" w="max-content" textStyle="lg" columnGap="8">
                 <Caliper.LegendItem gap="2">
                   <Caliper.LegendSwatch kind="dashed" boxSize="4" />

@@ -3,7 +3,7 @@ import { Flex } from "@isbatak/react-ui/flex"
 import { useCurrentFrame, useVideoConfig } from "remotion"
 
 import { ease, mix, settle, tween } from "../../sourcery/lib/motion"
-import { NewProjectButton } from "../button"
+import { SaveArticleButton } from "../button"
 import * as Caliper from "../caliper"
 import { LAYOUT, md, px, shapeOf } from "../theme"
 import { useTiming } from "../timing"
@@ -37,7 +37,7 @@ export function Compare() {
           <Box style={{ opacity: equal, translate: `0 ${(1 - equal) * 12}px` }}>
             <Caliper.Frame magnify={layout.compare} animate="in" time={frame / fps}>
               <Caliper.Subject>
-                <NewProjectButton offset={0} />
+                <SaveArticleButton offset={0} />
               </Caliper.Subject>
               <Caliper.Callout
                 enter="draw"
@@ -62,7 +62,7 @@ export function Compare() {
             style={{ opacity: optical, translate: `0 ${(1 - optical) * 12}px` }}
           >
             <Caliper.Subject>
-              <NewProjectButton offset={md.offset} />
+              <SaveArticleButton offset={md.offset} />
             </Caliper.Subject>
             <Caliper.Callout
               colorPalette="blue"

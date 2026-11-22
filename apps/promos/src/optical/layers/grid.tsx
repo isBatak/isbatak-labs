@@ -1,5 +1,6 @@
 import { Box } from "@isbatak/react-ui/box"
 import { Flex } from "@isbatak/react-ui/flex"
+import { Span } from "@isbatak/react-ui/span"
 import { Icon } from "@isbatak/react-ui/icon"
 import { useCurrentFrame, useVideoConfig } from "remotion"
 
@@ -31,7 +32,7 @@ export function Grid() {
         <Flex gap="16" alignItems="center" flexDirection={shape === "tall" ? "column" : "row"}>
           <Caliper.Frame magnify={layout.grid} mt="14" animate="in" time={frame / fps}>
             <Caliper.Subject>
-              <Icon name="plus" size="lg" />
+              <Icon name="bookmark" size="lg" />
             </Caliper.Subject>
             <Caliper.IconGrid colorPalette="red" />
             <Caliper.Dimension
@@ -63,9 +64,11 @@ export function Grid() {
           </Caliper.Frame>
         </Flex>
         <Caliper.Legend textStyle="lg">
-          <Caliper.LegendItem gap="2" maxW="md" textWrap="balance">
-            <Caliper.LegendSwatch kind="hatch" colorPalette="red" boxSize="4" />
-            Trim area of the 24-unit grid. The plus starts 5.25 units in, the arrow's tip stops 4.25 short.
+          <Caliper.LegendItem gap="2" alignItems="flex-start" maxW="xl">
+            <Caliper.LegendSwatch kind="hatch" colorPalette="red" boxSize="4" flexShrink="0" mt="1" />
+            <Span textWrap="balance">
+              Trim area of the 24-unit grid. The bookmark starts 5.25 units in, the arrow's tip stops 4.25 short.
+            </Span>
           </Caliper.LegendItem>
         </Caliper.Legend>
       </Caliper.Root>

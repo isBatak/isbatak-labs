@@ -36,6 +36,14 @@ export default defineConfig({
           },
         },
       },
+      slotRecipes: {
+        caliper: {
+          base: {
+            dimensionLabel: { h: "9", px: "3.5", textStyle: "xl" },
+            calloutLabel: { textStyle: "lg" },
+          },
+        },
+      },
     },
   },
 })

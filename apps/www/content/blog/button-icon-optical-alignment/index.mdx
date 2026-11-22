@@ -49,9 +49,9 @@ looking at an `svg`, and a button with only an icon must not get the offset at a
 ```tsx
 <Button variant="outline">
   <StartIcon asChild>
-    <Icon name="plus" />
+    <Icon name="bookmark" />
   </StartIcon>
-  New project
+  Save article
 </Button>
 ```
 
@@ -87,20 +87,20 @@ where the ink is.
 
 ### Icons come with air
 
-Icons are drawn on a fixed grid, 24 units for ours, and the glyph rarely fills it. The plus runs from 6 to 18 with a 1.5
-unit round-capped stroke, so its ink starts at 5.25. That's 21.875% of the box left empty on each side. The arrow's tip
+Icons are drawn on a fixed grid, 24 units for ours, and the glyph rarely fills it. The bookmark's sides sit at 6 and 18
+with a 1.5 unit stroke, so its ink starts at 5.25. That's 21.875% of the box left empty on each side. The arrow's tip
 stops 4.25 units short of the end.
 
 <IconGridFigure />
 
-In the md Button the icon is 20px, so the plus starts 4.375px inside its box. Without a pull the eye reads 20.375px on
-the left against 16px on the right. The fixed 4px pull brings that to 16.375px, 0.375px past the label side. The arrow's
-tip sits 3.542px inside its box, so the same pull leaves it at 15.542px, 0.458px short.
+In the md Button the icon is 20px, so the bookmark starts 4.375px inside its box. Without a pull the eye reads 20.375px
+on the left against 16px on the right. The fixed 4px pull brings that to 16.375px, 0.375px past the label side. The
+arrow's tip sits 3.542px inside its box, so the same pull leaves it at 15.542px, 0.458px short.
 
 ### Why it isn't the default
 
-Each glyph has a different amount of air. The plus starts 5.25 units in, the share icon 2.25, the settings hexagon 1.25:
-4.375px, 1.875px and 1.042px in a 20px box. Stack a few left-aligned buttons, as in a menu or an action sheet, and
+Each glyph has a different amount of air. The bookmark starts 5.25 units in, the share icon 2.25, the settings hexagon
+1.25: 4.375px, 1.875px and 1.042px in a 20px box. Stack a few left-aligned buttons, as in a menu or an action sheet, and
 pulling each icon to its own ink moves each label by a different amount. The labels stop sharing an edge, and a ragged
 column of text is easier to see than icons up to 3.333px apart.
 
@@ -131,9 +131,9 @@ icon at every Kbd size: the command glyph's 4.25 units of air are 0.177em.
 
 ### A single Button
 
-The same prop works in a Button that stands alone, such as a single call to action. The md Button pulls 4px and the plus
-has 4.375px of air, so `offset="0.375px"` lands it on its ink. A negative offset pulls less, for a glyph with less air
-than the pull assumes.
+The same prop works in a Button that stands alone, such as a single call to action. The md Button pulls 4px and the
+bookmark has 4.375px of air, so `offset="0.375px"` lands it on its ink. A negative offset pulls less, for a glyph with
+less air than the pull assumes.
 
 ## Rules
 
