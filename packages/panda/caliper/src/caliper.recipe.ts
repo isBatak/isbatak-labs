@@ -3,6 +3,8 @@ import { anatomy, parts } from "@isbatak/zag-caliper/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { SlotRecipeConfig, SystemStyleObject } from "@pandacss/types"
 
+import { calloutLabelMotion, calloutMotion, dimensionLabelMotion, dimensionMotion } from "./caliper.motion"
+
 export const caliperSlots = anatomy.omit("calloutLeader", "calloutAnchor", "iconGridLayer").keys()
 
 type CaliperStyles = SlotRecipeDefinition<(typeof caliperSlots)[number]>
@@ -106,6 +108,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
     frame: {
       "--caliper-scale": "1",
       "--caliper-px": "calc(var(--caliper-scale) * 1px)",
+      "--caliper-stagger": "0.1s",
       position: "relative",
       display: "inline-flex",
       flexShrink: "0",
@@ -187,6 +190,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         borderRightStyle: "var(--caliper-line-style)",
         ...verticalTicks("right"),
       },
+      ...dimensionMotion,
     },
     dimensionLabel: {
       position: "absolute",
@@ -220,6 +224,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         top: "50%",
         translate: "calc(100% + 0.375rem) -50%",
       },
+      ...dimensionLabelMotion,
     },
     legend: {
       display: "flex",
@@ -278,6 +283,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
         r: "calc(4px / var(--caliper-scale))",
         fill: "currentColor",
       }),
+      ...calloutMotion,
     },
     calloutLabel: {
       position: "absolute",
@@ -306,6 +312,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       },
       "[data-align=center] > &": { translate: "-50% 0", textAlign: "center" },
       "[data-align=end] > &": { translate: "-100% 0", textAlign: "end" },
+      ...calloutLabelMotion,
     },
     calloutTitle: {
       display: "block",

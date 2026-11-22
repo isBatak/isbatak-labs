@@ -11,6 +11,7 @@ import {
   CaliperReachDemo,
   CaliperScaleDemo,
 } from "./caliper-demos"
+import { CaliperMotionDemo } from "./caliper-motion-demo"
 import { CodeFile, CodeFiles } from "./code-files"
 import { DocTabs, Tab } from "./doc-tabs"
 import { Editor, Editors } from "./editors"
@@ -28,6 +29,7 @@ export const toolComponents: MDXComponents = {
   CaliperIconGridDemo,
   CaliperLinesDemo,
   CaliperMarksDemo,
+  CaliperMotionDemo,
   CaliperPlacementDemo,
   CaliperReachDemo,
   CaliperScaleDemo,

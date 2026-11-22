@@ -4,7 +4,7 @@ import { useCurrentFrame, useVideoConfig } from "remotion"
 import { ease, mix, settle, tween } from "../../sourcery/lib/motion"
 import { NewProjectButton } from "../button"
 import * as Caliper from "../caliper"
-import { LAYOUT, md, plusInk, px, shapeOf } from "../theme"
+import { LAYOUT, md, px, shapeOf } from "../theme"
 import { useTiming } from "../timing"
 
 export function Compare() {
@@ -36,39 +36,51 @@ export function Compare() {
           <Box
             position="absolute"
             bottom="[100%]"
-            left="0"
+            left="[50%]"
             pb="5"
-            style={{ opacity: equal, translate: `0 ${(1 - equal) * 12}px` }}
+            style={{ opacity: equal, translate: `-50% ${(1 - equal) * 12}px` }}
           >
-            <Caliper.Frame magnify={layout.compare}>
+            <Caliper.Frame magnify={layout.compare} animate="in" time={frame / fps}>
               <Caliper.Subject>
                 <NewProjectButton offset={0} />
               </Caliper.Subject>
-              <Caliper.Callout anchors={[{ x: dotX, y: calloutY }]} to={{ x: calloutX, y: calloutY }}>
+              <Caliper.Callout
+                enter="draw"
+                delay={T.callouts / fps}
+                order={0}
+                anchors={[{ x: dotX, y: calloutY }]}
+                to={{ x: calloutX, y: calloutY }}
+              >
                 <Caliper.CalloutLabel>
                   <Caliper.CalloutTitle>equal</Caliper.CalloutTitle>
-                  {px(md.padding + plusInk)} to the ink
+                  no pull
                 </Caliper.CalloutLabel>
               </Caliper.Callout>
             </Caliper.Frame>
           </Box>
 
-          <Caliper.Frame magnify={layout.compare}>
+          <Caliper.Frame
+            magnify={layout.compare}
+            animate="in"
+            time={frame / fps}
+            style={{ opacity: optical, translate: `0 ${(1 - optical) * 12}px` }}
+          >
             <Caliper.Subject>
               <NewProjectButton offset={md.offset} />
             </Caliper.Subject>
-            <Box style={{ opacity: optical }}>
-              <Caliper.Callout
-                colorPalette="blue"
-                anchors={[{ x: dotX, y: calloutY }]}
-                to={{ x: calloutX, y: calloutY }}
-              >
-                <Caliper.CalloutLabel>
-                  <Caliper.CalloutTitle>optical</Caliper.CalloutTitle>
-                  {px(md.padding - md.offset + plusInk)} to the ink
-                </Caliper.CalloutLabel>
-              </Caliper.Callout>
-            </Box>
+            <Caliper.Callout
+              colorPalette="blue"
+              enter="draw"
+              delay={T.callouts / fps}
+              order={1}
+              anchors={[{ x: dotX, y: calloutY }]}
+              to={{ x: calloutX, y: calloutY }}
+            >
+              <Caliper.CalloutLabel>
+                <Caliper.CalloutTitle>optical</Caliper.CalloutTitle>
+                {px(md.offset)} pull
+              </Caliper.CalloutLabel>
+            </Caliper.Callout>
           </Caliper.Frame>
         </Box>
       </Caliper.Root>

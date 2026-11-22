@@ -8,7 +8,7 @@ export default defineConfig({
   jsxFramework: "react",
   include: [
     "./src/**/*.{ts,tsx}",
-    "../../packages/ui/react/src/components/{button,badge,group,icon,input-group,loader,password-input,search-input,segment-group,select,spinner}/**/*.tsx",
+    "../../packages/ui/react/src/components/{button,badge,group,heading,icon,input-group,kbd,loader,password-input,search-input,segment-group,select,spinner}/**/*.tsx",
   ],
   exclude: [],
   outdir: "styled-system",
@@ -16,6 +16,8 @@ export default defineConfig({
     extend: {
       "*, *::before, *::after": {
         transition: "none !important",
+      },
+      ":not([data-enter], [data-exit]), ::before, ::after": {
         animation: "none !important",
       },
     },

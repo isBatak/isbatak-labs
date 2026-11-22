@@ -9,16 +9,22 @@ import type {
   LegendSwatchProps,
 } from "./caliper.types"
 
-export const frameProps = createProps<FrameProps>()(["annotated", "magnify"])
+export const frameProps = createProps<FrameProps>()(["animate", "annotated", "magnify", "stagger", "time"])
 export const splitFrameProps = createSplitProps<FrameProps>(frameProps)
 
 export const boxProps = createProps<BoxProps>()(["spanX", "spanY"])
 export const splitBoxProps = createSplitProps<BoxProps>(boxProps)
 
 export const dimensionProps = createProps<DimensionProps>()([
+  "delay",
   "distance",
+  "duration",
+  "enter",
+  "exit",
+  "exitOrder",
   "extension",
   "line",
+  "order",
   "placement",
   "reach",
   "span",
@@ -29,7 +35,18 @@ export const splitDimensionProps = createSplitProps<DimensionProps>(dimensionPro
 export const legendSwatchProps = createProps<LegendSwatchProps>()(["kind"])
 export const splitLegendSwatchProps = createSplitProps<LegendSwatchProps>(legendSwatchProps)
 
-export const calloutProps = createProps<CalloutProps>()(["align", "anchors", "bend", "to"])
+export const calloutProps = createProps<CalloutProps>()([
+  "align",
+  "anchors",
+  "bend",
+  "delay",
+  "duration",
+  "enter",
+  "exit",
+  "exitOrder",
+  "order",
+  "to",
+])
 export const splitCalloutProps = createSplitProps<CalloutProps>(calloutProps)
 
 export const iconGridProps = createProps<IconGridProps>()(["spanX", "spanY", "trim", "units"])

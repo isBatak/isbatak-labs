@@ -13,7 +13,7 @@ import type {
   LegendSwatchProps,
   LegendSwatchState,
 } from "./caliper.types"
-import { axisOf, calloutPath, iconGridPath, spanStyle, unit } from "./caliper.utils"
+import { axisOf, calloutPath, frameMotion, iconGridPath, markMotion, spanStyle, unit } from "./caliper.utils"
 
 const boxStyle = ({ spanX, spanY }: BoxProps = {}) => ({ ...spanStyle(spanX, "x"), ...spanStyle(spanY, "y") })
 
@@ -51,11 +51,14 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getFrameProps(props = {}) {
       const { magnify } = frameState(props)
+      const motion = frameMotion(props)
+      const style = { ...(magnify === "fit" ? {} : { "--caliper-scale": magnify }), ...motion.style }
       return normalize.element({
         ...parts.frame.attrs(""),
         "data-magnify": magnify === "fit" ? "fit" : undefined,
         "data-annotated": props.annotated ? "" : undefined,
-        style: magnify === "fit" ? undefined : { "--caliper-scale": magnify },
+        ...motion.attrs,
+        style: Object.keys(style).length ? style : undefined,
       })
     },
 
@@ -76,6 +79,7 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
     getDimensionProps(props = {}) {
       const { placement, axis } = dimensionState(props)
       const { span, reach = 0, extension = "dashed", line = "solid", ticks = true, distance = "md" } = props
+      const motion = markMotion(props)
       return normalize.element({
         ...parts.dimension.attrs(""),
         "aria-hidden": true,
@@ -84,7 +88,8 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
         "data-line": line,
         "data-distance": distance,
         "data-ticks": ticks ? "" : undefined,
-        style: { ...spanStyle(span, axis), "--caliper-reach": unit(reach) },
+        ...motion.attrs,
+        style: { ...spanStyle(span, axis), "--caliper-reach": unit(reach), ...motion.style },
       })
     },
 
@@ -111,11 +116,17 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getCalloutProps(props) {
       const { side, align } = calloutState(props)
+      const motion = markMotion(props)
       return normalize.element({
         ...parts.callout.attrs(""),
         "data-side": side,
         "data-align": align,
-        style: { "--caliper-callout-x": unit(props.to.x), "--caliper-callout-y": unit(props.to.y) },
+        ...motion.attrs,
+        style: {
+          "--caliper-callout-x": unit(props.to.x),
+          "--caliper-callout-y": unit(props.to.y),
+          ...motion.style,
+        },
       })
     },
 
@@ -124,7 +135,7 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
     },
 
     getCalloutPathProps(props) {
-      return normalize.path({ d: calloutPath(props) })
+      return normalize.path({ d: calloutPath(props), pathLength: 1 })
     },
 
     getCalloutAnchorProps({ point }) {

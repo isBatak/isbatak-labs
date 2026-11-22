@@ -8,8 +8,13 @@ export type {
   CalloutProps,
   CalloutState,
   CaliperApi as Api,
+  CalloutEnter,
+  CalloutExit,
   DimensionProps,
+  DimensionEnter,
+  DimensionExit,
   DimensionState,
+  FrameAnimate,
   FrameProps,
   FrameState,
   IconGridLayer,
@@ -18,9 +23,10 @@ export type {
   LegendSwatchProps,
   LegendSwatchState,
   Magnify,
+  MotionProps,
   Placement,
   Point,
   Span,
   SwatchKind,
 } from "./caliper.types"
-export { axisOf, calloutPath, iconGridPath, spanStyle } from "./caliper.utils"
+export { axisOf, calloutPath, frameMotion, iconGridPath, markMotion, spanStyle } from "./caliper.utils"
