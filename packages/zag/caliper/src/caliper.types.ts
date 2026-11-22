@@ -51,6 +51,22 @@ export interface FrameState {
   magnify: Magnify
 }
 
+export interface RootProps {
+  /** Whether the marks are shown. Hidden marks stay in the DOM, so a style can fade them. Defaults to `true`. */
+  overlay?: boolean | undefined
+}
+
+export interface RootState {
+  overlay: boolean
+}
+
+export interface OverlayTriggerProps {
+  /** Whether the marks are shown now. The trigger reads as pressed while they are. */
+  overlay: boolean
+  /** Called with the next value when the trigger is clicked. */
+  onOverlayChange?: ((overlay: boolean) => void) | undefined
+}
+
 export interface BoxProps {
   spanX?: Span | undefined
   spanY?: Span | undefined
@@ -135,7 +151,8 @@ export interface IconGridLayerProps extends IconGridProps {
 }
 
 export interface CaliperApi<T extends PropTypes = PropTypes> {
-  getRootProps(): T["element"]
+  getRootProps(props?: RootProps): T["element"]
+  getRootState(props?: RootProps): RootState
   getCanvasProps(): T["element"]
   getCaptionProps(): T["element"]
   getFrameProps(props?: FrameProps): T["element"]
@@ -160,4 +177,5 @@ export interface CaliperApi<T extends PropTypes = PropTypes> {
   getIconGridProps(props?: IconGridProps): T["element"]
   getIconGridCanvasProps(props?: IconGridProps): T["svg"]
   getIconGridLayerProps(props: IconGridLayerProps): T["path"]
+  getOverlayTriggerProps(props: OverlayTriggerProps): T["button"]
 }

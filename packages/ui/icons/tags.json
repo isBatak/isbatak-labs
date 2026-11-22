@@ -141,6 +141,7 @@
   "redo": ["redo", "repeat", "forward", "history"],
   "refresh": ["refresh", "reload", "sync", "update", "retry", "rotate"],
   "repeat": ["repeat", "loop", "cycle", "replay"],
+  "ruler": ["ruler", "measure", "dimensions", "size", "spacing", "guides"],
   "search": ["search", "find", "magnifying glass", "lookup", "query", "zoom"],
   "send": ["send", "submit", "paper plane", "share", "post"],
   "settings": ["settings", "gear", "cog", "preferences", "configuration", "options"],

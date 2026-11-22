@@ -24,8 +24,11 @@ export type {
   LegendSwatchState,
   Magnify,
   MotionProps,
+  OverlayTriggerProps,
   Placement,
   Point,
+  RootProps,
+  RootState,
   Span,
   SwatchKind,
 } from "./caliper.types"

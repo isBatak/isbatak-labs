@@ -13,6 +13,7 @@ export {
   CaliperLegendItem as LegendItem,
   CaliperLegendSwatch as LegendSwatch,
   CaliperOutline as Outline,
+  CaliperOverlayTrigger as OverlayTrigger,
   CaliperRoot as Root,
   CaliperSubject as Subject,
 } from "./caliper"
@@ -31,6 +32,7 @@ export type {
   CaliperLegendProps as LegendProps,
   CaliperLegendSwatchProps as LegendSwatchProps,
   CaliperOutlineProps as OutlineProps,
+  CaliperOverlayTriggerProps as OverlayTriggerProps,
   CaliperRootProps as RootProps,
   CaliperSubjectProps as SubjectProps,
 } from "./caliper"
@@ -42,5 +44,6 @@ export type {
   LegendSwatchState,
   Placement,
   Point,
+  RootState,
   Span,
 } from "@isbatak/zag-caliper"

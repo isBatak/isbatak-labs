@@ -20,6 +20,7 @@ export const anatomy = createAnatomy("caliper").parts(
   "calloutTitle",
   "iconGrid",
   "iconGridLayer",
+  "overlayTrigger",
 )
 
 export const parts = anatomy.build()
