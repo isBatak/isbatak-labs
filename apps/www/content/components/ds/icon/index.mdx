@@ -41,6 +41,15 @@ attribute on another part instead of adding a wrapper, such as a Toggle or Clipb
 
 <Example id="button/with-icons" />
 
+The pull is the same for every icon at a size, so labels in a stack of buttons keep one edge. To pull a single icon
+further, to its ink, pass `offset` as a CSS length. It's added to the recipe's pull, and a negative length pulls less:
+
+```tsx
+<StartIcon asChild offset="0.4px">
+  <Icon name="plus" />
+</StartIcon>
+```
+
 ## Props
 
 | Prop   | Default   | Description                                                                                               |

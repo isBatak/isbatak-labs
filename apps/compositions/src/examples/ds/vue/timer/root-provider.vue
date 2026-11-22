@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@isbatak/vue-ui/icon"
+import { Icon, StartIcon } from "@isbatak/vue-ui/icon"
 import { Stack } from "@isbatak/vue-ui/stack"
 import { Text } from "@isbatak/vue-ui/text"
 import { Timer, useTimer } from "@isbatak/vue-ui/timer"
@@ -29,19 +29,27 @@ const timer = useTimer({ targetMs: 60 * 60 * 1000 })
       </Timer.Area>
       <Timer.Control>
         <Timer.ActionTrigger action="start">
-          <Icon name="play" />
+          <StartIcon :asChild="true">
+            <Icon name="play" />
+          </StartIcon>
           Start
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="resume">
-          <Icon name="play" />
+          <StartIcon :asChild="true">
+            <Icon name="play" />
+          </StartIcon>
           Resume
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="pause">
-          <Icon name="pause" />
+          <StartIcon :asChild="true">
+            <Icon name="pause" />
+          </StartIcon>
           Pause
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="reset">
-          <Icon name="undo" />
+          <StartIcon :asChild="true">
+            <Icon name="undo" />
+          </StartIcon>
           Reset
         </Timer.ActionTrigger>
       </Timer.Control>

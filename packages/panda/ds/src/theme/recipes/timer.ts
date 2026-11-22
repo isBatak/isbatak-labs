@@ -87,10 +87,10 @@ export const timerSlotRecipe = defineSlotRecipe({
         boxSize: "4",
       },
       _iconStart: {
-        ms: "-0.5",
+        iconPullStart: "0.5",
       },
       _iconEnd: {
-        me: "-0.5",
+        iconPullEnd: "0.5",
       },
     },
   },

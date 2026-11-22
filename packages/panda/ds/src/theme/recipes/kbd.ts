@@ -2,7 +2,7 @@ import { defineRecipe } from "@pandacss/dev"
 
 export const kbdRecipe = defineRecipe({
   className: "kbd",
-  description: "Keyboard key or shortcut",
+  description: "Keyboard key or shortcut; put symbol icons in StartIcon or EndIcon and balance them with offset",
   base: {
     display: "inline-flex",
     alignItems: "center",
@@ -14,7 +14,14 @@ export const kbdRecipe = defineRecipe({
     wordSpacing: "-0.5em",
     userSelect: "none",
     px: "1",
+    gap: "0.5",
     borderRadius: "l2",
+    _iconStart: {
+      iconPullStart: "0",
+    },
+    _iconEnd: {
+      iconPullEnd: "0",
+    },
   },
   variants: {
     variant: {

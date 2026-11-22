@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Icon } from "@isbatak/svelte-ui/icon"
+  import { Icon, StartIcon } from "@isbatak/svelte-ui/icon"
   import { Timer } from "@isbatak/svelte-ui/timer"
 </script>
 
@@ -17,15 +17,21 @@
   </Timer.Area>
   <Timer.Control>
     <Timer.ActionTrigger action="start">
-      <Icon name="play" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="play" />{/snippet}
+      </StartIcon>
       Start
     </Timer.ActionTrigger>
     <Timer.ActionTrigger action="pause">
-      <Icon name="pause" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="pause" />{/snippet}
+      </StartIcon>
       Pause
     </Timer.ActionTrigger>
     <Timer.ActionTrigger action="reset">
-      <Icon name="undo" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="undo" />{/snippet}
+      </StartIcon>
       Reset
     </Timer.ActionTrigger>
   </Timer.Control>

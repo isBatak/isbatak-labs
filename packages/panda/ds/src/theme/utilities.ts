@@ -45,7 +45,24 @@ const createFocusRing = (selector: string): PropertyConfig => {
     },
   }
 }
+const iconPullMargin = (value: string, raw: unknown) => {
+  const pull = raw === "0" || raw === 0 ? "" : `${value} + `
+  return `calc((${pull}var(--icon-offset, 0px)) * -1)`
+}
+
 export const utilities = {
+  iconPullStart: {
+    values: "spacing",
+    transform: (value, { raw }) => ({ marginInlineStart: iconPullMargin(value, raw) }),
+  },
+  iconPullEnd: {
+    values: "spacing",
+    transform: (value, { raw }) => ({ marginInlineEnd: iconPullMargin(value, raw) }),
+  },
+  iconPullOffset: {
+    values: "spacing",
+    transform: (value) => ({ "--icon-offset": value }),
+  },
   focusRing: createFocusRing("&:is(:focus, [data-focus])"),
   focusVisibleRing: createFocusRing("&:is(:focus-visible, [data-focus-visible])"),
   focusRingColor: {
