@@ -88,7 +88,7 @@ describe("toPresetObject", () => {
     const doc = setSemanticToken(emptyDoc(), "colors.bg", "base", "#fafaf9")
     expect(toPresetObject(doc).semanticTokens.colors.bg.DEFAULT.value).toEqual({
       base: "#fafaf9",
-      _dark: "{colors.black}",
+      _dark: "{colors.gray.975}",
     })
   })
 
