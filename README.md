@@ -7,27 +7,31 @@ Headless widgets, a Panda CSS design system, and the UI kits, tools and site bui
 Changing a design-system component touches several of these; [docs/ds-component.md](docs/ds-component.md) lists the
 files.
 
+`ls packages/<group>` lists what each group holds; this map says what the groups are and where paths surprise.
+
 ### Packages
 
-- `packages/zag/<name>`: Zag state machines (`@isbatak/zag-*`): `masonry`, `swipeable-list`, `text-flip`,
-  `video-player`, `video-transcript`, `wheel-picker`. `zag/lit` is the Lit adapter for Zag.
-- `packages/ark/<name>`: Ark UI style components for React, Solid, Vue and Svelte (`@isbatak/ark-*`): `code-preview`,
-  `masonry`, `search-input`, `text-flip`, `wheel-picker`.
+- `packages/zag/<name>`: Zag state machines (`@isbatak/zag-*`). `zag/lit` is the Lit adapter for Zag.
+- `packages/ark/<name>`: Ark UI style components for React, Solid, Vue and Svelte (`@isbatak/ark-*`).
 - `packages/panda/ds`: the design system (`@isbatak/panda-ds`): tokens, recipes, slot recipes, conditions, utilities.
 - `packages/panda/themes/analog`: a second design system on the `panda-ds` foundations.
-- `packages/panda/<name>`: slot recipe and preset per widget (`code-preview`, `masonry`, `swipeable-list`, `text-flip`,
-  `video-player`, `video-transcript`, `wheel-picker`), plus the `concentric-preset` and `grain-preset` add-ons.
+- `packages/panda/<name>`: slot recipe and preset per widget, plus the `concentric-preset` and `grain-preset` add-ons.
 - `packages/panda/turbopack`: Turbopack loader and Next.js config wrapper for Panda CSS v2.
 - `packages/ui/<framework>`: components styled with `panda-ds` for `react`, `vue`, `svelte`, `solid`, `preact`, `lit`.
-- `packages/ui/icons`: Boring Icons plus extra icons as a typed SVG sprite.
+- `packages/ui/icons` (not `packages/icons`): Boring Icons plus extra icons as a typed SVG sprite, published as
+  `@isbatak/icons`. Names are in `generated/icons.ts`; new icons go in `extra/` and `tags.json`.
 - `packages/studio`: Panda Studio, a visual editor for `panda-ds` projects.
 - `packages/tools/sourcery`: hold a hotkey, click an element, jump to the code that rendered it.
 
+A widget with its own machine spans three packages under one name: Caliper is `zag/caliper` (machine, anatomy, parts),
+`ark/caliper` (React bindings) and `panda/caliper` (slot recipe and motion).
+
 ### Apps
 
-- `apps/www`: the website: docs for every package, the design system and the tools. Serves the studio at `/studio`.
+- `apps/www`: the website: docs for every package, the design system and the tools. Serves the studio at `/studio`. It
+  has no `src/`: routes in `app/`, components in `components/`, MDX in `content/`, site recipes in `theme/`.
 - `apps/compositions`: per-framework demos for the design system and the Ark and Zag packages, rendered in the www docs.
-- `apps/promos`: Remotion promo videos.
+- `apps/promos`: Remotion promo videos, one folder per promo in `src/`.
 - `apps/storybook-<framework>`: one Storybook per framework; `apps/storybook` combines them.
 
 ### Agent tooling
