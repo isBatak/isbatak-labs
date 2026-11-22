@@ -20,11 +20,11 @@ export function CaliperFigure({ caption, children }: CaliperFigureProps) {
         {children}
         <CaliperOverlayTrigger asChild>
           <IconButton
-            variant="subtle"
+            variant={{ base: "ghost", _pressed: "surface" }}
             size="sm"
             colorPalette="gray"
-            color="fg.muted"
-            _pressed={{ color: "orange.fg" }}
+            color="fg.subtle"
+            _pressed={{ color: "fg" }}
             aria-label="Show measurements"
           >
             <Icon name="ruler" />
