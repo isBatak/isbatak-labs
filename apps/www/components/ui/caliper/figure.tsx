@@ -16,21 +16,19 @@ const figure = css({ my: "10", mx: { base: "0", lg: "-16" } })
 export function CaliperFigure({ caption, children }: CaliperFigureProps) {
   return (
     <CaliperRoot className={cx("not-prose", figure)}>
-      <CaliperCanvas>
-        {children}
-        <CaliperOverlayTrigger asChild>
-          <IconButton
-            variant={{ base: "ghost", _pressed: "surface" }}
-            size="sm"
-            colorPalette="gray"
-            color="fg.subtle"
-            _pressed={{ color: "fg" }}
-            aria-label="Show measurements"
-          >
-            <Icon name="ruler" />
-          </IconButton>
-        </CaliperOverlayTrigger>
-      </CaliperCanvas>
+      <CaliperCanvas>{children}</CaliperCanvas>
+      <CaliperOverlayTrigger asChild>
+        <IconButton
+          variant={{ base: "ghost", _pressed: "surface" }}
+          size="sm"
+          colorPalette="gray"
+          color="fg.subtle"
+          _pressed={{ color: "fg" }}
+          aria-label="Show measurements"
+        >
+          <Icon name="ruler" />
+        </IconButton>
+      </CaliperOverlayTrigger>
       {caption && <CaliperCaption>{caption}</CaliperCaption>}
     </CaliperRoot>
   )
