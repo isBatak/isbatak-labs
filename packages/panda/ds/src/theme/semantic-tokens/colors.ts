@@ -5,7 +5,14 @@ export const colors = defineSemanticTokens.colors({
     DEFAULT: {
       description: "Page background",
       value: {
-        base: "{colors.white}",
+        base: "{colors.gray.25}",
+        _dark: "{colors.gray.975}",
+      },
+    },
+    sunken: {
+      description: "Recessed sections that sit below the page, like example trays and wells",
+      value: {
+        base: "{colors.gray.100}",
         _dark: "{colors.black}",
       },
     },
@@ -41,7 +48,7 @@ export const colors = defineSemanticTokens.colors({
       description: "Raised surfaces: cards, popovers, menus, dialogs",
       value: {
         base: "{colors.white}",
-        _dark: "{colors.gray.950}",
+        _dark: "{colors.gray.900}",
       },
     },
     error: {

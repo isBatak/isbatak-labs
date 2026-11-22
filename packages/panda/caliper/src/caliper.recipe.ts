@@ -103,9 +103,9 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       gap: "8",
       px: { base: "4", md: "8" },
       py: { base: "14", md: "20" },
-      bg: "bg.subtle",
       borderWidth: "1px",
       borderColor: "border.muted",
+      bg: "bg.sunken",
       rounded: "l3",
       overflowX: "auto",
     },
@@ -368,7 +368,10 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       ...inside(parts.iconGridLayer.attr, { stroke: "colorPalette.solid/15" }, "[data-layer=minor]"),
       ...inside(
         parts.iconGridLayer.attr,
-        { stroke: "colorPalette.solid/30", shapeRendering: "geometricPrecision" },
+        {
+          stroke: "colorPalette.solid/30",
+          shapeRendering: "geometricPrecision",
+        },
         "[data-layer=keylines]",
       ),
       ...inside(parts.iconGridLayer.attr, { stroke: "colorPalette.solid/40" }, "[data-layer=major]"),
