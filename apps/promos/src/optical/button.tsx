@@ -18,7 +18,7 @@ export function Sprite() {
 
 export function NewProjectButton({ offset }: { offset: number }) {
   return (
-    <Button variant="outline" colorPalette="gray" bg="bg" tabIndex={-1}>
+    <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
       <StartIcon asChild style={{ marginInlineStart: -offset }}>
         <Icon name="plus" />
       </StartIcon>

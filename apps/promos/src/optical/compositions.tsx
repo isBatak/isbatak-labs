@@ -1,7 +1,7 @@
 import { Composition, Folder } from "remotion"
 
 import { Promo } from "./Promo"
-import { VIDEO } from "./theme"
+import { promoSchema, SIZE, VIDEO } from "./theme"
 
 export function OpticalCompositions() {
   return (
@@ -9,26 +9,29 @@ export function OpticalCompositions() {
       <Composition
         id="OpticalPromo"
         component={Promo}
+        schema={promoSchema}
+        calculateMetadata={({ props }) => SIZE[props.shape]}
         durationInFrames={VIDEO.duration}
         fps={VIDEO.fps}
-        width={VIDEO.square.width}
-        height={VIDEO.square.height}
-      />
-      <Composition
-        id="OpticalPromoWide"
-        component={Promo}
-        durationInFrames={VIDEO.duration}
-        fps={VIDEO.fps}
-        width={VIDEO.wide.width}
-        height={VIDEO.wide.height}
-      />
-      <Composition
-        id="OpticalPromoVertical"
-        component={Promo}
-        durationInFrames={VIDEO.duration}
-        fps={VIDEO.fps}
-        width={VIDEO.tall.width}
-        height={VIDEO.tall.height}
+        width={SIZE.square.width}
+        height={SIZE.square.height}
+        defaultProps={{
+          shape: "square",
+          timing: {
+            measure: {
+              boxGuides: 60,
+              iconBox: 120,
+              emptyNote: 150,
+              inkGuides: 180,
+              reach: 252,
+              click: 288,
+              slide: 36,
+              release: 360,
+              guidesOut: 474,
+            },
+            compare: { equal: 12, optical: 24 },
+          },
+        }}
       />
     </Folder>
   )
