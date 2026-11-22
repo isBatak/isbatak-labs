@@ -47,8 +47,8 @@ export function Compare() {
                 anchors={[{ x: dotX, y: calloutY }]}
                 to={{ x: calloutX, y: calloutY }}
               >
-                <Caliper.CalloutLabel textStyle="xl">
-                  <Caliper.CalloutTitle textStyle="md">equal</Caliper.CalloutTitle>
+                <Caliper.CalloutLabel textStyle="2xl">
+                  <Caliper.CalloutTitle textStyle="3xl">equal</Caliper.CalloutTitle>
                   <Caliper.CalloutDescription>no pull</Caliper.CalloutDescription>
                 </Caliper.CalloutLabel>
               </Caliper.Callout>
@@ -73,8 +73,8 @@ export function Compare() {
               anchors={[{ x: dotX, y: calloutY }]}
               to={{ x: calloutX, y: calloutY }}
             >
-              <Caliper.CalloutLabel textStyle="xl">
-                <Caliper.CalloutTitle textStyle="md">optical</Caliper.CalloutTitle>
+              <Caliper.CalloutLabel textStyle="2xl">
+                <Caliper.CalloutTitle textStyle="3xl">optical</Caliper.CalloutTitle>
                 <Caliper.CalloutDescription>{px(md.offset)} pull</Caliper.CalloutDescription>
               </Caliper.CalloutLabel>
             </Caliper.Callout>
