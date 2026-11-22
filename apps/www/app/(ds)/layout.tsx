@@ -9,7 +9,7 @@ import { SiteHeader } from "../../components/layout/site-header"
 export default function DesignSystemLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SiteHeader size="wide" />
+      <SiteHeader size="full" />
       <DsSubNav components={dsNavNodes("components")} styles={dsNavNodes("styles")} icons={dsNavNodes("icons")} />
       <styled.main minH="calc(100dvh - {sizes.header} - {sizes.subnav})">{children}</styled.main>
       <SiteFooter size="wide" />

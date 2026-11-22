@@ -32,7 +32,7 @@ export function DsDocLayout({ section, toc, children }: DsDocLayoutProps) {
         columnGap="16"
         px={{ base: "5", md: "10" }}
       >
-        <styled.article minW="0" pt={{ base: "10", md: "14" }} pb="24">
+        <styled.article minW="0" w="full" maxW="2xl" justifySelf="center" pt={{ base: "10", md: "14" }} pb="24">
           {children}
         </styled.article>
         <DsToc toc={toc} />
