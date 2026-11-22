@@ -63,7 +63,14 @@ export function Picker({ label, first, second, change, children }: PickerProps) 
       }}
     >
       <div ref={root}>
-        <SegmentGroup.Root size="sm" orientation="horizontal" value={slide >= 0.5 ? second : first} aria-label={label}>
+        <SegmentGroup.Root
+          size="sm"
+          orientation="horizontal"
+          fitted
+          w="80"
+          value={slide >= 0.5 ? second : first}
+          aria-label={label}
+        >
           <SegmentGroup.Indicator
             style={
               slots
