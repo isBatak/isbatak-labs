@@ -10,6 +10,8 @@ One `@isbatak/panda-ds` component spans these files. `<name>` is kebab-case, `<c
   `pnpm --filter @isbatak/panda-ds build` before typechecking `packages/ui`, `apps/compositions` or `apps/www`.
 - `packages/panda/ds/src/theme/recipes/shared/`: size and variant maps shared between recipes (`input.ts`,
   `segment.ts`). Reuse these so related controls line up.
+- `prose` comes from `@pandacss/preset-typography` in `packages/panda/ds/panda.config.ts`; `recipes/prose.ts` only
+  extends it.
 - `packages/panda/ds/src/theme/conditions.ts`: custom conditions such as `_icon`, `_iconStart`, `_iconEnd`.
 - Icons next to a label go in `StartIcon` or `EndIcon` (exported from each framework's `icon` module), which set
   `data-icon-start` and `data-icon-end`. A recipe that shows icons beside a label styles them with `_iconStart` and
