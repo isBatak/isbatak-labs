@@ -17,10 +17,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: ToolRouteProps): Promise<Metadata> {
   const tool = getTool((await params).slug)
   if (!tool) return {}
+  const description = tool.metaDescription ?? tool.description
   return {
     title: tool.title,
-    description: tool.description,
+    description,
     alternates: { canonical: `${SITE_URL}${tool.permalink}` },
+    openGraph: { type: "website", url: `${SITE_URL}${tool.permalink}`, title: tool.title, description },
+    twitter: { card: "summary", title: tool.title, description },
   }
 }
 
