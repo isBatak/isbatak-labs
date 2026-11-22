@@ -13,7 +13,7 @@ export const CodeFrame = styled(
       my: "6",
       borderRadius: "l3",
       borderWidth: "1px",
-      bg: "bg.subtle",
+      bg: "bg.sunken",
       overflow: "hidden",
     },
   },

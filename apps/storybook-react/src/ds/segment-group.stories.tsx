@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { SegmentGroupDemo } from "@isbatak/compositions/ds/react/segment-group/usage"
+import { SegmentGroupDescriptionDemo } from "@isbatak/compositions/ds/react/segment-group/description"
 import { SegmentGroupFittedDemo } from "@isbatak/compositions/ds/react/segment-group/fitted"
 import { SegmentGroupIconDemo } from "@isbatak/compositions/ds/react/segment-group/icon"
 import { SegmentGroupSizesDemo } from "@isbatak/compositions/ds/react/segment-group/sizes"
@@ -31,4 +32,8 @@ export const Sizes: Story = {
 
 export const Tinted: Story = {
   render: () => <SegmentGroupTintedDemo />,
+}
+
+export const Description: Story = {
+  render: () => <SegmentGroupDescriptionDemo />,
 }

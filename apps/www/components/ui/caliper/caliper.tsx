@@ -51,3 +51,12 @@ export type CaliperCalloutLabelProps = ComponentProps<typeof CaliperCalloutLabel
 
 export const CaliperCalloutTitle = withContext(ArkCaliper.CalloutTitle, "calloutTitle")
 export type CaliperCalloutTitleProps = ComponentProps<typeof CaliperCalloutTitle>
+
+export const CaliperCalloutDescription = withContext(ArkCaliper.CalloutDescription, "calloutDescription")
+export type CaliperCalloutDescriptionProps = ComponentProps<typeof CaliperCalloutDescription>
+
+export const CaliperIconGrid = withContext(ArkCaliper.IconGrid, "iconGrid")
+export type CaliperIconGridProps = ComponentProps<typeof CaliperIconGrid>
+
+export const CaliperOverlayTrigger = withContext(ArkCaliper.OverlayTrigger, "overlayTrigger")
+export type CaliperOverlayTriggerProps = ComponentProps<typeof CaliperOverlayTrigger>

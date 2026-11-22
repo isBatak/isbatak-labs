@@ -108,7 +108,7 @@ export function DsSubNav({ components, styles, icons }: DsSubNavProps) {
       maxW="100vw"
       overflowX="clip"
     >
-      <LayoutContainer size="wide" display="flex" alignItems="center" gap="2" h="full" px={{ base: "3", md: "8" }}>
+      <LayoutContainer size="full" display="flex" alignItems="center" gap="2" h="full" px={{ base: "3", md: "8" }}>
         <SectionDrawer nodes={nodes} label={sectionLabels[section]} />
         <styled.nav aria-label="Design system" display="flex" alignItems="center" gap="1">
           <NavLink href="/ds/components" aria-current={current("/ds/components")}>

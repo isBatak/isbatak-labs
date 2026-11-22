@@ -40,6 +40,14 @@ Modifier symbols are single characters, so each key keeps the recipe's minimum w
 
 <Example id="kbd/function-keys" />
 
+### Symbols
+
+Draw modifier symbols with `Icon` and wrap the first and last in `StartIcon` and `EndIcon`. Each glyph has its own empty
+space inside its box, so give it an `offset` in `em` to pull its ink to the key's padding at every size. See
+[Optical alignment for button icons](/blog/button-icon-optical-alignment) for how the offsets are measured.
+
+<Example id="kbd/symbols" />
+
 ### Variants
 
 Set `variant` to `raised`, `outline`, `subtle` or `plain`. The default is `raised`.

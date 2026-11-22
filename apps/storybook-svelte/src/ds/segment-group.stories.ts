@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/svelte-vite"
 import SegmentGroupDemo from "@isbatak/compositions/ds/svelte/segment-group/usage"
+import SegmentGroupDescriptionDemo from "@isbatak/compositions/ds/svelte/segment-group/description"
 import SegmentGroupFittedDemo from "@isbatak/compositions/ds/svelte/segment-group/fitted"
 import SegmentGroupIconDemo from "@isbatak/compositions/ds/svelte/segment-group/icon"
 import SegmentGroupSizesDemo from "@isbatak/compositions/ds/svelte/segment-group/sizes"
@@ -29,4 +30,8 @@ export const Sizes: StoryObj<typeof SegmentGroupSizesDemo> = {
 
 export const Tinted: StoryObj<typeof SegmentGroupTintedDemo> = {
   render: () => ({ Component: SegmentGroupTintedDemo }),
+}
+
+export const Description: StoryObj<typeof SegmentGroupDescriptionDemo> = {
+  render: () => ({ Component: SegmentGroupDescriptionDemo }),
 }
