@@ -3,7 +3,13 @@ import { anatomy, parts } from "@isbatak/zag-caliper/anatomy"
 import { defineSlotRecipe } from "@pandacss/dev"
 import type { SlotRecipeConfig, SystemStyleObject } from "@pandacss/types"
 
-import { calloutLabelMotion, calloutMotion, dimensionLabelMotion, dimensionMotion } from "./caliper.motion"
+import {
+  calloutLabelMotion,
+  calloutDescriptionMotion,
+  calloutMotion,
+  dimensionLabelMotion,
+  dimensionMotion,
+} from "./caliper.motion"
 
 export const caliperSlots = anatomy.omit("calloutLeader", "calloutAnchor", "iconGridLayer").keys()
 
@@ -333,11 +339,28 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       ...calloutLabelMotion,
     },
     calloutTitle: {
-      display: "block",
-      mb: "1",
+      colorPalette: "gray",
+      display: "flex",
+      alignItems: "center",
+      w: "fit-content",
+      minH: "5",
+      px: "2",
+      mb: "1.5",
+      rounded: "full",
+      bg: "colorPalette.subtle",
+      color: "colorPalette.fg",
+      shadow: "inset 0 0 0px 1px var(--shadow-color)",
+      shadowColor: "colorPalette.muted",
       textStyle: "xs",
       fontFamily: "mono",
-      color: "fg.subtle",
+      fontWeight: "medium",
+      whiteSpace: "nowrap",
+      "[data-align=center] > * > &": { mx: "auto" },
+      "[data-align=end] > * > &, [data-side=left] > * > &": { ms: "auto" },
+    },
+    calloutDescription: {
+      display: "block",
+      ...calloutDescriptionMotion,
     },
     iconGrid: {
       position: "absolute",

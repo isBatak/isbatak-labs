@@ -174,6 +174,7 @@ export interface CaliperApi<T extends PropTypes = PropTypes> {
   getCalloutAnchorProps(props: CalloutAnchorProps): T["circle"]
   getCalloutLabelProps(): T["element"]
   getCalloutTitleProps(): T["element"]
+  getCalloutDescriptionProps(): T["element"]
   getIconGridProps(props?: IconGridProps): T["element"]
   getIconGridCanvasProps(props?: IconGridProps): T["svg"]
   getIconGridLayerProps(props: IconGridLayerProps): T["path"]

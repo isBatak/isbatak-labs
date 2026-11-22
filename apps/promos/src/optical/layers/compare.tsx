@@ -49,7 +49,7 @@ export function Compare() {
               >
                 <Caliper.CalloutLabel textStyle="xl">
                   <Caliper.CalloutTitle textStyle="md">equal</Caliper.CalloutTitle>
-                  no pull
+                  <Caliper.CalloutDescription>no pull</Caliper.CalloutDescription>
                 </Caliper.CalloutLabel>
               </Caliper.Callout>
             </Caliper.Frame>
@@ -75,7 +75,7 @@ export function Compare() {
             >
               <Caliper.CalloutLabel textStyle="xl">
                 <Caliper.CalloutTitle textStyle="md">optical</Caliper.CalloutTitle>
-                {px(md.offset)} pull
+                <Caliper.CalloutDescription>{px(md.offset)} pull</Caliper.CalloutDescription>
               </Caliper.CalloutLabel>
             </Caliper.Callout>
           </Caliper.Frame>
