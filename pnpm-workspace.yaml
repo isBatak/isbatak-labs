@@ -16,7 +16,6 @@ allowBuilds:
 # Supply-chain hardening (see https://pnpm.io/supply-chain-security)
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - sugar-high@2.5.0
   - "@ikona/cli@0.2.2"
   - "@zag-js/dismissable@2.0.0-next.4"
   - "@zag-js/interact-outside@2.0.0-next.4"
