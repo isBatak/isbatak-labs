@@ -48,9 +48,14 @@ for the video. Simplify the words, not the context.
    ffmpeg -loglevel error -y -i <video>.mp4 -vf "fps=1,scale=480:-1,tile=6x6" -frames:v 1 -update 1 <scratchpad>/sheet.jpg
    ```
 
-   A sheet can't show a pop, so also render stills just before, during and after every transition with
-   `npx remotion still <Id> <scratchpad>/f<frame>.jpg --frame=<n> --image-format=jpeg --log=error`. Sample mid-beat: a
-   frame on a cut renders empty.
+   A sheet can't show a pop, so also render stills just before, during and after every transition. One call bundles
+   once and renders every frame to `<scratchpad>/f<frame>.jpg`:
+
+   ```sh
+   pnpm --filter promos stills <Id> <scratchpad> <frame>... [--props '{"shape":"wide"}']
+   ```
+
+   Sample mid-beat: a frame on a cut renders empty.
 
    Hold each component on screen against its www docs demo. Any difference is a bug in the design system or the promo
    setup, not in the video.
