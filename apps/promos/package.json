@@ -18,6 +18,7 @@
     "render:optical-wide": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-wide.mp4 --props='{\"shape\":\"wide\"}' --concurrency=1",
     "render:optical-vertical": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-vertical.mp4 --props='{\"shape\":\"tall\"}' --concurrency=1",
     "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=498 --image-format=jpeg --jpeg-quality=85",
+    "stills": "panda && pnpm icons && node scripts/stills.ts",
     "typecheck": "panda && pnpm icons && tsc --noEmit"
   },
   "dependencies": {

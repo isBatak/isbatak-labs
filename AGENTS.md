@@ -1,4 +1,5 @@
 - Never `.map()` over static data to render JSX; write the structure inline instead.
+- Repo map and paths agents get wrong: `README.md` `## Map`.
 - Put plans, todo lists and notes in the `plans/` folder at the root, never loose in the repo root or a package.
 - Every image in docs, demos and stories is a public-domain painting or painter portrait from Wikimedia Commons, never a
   stock photo or placeholder service.
@@ -20,6 +21,6 @@
   for generated runtime code. An app's own extras are in its `panda.config.ts`.
 - If a token you need doesn't exist, stop and say so. Don't invent one.
 - `apps/compositions` uses `strictTokens`. Before you say you're done, run `pnpm typecheck` in every package you touched
-  and `pnpm exec oxlint <files you changed>` at the root, and fix every error and Panda warning it reports. The
-  pre-commit hook blocks lint errors only. `apps/www` typecheck reads generated output; run `pnpm generate` there first
-  when it's missing or a package it builds changed.
+  and `pnpm exec oxlint <files you changed>` then `pnpm exec oxfmt <files>` at the root, and fix every error and Panda
+  warning it reports. The pre-commit hook blocks lint errors only. `apps/www` typecheck reads generated output; run
+  `pnpm generate` there first when it's missing or a package it builds changed.
