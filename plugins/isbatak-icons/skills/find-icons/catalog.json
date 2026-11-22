@@ -1470,6 +1470,17 @@
     ]
   },
   {
+    "name": "ruler",
+    "tags": [
+      "ruler",
+      "measure",
+      "dimensions",
+      "size",
+      "spacing",
+      "guides"
+    ]
+  },
+  {
     "name": "search",
     "tags": [
       "search",

@@ -143,6 +143,7 @@ import type { IconName } from './types/icon-name';
       "redo",
       "refresh",
       "repeat",
+      "ruler",
       "search",
       "send",
       "settings",

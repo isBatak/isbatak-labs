@@ -1,7 +1,9 @@
+import { IconButton } from "@isbatak/react-ui/button"
 import type { ReactNode } from "react"
 import { css, cx } from "styled-system/css"
 
-import { CaliperCanvas, CaliperCaption, CaliperRoot } from "./caliper"
+import { Icon } from "../icon"
+import { CaliperCanvas, CaliperCaption, CaliperOverlayTrigger, CaliperRoot } from "./caliper"
 
 export interface CaliperFigureProps {
   caption?: ReactNode
@@ -14,7 +16,21 @@ const figure = css({ my: "10", mx: { base: "0", lg: "-16" } })
 export function CaliperFigure({ caption, children }: CaliperFigureProps) {
   return (
     <CaliperRoot className={cx("not-prose", figure)}>
-      <CaliperCanvas>{children}</CaliperCanvas>
+      <CaliperCanvas>
+        {children}
+        <CaliperOverlayTrigger asChild>
+          <IconButton
+            variant="subtle"
+            size="sm"
+            colorPalette="gray"
+            color="fg.muted"
+            _pressed={{ color: "orange.fg" }}
+            aria-label="Show measurements"
+          >
+            <Icon name="ruler" />
+          </IconButton>
+        </CaliperOverlayTrigger>
+      </CaliperCanvas>
       {caption && <CaliperCaption>{caption}</CaliperCaption>}
     </CaliperRoot>
   )

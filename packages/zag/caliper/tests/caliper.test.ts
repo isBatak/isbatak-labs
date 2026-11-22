@@ -22,8 +22,28 @@ describe("spanStyle", () => {
 
 describe("connect", () => {
   it("marks parts with zag 2 anatomy attributes", () => {
-    expect(api.getRootProps()).toEqual({ "data-caliper-root": "" })
+    expect(api.getRootProps()).toEqual({ "data-caliper-root": "", "data-overlay": "visible" })
     expect(api.getDimensionLabelProps()).toEqual({ "data-caliper-dimension-label": "" })
+  })
+
+  it("shows the overlay by default and marks the root when it is hidden", () => {
+    expect(api.getRootState()).toEqual({ overlay: true })
+    expect(api.getRootProps({ overlay: false })).toMatchObject({ "data-overlay": "hidden" })
+  })
+
+  it("makes the overlay trigger a toggle button for the overlay", () => {
+    const changes: boolean[] = []
+    const props = api.getOverlayTriggerProps({ overlay: true, onOverlayChange: (next) => changes.push(next) })
+    expect(props).toMatchObject({
+      "data-caliper-overlay-trigger": "",
+      type: "button",
+      "aria-pressed": true,
+      "data-state": "on",
+      "data-pressed": "",
+    })
+    props.onClick()
+    expect(changes).toEqual([false])
+    expect(api.getOverlayTriggerProps({ overlay: false })).toMatchObject({ "aria-pressed": false, "data-state": "off" })
   })
 
   it("derives the dimension axis from its placement", () => {

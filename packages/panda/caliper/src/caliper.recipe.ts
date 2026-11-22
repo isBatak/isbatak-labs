@@ -13,7 +13,7 @@ const inside = <T extends SystemStyleObject>(attr: string, styles: T, nested = "
   ({ [`& [${attr}]${nested}`]: styles }) as Record<`&${string}`, T>
 
 const motion = {
-  transitionProperty: "left, right, top, bottom, width, height, margin",
+  transitionProperty: "left, right, top, bottom, width, height, margin, opacity, visibility",
   transitionDuration: "moderate",
   transitionTimingFunction: "default",
 } satisfies SystemStyleObject
@@ -83,6 +83,16 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       display: "flex",
       flexDirection: "column",
       gap: "3",
+      "& :is([data-caliper-dimension], [data-caliper-callout], [data-caliper-icon-grid], [data-caliper-legend])": {
+        transitionProperty: "opacity, visibility",
+        transitionDuration: "moderate",
+        transitionTimingFunction: "default",
+      },
+      "&[data-overlay=hidden] :is([data-caliper-outline], [data-caliper-hatch], [data-caliper-dimension], [data-caliper-callout], [data-caliper-icon-grid], [data-caliper-legend]):not([data-animate=out] [data-exit])":
+        {
+          opacity: "0",
+          visibility: "hidden",
+        },
     },
     canvas: {
       position: "relative",
@@ -98,6 +108,11 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       borderColor: "border.muted",
       rounded: "l3",
       overflowX: "auto",
+    },
+    overlayTrigger: {
+      position: "absolute",
+      top: "3",
+      insetEnd: "3",
     },
     caption: {
       px: "1",

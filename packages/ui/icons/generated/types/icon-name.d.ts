@@ -141,6 +141,7 @@ export type IconName =
   | 'redo'
   | 'refresh'
   | 'repeat'
+  | 'ruler'
   | 'search'
   | 'send'
   | 'settings'

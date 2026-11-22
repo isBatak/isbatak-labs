@@ -12,10 +12,14 @@ import type {
   IconGridProps,
   LegendSwatchProps,
   LegendSwatchState,
+  RootProps,
+  RootState,
 } from "./caliper.types"
 import { axisOf, calloutPath, frameMotion, iconGridPath, markMotion, spanStyle, unit } from "./caliper.utils"
 
 const boxStyle = ({ spanX, spanY }: BoxProps = {}) => ({ ...spanStyle(spanX, "x"), ...spanStyle(spanY, "y") })
+
+const rootState = (props: RootProps = {}): RootState => ({ overlay: props.overlay ?? true })
 
 const frameState = (props: FrameProps = {}): FrameState => ({ magnify: props.magnify ?? 1 })
 
@@ -35,8 +39,11 @@ const legendSwatchState = (props: LegendSwatchProps = {}): LegendSwatchState => 
 
 export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): CaliperApi<T> {
   return {
-    getRootProps() {
-      return normalize.element({ ...parts.root.attrs("") })
+    getRootState: rootState,
+
+    getRootProps(props = {}) {
+      const { overlay } = rootState(props)
+      return normalize.element({ ...parts.root.attrs(""), "data-overlay": overlay ? "visible" : "hidden" })
     },
 
     getCanvasProps() {
@@ -164,6 +171,20 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getIconGridLayerProps({ layer, ...props }) {
       return normalize.path({ ...parts.iconGridLayer.attrs(""), "data-layer": layer, d: iconGridPath(layer, props) })
+    },
+
+    getOverlayTriggerProps({ overlay, onOverlayChange }) {
+      return normalize.button({
+        ...parts.overlayTrigger.attrs(""),
+        type: "button",
+        "aria-label": "Measurements",
+        "aria-pressed": overlay,
+        "data-state": overlay ? "on" : "off",
+        "data-pressed": overlay ? "" : undefined,
+        onClick() {
+          onOverlayChange?.(!overlay)
+        },
+      })
     },
   }
 }
