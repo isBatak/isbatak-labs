@@ -38,7 +38,7 @@ const toolEntries: NavEntry[] = tools
   }))
 
 export interface SiteHeaderProps {
-  size?: "default" | "wide"
+  size?: "default" | "wide" | "full"
 }
 
 export function SiteHeader({ size }: SiteHeaderProps) {
