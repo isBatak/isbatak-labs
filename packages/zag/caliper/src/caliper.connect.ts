@@ -157,6 +157,10 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
       return normalize.element({ ...parts.calloutTitle.attrs("") })
     },
 
+    getCalloutDescriptionProps() {
+      return normalize.element({ ...parts.calloutDescription.attrs("") })
+    },
+
     getIconGridProps({ units = 24, trim = 2, ...props } = {}) {
       return normalize.element({
         ...parts.iconGrid.attrs(""),

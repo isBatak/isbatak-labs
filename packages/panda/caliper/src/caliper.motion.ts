@@ -2,6 +2,7 @@ import type { CssKeyframes, GlobalVarsDefinition, SystemStyleObject } from "@pan
 
 const easeInOut = "cubic-bezier(0.65, 0, 0.35, 1)"
 const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)"
+const fade = "cubic-bezier(0.33, 0, 0.2, 1)"
 const easeIn = "cubic-bezier(0.7, 0, 0.84, 0)"
 
 const progress = { syntax: "<number>", inherits: true, initialValue: "1" } as const
@@ -11,6 +12,7 @@ export const caliperMotionVars: GlobalVarsDefinition = {
   "--caliper-ext": progress,
   "--caliper-label": progress,
   "--caliper-dot": progress,
+  "--caliper-note": progress,
 }
 
 export const caliperKeyframes: CssKeyframes = {
@@ -27,16 +29,32 @@ export const caliperKeyframes: CssKeyframes = {
     "100%": { "--caliper-line": "0", "--caliper-ext": "0", "--caliper-label": "0" },
   },
   "caliper-callout-draw": {
-    "0%": { "--caliper-dot": "0", "--caliper-line": "0", "--caliper-label": "0", animationTimingFunction: easeOut },
-    "25%": { "--caliper-dot": "1", "--caliper-line": "0", animationTimingFunction: easeInOut },
-    "70%": { "--caliper-line": "1", "--caliper-label": "0", animationTimingFunction: easeOut },
-    "100%": { "--caliper-dot": "1", "--caliper-line": "1", "--caliper-label": "1" },
+    "0%": {
+      "--caliper-dot": "0",
+      "--caliper-line": "0",
+      "--caliper-label": "0",
+      "--caliper-note": "0",
+      animationTimingFunction: easeOut,
+    },
+    "22%": { "--caliper-dot": "1", "--caliper-line": "0", animationTimingFunction: easeInOut },
+    "60%": { "--caliper-line": "1", "--caliper-label": "0", animationTimingFunction: easeOut },
+    "66%": { "--caliper-note": "0", animationTimingFunction: fade },
+    "85%": { "--caliper-label": "1", animationTimingFunction: easeOut },
+    "100%": { "--caliper-dot": "1", "--caliper-line": "1", "--caliper-label": "1", "--caliper-note": "1" },
   },
   "caliper-callout-retract": {
-    "0%": { "--caliper-dot": "1", "--caliper-line": "1", "--caliper-label": "1", animationTimingFunction: easeIn },
-    "30%": { "--caliper-label": "0", "--caliper-line": "1", animationTimingFunction: easeInOut },
-    "75%": { "--caliper-line": "0", "--caliper-dot": "1", animationTimingFunction: easeIn },
-    "100%": { "--caliper-dot": "0", "--caliper-line": "0", "--caliper-label": "0" },
+    "0%": {
+      "--caliper-dot": "1",
+      "--caliper-line": "1",
+      "--caliper-label": "1",
+      "--caliper-note": "1",
+      animationTimingFunction: easeIn,
+    },
+    "12%": { "--caliper-label": "1", animationTimingFunction: easeIn },
+    "20%": { "--caliper-note": "0", animationTimingFunction: easeIn },
+    "35%": { "--caliper-label": "0", "--caliper-line": "1", animationTimingFunction: easeInOut },
+    "78%": { "--caliper-line": "0", "--caliper-dot": "1", animationTimingFunction: easeIn },
+    "100%": { "--caliper-dot": "0", "--caliper-line": "0", "--caliper-label": "0", "--caliper-note": "0" },
   },
   "caliper-fade-in": {
     from: { opacity: "0" },
@@ -243,5 +261,12 @@ export const calloutLabelMotion = {
   },
   ":is([data-enter], [data-exit])[data-side=bottom] > &": {
     transform: "translateY(calc((var(--caliper-label) - 1) * 0.5rem))",
+  },
+} satisfies SystemStyleObject
+
+export const calloutDescriptionMotion = {
+  ":is([data-enter], [data-exit]) > * > &": {
+    opacity: "var(--caliper-note)",
+    transform: "translateY(calc((1 - var(--caliper-note)) * 0.25rem))",
   },
 } satisfies SystemStyleObject

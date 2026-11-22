@@ -165,7 +165,7 @@ export function OpticalComparisonFigure() {
         <Caliper.Callout anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
           <Caliper.CalloutLabel maxW="40">
             <Caliper.CalloutTitle>equal</Caliper.CalloutTitle>
-            no pull
+            <Caliper.CalloutDescription>no pull</Caliper.CalloutDescription>
           </Caliper.CalloutLabel>
         </Caliper.Callout>
       </Caliper.Frame>
@@ -176,7 +176,7 @@ export function OpticalComparisonFigure() {
         <Caliper.Callout colorPalette="blue" anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
           <Caliper.CalloutLabel maxW="40">
             <Caliper.CalloutTitle>optical</Caliper.CalloutTitle>
-            {px(md.offset)} pull
+            <Caliper.CalloutDescription>{px(md.offset)} pull</Caliper.CalloutDescription>
           </Caliper.CalloutLabel>
         </Caliper.Callout>
       </Caliper.Frame>

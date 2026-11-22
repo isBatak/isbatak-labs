@@ -1,5 +1,6 @@
 export {
   CaliperCallout as Callout,
+  CaliperCalloutDescription as CalloutDescription,
   CaliperCalloutLabel as CalloutLabel,
   CaliperCalloutTitle as CalloutTitle,
   CaliperCanvas as Canvas,
@@ -18,6 +19,7 @@ export {
   CaliperSubject as Subject,
 } from "./caliper"
 export type {
+  CaliperCalloutDescriptionProps as CalloutDescriptionProps,
   CaliperCalloutLabelProps as CalloutLabelProps,
   CaliperCalloutProps as CalloutProps,
   CaliperCalloutTitleProps as CalloutTitleProps,

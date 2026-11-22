@@ -32,7 +32,8 @@ export type CaliperRootProps = PartProps<"figure", CaliperRootOwnProps, caliper.
 
 /**
  * The figure: a canvas and an optional caption. Holds whether the marks are shown, for an `OverlayTrigger`. Once the
- * overlay has changed, its frames animate in and out with it, and dimensions without `enter` or `exit` draw and retract.
+ * overlay has changed, its frames animate in and out with it, and dimensions and callouts without `enter` or `exit`
+ * draw and retract.
  */
 export function CaliperRoot(props: CaliperRootProps) {
   const [rootProps, { defaultOverlay = true, onOverlayChange, ...localProps }] = caliper.splitRootProps(props)
@@ -176,7 +177,11 @@ export type CaliperCalloutProps = PartProps<"div", caliper.CalloutProps, caliper
  * Several anchors share one line to the label.
  */
 export function CaliperCallout(props: CaliperCalloutProps) {
-  const [calloutProps, { children, ...localProps }] = caliper.splitCalloutProps(props)
+  const overlay = useContext(OverlayContext)
+  const [ownProps, { children, ...localProps }] = caliper.splitCalloutProps(props)
+  const calloutProps = overlay?.toggled
+    ? { ...ownProps, enter: ownProps.enter ?? "draw", exit: ownProps.exit ?? "retract" }
+    : ownProps
   return (
     <ark.div {...mergeProps(api.getCalloutProps(calloutProps), localProps)} state={api.getCalloutState(calloutProps)}>
       <svg {...api.getCalloutLeaderProps()}>
@@ -202,6 +207,13 @@ export type CaliperCalloutTitleProps = PartProps<"span">
 /** A short heading above the label's text. */
 export function CaliperCalloutTitle(props: CaliperCalloutTitleProps) {
   return <ark.span {...mergeProps(api.getCalloutTitleProps(), props)} />
+}
+
+export type CaliperCalloutDescriptionProps = PartProps<"span">
+
+/** The label's text under its title. */
+export function CaliperCalloutDescription(props: CaliperCalloutDescriptionProps) {
+  return <ark.span {...mergeProps(api.getCalloutDescriptionProps(), props)} />
 }
 
 export type CaliperIconGridProps = PartProps<"div", caliper.IconGridProps>
