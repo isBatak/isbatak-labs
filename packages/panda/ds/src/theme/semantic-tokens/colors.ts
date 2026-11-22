@@ -753,7 +753,7 @@ export const colors = defineSemanticTokens.colors({
       value: "{colors.fg}",
     },
     preBg: {
-      value: "{colors.bg.subtle}",
+      value: "{colors.bg.sunken}",
     },
     thBorder: {
       value: "{colors.border}",
