@@ -4,7 +4,7 @@ export const segmentVars = defineStyles({
   "--segment-radius": "radii.l2",
   "--segment-padding": "spacing.1",
   "--segment-indicator-bg": {
-    base: "colors.bg",
+    base: "colors.bg.panel",
     _dark: "colors.bg.emphasized",
   },
   "--segment-indicator-shadow": "shadows.xs",
@@ -44,23 +44,38 @@ export const segmentIndicator = defineStyles({
 
 export const segmentSizes = {
   "2xs": {
-    root: defineStyles({ "--segment-height": "sizes.6", "--segment-item-height": "sizes.4.5" }),
+    root: defineStyles({
+      "--segment-height": "sizes.6",
+      "--segment-item-height": "sizes.4.5",
+    }),
     item: defineStyles({ textStyle: "2xs", px: "2", gap: "1" }),
   },
   xs: {
-    root: defineStyles({ "--segment-height": "sizes.8", "--segment-item-height": "sizes.5" }),
+    root: defineStyles({
+      "--segment-height": "sizes.8",
+      "--segment-item-height": "sizes.5",
+    }),
     item: defineStyles({ textStyle: "xs", px: "2.5", gap: "1" }),
   },
   sm: {
-    root: defineStyles({ "--segment-height": "sizes.9", "--segment-item-height": "sizes.6" }),
+    root: defineStyles({
+      "--segment-height": "sizes.9",
+      "--segment-item-height": "sizes.6",
+    }),
     item: defineStyles({ textStyle: "sm", px: "3", gap: "2" }),
   },
   md: {
-    root: defineStyles({ "--segment-height": "sizes.10", "--segment-item-height": "sizes.8" }),
+    root: defineStyles({
+      "--segment-height": "sizes.10",
+      "--segment-item-height": "sizes.8",
+    }),
     item: defineStyles({ textStyle: "sm", px: "4", gap: "2" }),
   },
   lg: {
-    root: defineStyles({ "--segment-height": "sizes.11", "--segment-item-height": "sizes.9" }),
+    root: defineStyles({
+      "--segment-height": "sizes.11",
+      "--segment-item-height": "sizes.9",
+    }),
     item: defineStyles({ textStyle: "md", px: "4.5", gap: "3" }),
   },
 }
@@ -80,7 +95,7 @@ export const segmentVariants = {
   enclosed: {
     list: defineStyles({
       "--segment-radius": "radii.l3",
-      bg: "bg.muted",
+      bg: { base: "blackAlpha.50", _dark: "whiteAlpha.100" },
       p: "var(--segment-padding)",
       gap: "0.5",
       borderRadius: "calc(var(--segment-radius) + var(--segment-padding))",

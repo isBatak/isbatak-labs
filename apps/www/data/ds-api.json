@@ -4840,6 +4840,24 @@
             "description": ""
           }
         }
+      },
+      {
+        "name": "EndIcon",
+        "props": {
+          "offset": {
+            "type": "string | undefined",
+            "description": "Extra pull toward the edge, added to the recipe's own, as a CSS length such as `\"0.4px\"` or `\"0.18em\"`. Use it to\nland a single icon on its ink; a negative length pulls less."
+          }
+        }
+      },
+      {
+        "name": "StartIcon",
+        "props": {
+          "offset": {
+            "type": "string | undefined",
+            "description": "Extra pull toward the edge, added to the recipe's own, as a CSS length such as `\"0.4px\"` or `\"0.18em\"`. Use it to\nland a single icon on its ink; a negative length pulls less."
+          }
+        }
       }
     ],
     "variants": {

@@ -9,6 +9,9 @@
 
 - Use the `@isbatak/panda-ds` recipes before styling an element by hand; each recipe's `description` says when to pick
   it.
+- Style by hand with style props on the `@isbatak/react-ui` layout components (`Box`, `Flex`, `Grid`, `Stack`, `Span`,
+  `Text`). Reach for `css()` when style props can't carry it: a component that only takes `className`, a class shared by
+  several elements, or a literal lookup of classes picked at runtime.
 - Use semantic tokens (`bg.*`, `fg.*`, `border.*`, radii `l1`–`l3`, `shadows.*`) and token values like
   `cursor: "button"`. Never write hex colors or px values where a token exists. Values no token can express
   (percentages, `em`, `!important`) go in the `[…]` escape hatch.

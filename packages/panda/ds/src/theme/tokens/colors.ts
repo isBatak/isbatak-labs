@@ -14,6 +14,9 @@ export const colors = defineTokens.colors({
     value: "#FFFFFF",
   },
   whiteAlpha: {
+    "25": {
+      value: "rgba(255, 255, 255, 0.02)",
+    },
     "50": {
       value: "rgba(255, 255, 255, 0.04)",
     },
@@ -47,8 +50,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "rgba(255, 255, 255, 0.95)",
     },
+    "975": {
+      value: "rgba(255, 255, 255, 0.975)",
+    },
   },
   blackAlpha: {
+    "25": {
+      value: "rgba(0, 0, 0, 0.02)",
+    },
     "50": {
       value: "rgba(0, 0, 0, 0.04)",
     },
@@ -82,8 +91,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "rgba(0, 0, 0, 0.95)",
     },
+    "975": {
+      value: "rgba(0, 0, 0, 0.975)",
+    },
   },
   gray: {
+    "25": {
+      value: "#fcfcfc",
+    },
     "50": {
       value: "#fafafa",
     },
@@ -115,10 +130,16 @@ export const colors = defineTokens.colors({
       value: "#18181b",
     },
     "950": {
-      value: "#111111",
+      value: "#111113",
+    },
+    "975": {
+      value: "#0d0d0f",
     },
   },
   red: {
+    "25": {
+      value: "#fef8f8",
+    },
     "50": {
       value: "#fef2f2",
     },
@@ -152,8 +173,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#1f0808",
     },
+    "975": {
+      value: "#14080a",
+    },
   },
   orange: {
+    "25": {
+      value: "#fffbf6",
+    },
     "50": {
       value: "#fff7ed",
     },
@@ -187,8 +214,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#220a04",
     },
+    "975": {
+      value: "#160a08",
+    },
   },
   yellow: {
+    "25": {
+      value: "#fefef4",
+    },
     "50": {
       value: "#fefce8",
     },
@@ -222,8 +255,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#281304",
     },
+    "975": {
+      value: "#180e08",
+    },
   },
   green: {
+    "25": {
+      value: "#f8fefa",
+    },
     "50": {
       value: "#f0fdf4",
     },
@@ -257,8 +296,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#03190c",
     },
+    "975": {
+      value: "#06110c",
+    },
   },
   teal: {
+    "25": {
+      value: "#f8fefc",
+    },
     "50": {
       value: "#f0fdfa",
     },
@@ -292,8 +337,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#021716",
     },
+    "975": {
+      value: "#061010",
+    },
   },
   blue: {
+    "25": {
+      value: "#f7faff",
+    },
     "50": {
       value: "#eff6ff",
     },
@@ -327,8 +378,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#0c142e",
     },
+    "975": {
+      value: "#0a0e1c",
+    },
   },
   cyan: {
+    "25": {
+      value: "#f6feff",
+    },
     "50": {
       value: "#ecfeff",
     },
@@ -362,8 +419,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#051b24",
     },
+    "975": {
+      value: "#071218",
+    },
   },
   purple: {
+    "25": {
+      value: "#fcfaff",
+    },
     "50": {
       value: "#faf5ff",
     },
@@ -397,8 +460,14 @@ export const colors = defineTokens.colors({
     "950": {
       value: "#1a032e",
     },
+    "975": {
+      value: "#12061c",
+    },
   },
   pink: {
+    "25": {
+      value: "#fef8fc",
+    },
     "50": {
       value: "#fdf2f8",
     },
@@ -431,6 +500,9 @@ export const colors = defineTokens.colors({
     },
     "950": {
       value: "#2c0514",
+    },
+    "975": {
+      value: "#1a0710",
     },
   },
 })

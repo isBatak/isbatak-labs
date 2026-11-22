@@ -1,4 +1,4 @@
-import { Icon } from "@isbatak/react-ui/icon"
+import { Icon, StartIcon } from "@isbatak/react-ui/icon"
 import { Timer } from "@isbatak/react-ui/timer"
 
 export function TimerDemo() {
@@ -27,15 +27,21 @@ export function TimerDemo() {
       </Timer.Area>
       <Timer.Control>
         <Timer.ActionTrigger action="start">
-          <Icon name="play" />
+          <StartIcon asChild>
+            <Icon name="play" />
+          </StartIcon>
           Play
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="resume">
-          <Icon name="play" />
+          <StartIcon asChild>
+            <Icon name="play" />
+          </StartIcon>
           Resume
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="pause">
-          <Icon name="pause" />
+          <StartIcon asChild>
+            <Icon name="pause" />
+          </StartIcon>
           Pause
         </Timer.ActionTrigger>
       </Timer.Control>

@@ -1,8 +1,8 @@
-import { Children, type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
+import { type ComponentProps, type ComponentType, isValidElement, type ReactNode } from "react"
 import * as runtime from "react/jsx-runtime"
 import { code as codeRecipe } from "@isbatak/panda-ds/recipes"
 import { Table as DsTable } from "@isbatak/react-ui/table"
-import { css } from "styled-system/css"
+import { css, cx } from "styled-system/css"
 import { styled } from "styled-system/jsx"
 
 import { CodeBlock } from "./code/code-block"
@@ -62,31 +62,25 @@ const linkedHeading =
       <Tag {...props}>{children}</Tag>
     )
 
-const withInlineCode = (children: ReactNode) =>
-  Children.map(children, (child) =>
-    isValidElement<{ children?: ReactNode }>(child) && child.type === "code" ? (
-      <code className={codeRecipe()}>{child.props.children}</code>
-    ) : (
-      child
-    ),
-  )
+const inlineCode = cx("not-prose", codeRecipe({ variant: "surface" }))
+
+function InlineCode({ className, ...props }: ComponentProps<"code">) {
+  return <code className={cx(inlineCode, className)} {...props} />
+}
 
 const sharedComponents: MDXComponents = {
   h2: linkedHeading("h2"),
   h3: linkedHeading("h3"),
   h4: linkedHeading("h4"),
   pre: Pre,
+  code: InlineCode,
   table: Table,
   thead: DsTable.Header,
   tbody: DsTable.Body,
   tfoot: DsTable.Footer,
   tr: DsTable.Row,
-  th: (props: ComponentProps<typeof DsTable.ColumnHeader>) => (
-    <DsTable.ColumnHeader {...props}>{withInlineCode(props.children)}</DsTable.ColumnHeader>
-  ),
-  td: (props: ComponentProps<typeof DsTable.Cell>) => (
-    <DsTable.Cell {...props}>{withInlineCode(props.children)}</DsTable.Cell>
-  ),
+  th: DsTable.ColumnHeader,
+  td: DsTable.Cell,
   ApiTable,
   FrameworkHint,
   UpstreamNotice,

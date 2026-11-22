@@ -1,5 +1,6 @@
 export {
   CaliperCallout as Callout,
+  CaliperCalloutDescription as CalloutDescription,
   CaliperCalloutLabel as CalloutLabel,
   CaliperCalloutTitle as CalloutTitle,
   CaliperCanvas as Canvas,
@@ -8,14 +9,17 @@ export {
   CaliperDimensionLabel as DimensionLabel,
   CaliperFrame as Frame,
   CaliperHatch as Hatch,
+  CaliperIconGrid as IconGrid,
   CaliperLegend as Legend,
   CaliperLegendItem as LegendItem,
   CaliperLegendSwatch as LegendSwatch,
   CaliperOutline as Outline,
+  CaliperOverlayTrigger as OverlayTrigger,
   CaliperRoot as Root,
   CaliperSubject as Subject,
 } from "./caliper"
 export type {
+  CaliperCalloutDescriptionProps as CalloutDescriptionProps,
   CaliperCalloutLabelProps as CalloutLabelProps,
   CaliperCalloutProps as CalloutProps,
   CaliperCalloutTitleProps as CalloutTitleProps,
@@ -25,10 +29,12 @@ export type {
   CaliperDimensionProps as DimensionProps,
   CaliperFrameProps as FrameProps,
   CaliperHatchProps as HatchProps,
+  CaliperIconGridProps as IconGridProps,
   CaliperLegendItemProps as LegendItemProps,
   CaliperLegendProps as LegendProps,
   CaliperLegendSwatchProps as LegendSwatchProps,
   CaliperOutlineProps as OutlineProps,
+  CaliperOverlayTriggerProps as OverlayTriggerProps,
   CaliperRootProps as RootProps,
   CaliperSubjectProps as SubjectProps,
 } from "./caliper"
@@ -36,8 +42,10 @@ export type {
   CalloutState,
   DimensionState,
   FrameState,
+  IconGridLayer,
   LegendSwatchState,
   Placement,
   Point,
+  RootState,
   Span,
 } from "@isbatak/zag-caliper"

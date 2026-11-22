@@ -1,4 +1,4 @@
-import { Icon } from "@isbatak/solid-ui/icon"
+import { Icon, StartIcon } from "@isbatak/solid-ui/icon"
 import { Stack } from "@isbatak/solid-ui/stack"
 import { Text } from "@isbatak/solid-ui/text"
 import { Timer, useTimer } from "@isbatak/solid-ui/timer"
@@ -30,19 +30,19 @@ export function TimerRootProviderDemo() {
         </Timer.Area>
         <Timer.Control>
           <Timer.ActionTrigger action="start">
-            <Icon name="play" />
+            <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="play" />} />
             Start
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="resume">
-            <Icon name="play" />
+            <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="play" />} />
             Resume
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="pause">
-            <Icon name="pause" />
+            <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="pause" />} />
             Pause
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="reset">
-            <Icon name="undo" />
+            <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="undo" />} />
             Reset
           </Timer.ActionTrigger>
         </Timer.Control>

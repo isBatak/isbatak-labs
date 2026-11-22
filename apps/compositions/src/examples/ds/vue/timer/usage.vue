@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@isbatak/vue-ui/icon"
+import { Icon, StartIcon } from "@isbatak/vue-ui/icon"
 import { Timer } from "@isbatak/vue-ui/timer"
 </script>
 
@@ -28,15 +28,21 @@ import { Timer } from "@isbatak/vue-ui/timer"
     </Timer.Area>
     <Timer.Control>
       <Timer.ActionTrigger action="start">
-        <Icon name="play" />
+        <StartIcon :asChild="true">
+          <Icon name="play" />
+        </StartIcon>
         Play
       </Timer.ActionTrigger>
       <Timer.ActionTrigger action="resume">
-        <Icon name="play" />
+        <StartIcon :asChild="true">
+          <Icon name="play" />
+        </StartIcon>
         Resume
       </Timer.ActionTrigger>
       <Timer.ActionTrigger action="pause">
-        <Icon name="pause" />
+        <StartIcon :asChild="true">
+          <Icon name="pause" />
+        </StartIcon>
         Pause
       </Timer.ActionTrigger>
     </Timer.Control>

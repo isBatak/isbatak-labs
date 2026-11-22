@@ -14,19 +14,27 @@
     "render:icons": "panda && pnpm icons && remotion render IconsPromo ../www/public/videos/icons-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow",
     "render:icons-vertical": "panda && pnpm icons && remotion render IconsPromoVertical out/icons-demo-vertical.mp4",
     "still:icons": "panda && pnpm icons && remotion still IconsPromo ../www/public/videos/icons-poster.jpg --frame=660 --image-format=jpeg --jpeg-quality=85",
+    "render:optical": "panda && pnpm icons && remotion render OpticalPromo ../www/public/videos/optical-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --concurrency=1",
+    "render:optical-wide": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-wide.mp4 --props='{\"shape\":\"wide\"}' --concurrency=1",
+    "render:optical-vertical": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-vertical.mp4 --props='{\"shape\":\"tall\"}' --concurrency=1",
+    "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=498 --image-format=jpeg --jpeg-quality=85",
     "typecheck": "panda && pnpm icons && tsc --noEmit"
   },
   "dependencies": {
     "@ark-ui/react": "catalog:",
+    "@isbatak/ark-caliper": "workspace:*",
     "@isbatak/icons": "workspace:*",
+    "@isbatak/panda-caliper": "workspace:*",
     "@isbatak/panda-ds": "workspace:*",
     "@isbatak/react-ui": "workspace:*",
-    "@remotion/cli": "4.0.543",
-    "@remotion/google-fonts": "4.0.543",
+    "@remotion/cli": "4.0.545",
+    "@remotion/google-fonts": "4.0.545",
+    "@zag-js/react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "remotion": "4.0.543",
-    "sugar-high": "2.5.0"
+    "remotion": "4.0.545",
+    "sugar-high": "2.7.0",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@ikona/cli": "0.2.2",
@@ -34,7 +42,7 @@
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
     "@phosphor-icons/core": "2.1.1",
-    "@types/node": "25.9.5",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "lucide-static": "1.72.0",
     "pixelarticons": "2.4.2"

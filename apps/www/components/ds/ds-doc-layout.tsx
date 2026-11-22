@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import { styled } from "styled-system/jsx"
 
 import { BottomBlur } from "../layout/bottom-blur"
+import { SiteFooter } from "../layout/site-footer"
 import type { DsSection } from "./ds-nav-data"
 import { DsSidebar } from "./ds-sidebar"
 import { DsToc, type TocEntry } from "./ds-toc"
@@ -22,20 +23,23 @@ export function DsDocLayout({ section, toc, children }: DsDocLayoutProps) {
       }}
     >
       <DsSidebar section={section} />
-      <styled.div
-        minW="0"
-        display="grid"
-        gridTemplateColumns={{
-          base: "minmax(0, 1fr)",
-          xl: "minmax(0, 1fr) {sizes.56}",
-        }}
-        columnGap="16"
-        px={{ base: "5", md: "10" }}
-      >
-        <styled.article minW="0" pt={{ base: "10", md: "14" }} pb="24">
-          {children}
-        </styled.article>
-        <DsToc toc={toc} />
+      <styled.div minW="0" display="flex" flexDirection="column">
+        <styled.div
+          flex="1"
+          display="grid"
+          gridTemplateColumns={{
+            base: "minmax(0, 1fr)",
+            xl: "minmax(0, 1fr) {sizes.56}",
+          }}
+          columnGap="16"
+          px={{ base: "5", md: "10" }}
+        >
+          <styled.article minW="0" w="full" maxW="2xl" justifySelf="center" pt={{ base: "10", md: "14" }} pb="24">
+            {children}
+          </styled.article>
+          <DsToc toc={toc} />
+        </styled.div>
+        <SiteFooter size="wide" />
       </styled.div>
       <BottomBlur aside />
     </styled.div>

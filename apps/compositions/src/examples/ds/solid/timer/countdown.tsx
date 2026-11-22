@@ -1,4 +1,4 @@
-import { Icon } from "@isbatak/solid-ui/icon"
+import { Icon, StartIcon } from "@isbatak/solid-ui/icon"
 import { Timer } from "@isbatak/solid-ui/timer"
 
 export function TimerCountdownDemo() {
@@ -17,15 +17,15 @@ export function TimerCountdownDemo() {
       </Timer.Area>
       <Timer.Control>
         <Timer.ActionTrigger action="start">
-          <Icon name="play" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="play" />} />
           Start
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="pause">
-          <Icon name="pause" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="pause" />} />
           Pause
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="reset">
-          <Icon name="undo" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="undo" />} />
           Reset
         </Timer.ActionTrigger>
       </Timer.Control>

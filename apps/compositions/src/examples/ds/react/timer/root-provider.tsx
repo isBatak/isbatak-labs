@@ -1,4 +1,4 @@
-import { Icon } from "@isbatak/react-ui/icon"
+import { Icon, StartIcon } from "@isbatak/react-ui/icon"
 import { Stack } from "@isbatak/react-ui/stack"
 import { Text } from "@isbatak/react-ui/text"
 import { Timer, useTimer } from "@isbatak/react-ui/timer"
@@ -30,19 +30,27 @@ export function TimerRootProviderDemo() {
         </Timer.Area>
         <Timer.Control>
           <Timer.ActionTrigger action="start">
-            <Icon name="play" />
+            <StartIcon asChild>
+              <Icon name="play" />
+            </StartIcon>
             Start
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="resume">
-            <Icon name="play" />
+            <StartIcon asChild>
+              <Icon name="play" />
+            </StartIcon>
             Resume
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="pause">
-            <Icon name="pause" />
+            <StartIcon asChild>
+              <Icon name="pause" />
+            </StartIcon>
             Pause
           </Timer.ActionTrigger>
           <Timer.ActionTrigger action="reset">
-            <Icon name="undo" />
+            <StartIcon asChild>
+              <Icon name="undo" />
+            </StartIcon>
             Reset
           </Timer.ActionTrigger>
         </Timer.Control>

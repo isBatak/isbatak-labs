@@ -1,4 +1,4 @@
-import { Icon } from "@isbatak/react-ui/icon"
+import { Icon, StartIcon } from "@isbatak/react-ui/icon"
 import { Timer } from "@isbatak/react-ui/timer"
 
 export function TimerCountdownDemo() {
@@ -17,15 +17,21 @@ export function TimerCountdownDemo() {
       </Timer.Area>
       <Timer.Control>
         <Timer.ActionTrigger action="start">
-          <Icon name="play" />
+          <StartIcon asChild>
+            <Icon name="play" />
+          </StartIcon>
           Start
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="pause">
-          <Icon name="pause" />
+          <StartIcon asChild>
+            <Icon name="pause" />
+          </StartIcon>
           Pause
         </Timer.ActionTrigger>
         <Timer.ActionTrigger action="reset">
-          <Icon name="undo" />
+          <StartIcon asChild>
+            <Icon name="undo" />
+          </StartIcon>
           Reset
         </Timer.ActionTrigger>
       </Timer.Control>

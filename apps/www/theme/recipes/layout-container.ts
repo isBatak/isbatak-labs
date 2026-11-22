@@ -14,6 +14,7 @@ export const layoutContainer = defineRecipe({
     size: {
       default: { maxWidth: { md: "layout" } },
       wide: { maxWidth: { md: "layoutWide" } },
+      full: { maxWidth: "full" },
     },
   },
   defaultVariants: {

@@ -48,10 +48,10 @@ export const buttonRecipe = defineRecipe({
           height: "3.5",
         },
         _iconStart: {
-          ms: "-0.5",
+          iconPullStart: "0.5",
         },
         _iconEnd: {
-          me: "-0.5",
+          iconPullEnd: "0.5",
         },
       },
       xs: {
@@ -65,10 +65,10 @@ export const buttonRecipe = defineRecipe({
           height: "4",
         },
         _iconStart: {
-          ms: "-0.5",
+          iconPullStart: "0.5",
         },
         _iconEnd: {
-          me: "-0.5",
+          iconPullEnd: "0.5",
         },
       },
       sm: {
@@ -82,10 +82,10 @@ export const buttonRecipe = defineRecipe({
           height: "4",
         },
         _iconStart: {
-          ms: "-0.5",
+          iconPullStart: "0.5",
         },
         _iconEnd: {
-          me: "-0.5",
+          iconPullEnd: "0.5",
         },
       },
       md: {
@@ -99,10 +99,10 @@ export const buttonRecipe = defineRecipe({
           height: "5",
         },
         _iconStart: {
-          ms: "-1",
+          iconPullStart: "1",
         },
         _iconEnd: {
-          me: "-1",
+          iconPullEnd: "1",
         },
       },
       lg: {
@@ -116,10 +116,10 @@ export const buttonRecipe = defineRecipe({
           height: "5",
         },
         _iconStart: {
-          ms: "-1",
+          iconPullStart: "1",
         },
         _iconEnd: {
-          me: "-1",
+          iconPullEnd: "1",
         },
       },
       xl: {
@@ -133,10 +133,10 @@ export const buttonRecipe = defineRecipe({
           height: "5",
         },
         _iconStart: {
-          ms: "-1",
+          iconPullStart: "1",
         },
         _iconEnd: {
-          me: "-1",
+          iconPullEnd: "1",
         },
       },
       "2xl": {
@@ -150,10 +150,10 @@ export const buttonRecipe = defineRecipe({
           height: "6",
         },
         _iconStart: {
-          ms: "-1",
+          iconPullStart: "1",
         },
         _iconEnd: {
-          me: "-1",
+          iconPullEnd: "1",
         },
       },
     },
