@@ -32,7 +32,8 @@ export function Stage() {
   const blue = tween(frame, slide, T.slide, ease.inOut)
 
   const enter = tween(frame, 0, 18, ease.inOut) * (1 - tween(frame, durationInFrames - 18, 18, ease.inOut))
-  const legend = iconBox
+  const hatch = settle(frame, T.emptyNote, fps) * out
+  const legend = hatch
 
   return (
     <Box
@@ -79,6 +80,11 @@ export function Stage() {
                   spanX={{ start: boxStart, size: md.icon }}
                   spanY={{ start: md.iconTop, size: md.icon }}
                 />
+              </Box>
+            )}
+
+            {hatch > 0.001 && (
+              <Box style={{ opacity: hatch }}>
                 <Box style={{ opacity: 1 - blue }}>
                   <Caliper.Hatch
                     colorPalette="red"
