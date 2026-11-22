@@ -3,7 +3,8 @@
   "include": ["src", ".storybook/*.ts", "vite.config.ts"],
   "compilerOptions": {
     "paths": {
-      "styled-system/*": ["../compositions/styled-system/*"]
+      "styled-system/*": ["../compositions/styled-system/*"],
+      "@isbatak/compositions/ds/svelte/*": ["./src/composition-demo.d.ts"]
     },
     "types": ["vite/client", "svelte"],
     "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
