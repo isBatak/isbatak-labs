@@ -39,13 +39,13 @@ export function Promo({ timing }: PromoProps) {
             <Grid />
             <Title>Icons come with offset</Title>
           </Sequence>
-          <Sequence name="Stacked" from={SCENES.stacked.from} durationInFrames={SCENES.stacked.duration}>
-            <StackedScene />
-            <Title>Why not use offset by default</Title>
-          </Sequence>
           <Sequence name="Kbd" from={SCENES.kbd.from} durationInFrames={SCENES.kbd.duration}>
             <KbdScene />
             <Title>Perfect optical alignment</Title>
+          </Sequence>
+          <Sequence name="Stacked" from={SCENES.stacked.from} durationInFrames={SCENES.stacked.duration}>
+            <StackedScene />
+            <Title>Why not use offset by default</Title>
           </Sequence>
         </Box>
       </Box>

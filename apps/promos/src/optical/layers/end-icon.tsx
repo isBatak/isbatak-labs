@@ -27,7 +27,7 @@ export function EndIconScene() {
       position="absolute"
       left="[50%]"
       style={{
-        top: `${layout.compareTop * 100}%`,
+        top: `${layout.centerTop * 100}%`,
         opacity: enter,
         translate: "-50% -50%",
         scale: mix(0.92, 1, enter),

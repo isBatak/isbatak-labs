@@ -14,7 +14,7 @@ import { Picker } from "../picker"
 import { LAYOUT, md, shapeOf } from "../theme"
 import { useTiming } from "../timing"
 
-const guide = css({ borderRightWidth: "0", translate: "[-0.5px 0]" })
+const guide = css({ borderRightWidth: "0", translate: "[calc(var(--caliper-stroke) / -2) 0]" })
 const centerGuide = css({ borderColor: { base: "yellow.600", _dark: "yellow.400" } })
 
 const rowStep = md.height + 8

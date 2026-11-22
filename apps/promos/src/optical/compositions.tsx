@@ -19,18 +19,18 @@ export function OpticalCompositions() {
           shape: "square",
           timing: {
             measure: {
-              boxGuides: 72,
-              iconBox: 42,
-              emptyNote: 114,
-              inkGuides: 150,
-              change: 300,
+              boxGuides: 48,
+              iconBox: 30,
+              emptyNote: 84,
+              inkGuides: 114,
+              change: 210,
               slide: 36,
-              guidesOut: 486,
+              guidesOut: 318,
             },
-            compare: { equal: 12, optical: 24, callouts: 132 },
-            endIcon: { boxGuides: 24, iconBox: 60, emptyNote: 96, inkGuides: 132 },
-            stacked: { labelGuide: 24, iconBox: 60, gap: 84, guides: 108, change: 240, slide: 36 },
-            kbd: { iconBox: 36, emptyNote: 60, inkGuides: 84, change: 192, slide: 36 },
+            compare: { equal: 6, optical: 14, callouts: 48 },
+            endIcon: { boxGuides: 18, iconBox: 42, emptyNote: 66, inkGuides: 96 },
+            stacked: { labelGuide: 18, iconBox: 48, gap: 66, guides: 84, change: 180, slide: 36 },
+            kbd: { iconBox: 30, emptyNote: 48, inkGuides: 66, change: 150, slide: 36, marksOut: 234 },
           },
         }}
       />

@@ -20,8 +20,12 @@ export function Grid() {
     <Box
       position="absolute"
       left="[50%]"
-      top="[46%]"
-      style={{ opacity: shown, translate: "-50% -50%", scale: mix(0.96, 1, shown) - out * 0.08 }}
+      style={{
+        top: `${layout.centerTop * 100}%`,
+        opacity: shown,
+        translate: "-50% -50%",
+        scale: mix(0.96, 1, shown) - out * 0.08,
+      }}
     >
       <Caliper.Root alignItems="center" gap="6" style={{ zoom: layout.zoom }}>
         <Flex gap="16" alignItems="center" flexDirection={shape === "tall" ? "column" : "row"}>
@@ -58,9 +62,9 @@ export function Grid() {
             </Caliper.Dimension>
           </Caliper.Frame>
         </Flex>
-        <Caliper.Legend>
-          <Caliper.LegendItem>
-            <Caliper.LegendSwatch kind="hatch" colorPalette="red" />
+        <Caliper.Legend textStyle="lg">
+          <Caliper.LegendItem gap="2" maxW="md" textWrap="balance">
+            <Caliper.LegendSwatch kind="hatch" colorPalette="red" boxSize="4" />
             Trim area of the 24-unit grid. The plus starts 5.25 units in, the arrow's tip stops 4.25 short.
           </Caliper.LegendItem>
         </Caliper.Legend>
