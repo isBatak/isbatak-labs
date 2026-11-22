@@ -36,13 +36,13 @@ const iconMotion = css({
 
 const equalIcon = css({ ms: "0", me: "0" })
 
-function NewProjectButton({ alignment }: { alignment: Alignment }) {
+function SaveArticleButton({ alignment }: { alignment: Alignment }) {
   return (
     <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
       <StartIcon asChild className={cx(iconMotion, alignment === "equal" && equalIcon)}>
-        <Icon name="plus" />
+        <Icon name="bookmark" />
       </StartIcon>
-      New project
+      Save article
     </Button>
   )
 }
@@ -54,10 +54,10 @@ export function OpticalAlignmentFigure() {
   const palette = alignment === "equal" ? "red" : "blue"
 
   return (
-    <Caliper.Figure caption="The md Button with a plus icon. Equal padding puts 16px before the icon's box, but the glyph starts about 4px inside it. The recipe pulls the icon out by a fixed 4px, close to that empty space.">
+    <Caliper.Figure caption="The md Button with a bookmark icon. Equal padding puts 16px before the icon's box, but the glyph starts about 4px inside it. The recipe pulls the icon out by a fixed 4px, close to that empty space.">
       <Caliper.Frame magnify="fit" annotated>
         <Caliper.Subject>
-          <NewProjectButton alignment={alignment} />
+          <SaveArticleButton alignment={alignment} />
         </Caliper.Subject>
         <Caliper.Outline spanX={{ start: boxStart, size: md.icon }} spanY={{ start: md.iconTop, size: md.icon }} />
         <Caliper.Hatch
@@ -126,11 +126,11 @@ export function OpticalAlignmentFigure() {
 
 export function IconGridFigure() {
   return (
-    <Caliper.Figure caption="The plus and the arrow on our 24-unit grid. The hatched band is the 2-unit trim area every glyph stays out of; the keylines inside it are the shapes glyphs are drawn to. The plus's ink starts 5.25 units in, the arrow's tip 4.25 units from the end.">
+    <Caliper.Figure caption="The bookmark and the arrow on our 24-unit grid. The hatched band is the 2-unit trim area every glyph stays out of; the keylines inside it are the shapes glyphs are drawn to. The bookmark's ink starts 5.25 units in, the arrow's tip 4.25 units from the end.">
       <HStack gap="12" flexWrap="wrap" justifyContent="center">
         <Caliper.Frame magnify={8} annotated>
           <Caliper.Subject>
-            <Icon name="plus" size="lg" />
+            <Icon name="bookmark" size="lg" />
           </Caliper.Subject>
           <Caliper.IconGrid colorPalette="red" />
           <Caliper.Dimension placement="top" reach={12} span={{ start: 0, size: 5.25 }}>
@@ -160,7 +160,7 @@ export function OpticalComparisonFigure() {
     <Caliper.Figure caption="The same two buttons at 2×. The top one looks heavier on the left; the bottom one looks centered.">
       <Caliper.Frame magnify={2}>
         <Caliper.Subject>
-          <NewProjectButton alignment="equal" />
+          <SaveArticleButton alignment="equal" />
         </Caliper.Subject>
         <Caliper.Callout anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
           <Caliper.CalloutLabel maxW="40">
@@ -171,7 +171,7 @@ export function OpticalComparisonFigure() {
       </Caliper.Frame>
       <Caliper.Frame magnify={2}>
         <Caliper.Subject>
-          <NewProjectButton alignment="optical" />
+          <SaveArticleButton alignment="optical" />
         </Caliper.Subject>
         <Caliper.Callout colorPalette="blue" anchors={[{ x: dotX, y: inkY }]} to={{ x: labelX, y: inkY }}>
           <Caliper.CalloutLabel maxW="40">
@@ -270,9 +270,9 @@ export function StackedButtonsFigure() {
           <VStack gap="2" alignItems="stretch" w="60">
             <Button variant="outline" colorPalette="gray" justifyContent="flex-start" data-hover tabIndex={-1}>
               <StartIcon asChild offset={inkOffset(5.25, pull)} className={iconMotion}>
-                <Icon name="plus" />
+                <Icon name="bookmark" />
               </StartIcon>
-              New project
+              Save article
             </Button>
             <Button variant="outline" colorPalette="gray" justifyContent="flex-start" data-hover tabIndex={-1}>
               <StartIcon asChild offset={inkOffset(2.25, pull)} className={iconMotion}>

@@ -17,13 +17,13 @@ export function Sprite() {
   )
 }
 
-export function NewProjectButton({ offset }: { offset: number }) {
+export function SaveArticleButton({ offset }: { offset: number }) {
   return (
     <Button variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
       <StartIcon asChild style={{ marginInlineStart: -offset }}>
-        <Icon name="plus" />
+        <Icon name="bookmark" />
       </StartIcon>
-      New project
+      Save article
     </Button>
   )
 }
