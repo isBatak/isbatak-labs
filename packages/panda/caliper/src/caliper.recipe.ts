@@ -89,6 +89,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
   base: {
     root: {
       colorPalette: "gray",
+      position: "relative",
       display: "flex",
       flexDirection: "column",
       gap: "3",
@@ -107,7 +108,7 @@ export const caliperRecipe: SlotRecipeConfig = defineSlotRecipe({
       position: "relative",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
+      alignItems: "safe center",
       justifyContent: "center",
       gap: "8",
       px: { base: "4", md: "8" },
