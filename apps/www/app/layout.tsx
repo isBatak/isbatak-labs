@@ -1,6 +1,6 @@
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
-import Script from "next/script"
 import type { ReactNode } from "react"
 
 import { Providers } from "../components/providers"
@@ -31,10 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body>
         <Providers>{children}</Providers>
-        <Script id="vercel-analytics-queue" strategy="afterInteractive">
-          {`window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };`}
-        </Script>
-        <Script src="/_vercel/insights/script.js" strategy="afterInteractive" />
+        <Analytics />
       </body>
     </html>
   )
