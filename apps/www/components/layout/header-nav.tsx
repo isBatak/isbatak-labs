@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation"
 import { useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react"
 import { css } from "styled-system/css"
 import { styled } from "styled-system/jsx"
+import type { LayoutContainerVariant } from "styled-system/recipes"
 
 import { Seat, SeatIcon } from "../home/sponsors"
 import { Icon, type IconName } from "../ui/icon"
@@ -23,7 +24,7 @@ export interface NavEntry {
   icon?: IconName | undefined
 }
 
-type LayoutSize = "default" | "wide"
+type LayoutSize = LayoutContainerVariant["size"]
 
 const viewportClass = css({
   "--height": "var(--viewport-height)",

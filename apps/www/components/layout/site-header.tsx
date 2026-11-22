@@ -3,6 +3,7 @@ import { Button } from "@isbatak/react-ui/button"
 import { Wordmark } from "@isbatak/react-ui/wordmark"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
+import type { LayoutContainerVariant } from "styled-system/recipes"
 
 import { ColorModeButton } from "../color-mode-button"
 import { Icon, type IconName } from "../ui/icon"
@@ -40,7 +41,7 @@ const toolEntries: NavEntry[] = tools
   }))
 
 export interface SiteHeaderProps {
-  size?: "default" | "wide" | "full"
+  size?: LayoutContainerVariant["size"]
 }
 
 export function SiteHeader({ size }: SiteHeaderProps) {
