@@ -13,11 +13,38 @@ export type Placement = "top" | "bottom" | "left" | "right"
 
 export type Magnify = number | "fit"
 
+export type FrameAnimate = "in" | "out"
+
+export interface MotionProps<Enter extends string, Exit extends string> {
+  /** How the mark appears when its frame animates in. Without it the mark is static. */
+  enter?: Enter | undefined
+  /** How the mark leaves when its frame animates out. Without it the mark stays. */
+  exit?: Exit | undefined
+  /** Entry position: the mark starts `order × stagger` after the frame. */
+  order?: number | undefined
+  /** Exit position, defaulting to `order`. */
+  exitOrder?: number | undefined
+  /** Extra seconds before the mark starts, added to its order. */
+  delay?: number | undefined
+  /** Seconds the animation runs. Each variant has its own default. */
+  duration?: number | undefined
+}
+
+export type DimensionEnter = "draw" | "fade"
+
+export type DimensionExit = "retract" | "fade"
+
 export interface FrameProps {
   /** Magnification of the subject. Overlay positions are multiplied by it. `fit` steps up with the viewport. */
   magnify?: Magnify | undefined
   /** Reserves room above and below for dimension labels. */
   annotated?: boolean | undefined
+  /** Plays the marks' `enter` or `exit` animations. */
+  animate?: FrameAnimate | false | undefined
+  /** Holds the animations at this many seconds instead of playing them, for frame-by-frame renderers. */
+  time?: number | undefined
+  /** Seconds between one `order` step and the next. Defaults to 0.1. */
+  stagger?: number | undefined
 }
 
 export interface FrameState {
@@ -29,7 +56,7 @@ export interface BoxProps {
   spanY?: Span | undefined
 }
 
-export interface DimensionProps {
+export interface DimensionProps extends MotionProps<DimensionEnter, DimensionExit> {
   /** The measured span: along x for top and bottom, along y for left and right. Omit it to span the whole frame. */
   span?: Span | undefined
   placement?: Placement | undefined
@@ -67,7 +94,11 @@ export interface Point {
 
 export type CalloutAlign = "start" | "center" | "end"
 
-export interface CalloutProps {
+export type CalloutEnter = "draw" | "fade"
+
+export type CalloutExit = "retract" | "fade"
+
+export interface CalloutProps extends MotionProps<CalloutEnter, CalloutExit> {
   /** The points the callout marks, in subject px. Their leader lines join on the way to the label. */
   anchors: Point[]
   /**

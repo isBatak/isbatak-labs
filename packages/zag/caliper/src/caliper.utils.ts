@@ -1,6 +1,39 @@
-import type { Axis, CalloutProps, IconGridLayer, IconGridProps, Placement, Span } from "./caliper.types"
+import type {
+  Axis,
+  CalloutProps,
+  FrameProps,
+  IconGridLayer,
+  IconGridProps,
+  MotionProps,
+  Placement,
+  Span,
+} from "./caliper.types"
 
 export const unit = (value: number) => `calc(${value} * var(--caliper-px))`
+
+const seconds = (value: number) => `${value}s`
+
+export function frameMotion({ animate, time, stagger }: FrameProps) {
+  return {
+    attrs: { "data-animate": animate || undefined, "data-scrub": time === undefined ? undefined : "" },
+    style: {
+      ...(time === undefined ? {} : { "--caliper-time": seconds(time) }),
+      ...(stagger === undefined ? {} : { "--caliper-stagger": seconds(stagger) }),
+    },
+  }
+}
+
+export function markMotion({ enter, exit, order, exitOrder, delay, duration }: MotionProps<string, string>) {
+  return {
+    attrs: { "data-enter": enter, "data-exit": exit },
+    style: {
+      ...(order === undefined ? {} : { "--caliper-order": order }),
+      ...(exitOrder === undefined ? {} : { "--caliper-exit-order": exitOrder }),
+      ...(delay === undefined ? {} : { "--caliper-delay": seconds(delay) }),
+      ...(duration === undefined ? {} : { "--caliper-duration": seconds(duration) }),
+    },
+  }
+}
 
 export const axisOf = (placement: Placement): Axis => (placement === "top" || placement === "bottom" ? "x" : "y")
 

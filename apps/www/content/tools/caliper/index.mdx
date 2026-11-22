@@ -267,6 +267,39 @@ width in units, 2 by default. Lines stay 1px at any magnification.
 </Caliper.Frame>
 ```
 
+## Motion
+
+Marks can animate in and out, entirely in CSS. Give a mark an `enter` and an `exit` variant, set its place in the
+sequence with `order` and `exitOrder`, and set `animate` on the frame to play them. A mark without variants stays
+static.
+
+<CaliperMotionDemo />
+
+```tsx
+<Caliper.Frame magnify={2} annotated animate="in">
+  <Caliper.Dimension enter="draw" exit="retract" order={0} exitOrder={1} />
+  <Caliper.Dimension enter="draw" exit="retract" order={1} exitOrder={0} />
+</Caliper.Frame>
+```
+
+Each `order` step waits `stagger` seconds (0.1 by default), and `delay` adds a fixed offset. For a frame-by-frame
+renderer such as Remotion, pass `time` in seconds: the frame holds every animation at that moment instead of playing it.
+
+```tsx
+const frame = useCurrentFrame()
+const { fps } = useVideoConfig()
+
+<Caliper.Frame animate="in" time={frame / fps}>
+  <Caliper.Dimension enter="draw" delay={1} />
+</Caliper.Frame>
+```
+
+Dimension variants: `enter` is `draw` or `fade`, `exit` is `retract` or `fade`. `draw` and `retract` support top and
+bottom placements.
+
+Callout variants: `enter` is `draw` or `fade`, `exit` is `retract` or `fade`. `draw` shows the anchor dots, runs the
+leader line out from them, then shows the label; `retract` plays it back.
+
 ## Color
 
 Marks, labels and swatches use the `colorPalette` color. `Root` defaults to `gray`. Set `colorPalette` on any part to

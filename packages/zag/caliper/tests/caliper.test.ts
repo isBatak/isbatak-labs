@@ -1,5 +1,5 @@
 import { createNormalizer } from "@zag-js/types"
-import { calloutPath, connect, iconGridPath, spanStyle } from "../src"
+import { type CalloutProps, calloutPath, connect, iconGridPath, spanStyle } from "../src"
 
 const api = connect(createNormalizer((props) => props))
 
@@ -41,6 +41,46 @@ describe("connect", () => {
       "data-magnify": "fit",
       "data-annotated": "",
     })
+  })
+})
+
+describe("motion", () => {
+  it("leaves frames and marks static unless they opt in", () => {
+    expect(api.getFrameProps({ magnify: "fit" }).style).toBeUndefined()
+    expect(api.getDimensionProps({})["data-enter"]).toBeUndefined()
+  })
+
+  it("plays the frame, or holds it at a time when scrubbed", () => {
+    expect(api.getFrameProps({ magnify: 2, animate: "in" })).toMatchObject({ "data-animate": "in" })
+    expect(api.getFrameProps({ magnify: 2, animate: "in", time: 1.5, stagger: 0.2 })).toMatchObject({
+      "data-animate": "in",
+      "data-scrub": "",
+      style: { "--caliper-scale": 2, "--caliper-time": "1.5s", "--caliper-stagger": "0.2s" },
+    })
+  })
+
+  it("passes a mark's variants and timing to CSS", () => {
+    expect(
+      api.getDimensionProps({ enter: "draw", exit: "retract", order: 2, exitOrder: 0, delay: 1, duration: 0.6 }),
+    ).toMatchObject({
+      "data-enter": "draw",
+      "data-exit": "retract",
+      style: {
+        "--caliper-order": 2,
+        "--caliper-exit-order": 0,
+        "--caliper-delay": "1s",
+        "--caliper-duration": "0.6s",
+      },
+    })
+  })
+
+  it("draws a callout's leader from its anchor", () => {
+    const props: CalloutProps = { anchors: [{ x: 0, y: 0 }], to: { x: -10, y: 0 }, enter: "draw", order: 1 }
+    expect(api.getCalloutProps(props)).toMatchObject({
+      "data-enter": "draw",
+      style: { "--caliper-callout-x": "calc(-10 * var(--caliper-px))", "--caliper-order": 1 },
+    })
+    expect(api.getCalloutPathProps(props)).toMatchObject({ pathLength: 1 })
   })
 })
 

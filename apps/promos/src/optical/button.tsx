@@ -1,6 +1,7 @@
 import { setIconSprite } from "@isbatak/icons"
 import { Button } from "@isbatak/react-ui/button"
-import { Icon, StartIcon } from "@isbatak/react-ui/icon"
+import { EndIcon, Icon, StartIcon } from "@isbatak/react-ui/icon"
+import type { Ref } from "react"
 
 import boring from "../../public/icons/boring.svg?raw"
 
@@ -23,6 +24,17 @@ export function NewProjectButton({ offset }: { offset: number }) {
         <Icon name="plus" />
       </StartIcon>
       New project
+    </Button>
+  )
+}
+
+export function ContinueButton({ ref }: { ref?: Ref<HTMLButtonElement> }) {
+  return (
+    <Button ref={ref} variant="outline" colorPalette="gray" data-hover tabIndex={-1}>
+      Continue
+      <EndIcon asChild>
+        <Icon name="arrow-right" />
+      </EndIcon>
     </Button>
   )
 }

@@ -4,7 +4,6 @@ import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion"
 import { clamp, ease, mix, settle, tween } from "../../sourcery/lib/motion"
 import { NewProjectButton } from "../button"
 import * as Caliper from "../caliper"
-import { DrawnDimension } from "../drawn-dimension"
 import { LAYOUT, md, plusInk, px, shapeOf } from "../theme"
 import { useTiming } from "../timing"
 
@@ -13,7 +12,7 @@ export function Stage() {
   const { width, height, fps, durationInFrames } = useVideoConfig()
   const layout = LAYOUT[shapeOf(width, height)]
   const T = useTiming().measure
-  const slide = T.click + 6
+  const slide = T.change + 6
   const settled = slide + T.slide
 
   const offset = interpolate(frame, [slide, settled], [0, md.offset], {
@@ -27,7 +26,7 @@ export function Stage() {
   const out = 1 - tween(frame, T.guidesOut, 18, ease.inOut)
   const boxGuides = frame >= T.boxGuides ? out : 0
   const iconBox = settle(frame, T.iconBox, fps) * out
-  const emptyNote = settle(frame, T.emptyNote, fps) * (1 - tween(frame, T.click, 18))
+  const emptyNote = settle(frame, T.emptyNote, fps) * (1 - tween(frame, T.change, 18))
   const inkGuides = frame >= T.inkGuides ? out : 0
   const blue = tween(frame, slide, T.slide, ease.inOut)
 
@@ -48,29 +47,33 @@ export function Stage() {
     >
       <Caliper.Root style={{ zoom: layout.zoom }}>
         <Box position="relative">
-          <Caliper.Frame magnify={layout.magnify} annotated>
+          <Caliper.Frame magnify={layout.magnify} annotated animate="in" time={frame / fps}>
             <Caliper.Subject>
               <NewProjectButton offset={offset} />
             </Caliper.Subject>
 
             {boxGuides > 0.001 && (
               <Box style={{ opacity: boxGuides }}>
-                <DrawnDimension
-                  at={T.boxGuides}
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.boxGuides / fps}
+                  order={0}
                   placement="top"
                   reach={md.iconTop}
                   span={{ start: md.border, size: boxStart - md.border }}
                 >
-                  {px(md.padding - shown)}
-                </DrawnDimension>
-                <DrawnDimension
-                  at={T.boxGuides + 6}
+                  <Caliper.DimensionLabel>{px(md.padding - shown)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.boxGuides / fps}
+                  order={1}
                   placement="top"
                   reach={md.iconTop}
                   span={{ end: md.border, size: md.padding }}
                 >
-                  {px(md.padding)}
-                </DrawnDimension>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
               </Box>
             )}
 
@@ -116,42 +119,50 @@ export function Stage() {
 
             {inkGuides * (1 - blue) > 0.001 && (
               <Box style={{ opacity: inkGuides * (1 - blue) }}>
-                <DrawnDimension
-                  at={T.inkGuides}
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.inkGuides / fps}
+                  order={0}
                   colorPalette="red"
                   reach={md.iconTop}
                   span={{ start: md.border, size: inkGap }}
                 >
-                  {px(md.padding - shown + plusInk)}
-                </DrawnDimension>
-                <DrawnDimension
-                  at={T.inkGuides + 6}
+                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.inkGuides / fps}
+                  order={1}
                   colorPalette="red"
                   reach={md.iconTop}
                   span={{ end: md.border, size: md.padding }}
                 >
-                  {px(md.padding)}
-                </DrawnDimension>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
               </Box>
             )}
             {inkGuides * blue > 0.001 && (
               <Box style={{ opacity: inkGuides * blue }}>
-                <DrawnDimension
-                  at={T.inkGuides}
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.inkGuides / fps}
+                  order={0}
                   colorPalette="blue"
                   reach={md.iconTop}
                   span={{ start: md.border, size: inkGap }}
                 >
-                  {px(md.padding - shown + plusInk)}
-                </DrawnDimension>
-                <DrawnDimension
-                  at={T.inkGuides + 6}
+                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
+                <Caliper.Dimension
+                  enter="draw"
+                  delay={T.inkGuides / fps}
+                  order={1}
                   colorPalette="blue"
                   reach={md.iconTop}
                   span={{ end: md.border, size: md.padding }}
                 >
-                  {px(md.padding)}
-                </DrawnDimension>
+                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
+                </Caliper.Dimension>
               </Box>
             )}
           </Caliper.Frame>
