@@ -5,7 +5,8 @@ import { css } from "@isbatak/panda-ds/css"
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion"
 
 import { clamp, ease, mix, tween } from "../../sourcery/lib/motion"
-import { LAYOUT, md, plusInk, px, shapeOf, T } from "../theme"
+import { LAYOUT, md, plusInk, px, shapeOf } from "../theme"
+import { useTiming } from "../timing"
 
 const cursorClass = css({ fill: "fg", stroke: "bg", strokeWidth: "1.25", strokeLinejoin: "round" })
 
@@ -26,7 +27,10 @@ function Cursor({ hand }: { hand: boolean }) {
 
 export function Toggle() {
   const frame = useCurrentFrame()
-  const { width, height } = useVideoConfig()
+  const { width, height, durationInFrames } = useVideoConfig()
+  const T = useTiming().measure
+  const enter = tween(frame, 6, 18, ease.inOut) * (1 - tween(frame, durationInFrames - 18, 18, ease.inOut))
+  if (enter <= 0) return null
   const layout = LAYOUT[shapeOf(width, height)]
 
   const away = 1 - tween(frame, T.reach, T.click - 6 - T.reach, ease.inOut) + tween(frame, T.release, 48, ease.inOut)
@@ -38,8 +42,12 @@ export function Toggle() {
     <Box
       position="absolute"
       left="[50%]"
-      translate="[-50% -50%]"
-      style={{ top: `${layout.toggleTop * 100}%`, zoom: layout.toggleZoom }}
+      style={{
+        top: `${layout.toggleTop * 100}%`,
+        zoom: layout.toggleZoom,
+        opacity: enter,
+        translate: `-50% calc(-50% + ${(1 - enter) * 16}px)`,
+      }}
     >
       <Box position="relative">
         <SegmentGroup.Root size="sm" orientation="horizontal" value={value} aria-label="Alignment">

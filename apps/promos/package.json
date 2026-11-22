@@ -15,9 +15,9 @@
     "render:icons-vertical": "panda && pnpm icons && remotion render IconsPromoVertical out/icons-demo-vertical.mp4",
     "still:icons": "panda && pnpm icons && remotion still IconsPromo ../www/public/videos/icons-poster.jpg --frame=660 --image-format=jpeg --jpeg-quality=85",
     "render:optical": "panda && pnpm icons && remotion render OpticalPromo ../www/public/videos/optical-demo.mp4 --codec=h264 --crf=23 --x264-preset=slow --concurrency=1",
-    "render:optical-wide": "panda && pnpm icons && remotion render OpticalPromoWide out/optical-demo-wide.mp4 --concurrency=1",
-    "render:optical-vertical": "panda && pnpm icons && remotion render OpticalPromoVertical out/optical-demo-vertical.mp4 --concurrency=1",
-    "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=660 --image-format=jpeg --jpeg-quality=85",
+    "render:optical-wide": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-wide.mp4 --props='{\"shape\":\"wide\"}' --concurrency=1",
+    "render:optical-vertical": "panda && pnpm icons && remotion render OpticalPromo out/optical-demo-vertical.mp4 --props='{\"shape\":\"tall\"}' --concurrency=1",
+    "still:optical": "panda && pnpm icons && remotion still OpticalPromo ../www/public/videos/optical-poster.jpg --frame=900 --image-format=jpeg --jpeg-quality=85",
     "typecheck": "panda && pnpm icons && tsc --noEmit"
   },
   "dependencies": {
@@ -33,7 +33,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "remotion": "4.0.545",
-    "sugar-high": "2.5.0"
+    "sugar-high": "2.5.0",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@ikona/cli": "0.2.2",

@@ -1,18 +1,22 @@
-import { Badge } from "@isbatak/react-ui/badge"
 import { Box } from "@isbatak/react-ui/box"
 import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion"
 
 import { clamp, ease, mix, settle, tween } from "../../sourcery/lib/motion"
 import { NewProjectButton } from "../button"
 import * as Caliper from "../caliper"
-import { LAYOUT, md, plusInk, px, shapeOf, T } from "../theme"
+import { DrawnDimension } from "../drawn-dimension"
+import { LAYOUT, md, plusInk, px, shapeOf } from "../theme"
+import { useTiming } from "../timing"
 
 export function Stage() {
   const frame = useCurrentFrame()
-  const { width, height, fps } = useVideoConfig()
+  const { width, height, fps, durationInFrames } = useVideoConfig()
   const layout = LAYOUT[shapeOf(width, height)]
+  const T = useTiming().measure
+  const slide = T.click + 6
+  const settled = slide + T.slide
 
-  const offset = interpolate(frame, [T.slide, T.settled], [0, md.offset], {
+  const offset = interpolate(frame, [slide, settled], [0, md.offset], {
     ...clamp,
     easing: Easing.out(Easing.cubic),
   })
@@ -20,80 +24,52 @@ export function Stage() {
   const boxStart = md.border + md.padding - offset
   const inkGap = boxStart - md.border + plusInk
 
-  const out = 1 - tween(frame, T.guidesOut, T.shrink - T.guidesOut, ease.inOut)
-  const boxGuides = settle(frame, T.boxGuides, fps) * out
+  const out = 1 - tween(frame, T.guidesOut, 18, ease.inOut)
+  const boxGuides = frame >= T.boxGuides ? out : 0
   const iconBox = settle(frame, T.iconBox, fps) * out
   const emptyNote = settle(frame, T.emptyNote, fps) * (1 - tween(frame, T.click, 18))
-  const inkGuides = settle(frame, T.inkGuides, fps) * out
-  const blue = tween(frame, T.slide, T.settled - T.slide, ease.inOut)
+  const inkGuides = frame >= T.inkGuides ? out : 0
+  const blue = tween(frame, slide, T.slide, ease.inOut)
 
-  const shrink = tween(frame, T.shrink, T.shrunk - T.shrink, ease.inOut)
-  const magnify = mix(layout.magnify, layout.compare, shrink)
-  const top = mix(layout.top, layout.compareTop, shrink)
-  const compare = settle(frame, T.compare, fps)
-  const optical = settle(frame, T.compare + 12, fps)
+  const enter = tween(frame, 0, 18, ease.inOut) * (1 - tween(frame, durationInFrames - 18, 18, ease.inOut))
+  const legend = iconBox
 
   return (
-    <Box position="absolute" left="[50%]" translate="[-50% -50%]" style={{ top: `${top * 100}%` }}>
+    <Box
+      position="absolute"
+      left="[50%]"
+      style={{
+        top: `${layout.top * 100}%`,
+        opacity: enter,
+        translate: "-50% -50%",
+        scale: mix(0.92, 1, enter),
+      }}
+    >
       <Caliper.Root style={{ zoom: layout.zoom }}>
         <Box position="relative">
-          <Box
-            position="absolute"
-            bottom="[100%]"
-            left="0"
-            pb="5"
-            style={{ opacity: compare, translate: `0 ${(1 - compare) * 12}px` }}
-          >
-            <Box position="relative">
-              <Badge
-                variant="solid"
-                colorPalette="gray"
-                size="md"
-                position="absolute"
-                right="[100%]"
-                top="[50%]"
-                translate="[-1rem -50%]"
-              >
-                Equal
-              </Badge>
-              <Caliper.Frame magnify={layout.compare}>
-                <Caliper.Subject>
-                  <NewProjectButton offset={0} />
-                </Caliper.Subject>
-              </Caliper.Frame>
-            </Box>
-          </Box>
-
-          <Badge
-            variant="solid"
-            colorPalette="blue"
-            size="md"
-            position="absolute"
-            right="[100%]"
-            top="[50%]"
-            translate="[-1rem -50%]"
-            style={{ opacity: optical }}
-          >
-            Optical
-          </Badge>
-
-          <Caliper.Frame magnify={magnify} annotated={frame < T.shrink}>
+          <Caliper.Frame magnify={layout.magnify} annotated>
             <Caliper.Subject>
               <NewProjectButton offset={offset} />
             </Caliper.Subject>
 
             {boxGuides > 0.001 && (
               <Box style={{ opacity: boxGuides }}>
-                <Caliper.Dimension
+                <DrawnDimension
+                  at={T.boxGuides}
                   placement="top"
                   reach={md.iconTop}
                   span={{ start: md.border, size: boxStart - md.border }}
                 >
-                  <Caliper.DimensionLabel>{px(md.padding - shown)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
-                <Caliper.Dimension placement="top" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
+                  {px(md.padding - shown)}
+                </DrawnDimension>
+                <DrawnDimension
+                  at={T.boxGuides + 6}
+                  placement="top"
+                  reach={md.iconTop}
+                  span={{ end: md.border, size: md.padding }}
+                >
+                  {px(md.padding)}
+                </DrawnDimension>
               </Box>
             )}
 
@@ -121,39 +97,78 @@ export function Stage() {
             )}
 
             {emptyNote > 0.001 && (
-              <Box
-                position="absolute"
-                right="[100%]"
-                top="[50%]"
-                style={{ opacity: emptyNote, translate: `${(emptyNote - 1) * 16}px 0` }}
-              >
-                <Caliper.DimensionLabel colorPalette="red" right="6" translate="[0 -50%]">
-                  {px(plusInk)} empty inside the icon
-                </Caliper.DimensionLabel>
+              <Box style={{ opacity: emptyNote }}>
+                <Caliper.Callout
+                  colorPalette="red"
+                  anchors={[{ x: boxStart + plusInk / 2, y: md.height / 2 }]}
+                  to={{ x: -mix(2, 6, emptyNote), y: md.height / 2 }}
+                >
+                  <Caliper.CalloutLabel>{px(plusInk)}</Caliper.CalloutLabel>
+                </Caliper.Callout>
               </Box>
             )}
 
             {inkGuides * (1 - blue) > 0.001 && (
               <Box style={{ opacity: inkGuides * (1 - blue) }}>
-                <Caliper.Dimension colorPalette="red" reach={md.iconTop} span={{ start: md.border, size: inkGap }}>
-                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
-                <Caliper.Dimension colorPalette="red" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
+                <DrawnDimension
+                  at={T.inkGuides}
+                  colorPalette="red"
+                  reach={md.iconTop}
+                  span={{ start: md.border, size: inkGap }}
+                >
+                  {px(md.padding - shown + plusInk)}
+                </DrawnDimension>
+                <DrawnDimension
+                  at={T.inkGuides + 6}
+                  colorPalette="red"
+                  reach={md.iconTop}
+                  span={{ end: md.border, size: md.padding }}
+                >
+                  {px(md.padding)}
+                </DrawnDimension>
               </Box>
             )}
             {inkGuides * blue > 0.001 && (
               <Box style={{ opacity: inkGuides * blue }}>
-                <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ start: md.border, size: inkGap }}>
-                  <Caliper.DimensionLabel>{px(md.padding - shown + plusInk)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
-                <Caliper.Dimension colorPalette="blue" reach={md.iconTop} span={{ end: md.border, size: md.padding }}>
-                  <Caliper.DimensionLabel>{px(md.padding)}</Caliper.DimensionLabel>
-                </Caliper.Dimension>
+                <DrawnDimension
+                  at={T.inkGuides}
+                  colorPalette="blue"
+                  reach={md.iconTop}
+                  span={{ start: md.border, size: inkGap }}
+                >
+                  {px(md.padding - shown + plusInk)}
+                </DrawnDimension>
+                <DrawnDimension
+                  at={T.inkGuides + 6}
+                  colorPalette="blue"
+                  reach={md.iconTop}
+                  span={{ end: md.border, size: md.padding }}
+                >
+                  {px(md.padding)}
+                </DrawnDimension>
               </Box>
             )}
           </Caliper.Frame>
+
+          {legend > 0.001 && (
+            <Box position="absolute" top="[100%]" left="[50%]" pt="2" style={{ opacity: legend, translate: "-50% 0" }}>
+              <Caliper.Legend flexWrap="nowrap" w="max-content">
+                <Caliper.LegendItem>
+                  <Caliper.LegendSwatch kind="dashed" />
+                  Icon box
+                </Caliper.LegendItem>
+                <Caliper.LegendItem>
+                  <Box position="relative" display="inline-flex">
+                    <Caliper.LegendSwatch kind="hatch" colorPalette="red" style={{ opacity: 1 - blue }} />
+                    <Box position="absolute" inset="0" display="inline-flex" style={{ opacity: blue }}>
+                      <Caliper.LegendSwatch kind="hatch" colorPalette="blue" />
+                    </Box>
+                  </Box>
+                  Empty space inside the icon
+                </Caliper.LegendItem>
+              </Caliper.Legend>
+            </Box>
+          )}
         </Box>
       </Caliper.Root>
     </Box>
