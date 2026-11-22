@@ -364,3 +364,16 @@ export function CaliperCalloutDemo() {
     </Caliper.Figure>
   )
 }
+
+export function CaliperIconGridDemo() {
+  return (
+    <Caliper.Figure caption="IconGrid over a 24px icon at 8×: the hatched 2-unit trim area, a line per unit, and the keylines.">
+      <Caliper.Frame magnify={8}>
+        <Caliper.Subject>
+          <Icon name="plus" size="lg" />
+        </Caliper.Subject>
+        <Caliper.IconGrid colorPalette="red" />
+      </Caliper.Frame>
+    </Caliper.Figure>
+  )
+}

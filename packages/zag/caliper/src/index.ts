@@ -12,6 +12,9 @@ export type {
   DimensionState,
   FrameProps,
   FrameState,
+  IconGridLayer,
+  IconGridLayerProps,
+  IconGridProps,
   LegendSwatchProps,
   LegendSwatchState,
   Magnify,
@@ -20,4 +23,4 @@ export type {
   Span,
   SwatchKind,
 } from "./caliper.types"
-export { axisOf, calloutPath, spanStyle } from "./caliper.utils"
+export { axisOf, calloutPath, iconGridPath, spanStyle } from "./caliper.utils"
