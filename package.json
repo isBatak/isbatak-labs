@@ -8,6 +8,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
+    "ci:local": "oxfmt --check && turbo run codegen --filter=@isbatak/solid-ui --filter=@isbatak/vue-ui --filter=@isbatak/compositions && oxlint --deny-warnings && turbo run build test typecheck --affected --continue",
     "lint": "oxlint",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
