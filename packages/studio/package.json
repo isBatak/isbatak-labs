@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/panda-studio",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Visual editor for Panda CSS design systems built on @isbatak/panda-ds",
   "private": true,
   "license": "MIT",
