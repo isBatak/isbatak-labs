@@ -1,5 +1,12 @@
 # @isbatak/panda-code-preview
 
+## 0.1.1
+
+### Patch Changes
+
+- 883f542: Code sits on `bg.sunken`: the code preview's preview area, resizer and code panel, and the prose `preBg`
+  token.
+
 ## 0.1.0
 
 ### Minor Changes
