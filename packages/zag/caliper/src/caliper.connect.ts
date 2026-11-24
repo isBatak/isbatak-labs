@@ -5,6 +5,7 @@ import type {
   CalloutProps,
   CalloutState,
   CaliperApi,
+  CaliperService,
   DimensionProps,
   DimensionState,
   FrameProps,
@@ -12,14 +13,10 @@ import type {
   IconGridProps,
   LegendSwatchProps,
   LegendSwatchState,
-  RootProps,
-  RootState,
 } from "./caliper.types"
 import { axisOf, calloutPath, frameMotion, iconGridPath, markMotion, spanStyle, unit } from "./caliper.utils"
 
 const boxStyle = ({ spanX, spanY }: BoxProps = {}) => ({ ...spanStyle(spanX, "x"), ...spanStyle(spanY, "y") })
-
-const rootState = (props: RootProps = {}): RootState => ({ overlay: props.overlay ?? true })
 
 const frameState = (props: FrameProps = {}): FrameState => ({ magnify: props.magnify ?? 1 })
 
@@ -37,12 +34,34 @@ const calloutState = ({ anchors, to, align = "start" }: CalloutProps): CalloutSt
 
 const legendSwatchState = (props: LegendSwatchProps = {}): LegendSwatchState => ({ kind: props.kind ?? "solid" })
 
-export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): CaliperApi<T> {
-  return {
-    getRootState: rootState,
+export function connect<T extends PropTypes>(
+  service: CaliperService | undefined,
+  normalize: NormalizeProps<T>,
+): CaliperApi<T> {
+  const overlay = service?.context.get("overlay") ?? true
+  const toggled = service?.context.get("toggled") ?? false
 
-    getRootProps(props = {}) {
-      const { overlay } = rootState(props)
+  const withFrameMotion = (props: FrameProps): FrameProps => ({
+    ...props,
+    animate: props.animate ?? (toggled ? (overlay ? "in" : "out") : undefined),
+  })
+
+  const withMarkMotion = <P extends DimensionProps | CalloutProps>(props: P): P =>
+    toggled ? { ...props, enter: props.enter ?? "draw", exit: props.exit ?? "retract" } : props
+
+  return {
+    overlay,
+    toggled,
+
+    setOverlay(next) {
+      service?.send({ type: "OVERLAY.SET", overlay: next })
+    },
+
+    getRootState() {
+      return { overlay }
+    },
+
+    getRootProps() {
       return normalize.element({ ...parts.root.attrs(""), "data-overlay": overlay ? "visible" : "hidden" })
     },
 
@@ -56,7 +75,8 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getFrameState: frameState,
 
-    getFrameProps(props = {}) {
+    getFrameProps(frameProps = {}) {
+      const props = withFrameMotion(frameProps)
       const { magnify } = frameState(props)
       const motion = frameMotion(props)
       const style = { ...(magnify === "fit" ? {} : { "--caliper-scale": magnify }), ...motion.style }
@@ -83,7 +103,8 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getDimensionState: dimensionState,
 
-    getDimensionProps(props = {}) {
+    getDimensionProps(dimensionProps = {}) {
+      const props = withMarkMotion(dimensionProps)
       const { placement, axis } = dimensionState(props)
       const { span, reach = 0, extension = "dashed", line = "solid", ticks = true, distance = "md" } = props
       const motion = markMotion(props)
@@ -121,7 +142,8 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
 
     getCalloutState: calloutState,
 
-    getCalloutProps(props) {
+    getCalloutProps(calloutProps) {
+      const props = withMarkMotion(calloutProps)
       const { side, align } = calloutState(props)
       const motion = markMotion(props)
       return normalize.element({
@@ -177,7 +199,7 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
       return normalize.path({ ...parts.iconGridLayer.attrs(""), "data-layer": layer, d: iconGridPath(layer, props) })
     },
 
-    getOverlayTriggerProps({ overlay, onOverlayChange }) {
+    getOverlayTriggerProps() {
       return normalize.button({
         ...parts.overlayTrigger.attrs(""),
         type: "button",
@@ -186,7 +208,7 @@ export function connect<T extends PropTypes>(normalize: NormalizeProps<T>): Cali
         "data-state": overlay ? "on" : "off",
         "data-pressed": overlay ? "" : undefined,
         onClick() {
-          onOverlayChange?.(!overlay)
+          service?.send({ type: "OVERLAY.SET", overlay: !overlay })
         },
       })
     },

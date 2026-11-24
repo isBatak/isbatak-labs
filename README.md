@@ -12,7 +12,9 @@ files.
 ### Packages
 
 - `packages/zag/<name>`: Zag state machines (`@isbatak/zag-*`). `zag/lit` is the Lit adapter for Zag.
-- `packages/ark/<name>`: Ark UI style components for React, Solid, Vue and Svelte (`@isbatak/ark-*`).
+- `packages/ark/<name>`: Ark UI style components for React, Solid, Vue and Svelte (`@isbatak/ark-*`). `packages/ark/kit`
+  is not a widget: `definePrimitive` and `createParts` build a widget's React parts from a Zag machine, a `connect` or a
+  hook.
 - `packages/panda/ds`: the design system (`@isbatak/panda-ds`): tokens, recipes, slot recipes, conditions, utilities.
 - `packages/panda/themes/analog`: a second design system on the `panda-ds` foundations.
 - `packages/panda/<name>`: slot recipe and preset per widget, plus the `concentric-preset` and `grain-preset` add-ons.
