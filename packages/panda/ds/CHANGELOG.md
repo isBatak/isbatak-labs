@@ -1,5 +1,199 @@
 # @isbatak/panda-ds
 
+## 1.0.0
+
+### Major Changes
+
+- 759c274: The `dialog` and `drawer` recipes follow tl-ds: `size` now sets the density (`sm` or `md`: header padding and
+  title size) and the new `contentSize` sets the width (`xs` to `4xl`, `cover` and `full` for dialogs, `xs` to `4xl` and
+  `full` for drawers). Replace `size` with `contentSize` where you set a width. Dialogs get a bordered header and
+  footer, a border on the content and the modal layer, and both recipes drop a duplicate slot.
+
+### Minor Changes
+
+- 69fa87c: Add a `status` variant to the `badge` recipe that puts a colored dot before the label. Badges are now pill
+  shaped and a little wider. Icons marked with `data-icon-start` or `data-icon-end` are sized and offset like the
+  button's.
+- 04cab08: Add `ButtonStartIcon` and `ButtonEndIcon` with `iconStart` and `iconEnd` conditions, so icons at the start or
+  end of a button get a negative margin for optical alignment. The analog button no longer overrides icon `strokeWidth`.
+- b4d959a: Accordion takes tl-ds's look: muted item borders, a tighter trigger gap, a muted open background for the
+  `subtle` and `enclosed` variants, and content text that follows `size`. The item indicator sits at the end of the
+  trigger.
+- 011119e: Add the `actionItem` slot recipe, after tl-ds: a settings-style row with start, label, end and control slots
+  and `subtle` and `plain` variants.
+- f9062a9: Add the `angle-slider` slot recipe, with outline and solid variants and three sizes.
+- 7d840c6: Add the `beacon` recipe, a pulsing dot after tl-ds.
+- de0bc0f: Add the `bottomNavBar` slot recipe, after tl-ds: a mobile tab bar whose current link is marked with
+  `aria-current="page"`.
+- 22581f0: Buttons: Button gets an `orientation` variant, where `vertical` puts the icon above a short label. New
+  Toggle, Clipboard (with a `clipboard` slot recipe) and DownloadTrigger. Field's root, label and orientation styles are
+  shared with Clipboard.
+
+  `StartIcon` and `EndIcon`, exported from each framework's `icon` module, replace `ButtonStartIcon`, `ButtonEndIcon`,
+  `BadgeStartIcon` and `BadgeEndIcon`. They take `asChild`, and a loading Button's spinner is marked the same way when
+  it sits next to text.
+
+- 4676f28: Choice controls in every framework: Checkmark, Radiomark, Checkbox (with `Group`), CheckboxCard and
+  RadioGroup are new, and Switch comes to Vue, Svelte and Solid with `Indicator`, `ThumbIndicator` and `RootProvider`.
+  Segment Group gets a `tinted` variant, which colours the selection with `colorPalette`, and an `icon` variant for
+  icon-only segments.
+
+  Segment Group drops its `variant` prop: `enclosed` is now its only look.
+
+- cc5ddbb: Collapsible's `indicator` slot turns 180° when the content opens.
+- 7ea6a77: The `combobox` recipe is restyled to match Select: the list, items, groups and empty state share its look,
+  the trigger chevron turns while the list is open, and the input takes the `input` recipe's variants. It gains
+  `itemContent` and `itemDescription` slots for two-line items, loses its duplicate `empty` slot, and now shows the
+  invalid border in every variant.
+- 9a94694: Add the `command` slot recipe for searchable command palettes, inline or in a dialog, with three sizes.
+- 4c74f1e: The `datePicker` recipe styles preset triggers, leaves room in the input for the trigger and clear trigger,
+  shows the invalid border in every variant, uses the disabled layer style, and drops its duplicate `view` slot.
+- eb7239f: Add a `0` spacing and sizes token.
+- 8515ffb: Floating Panel takes tl-ds's look: a muted border, a compact header and resize handles that match Zag's
+  `data-placement`. Tour places `dialog` steps in the middle of the screen and `floating` steps at their `placement`,
+  gets a muted border, and pushes the progress text to the start of the control row.
+- 7460e13: Add the `frame` recipe: a bordered, rounded iframe that grows to the height of its content.
+- 18000e0: Add the `image-cropper` slot recipe, with subtle and outline viewports and three handle sizes.
+- a2cf021: Add the `json-tree-view` slot recipe, with plain, outline and subtle variants and three sizes.
+- c8debe6: Layout components: Box, Flex, Stack, HStack, VStack, Grid, GridItem, SimpleGrid, Center, AbsoluteCenter,
+  Circle, Square, Container, Bleed, Float, FloatGap, AspectRatio, Wrap, WrapItem, Spacer, Sticky and Separator, plus
+  StackSeparator in React. Every one but Box takes `asChild` in React, Vue and Solid, and `as` in Svelte.
+
+  panda-ds: `grid` has no default gap, `flex` and `grid` take `inline`, `bleed` takes each logical side, `stack`,
+  `hstack` and `vstack` take `separator`, default gaps use the `2` token, and there are new `sticky` and `floatGap`
+  patterns and a `container` recipe in place of Panda's `container` pattern.
+
+- d4a241a: Menu gets `backdrop` and `closeTrigger` slots, a `modalMode` variant that shows it as a bottom sheet, a muted
+  border and submenu trigger items styled like items. Checkbox and radio items keep their indicator space in every size.
+- 7a0d7e8: Add the `menubar` slot recipe for the bar and its triggers, with outline, subtle and plain variants and three
+  sizes.
+- 80f88a3: Navigation Menu works without a viewport: each content opens as its own panel under its item. It also
+  supports `orientation="vertical"`, with menus opening to the side, and styles `NavigationMenu.Link` inside content as
+  a full-width row.
+- 93bd878: Add the `pagination` slot recipe in tl-ds's style: page buttons and triggers built from the button recipe,
+  with `size` (`xs` to `lg`), `variant` (`ghost`, `outline`, `subtle`, `surface`) and `attached`.
+- 0560300: Popover gets a `backdrop` slot, a styled `indicator` and a `modalMode` variant that shows it as a bottom
+  sheet. Tooltip gets `sm`, `md` and `lg` sizes. Popover and Hover Card get a muted border.
+- 55b27a2: Restyle `progressCircle` after tl-ds with a `round` variant and a `2xl` size.
+- 2a5f081: The `rating-group` recipe stacks the label above the stars, shows a pointer on the stars and a focus ring on
+  the focused one, and dims the label and stars when disabled.
+- ca6239b: Add the `ripple` recipe, a press ripple after tl-ds.
+- 30f9924: The scroll area recipe has a `shadowOverflow` variant that fades the edges where content is scrolled out of
+  view.
+- eb0e5ee: NativeSelect and Listbox in every framework, and Select in Vue, Svelte and Solid now has every part React
+  has: `Label`, `Control`, `ValueText`, `IndicatorGroup`, `Indicator`, `ClearTrigger`, `List`, `ItemGroup`, `Search`,
+  `Empty` and the rest, with `alignItemWithTrigger` and `disableAnchorTracking` on the root.
+
+  Select gets `ItemContent` and `ItemDescription` parts for two-line items. Listbox gets `sm` and `md` sizes.
+  NativeSelect's indicator now takes its disabled and invalid look from the select next to it.
+
+- 5916938: Add the `sidebar` slot recipe, after tl-ds: sections of nav links and menu buttons with `plain` and `subtle`
+  variants, two sizes, a `compact` mode, and an indicator on the link marked `aria-current="page"`.
+- 938877c: Add the `signature-pad` slot recipe, with outline and subtle variants and three sizes.
+- 502a9bd: Slider: replace the `outline` and `solid` variants with `capsule` (thin track, wide pill thumb, soft keyboard
+  focus ring; the new default) and `field` (label and value inside a tall track, horizontal or vertical, with a handle,
+  ticks and mark labels shown on hover, focus or drag; in a range, each handle sits inside its own end of the fill).
+  Thumbs and markers render before hydration, the vertical layout keeps markers on the track, and markers no longer
+  paint over a focused thumb.
+- b51b9a7: `spinner` recipe: add a `showTrack` variant that draws the trailing half of the ring in the palette's
+  `subtle` color, and scale the ring's border width with `size`, after tl-ds.
+- 5d533c8: Splitter takes tl-ds's look: a thin separator with a short handle that grows to full length and darkens while
+  it's focused or dragged. The recipe drops its duplicated `resizeTriggerIndicator` slot and adds `root` and `panel`
+  styles.
+- a562385: Size the `status` indicator with spacing tokens per `size`, after tl-ds.
+- 6448fa4: Add the `swap` slot recipe, with tl-ds's fade, scale, rotate, flip, slide and stack variants.
+- c5c688e: PinInput, NumberInput, Editable and TagsInput in every framework, and PasswordInput and SearchInput come to
+  Vue, Svelte and Solid. NumberStepperInput is new: Number Input's parts with the minus and plus buttons on either side
+  of a centered value, a `TriggerGroup` and an `InlineLabel` for units, styled by the new `numberStepperInput` recipe.
+
+  PinInput forwards `mask` to Ark instead of treating it as the CSS `mask` style prop, and its label now sits above the
+  inputs. Vue, Svelte and Solid component entry points now export each component's hooks, like `usePasswordInput` and
+  `useSearchInputContext`.
+
+- c9b2d02: Text inputs in every framework: Input, Textarea, Field, Fieldset (with `Content`) and InputGroup with
+  `InputElement` and `InputAddon`. Field gets an `OptionalText` part that shows "(optional)" when the field isn't
+  required.
+
+  Input, Textarea, NumberInput, PinInput, Combobox, DatePicker, DateInput and InputAddon get a `plain` variant without a
+  border or background. The input recipe now pads itself for InputGroup start and end elements.
+
+- ad0e056: Add the `timer` slot recipe, with plain, outline and subtle variants and three sizes.
+- 667c7a9: Toast takes tl-ds's look: a panel with a muted border and an icon colored by the toast type, plus a `body`
+  slot. Action Bar's content gets a muted border.
+- e43eadd: Add the `toggle-group` slot recipe, with subtle, outline and ghost variants, four sizes and `fitted`.
+- 9842bfd: Add the `tone` slot recipe, after tl-ds: a profit or loss figure with tabular numbers, colored `fg.success`
+  or `fg.error` by its `tone` variant unless `plain` is set.
+- 8b77abf: Tree view recipe: rename the slots to Ark UI 6's tree view anatomy (`node`, `nodeGroup`, `nodeGroupContent`,
+  `nodeExpandTrigger`, `nodeIndicator`, `nodeText`, `indentGuide`, `cell`), replacing the Ark 5 `branch*` and `item*`
+  slots. Hide indicators Ark marks `hidden`, style the rename input, and expand the recipe `description`.
+- f3b87c3: Typography components: Text, Span, Em, Strong, Heading, Code, Link, LinkBox, LinkOverlay, Mark, Highlight,
+  Blockquote, Quote, List, Prose and VisuallyHidden. panda-ds adds `em` and `strong` recipes, and Link sizes the icons
+  inside it.
+- 95e8729: Add the `virtualizer` slot recipe for list, grid and window virtualizers, with outline, subtle and plain
+  variants, two orientations, three sizes and stripes.
+- 3f025b6: Add the `iconPullStart`, `iconPullEnd` and `iconPullOffset` utilities. `iconPullStart` and `iconPullEnd` take
+  a spacing token and pull an icon toward its edge by that amount plus `--icon-offset`; `iconPullOffset` sets
+  `--icon-offset`, which `StartIcon` and `EndIcon` also set from their `offset`. Button, Badge, Timer and Kbd pull their
+  icons with them, so a single icon can be pulled to its ink. Kbd now lays out `StartIcon` and `EndIcon` with a small
+  gap.
+- 62d4c23: Add the `imageOutline` layer style: a faint 1px inset outline for images and avatars, black in light mode and
+  white in dark mode. Set `--image-outline-opacity` (0–1, default 0.1) to change its strength. The `avatar` recipe's
+  `image` slot uses it by default, and so does the new `image` recipe.
+- fdf62b6: The `navigation-menu` recipe's `link` slot is now a top-level link that sits beside the triggers and looks
+  like one, as in Ark UI. Links inside the content are no longer styled by the recipe; style them where you render them.
+- 8c0d2e0: Ship a `panda-ds` agent skill in `skills/panda-ds`, with recipe and token catalogs generated from the theme
+  at build time.
+- bf83af6: Add the `passwordInput` and `searchInput` slot recipes. They share their input sizes and variants with the
+  `input` recipe, which `numberInput` now uses too. Their in-input buttons look like ghost icon buttons.
+- b5876f4: Add the `px` spacing token (`1px`), so hairline offsets and insets use a token instead of a hardcoded value.
+- 19f178e: Surfaces now step up from the page. Every color ramp gains a `25` step, halfway between white and `50`, and a
+  `975` step, halfway between `950` and black. Light `bg` is `gray.25` (#fcfcfc) instead of white, so white `bg.panel`
+  surfaces and the segment indicator read as raised. Dark `bg` is `gray.975` (#0d0d0f) instead of `black`. The new
+  `bg.sunken` (`gray.100` light, `black` dark) is for sections recessed below the page; analog maps it to
+  `elevation.sunken`.
+
+  Dark `bg.panel` moves from `gray.950` to `gray.900`, so cards, menus and dialogs sit lighter than the page, and
+  `gray.950` takes the same slight cool tint as the other dark steps (#111113). The Caliper canvas drops its border,
+  sits on `bg.sunken` and takes a `3xl` radius. Enclosed segment tracks use a translucent tint instead of `bg.muted`, so
+  they stay visible on sunken and muted surfaces.
+
+### Patch Changes
+
+- 8f02a6d: Avatar recipe: add a `ring` variant, size the fallback icon with the avatar, and scale the `rounded` radius
+  with the size (from tl-ds). The avatar and group recipes now list `AvatarGroup` in `jsx`, so Panda extracts the
+  variants passed to it.
+- 82b1758: Badge recipe: use tl-ds's `l1` radius instead of a pill, and add a `2xs` size.
+- 08df277: Icons inside a button no longer take pointer events, so the click always lands on the button. In Solid, a
+  click on the icon of a drawer's close button used to be read as the start of a drag and didn't close the drawer.
+- d3d4027: Card recipe: add an `interactive` variant with a pointer cursor and hover background, driven by `--card-bg`
+  and `--card-bg-hover` variables as in tl-ds.
+- d2489ee: Carousel recipe: drop the duplicate `progressText` slot, style the progress text, and turn the trigger icons
+  for vertical carousels.
+- 9dd78fd: The `colorPicker` recipe uses tokens for its edges, checkerboard and area height, shows a pointer on the
+  triggers and swatches, sizes the swatch check, and tightens channel inputs inside the picker.
+- 63926cf: The `colorSwatch` recipe's edge and checkerboard use tokens instead of raw values.
+- 901ec1a: Data list recipe: add a `separator` variant that draws a line between items, as in tl-ds.
+- cb2d5bb: The `dateInput` recipe shows the invalid border in every variant, uses the disabled layer style, and keeps
+  the flushed variant to a bottom border.
+- 7aeb3b4: The `fileUpload` recipe dims a disabled dropzone and gives the item delete button hover and focus styles.
+- 85270f8: The skip nav link sits above other layers with the `skipNav` z-index while it shows.
+- e12de6a: The slider root takes the disabled look when it's disabled, and its marker offsets use spacing tokens.
+- 0d1c534: Stat recipe: add a `card` variant and an `xs` size, as in tl-ds.
+- 8d6f193: Tabs sizes icons in its triggers to match the tab size, from `3` at `2xs` to `5` at `lg`, and keeps them from
+  shrinking.
+- 97a723e: Tag recipe: take tl-ds's look. Radius `l1` (`l2` at `xl`), medium font weight, a `plain` variant, flex start
+  and end elements, and a `button` cursor on the close trigger.
+- b2ff60b: The `icon` recipe sizes icons to `1em` by default, so an icon without a `size` follows the font size instead
+  of the browser's default SVG size.
+- 56f7c3c: Add `Kbd` and `KbdGroup`. `KbdGroup` passes its `size` and `variant` to every `Kbd` inside. The `kbd` recipe
+  now centers its content and has a minimum width per size, so single keys stay square.
+- df32946: Generate `styled-system` with Panda 2.6.0. Solid slot recipe styles now react to variant prop changes out of
+  the box.
+- 232b7de: Fix the `searchInput` recipe so the input makes room for the search icon. Its selector used `data-scope` and
+  `data-part`, which the search input doesn't render. The search icon is also one step larger at every size.
+- 883f542: Code sits on `bg.sunken`: the code preview's preview area, resizer and code panel, and the prose `preBg`
+  token.
+
 ## 0.6.0
 
 ### Minor Changes
