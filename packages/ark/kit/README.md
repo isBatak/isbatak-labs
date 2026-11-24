@@ -134,6 +134,15 @@ withContext(ark.div, "dimension", { forwardProps: ["order"] })
 Parts that are already built take the same wrappers from the outside: `withContext(Caliper.Frame, "frame")` or
 `styled(Caliper.Frame)`.
 
+## Agent skill
+
+The package ships an `ark-kit` skill for coding agents: wrapping a Zag machine, defining a primitive, styling with Panda
+and testing. It's in `node_modules/@isbatak/ark-kit/skills/ark-kit`, or install it with:
+
+```sh
+npx skills@latest add isBatak/isbatak-labs --skill ark-kit
+```
+
 ## License
 
 MIT
