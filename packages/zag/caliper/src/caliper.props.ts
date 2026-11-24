@@ -7,11 +7,11 @@ import type {
   FrameProps,
   IconGridProps,
   LegendSwatchProps,
-  RootProps,
+  CaliperProps,
 } from "./caliper.types"
 
-export const rootProps = createProps<RootProps>()(["overlay"])
-export const splitRootProps = createSplitProps<RootProps>(rootProps)
+export const props = createProps<CaliperProps>()(["defaultOverlay", "getRootNode", "id", "onOverlayChange", "overlay"])
+export const splitProps = createSplitProps<Partial<CaliperProps>>(props)
 
 export const frameProps = createProps<FrameProps>()(["animate", "annotated", "magnify", "stagger", "time"])
 export const splitFrameProps = createSplitProps<FrameProps>(frameProps)

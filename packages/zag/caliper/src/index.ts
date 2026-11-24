@@ -1,5 +1,6 @@
 export { anatomy, parts } from "./caliper.anatomy"
 export { connect } from "./caliper.connect"
+export { machine } from "./caliper.machine"
 export * from "./caliper.props"
 export type {
   Axis,
@@ -8,6 +9,9 @@ export type {
   CalloutProps,
   CalloutState,
   CaliperApi as Api,
+  CaliperMachine as Machine,
+  CaliperProps as Props,
+  CaliperService as Service,
   CalloutEnter,
   CalloutExit,
   DimensionProps,
@@ -24,10 +28,9 @@ export type {
   LegendSwatchState,
   Magnify,
   MotionProps,
-  OverlayTriggerProps,
+  OverlayChangeDetails,
   Placement,
   Point,
-  RootProps,
   RootState,
   Span,
   SwatchKind,

@@ -68,7 +68,11 @@
   },
   "dependencies": {
     "@zag-js/anatomy": "catalog:",
+    "@zag-js/core": "catalog:",
     "@zag-js/types": "catalog:",
     "@zag-js/utils": "catalog:"
+  },
+  "devDependencies": {
+    "@zag-js/vanilla": "catalog:"
   }
 }

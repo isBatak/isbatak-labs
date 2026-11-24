@@ -52,6 +52,7 @@
     }
   },
   "dependencies": {
+    "@isbatak/ark-kit": "workspace:*",
     "@isbatak/zag-caliper": "workspace:*"
   },
   "peerDependencies": {
