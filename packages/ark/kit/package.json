@@ -1,0 +1,77 @@
+{
+  "name": "@isbatak/ark-kit",
+  "version": "0.0.0",
+  "description": "Define Ark UI style primitives and build their React parts from a Zag machine, a connect or your own hook",
+  "keywords": [
+    "ark",
+    "ark-ui",
+    "zag",
+    "react",
+    "primitive",
+    "parts",
+    "headless"
+  ],
+  "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/isBatak/isbatak-labs/tree/main/packages/ark/kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isBatak/isbatak-labs.git",
+    "directory": "packages/ark/kit"
+  },
+  "bugs": {
+    "url": "https://github.com/isBatak/isbatak-labs/issues"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "skills"
+  ],
+  "exports": {
+    "./react": "./src/react/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      "./react": {
+        "import": {
+          "types": "./dist/react/index.d.ts",
+          "default": "./dist/react/index.js"
+        },
+        "require": {
+          "types": "./dist/react/index.d.cts",
+          "default": "./dist/react/index.cjs"
+        }
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@zag-js/core": "catalog:"
+  },
+  "peerDependencies": {
+    "@ark-ui/react": ">=6.0.0-next.0",
+    "@zag-js/react": ">=2.0.0-next.0",
+    "react": ">=19.0.0"
+  },
+  "devDependencies": {
+    "@ark-ui/react": "catalog:",
+    "@isbatak/zag-caliper": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@zag-js/checkbox": "catalog:",
+    "@zag-js/react": "catalog:",
+    "@zag-js/types": "catalog:",
+    "jsdom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "vitest": "catalog:"
+  }
+}

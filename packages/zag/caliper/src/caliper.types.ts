@@ -1,4 +1,5 @@
-import type { PropTypes } from "@zag-js/types"
+import type { EventObject, Machine, Service } from "@zag-js/core"
+import type { CommonProperties, PropTypes, RequiredBy } from "@zag-js/types"
 
 /** A span along one axis, in the subject's own px. Give any two of `start`, `end` and `size`; omit all to fill. */
 export interface Span {
@@ -51,20 +52,40 @@ export interface FrameState {
   magnify: Magnify
 }
 
-export interface RootProps {
-  /** Whether the marks are shown. Hidden marks stay in the DOM, so a style can fade them. Defaults to `true`. */
-  overlay?: boolean | undefined
+export interface OverlayChangeDetails {
+  overlay: boolean
 }
+
+export interface CaliperProps extends CommonProperties {
+  /** Whether the marks are shown. Hidden marks stay in the DOM, so a style can fade them. */
+  overlay?: boolean | undefined
+  /**
+   * Whether the marks start shown when `overlay` isn't set.
+   * @default true
+   */
+  defaultOverlay?: boolean | undefined
+  /** Called when an `OverlayTrigger` shows or hides the marks. */
+  onOverlayChange?: ((details: OverlayChangeDetails) => void) | undefined
+}
+
+export interface CaliperSchema {
+  state: "idle"
+  props: RequiredBy<CaliperProps, "defaultOverlay">
+  context: {
+    overlay: boolean
+    toggled: boolean
+  }
+  action: string
+  effect: string
+  guard: string
+  event: EventObject
+}
+
+export type CaliperService = Service<CaliperSchema>
+export type CaliperMachine = Machine<CaliperSchema>
 
 export interface RootState {
   overlay: boolean
-}
-
-export interface OverlayTriggerProps {
-  /** Whether the marks are shown now. The trigger reads as pressed while they are. */
-  overlay: boolean
-  /** Called with the next value when the trigger is clicked. */
-  onOverlayChange?: ((overlay: boolean) => void) | undefined
 }
 
 export interface BoxProps {
@@ -151,8 +172,17 @@ export interface IconGridLayerProps extends IconGridProps {
 }
 
 export interface CaliperApi<T extends PropTypes = PropTypes> {
-  getRootProps(props?: RootProps): T["element"]
-  getRootState(props?: RootProps): RootState
+  /** Whether the marks are shown. */
+  overlay: boolean
+  /**
+   * Whether the overlay has changed since the caliper mounted. Once it has, frames animate in and out with it, and
+   * dimensions and callouts without `enter` or `exit` draw and retract.
+   */
+  toggled: boolean
+  /** Shows or hides the marks. */
+  setOverlay(overlay: boolean): void
+  getRootProps(): T["element"]
+  getRootState(): RootState
   getCanvasProps(): T["element"]
   getCaptionProps(): T["element"]
   getFrameProps(props?: FrameProps): T["element"]
@@ -178,5 +208,5 @@ export interface CaliperApi<T extends PropTypes = PropTypes> {
   getIconGridProps(props?: IconGridProps): T["element"]
   getIconGridCanvasProps(props?: IconGridProps): T["svg"]
   getIconGridLayerProps(props: IconGridLayerProps): T["path"]
-  getOverlayTriggerProps(props: OverlayTriggerProps): T["button"]
+  getOverlayTriggerProps(): T["button"]
 }

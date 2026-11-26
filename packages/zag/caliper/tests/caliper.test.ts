@@ -1,7 +1,17 @@
 import { createNormalizer } from "@zag-js/types"
-import { type CalloutProps, calloutPath, connect, iconGridPath, spanStyle } from "../src"
+import { VanillaMachine } from "@zag-js/vanilla"
+import { type CalloutProps, calloutPath, connect, iconGridPath, machine, type Props, spanStyle } from "../src"
 
-const api = connect(createNormalizer((props) => props))
+const normalize = createNormalizer((props) => props)
+const api = connect(undefined, normalize)
+
+const tick = () => new Promise((resolve) => setTimeout(resolve, 0))
+
+function start(props: Omit<Props, "id"> = {}) {
+  const caliper = new VanillaMachine(machine, { id: "caliper", ...props } as Partial<typeof machine.props>)
+  caliper.start()
+  return { caliper, api: () => connect(caliper.service, normalize) }
+}
 
 describe("spanStyle", () => {
   it("fills the axis when the span is empty", () => {
@@ -26,24 +36,57 @@ describe("connect", () => {
     expect(api.getDimensionLabelProps()).toEqual({ "data-caliper-dimension-label": "" })
   })
 
-  it("shows the overlay by default and marks the root when it is hidden", () => {
+  it("shows the overlay without a machine and never toggles", () => {
     expect(api.getRootState()).toEqual({ overlay: true })
-    expect(api.getRootProps({ overlay: false })).toMatchObject({ "data-overlay": "hidden" })
+    expect(api.toggled).toBe(false)
+    expect(() => api.getOverlayTriggerProps().onClick()).not.toThrow()
   })
 
-  it("makes the overlay trigger a toggle button for the overlay", () => {
+  it("starts the overlay from defaultOverlay and marks the root when it is hidden", () => {
+    const { api: hidden } = start({ defaultOverlay: false })
+    expect(hidden().getRootState()).toEqual({ overlay: false })
+    expect(hidden().getRootProps()).toMatchObject({ "data-overlay": "hidden" })
+  })
+
+  it("makes the overlay trigger a toggle button for the overlay", async () => {
     const changes: boolean[] = []
-    const props = api.getOverlayTriggerProps({ overlay: true, onOverlayChange: (next) => changes.push(next) })
-    expect(props).toMatchObject({
+    const { api: current } = start({ onOverlayChange: ({ overlay }) => changes.push(overlay) })
+    expect(current().getOverlayTriggerProps()).toMatchObject({
       "data-caliper-overlay-trigger": "",
       type: "button",
       "aria-pressed": true,
       "data-state": "on",
       "data-pressed": "",
     })
-    props.onClick()
+    current().getOverlayTriggerProps().onClick()
+    await tick()
     expect(changes).toEqual([false])
-    expect(api.getOverlayTriggerProps({ overlay: false })).toMatchObject({ "aria-pressed": false, "data-state": "off" })
+    expect(current().getOverlayTriggerProps()).toMatchObject({ "aria-pressed": false, "data-state": "off" })
+  })
+
+  it("only reports a controlled overlay's change", async () => {
+    const changes: boolean[] = []
+    const { api: current } = start({ overlay: true, onOverlayChange: ({ overlay }) => changes.push(overlay) })
+    current().setOverlay(false)
+    await tick()
+    expect(changes).toEqual([false])
+    expect(current().overlay).toBe(true)
+  })
+
+  it("animates frames and draws marks once the overlay has toggled", async () => {
+    const { api: current } = start()
+    expect(current().getFrameProps({ magnify: 2 })["data-animate"]).toBeUndefined()
+    expect(current().getDimensionProps({})["data-enter"]).toBeUndefined()
+    current().setOverlay(false)
+    await tick()
+    expect(current().toggled).toBe(true)
+    expect(current().getFrameProps({ magnify: 2 })).toMatchObject({ "data-animate": "out" })
+    expect(current().getFrameProps({ magnify: 2, animate: false })["data-animate"]).toBeUndefined()
+    expect(current().getDimensionProps({})).toMatchObject({ "data-enter": "draw", "data-exit": "retract" })
+    expect(current().getDimensionProps({ enter: "fade" })).toMatchObject({ "data-enter": "fade" })
+    current().setOverlay(true)
+    await tick()
+    expect(current().getFrameProps({ magnify: 2 })).toMatchObject({ "data-animate": "in" })
   })
 
   it("derives the dimension axis from its placement", () => {

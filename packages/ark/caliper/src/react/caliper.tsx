@@ -1,237 +1,141 @@
-import { ark, type HTMLProps, type PolymorphicProps } from "@ark-ui/react/factory"
+import { createParts, definePrimitive } from "@isbatak/ark-kit/react"
 import * as caliper from "@isbatak/zag-caliper"
-import { mergeProps, normalizeProps } from "@zag-js/react"
-import { createContext, type RefAttributes, useContext, useState } from "react"
+import type { ComponentProps } from "react"
 
-const api = caliper.connect(normalizeProps)
-
-type Assign<T, U> = Omit<T, keyof U> & U
-
-type PartProps<E extends keyof HTMLElementTagNameMap, Own = object, State = object> = Assign<
-  HTMLProps<E>,
-  Own & PolymorphicProps<State>
-> &
-  RefAttributes<HTMLElementTagNameMap[E]>
-
-interface OverlayContextValue {
-  overlay: boolean
-  setOverlay: (overlay: boolean) => void
-  toggled: boolean
+export interface CaliperRootOwnProps extends Omit<caliper.Props, "id"> {
+  id?: string | undefined
 }
 
-const OverlayContext = createContext<OverlayContextValue | null>(null)
+const primitive = definePrimitive({
+  anatomy: caliper.anatomy,
+  machine: caliper.machine,
+  connect: caliper.connect,
+  props: caliper.props,
+  standalone: true,
+})
 
-export interface CaliperRootOwnProps extends caliper.RootProps {
-  /** Whether the marks start shown when `overlay` isn't set. Defaults to `true`. */
-  defaultOverlay?: boolean | undefined
-  /** Called when an `OverlayTrigger` shows or hides the marks. */
-  onOverlayChange?: ((overlay: boolean) => void) | undefined
-}
-
-export type CaliperRootProps = PartProps<"figure", CaliperRootOwnProps, caliper.RootState>
+const parts = createParts(primitive, {
+  root: "figure",
+  overlayTrigger: "button",
+  canvas: "div",
+  caption: "figcaption",
+  frame: { tag: "div", props: caliper.frameProps },
+  subject: "div",
+  outline: { tag: "div", props: caliper.boxProps },
+  hatch: { tag: "div", props: caliper.boxProps },
+  dimension: { tag: "div", props: caliper.dimensionProps },
+  dimensionLabel: "span",
+  legend: "div",
+  legendItem: "span",
+  legendSwatch: { tag: "span", props: caliper.legendSwatchProps },
+  callout: {
+    tag: "div",
+    props: caliper.calloutProps,
+    children: (api, props) => (
+      <svg {...api.getCalloutLeaderProps()}>
+        <path {...api.getCalloutPathProps(props)} />
+        {props.anchors.map((point) => (
+          <circle key={`${point.x},${point.y}`} {...api.getCalloutAnchorProps({ point })} />
+        ))}
+      </svg>
+    ),
+  },
+  calloutLabel: "div",
+  calloutTitle: "span",
+  calloutDescription: "span",
+  iconGrid: {
+    tag: "div",
+    props: caliper.iconGridProps,
+    children: (api, props) => (
+      <svg {...api.getIconGridCanvasProps(props)}>
+        <path {...api.getIconGridLayerProps({ ...props, layer: "minor" })} />
+        <path {...api.getIconGridLayerProps({ ...props, layer: "keylines" })} />
+        <path {...api.getIconGridLayerProps({ ...props, layer: "major" })} />
+      </svg>
+    ),
+  },
+})
 
 /**
  * The figure: a canvas and an optional caption. Holds whether the marks are shown, for an `OverlayTrigger`. Once the
  * overlay has changed, its frames animate in and out with it, and dimensions and callouts without `enter` or `exit`
  * draw and retract.
  */
-export function CaliperRoot(props: CaliperRootProps) {
-  const [rootProps, { defaultOverlay = true, onOverlayChange, ...localProps }] = caliper.splitRootProps(props)
-  const [uncontrolled, setUncontrolled] = useState(defaultOverlay)
-  const overlay = rootProps.overlay ?? uncontrolled
-  const [initialOverlay] = useState(overlay)
-  const [toggled, setToggled] = useState(false)
-  if (!toggled && overlay !== initialOverlay) setToggled(true)
-  const setOverlay = (next: boolean) => {
-    if (rootProps.overlay === undefined) setUncontrolled(next)
-    onOverlayChange?.(next)
-  }
-  return (
-    <OverlayContext.Provider value={{ overlay, setOverlay, toggled }}>
-      <ark.figure {...mergeProps(api.getRootProps({ overlay }), localProps)} state={api.getRootState({ overlay })} />
-    </OverlayContext.Provider>
-  )
-}
-
-export type CaliperOverlayTriggerProps = PartProps<"button">
+export const CaliperRoot = parts.Root
+export type CaliperRootProps = ComponentProps<typeof CaliperRoot>
 
 /**
  * A toggle button that shows and hides every mark in its `Root`. Unstyled: put your own button inside with `asChild`.
  */
-export function CaliperOverlayTrigger(props: CaliperOverlayTriggerProps) {
-  const context = useContext(OverlayContext)
-  if (!context) throw new Error("Caliper.OverlayTrigger must be inside Caliper.Root")
-  return (
-    <ark.button
-      {...mergeProps(
-        api.getOverlayTriggerProps({ overlay: context.overlay, onOverlayChange: context.setOverlay }),
-        props,
-      )}
-    />
-  )
-}
-
-export type CaliperCanvasProps = PartProps<"div">
+export const CaliperOverlayTrigger = parts.OverlayTrigger
+export type CaliperOverlayTriggerProps = ComponentProps<typeof CaliperOverlayTrigger>
 
 /** The framed drawing area. Stacks frames, legends and controls in a centered column. */
-export function CaliperCanvas(props: CaliperCanvasProps) {
-  return <ark.div {...mergeProps(api.getCanvasProps(), props)} />
-}
+export const CaliperCanvas = parts.Canvas
+export type CaliperCanvasProps = ComponentProps<typeof CaliperCanvas>
 
-export type CaliperCaptionProps = PartProps<"figcaption">
-
-export function CaliperCaption(props: CaliperCaptionProps) {
-  return <ark.figcaption {...mergeProps(api.getCaptionProps(), props)} />
-}
-
-export type CaliperFrameProps = PartProps<"div", caliper.FrameProps, caliper.FrameState>
+export const CaliperCaption = parts.Caption
+export type CaliperCaptionProps = ComponentProps<typeof CaliperCaption>
 
 /**
  * The coordinate space for marks. Put the subject and its marks inside; mark positions are in the subject's own px,
  * so labels can quote real values while the drawing is magnified.
  */
-export function CaliperFrame(props: CaliperFrameProps) {
-  const overlay = useContext(OverlayContext)
-  const [ownProps, localProps] = caliper.splitFrameProps(props)
-  const animate = ownProps.animate ?? (overlay?.toggled ? (overlay.overlay ? "in" : "out") : undefined)
-  const frameProps = { ...ownProps, animate }
-  return <ark.div {...mergeProps(api.getFrameProps(frameProps), localProps)} state={api.getFrameState(frameProps)} />
-}
-
-export type CaliperSubjectProps = PartProps<"div">
+export const CaliperFrame = parts.Frame
+export type CaliperFrameProps = ComponentProps<typeof CaliperFrame>
 
 /** The live UI being measured, magnified by the frame's `magnify`. */
-export function CaliperSubject(props: CaliperSubjectProps) {
-  return <ark.div {...mergeProps(api.getSubjectProps(), props)} />
-}
-
-export type CaliperOutlineProps = PartProps<"div", caliper.BoxProps>
+export const CaliperSubject = parts.Subject
+export type CaliperSubjectProps = ComponentProps<typeof CaliperSubject>
 
 /** A dashed box around a region, such as an icon's bounding box. */
-export function CaliperOutline(props: CaliperOutlineProps) {
-  const [boxProps, localProps] = caliper.splitBoxProps(props)
-  return <ark.div {...mergeProps(api.getOutlineProps(boxProps), localProps)} />
-}
-
-export type CaliperHatchProps = PartProps<"div", caliper.BoxProps>
+export const CaliperOutline = parts.Outline
+export type CaliperOutlineProps = ComponentProps<typeof CaliperOutline>
 
 /** Diagonal hatching over a region, for padding, gaps and empty space. */
-export function CaliperHatch(props: CaliperHatchProps) {
-  const [boxProps, localProps] = caliper.splitBoxProps(props)
-  return <ark.div {...mergeProps(api.getHatchProps(boxProps), localProps)} />
-}
-
-export type CaliperDimensionProps = PartProps<"div", caliper.DimensionProps, caliper.DimensionState>
+export const CaliperHatch = parts.Hatch
+export type CaliperHatchProps = ComponentProps<typeof CaliperHatch>
 
 /** A dimension line with extension lines and end ticks. Put a `DimensionLabel` inside for the value. */
-export function CaliperDimension(props: CaliperDimensionProps) {
-  const overlay = useContext(OverlayContext)
-  const [ownProps, localProps] = caliper.splitDimensionProps(props)
-  const dimensionProps = overlay?.toggled
-    ? { ...ownProps, enter: ownProps.enter ?? "draw", exit: ownProps.exit ?? "retract" }
-    : ownProps
-  return (
-    <ark.div
-      {...mergeProps(api.getDimensionProps(dimensionProps), localProps)}
-      state={api.getDimensionState(dimensionProps)}
-    />
-  )
-}
-
-export type CaliperDimensionLabelProps = PartProps<"span">
+export const CaliperDimension = parts.Dimension
+export type CaliperDimensionProps = ComponentProps<typeof CaliperDimension>
 
 /** The value pill, centered on its dimension line. */
-export function CaliperDimensionLabel(props: CaliperDimensionLabelProps) {
-  return <ark.span {...mergeProps(api.getDimensionLabelProps(), props)} />
-}
+export const CaliperDimensionLabel = parts.DimensionLabel
+export type CaliperDimensionLabelProps = ComponentProps<typeof CaliperDimensionLabel>
 
-export type CaliperLegendProps = PartProps<"div">
+export const CaliperLegend = parts.Legend
+export type CaliperLegendProps = ComponentProps<typeof CaliperLegend>
 
-export function CaliperLegend(props: CaliperLegendProps) {
-  return <ark.div {...mergeProps(api.getLegendProps(), props)} />
-}
-
-export type CaliperLegendItemProps = PartProps<"span">
-
-export function CaliperLegendItem(props: CaliperLegendItemProps) {
-  return <ark.span {...mergeProps(api.getLegendItemProps(), props)} />
-}
-
-export type CaliperLegendSwatchProps = PartProps<"span", caliper.LegendSwatchProps, caliper.LegendSwatchState>
+export const CaliperLegendItem = parts.LegendItem
+export type CaliperLegendItemProps = ComponentProps<typeof CaliperLegendItem>
 
 /** A small sample of a mark, for a legend item. */
-export function CaliperLegendSwatch(props: CaliperLegendSwatchProps) {
-  const [swatchProps, localProps] = caliper.splitLegendSwatchProps(props)
-  return (
-    <ark.span
-      {...mergeProps(api.getLegendSwatchProps(swatchProps), localProps)}
-      state={api.getLegendSwatchState(swatchProps)}
-    />
-  )
-}
-
-export type CaliperCalloutProps = PartProps<"div", caliper.CalloutProps, caliper.CalloutState>
+export const CaliperLegendSwatch = parts.LegendSwatch
+export type CaliperLegendSwatchProps = ComponentProps<typeof CaliperLegendSwatch>
 
 /**
  * Marks points on the subject with dots and runs a leader line from them to a label. Put a `CalloutLabel` inside.
  * Several anchors share one line to the label.
  */
-export function CaliperCallout(props: CaliperCalloutProps) {
-  const overlay = useContext(OverlayContext)
-  const [ownProps, { children, ...localProps }] = caliper.splitCalloutProps(props)
-  const calloutProps = overlay?.toggled
-    ? { ...ownProps, enter: ownProps.enter ?? "draw", exit: ownProps.exit ?? "retract" }
-    : ownProps
-  return (
-    <ark.div {...mergeProps(api.getCalloutProps(calloutProps), localProps)} state={api.getCalloutState(calloutProps)}>
-      <svg {...api.getCalloutLeaderProps()}>
-        <path {...api.getCalloutPathProps(calloutProps)} />
-        {calloutProps.anchors.map((point) => (
-          <circle key={`${point.x},${point.y}`} {...api.getCalloutAnchorProps({ point })} />
-        ))}
-      </svg>
-      {children}
-    </ark.div>
-  )
-}
-
-export type CaliperCalloutLabelProps = PartProps<"div">
+export const CaliperCallout = parts.Callout
+export type CaliperCalloutProps = ComponentProps<typeof CaliperCallout>
 
 /** The note at the end of a callout's leader line. */
-export function CaliperCalloutLabel(props: CaliperCalloutLabelProps) {
-  return <ark.div {...mergeProps(api.getCalloutLabelProps(), props)} />
-}
-
-export type CaliperCalloutTitleProps = PartProps<"span">
+export const CaliperCalloutLabel = parts.CalloutLabel
+export type CaliperCalloutLabelProps = ComponentProps<typeof CaliperCalloutLabel>
 
 /** A short heading above the label's text. */
-export function CaliperCalloutTitle(props: CaliperCalloutTitleProps) {
-  return <ark.span {...mergeProps(api.getCalloutTitleProps(), props)} />
-}
-
-export type CaliperCalloutDescriptionProps = PartProps<"span">
+export const CaliperCalloutTitle = parts.CalloutTitle
+export type CaliperCalloutTitleProps = ComponentProps<typeof CaliperCalloutTitle>
 
 /** The label's text under its title. */
-export function CaliperCalloutDescription(props: CaliperCalloutDescriptionProps) {
-  return <ark.span {...mergeProps(api.getCalloutDescriptionProps(), props)} />
-}
-
-export type CaliperIconGridProps = PartProps<"div", caliper.IconGridProps>
+export const CaliperCalloutDescription = parts.CalloutDescription
+export type CaliperCalloutDescriptionProps = ComponentProps<typeof CaliperCalloutDescription>
 
 /**
  * An icon keyline grid over a region, such as an icon's box: the hatched trim area, a line per unit, and the circle, square
  * and rectangle keylines. Set `units` to the icon set's grid size.
  */
-export function CaliperIconGrid(props: CaliperIconGridProps) {
-  const [gridProps, { children, ...localProps }] = caliper.splitIconGridProps(props)
-  return (
-    <ark.div {...mergeProps(api.getIconGridProps(gridProps), localProps)}>
-      <svg {...api.getIconGridCanvasProps(gridProps)}>
-        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "minor" })} />
-        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "keylines" })} />
-        <path {...api.getIconGridLayerProps({ ...gridProps, layer: "major" })} />
-      </svg>
-      {children}
-    </ark.div>
-  )
-}
+export const CaliperIconGrid = parts.IconGrid
+export type CaliperIconGridProps = ComponentProps<typeof CaliperIconGrid>

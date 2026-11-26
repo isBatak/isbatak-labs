@@ -931,6 +931,9 @@ importers:
 
   packages/ark/caliper:
     dependencies:
+      '@isbatak/ark-kit':
+        specifier: workspace:*
+        version: link:../kit
       '@isbatak/zag-caliper':
         specifier: workspace:*
         version: link:../../zag/caliper
@@ -1011,6 +1014,46 @@ importers:
       vue:
         specifier: ^3.5.43
         version: 3.5.45(typescript@6.0.3)
+
+  packages/ark/kit:
+    dependencies:
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+    devDependencies:
+      '@ark-ui/react':
+        specifier: 'catalog:'
+        version: 6.0.0-next.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@isbatak/zag-caliper':
+        specifier: workspace:*
+        version: link:../../zag/caliper
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      '@zag-js/checkbox':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      '@zag-js/react':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+      jsdom:
+        specifier: 'catalog:'
+        version: 30.1.3
+      react:
+        specifier: 'catalog:'
+        version: 19.3.1
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.1(react@19.3.1)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.12(@types/node@25.9.5)(jsdom@30.1.3)(vite@8.3.8(@types/node@25.9.5)(esbuild@0.28.1)(terser@5.51.2)(yaml@2.9.1))
 
   packages/ark/masonry:
     dependencies:
@@ -1681,10 +1724,17 @@ importers:
       '@zag-js/anatomy':
         specifier: 'catalog:'
         version: 2.0.0-next.3
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
       '@zag-js/types':
         specifier: 'catalog:'
         version: 2.0.0-next.3
       '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 2.0.0-next.3
+    devDependencies:
+      '@zag-js/vanilla':
         specifier: 'catalog:'
         version: 2.0.0-next.3
 

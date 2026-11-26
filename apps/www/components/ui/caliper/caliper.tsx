@@ -7,7 +7,7 @@ import { caliper } from "styled-system/recipes"
 
 const { withProvider, withContext } = createSlotRecipeContext(caliper)
 
-export const CaliperRoot = withProvider(ArkCaliper.Root, "root")
+export const CaliperRoot = withProvider(ArkCaliper.Root, "root", { forwardProps: ["overlay"] })
 export type CaliperRootProps = ComponentProps<typeof CaliperRoot>
 
 export const CaliperCanvas = withContext(ArkCaliper.Canvas, "canvas")
@@ -28,7 +28,7 @@ export type CaliperOutlineProps = ComponentProps<typeof CaliperOutline>
 export const CaliperHatch = withContext(ArkCaliper.Hatch, "hatch")
 export type CaliperHatchProps = ComponentProps<typeof CaliperHatch>
 
-export const CaliperDimension = withContext(ArkCaliper.Dimension, "dimension")
+export const CaliperDimension = withContext(ArkCaliper.Dimension, "dimension", { forwardProps: ["order"] })
 export type CaliperDimensionProps = ComponentProps<typeof CaliperDimension>
 
 export const CaliperDimensionLabel = withContext(ArkCaliper.DimensionLabel, "dimensionLabel")
@@ -43,7 +43,7 @@ export type CaliperLegendItemProps = ComponentProps<typeof CaliperLegendItem>
 export const CaliperLegendSwatch = withContext(ArkCaliper.LegendSwatch, "legendSwatch")
 export type CaliperLegendSwatchProps = ComponentProps<typeof CaliperLegendSwatch>
 
-export const CaliperCallout = withContext(ArkCaliper.Callout, "callout")
+export const CaliperCallout = withContext(ArkCaliper.Callout, "callout", { forwardProps: ["order"] })
 export type CaliperCalloutProps = ComponentProps<typeof CaliperCallout>
 
 export const CaliperCalloutLabel = withContext(ArkCaliper.CalloutLabel, "calloutLabel")
