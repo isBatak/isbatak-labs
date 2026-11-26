@@ -1,0 +1,14 @@
+diff --git a/dist/chunk-BM5NYRNI.js b/dist/chunk-BM5NYRNI.js
+index e351d47..bc4785f 100644
+--- a/dist/chunk-BM5NYRNI.js
++++ b/dist/chunk-BM5NYRNI.js
+@@ -1421,7 +1421,8 @@ function hardcodedValueClassifier(compiler) {
+     const cached = cache.get(key);
+     if (cached !== void 0) return cached;
+     let result = false;
+-    if (!RAW_VALUE_KEYWORDS.has(value.trim().toLowerCase())) {
++    const trimmed = value.trim();
++    if (!RAW_VALUE_KEYWORDS.has(trimmed.toLowerCase()) && !(trimmed.startsWith("[") && trimmed.endsWith("]"))) {
+       const resolved = compiler.resolveUtilityValue({ prop, value });
+       result = resolved !== null && resolved.tokens.length === 0 && !String(resolved.cssValue).trimStart().startsWith("var(");
+     }

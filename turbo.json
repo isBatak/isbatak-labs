@@ -9,7 +9,7 @@
     },
     "build": {
       "dependsOn": ["^build", "^codegen"],
-      "outputs": ["dist/**", "styled-system/**"]
+      "outputs": ["dist/**", "styled-system/**", "skills/*/references/generated/**"]
     },
     "test": {
       "dependsOn": ["build", "^build"],

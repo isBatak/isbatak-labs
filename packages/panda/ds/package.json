@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/panda-ds",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Panda CSS design system",
   "author": "Ivica Batinic <ivicabatinic123@gmail.com>",
   "license": "MIT",
@@ -19,6 +19,7 @@
   ],
   "files": [
     "dist",
+    "skills",
     "styled-system"
   ],
   "exports": {
@@ -72,7 +73,7 @@
   },
   "scripts": {
     "codegen": "panda codegen",
-    "build": "panda codegen && panda lib -o dist && tsup",
+    "build": "panda codegen && panda lib -o dist && tsup && node scripts/skill-catalog.mts",
     "typecheck": "panda codegen && panda lib -o dist && tsc --noEmit"
   },
   "publishConfig": {

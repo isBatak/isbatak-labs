@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/ark-caliper",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless Ark UI parts for Caliper: draw dimension lines, hatching and outlines over live UI",
   "keywords": [
     "ark",

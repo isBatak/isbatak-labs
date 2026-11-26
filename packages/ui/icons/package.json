@@ -1,6 +1,6 @@
 {
   "name": "@isbatak/icons",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Boring Icons plus extra UI and brand icons as an ikona SVG sprite with typed icon names, for every @isbatak UI framework",
   "license": "MIT",

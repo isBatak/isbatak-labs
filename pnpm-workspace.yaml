@@ -34,16 +34,16 @@ catalog:
   "@ark-ui/solid": 6.0.0-next.0
   "@ark-ui/svelte": 6.0.0-next.0
   "@ark-ui/vue": 6.0.0-next.0
-  "@pandacss/compiler": 2.5.0
-  "@pandacss/compiler-shared": 2.5.0
-  "@pandacss/dev": 2.5.0
-  "@pandacss/eslint-plugin": 2.5.0
-  "@pandacss/mcp": 2.5.0
-  "@pandacss/preset-base": 2.5.0
-  "@pandacss/preset-typography": 2.5.0
-  "@pandacss/transformer": 2.5.0
-  "@pandacss/types": 2.5.0
-  "@pandacss/vite": 2.5.0
+  "@pandacss/compiler": 2.6.0
+  "@pandacss/compiler-shared": 2.6.0
+  "@pandacss/dev": 2.6.0
+  "@pandacss/eslint-plugin": 2.6.0
+  "@pandacss/mcp": 2.6.0
+  "@pandacss/preset-base": 2.6.0
+  "@pandacss/preset-typography": 2.6.0
+  "@pandacss/transformer": 2.6.0
+  "@pandacss/types": 2.6.0
+  "@pandacss/vite": 2.6.0
   "@zag-js/anatomy": 2.0.0-next.3
   "@zag-js/checkbox": 2.0.0-next.3
   "@zag-js/collection": 2.0.0-next.3
@@ -85,4 +85,4 @@ overrides:
   "@zag-js/dismissable": 2.0.0-next.4
 
 patchedDependencies:
-  "@pandacss/eslint-plugin@2.5.0": patches/@pandacss__eslint-plugin@2.5.0.patch
+  "@pandacss/eslint-plugin@2.6.0": patches/@pandacss__eslint-plugin@2.6.0.patch
