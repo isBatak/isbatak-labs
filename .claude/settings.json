@@ -1,4 +1,5 @@
 {
+  "attribution": { "commit": "", "pr": "", "sessionUrl": false },
   "extraKnownMarketplaces": {
     "isbatak-labs": { "source": { "source": "github", "repo": "isBatak/isbatak-labs" } }
   },
