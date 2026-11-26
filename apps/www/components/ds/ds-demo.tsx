@@ -1,7 +1,6 @@
 import manifest from "@isbatak/compositions/manifest.json"
 import { styled } from "styled-system/jsx"
 
-import { CodeBlock } from "../code/code-block"
 import { DemoPreview } from "./demo-preview"
 import { DsDemoView } from "./ds-demo-view"
 import type { DsFrameworkId } from "./ds-framework"
@@ -50,10 +49,4 @@ export function DsDemo({ id, framework }: DsDemoProps) {
       <DsDemoView id={id} framework={framework} />
     </DemoPreview>
   )
-}
-
-export function DsDemoSource({ id, framework }: DsDemoProps) {
-  const file = getDsDemo(id, framework)
-  if (!file) return <NotAvailable framework={framework} />
-  return <CodeBlock code={file.code} lang={file.lang} />
 }

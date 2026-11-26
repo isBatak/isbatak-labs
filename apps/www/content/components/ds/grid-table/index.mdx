@@ -12,25 +12,6 @@ links:
 The same look as [Table](/ds/components/table), built from `div`s with table roles. The columns come from one grid
 template, and rows use `subgrid`, so every row lines up with the header however the columns are sized.
 
-## Usage
-
-<Usage />
-
-```tsx
-<GridTable.Root columns="2fr 1fr auto">
-  <GridTable.Header>
-    <GridTable.HeaderRow>
-      <GridTable.ColumnHeader />
-    </GridTable.HeaderRow>
-  </GridTable.Header>
-  <GridTable.Body>
-    <GridTable.Row>
-      <GridTable.Cell />
-    </GridTable.Row>
-  </GridTable.Body>
-</GridTable.Root>
-```
-
 `columns` is a `grid-template-columns` value, set on the root as `--grid-template-columns`. The default fits as many
 `10rem` columns as there is room for.
 

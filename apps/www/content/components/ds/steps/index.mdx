@@ -13,26 +13,6 @@ Built on Ark UI's Steps. Set `count` on the root, give each `Steps.Item` and `St
 between steps with `Steps.PrevTrigger` and `Steps.NextTrigger`. With no children, `Steps.Indicator` shows the step's
 number, then a check once the step is complete.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Steps.Root count={3}>
-  <Steps.List>
-    <Steps.Item index={0}>
-      <Steps.Indicator />
-      <Steps.Title />
-      <Steps.Separator />
-    </Steps.Item>
-  </Steps.List>
-  <Steps.Content index={0} />
-  <Steps.CompletedContent />
-  <Steps.PrevTrigger />
-  <Steps.NextTrigger />
-</Steps.Root>
-```
-
 ## Examples
 
 ### Sizes

@@ -13,33 +13,6 @@ Built on Ark UI's Tour. Steps are defined in `useTour`, and a `tooltip` step poi
 `Tour.Actions` passes the current step's `actions` to you, and `Tour.ActionTrigger` turns each one into a button. With
 no children, `Tour.CloseTrigger` shows a close button.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Tour.Root tour={tour}>
-  <Portal>
-    <Tour.Backdrop />
-    <Tour.Spotlight />
-    <Tour.Positioner>
-      <Tour.Content>
-        <Tour.Arrow>
-          <Tour.ArrowTip />
-        </Tour.Arrow>
-        <Tour.CloseTrigger />
-        <Tour.Title />
-        <Tour.Description />
-        <Tour.Control>
-          <Tour.ProgressText />
-          <Tour.Actions>{(actions) => <Tour.ActionTrigger />}</Tour.Actions>
-        </Tour.Control>
-      </Tour.Content>
-    </Tour.Positioner>
-  </Portal>
-</Tour.Root>
-```
-
 ## Examples
 
 ### Step types

@@ -13,23 +13,6 @@ Built on Ark UI's Menubar. The bar only holds the triggers: each menu is a regul
 content, items, groups and submenus come from the `menu` recipe. Arrow keys move between triggers, and once a menu is
 open, moving to the next trigger opens its menu instead.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Menubar.Root>
-  <Menu.Root>
-    <Menubar.Trigger>File</Menubar.Trigger>
-    <Menu.Positioner>
-      <Menu.Content>
-        <Menu.Item value="new">New File</Menu.Item>
-      </Menu.Content>
-    </Menu.Positioner>
-  </Menu.Root>
-</Menubar.Root>
-```
-
 `Menubar.Trigger` is a `Menu.Trigger` styled as a bar button, so it goes inside each `Menu.Root`. Disable one menu with
 `disabled` on its trigger.
 

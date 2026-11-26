@@ -12,44 +12,6 @@ links:
 A port of Chakra UI's Command, built on Ark UI's Combobox and Dialog. Command runs actions and keeps no selected value.
 For a picker that keeps a value, use [Combobox](/ds/components/combobox) or [Listbox](/ds/components/listbox).
 
-## Usage
-
-<Usage />
-
-```tsx
-<Command.Provider value={command}>
-  <Command.Dialog>
-    <Command.DialogTrigger />
-    <Portal>
-      <Command.DialogBackdrop />
-      <Command.DialogContent>
-        <Command.Root>
-          <Command.Label />
-          <Command.Control>
-            <Command.Indicator />
-            <Command.Input />
-            <Command.ClearTrigger />
-          </Command.Control>
-          <Command.List>
-            <Command.Loading />
-            <Command.ItemGroup>
-              <Command.ItemGroupLabel />
-              <Command.Item item={item}>
-                <Command.ItemText />
-                <Command.ItemCommand />
-              </Command.Item>
-            </Command.ItemGroup>
-            <Command.Separator />
-            <Command.Empty />
-          </Command.List>
-          <Command.Footer />
-        </Command.Root>
-      </Command.DialogContent>
-    </Portal>
-  </Command.Dialog>
-</Command.Provider>
-```
-
 Items are data. `useCommandCollection` ranks them with a fuzzy match as people type, and `Command.Provider` shares the
 result with the dialog and the root.
 

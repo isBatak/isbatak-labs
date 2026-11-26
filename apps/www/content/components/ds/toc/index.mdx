@@ -14,23 +14,6 @@ Built on Ark UI's Toc. It watches the headings you pass as `items` and marks the
 `Toc.Indicator` follows the active links, and `variant` picks how it looks. The table of contents on the right of this
 page is one, with the `track` variant.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Toc.Root items={items}>
-  <Toc.Title />
-  <Toc.List>
-    <Toc.Track />
-    <Toc.Indicator />
-    <Toc.Item item={item}>
-      <Toc.Link href={`#${item.value}`} />
-    </Toc.Item>
-  </Toc.List>
-</Toc.Root>
-```
-
 Each item's `value` is the id of its heading, and `depth` is its level, starting at `1`. The recipe indents a link by
 `--toc-indent` for every level below the first.
 

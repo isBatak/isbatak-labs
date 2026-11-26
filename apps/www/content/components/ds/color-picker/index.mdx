@@ -12,30 +12,6 @@ links:
 Built on Ark UI's Color Picker. The value is a `Color` object: create one with `parseColor("#eb5e41")` and turn it back
 into a string with `color.toString("hex")`. `ColorPicker.HiddenInput` sends the value with a form.
 
-## Usage
-
-<Usage />
-
-```tsx
-<ColorPicker.Root defaultValue={parseColor("#eb5e41")}>
-  <ColorPicker.HiddenInput />
-  <ColorPicker.Label />
-  <ColorPicker.Control>
-    <ColorPicker.Input />
-    <ColorPicker.Trigger />
-  </ColorPicker.Control>
-  <Portal>
-    <ColorPicker.Positioner>
-      <ColorPicker.Content>
-        <ColorPicker.Area />
-        <ColorPicker.EyeDropper />
-        <ColorPicker.Sliders />
-      </ColorPicker.Content>
-    </ColorPicker.Positioner>
-  </Portal>
-</ColorPicker.Root>
-```
-
 A few parts fill themselves in when they have no children:
 
 - `ColorPicker.Trigger` shows the current color.

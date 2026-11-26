@@ -18,18 +18,6 @@ the frame, with the iframe's document ready to change. `srcDoc` (`srcdoc` in Sve
 Frame starts from; without an element with the `frame-root` class, the children render into its `<body>`. Frame measures
 that element, so pad it rather than an element around it, or the frame cuts off the padding.
 
-## Usage
-
-<Usage />
-
-```tsx
-import { Frame } from "@isbatak/react-ui/frame"
-
-;<Frame title="Preview" head={<style>{".frame-root { padding: 1rem; }"}</style>}>
-  <p>Rendered inside the iframe</p>
-</Frame>
-```
-
 ## Examples
 
 ### Inherit styles

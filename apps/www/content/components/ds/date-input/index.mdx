@@ -13,22 +13,6 @@ Built on Ark UI's Date Input. Each part of the date, like the month, day and yea
 use the arrow keys, and focus moves on when a part is complete. The order and separators follow the `locale`. Values are
 `DateValue` objects from `@internationalized/date`: create one with `parseDate("2026-11-08")`.
 
-## Usage
-
-<Usage />
-
-```tsx
-<DateInput.Root>
-  <DateInput.Label />
-  <DateInput.Control>
-    <DateInput.SegmentGroup>
-      <DateInput.Segments />
-    </DateInput.SegmentGroup>
-  </DateInput.Control>
-  <DateInput.HiddenInput />
-</DateInput.Root>
-```
-
 `DateInput.Segments` renders a `DateInput.Segment` for each part of the date. Use `DateInput.SegmentContext` to render
 the segments yourself.
 

@@ -14,32 +14,6 @@ Built on Ark UI's Timer. `Timer.Item` renders one zero-padded part of the time (
 `Timer.ActionTrigger` hides itself when its action doesn't apply, so start, resume and pause can sit side by side and
 only the one that fits shows.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Timer.Root>
-  <Timer.Area>
-    <Timer.ItemGroup>
-      <Timer.Item type="minutes" />
-      <Timer.ItemLabel />
-    </Timer.ItemGroup>
-    <Timer.Separator />
-    <Timer.ItemGroup>
-      <Timer.Item type="seconds" />
-      <Timer.ItemLabel />
-    </Timer.ItemGroup>
-  </Timer.Area>
-  <Timer.Control>
-    <Timer.ActionTrigger action="start" />
-    <Timer.ActionTrigger action="pause" />
-    <Timer.ActionTrigger action="resume" />
-    <Timer.ActionTrigger action="reset" />
-  </Timer.Control>
-</Timer.Root>
-```
-
 ## Examples
 
 ### Countdown

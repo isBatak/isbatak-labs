@@ -14,39 +14,6 @@ they change. The demos render the list in a portal: Ark's `Portal` in React and 
 Solid, and `<Teleport to="body">` in Vue. The trigger looks like an input: a border that darkens on hover and takes the
 focus color while the list is open.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Select.Root collection={collection}>
-  <Select.HiddenSelect />
-  <Select.Label />
-  <Select.Control>
-    <Select.Trigger>
-      <Select.ValueText />
-    </Select.Trigger>
-    <Select.IndicatorGroup>
-      <Select.ClearTrigger />
-      <Select.Indicator />
-    </Select.IndicatorGroup>
-  </Select.Control>
-  <Portal>
-    <Select.Positioner>
-      <Select.Content>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel />
-          <Select.Item item={item}>
-            <Select.ItemText />
-            <Select.ItemIndicator />
-          </Select.Item>
-        </Select.ItemGroup>
-      </Select.Content>
-    </Select.Positioner>
-  </Portal>
-</Select.Root>
-```
-
 `Select.Indicator`, `Select.ItemIndicator` and `Select.ClearTrigger` render a chevron, a check and a cross when they
 have no children. `Select.HiddenSelect` renders a native `<select>` so the value is sent with a form.
 

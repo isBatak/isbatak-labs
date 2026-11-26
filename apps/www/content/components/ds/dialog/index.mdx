@@ -12,33 +12,6 @@ links:
 Built on Ark UI's Dialog. While it's open, focus stays inside it, the page behind can't be scrolled or clicked, and
 Escape or a click on the backdrop closes it. Focus goes back to the trigger when it closes.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Dialog.Root>
-  <Dialog.Trigger />
-  <Portal>
-    <Dialog.Backdrop />
-    <Dialog.Positioner>
-      <Dialog.Content>
-        <Dialog.Header>
-          <Dialog.Title />
-        </Dialog.Header>
-        <Dialog.Body>
-          <Dialog.Description />
-        </Dialog.Body>
-        <Dialog.Footer>
-          <Dialog.ActionTrigger />
-        </Dialog.Footer>
-        <Dialog.CloseTrigger />
-      </Dialog.Content>
-    </Dialog.Positioner>
-  </Portal>
-</Dialog.Root>
-```
-
 `Dialog.CloseTrigger` renders a close button in the top corner unless you give it children. `Dialog.ActionTrigger`
 closes the dialog too, but takes no styles, so use it for buttons in the footer. The dialog mounts when it first opens
 and unmounts when it closes.

@@ -3,15 +3,13 @@ import { Breadcrumb } from "@isbatak/react-ui/breadcrumb"
 import Link from "next/link"
 import { styled } from "styled-system/jsx"
 
-import { CodeBlock } from "../code/code-block"
 import { ResourceLink } from "../docs/resource-link"
 import { demos } from "../ds-demos"
 import { REPO_URL, STORYBOOK_URL } from "../layout/site-links"
 import { MDXContent, type MDXComponents } from "../mdx-content"
 import { Prose } from "../ui/prose"
 import { DsApi, RecipeVariants } from "./ds-api"
-import { DsDemo, DsDemoSource, hasDsDemo } from "./ds-demo"
-import { demoSource } from "./demo-source"
+import { DsDemo, hasDsDemo } from "./ds-demo"
 import { DsDocLayout } from "./ds-doc-layout"
 import { DsExample } from "./ds-example"
 import type { DsFrameworkId } from "./ds-framework"
@@ -28,19 +26,10 @@ function Demo({ id, framework }: { id: string; framework: DsFrameworkId }) {
   return id in demos ? <DsExample id={id} /> : <DsDemo id={id} framework={framework} />
 }
 
-async function Usage({ id, framework }: { id: string; framework: DsFrameworkId }) {
-  return id in demos ? (
-    <CodeBlock code={await demoSource(id)} lang="tsx" />
-  ) : (
-    <DsDemoSource id={id} framework={framework} />
-  )
-}
-
 export function ComponentPage({ component, framework }: ComponentPageProps) {
   const { title, description, links } = component
   const mdxComponents: MDXComponents = {
     Example: ({ id }: { id: string }) => <Demo id={id} framework={framework} />,
-    Usage: () => <Usage id={component.slug} framework={framework} />,
     Api: () => <DsApi slug={component.slug} framework={framework} />,
     RecipeVariants: () => <RecipeVariants slug={component.slug} />,
   }

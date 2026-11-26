@@ -13,31 +13,6 @@ Built on Ark UI's File Upload. It keeps the picked files for you: `FileUpload.Hi
 `maxFiles`, `accept`, `minFileSize` and `maxFileSize` decide which files it takes. Files it rejects go to
 `onFileReject`.
 
-## Usage
-
-<Usage />
-
-```tsx
-<FileUpload.Root>
-  <FileUpload.HiddenInput />
-  <FileUpload.Label />
-  <FileUpload.Dropzone>
-    <FileUpload.DropzoneContent />
-  </FileUpload.Dropzone>
-  <FileUpload.Trigger />
-  <FileUpload.ItemGroup>
-    <FileUpload.Item file={file}>
-      <FileUpload.ItemPreview />
-      <FileUpload.ItemContent>
-        <FileUpload.ItemName />
-        <FileUpload.ItemSizeText />
-      </FileUpload.ItemContent>
-      <FileUpload.ItemDeleteTrigger />
-    </FileUpload.Item>
-  </FileUpload.ItemGroup>
-</FileUpload.Root>
-```
-
 `FileUpload.List` renders the item group with an item for each picked file. Set `showSize` to show each file's size and
 `clearable` to add a button that removes it. `FileUpload.ItemPreview` and `FileUpload.ItemDeleteTrigger` draw a file
 icon and a cross when they have no children.

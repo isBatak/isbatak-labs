@@ -13,34 +13,6 @@ buttons for actions such as switching accounts. The sidebar doesn't know about y
 the link for the current page and it gets an indicator bar on its edge. The indicator takes the root's `colorPalette`,
 gray by default.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Sidebar.Root>
-  <Sidebar.Section>
-    <Sidebar.SectionTitle />
-    <Sidebar.SectionContent>
-      <Sidebar.NavItem href="/" aria-current="page">
-        <Sidebar.NavItemStartElement />
-        <Sidebar.NavItemText />
-        <Sidebar.NavItemEndElement />
-      </Sidebar.NavItem>
-      <Sidebar.MenuItem>
-        <Sidebar.MenuItemStartElement />
-        <Sidebar.MenuItemText>
-          <Sidebar.MenuItemTextTitle />
-          <Sidebar.MenuItemTextDescription />
-        </Sidebar.MenuItemText>
-        <Sidebar.MenuItemEndElement />
-      </Sidebar.MenuItem>
-    </Sidebar.SectionContent>
-  </Sidebar.Section>
-  <Sidebar.Separator />
-</Sidebar.Root>
-```
-
 `Sidebar.Root` renders a `nav`, so give it an `aria-label`. `Sidebar.NavItem` renders an `a`; use `asChild` to render
 your router's link component instead. To disable a nav item, leave out its `href` and set `aria-disabled="true"`.
 

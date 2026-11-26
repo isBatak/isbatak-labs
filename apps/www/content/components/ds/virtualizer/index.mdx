@@ -19,24 +19,6 @@ Ark positions every item absolutely, so two things are up to you. Give the list 
 scroll inside it. And keep each item as tall as the hook's `estimatedSize`: the recipe gives items a minimum height of
 40, 48 and 56px for `sm`, `md` and `lg`, so pass the matching estimate, or set `measure` on items whose height varies.
 
-## Usage
-
-<Usage />
-
-```tsx
-const virtualizer = useListVirtualizer({ count: items.length, estimatedSize: () => 48 })
-
-<ListVirtualizer.Root value={virtualizer} h="96">
-  <ListVirtualizer.Content>
-    {virtualizer.getVirtualItems().map((item) => (
-      <ListVirtualizer.Item key={item.key} item={item}>
-        {items[item.index]}
-      </ListVirtualizer.Item>
-    ))}
-  </ListVirtualizer.Content>
-</ListVirtualizer.Root>
-```
-
 ## Examples
 
 ### Horizontal

@@ -14,27 +14,6 @@ Built on Ark UI's Tree View. Describe the hierarchy with `createTreeCollection` 
 `TreeView.NodeGroup` with its children in a `TreeView.NodeGroupContent`. With no children, `TreeView.NodeIndicator`
 renders a chevron that rotates when its branch opens.
 
-## Usage
-
-<Usage />
-
-```tsx
-<TreeView.Root collection={collection}>
-  <TreeView.Label />
-  <TreeView.Tree>
-    <TreeView.Nodes
-      indentGuide={<TreeView.IndentGuide />}
-      render={({ node, nodeState }) => (
-        <TreeView.Node>
-          {nodeState.isBranch && <TreeView.NodeIndicator />}
-          <TreeView.NodeText>{node.name}</TreeView.NodeText>
-        </TreeView.Node>
-      )}
-    />
-  </TreeView.Tree>
-</TreeView.Root>
-```
-
 ## Examples
 
 ### Sizes

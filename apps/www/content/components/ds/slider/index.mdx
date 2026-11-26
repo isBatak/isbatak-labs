@@ -12,24 +12,6 @@ links:
 Built on Ark UI's Slider. The value is always an array, with one number per thumb: pass one value for a single thumb and
 two for a range.
 
-## Usage
-
-<Usage />
-
-```tsx
-<Slider.Root defaultValue={[40]}>
-  <Slider.Label />
-  <Slider.ValueText />
-  <Slider.Control>
-    <Slider.Track>
-      <Slider.Range />
-    </Slider.Track>
-    <Slider.Thumbs />
-    <Slider.Marks marks={marks} />
-  </Slider.Control>
-</Slider.Root>
-```
-
 `Slider.Thumbs` renders a `Slider.Thumb` with a hidden input for each value, so the value is sent with a form.
 `Slider.Marks` renders a `Slider.MarkerGroup` with a `Slider.Marker` for each mark. Use the parts on their own when you
 need to customize a thumb or a marker.
