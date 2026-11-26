@@ -183,6 +183,8 @@ export const tabsSlotRecipe = defineSlotRecipe({
           },
           "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
             color: "fg",
+          },
+          "&:is([aria-selected=true], [data-selected], [data-state=checked])[data-ssr]": {
             bg: "var(--tabs-panel-bg)",
             borderColor: "border",
           },
@@ -201,7 +203,19 @@ export const tabsSlotRecipe = defineSlotRecipe({
           },
         },
         indicator: {
-          display: "none",
+          bg: "var(--tabs-panel-bg)",
+          shadow: "none",
+          borderWidth: "1px",
+          borderColor: "border",
+          borderRadius: "0",
+          _horizontal: {
+            borderBottomWidth: "0",
+            borderTopRadius: "var(--segment-radius)",
+          },
+          _vertical: {
+            borderEndWidth: "0",
+            borderStartRadius: "var(--segment-radius)",
+          },
         },
       },
     },

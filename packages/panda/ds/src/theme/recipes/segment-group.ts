@@ -76,6 +76,8 @@ export const segmentGroupSlotRecipe = defineSlotRecipe({
         item: {
           px: "0",
           aspectRatio: "square",
+          _iconStart: { ms: "0" },
+          _iconEnd: { me: "0" },
         },
       },
     },

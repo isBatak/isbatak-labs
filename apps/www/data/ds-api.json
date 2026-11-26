@@ -9548,6 +9548,30 @@
         }
       },
       {
+        "name": "Tabs.RootProvider",
+        "props": {
+          "value": {
+            "type": "UseTabsReturn",
+            "description": ""
+          },
+          "lazyMount": {
+            "type": "boolean | undefined",
+            "description": "Whether to enable lazy mounting",
+            "defaultValue": "false"
+          },
+          "unmountOnExit": {
+            "type": "boolean | undefined",
+            "description": "Whether to unmount on exit.",
+            "defaultValue": "false"
+          },
+          "hideMode": {
+            "type": "HideMode | undefined",
+            "description": "How to hide content when mounted but not present.\n- `'display-none'`: HTML `hidden` attribute. Effects stay alive.\n- `'activity'`: React 19 `<Activity mode=\"hidden\">`. Effects pause. Requires React 19+.",
+            "defaultValue": "'display-none'"
+          }
+        }
+      },
+      {
         "name": "Tabs.Trigger",
         "props": {
           "value": {

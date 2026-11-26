@@ -9,6 +9,7 @@ import { REPO_URL, STORYBOOK_URL } from "../layout/site-links"
 import { MDXContent, type MDXComponents } from "../mdx-content"
 import { Prose } from "../ui/prose"
 import { DsApi, RecipeVariants } from "./ds-api"
+import type { DemoCalloutsConfig } from "./demo-callouts"
 import { DsDemo, hasDsDemo } from "./ds-demo"
 import { DsDocLayout } from "./ds-doc-layout"
 import { DsExample } from "./ds-example"
@@ -22,14 +23,26 @@ interface ComponentPageProps {
   framework: DsFrameworkId
 }
 
-function Demo({ id, framework }: { id: string; framework: DsFrameworkId }) {
-  return id in demos ? <DsExample id={id} /> : <DsDemo id={id} framework={framework} />
+interface DemoProps {
+  id: string
+  framework: DsFrameworkId
+  callouts?: DemoCalloutsConfig
+}
+
+function Demo({ id, framework, callouts }: DemoProps) {
+  return id in demos ? (
+    <DsExample id={id} callouts={callouts} />
+  ) : (
+    <DsDemo id={id} framework={framework} callouts={callouts} />
+  )
 }
 
 export function ComponentPage({ component, framework }: ComponentPageProps) {
   const { title, description, links } = component
   const mdxComponents: MDXComponents = {
-    Example: ({ id }: { id: string }) => <Demo id={id} framework={framework} />,
+    Example: ({ id, callouts }: Omit<DemoProps, "framework">) => (
+      <Demo id={id} framework={framework} callouts={callouts} />
+    ),
     Api: () => <DsApi slug={component.slug} framework={framework} />,
     RecipeVariants: () => <RecipeVariants slug={component.slug} />,
   }

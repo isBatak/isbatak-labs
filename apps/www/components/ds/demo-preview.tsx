@@ -3,14 +3,16 @@ import type { ReactNode } from "react"
 import { CodeBody } from "../code/code-block"
 import { CodePreview } from "../ui/code-preview"
 import { Icon } from "../ui/icon"
+import { DemoCallouts, type DemoCalloutsConfig } from "./demo-callouts"
 
 interface DemoPreviewProps {
   code: string
   lang: string
   children: ReactNode
+  callouts?: DemoCalloutsConfig
 }
 
-export function DemoPreview({ code, lang, children }: DemoPreviewProps) {
+export function DemoPreview({ code, lang, children, callouts }: DemoPreviewProps) {
   return (
     <CodePreview.Root className="not-prose" code={code.trimEnd()} my="6">
       <CodePreview.Stage>
@@ -21,8 +23,9 @@ export function DemoPreview({ code, lang, children }: DemoPreviewProps) {
           justifyContent="center"
           gap="3"
           minH="48"
+          position="relative"
         >
-          {children}
+          {callouts ? <DemoCallouts {...callouts}>{children}</DemoCallouts> : children}
         </CodePreview.Preview>
         <CodePreview.Resizer>
           <Icon name="grip-vertical" />

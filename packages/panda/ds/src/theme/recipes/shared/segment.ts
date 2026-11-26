@@ -48,35 +48,65 @@ export const segmentSizes = {
       "--segment-height": "sizes.6",
       "--segment-item-height": "sizes.4.5",
     }),
-    item: defineStyles({ textStyle: "2xs", px: "2", gap: "1" }),
+    item: defineStyles({
+      textStyle: "2xs",
+      px: "2",
+      gap: "1",
+      _iconStart: { iconPullStart: "0.5" },
+      _iconEnd: { iconPullEnd: "0.5" },
+    }),
   },
   xs: {
     root: defineStyles({
       "--segment-height": "sizes.8",
       "--segment-item-height": "sizes.5",
     }),
-    item: defineStyles({ textStyle: "xs", px: "2.5", gap: "1" }),
+    item: defineStyles({
+      textStyle: "xs",
+      px: "2.5",
+      gap: "1",
+      _iconStart: { iconPullStart: "0.5" },
+      _iconEnd: { iconPullEnd: "0.5" },
+    }),
   },
   sm: {
     root: defineStyles({
       "--segment-height": "sizes.9",
       "--segment-item-height": "sizes.6",
     }),
-    item: defineStyles({ textStyle: "sm", px: "3", gap: "2" }),
+    item: defineStyles({
+      textStyle: "sm",
+      px: "3",
+      gap: "2",
+      _iconStart: { iconPullStart: "0.5" },
+      _iconEnd: { iconPullEnd: "0.5" },
+    }),
   },
   md: {
     root: defineStyles({
       "--segment-height": "sizes.10",
       "--segment-item-height": "sizes.8",
     }),
-    item: defineStyles({ textStyle: "sm", px: "4", gap: "2" }),
+    item: defineStyles({
+      textStyle: "sm",
+      px: "4",
+      gap: "2",
+      _iconStart: { iconPullStart: "1" },
+      _iconEnd: { iconPullEnd: "1" },
+    }),
   },
   lg: {
     root: defineStyles({
       "--segment-height": "sizes.11",
       "--segment-item-height": "sizes.9",
     }),
-    item: defineStyles({ textStyle: "md", px: "4.5", gap: "3" }),
+    item: defineStyles({
+      textStyle: "md",
+      px: "4.5",
+      gap: "3",
+      _iconStart: { iconPullStart: "1" },
+      _iconEnd: { iconPullEnd: "1" },
+    }),
   },
 }
 
@@ -134,20 +164,49 @@ export const segmentVariants = {
           bg: "initial",
         },
       },
+      _before: {
+        content: '""',
+        position: "absolute",
+        inset: "1",
+        zIndex: -1,
+        borderRadius: "var(--segment-radius)",
+        bg: "colorPalette.muted",
+        opacity: 0,
+        transitionProperty: "opacity, background-color",
+        transitionDuration: "fast",
+      },
+      transitionProperty: "color, scale",
       "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
         color: "fg",
-        _horizontal: {
-          layerStyle: "indicator.bottom",
-          "--indicator-offset-y": "-1px",
-          "--indicator-color": "colors.colorPalette.solid",
+      },
+      "&:hover:not([data-disabled])": {
+        _before: {
+          opacity: 1,
         },
-        _vertical: {
-          layerStyle: "indicator.end",
-          "--indicator-offset-x": "-1px",
+      },
+      "&:active:not([data-disabled])": {
+        scale: "0.96",
+        _before: {
+          opacity: 1,
+          bg: "colorPalette.emphasized",
         },
       },
     }),
-    indicator: defineStyles({ display: "none" }),
+    indicator: defineStyles({
+      bg: "colorPalette.solid",
+      shadow: "none",
+      borderRadius: "0",
+      _horizontal: {
+        top: "auto",
+        bottom: "-1px",
+        height: "var(--indicator-thickness, {spacing.px})",
+      },
+      _vertical: {
+        left: "auto",
+        insetInlineEnd: "-1px",
+        width: "var(--indicator-thickness, {spacing.px})",
+      },
+    }),
   },
   subtle: {
     item: defineStyles({
@@ -155,11 +214,13 @@ export const segmentVariants = {
       minW: "var(--segment-height)",
       borderRadius: "var(--segment-radius)",
       "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
-        bg: "colorPalette.subtle",
         color: "colorPalette.fg",
       },
     }),
-    indicator: defineStyles({ display: "none" }),
+    indicator: defineStyles({
+      bg: "colorPalette.subtle",
+      shadow: "none",
+    }),
   },
   outline: {
     list: defineStyles({
@@ -191,36 +252,41 @@ export const segmentVariants = {
     item: defineStyles({
       height: "var(--segment-height)",
       minW: "var(--segment-height)",
-      borderWidth: "1px",
+      borderWidth: "{spacing.px}",
       borderColor: "transparent",
+      zIndex: 1,
       "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
-        bg: "currentBg",
         color: "colorPalette.fg",
       },
       _horizontal: {
-        borderTopRadius: "var(--segment-radius)",
         marginBottom: "var(--line-offset)",
         _notLast: {
           marginEnd: "var(--line-offset)",
         },
-        "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
-          borderColor: "border",
-          borderBottomColor: "transparent",
-        },
       },
       _vertical: {
-        borderStartRadius: "var(--segment-radius)",
         marginEnd: "var(--line-offset)",
         _notLast: {
           marginBottom: "var(--line-offset)",
         },
-        "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
-          borderColor: "border",
-          borderEndColor: "transparent",
-        },
       },
     }),
-    indicator: defineStyles({ display: "none" }),
+    indicator: defineStyles({
+      zIndex: 0,
+      bg: "currentBg",
+      shadow: "none",
+      borderWidth: "{spacing.px}",
+      borderColor: "border",
+      borderRadius: "0",
+      _horizontal: {
+        borderBottomColor: "transparent",
+        borderTopRadius: "var(--segment-radius)",
+      },
+      _vertical: {
+        borderEndColor: "transparent",
+        borderStartRadius: "var(--segment-radius)",
+      },
+    }),
   },
   plain: {
     item: defineStyles({
