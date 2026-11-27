@@ -34,7 +34,7 @@
   <Tabs.List>
     {#each tabs as item (item.id)}
       <Tabs.Trigger value={item.id}>
-        {item.title}
+        <Tabs.TriggerLabel>{item.title}</Tabs.TriggerLabel>
         <CloseButton
           size="2xs"
           me="-2"

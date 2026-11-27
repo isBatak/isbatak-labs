@@ -1,5 +1,6 @@
 "use client"
 
+import { ark } from "@ark-ui/react/factory"
 import { Tabs } from "@ark-ui/react/tabs"
 import type { ComponentProps } from "react"
 import { createSlotRecipeContext } from "@isbatak/panda-ds/jsx"
@@ -18,6 +19,9 @@ export type TabsListProps = ComponentProps<typeof TabsList>
 
 export const TabsTrigger = withContext(Tabs.Trigger, "trigger")
 export type TabsTriggerProps = ComponentProps<typeof TabsTrigger>
+
+export const TabsTriggerLabel = withContext(ark.span, "triggerLabel")
+export type TabsTriggerLabelProps = ComponentProps<typeof TabsTriggerLabel>
 
 export const TabsContent = withContext(Tabs.Content, "content")
 export type TabsContentProps = ComponentProps<typeof TabsContent>

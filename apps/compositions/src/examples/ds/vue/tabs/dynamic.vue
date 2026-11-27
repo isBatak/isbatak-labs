@@ -35,7 +35,7 @@ const removeTab = (id: string) => {
   <Tabs.Root v-model="selected" variant="folder" size="sm" w="full">
     <Tabs.List>
       <Tabs.Trigger v-for="item in tabs" :key="item.id" :value="item.id">
-        {{ item.title }}
+        <Tabs.TriggerLabel>{{ item.title }}</Tabs.TriggerLabel>
         <CloseButton :asChild="true" size="2xs" me="-2" @click.stop="removeTab(item.id)">
           <span role="button" aria-label="Close tab"><Icon name="close" /></span>
         </CloseButton>

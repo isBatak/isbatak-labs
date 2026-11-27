@@ -42,7 +42,7 @@ export function TabsDynamicDemo() {
         <For each={tabs()}>
           {(item) => (
             <Tabs.Trigger value={item.id}>
-              {item.title}
+              <Tabs.TriggerLabel>{item.title}</Tabs.TriggerLabel>
               <CloseButton
                 size="2xs"
                 me="-2"

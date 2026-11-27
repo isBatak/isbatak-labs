@@ -11,7 +11,7 @@ import {
 } from "./shared/segment"
 
 export const tabsSlotRecipe = defineSlotRecipe({
-  slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
+  slots: ["root", "trigger", "triggerLabel", "list", "content", "contentGroup", "indicator"],
   className: "tabs",
   description: "Switches between panels of content",
   base: {
@@ -48,6 +48,9 @@ export const tabsSlotRecipe = defineSlotRecipe({
         outline: "2px solid",
         outlineColor: "colorPalette.focusRing",
       },
+    },
+    triggerLabel: {
+      minW: "4ch",
     },
     content: {
       focusVisibleRing: "inside",

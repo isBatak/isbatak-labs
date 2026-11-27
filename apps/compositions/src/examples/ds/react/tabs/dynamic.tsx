@@ -41,7 +41,7 @@ export function TabsDynamicDemo() {
       <Tabs.List>
         {tabs.map((item) => (
           <Tabs.Trigger key={item.id} value={item.id}>
-            {item.title}
+            <Tabs.TriggerLabel>{item.title}</Tabs.TriggerLabel>
             <EndIcon>
               <CloseButton
                 asChild
