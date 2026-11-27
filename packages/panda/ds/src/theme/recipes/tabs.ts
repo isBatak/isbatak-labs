@@ -163,7 +163,6 @@ export const tabsSlotRecipe = defineSlotRecipe({
         },
         list: {
           zIndex: 1,
-          gap: "1",
           _horizontal: {
             mb: "-1px",
           },
@@ -190,6 +189,23 @@ export const tabsSlotRecipe = defineSlotRecipe({
           "&:is([aria-selected=true], [data-selected], [data-state=checked])[data-ssr]": {
             bg: "var(--tabs-panel-bg)",
             borderColor: "border",
+          },
+          _before: {
+            content: '""',
+            position: "absolute",
+            inset: "1",
+            insetX: "0.5",
+            zIndex: -1,
+            borderRadius: "var(--segment-radius)",
+            bg: "transparent",
+            transitionProperty: "background-color",
+            transitionDuration: "fast",
+          },
+          "&:hover:not([data-disabled], [aria-selected=true], [data-selected])": {
+            _before: { bg: "colorPalette.hover" },
+          },
+          "&:active:not([data-disabled], [aria-selected=true], [data-selected])": {
+            _before: { bg: "colorPalette.active" },
           },
         },
         content: {

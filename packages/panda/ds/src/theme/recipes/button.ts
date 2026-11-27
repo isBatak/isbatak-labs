@@ -216,20 +216,26 @@ export const buttonRecipe = defineRecipe({
         borderColor: "var(--outline-color, var(--outline-color-legacy))",
         color: "colorPalette.fg",
         _hover: {
-          bg: "colorPalette.subtle",
+          bg: "colorPalette.hover",
+        },
+        _active: {
+          bg: "colorPalette.active",
         },
         _expanded: {
-          bg: "colorPalette.subtle",
+          bg: "colorPalette.hover",
         },
       },
       ghost: {
         bg: "transparent",
         color: "colorPalette.fg",
         _hover: {
-          bg: "colorPalette.subtle",
+          bg: "colorPalette.hover",
+        },
+        _active: {
+          bg: "colorPalette.active",
         },
         _expanded: {
-          bg: "colorPalette.subtle",
+          bg: "colorPalette.hover",
         },
       },
       plain: {

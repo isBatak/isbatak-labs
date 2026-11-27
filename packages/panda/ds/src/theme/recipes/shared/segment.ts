@@ -170,9 +170,8 @@ export const segmentVariants = {
         inset: "1",
         zIndex: -1,
         borderRadius: "var(--segment-radius)",
-        bg: "colorPalette.muted",
-        opacity: 0,
-        transitionProperty: "opacity, background-color",
+        bg: "transparent",
+        transitionProperty: "background-color",
         transitionDuration: "fast",
       },
       transitionProperty: "color, scale",
@@ -181,14 +180,13 @@ export const segmentVariants = {
       },
       "&:hover:not([data-disabled])": {
         _before: {
-          opacity: 1,
+          bg: "colorPalette.hover",
         },
       },
       "&:active:not([data-disabled])": {
         scale: "0.96",
         _before: {
-          opacity: 1,
-          bg: "colorPalette.emphasized",
+          bg: "colorPalette.active",
         },
       },
     }),
