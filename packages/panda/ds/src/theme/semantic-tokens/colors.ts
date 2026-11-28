@@ -234,6 +234,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.gray.700}",
       },
     },
+    hover: {
+      value: {
+        base: "{colors.gray.500/12}",
+        _dark: "{colors.gray.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.gray.500/20}",
+        _dark: "{colors.gray.400/10}",
+      },
+    },
     solid: {
       value: {
         base: "{colors.gray.900}",
@@ -282,6 +294,18 @@ export const colors = defineSemanticTokens.colors({
       value: {
         base: "{colors.red.300}",
         _dark: "{colors.red.700}",
+      },
+    },
+    hover: {
+      value: {
+        base: "{colors.red.500/12}",
+        _dark: "{colors.red.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.red.500/20}",
+        _dark: "{colors.red.400/10}",
       },
     },
     solid: {
@@ -334,6 +358,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.orange.700}",
       },
     },
+    hover: {
+      value: {
+        base: "{colors.orange.500/12}",
+        _dark: "{colors.orange.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.orange.500/20}",
+        _dark: "{colors.orange.400/10}",
+      },
+    },
     solid: {
       value: {
         base: "{colors.orange.600}",
@@ -382,6 +418,18 @@ export const colors = defineSemanticTokens.colors({
       value: {
         base: "{colors.green.300}",
         _dark: "{colors.green.700}",
+      },
+    },
+    hover: {
+      value: {
+        base: "{colors.green.500/12}",
+        _dark: "{colors.green.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.green.500/20}",
+        _dark: "{colors.green.400/10}",
       },
     },
     solid: {
@@ -434,6 +482,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.blue.700}",
       },
     },
+    hover: {
+      value: {
+        base: "{colors.blue.500/12}",
+        _dark: "{colors.blue.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.blue.500/20}",
+        _dark: "{colors.blue.400/10}",
+      },
+    },
     solid: {
       value: {
         base: "{colors.blue.600}",
@@ -482,6 +542,18 @@ export const colors = defineSemanticTokens.colors({
       value: {
         base: "{colors.yellow.300}",
         _dark: "{colors.yellow.700}",
+      },
+    },
+    hover: {
+      value: {
+        base: "{colors.yellow.500/12}",
+        _dark: "{colors.yellow.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.yellow.500/20}",
+        _dark: "{colors.yellow.400/10}",
       },
     },
     solid: {
@@ -534,6 +606,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.teal.700}",
       },
     },
+    hover: {
+      value: {
+        base: "{colors.teal.500/12}",
+        _dark: "{colors.teal.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.teal.500/20}",
+        _dark: "{colors.teal.400/10}",
+      },
+    },
     solid: {
       value: {
         base: "{colors.teal.600}",
@@ -582,6 +666,18 @@ export const colors = defineSemanticTokens.colors({
       value: {
         base: "{colors.purple.300}",
         _dark: "{colors.purple.700}",
+      },
+    },
+    hover: {
+      value: {
+        base: "{colors.purple.500/12}",
+        _dark: "{colors.purple.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.purple.500/20}",
+        _dark: "{colors.purple.400/10}",
       },
     },
     solid: {
@@ -634,6 +730,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.pink.700}",
       },
     },
+    hover: {
+      value: {
+        base: "{colors.pink.500/12}",
+        _dark: "{colors.pink.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.pink.500/20}",
+        _dark: "{colors.pink.400/10}",
+      },
+    },
     solid: {
       value: {
         base: "{colors.pink.600}",
@@ -682,6 +790,18 @@ export const colors = defineSemanticTokens.colors({
       value: {
         base: "{colors.cyan.300}",
         _dark: "{colors.cyan.700}",
+      },
+    },
+    hover: {
+      value: {
+        base: "{colors.cyan.500/12}",
+        _dark: "{colors.cyan.400/16}",
+      },
+    },
+    active: {
+      value: {
+        base: "{colors.cyan.500/20}",
+        _dark: "{colors.cyan.400/10}",
       },
     },
     solid: {

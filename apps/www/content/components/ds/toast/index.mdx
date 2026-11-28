@@ -12,19 +12,6 @@ links:
 Built on Ark UI's Toast. Create a toaster once with `createToaster`, render a `Toaster` for it, and call
 `toaster.create()` from anywhere to show a toast.
 
-## Usage
-
-<Usage />
-
-```tsx
-const toaster = createToaster({ placement: "bottom-end", overlap: true, gap: 16 })
-
-<Button onClick={() => toaster.create({ title: "File saved" })}>Show toast</Button>
-<Portal>
-  <Toaster toaster={toaster} />
-</Portal>
-```
-
 With no children, `Toaster` renders each toast with an icon for its type, the title, the description, an action button
 when the toast has an `action`, and a close button. Pass a function as children to render the toasts yourself with
 `Toast.Root`, `Toast.Indicator`, `Toast.Body`, `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` and

@@ -32,6 +32,12 @@ export const colors = defineSemanticTokens.colors({
     emphasized: {
       value: { base: "{colors.neutral.250}", _dark: "{colors.neutral.700}" },
     },
+    hover: {
+      value: { base: "{colors.neutral.500/12}", _dark: "{colors.neutral.400/16}" },
+    },
+    active: {
+      value: { base: "{colors.neutral.500/20}", _dark: "{colors.neutral.400/10}" },
+    },
     inverted: {
       value: { base: "{colors.neutral.850}", _dark: "{colors.neutral.100}" },
     },
@@ -94,6 +100,12 @@ export const colors = defineSemanticTokens.colors({
     emphasized: {
       value: { base: "{colors.neutral.250}", _dark: "{colors.neutral.700}" },
     },
+    hover: {
+      value: { base: "{colors.neutral.500/12}", _dark: "{colors.neutral.400/16}" },
+    },
+    active: {
+      value: { base: "{colors.neutral.500/20}", _dark: "{colors.neutral.400/10}" },
+    },
     solid: {
       value: { base: "{colors.neutral.925}", _dark: "{colors.neutral.100}" },
     },
@@ -117,6 +129,12 @@ export const colors = defineSemanticTokens.colors({
     },
     emphasized: {
       value: { base: "{colors.accent.200}", _dark: "{colors.accent.800}" },
+    },
+    hover: {
+      value: { base: "{colors.accent.500/12}", _dark: "{colors.accent.400/16}" },
+    },
+    active: {
+      value: { base: "{colors.accent.500/20}", _dark: "{colors.accent.400/10}" },
     },
     solid: { value: "{colors.accent.500}" },
     focusRing: { value: "{colors.accent.500}" },

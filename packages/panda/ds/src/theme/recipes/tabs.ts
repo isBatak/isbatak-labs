@@ -11,7 +11,7 @@ import {
 } from "./shared/segment"
 
 export const tabsSlotRecipe = defineSlotRecipe({
-  slots: ["root", "trigger", "list", "content", "contentGroup", "indicator"],
+  slots: ["root", "trigger", "triggerLabel", "list", "content", "contentGroup", "indicator"],
   className: "tabs",
   description: "Switches between panels of content",
   base: {
@@ -48,6 +48,9 @@ export const tabsSlotRecipe = defineSlotRecipe({
         outline: "2px solid",
         outlineColor: "colorPalette.focusRing",
       },
+    },
+    triggerLabel: {
+      minW: "4ch",
     },
     content: {
       focusVisibleRing: "inside",
@@ -160,7 +163,6 @@ export const tabsSlotRecipe = defineSlotRecipe({
         },
         list: {
           zIndex: 1,
-          gap: "1",
           _horizontal: {
             mb: "-1px",
           },
@@ -183,8 +185,27 @@ export const tabsSlotRecipe = defineSlotRecipe({
           },
           "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
             color: "fg",
+          },
+          "&:is([aria-selected=true], [data-selected], [data-state=checked])[data-ssr]": {
             bg: "var(--tabs-panel-bg)",
             borderColor: "border",
+          },
+          _before: {
+            content: '""',
+            position: "absolute",
+            inset: "1",
+            insetX: "0.5",
+            zIndex: -1,
+            borderRadius: "var(--segment-radius)",
+            bg: "transparent",
+            transitionProperty: "background-color",
+            transitionDuration: "fast",
+          },
+          "&:hover:not([data-disabled], [aria-selected=true], [data-selected])": {
+            _before: { bg: "colorPalette.hover" },
+          },
+          "&:active:not([data-disabled], [aria-selected=true], [data-selected])": {
+            _before: { bg: "colorPalette.active" },
           },
         },
         content: {
@@ -201,7 +222,19 @@ export const tabsSlotRecipe = defineSlotRecipe({
           },
         },
         indicator: {
-          display: "none",
+          bg: "var(--tabs-panel-bg)",
+          shadow: "none",
+          borderWidth: "1px",
+          borderColor: "border",
+          borderRadius: "0",
+          _horizontal: {
+            borderBottomWidth: "0",
+            borderTopRadius: "var(--segment-radius)",
+          },
+          _vertical: {
+            borderEndWidth: "0",
+            borderStartRadius: "var(--segment-radius)",
+          },
         },
       },
     },

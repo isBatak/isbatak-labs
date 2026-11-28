@@ -12,20 +12,6 @@ links:
 Built on Ark UI's Pin Input. Typing moves focus to the next input, Backspace moves back, and pasting a full code fills
 every input. The inputs share their sizes and variants with the `input` recipe.
 
-## Usage
-
-<Usage />
-
-```tsx
-<PinInput.Root count={4}>
-  <PinInput.HiddenInput />
-  <PinInput.Label />
-  <PinInput.Control>
-    <PinInput.Input index={0} />
-  </PinInput.Control>
-</PinInput.Root>
-```
-
 Set `count` to the number of inputs and render one `PinInput.Input` for each, with its `index`. `PinInput.HiddenInput`
 holds the whole code for forms.
 

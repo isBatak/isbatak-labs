@@ -1,20 +1,26 @@
-import { Icon } from "@isbatak/react-ui/icon"
+import { Icon, StartIcon } from "@isbatak/react-ui/icon"
 import { Tabs } from "@isbatak/react-ui/tabs"
 
 export function TabsIconsDemo() {
   return (
-    <Tabs.Root defaultValue="projects" variant="enclosed">
+    <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
       <Tabs.List>
         <Tabs.Trigger value="projects">
-          <Icon name="folder" />
+          <StartIcon asChild>
+            <Icon name="folder" />
+          </StartIcon>
           Projects
         </Tabs.Trigger>
         <Tabs.Trigger value="inbox">
-          <Icon name="mail" />
+          <StartIcon asChild>
+            <Icon name="mail" />
+          </StartIcon>
           Inbox
         </Tabs.Trigger>
         <Tabs.Trigger value="settings">
-          <Icon name="settings" />
+          <StartIcon asChild>
+            <Icon name="settings" />
+          </StartIcon>
           Settings
         </Tabs.Trigger>
         <Tabs.Indicator />

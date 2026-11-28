@@ -9,36 +9,36 @@ links:
   ark: https://ark-ui.com/docs/components/tabs
 ---
 
-Built on Ark UI's Tabs. `Tabs.Indicator` moves to the selected trigger, and `variant` changes the style. Tabs shares its
-sizes and variants with Segment Group, so the two line up when they sit side by side.
-
-## Usage
-
-<Usage />
-
-```tsx
-<Tabs.Root defaultValue="projects">
-  <Tabs.List>
-    <Tabs.Trigger value="projects" />
-    <Tabs.Indicator />
-  </Tabs.List>
-  <Tabs.Content value="projects" />
-</Tabs.Root>
-```
-
 ## Examples
 
 ### Variants
 
 Set `variant` to `line`, `subtle`, `enclosed`, `outline`, `plain` or `folder`. The default is `line`.
 
-<Example id="tabs/variants" />
+<Example
+  id="tabs/variants"
+  callouts={{ target: "[role=tablist]", labels: ["line", "subtle", "enclosed", "outline", "plain", "folder"] }}
+/>
+
+### Indicator
+
+Put `Tabs.Indicator` inside `Tabs.List` and it slides to the selected trigger. Leave it out and the selected trigger is
+marked in place, with nothing moving between tabs.
+
+<Example id="tabs/indicator" callouts={{ target: "[role=tablist]", labels: ["with indicator", "without indicator"] }} />
+
+### Custom indicator
+
+Set `--segment-indicator-bg` and `--segment-indicator-shadow` on `Tabs.Root` to restyle the indicator, and
+`--segment-radius` to round it and the triggers together.
+
+<Example id="tabs/custom-indicator" />
 
 ### Sizes
 
 Set `size` to `2xs`, `xs`, `sm`, `md` or `lg`. The default is `md`.
 
-<Example id="tabs/sizes" />
+<Example id="tabs/sizes" callouts={{ target: "[role=tablist]", labels: ["xs", "sm", "md", "lg"] }} />
 
 ### Icons
 
@@ -89,6 +89,64 @@ Set `lazyMount` to render a panel only when its tab is first selected, and `unmo
 another tab is selected.
 
 <Example id="tabs/lazy-mount" />
+
+### Links
+
+Pass `asChild` to `Tabs.Trigger` to render a link as the tab. Selecting the tab follows the link.
+
+<Example id="tabs/links" />
+
+With a client-side router, pass `navigate` to `Tabs.Root` so selecting a tab goes through the router instead of a full
+page load.
+
+```tsx
+import { Tabs } from "@isbatak/react-ui/tabs"
+import { useNavigate } from "react-router"
+
+export function RouterTabs() {
+  const navigate = useNavigate()
+  return <Tabs.Root navigate={({ href }) => navigate(href)}>{/* ... */}</Tabs.Root>
+}
+```
+
+### Store
+
+Create the tabs state with `useTabs` and pass it to `Tabs.RootProvider` to read and change the selected tab from outside
+the tabs.
+
+<Example id="tabs/store" />
+
+### Dynamic
+
+Render triggers and panels from state to add and remove tabs. Each tab's close control stops the click from also
+selecting the tab.
+
+<Example id="tabs/dynamic" />
+
+### Responsive orientation
+
+`orientation` doesn't take responsive values, because it changes keyboard navigation and `aria-orientation`, not just
+the layout. Read a media query and pass the result instead.
+
+<Example id="tabs/responsive-orientation" />
+
+### Animation
+
+Stack the panels in a positioned box and animate them with the `_open` and `_closed` conditions.
+
+<Example id="tabs/animation" />
+
+## Guide
+
+### Styling the selected tab
+
+Use the `_selected` condition on `Tabs.Trigger` to style the selected tab's text and background.
+
+```tsx
+<Tabs.Trigger value="members" _selected={{ bg: "colorPalette.solid", color: "colorPalette.contrast" }}>
+  Members
+</Tabs.Trigger>
+```
 
 ## Recipe
 

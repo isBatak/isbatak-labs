@@ -13,25 +13,6 @@ Built on Ark UI's Popover, kept open while there's a selection. It doesn't trap 
 it, so people can keep selecting items. Pass `open` to show it, and `onOpenChange` to hear when it's closed with Escape
 or `ActionBar.CloseTrigger`.
 
-## Usage
-
-<Usage />
-
-```tsx
-<ActionBar.Root open={selected.length > 0}>
-  <Portal>
-    <ActionBar.Positioner>
-      <ActionBar.Content>
-        <ActionBar.SelectionTrigger />
-        <ActionBar.Separator />
-        <Button />
-        <ActionBar.CloseTrigger />
-      </ActionBar.Content>
-    </ActionBar.Positioner>
-  </Portal>
-</ActionBar.Root>
-```
-
 ## Examples
 
 ### Close trigger

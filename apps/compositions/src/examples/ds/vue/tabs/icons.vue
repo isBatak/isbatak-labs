@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { Icon } from "@isbatak/vue-ui/icon"
+import { Icon, StartIcon } from "@isbatak/vue-ui/icon"
 import { Tabs } from "@isbatak/vue-ui/tabs"
 </script>
 
 <template>
-  <Tabs.Root defaultValue="projects" variant="enclosed">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
     <Tabs.List>
       <Tabs.Trigger value="projects">
-        <Icon name="folder" />
+        <StartIcon :asChild="true">
+          <Icon name="folder" />
+        </StartIcon>
         Projects
       </Tabs.Trigger>
       <Tabs.Trigger value="inbox">
-        <Icon name="mail" />
+        <StartIcon :asChild="true">
+          <Icon name="mail" />
+        </StartIcon>
         Inbox
       </Tabs.Trigger>
       <Tabs.Trigger value="settings">
-        <Icon name="settings" />
+        <StartIcon :asChild="true">
+          <Icon name="settings" />
+        </StartIcon>
         Settings
       </Tabs.Trigger>
       <Tabs.Indicator />

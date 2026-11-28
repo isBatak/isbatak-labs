@@ -8,7 +8,7 @@
 </script>
 
 <Stack gap="4">
-  <Tabs.Root bind:value={value}>
+  <Tabs.Root minW="sm" bind:value={value}>
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

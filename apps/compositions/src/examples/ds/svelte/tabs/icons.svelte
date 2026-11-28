@@ -1,20 +1,26 @@
 <script lang="ts">
-  import { Icon } from "@isbatak/svelte-ui/icon"
+  import { Icon, StartIcon } from "@isbatak/svelte-ui/icon"
   import { Tabs } from "@isbatak/svelte-ui/tabs"
 </script>
 
-<Tabs.Root defaultValue="projects" variant="enclosed">
+<Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
   <Tabs.List>
     <Tabs.Trigger value="projects">
-      <Icon name="folder" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="folder" />{/snippet}
+      </StartIcon>
       Projects
     </Tabs.Trigger>
     <Tabs.Trigger value="inbox">
-      <Icon name="mail" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="mail" />{/snippet}
+      </StartIcon>
       Inbox
     </Tabs.Trigger>
     <Tabs.Trigger value="settings">
-      <Icon name="settings" />
+      <StartIcon>
+        {#snippet asChild(iconProps)}<Icon {...iconProps()} name="settings" />{/snippet}
+      </StartIcon>
       Settings
     </Tabs.Trigger>
     <Tabs.Indicator />

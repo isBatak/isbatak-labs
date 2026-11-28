@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/svelte-vite"
 import TabsDemo from "@isbatak/compositions/ds/svelte/tabs/usage"
 import TabsVariantsDemo from "@isbatak/compositions/ds/svelte/tabs/variants"
+import TabsIndicatorDemo from "@isbatak/compositions/ds/svelte/tabs/indicator"
+import TabsCustomIndicatorDemo from "@isbatak/compositions/ds/svelte/tabs/custom-indicator"
+import TabsLinksDemo from "@isbatak/compositions/ds/svelte/tabs/links"
+import TabsStoreDemo from "@isbatak/compositions/ds/svelte/tabs/store"
+import TabsDynamicDemo from "@isbatak/compositions/ds/svelte/tabs/dynamic"
+import TabsResponsiveOrientationDemo from "@isbatak/compositions/ds/svelte/tabs/responsive-orientation"
+import TabsAnimationDemo from "@isbatak/compositions/ds/svelte/tabs/animation"
 import TabsSizesDemo from "@isbatak/compositions/ds/svelte/tabs/sizes"
 import TabsIconsDemo from "@isbatak/compositions/ds/svelte/tabs/icons"
 import TabsFittedDemo from "@isbatak/compositions/ds/svelte/tabs/fitted"
@@ -23,6 +30,34 @@ export const Usage: StoryObj<typeof TabsDemo> = {
 
 export const Variants: StoryObj<typeof TabsVariantsDemo> = {
   render: () => ({ Component: TabsVariantsDemo }),
+}
+
+export const Indicator: StoryObj<typeof TabsIndicatorDemo> = {
+  render: () => ({ Component: TabsIndicatorDemo }),
+}
+
+export const CustomIndicator: StoryObj<typeof TabsCustomIndicatorDemo> = {
+  render: () => ({ Component: TabsCustomIndicatorDemo }),
+}
+
+export const Links: StoryObj<typeof TabsLinksDemo> = {
+  render: () => ({ Component: TabsLinksDemo }),
+}
+
+export const Store: StoryObj<typeof TabsStoreDemo> = {
+  render: () => ({ Component: TabsStoreDemo }),
+}
+
+export const Dynamic: StoryObj<typeof TabsDynamicDemo> = {
+  render: () => ({ Component: TabsDynamicDemo }),
+}
+
+export const ResponsiveOrientation: StoryObj<typeof TabsResponsiveOrientationDemo> = {
+  render: () => ({ Component: TabsResponsiveOrientationDemo }),
+}
+
+export const Animation: StoryObj<typeof TabsAnimationDemo> = {
+  render: () => ({ Component: TabsAnimationDemo }),
 }
 
 export const Sizes: StoryObj<typeof TabsSizesDemo> = {

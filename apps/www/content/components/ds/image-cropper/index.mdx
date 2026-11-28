@@ -14,30 +14,6 @@ drag outside the selection to pan the image. With the selection focused, arrow k
 `+`/`-` zoom. Leave `Selection` empty and it renders the eight resize handles and the rule-of-thirds grid for you; pass
 children to place your own.
 
-## Usage
-
-<Usage />
-
-```tsx
-<ImageCropper.Root>
-  <ImageCropper.Viewport>
-    <ImageCropper.Image src={src} alt={alt} />
-    <ImageCropper.Selection>
-      <ImageCropper.Handle placement="nw" />
-      <ImageCropper.Handle placement="n" />
-      <ImageCropper.Handle placement="ne" />
-      <ImageCropper.Handle placement="e" />
-      <ImageCropper.Handle placement="se" />
-      <ImageCropper.Handle placement="s" />
-      <ImageCropper.Handle placement="sw" />
-      <ImageCropper.Handle placement="w" />
-      <ImageCropper.Grid axis="horizontal" />
-      <ImageCropper.Grid axis="vertical" />
-    </ImageCropper.Selection>
-  </ImageCropper.Viewport>
-</ImageCropper.Root>
-```
-
 ## Examples
 
 ### Aspect ratio

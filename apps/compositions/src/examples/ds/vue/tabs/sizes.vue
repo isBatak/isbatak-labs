@@ -5,7 +5,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 
 <template>
   <Stack gap="8">
-    <Tabs.Root defaultValue="projects" size="xs">
+    <Tabs.Root minW="sm" defaultValue="projects" size="xs">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -16,7 +16,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
       <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
       <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
     </Tabs.Root>
-    <Tabs.Root defaultValue="projects" size="sm">
+    <Tabs.Root minW="sm" defaultValue="projects" size="sm">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -27,7 +27,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
       <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
       <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
     </Tabs.Root>
-    <Tabs.Root defaultValue="projects" size="md">
+    <Tabs.Root minW="sm" defaultValue="projects" size="md">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -38,7 +38,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
       <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
       <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
     </Tabs.Root>
-    <Tabs.Root defaultValue="projects" size="lg">
+    <Tabs.Root minW="sm" defaultValue="projects" size="lg">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

@@ -2,7 +2,7 @@ import { Tabs } from "@isbatak/react-ui/tabs"
 
 export function TabsDisabledDemo() {
   return (
-    <Tabs.Root defaultValue="projects">
+    <Tabs.Root minW="sm" defaultValue="projects">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox" disabled>

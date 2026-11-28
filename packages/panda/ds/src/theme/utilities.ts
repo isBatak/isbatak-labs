@@ -1,4 +1,4 @@
-import type { PropertyConfig, UtilityConfig } from "@pandacss/types"
+import type { PropertyConfig, TransformArgs, UtilityConfig } from "@pandacss/types"
 
 const createFocusRing = (selector: string): PropertyConfig => {
   return {
@@ -45,12 +45,43 @@ const createFocusRing = (selector: string): PropertyConfig => {
     },
   }
 }
+const currentBgVar = "--bg-currentcolor"
+
+const resolveBg = (value: string, { raw, token, utils }: TransformArgs) => {
+  if (raw === "currentBg") return { color: `var(${currentBgVar}, ${token("colors.bg")})`, current: "inherit" }
+  const mix = utils.colorMix(value)
+  const color: string = mix.invalid ? value : mix.value
+  return { color, current: color }
+}
+
+const bgValues: PropertyConfig["values"] = (theme) => ({ ...theme("colors"), currentBg: "currentBg" })
+
 const iconPullMargin = (value: string, raw: unknown) => {
   const pull = raw === "0" || raw === 0 ? "" : `${value} + `
   return `calc((${pull}var(--icon-offset, 0px)) * -1)`
 }
 
 export const utilities = {
+  background: {
+    shorthand: "bg",
+    className: "bg",
+    values: bgValues,
+    group: "Background",
+    transform(value, args) {
+      const { color, current } = resolveBg(value, args)
+      return { [currentBgVar]: current, background: color }
+    },
+  },
+  backgroundColor: {
+    shorthand: "bgColor",
+    className: "bg-c",
+    values: bgValues,
+    group: "Background",
+    transform(value, args) {
+      const { color, current } = resolveBg(value, args)
+      return { [currentBgVar]: current, backgroundColor: color }
+    },
+  },
   iconPullStart: {
     values: "spacing",
     transform: (value, { raw }) => ({ marginInlineStart: iconPullMargin(value, raw) }),

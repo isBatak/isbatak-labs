@@ -1,20 +1,20 @@
-import { Icon } from "@isbatak/solid-ui/icon"
+import { Icon, StartIcon } from "@isbatak/solid-ui/icon"
 import { Tabs } from "@isbatak/solid-ui/tabs"
 
 export function TabsIconsDemo() {
   return (
-    <Tabs.Root defaultValue="projects" variant="enclosed">
+    <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
       <Tabs.List>
         <Tabs.Trigger value="projects">
-          <Icon name="folder" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="folder" />} />
           Projects
         </Tabs.Trigger>
         <Tabs.Trigger value="inbox">
-          <Icon name="mail" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="mail" />} />
           Inbox
         </Tabs.Trigger>
         <Tabs.Trigger value="settings">
-          <Icon name="settings" />
+          <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="settings" />} />
           Settings
         </Tabs.Trigger>
         <Tabs.Indicator />

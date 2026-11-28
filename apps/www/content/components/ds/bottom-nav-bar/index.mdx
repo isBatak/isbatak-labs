@@ -12,19 +12,6 @@ A bottom nav bar holds the top-level destinations of a mobile app. Each item is 
 label. The bar doesn't know about your router: set `aria-current="page"` on the link for the current page and it shows
 in the foreground color, while the others stay muted. The root pads its bottom edge by the device's safe area inset.
 
-## Usage
-
-<Usage />
-
-```tsx
-<BottomNavBar.Root>
-  <BottomNavBar.Item href="/" aria-current="page">
-    <BottomNavBar.ItemIcon />
-    <BottomNavBar.ItemLabel />
-  </BottomNavBar.Item>
-</BottomNavBar.Root>
-```
-
 `BottomNavBar.Item` renders an `a`. Use `asChild` to render your router's link component instead.
 
 ## Examples

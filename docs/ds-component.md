@@ -58,8 +58,7 @@ docs don't need. The docs page links to the `Usage` story of the picked framewor
 ## Docs on www
 
 - `apps/www/content/components/ds/<name>/index.mdx`: the page. Frontmatter `links` point at the source and recipe.
-  `<Usage />` shows the source of the demo keyed `<name>`; `<Example id="<name>/<demo>" />` renders the others, in the
-  framework picked on the page.
+  `<Example id="<name>/<demo>" />` renders a demo in the framework picked on the page.
 - The page lives at `/ds/components/<framework>/<name>`. `/ds/components/<name>` serves the framework from the
   `docs-framework` cookie, React by default.
 - `## API` with `<Api />` renders a props table per part, and `<RecipeVariants />` the recipe's variants. Both read
