@@ -3,7 +3,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 </script>
 
 <template>
-  <Tabs.Root defaultValue="projects" activationMode="manual">
+  <Tabs.Root minW="sm" defaultValue="projects" activationMode="manual">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

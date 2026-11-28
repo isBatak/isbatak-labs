@@ -2,7 +2,7 @@
   import { Tabs } from "@isbatak/svelte-ui/tabs"
 </script>
 
-<Tabs.Root defaultValue="projects" orientation="vertical">
+<Tabs.Root minW="md" defaultValue="projects" orientation="vertical">
   <Tabs.List>
     <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
     <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

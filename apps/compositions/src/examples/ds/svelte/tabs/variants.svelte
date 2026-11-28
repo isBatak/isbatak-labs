@@ -4,7 +4,7 @@
 </script>
 
 <Stack gap="8">
-  <Tabs.Root defaultValue="projects" variant="line">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="line">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -15,7 +15,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects" variant="subtle">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="subtle">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -26,7 +26,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects" variant="enclosed">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -37,7 +37,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects" variant="outline">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="outline">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -48,7 +48,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects" variant="plain">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="plain">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -59,7 +59,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects" variant="folder">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="folder">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

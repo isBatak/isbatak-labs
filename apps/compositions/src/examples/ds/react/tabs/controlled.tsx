@@ -8,7 +8,7 @@ export function TabsControlledDemo() {
 
   return (
     <Stack gap="4">
-      <Tabs.Root value={value} onValueChange={(details) => setValue(details.value)}>
+      <Tabs.Root minW="sm" value={value} onValueChange={(details) => setValue(details.value)}>
         <Tabs.List>
           <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
           <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

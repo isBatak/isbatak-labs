@@ -3,7 +3,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 </script>
 
 <template>
-  <Tabs.Root defaultValue="members">
+  <Tabs.Root minW="sm" defaultValue="members">
     <Tabs.List>
       <Tabs.Trigger value="members" :asChild="true">
         <a href="#members">Members</a>

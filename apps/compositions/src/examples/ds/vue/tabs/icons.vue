@@ -4,7 +4,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 </script>
 
 <template>
-  <Tabs.Root defaultValue="projects" variant="enclosed">
+  <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
     <Tabs.List>
       <Tabs.Trigger value="projects">
         <StartIcon :asChild="true">

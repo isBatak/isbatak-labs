@@ -2,7 +2,7 @@ import { Tabs } from "@isbatak/solid-ui/tabs"
 
 export function TabsLinksDemo() {
   return (
-    <Tabs.Root defaultValue="members">
+    <Tabs.Root minW="sm" defaultValue="members">
       <Tabs.List>
         <Tabs.Trigger
           value="members"

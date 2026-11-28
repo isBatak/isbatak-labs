@@ -6,7 +6,7 @@
   const wide = new MediaQuery(`(min-width: ${token("breakpoints.md")})`, false)
 </script>
 
-<Tabs.Root variant="subtle" defaultValue="members" orientation={wide.current ? "vertical" : "horizontal"}>
+<Tabs.Root minW="md" variant="subtle" defaultValue="members" orientation={wide.current ? "vertical" : "horizontal"}>
   <Tabs.List>
     <Tabs.Trigger value="members">Members</Tabs.Trigger>
     <Tabs.Trigger value="projects">Projects</Tabs.Trigger>

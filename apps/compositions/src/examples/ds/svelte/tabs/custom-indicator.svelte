@@ -3,7 +3,7 @@
   import { css } from "styled-system/css"
 </script>
 
-<Tabs.Root
+<Tabs.Root minW="sm"
   defaultValue="members"
   variant="plain"
   class={css({

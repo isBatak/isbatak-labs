@@ -4,6 +4,7 @@ import { Tabs } from "@isbatak/vue-ui/tabs"
 
 <template>
   <Tabs.Root
+    minW="sm"
     defaultValue="members"
     variant="plain"
     :css="{

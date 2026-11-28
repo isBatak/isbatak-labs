@@ -3,7 +3,7 @@ import { Tabs } from "@isbatak/solid-ui/tabs"
 
 export function TabsIconsDemo() {
   return (
-    <Tabs.Root defaultValue="projects" variant="enclosed">
+    <Tabs.Root minW="sm" defaultValue="projects" variant="enclosed">
       <Tabs.List>
         <Tabs.Trigger value="projects">
           <StartIcon asChild={(iconProps) => <Icon {...iconProps()} name="folder" />} />

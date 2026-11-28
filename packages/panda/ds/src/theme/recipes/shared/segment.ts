@@ -178,6 +178,27 @@ export const segmentVariants = {
       "&:is([aria-selected=true], [data-selected], [data-state=checked])": {
         color: "fg",
       },
+      "[data-slot=list]:not(:has(> [data-slot=indicator])) > &:is([aria-selected=true], [data-selected])": {
+        _after: {
+          content: '""',
+          position: "absolute",
+          bg: "colorPalette.solid",
+        },
+        _horizontal: {
+          _after: {
+            insetInline: "0",
+            bottom: "-1px",
+            height: "var(--indicator-thickness, {spacing.px})",
+          },
+        },
+        _vertical: {
+          _after: {
+            insetBlock: "0",
+            insetInlineEnd: "-1px",
+            width: "var(--indicator-thickness, {spacing.px})",
+          },
+        },
+      },
       "&:hover:not([data-disabled])": {
         _before: {
           bg: "colorPalette.hover",

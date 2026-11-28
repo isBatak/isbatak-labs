@@ -2,7 +2,7 @@ import { Tabs } from "@isbatak/solid-ui/tabs"
 
 export function TabsLazyMountDemo() {
   return (
-    <Tabs.Root defaultValue="projects" lazyMount unmountOnExit>
+    <Tabs.Root minW="sm" defaultValue="projects" lazyMount unmountOnExit>
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

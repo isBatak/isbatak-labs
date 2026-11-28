@@ -16,7 +16,7 @@ export function TabsResponsiveOrientationDemo() {
   })
 
   return (
-    <Tabs.Root variant="subtle" defaultValue="members" orientation={wide() ? "vertical" : "horizontal"}>
+    <Tabs.Root minW="md" variant="subtle" defaultValue="members" orientation={wide() ? "vertical" : "horizontal"}>
       <Tabs.List>
         <Tabs.Trigger value="members">Members</Tabs.Trigger>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>

@@ -2,7 +2,7 @@
   import { Tabs } from "@isbatak/svelte-ui/tabs"
 </script>
 
-<Tabs.Root defaultValue="members">
+<Tabs.Root minW="sm" defaultValue="members">
   <Tabs.List>
     <Tabs.Trigger value="members">
       {#snippet asChild(props)}<a {...props()} href="#members">Members</a>{/snippet}

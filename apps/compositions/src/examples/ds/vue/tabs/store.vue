@@ -10,7 +10,7 @@ const tabs = useTabs({ defaultValue: "members" })
 <template>
   <Stack alignItems="flex-start">
     <Code>selected: {{ tabs.value }}</Code>
-    <Tabs.RootProvider :value="tabs">
+    <Tabs.RootProvider minW="sm" :value="tabs">
       <Tabs.List>
         <Tabs.Trigger value="members">
           <StartIcon :asChild="true">

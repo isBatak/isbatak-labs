@@ -9,7 +9,7 @@ const value = ref("projects")
 
 <template>
   <Stack gap="4">
-    <Tabs.Root v-model="value">
+    <Tabs.Root minW="sm" v-model="value">
       <Tabs.List>
         <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
         <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>

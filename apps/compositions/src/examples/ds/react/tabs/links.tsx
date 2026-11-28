@@ -2,7 +2,7 @@ import { Tabs } from "@isbatak/react-ui/tabs"
 
 export function TabsLinksDemo() {
   return (
-    <Tabs.Root defaultValue="members">
+    <Tabs.Root minW="sm" defaultValue="members">
       <Tabs.List>
         <Tabs.Trigger value="members" asChild>
           <a href="#members">Members</a>

@@ -8,4 +8,5 @@ on.
 
 Tabs and segment group pull `data-icon-start` and `data-icon-end` icons toward the item's edge at every size, like
 button. The folder tabs variant draws the selected tab with `Tabs.Indicator`, so it slides between tabs. A new
-`triggerLabel` slot gives the trigger's text a `4ch` minimum width, so short labels still make a comfortable tab.
+`triggerLabel` slot gives the trigger's text a `4ch` minimum width, so short labels still make a comfortable tab. Line
+tabs without a `Tabs.Indicator` underline the selected trigger in place.

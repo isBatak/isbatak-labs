@@ -3,6 +3,7 @@ import { Tabs } from "@isbatak/solid-ui/tabs"
 export function TabsCustomIndicatorDemo() {
   return (
     <Tabs.Root
+      minW="sm"
       defaultValue="members"
       variant="plain"
       css={{

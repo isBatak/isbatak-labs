@@ -4,7 +4,7 @@
 </script>
 
 <Stack gap="8">
-  <Tabs.Root defaultValue="projects">
+  <Tabs.Root minW="sm" defaultValue="projects">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
@@ -15,7 +15,7 @@
     <Tabs.Content value="inbox">Read the messages sent to you.</Tabs.Content>
     <Tabs.Content value="settings">Change your notification settings.</Tabs.Content>
   </Tabs.Root>
-  <Tabs.Root defaultValue="projects">
+  <Tabs.Root minW="sm" defaultValue="projects">
     <Tabs.List>
       <Tabs.Trigger value="projects">Projects</Tabs.Trigger>
       <Tabs.Trigger value="inbox">Inbox</Tabs.Trigger>
